@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import login from 'src/api/auth/login';
 import { ErrorReponse } from "src/model/api";
 
-const VantaGlobe = lazy(() => import('../components/vanta/VantaGlobe'));
+const VantaGlobe = lazy(() => import('src/components/vanta/VantaGlobe'));
 
 interface LoginFormState {
   username: string;
