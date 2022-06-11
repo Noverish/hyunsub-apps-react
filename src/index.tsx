@@ -5,7 +5,7 @@ import App from './App';
 import { store } from './redux';
 import reportWebVitals from './reportWebVitals';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
+import 'src/i18n';
 import './index.css';
 
 const root = ReactDOM.createRoot(

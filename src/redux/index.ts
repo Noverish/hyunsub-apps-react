@@ -29,7 +29,7 @@ export type RootState = ReturnType<typeof reducer>;
 export const store = configureStore({
   reducer,
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
-  preloadedState: loadState(),
+  preloadedState: undefined, // loadState(),
 });
 
 store.subscribe(() => {

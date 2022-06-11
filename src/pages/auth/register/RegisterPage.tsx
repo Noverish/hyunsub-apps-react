@@ -1,7 +1,8 @@
 import cs from 'classnames';
 import { lazy, Suspense, useEffect, useRef } from "react";
 import { Container } from "react-bootstrap";
-import { FieldErrors, SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'src/redux';
 import { register as doRegister } from './RegisterContext';
@@ -15,6 +16,7 @@ export interface RegisterFormState {
 }
 
 export default function RegisterPage() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { errMsg } = useSelector(s => s.auth.register);
@@ -24,30 +26,34 @@ export default function RegisterPage() {
   passwordRef.current = watch('password1');
 
   const onSubmit: SubmitHandler<RegisterFormState> = (state: RegisterFormState) => {
-    dispatch(doRegister(navigate, { username: state.username, password: state.password1 }));
+    dispatch(doRegister(t, navigate, { username: state.username, password: state.password1 }));
   };
 
   useEffect(() => {
-    document.title = '회원가입';
-  }, []);
+    document.title = t('auth.register');
+  }, [t]);
   
   const usernameRegister = register('username', {
-    required: '아이디를 입력해주세요',
-    minLength: { value: 4, message: '아이디는 4글자 이상이어야 합니다' },
-    maxLength: { value: 20, message: '아이디는 20글자 이하이어야 합니다' },
-    pattern: { value: /^[A-Za-z0-9]+$/, message: '아이디는 알파벳 또는 숫자로만 이루어져 있어야 합니다.' },
+    required: t('auth.errMsg.empty-id'),
+    minLength: { value: 4, message: t('auth.errMsg.short-id') },
+    maxLength: { value: 20, message: t('auth.errMsg.long-id') },
+    pattern: { value: /^[A-Za-z0-9]+$/, message: t('auth.errMsg.wrong-pattern-id') },
   });
 
   const passwordRegister1 = register('password1', {
-    required: '비밀번호를 입력해주세요',
-    minLength: { value: 8, message: '비밀번호는 8글자 이상이어야 합니다' },
-    maxLength: { value: 20, message: '아이디는 20글자 이하이어야 합니다' },
+    required: t('auth.errMsg.empty-pw'),
+    minLength: { value: 8, message: t('auth.errMsg.short-pw') },
+    maxLength: { value: 20, message: t('auth.errMsg.long-pw') },
   });
 
   const passwordRegister2 = register('password2', {
-    required: '비밀번호를 입력해주세요',
-    validate: v => v === passwordRef.current || '비밀번호가 서로 다릅니다',
+    required: t('auth.errMsg.empty-pw'),
+    validate: v => v === passwordRef.current || t('auth.errMsg.not-equal-pw'),
   });
+
+  const usernameErrMsg = errors.username?.message;
+  const password1ErrMsg = errors.password1?.message;
+  const password2ErrMsg = errors.password2?.message || errMsg;
 
   return (
     <div id="RegisterPage">
@@ -55,24 +61,24 @@ export default function RegisterPage() {
         <VantaNet />
       </Suspense>
       <Container style={{ maxWidth: '375px' }}>
-        <h1 className="text-center display-1">회원가입</h1>
+        <h1 className="text-center display-1">{t('auth.register')}</h1>
         <form className="d-grid gap-3" onSubmit={handleSubmit(onSubmit)}>
           <div>
-            <label className="form-label">아이디</label>
-            <input type="text" className={cs('form-control', { 'is-invalid': errors.username?.message })} {...usernameRegister} />
-            <div className="invalid-feedback">{errors.username?.message}</div>
+            <label className="form-label">{t('auth.id')}</label>
+            <input type="text" className={cs('form-control', { 'is-invalid': usernameErrMsg })} {...usernameRegister} />
+            <div className="invalid-feedback">{usernameErrMsg}</div>
           </div>
           <div>
-            <label className="form-label">비밀번호</label>
-            <input type="password" className={cs('form-control', { 'is-invalid': errors.password1?.message })} {...passwordRegister1} />
-            <div className="invalid-feedback">{errors.password1?.message}</div>
+            <label className="form-label">{t('auth.pw')}</label>
+            <input type="password" className={cs('form-control', { 'is-invalid': password1ErrMsg })} {...passwordRegister1} />
+            <div className="invalid-feedback">{password1ErrMsg}</div>
           </div>
           <div>
-            <label className="form-label">비밀번호 재입력</label>
-            <input type="password" className={cs('form-control', { 'is-invalid': errors.password2?.message })} {...passwordRegister2} />
-            <div className="invalid-feedback">{errors.password2?.message}</div>
+            <label className="form-label">{t('auth.pw-confirm')}</label>
+            <input type="password" className={cs('form-control', { 'is-invalid': password2ErrMsg })} {...passwordRegister2} />
+            <div className="invalid-feedback">{password2ErrMsg}</div>
           </div>
-          <button type="submit" className="btn btn-primary">회원가입</button>
+          <button type="submit" className="btn btn-primary">{t('auth.register')}</button>
         </form>
       </Container>
     </div>
