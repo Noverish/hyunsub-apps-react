@@ -21,6 +21,7 @@ const ko = {
     'auth.errMsg.invalid-id-pw': '아이디 또는 비밀번호가 올바르지 않습니다',
     'auth.errMsg.already-exist-id': '이미 존재하는 아이디입니다',
     'auth.msg.register-success': '회원가입에 성공했습니다. 방금 가입한 정보로 로그인해주세요',
+    'auth.my-page.title': '내 계정 관리',
   }
 };
 

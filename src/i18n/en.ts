@@ -21,6 +21,7 @@ const en = {
     'auth.errMsg.invalid-id-pw': 'Wrong ID or password',
     'auth.errMsg.already-exist-id': 'Already using ID',
     'auth.msg.register-success': 'Register Success! Please login with the information you just signed up for',
+    'auth.my-page.title': 'Manage My Account',
   }
 };
 
