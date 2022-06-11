@@ -1,5 +1,9 @@
 const ko = {
   translation: {
+    'common.404.oh': '앗!',
+    'common.404.not-exist': '해당 페이지가 존재하지 않습니다',
+    'common.404.go-to-home': '홈으로',
+
     'auth.login': '로그인',
     'auth.login-persist': '로그인 유지',
     'auth.register': '회원가입',

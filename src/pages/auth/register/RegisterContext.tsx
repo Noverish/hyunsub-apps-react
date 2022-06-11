@@ -7,12 +7,13 @@ import getErrMsg from "src/i18n/server-error";
 import { ErrorResponse } from "src/model/api";
 import { RootState } from 'src/redux';
 import RegisterPageState from './RegisterState';
+import routes from 'src/pages/auth/AuthRoutes';
 
 export const register = (t: TFunction, navigate: NavigateFunction, params: RegisterParams) => async (dispatch: Dispatch, getState: () => RootState) => {
   try {
     await registerApi(params);
     alert(t('auth.msg.register-success'));
-    navigate('/login');
+    navigate(routes.login);
   } catch (ex) {
     const err = (ex as AxiosError<ErrorResponse>).response?.data!!;
     const errMsg = getErrMsg(t, err);

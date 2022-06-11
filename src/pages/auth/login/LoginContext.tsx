@@ -8,11 +8,12 @@ import { ErrorResponse } from "src/model/api";
 import { RootState } from 'src/redux';
 import { LoginFormState } from "./LoginPage";
 import LoginPageState from './LoginState';
+import routes from 'src/pages/auth/AuthRoutes';
 
 export const login = (t: TFunction, navigate: NavigateFunction, state: LoginFormState) => async (dispatch: Dispatch, getState: () => RootState) => {
   try {
     await loginApi(state);
-    navigate('/my');
+    navigate(routes.my);
   } catch (ex) {
     const err = (ex as AxiosError<ErrorResponse>).response?.data!!;
     const errMsg = getErrMsg(t, err);

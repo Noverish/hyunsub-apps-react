@@ -1,5 +1,9 @@
 const en = {
   translation: {
+    'common.404.oh': 'Ah!',
+    'common.404.not-exist': 'This page is not exist',
+    'common.404.go-to-home': 'Go to Home',
+
     'auth.login': 'Login',
     'auth.login-persist': 'Keep Login',
     'auth.register': 'Register',
