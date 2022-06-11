@@ -1,0 +1,27 @@
+#MyPage {
+  .container {
+    max-width: 720px;
+  }
+
+  h1 {
+    margin: 1rem 0;
+  }
+
+  .list-group-item {
+    display: flex;
+    align-items: center;
+    margin: 0 1rem;
+    padding-left: 0;
+    padding-right: 0;
+
+    .key {
+      width: 120px;
+      text-align: right;
+      margin-right: 1rem;
+    }
+
+    button {
+      margin-left: auto;
+    }
+  }
+}

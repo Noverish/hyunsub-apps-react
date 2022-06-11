@@ -2,12 +2,14 @@ import { useEffect } from "react";
 import { Button, Card, Container, ListGroup } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 
+import './MyPage.scss';
+
 function ListItem({ name, value, btn }: { name: string, value: string, btn: string }) {
   return (
-    <ListGroup.Item style={{ display: 'flex', alignItems: 'center' }}>
-      <span style={{ width: '120px', textAlign: 'right', marginRight: '1rem' }}>{name}</span>
+    <ListGroup.Item>
+      <span className="key">{name}</span>
       <span>{value}</span>
-      <Button size="sm" style={{ marginLeft: 'auto' }}>{btn}</Button>
+      <Button size="sm">{btn}</Button>
     </ListGroup.Item>
   )
 }
@@ -21,8 +23,8 @@ export default function MyPage() {
 
   return (
     <div id="MyPage">
-      <Container style={{ maxWidth: '720px' }}>
-        <h1 style={{ margin: '16px 0' }}>{t('auth.my-page.title')}</h1>
+      <Container>
+        <h1>{t('auth.my-page.title')}</h1>
         <div className="d-grid gap-3">
           <Card>
             <Card.Header>{t('auth.my-page.login-info')}</Card.Header>
