@@ -56,7 +56,7 @@ export default function RegisterPage() {
   const password2ErrMsg = errors.password2?.message || errMsg;
 
   return (
-    <div id="RegisterPage">
+    <div id="RegisterPage" className="h-100 flex-center">
       <Suspense>
         <VantaNet />
       </Suspense>

@@ -2,6 +2,8 @@ import { Spinner } from "react-bootstrap";
 
 export default function LoadingPage() {
   return (
-    <Spinner animation="border"></Spinner>
+    <div id="LoadingPage" className="h-100 flex-center">
+      <Spinner animation="border"></Spinner>
+    </div>
   )
 }

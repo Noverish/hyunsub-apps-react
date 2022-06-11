@@ -1,5 +1,8 @@
 const en = {
   translation: {
+    'modify': 'Modify',
+    'view': 'View',
+
     'common.404.oh': 'Ah!',
     'common.404.not-exist': 'This page is not exist',
     'common.404.go-to-home': 'Go to Home',
@@ -7,6 +10,7 @@ const en = {
     'auth.login': 'Login',
     'auth.login-persist': 'Keep Login',
     'auth.register': 'Register',
+    'auth.withdraw': 'Withdrawal',
     'auth.id': 'ID',
     'auth.pw': 'Password',
     'auth.pw-confirm': 'Password Confirm',
@@ -21,7 +25,14 @@ const en = {
     'auth.errMsg.invalid-id-pw': 'Wrong ID or password',
     'auth.errMsg.already-exist-id': 'Already using ID',
     'auth.msg.register-success': 'Register Success! Please login with the information you just signed up for',
+
     'auth.my-page.title': 'Manage My Account',
+    'auth.my-page.login-info': 'Login Information',
+    'auth.my-page.login-status': 'Login Status',
+    'auth.my-page.login-history': 'Login History',
+    'auth.my-page.login-history-num': '{{0}} cases',
+    'auth.my-page.login-device': 'Logined Devices',
+    'auth.my-page.login-device-num': '{{0}} devices',
   }
 };
 

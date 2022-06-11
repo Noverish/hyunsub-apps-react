@@ -1,17 +1,30 @@
 :root {
   --hyunsub-bg: #141414;
-  --hyunsub-border-color: #404040;
+  --hyunsub-title-bg: #323232;
+  --hyunsub-content-bg: #454545;
+  --hyunsub-text-color: white;
 }
 
-html, body, #root, #root > div {
+html, body, #root {
   width: 100%;
   height: 100%;
-  color: white;
+  color: var(--hyunsub-text-color);
   background-color: var(--hyunsub-bg);
 }
 
-#root > div {
+.flex-center {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.card {
+  --bs-card-cap-bg: var(--hyunsub-title-bg);
+}
+
+.list-group {
+  --bs-list-group-bg: var(--hyunsub-content-bg);
+  --bs-list-group-color: var(--hyunsub-text-color);
+  --bs-list-group-border-color: #AAA;
 }

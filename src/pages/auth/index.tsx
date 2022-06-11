@@ -6,7 +6,7 @@ import routes from './AuthRoutes';
 const NotFoundPage = lazy(() => import('src/pages/NotFoundPage'));
 const LoginPage = lazy(() => import('src/pages/auth/login/LoginPage'));
 const RegisterPage = lazy(() => import('src/pages/auth/register/RegisterPage'));
-const MyPage = lazy(() => import('src/pages/auth/MyPage'));
+const MyPage = lazy(() => import('src/pages/auth/my/MyPage'));
 
 export default function AuthIndex() {
   return (

@@ -1,5 +1,8 @@
 const ko = {
   translation: {
+    'modify': '변경',
+    'view': '보기',
+
     'common.404.oh': '앗!',
     'common.404.not-exist': '해당 페이지가 존재하지 않습니다',
     'common.404.go-to-home': '홈으로',
@@ -7,6 +10,7 @@ const ko = {
     'auth.login': '로그인',
     'auth.login-persist': '로그인 유지',
     'auth.register': '회원가입',
+    'auth.withdraw': '회원탈퇴',
     'auth.id': '아이디',
     'auth.pw': '비밀번호',
     'auth.pw-confirm': '비밀번호 재입력',
@@ -21,7 +25,14 @@ const ko = {
     'auth.errMsg.invalid-id-pw': '아이디 또는 비밀번호가 올바르지 않습니다',
     'auth.errMsg.already-exist-id': '이미 존재하는 아이디입니다',
     'auth.msg.register-success': '회원가입에 성공했습니다. 방금 가입한 정보로 로그인해주세요',
+
     'auth.my-page.title': '내 계정 관리',
+    'auth.my-page.login-info': '로그인 정보',
+    'auth.my-page.login-status': '로그인 현황',
+    'auth.my-page.login-history': '로그인 기록',
+    'auth.my-page.login-history-num': '{{0}}건',
+    'auth.my-page.login-device': '로그인된 기기 목록',
+    'auth.my-page.login-device-num': '{{0}}개의 기기',
   }
 };
 

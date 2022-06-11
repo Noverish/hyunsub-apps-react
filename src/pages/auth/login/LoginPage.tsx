@@ -43,7 +43,7 @@ export default function LoginPage() {
   const passwordErrMsg = errors.password?.message || errMsg;
 
   return (
-    <div id="LoginPage">
+    <div id="LoginPage" className="h-100 flex-center">
       <Suspense>
         <VantaGlobe />
       </Suspense>
