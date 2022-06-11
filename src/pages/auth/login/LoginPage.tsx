@@ -1,29 +1,33 @@
-import { AxiosError } from 'axios';
 import cs from 'classnames';
-import { lazy, Suspense, useState } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { Container } from "react-bootstrap";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
-import login from 'src/api/auth/login';
-import { ErrorReponse } from "src/model/api";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from 'src/redux';
+import { login } from './LoginContext';
 
 const VantaGlobe = lazy(() => import('src/components/vanta/VantaGlobe'));
 
-interface LoginFormState {
+export interface LoginFormState {
   username: string;
   password: string;
   remember: boolean;
 }
 
 export default function LoginPage() {
-  const { register, handleSubmit } = useForm<LoginFormState>();
-  const [error, setError] = useState<ErrorReponse>();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { errMsg } = useSelector(s => s.auth.login);
+
+  const { register, handleSubmit } = useForm<LoginFormState>({ defaultValues: { remember: true } });
 
   const onSubmit: SubmitHandler<LoginFormState> = (state: LoginFormState) => {
-    login(state)
-      .then(res => console.log(res))
-      .catch((err: AxiosError<ErrorReponse>) => setError(err.response?.data));
+    dispatch(login(navigate, state));
   };
+
+  useEffect(() => {
+    document.title = '로그인';
+  }, []);
 
   return (
     <div id="LoginPage">
@@ -35,12 +39,12 @@ export default function LoginPage() {
         <form className="d-grid gap-3" onSubmit={handleSubmit(onSubmit)}>
           <div>
             <label className="form-label">아이디</label>
-            <input type="text" className={cs('form-control', { 'is-invalid': error })} {...register('username')} />
+            <input type="text" className={cs('form-control', { 'is-invalid': errMsg })} {...register('username')} />
           </div>
           <div>
             <label className="form-label">비밀번호</label>
-            <input type="password" className={cs('form-control', { 'is-invalid': error })} {...register('password')} />
-            <div className="invalid-feedback">{error?.msg}</div>
+            <input type="password" className={cs('form-control', { 'is-invalid': errMsg })} {...register('password')} />
+            <div className="invalid-feedback">{errMsg}</div>
           </div>
           <button type="submit" className="btn btn-primary">로그인</button>
           <div className="d-flex justify-content-between">

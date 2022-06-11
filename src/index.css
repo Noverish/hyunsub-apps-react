@@ -1,11 +1,17 @@
+:root {
+  --hyunsub-bg: #141414;
+  --hyunsub-border-color: #404040;
+}
+
 html, body, #root, #root > div {
   width: 100%;
   height: 100%;
+  color: white;
+  background-color: var(--hyunsub-bg);
 }
 
 #root > div {
   display: flex;
   justify-content: center;
   align-items: center;
-  color: white;
 }

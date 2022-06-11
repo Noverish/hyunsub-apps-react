@@ -1,4 +1,4 @@
-export interface ErrorReponse {
+export interface ErrorResponse {
   code: string;
   msg: string;
 }
