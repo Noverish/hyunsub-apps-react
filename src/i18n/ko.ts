@@ -33,6 +33,12 @@ const ko = {
     'auth.my-page.login-history-num': '{{0}}건',
     'auth.my-page.login-device': '로그인된 기기 목록',
     'auth.my-page.login-device-num': '{{0}}개의 기기',
+    'auth.modify-username-modal.title': '아이디 변경하기',
+    'auth.modify-username-modal.success': '아이디 변경에 성공했습니다',
+    'auth.modify-username-modal.failure': '아이디 변경에 실패했습니다',
+    'auth.modify-password-modal.title': '비밀번호 변경하기',
+    'auth.modify-password-modal.success': '비밀번호 변경에 성공했습니다',
+    'auth.modify-password-modal.failure': '비밀번호 변경에 실패했습니다',
   }
 };
 

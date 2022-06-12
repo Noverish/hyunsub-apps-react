@@ -33,6 +33,12 @@ const en = {
     'auth.my-page.login-history-num': '{{0}} cases',
     'auth.my-page.login-device': 'Logined Devices',
     'auth.my-page.login-device-num': '{{0}} devices',
+    'auth.modify-username-modal.title': 'Modify ID',
+    'auth.modify-username-modal.success': 'Modification ID is successful',
+    'auth.modify-username-modal.failure': 'Modification ID is failed',
+    'auth.modify-password-modal.title': 'Modify Password',
+    'auth.modify-password-modal.success': 'Modification password is successful',
+    'auth.modify-password-modal.failure': 'Modification password is failed',
   }
 };
 
