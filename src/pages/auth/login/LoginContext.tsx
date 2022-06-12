@@ -2,17 +2,27 @@ import { Dispatch } from "@reduxjs/toolkit";
 import { AxiosError } from "axios";
 import { TFunction } from "i18next";
 import { NavigateFunction } from "react-router-dom";
-import loginApi from 'src/api/auth/login';
+import loginApi, { LoginParams } from 'src/api/auth/login';
+import rsaKey from "src/api/auth/rsa-key";
 import getErrMsg from "src/i18n/server-error";
 import { ErrorResponse } from "src/model/api";
+import routes from 'src/pages/auth/AuthRoutes';
 import { RootState } from 'src/redux';
+import { encrypt } from "src/utils/rsa-key";
 import { LoginFormState } from "./LoginPage";
 import LoginPageState from './LoginState';
-import routes from 'src/pages/auth/AuthRoutes';
 
 export const login = (t: TFunction, navigate: NavigateFunction, state: LoginFormState) => async (dispatch: Dispatch, getState: () => RootState) => {
   try {
-    await loginApi(state);
+    const { publicKey } = await rsaKey();
+
+    const loginParams: LoginParams = {
+      username: encrypt(publicKey, state.username),
+      password: encrypt(publicKey, state.password),
+      remember: state.remember,
+    }
+
+    await loginApi(loginParams);
     navigate(routes.my);
   } catch (ex) {
     const err = (ex as AxiosError<ErrorResponse>).response?.data!!;

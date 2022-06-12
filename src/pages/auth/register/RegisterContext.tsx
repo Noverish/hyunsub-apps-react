@@ -3,15 +3,24 @@ import { AxiosError } from "axios";
 import { TFunction } from "i18next";
 import { NavigateFunction } from "react-router-dom";
 import registerApi, { RegisterParams } from 'src/api/auth/register';
+import rsaKey from "src/api/auth/rsa-key";
 import getErrMsg from "src/i18n/server-error";
 import { ErrorResponse } from "src/model/api";
-import { RootState } from 'src/redux';
-import RegisterPageState from './RegisterState';
 import routes from 'src/pages/auth/AuthRoutes';
+import { RootState } from 'src/redux';
+import { encrypt } from "src/utils/rsa-key";
+import RegisterPageState from './RegisterState';
 
 export const register = (t: TFunction, navigate: NavigateFunction, params: RegisterParams) => async (dispatch: Dispatch, getState: () => RootState) => {
   try {
-    await registerApi(params);
+    const { publicKey } = await rsaKey();
+
+    const registerParams: RegisterParams = {
+      username: encrypt(publicKey, params.username),
+      password: encrypt(publicKey, params.password),
+    }
+
+    await registerApi(registerParams);
     alert(t('auth.msg.register-success'));
     navigate(routes.login);
   } catch (ex) {
