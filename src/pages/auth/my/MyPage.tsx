@@ -1,29 +1,43 @@
-import { RefObject, useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { Button, Card, Container, ListGroup } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import ModifyPasswordModal from "src/components/auth/ModifyPasswordModal";
 import ModifyUsernameModal from "src/components/auth/ModifyUsernameModal";
-
+import LoadingPage from "src/pages/LoadingPage";
+import { useDispatch, useSelector } from "src/redux";
 import './MyPage.scss';
+import { fetchMyPageUserInfo } from "./MyPageContext";
+import { updateMyPageState } from "./MyPageState";
 
-function ListItem({ name, value, btn, btnRef }: { name: string, value: string, btn: string, btnRef?: RefObject<HTMLButtonElement> }) {
+function ListItem({ name, value, btn, onClick }: { name: string, value: string, btn: string, onClick?: () => void }) {
   return (
     <ListGroup.Item>
       <span className="key">{name}</span>
       <span>{value}</span>
-      <Button size="sm" ref={btnRef}>{btn}</Button>
+      <Button size="sm" onClick={onClick}>{btn}</Button>
     </ListGroup.Item>
   )
 }
 
 export default function MyPage() {
   const { t } = useTranslation();
-  const usernameBtnRef = useRef<HTMLButtonElement>(null);
-  const passwordBtnRef = useRef<HTMLButtonElement>(null);
+  const dispatch = useDispatch();
+  const { userInfo } = useSelector(s => s.auth.my);
 
   useEffect(() => {
     window.document.title = t('auth.my-page.title');
   }, [t]);
+
+  useEffect(() => {
+    dispatch(fetchMyPageUserInfo());
+  }, [dispatch])
+
+  const onUsernameBtnClick = () => dispatch(updateMyPageState({ showUsernameModal: true }));
+  const onPasswordBtnClick = () => dispatch(updateMyPageState({ showPasswordModal: true }));
+
+  if (!userInfo) {
+    return <LoadingPage />;
+  }
 
   return (
     <div id="MyPage">
@@ -33,15 +47,15 @@ export default function MyPage() {
           <Card>
             <Card.Header>{t('auth.my-page.login-info')}</Card.Header>
             <ListGroup variant="flush">
-              <ListItem name={t('auth.id')} value="embrapers263" btn={t('modify')} btnRef={usernameBtnRef} />
-              <ListItem name={t('auth.pw')} value="********" btn={t('modify')} btnRef={passwordBtnRef} />
+              <ListItem name={t('auth.id')} value={userInfo.username} btn={t('modify')} onClick={onUsernameBtnClick} />
+              <ListItem name={t('auth.pw')} value="*******" btn={t('modify')} onClick={onPasswordBtnClick} />
             </ListGroup>
           </Card>
           <Card>
             <Card.Header>{t('auth.my-page.login-status')}</Card.Header>
             <ListGroup variant="flush">
-              <ListItem name={t('auth.my-page.login-history')} value={t('auth.my-page.login-history-num', [32])} btn={t('view')} />
-              <ListItem name={t('auth.my-page.login-device')} value={t('auth.my-page.login-device-num', [1])} btn={t('view')} />
+              <ListItem name={t('auth.my-page.login-history')} value={t('auth.my-page.login-history-num', [userInfo.historyNum])} btn={t('view')} />
+              <ListItem name={t('auth.my-page.login-device')} value={t('auth.my-page.login-device-num', [userInfo.deviceNum])} btn={t('view')} />
             </ListGroup>
           </Card>
           <div>
@@ -49,8 +63,8 @@ export default function MyPage() {
           </div>
         </div>
       </Container>
-      <ModifyUsernameModal btnRef={usernameBtnRef} username="embrapers263" />
-      <ModifyPasswordModal btnRef={passwordBtnRef} />
+      <ModifyUsernameModal userInfo={userInfo} />
+      <ModifyPasswordModal userInfo={userInfo} />
     </div>
   )
 }

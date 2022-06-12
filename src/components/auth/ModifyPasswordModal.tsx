@@ -1,13 +1,17 @@
-import { RefObject, useRef, useState } from "react";
+import { Dispatch } from "@reduxjs/toolkit";
+import { useRef } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useTranslation } from "react-i18next";
+import { TFunction, useTranslation } from "react-i18next";
+import { MyPageUserInfo } from "src/api/auth/my-page-user-info";
 import rsaKey from "src/api/auth/rsa-key";
 import updateUserInfo from "src/api/auth/update-user-info";
+import { updateMyPageState } from "src/pages/auth/my/MyPageState";
+import { RootState, useDispatch, useSelector } from "src/redux";
 import { encrypt } from "src/utils/rsa-key";
 
 interface Props {
-  btnRef: RefObject<HTMLButtonElement>;
+  userInfo: MyPageUserInfo;
 }
 
 interface FormState {
@@ -15,16 +19,12 @@ interface FormState {
   password2: string;
 }
 
-export default function ModifyPasswordModal({ btnRef }: Props) {
+export default function ModifyPasswordModal({ userInfo }: Props) {
   const { t } = useTranslation();
-  const [show, setShow] = useState(false);
+  const dispatch = useDispatch();
+  const { showPasswordModal } = useSelector(s => s.auth.my);
 
-  const btn = btnRef.current;
-  if (btn) {
-    btn.onclick = () => setShow(true);
-  }
-
-  const onHide = () => setShow(false);
+  const onHide = () => dispatch(updateMyPageState({ showPasswordModal: false }));
 
   const { register, handleSubmit, watch, formState: { errors } } = useForm<FormState>();
   const passwordRef = useRef<string>();
@@ -45,15 +45,11 @@ export default function ModifyPasswordModal({ btnRef }: Props) {
   const password2ErrMsg = errors.password2?.message;
 
   const onSubmit: SubmitHandler<FormState> = (state: FormState) => {
-    modifyPassword(state.password1)
-      .then((success) => alert(t(
-        success ? 'auth.modify-password-modal.success' : 'auth.modify-password-modal.failure'
-      )))
-      .then(() => onHide());
+    dispatch(modifyPassword(t, state.password1));
   };
 
   return (
-    <Modal show={show} onHide={onHide} centered>
+    <Modal show={showPasswordModal} onHide={onHide} centered>
       <Modal.Header closeButton>
         <Modal.Title>{t('auth.modify-password-modal.title')}</Modal.Title>
       </Modal.Header>
@@ -78,11 +74,16 @@ export default function ModifyPasswordModal({ btnRef }: Props) {
   )
 }
 
-async function modifyPassword(password: string): Promise<boolean> {
-  const { publicKey } = await rsaKey();
+function modifyPassword(t: TFunction, password: string) {
+  return async (dispatch: Dispatch, getState: () => RootState) => {
+    const { publicKey } = await rsaKey();
 
-  const encrypted = encrypt(publicKey, password);
+    const encrypted = encrypt(publicKey, password);
 
-  const result = await updateUserInfo({ password: encrypted });
-  return !!result.password
+    const result = await updateUserInfo({ password: encrypted });
+    
+    alert(t(result.password ? 'auth.modify-password-modal.success' : 'auth.modify-password-modal.failure'));
+
+    dispatch(updateMyPageState({ showPasswordModal: false }))
+  }
 }
