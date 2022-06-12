@@ -9,7 +9,7 @@ import { ErrorResponse } from "src/model/api";
 import routes from 'src/pages/auth/AuthRoutes';
 import { RootState } from 'src/redux';
 import { encrypt } from "src/utils/rsa-key";
-import RegisterPageState from './RegisterState';
+import { updateRegisterPageState } from './RegisterState';
 
 export const register = (t: TFunction, navigate: NavigateFunction, params: RegisterParams) => async (dispatch: Dispatch, getState: () => RootState) => {
   try {
@@ -26,7 +26,7 @@ export const register = (t: TFunction, navigate: NavigateFunction, params: Regis
   } catch (ex) {
     const err = (ex as AxiosError<ErrorResponse>).response?.data!!;
     const errMsg = getErrMsg(t, err);
-    dispatch(RegisterPageState.actions.update({ errMsg }));
+    dispatch(updateRegisterPageState({ errMsg }));
   }
 }
 

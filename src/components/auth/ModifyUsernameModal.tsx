@@ -2,9 +2,12 @@ import { Dispatch } from "@reduxjs/toolkit";
 import { Button, Form, Modal } from "react-bootstrap";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { TFunction, useTranslation } from "react-i18next";
+import { NavigateFunction, useNavigate } from "react-router-dom";
+import logout from "src/api/auth/logout";
 import { MyPageUserInfo } from "src/api/auth/my-page-user-info";
 import rsaKey from "src/api/auth/rsa-key";
 import updateUserInfo from "src/api/auth/update-user-info";
+import routes from "src/pages/auth/AuthRoutes";
 import { updateMyPageState } from 'src/pages/auth/my/MyPageState';
 import { RootState, useDispatch, useSelector } from "src/redux";
 import { encrypt } from "src/utils/rsa-key";
@@ -19,9 +22,10 @@ interface FormState {
 
 export default function ModifyUsernameModal({ userInfo }: Props) {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { showUsernameModal } = useSelector(s => s.auth.my);
-  
+
   const onHide = () => dispatch(updateMyPageState({ showUsernameModal: false }));
 
   const { register, handleSubmit, formState: { errors } } = useForm<FormState>({ defaultValues: { username: userInfo.username } });
@@ -36,7 +40,7 @@ export default function ModifyUsernameModal({ userInfo }: Props) {
   const usernameErrMsg = errors.username?.message;
 
   const onSubmit: SubmitHandler<FormState> = (state: FormState) => {
-    dispatch(modifyUsername(t, state.username))
+    dispatch(modifyUsername(t, navigate, state.username))
   };
 
   return (
@@ -60,24 +64,20 @@ export default function ModifyUsernameModal({ userInfo }: Props) {
   )
 }
 
-function modifyUsername(t: TFunction, username: string) {
+function modifyUsername(t: TFunction, navigate: NavigateFunction, username: string) {
   return async (dispatch: Dispatch, getState: () => RootState) => {
     const { publicKey } = await rsaKey();
 
     const encrypted = encrypt(publicKey, username);
 
     const result = await updateUserInfo({ username: encrypted });
-    
+
     alert(t(result.username ? 'auth.modify-username-modal.success' : 'auth.modify-username-modal.failure'));
 
-    const userInfo = getState().auth.my.userInfo!!;
+    dispatch(updateMyPageState({ showUsernameModal: false }));
 
-    dispatch(updateMyPageState({
-      showUsernameModal: false,
-      userInfo: {
-        ...userInfo,
-        username
-      }
-    }))
+    await logout();
+
+    navigate(routes.login);
   }
 }

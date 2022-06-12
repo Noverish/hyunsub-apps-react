@@ -20,3 +20,5 @@ const slice = createSlice({
 });
 
 export default slice;
+
+export const updateRegisterPageState = slice.actions.update;

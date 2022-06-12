@@ -10,7 +10,7 @@ import routes from 'src/pages/auth/AuthRoutes';
 import { RootState } from 'src/redux';
 import { encrypt } from "src/utils/rsa-key";
 import { LoginFormState } from "./LoginPage";
-import LoginPageState from './LoginState';
+import { updateLoginPageState } from './LoginState';
 
 export const login = (t: TFunction, navigate: NavigateFunction, state: LoginFormState) => async (dispatch: Dispatch, getState: () => RootState) => {
   try {
@@ -27,7 +27,7 @@ export const login = (t: TFunction, navigate: NavigateFunction, state: LoginForm
   } catch (ex) {
     const err = (ex as AxiosError<ErrorResponse>).response?.data!!;
     const errMsg = getErrMsg(t, err);
-    dispatch(LoginPageState.actions.update({ errMsg }));
+    dispatch(updateLoginPageState({ errMsg }));
   }
 }
 

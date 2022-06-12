@@ -3,9 +3,12 @@ import { useRef } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { TFunction, useTranslation } from "react-i18next";
+import { NavigateFunction, useNavigate } from "react-router-dom";
+import logout from "src/api/auth/logout";
 import { MyPageUserInfo } from "src/api/auth/my-page-user-info";
 import rsaKey from "src/api/auth/rsa-key";
 import updateUserInfo from "src/api/auth/update-user-info";
+import routes from "src/pages/auth/AuthRoutes";
 import { updateMyPageState } from "src/pages/auth/my/MyPageState";
 import { RootState, useDispatch, useSelector } from "src/redux";
 import { encrypt } from "src/utils/rsa-key";
@@ -21,6 +24,7 @@ interface FormState {
 
 export default function ModifyPasswordModal({ userInfo }: Props) {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { showPasswordModal } = useSelector(s => s.auth.my);
 
@@ -45,7 +49,7 @@ export default function ModifyPasswordModal({ userInfo }: Props) {
   const password2ErrMsg = errors.password2?.message;
 
   const onSubmit: SubmitHandler<FormState> = (state: FormState) => {
-    dispatch(modifyPassword(t, state.password1));
+    dispatch(modifyPassword(t, navigate, state.password1));
   };
 
   return (
@@ -74,16 +78,20 @@ export default function ModifyPasswordModal({ userInfo }: Props) {
   )
 }
 
-function modifyPassword(t: TFunction, password: string) {
+function modifyPassword(t: TFunction, navigate: NavigateFunction, password: string) {
   return async (dispatch: Dispatch, getState: () => RootState) => {
     const { publicKey } = await rsaKey();
 
     const encrypted = encrypt(publicKey, password);
 
     const result = await updateUserInfo({ password: encrypted });
-    
+
     alert(t(result.password ? 'auth.modify-password-modal.success' : 'auth.modify-password-modal.failure'));
 
-    dispatch(updateMyPageState({ showPasswordModal: false }))
+    dispatch(updateMyPageState({ showPasswordModal: false }));
+
+    await logout();
+
+    navigate(routes.login);
   }
 }
