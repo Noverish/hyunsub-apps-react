@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import { request } from "../request";
 
 export interface MyPageUserInfo {
   username: string;
@@ -6,12 +6,9 @@ export interface MyPageUserInfo {
   deviceNum: number;
 }
 
-export default async function getMyPageUserInfo(): Promise<MyPageUserInfo> {
-  const config: AxiosRequestConfig<undefined> = {
+export default function getMyPageUserInfo(): Promise<MyPageUserInfo> {
+  return request({
     url: '/api/v1/user/my-page',
     method: 'GET',
-  }
-
-  const res: AxiosResponse<MyPageUserInfo> = await axios(config)
-  return res.data;
+  });
 }

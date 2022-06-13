@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import { request } from "../request";
 
 export interface UpdateUserInfoParams {
   username?: string;
@@ -10,13 +10,10 @@ export interface UpdateUserInfoResult {
   password?: boolean;
 }
 
-export default async function updateUserInfo(params: UpdateUserInfoParams): Promise<UpdateUserInfoResult> {
-  const config: AxiosRequestConfig<UpdateUserInfoParams> = {
+export default function updateUserInfo(params: UpdateUserInfoParams): Promise<UpdateUserInfoResult> {
+  return request({
     url: '/api/v1/user',
     method: 'PUT',
     data: params,
-  }
-
-  const res: AxiosResponse<UpdateUserInfoResult> = await axios(config)
-  return res.data;
+  });
 }

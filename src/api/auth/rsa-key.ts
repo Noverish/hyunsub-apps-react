@@ -1,15 +1,12 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import { request } from "../request";
 
 export interface RsaKeyResult {
   publicKey: string;
 }
 
-export default async function rsaKey(): Promise<RsaKeyResult> {
-  const config: AxiosRequestConfig<undefined> = {
+export default function rsaKey(): Promise<RsaKeyResult> {
+  return request({
     url: '/api/v1/rsa-key',
     method: 'GET',
-  }
-
-  const res: AxiosResponse<RsaKeyResult> = await axios(config)
-  return res.data;
+  });
 }

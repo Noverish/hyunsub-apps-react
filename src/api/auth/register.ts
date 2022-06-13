@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import { request } from "../request";
 
 export interface RegisterParams {
   username: string;
@@ -9,13 +9,10 @@ export interface RegisterResult {
   idNo: string;
 }
 
-export default async function register(params: RegisterParams): Promise<RegisterResult> {
-  const config: AxiosRequestConfig<RegisterParams> = {
+export default function register(params: RegisterParams): Promise<RegisterResult> {
+  return request({
     url: '/api/v1/register',
     method: 'POST',
     data: params,
-  }
-
-  const res: AxiosResponse<RegisterResult> = await axios(config)
-  return res.data;
+  });
 }

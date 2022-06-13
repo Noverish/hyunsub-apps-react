@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import { request } from "../request";
 
 export interface LoginParams {
   username: string;
@@ -10,13 +10,10 @@ export interface LoginResult {
   idNo: string;
 }
 
-export default async function login(params: LoginParams): Promise<LoginResult> {
-  const config: AxiosRequestConfig<LoginParams> = {
+export default function login(params: LoginParams): Promise<LoginResult> {
+  return request({
     url: '/api/v1/login',
     method: 'POST',
     data: params,
-  }
-
-  const res: AxiosResponse<LoginResult> = await axios(config)
-  return res.data;
+  });
 }
