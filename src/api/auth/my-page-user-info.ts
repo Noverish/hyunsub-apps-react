@@ -1,4 +1,4 @@
-import { request } from "../request";
+import { generateNoParamApi } from "../generate-api";
 
 export interface MyPageUserInfo {
   username: string;
@@ -6,9 +6,9 @@ export interface MyPageUserInfo {
   deviceNum: number;
 }
 
-export default function getMyPageUserInfo(): Promise<MyPageUserInfo> {
-  return request({
-    url: '/api/v1/user/my-page',
-    method: 'GET',
-  });
-}
+const getMyPageUserInfo = generateNoParamApi<MyPageUserInfo>(() => ({
+  url: '/api/v1/user/my-page',
+  method: 'GET',
+}));
+
+export default getMyPageUserInfo;

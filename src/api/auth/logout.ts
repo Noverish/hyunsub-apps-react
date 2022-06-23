@@ -1,11 +1,12 @@
-import { request } from "../request";
+import { generateNoParamApi } from "../generate-api";
 
 export interface LogoutResult {
   success: boolean;
 }
-export default function logout(): Promise<LogoutResult> {
-  return request({
-    url: '/api/v1/logout',
-    method: 'POST',
-  });
-}
+
+const logout = generateNoParamApi<LogoutResult>(() => ({
+  url: '/api/v1/logout',
+  method: 'POST',
+}));
+
+export default logout;

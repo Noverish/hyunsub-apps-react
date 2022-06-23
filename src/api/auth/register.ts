@@ -1,4 +1,4 @@
-import { request } from "../request";
+import { generateApi } from "../generate-api";
 
 export interface RegisterParams {
   username: string;
@@ -9,10 +9,10 @@ export interface RegisterResult {
   idNo: string;
 }
 
-export default function register(params: RegisterParams): Promise<RegisterResult> {
-  return request({
-    url: '/api/v1/register',
-    method: 'POST',
-    data: params,
-  });
-}
+const register = generateApi<RegisterParams, RegisterResult>(params => ({
+  url: '/api/v1/register',
+  method: 'POST',
+  data: params,
+}));
+
+export default register;

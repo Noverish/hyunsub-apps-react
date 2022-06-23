@@ -1,4 +1,4 @@
-import { request } from "../request";
+import { generateApi } from "../generate-api";
 
 export interface LoginParams {
   username: string;
@@ -10,10 +10,10 @@ export interface LoginResult {
   idNo: string;
 }
 
-export default function login(params: LoginParams): Promise<LoginResult> {
-  return request({
-    url: '/api/v1/login',
-    method: 'POST',
-    data: params,
-  });
-}
+const login = generateApi<LoginParams, LoginResult>(params => ({
+  url: '/api/v1/login',
+  method: 'POST',
+  data: params,
+}));
+
+export default login;

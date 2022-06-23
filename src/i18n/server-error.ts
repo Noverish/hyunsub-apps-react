@@ -9,5 +9,5 @@ const errorCodeMap: {[code: string]: Normalize<DefaultResources['translation']>}
 
 export default function getErrMsg(t: TFunction, err: ErrorResponse): string {
   const tkey = errorCodeMap[err.code];
-  return tkey ? t(tkey) : err.msg;
+  return tkey ? t(tkey) : JSON.stringify(err);
 }

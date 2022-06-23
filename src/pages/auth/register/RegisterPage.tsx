@@ -3,8 +3,9 @@ import { lazy, Suspense, useEffect, useRef } from "react";
 import { Container } from "react-bootstrap";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from 'src/redux';
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from 'src/redux';
+import routes from '../AuthRoutes';
 import { register as doRegister } from './RegisterContext';
 
 const VantaNet = lazy(() => import('src/components/vanta/VantaNet'));
@@ -19,7 +20,6 @@ export default function RegisterPage() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { errMsg } = useSelector(s => s.auth.register);
 
   const { register, handleSubmit, watch, formState: { errors } } = useForm<RegisterFormState>();
   const passwordRef = useRef<string>();
@@ -32,7 +32,7 @@ export default function RegisterPage() {
   useEffect(() => {
     document.title = t('auth.register');
   }, [t]);
-  
+
   const usernameRegister = register('username', {
     required: t('auth.errMsg.empty-id'),
     minLength: { value: 4, message: t('auth.errMsg.short-id') },
@@ -53,7 +53,7 @@ export default function RegisterPage() {
 
   const usernameErrMsg = errors.username?.message;
   const password1ErrMsg = errors.password1?.message;
-  const password2ErrMsg = errors.password2?.message || errMsg;
+  const password2ErrMsg = errors.password2?.message;
 
   return (
     <div id="RegisterPage" className="h-100 flex-center">
@@ -79,6 +79,9 @@ export default function RegisterPage() {
             <div className="invalid-feedback">{password2ErrMsg}</div>
           </div>
           <button type="submit" className="btn btn-primary">{t('auth.register')}</button>
+          <div className="d-flex justify-content-end">
+            <Link to={`${routes.login}${window.location.search}`} className="link-light">{t('auth.login')}</Link>
+          </div>
         </form>
       </Container>
     </div>

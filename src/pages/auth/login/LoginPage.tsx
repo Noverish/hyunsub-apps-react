@@ -4,7 +4,8 @@ import { Container } from "react-bootstrap";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from 'src/redux';
+import { useDispatch } from 'src/redux';
+import routes from '../AuthRoutes';
 import { login } from './LoginContext';
 
 const VantaGlobe = lazy(() => import('src/components/vanta/VantaGlobe'));
@@ -19,7 +20,6 @@ export default function LoginPage() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { errMsg } = useSelector(s => s.auth.login);
 
   const { register, handleSubmit, formState: { errors } } = useForm<LoginFormState>({ defaultValues: { remember: true } });
 
@@ -40,7 +40,7 @@ export default function LoginPage() {
   });
 
   const usernameErrMsg = errors.username?.message;
-  const passwordErrMsg = errors.password?.message || errMsg;
+  const passwordErrMsg = errors.password?.message;
 
   return (
     <div id="LoginPage" className="h-100 flex-center">
@@ -67,7 +67,7 @@ export default function LoginPage() {
               <label className="form-check-label">{t('auth.login-persist')}</label>
             </div>
             <div>
-              <Link to={`/register${window.location.search}`} className="link-light">{t('auth.register')}</Link>
+              <Link to={`${routes.register}${window.location.search}`} className="link-light">{t('auth.register')}</Link>
             </div>
           </div>
         </form>

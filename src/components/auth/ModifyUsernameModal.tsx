@@ -66,17 +66,17 @@ export default function ModifyUsernameModal({ userInfo }: Props) {
 
 function modifyUsername(t: TFunction, navigate: NavigateFunction, username: string) {
   return async (dispatch: Dispatch, getState: () => RootState) => {
-    const { publicKey } = await rsaKey();
+    const { publicKey } = await rsaKey(dispatch);
 
     const encrypted = encrypt(publicKey, username);
 
-    const result = await updateUserInfo({ username: encrypted });
+    const result = await updateUserInfo({ username: encrypted }, dispatch);
 
     alert(t(result.username ? 'auth.modify-username-modal.success' : 'auth.modify-username-modal.failure'));
 
     dispatch(updateMyPageState({ showUsernameModal: false }));
 
-    await logout();
+    await logout(dispatch);
 
     navigate(routes.login);
   }

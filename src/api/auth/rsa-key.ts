@@ -1,12 +1,12 @@
-import { request } from "../request";
+import { generateNoParamApi } from "../generate-api";
 
 export interface RsaKeyResult {
   publicKey: string;
 }
 
-export default function rsaKey(): Promise<RsaKeyResult> {
-  return request({
-    url: '/api/v1/rsa-key',
-    method: 'GET',
-  });
-}
+const rsaKey = generateNoParamApi<RsaKeyResult>(() => ({
+  url: '/api/v1/rsa-key',
+  method: 'GET',
+}));
+
+export default rsaKey;

@@ -2,6 +2,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch as _useDispatch, useSelector as _useSelector } from 'react-redux';
 import logger from 'redux-logger';
 import auth from 'src/pages/auth/redux';
+import toast from './toast';
 
 export const loadState = () => {
   try {
@@ -22,7 +23,7 @@ export const saveState = (state: RootState) => {
   }
 };
 
-const reducer = combineReducers({ auth })
+const reducer = combineReducers({ auth, toast })
 
 export type RootState = ReturnType<typeof reducer>;
 

@@ -5,7 +5,7 @@ import { updateMyPageState } from './MyPageState';
 
 export function fetchMyPageUserInfo() {
   return async (dispatch: Dispatch, getState: () => RootState) => {
-    const userInfo = await getMyPageUserInfo();
+    const userInfo = await getMyPageUserInfo(dispatch);
     dispatch(updateMyPageState({ userInfo }));
   }
 }
