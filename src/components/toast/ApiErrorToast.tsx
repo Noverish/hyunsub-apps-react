@@ -20,7 +20,6 @@ export default function ApiErrorToast({ info }: Props) {
   useEffect(() => {
     const interval = setInterval(() => {
       const tmp = timeAgo.format(new Date(info.millis)).toString();
-      console.log(tmp);
       setTime(tmp);
     }, 1000);
     intervalRef.current = interval;

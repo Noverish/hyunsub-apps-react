@@ -24,6 +24,7 @@ const en = {
     'auth.errMsg.not-equal-pw': 'Password is not equal',
     'auth.errMsg.invalid-id-pw': 'Wrong ID or password',
     'auth.errMsg.already-exist-id': 'Already using ID',
+    'auth.errMsg.captcha-required': 'Captcha Required',
     'auth.msg.register-success': 'Register Success! Please login with the information you just signed up for',
 
     'auth.my-page.title': 'Manage My Account',

@@ -1,12 +1,14 @@
 import cs from 'classnames';
-import { lazy, Suspense, useEffect } from "react";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { Container } from "react-bootstrap";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from 'src/redux';
+import { useDispatch, useSelector } from 'src/redux';
 import routes from '../AuthRoutes';
 import { login } from './LoginContext';
+import ReCAPTCHA from "react-google-recaptcha";
+import AppConstant from 'src/utils/constants';
 
 const VantaGlobe = lazy(() => import('src/components/vanta/VantaGlobe'));
 
@@ -20,11 +22,14 @@ export default function LoginPage() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const captchaRef = useRef<ReCAPTCHA>(null);
+  const [captcha, setCaptcha] = useState<string | null>(null);
+  const { showCaptcha } = useSelector(s => s.auth.login);
 
   const { register, handleSubmit, formState: { errors } } = useForm<LoginFormState>({ defaultValues: { remember: true } });
 
   const onSubmit: SubmitHandler<LoginFormState> = (state: LoginFormState) => {
-    dispatch(login(t, navigate, state));
+    dispatch(login({t, navigate, state, captcha: captcha || undefined, captchaObj: captchaRef.current || undefined }));
   };
 
   useEffect(() => {
@@ -60,6 +65,13 @@ export default function LoginPage() {
             <input type="password" className={cs('form-control', { 'is-invalid': passwordErrMsg })} {...passwordRegister} />
             <div className="invalid-feedback">{passwordErrMsg}</div>
           </div>
+          {showCaptcha && <ReCAPTCHA
+            className='flex-center'
+            ref={captchaRef}
+            theme='dark'
+            sitekey={AppConstant.RECAPTCHA_SITE_KEY}
+            onChange={setCaptcha}
+          />}
           <button type="submit" className="btn btn-primary">{t('auth.login')}</button>
           <div className="d-flex justify-content-between">
             <div className="form-check">
