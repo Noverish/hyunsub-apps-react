@@ -1,0 +1,56 @@
+:root {
+  --hyunsub-bg: #141414;
+  --hyunsub-title-bg: #323232;
+  --hyunsub-content-bg: #454545;
+  --hyunsub-text-color: white;
+
+  --hyunsub-border-color-primary: #DDD;
+  --hyunsub-border-color-secondary: #777;
+}
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  color: var(--hyunsub-text-color);
+  background-color: var(--hyunsub-bg);
+}
+
+.flex-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  border-color: var(--hyunsub-border-color-primary);
+
+  .card-header {
+    background-color: var(--hyunsub-title-bg);
+    border-bottom-color: var(--hyunsub-border-color-primary);
+  }
+}
+
+.list-group {
+  background-color: var(--hyunsub-content-bg);
+
+  .list-group-item {
+    background-color: var(--hyunsub-content-bg);
+    color: var(--hyunsub-text-color);
+    border-color: var(--hyunsub-border-color-secondary);
+  }
+}
+
+.modal-content {
+  border-color: var(--hyunsub-border-color-primary);
+  background-color: var(--hyunsub-content-bg);
+
+  .btn-close {
+    opacity: 1;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23FFF'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3e%3c/svg%3e");
+  }
+
+  .modal-header, .modal-footer {
+    background-color: var(--hyunsub-title-bg);
+  }
+}
