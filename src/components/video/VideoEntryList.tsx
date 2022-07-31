@@ -1,4 +1,5 @@
 import { VideoEntry } from "src/model/video";
+import routes from 'src/pages/video/VideoRoutes';
 
 import './VideoEntryList.scss';
 
@@ -8,7 +9,7 @@ interface Props {
 
 export default function VideoEntryList({ entries }: Props) {
   const elements = entries.map(entry => (
-    <a key={entry.id} href="#" className="video_preview col d-block move_up_on_hover">
+    <a key={entry.id} href={routes.getDetailRoute(entry.id)} className="col d-block move_up_on_hover">
       <div className="ratio">
         <img className="img-fluid rounded-1" src={entry.thumbnail} loading="lazy" />
       </div>

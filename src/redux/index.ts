@@ -2,6 +2,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch as _useDispatch, useSelector as _useSelector } from 'react-redux';
 import logger from 'redux-logger';
 import auth from 'src/pages/auth/redux';
+import video from 'src/pages/video/VideoRedux';
 import toast from './toast';
 
 export const loadState = () => {
@@ -23,7 +24,7 @@ export const saveState = (state: RootState) => {
   }
 };
 
-const reducer = combineReducers({ auth, toast })
+const reducer = combineReducers({ auth, video, toast })
 
 export type RootState = ReturnType<typeof reducer>;
 

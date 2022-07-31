@@ -4,8 +4,9 @@ import LoadingPage from 'src/pages/LoadingPage';
 import routes from './VideoRoutes';
 
 const NotFoundPage = lazy(() => import('src/pages/NotFoundPage'));
-const VideoHomePage = lazy(() => import('src/pages/video/home/VideoHomePage'));
-const VideoDetailPage = lazy(() => import('src/pages/video/home/VideoDetailPage'));
+const VideoIndexPage = lazy(() => import('src/pages/video/detail/VideoIndexPage'));
+const VideoListPage = lazy(() => import('src/pages/video/list/VideoListPage'));
+const VideoDetailPage = lazy(() => import('src/pages/video/detail/VideoDetailPage'));
 
 export default function AuthIndex() {
   return (
@@ -13,8 +14,8 @@ export default function AuthIndex() {
       <Suspense fallback={<LoadingPage />}>
         <Routes>
           <Route path="*" element={<NotFoundPage />} />
-          <Route path="/" element={<Navigate to={routes.home} />} />
-          <Route path={routes.home} element={<VideoHomePage />} />
+          <Route path="/" element={<VideoIndexPage />} />
+          <Route path={routes.list} element={<VideoListPage />} />
           <Route path={routes.detail} element={<VideoDetailPage />} />
         </Routes>
       </Suspense>
