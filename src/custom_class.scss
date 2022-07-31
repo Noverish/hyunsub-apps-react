@@ -1,0 +1,7 @@
+.move_up_on_hover {
+  transition: transform .3s;
+
+  &:hover {
+    transform: translateY(-6px);
+  }
+}

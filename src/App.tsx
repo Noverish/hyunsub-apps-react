@@ -9,7 +9,7 @@ function renderIndex(): JSX.Element | undefined {
   if (host.includes('auth2.hyunsub.kim')) {
     return <AuthIndex />;
   }
-  if (host.includes('video2.hyunsub.kim')) {
+  if (host == 'video2.hyunsub.kim' || host == 'local-video.hyunsub.kim') {
     return <VideoIndex />;
   }
   return undefined;

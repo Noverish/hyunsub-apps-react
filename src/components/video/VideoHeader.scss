@@ -1,0 +1,90 @@
+:root {
+  --header_bg: rgba(36, 36, 36, .8);
+  --header_font_color: white;
+  --main_header_height: 64px;
+  --header_height: 64px;
+}
+
+header {
+  position: fixed;
+  width: 100vw;
+  top: 0;
+  z-index: 1000;
+
+  border-bottom: 1px solid #232323;
+  background-color: var(--header_bg);
+  color: var(--header_font_color);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+}
+
+header.home_header {
+  height: var(--header_height);
+
+  .container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-flow: row nowrap;
+  }
+
+  & + #content {
+    margin-top: calc(var(--header_height) + 1rem);
+  }
+}
+
+#header_title {
+  font-family: 'Train One', serif;
+  font-size: 2rem;
+}
+
+#header_menu_section {
+  white-space: nowrap;
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 1.5rem;
+  }
+
+  font-size: 1.5rem;
+
+  i {
+    margin-right: .5rem;
+  }
+}
+
+#header_button_section {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+
+  .header_icon_btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.25rem;
+
+    &:last-of-type {
+      margin-right: -0.5rem;
+    }
+
+    .header_icon_wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2rem;
+      height: 2rem;
+
+      &.header_icon_wrapper_white_bg {
+        background-color: white;
+        color: black;
+        border-radius: 50%;
+      }
+    }
+  }
+}

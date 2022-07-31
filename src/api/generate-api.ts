@@ -4,11 +4,13 @@ import { TFunction } from "i18next";
 import getErrMsg from "src/i18n/server-error";
 import { ErrorResponse } from "src/model/api";
 import { insertToast } from "src/redux/toast";
+import { sleep } from "src/utils";
 
 export function generateApi<Params, Result>(func: (params: Params) => AxiosRequestConfig<Params>) {
   return async (params: Params, dispatch?: Dispatch, t?: TFunction): Promise<Result> => {
     try {
-      const res: AxiosResponse<Result> = await axios(func(params))
+      const res: AxiosResponse<Result> = await axios(func(params));
+      await sleep(3000);
       return res.data;
     } catch (ex) {
       const res = (ex as AxiosError<ErrorResponse>).response!!;
@@ -27,7 +29,8 @@ export function generateApi<Params, Result>(func: (params: Params) => AxiosReque
 export function generateNoParamApi<Result>(func: () => AxiosRequestConfig<undefined>) {
   return async (dispatch?: Dispatch): Promise<Result> => {
     try {
-      const res: AxiosResponse<Result> = await axios(func())
+      const res: AxiosResponse<Result> = await axios(func());
+      await sleep(3000);
       return res.data;
     } catch (ex) {
       const res = (ex as AxiosError<ErrorResponse>).response!!;
