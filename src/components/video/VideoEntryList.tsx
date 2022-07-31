@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { VideoEntry } from "src/model/video";
 import routes from 'src/pages/video/VideoRoutes';
 
@@ -9,12 +10,12 @@ interface Props {
 
 export default function VideoEntryList({ entries }: Props) {
   const elements = entries.map(entry => (
-    <a key={entry.id} href={routes.getDetailRoute(entry.id)} className="col d-block move_up_on_hover">
+    <Link key={entry.id} to={routes.getDetailRoute(entry.id)} className="col d-block move_up_on_hover">
       <div className="ratio">
         <img className="img-fluid rounded-1" src={entry.thumbnail} loading="lazy" />
       </div>
       <div className="mt-2 text-break">{entry.name}</div>
-    </a>
+    </Link>
   ));
 
   return (

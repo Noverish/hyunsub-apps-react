@@ -16,7 +16,9 @@ interface Props {
   sort?: VideoSort;
 }
 
-export default function VideoSortDropdown({ sort = VideoSort.random }: Props) {
+export default function VideoSortDropdown(props: Props) {
+  const sort = props.sort || VideoSort.random;
+
   const navigate = useNavigate();
 
   const onSelect = (key: string | null) => {

@@ -7,14 +7,7 @@ interface Props {
 }
 
 function VideoHeaderMenus() {
-  const { data: categories } = useQuery('categories', () => getCategories(), {
-    refetchOnWindowFocus: false,
-    retry: 0,
-  });
-
-  if (!categories) {
-    return <></>;
-  }
+  const categories = useQuery('categories', () => getCategories()).data!!;
 
   const menus = categories.map(v => (
     <a key={v.name} href={`/${v.name}`} className="gray_on_hover">
