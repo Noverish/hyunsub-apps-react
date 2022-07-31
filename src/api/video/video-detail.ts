@@ -6,7 +6,7 @@ export interface GetVideoDetailParams {
 }
 
 const getVideoDetail = generateApi<GetVideoDetailParams, VideoDetail>(params => ({
-  url: `/api/v1/detail/${params.entryId}`,
+  url: `/api/v1/entry/${params.entryId}/detail`,
   method: 'GET',
   params: {}
 }));

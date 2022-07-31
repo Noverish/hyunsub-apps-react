@@ -1,22 +1,24 @@
+import { useEffect } from "react";
 import { Container } from "react-bootstrap";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import getVideoDetail from "src/api/video/video-detail";
 import VideoHeader from "src/components/video/VideoHeader";
-import { VideoDetail } from "src/model/video";
-import { ErrorResponse } from 'src/model/api';
 import LoadingPage from "src/pages/LoadingPage";
 import NotFoundPage from "src/pages/NotFoundPage";
 
 import './VideoDetailPage.scss';
 
 export default function VideoDetailPage() {
-  const { entryId } = useParams();
+  const entryId = useParams().entryId || '';
 
-  const { data, error } = useQuery<VideoDetail, ErrorResponse>(`detail|${entryId}`, () => getVideoDetail({ entryId: entryId || '' }), {
-    refetchOnWindowFocus: false,
-    retry: 0,
-  });
+  const { data, error } = useQuery(`detail|${entryId}`,() => getVideoDetail({ entryId }));
+
+  useEffect(() => {
+    if (data) {
+      document.title = data.title;
+    }
+  }, [data]);
   
   if (error) {
     return <NotFoundPage />;
