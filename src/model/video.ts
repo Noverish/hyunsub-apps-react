@@ -10,6 +10,19 @@ export interface VideoEntry {
   thumbnail: string;
 }
 
+export interface VideoDetail {
+  videoUrl: string;
+  thumbnailUrl: string;
+  title: string;
+  subtitles: VideoSubtitle[];
+}
+
+export interface VideoSubtitle {
+  url: string;
+  label: string;
+  srclang: string;
+}
+
 export enum VideoSort {
   random = 'random',
   new = 'new',

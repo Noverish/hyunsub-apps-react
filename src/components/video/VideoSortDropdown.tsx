@@ -12,10 +12,10 @@ const getVideoSortName = (sort: VideoSort) => {
 }
 
 export default function VideoSortDropdown() {
-	const sort = (new URLSearchParams(window.location.search).get('sort') || VideoSort.random) as VideoSort;
+  const sort = (new URLSearchParams(window.location.search).get('sort') || VideoSort.random) as VideoSort;
 
-	return (
-		<Dropdown>
+  return (
+    <Dropdown className="mb-3">
       <Dropdown.Toggle variant="secondary">{getVideoSortName(sort)}</Dropdown.Toggle>
       <Dropdown.Menu>
         <Dropdown.Item active={sort === VideoSort.random} href="#" data-sort={VideoSort.random}>{getVideoSortName(VideoSort.random)}</Dropdown.Item>
@@ -25,5 +25,5 @@ export default function VideoSortDropdown() {
         <Dropdown.Item active={sort === VideoSort.zyx} href="#" data-sort={VideoSort.zyx}>{getVideoSortName(VideoSort.zyx)}</Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
-	)
+  )
 }
