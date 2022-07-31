@@ -5,6 +5,7 @@ export interface GetVideoEntriesParams {
   category: string;
   page: number;
   sort?: VideoSort;
+  seed?: number;
 }
 
 const getVideoEntries = generateApi<GetVideoEntriesParams, VideoEntry[]>(params => ({
@@ -14,6 +15,7 @@ const getVideoEntries = generateApi<GetVideoEntriesParams, VideoEntry[]>(params 
     category: params.category,
     p: params.page,
     sort: params.sort,
+    seed: params.seed,
   }
 }));
 

@@ -1,12 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { VideoSort } from 'src/model/video';
 
 interface State {
   page: number;
+  seed: number;
 };
 
 const initialState: State = {
   page: 0,
+  seed: Math.floor(new Date().getTime() / 1000),
 };
 
 const slice = createSlice({

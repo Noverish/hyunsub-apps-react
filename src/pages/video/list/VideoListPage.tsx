@@ -9,16 +9,18 @@ import VideoHeader from "src/components/video/VideoHeader";
 import VideoSortDropdown from "src/components/video/VideoSortDropdown";
 import { VideoCategory, VideoSort } from "src/model/video";
 import NotFoundPage from "src/pages/NotFoundPage";
+import { useSelector } from "src/redux";
 
 export function VideoListPage({ category }: { category: VideoCategory }) {
   const [searchParams] = useSearchParams();
   const sort = searchParams.get('sort') as VideoSort | undefined;
+  const { seed } = useSelector(s => s.video.list);
 
   useEffect(() => {
     document.title = `HyunFlix - ${category.displayName}`;
   }, [category.displayName]);
 
-  const entries = useQuery(`list|${sort}`, () => getVideoEntries({ category: category.name, page: 0, sort })).data!!;
+  const entries = useQuery(`list|${sort}`, () => getVideoEntries({ category: category.name, page: 0, sort, seed })).data!!;
 
   return (
     <div id="VideoHomePage">
