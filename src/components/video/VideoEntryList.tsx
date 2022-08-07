@@ -12,7 +12,7 @@ export default function VideoEntryList({ entries }: Props) {
   const elements = entries.map(entry => (
     <Link key={entry.id} to={routes.getDetailRoute(entry.id)} className="col d-block move_up_on_hover">
       <div className="ratio">
-        <img className="img-fluid rounded-1" src={entry.thumbnail} loading="lazy" />
+        <img className="img-fluid rounded-1" src={entry.thumbnail} loading="lazy" alt={entry.name} />
       </div>
       <div className="mt-2 text-break">{entry.name}</div>
     </Link>

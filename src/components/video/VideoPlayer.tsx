@@ -1,9 +1,9 @@
+import { Options, SourceInfo, Track } from "plyr";
+import Plyr from "plyr-react";
 import { VideoSubtitle } from "src/model/video";
-import Plyr, { Track } from 'plyr';
-import { isIOS } from "src/utils/user-agent";
-import { useEffect, useRef } from "react";
 
-import 'plyr/dist/plyr.css';
+import "plyr-react/plyr.css";
+import { memo } from "react";
 
 interface Props {
   thumbnailUrl: string;
@@ -11,60 +11,37 @@ interface Props {
   subtitles: VideoSubtitle[];
 }
 
-export default function VideoPlayer(props: Props) {
-  const { thumbnailUrl, videoUrl, subtitles } = props;
-  const playerRef = useRef<Plyr>();
+export function VideoPlayer({ thumbnailUrl, videoUrl, subtitles }: Props) {
+  const options: Options = {
+    debug: true,
+    keyboard: { global: true },
+    captions: { active: true, language: 'ko' },
+    ratio: '16:9',
+  }
 
-  useEffect(() => {
-    if (!isIOS()) {
-      const player = new Plyr('#player', {
-        keyboard: { global: true },
-        captions: { active: true, language: 'ko' },
-        ratio: '16:9',
-      });
-      // player.language = 'ko';
-      playerRef.current = player;
-    }
-  }, []);
+  const tracks: Track[] = subtitles.map(v => ({
+    kind: 'captions',
+    label: v.label,
+    srcLang: v.srclang,
+    src: v.url,
+    default: v.srclang === 'ko'
+  }))
 
-  useEffect(() => {
-    const player = playerRef.current;
-    if (!player) {
-      return;
-    }
-
-    const tracks: Track[] = subtitles.map(v => ({
-      kind: 'captions',
-      label: v.label,
-      srcLang: v.srclang,
-      src: v.url,
-      default: v.srclang === 'ko'
-    }))
-
-    player.source = {
-      type: 'video',
-      poster: thumbnailUrl,
-      tracks,
-      sources: [
-        {
-          src: videoUrl,
-          type: 'video/mp4',
-        }
-      ],
-    };
-    
-    const v = document.getElementsByTagName('video')[0];
-    v.setAttribute('crossorigin', 'use-credentials');
-  }, [thumbnailUrl, videoUrl, subtitles]);
-
-  const tracks = props.subtitles.map(v => (
-    <track key={v.label} kind="captions" label={v.label} srcLang={v.srclang} src={v.url} />
-  ));
+  const source: SourceInfo = {
+    type: 'video',
+    poster: thumbnailUrl,
+    tracks,
+    sources: [
+      {
+        src: videoUrl,
+        type: 'video/mp4',
+      }
+    ],
+  };
 
   return (
-    <video id="player" playsInline controls crossOrigin="use-credentials" data-poster={props.thumbnailUrl}>
-      <source src={props.videoUrl} type="video/mp4" />
-      {tracks}
-    </video>
+    <Plyr source={source} options={options} />
   )
 }
+
+export default memo(VideoPlayer);

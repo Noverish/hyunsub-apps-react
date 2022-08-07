@@ -3,6 +3,7 @@ import { Dropdown, Pagination } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { VideoEpisode, VideoEpisodeList } from "src/model/video";
 import { getNewUrl } from "src/utils/location";
+import cs from 'classnames';
 
 import './VideoEpisodeList.scss';
 
@@ -14,8 +15,8 @@ interface Props {
 }
 
 function validateVideoId(episodes: VideoEpisodeList, videoId: string): [string, number] {
-  for(const [season, videos] of Object.entries(episodes)) {
-    for(let i = 0; i < videos.length; i++) {
+  for (const [season, videos] of Object.entries(episodes)) {
+    for (let i = 0; i < videos.length; i++) {
       const video = videos[i];
       if (video.videoId === videoId) {
         const page = Math.floor(i / pageSize);
@@ -23,7 +24,7 @@ function validateVideoId(episodes: VideoEpisodeList, videoId: string): [string, 
       }
     }
   }
-  throw new Error('aaaa');
+  throw new Error('Never Happened!');
 }
 
 export default function VideoEpisodeListComp({ episodes, videoId }: Props) {
@@ -31,13 +32,13 @@ export default function VideoEpisodeListComp({ episodes, videoId }: Props) {
 
   const [season, setSeason] = useState(initSeason);
   const [page, setPage] = useState(initPage);
-  
+
   const videos = episodes[season]
   const total = videos.length;
 
   const sliced = videos.slice(page * pageSize, (page + 1) * pageSize);
   const episodeElements = sliced.map(v => (
-    <VideoEpisodeItem key={v.videoId} episode={v} />
+    <VideoEpisodeItem key={v.videoId} episode={v} active={v.videoId === videoId} />
   ))
 
   const totalPagination = Math.ceil(total / pageSize);
@@ -56,7 +57,7 @@ export default function VideoEpisodeListComp({ episodes, videoId }: Props) {
         {episodeElements}
       </div>
       <div className="mt-3">
-        <VideoEpisodePagination curr={page} total={totalPagination} setPage={setPage}/>
+        <VideoEpisodePagination curr={page} total={totalPagination} setPage={setPage} />
       </div>
     </section >
   )
@@ -91,15 +92,17 @@ function VideoSeasonDropdown({ nowSeason, seasons, setSeason }: VideoSeasonDropd
 
 interface VideoEpisodeItemProps {
   episode: VideoEpisode;
+  active: boolean;
 }
 
-function VideoEpisodeItem({ episode }: VideoEpisodeItemProps) {
+function VideoEpisodeItem({ episode, active }: VideoEpisodeItemProps) {
   const link = getNewUrl({ 'videoId': episode.videoId });
+  const className = cs('episode_item col-6 d-flex', { active });
 
   return (
-    <Link to={link} className="episode_item col-6 d-flex">
+    <Link to={link} className={className}>
       <div className="episode_thumbnail ratio ratio-16x9">
-        <img className="img-fluid rounded-1" src={episode.thumbnailUrl} loading="lazy" />
+        <img className="img-fluid rounded-1" src={episode.thumbnailUrl} loading="lazy" alt={episode.title} />
       </div>
       <div className="episode_title">{episode.title}</div>
     </Link>

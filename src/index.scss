@@ -29,13 +29,6 @@ img {
   object-fit: cover;
 }
 
-.flex-center {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
 .card {
   border-color: var(--hyunsub-border-color-primary);
 
@@ -66,5 +59,37 @@ img {
 
   .modal-header, .modal-footer {
     background-color: var(--hyunsub-title-bg);
+  }
+}
+
+.pagination {
+  .page-item.active .page-link {
+    color: var(--bs-pagination-active-color);
+    background-color: var(--bs-pagination-active-bg);
+    border-color: var(--bs-pagination-active-border-color);
+  }
+
+  .page-item:not(.active) .page-link {
+    color: white;
+    background-color: var(--bs-gray-dark);
+    border-color: var(--hyunsub-border-color-primary);
+
+    &:hover {
+      background-color: var(--bs-gray);
+    }
+  }
+}
+
+.dropdown {
+  .dropdown-menu {
+    background-color: var(--bs-gray-dark);
+  }
+
+  .dropdown-item {
+    color: white;
+
+    &:hover {
+      background-color: var(--bs-gray);
+    }
   }
 }

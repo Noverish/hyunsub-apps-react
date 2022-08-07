@@ -48,7 +48,7 @@ export default function LoginPage() {
   const passwordErrMsg = errors.password?.message;
 
   return (
-    <div id="LoginPage" className="h-100 flex-center">
+    <div id="LoginPage" className="h-100 flex_center">
       <Suspense>
         <VantaGlobe />
       </Suspense>
@@ -66,7 +66,7 @@ export default function LoginPage() {
             <div className="invalid-feedback">{passwordErrMsg}</div>
           </div>
           {showCaptcha && <ReCAPTCHA
-            className='flex-center'
+            className='flex_center'
             ref={captchaRef}
             theme='dark'
             sitekey={AppConstant.RECAPTCHA_SITE_KEY}

@@ -40,7 +40,7 @@ export default function VideoHeader(props: Props) {
           </div>
           <ul className="dropdown-menu dropdown-menu-end dropdown-menu-dark">
             <li><a className="dropdown-item" href="/my">My Page</a></li>
-            <li><a className="dropdown-item text-danger" href="#">Logout</a></li>
+            <li><a className="dropdown-item text-danger" href="/logout">Logout</a></li>
           </ul>
         </div>
       </div>
