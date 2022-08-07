@@ -20,7 +20,7 @@ export function VideoListPage({ category }: { category: VideoCategory }) {
 
   useEffect(() => {
     dispatch(loadFirstEntries(category.name, sort));
-  }, [category.name, sort]);
+  }, [dispatch, category.name, sort]);
 
   useEffect(() => {
     document.title = `HyunFlix - ${category.displayName}`;
@@ -43,7 +43,7 @@ export function VideoListPage({ category }: { category: VideoCategory }) {
     return () => {
       document.removeEventListener('scroll', handler);
     }
-  }, [category.name, sort]);
+  }, [dispatch, category.name, sort]);
 
   return (
     <div id="VideoHomePage">

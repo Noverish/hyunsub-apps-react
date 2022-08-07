@@ -10,7 +10,7 @@ export const loadFirstEntries = (category: string, sort?: VideoSort) => async (d
   if (loading) {
     return;
   }
-  dispatch(VideoListActions.update({ loading: true }));
+  dispatch(VideoListActions.update({ loading: true, entries: [] }));
 
   const entries = await getVideoEntries({ category, page: 0, sort, seed });
 

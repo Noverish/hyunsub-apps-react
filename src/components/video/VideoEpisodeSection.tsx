@@ -5,7 +5,7 @@ import { VideoEpisode, VideoEpisodeList } from "src/model/video";
 import { getNewUrl } from "src/utils/location";
 import cs from 'classnames';
 
-import './VideoEpisodeList.scss';
+import './VideoEpisodeSection.scss';
 
 const pageSize = 10;
 
@@ -27,7 +27,7 @@ function validateVideoId(episodes: VideoEpisodeList, videoId: string): [string, 
   throw new Error('Never Happened!');
 }
 
-export default function VideoEpisodeListComp({ episodes, videoId }: Props) {
+export default function VideoEpisodeSection({ episodes, videoId }: Props) {
   const [initSeason, initPage] = validateVideoId(episodes, videoId);
 
   const [season, setSeason] = useState(initSeason);
@@ -47,7 +47,7 @@ export default function VideoEpisodeListComp({ episodes, videoId }: Props) {
   const hasSeason = seasons.length > 1;
 
   return (
-    <section id="VideoEpisodeList" className="mt-3">
+    <section id="VideoEpisodeList">
       <hr />
       <div className="d-flex align-items-center mb-3">
         <h3 className="d-inline-block me-3 mb-0">전체회차 {total}화</h3>
@@ -128,3 +128,4 @@ function VideoEpisodePagination({ curr, total, setPage }: VideoEpisodePagination
     </Pagination>
   )
 }
+

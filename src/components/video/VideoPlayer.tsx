@@ -13,7 +13,6 @@ interface Props {
 
 export function VideoPlayer({ thumbnailUrl, videoUrl, subtitles }: Props) {
   const options: Options = {
-    debug: true,
     keyboard: { global: true },
     captions: { active: true, language: 'ko' },
     ratio: '16:9',

@@ -3,7 +3,8 @@ import { Container } from "react-bootstrap";
 import { useQuery } from "react-query";
 import { useParams, useSearchParams } from "react-router-dom";
 import getVideoEntryDetail from "src/api/video/video-entry-detail";
-import VideoEpisodeListComp from "src/components/video/VideoEpisodeList";
+import VideoEpisodeSection from "src/components/video/VideoEpisodeSection";
+import VideoGroupSection from "src/components/video/VideoGroupSection";
 import VideoHeader from "src/components/video/VideoHeader";
 import VideoPlayer from "src/components/video/VideoPlayer";
 import { VideoMetadata } from "src/model/video";
@@ -24,7 +25,7 @@ export default function VideoDetailPage() {
   const videoId = searchParams.get('videoId') ?? undefined;
 
   const detail = useQuery(`entry|${entryId}|${videoId}`, () => getVideoEntryDetail({ entryId, videoId })).data!!;
-  const { video, episodes } = detail;
+  const { video, episodes, group } = detail;
   const { title, videoUrl, thumbnailUrl, subtitles, metadata } = video;
 
   useEffect(() => {
@@ -42,7 +43,8 @@ export default function VideoDetailPage() {
           <h3>{title}</h3>
         </section>
         {metadata && <VideoMetadataSection metadata={metadata} />}
-        {episodes && <VideoEpisodeListComp episodes={episodes} videoId={video.videoId} />}
+        {episodes && <VideoEpisodeSection episodes={episodes} videoId={video.videoId} />}
+        {group && <VideoGroupSection group={group} />}
       </Container>
     </div>
   )
