@@ -9,8 +9,8 @@
 }
 
 html, body, #root {
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  min-height: 100vh;
   color: var(--hyunsub-text-color);
   background-color: var(--hyunsub-bg);
 }

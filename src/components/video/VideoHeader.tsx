@@ -1,4 +1,5 @@
 import { useQuery } from "react-query";
+import { Link } from "react-router-dom";
 import getCategories from "src/api/video/category";
 
 import './VideoHeader.scss';
@@ -10,10 +11,10 @@ function VideoHeaderMenus() {
   const categories = useQuery('categories', () => getCategories()).data!!;
 
   const menus = categories.map(v => (
-    <a key={v.name} href={`/${v.name}`} className="gray_on_hover">
+    <Link key={v.name} to={`/${v.name}`} className="gray_on_hover">
       <i className={v.htmlClass}></i>
       <span>{v.displayName}</span>
-    </a>
+    </Link>
   ));
 
   return (<>{menus}</>)

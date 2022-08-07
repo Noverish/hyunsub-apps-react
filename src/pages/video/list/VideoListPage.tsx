@@ -1,26 +1,49 @@
 import { useEffect } from "react";
-import { Container } from "react-bootstrap";
+import { Container, Spinner } from "react-bootstrap";
 import { useQuery } from "react-query";
 import { useParams, useSearchParams } from "react-router-dom";
 import getCategories from "src/api/video/category";
-import getVideoEntries from "src/api/video/video-entry";
 import VideoEntryList from "src/components/video/VideoEntryList";
 import VideoHeader from "src/components/video/VideoHeader";
 import VideoSortDropdown from "src/components/video/VideoSortDropdown";
 import { VideoCategory, VideoSort } from "src/model/video";
 import NotFoundPage from "src/pages/NotFoundPage";
-import { useSelector } from "src/redux";
+import { useDispatch, useSelector } from "src/redux";
+import { loadFirstEntries, loadNextEntries } from "./VideoListContext";
 
 export function VideoListPage({ category }: { category: VideoCategory }) {
   const [searchParams] = useSearchParams();
   const sort = searchParams.get('sort') as VideoSort | undefined;
-  const { seed } = useSelector(s => s.video.list);
+
+  const dispatch = useDispatch();
+  const { loading, entries } = useSelector(s => s.video.list);
+
+  useEffect(() => {
+    dispatch(loadFirstEntries(category.name, sort));
+  }, [category.name, sort]);
 
   useEffect(() => {
     document.title = `HyunFlix - ${category.displayName}`;
   }, [category.displayName]);
 
-  const entries = useQuery(`list|${sort}`, () => getVideoEntries({ category: category.name, page: 0, sort, seed })).data!!;
+  useEffect(() => {
+    const handler = () => {
+      const totalHeight = document.documentElement.scrollHeight;
+      const scrollY = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const remaining = totalHeight - scrollY - windowHeight;
+
+      if (remaining < 100) {
+        dispatch(loadNextEntries(category.name, sort));
+      }
+    };
+
+    document.addEventListener('scroll', handler);
+
+    return () => {
+      document.removeEventListener('scroll', handler);
+    }
+  }, [category.name, sort]);
 
   return (
     <div id="VideoHomePage">
@@ -28,6 +51,9 @@ export function VideoListPage({ category }: { category: VideoCategory }) {
       <Container id="content">
         <VideoSortDropdown sort={sort} />
         <VideoEntryList entries={entries} />
+        {loading && <div className="flex_center" style={{ height: '8rem' }}>
+          <Spinner animation="border"></Spinner>
+        </div>}
       </Container>
     </div>
   )
