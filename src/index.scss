@@ -25,6 +25,10 @@ a {
   }
 }
 
+img {
+  object-fit: cover;
+}
+
 .flex-center {
   display: flex;
   flex-direction: column;

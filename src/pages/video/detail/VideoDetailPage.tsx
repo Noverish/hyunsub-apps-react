@@ -1,8 +1,9 @@
 import { useEffect } from "react";
 import { Container } from "react-bootstrap";
 import { useQuery } from "react-query";
-import { useParams } from "react-router-dom";
-import getVideoDetail from "src/api/video/video-detail";
+import { useParams, useSearchParams } from "react-router-dom";
+import getVideoEntryDetail from "src/api/video/video-entry-detail";
+import VideoEpisodeListComp from "src/components/video/VideoEpisodeList";
 import VideoHeader from "src/components/video/VideoHeader";
 import VideoPlayer from "src/components/video/VideoPlayer";
 import { VideoMetadata } from "src/model/video";
@@ -18,9 +19,12 @@ function VideoMetadataSection({ metadata }: { metadata: VideoMetadata }) {
 }
 
 export default function VideoDetailPage() {
+  const [searchParams] = useSearchParams();
   const entryId = useParams().entryId || '';
+  const videoId = searchParams.get('videoId') ?? undefined;
 
-  const video = useQuery(`detail|${entryId}`, () => getVideoDetail({ entryId })).data!!;
+  const detail = useQuery(`entry|${entryId}|${videoId}`, () => getVideoEntryDetail({ entryId, videoId })).data!!;
+  const { video, episodes } = detail;
   const { title, videoUrl, thumbnailUrl, subtitles, metadata } = video;
 
   useEffect(() => {
@@ -38,6 +42,7 @@ export default function VideoDetailPage() {
           <h3>{title}</h3>
         </section>
         {metadata && <VideoMetadataSection metadata={metadata} />}
+        {episodes && <VideoEpisodeListComp episodes={episodes} videoId={video.videoId} />}
       </Container>
     </div>
   )

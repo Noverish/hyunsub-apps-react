@@ -10,12 +10,12 @@ export interface VideoEntry {
   thumbnail: string;
 }
 
-export interface VideoDetail {
-  videoUrl: string;
-  thumbnailUrl: string;
-  title: string;
-  subtitles: VideoSubtitle[];
-  metadata?: VideoMetadata;
+export type VideoEpisodeList = {[season: string]: VideoEpisode[]};
+
+export interface VideoEntryDetail {
+  video: Video;
+  episodes?: VideoEpisodeList;
+  group?: VideoGroup;
 }
 
 export interface VideoSubtitle {
@@ -29,6 +29,26 @@ export interface VideoMetadata {
   size: string;
   resolution: string;
   bitrate: string;
+}
+
+export interface Video {
+  videoId: string;
+  videoUrl: string;
+  thumbnailUrl: string;
+  title: string;
+  subtitles: VideoSubtitle[];
+  metadata?: VideoMetadata;
+}
+
+export interface VideoEpisode {
+  videoId: string;
+  thumbnailUrl: string;
+  title: string;
+}
+
+export interface VideoGroup {
+  name: string;
+  entries: VideoEntry[];
 }
 
 export enum VideoSort {
