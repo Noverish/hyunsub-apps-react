@@ -1,3 +1,5 @@
+@import '/node_modules/bootstrap/scss/bootstrap-utilities.scss';
+
 #VideoDetailPage {
   #video_player_section {
     background-color: black;
@@ -5,6 +7,23 @@
   }
 
   #video_title_section {
+    word-break: break-all;
+    display: flex;
     margin-top: 1rem;
+
+    @include media-breakpoint-up(lg) {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+    @include media-breakpoint-down(lg) {
+      flex-direction: column;
+    }
+  }
+
+  #video_setting_btn {
+    @include media-breakpoint-down(lg) {
+      margin-top: 1rem;
+    }
   }
 }

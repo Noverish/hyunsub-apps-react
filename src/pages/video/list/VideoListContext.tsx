@@ -12,7 +12,12 @@ export const loadFirstEntries = (category: string, sort?: VideoSort) => async (d
   }
   dispatch(VideoListActions.update({ loading: true, entries: [] }));
 
-  const entries = await getVideoEntries({ category, page: 0, sort, seed });
+  const entries = await getVideoEntries({
+    category,
+    page: 0,
+    sort,
+    seed: (sort === VideoSort.random || !sort) ? seed : undefined,
+  });
 
   dispatch(VideoListActions.update({
     loading: false,
@@ -29,7 +34,12 @@ export const loadNextEntries = (category: string, sort?: VideoSort) => async (di
   dispatch(VideoListActions.update({ loading: true }));
 
   const nextPage = page + 1;
-  const nextEntries = await getVideoEntries({ category, page: nextPage, sort, seed });
+  const nextEntries = await getVideoEntries({
+    category,
+    sort,
+    page: nextPage,
+    seed: (sort === VideoSort.random || !sort) ? seed : undefined,
+  });
 
   dispatch(VideoListActions.update({
     loading: false,

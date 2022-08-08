@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import { Container } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { Button, Container } from "react-bootstrap";
 import { useQuery } from "react-query";
 import { useParams, useSearchParams } from "react-router-dom";
 import getVideoEntryDetail from "src/api/video/video-entry-detail";
@@ -7,15 +7,18 @@ import VideoEpisodeSection from "src/components/video/VideoEpisodeSection";
 import VideoGroupSection from "src/components/video/VideoGroupSection";
 import VideoHeader from "src/components/video/VideoHeader";
 import VideoPlayer from "src/components/video/VideoPlayer";
+import VideoSettingSection from "src/components/video/VideoSettingSection";
 import { VideoMetadata } from "src/model/video";
+import { useDispatch, useSelector } from "src/redux";
 
 import './VideoDetailPage.scss';
+import { VideoDetailActions } from "./VideoDetailState";
 
 function VideoMetadataSection({ metadata }: { metadata: VideoMetadata }) {
   return (
-    <section className="mt-1">
+    <div>
       <span>{metadata.duration} &middot; {metadata.size} &middot; {metadata.resolution} &middot; {metadata.bitrate}</span>
-    </section>
+    </div>
   )
 }
 
@@ -23,6 +26,9 @@ export default function VideoDetailPage() {
   const [searchParams] = useSearchParams();
   const entryId = useParams().entryId || '';
   const videoId = searchParams.get('videoId') ?? undefined;
+
+  const dispatch = useDispatch();
+  const { showSetting } = useSelector(s => s.video.detail);
 
   const detail = useQuery(`entry|${entryId}|${videoId}`, () => getVideoEntryDetail({ entryId, videoId })).data!!;
   const { video, episodes, group } = detail;
@@ -32,6 +38,24 @@ export default function VideoDetailPage() {
     document.title = title;
   }, [title]);
 
+  const showSettingSection = () => {
+    dispatch(VideoDetailActions.update({ showSetting: true }));
+  }
+
+  const sections = (
+    <>
+      <div id="video_title_section">
+        <div>
+          <h3>{title}</h3>
+          {metadata && <VideoMetadataSection metadata={metadata} />}
+        </div>
+        <Button id="video_setting_btn" variant="secondary" onClick={showSettingSection}>Play Setting</Button>
+      </div>
+      {episodes && <VideoEpisodeSection episodes={episodes} videoId={video.videoId} />}
+      {group && <VideoGroupSection group={group} />}
+    </>
+  )
+
   return (
     <div id="VideoDetailPage">
       <VideoHeader />
@@ -39,12 +63,8 @@ export default function VideoDetailPage() {
         <section id="video_player_section">
           <VideoPlayer videoUrl={videoUrl} thumbnailUrl={thumbnailUrl} subtitles={subtitles} />
         </section>
-        <section id="video_title_section">
-          <h3>{title}</h3>
-        </section>
-        {metadata && <VideoMetadataSection metadata={metadata} />}
-        {episodes && <VideoEpisodeSection episodes={episodes} videoId={video.videoId} />}
-        {group && <VideoGroupSection group={group} />}
+        {showSetting && <VideoSettingSection />}
+        {!showSetting && sections}
       </Container>
     </div>
   )

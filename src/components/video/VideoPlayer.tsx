@@ -1,9 +1,10 @@
 import { Options, SourceInfo, Track } from "plyr";
-import Plyr from "plyr-react";
+import Plyr, { APITypes } from "plyr-react";
+import { memo, useEffect, useRef } from "react";
 import { VideoSubtitle } from "src/model/video";
+import { getCaptionFontSize, setCaptionFontSize } from "./VideoSettingSection";
 
 import "plyr-react/plyr.css";
-import { memo } from "react";
 
 interface Props {
   thumbnailUrl: string;
@@ -12,6 +13,20 @@ interface Props {
 }
 
 export function VideoPlayer({ thumbnailUrl, videoUrl, subtitles }: Props) {
+  const ref = useRef<APITypes>(null);
+
+  useEffect(() => {
+    setTimeout(() => {
+      const plyr = ref.current?.plyr;
+      if (plyr) {
+        plyr.on('play', () => {
+          const fontSize = getCaptionFontSize();
+          setCaptionFontSize(fontSize);
+        });
+      }
+    }, 0);
+  }, [videoUrl]);
+
   const options: Options = {
     keyboard: { global: true },
     captions: { active: true, language: 'ko' },
@@ -39,7 +54,7 @@ export function VideoPlayer({ thumbnailUrl, videoUrl, subtitles }: Props) {
   };
 
   return (
-    <Plyr source={source} options={options} />
+    <Plyr ref={ref} source={source} options={options} />
   )
 }
 
