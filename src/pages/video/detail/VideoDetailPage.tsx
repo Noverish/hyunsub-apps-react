@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button, Container } from "react-bootstrap";
-import { useQuery } from "react-query";
 import { useParams, useSearchParams } from "react-router-dom";
-import getVideoEntryDetail from "src/api/video/video-entry-detail";
+import { useVideoDetailQuery } from "src/api/video/video-entry-detail";
 import VideoEpisodeSection from "src/components/video/VideoEpisodeSection";
 import VideoGroupSection from "src/components/video/VideoGroupSection";
 import VideoHeader from "src/components/video/VideoHeader";
@@ -30,7 +29,7 @@ export default function VideoDetailPage() {
   const dispatch = useDispatch();
   const { showSetting } = useSelector(s => s.video.detail);
 
-  const detail = useQuery(`entry|${entryId}|${videoId}`, () => getVideoEntryDetail({ entryId, videoId })).data!!;
+  const detail = useVideoDetailQuery({ entryId, videoId });
   const { video, episodes, group } = detail;
   const { title, videoUrl, thumbnailUrl, subtitles, metadata } = video;
 

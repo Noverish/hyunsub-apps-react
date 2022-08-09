@@ -1,13 +1,16 @@
+import cs from 'classnames';
 import { useState } from "react";
 import { Dropdown, Pagination } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { VideoEpisode, VideoEpisodeList } from "src/model/video";
-import { getNewUrl } from "src/utils/location";
-import cs from 'classnames';
+import { loadOtherEpisode } from "src/pages/video/detail/VideoDetailContext";
+import VideoRoutes from 'src/pages/video/VideoRoutes';
+import { useDispatch } from "src/redux";
+import AppConstant from 'src/utils/constants';
 
 import './VideoEpisodeSection.scss';
 
-const pageSize = 10;
+const PAGE_SIZE = AppConstant.video.EPISODE_PAGE_SIZE;
 
 interface Props {
   videoId: string;
@@ -19,7 +22,7 @@ function validateVideoId(episodes: VideoEpisodeList, videoId: string): [string, 
     for (let i = 0; i < videos.length; i++) {
       const video = videos[i];
       if (video.videoId === videoId) {
-        const page = Math.floor(i / pageSize);
+        const page = Math.floor(i / PAGE_SIZE);
         return [season, page];
       }
     }
@@ -36,12 +39,12 @@ export default function VideoEpisodeSection({ episodes, videoId }: Props) {
   const videos = episodes[season]
   const total = videos.length;
 
-  const sliced = videos.slice(page * pageSize, (page + 1) * pageSize);
+  const sliced = videos.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE);
   const episodeElements = sliced.map(v => (
     <VideoEpisodeItem key={v.videoId} episode={v} active={v.videoId === videoId} />
   ))
 
-  const totalPagination = Math.ceil(total / pageSize);
+  const totalPagination = Math.ceil(total / PAGE_SIZE);
 
   const seasons = Object.keys(episodes)
   const hasSeason = seasons.length > 1;
@@ -96,16 +99,29 @@ interface VideoEpisodeItemProps {
 }
 
 function VideoEpisodeItem({ episode, active }: VideoEpisodeItemProps) {
-  const link = getNewUrl({ 'videoId': episode.videoId });
+  const dispatch = useDispatch();
+  const entryId = useParams().entryId!!;
+  const navigate = useNavigate();
+
+  const onClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    e.preventDefault();
+    dispatch(loadOtherEpisode({
+      videoId: episode.videoId,
+      entryId,
+      navigate,
+    }))
+  }
+
+  const href = VideoRoutes.getDetailRoute(entryId, episode.videoId);
   const className = cs('episode_item col-6 d-flex', { active });
 
   return (
-    <Link to={link} className={className}>
+    <a className={className} href={href} onClick={onClick}>
       <div className="episode_thumbnail ratio ratio-16x9">
         <img className="img-fluid rounded-1" src={episode.thumbnailUrl} loading="lazy" alt={episode.title} />
       </div>
       <div className="episode_title">{episode.title}</div>
-    </Link>
+    </a>
   )
 }
 

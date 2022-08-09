@@ -4,21 +4,12 @@ import { Provider } from 'react-redux';
 import App from './App';
 import { store } from './redux';
 import reportWebVitals from './reportWebVitals';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClientProvider } from 'react-query';
+import queryClient from './api/query-client';
 
 import 'src/i18n';
 import './index.scss';
 import './custom_class.scss';
-
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      suspense: true,
-      refetchOnWindowFocus: false,
-      retry: 0,
-    }
-  }
-});
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

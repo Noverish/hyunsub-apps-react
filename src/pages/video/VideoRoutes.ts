@@ -1,8 +1,12 @@
-const routes = {
+const VideoRoutes = {
   list: '/:category',
   getListRoute: (category: string) => `/${category}`,
+
   detail: '/video/:entryId',
-  getDetailRoute: (entryId: string) => `/video/${entryId}`,
+  getDetailRoute: (entryId: string, videoId?: string) => {
+    const query = (videoId) ? `?videoId=${videoId}` : ''
+    return `/video/${entryId}${query}`;
+  },
 }
 
-export default routes;
+export default VideoRoutes;

@@ -1,5 +1,7 @@
 import { lazy } from 'react';
 import ToastDisplay from './components/toast/ToastDisplay';
+import LoadingPageDim from './pages/LoadingPageDim';
+import { useSelector } from './redux';
 
 const AuthIndex = lazy(() => import('src/pages/auth'));
 const VideoIndex = lazy(() => import('src/pages/video'));
@@ -16,10 +18,13 @@ function renderIndex(): JSX.Element | undefined {
 }
 
 function App() {
+  const { loading } = useSelector(s => s.global);
+
   return (
     <>
       {renderIndex()}
       <ToastDisplay />
+      {loading && <LoadingPageDim />}
     </>
   );
 }
