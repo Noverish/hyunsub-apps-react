@@ -1,7 +1,8 @@
 import { lazy, Suspense } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes, unstable_HistoryRouter as HistoryRouter } from 'react-router-dom';
 import LoadingPage from 'src/pages/LoadingPage';
 import routes from './VideoRoutes';
+import videoHistory from './VideoHistory';
 
 const NotFoundPage = lazy(() => import('src/pages/NotFoundPage'));
 const VideoIndexPage = lazy(() => import('src/pages/video/detail/VideoIndexPage'));
@@ -10,7 +11,7 @@ const VideoDetailPage = lazy(() => import('src/pages/video/detail/VideoDetailPag
 
 export default function AuthIndex() {
   return (
-    <BrowserRouter>
+    <HistoryRouter history={videoHistory}>
       <Suspense fallback={<LoadingPage />}>
         <Routes>
           <Route path="*" element={<NotFoundPage />} />
@@ -19,6 +20,6 @@ export default function AuthIndex() {
           <Route path={routes.detail} element={<VideoDetailPage />} />
         </Routes>
       </Suspense>
-    </BrowserRouter>
+    </HistoryRouter>
   )
 }

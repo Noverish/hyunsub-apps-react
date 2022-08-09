@@ -1,7 +1,7 @@
 import cs from 'classnames';
 import { useState } from "react";
 import { Dropdown, Pagination } from "react-bootstrap";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { VideoEpisode, VideoEpisodeList } from "src/model/video";
 import { loadOtherEpisode } from "src/pages/video/detail/VideoDetailContext";
 import VideoRoutes from 'src/pages/video/VideoRoutes';
@@ -101,14 +101,12 @@ interface VideoEpisodeItemProps {
 function VideoEpisodeItem({ episode, active }: VideoEpisodeItemProps) {
   const dispatch = useDispatch();
   const entryId = useParams().entryId!!;
-  const navigate = useNavigate();
 
   const onClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     e.preventDefault();
     dispatch(loadOtherEpisode({
       videoId: episode.videoId,
       entryId,
-      navigate,
     }))
   }
 

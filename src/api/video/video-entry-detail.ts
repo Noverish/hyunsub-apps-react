@@ -23,3 +23,7 @@ export function useVideoDetailQuery(params: GetVideoDetailParams): VideoEntryDet
 export async function prefetchVideoDetail(params: GetVideoDetailParams) {
   await queryClient.prefetchQuery(getQueryKey(params), () => request(params))
 }
+
+export function getVideoDetailCache(params: GetVideoDetailParams): VideoEntryDetail | undefined {
+  return queryClient.getQueryData<VideoEntryDetail>(getQueryKey(params));
+}

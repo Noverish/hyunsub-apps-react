@@ -1,6 +1,8 @@
 import { VideoEntry, VideoSort } from "src/model/video";
 import AppConstant from "src/utils/constants";
 import { generateApi } from "../generate-api";
+import queryClient from '../query-client';
+import { useQuery } from "react-query";
 
 export interface GetVideoEntriesParams {
   category: string;
@@ -9,7 +11,7 @@ export interface GetVideoEntriesParams {
   seed?: number;
 }
 
-const getVideoEntries = generateApi<GetVideoEntriesParams, VideoEntry[]>(params => ({
+const request = generateApi<GetVideoEntriesParams, VideoEntry[]>(params => ({
   url: '/api/v1/entry',
   method: 'GET',
   params: {
@@ -21,4 +23,20 @@ const getVideoEntries = generateApi<GetVideoEntriesParams, VideoEntry[]>(params 
   }
 }));
 
-export default getVideoEntries;
+const getQueryKey = (params: GetVideoEntriesParams) => `list|${JSON.stringify(params)}`;
+
+export function useVideoEntriesQuery(params: GetVideoEntriesParams): VideoEntry[] {
+  return useQuery(getQueryKey(params), () => request(params)).data!!;
+}
+
+export async function prefetchVideoEntries(params: GetVideoEntriesParams) {
+  await queryClient.prefetchQuery(getQueryKey(params), () => request(params))
+}
+
+export async function fetchVideoEntries(params: GetVideoEntriesParams): Promise<VideoEntry[]> {
+  return await queryClient.fetchQuery(getQueryKey(params), () => request(params), { staleTime: new Date().getTime() });
+}
+
+export function getVideoEntriesCache(params: GetVideoEntriesParams): VideoEntry[] | undefined {
+  return queryClient.getQueryData<VideoEntry[]>(getQueryKey(params));
+}

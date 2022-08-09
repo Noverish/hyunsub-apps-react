@@ -1,9 +1,13 @@
 import { Dispatch } from "@reduxjs/toolkit";
-import getVideoEntries from "src/api/video/video-entry";
+import {fetchVideoEntries} from "src/api/video/video-entry";
+import { getVideoDetailCache, prefetchVideoDetail } from "src/api/video/video-entry-detail";
 import { VideoSort } from "src/model/video";
 import { RootState } from "src/redux";
+import { GlobalActions } from "src/redux/global";
 import AppConstant from "src/utils/constants";
+import VideoRoutes from "../VideoRoutes";
 import { VideoListActions } from "./VideoListState";
+import videoHistory from '../VideoHistory';
 
 export const loadFirstEntries = (category: string, sort?: VideoSort) => async (dispatch: Dispatch, getState: () => RootState) => {
   const { loading, seed } = getState().video.list;
@@ -12,7 +16,7 @@ export const loadFirstEntries = (category: string, sort?: VideoSort) => async (d
   }
   dispatch(VideoListActions.update({ loading: true, entries: [] }));
 
-  const entries = await getVideoEntries({
+  const entries = await fetchVideoEntries({
     category,
     page: 0,
     sort,
@@ -23,6 +27,7 @@ export const loadFirstEntries = (category: string, sort?: VideoSort) => async (d
     loading: false,
     entries,
     page: 0,
+    noMorePage: false,
   }));
 }
 
@@ -34,7 +39,7 @@ export const loadNextEntries = (category: string, sort?: VideoSort) => async (di
   dispatch(VideoListActions.update({ loading: true }));
 
   const nextPage = page + 1;
-  const nextEntries = await getVideoEntries({
+  const nextEntries = await fetchVideoEntries({
     category,
     sort,
     page: nextPage,
@@ -48,3 +53,13 @@ export const loadNextEntries = (category: string, sort?: VideoSort) => async (di
     noMorePage: nextEntries.length < AppConstant.video.ENTRY_PAGE_SIZE
   }));
 }
+
+export const loadVideoDetail = (entryId: string) => async (dispatch: Dispatch, getState: () => RootState) => {
+  const cache = getVideoDetailCache({ entryId });
+  if (!cache) {
+    dispatch(GlobalActions.update({ loading: true }));
+    await prefetchVideoDetail({ entryId });
+    dispatch(GlobalActions.update({ loading: false }));
+  }
+  videoHistory.push(VideoRoutes.getDetailRoute(entryId, undefined));
+};
