@@ -29,12 +29,21 @@ img {
   object-fit: cover;
 }
 
+pre {
+  margin-bottom: 0;
+}
+
 .card {
   border-color: var(--hyunsub-border-color-primary);
+  overflow: hidden;
 
   .card-header {
     background-color: var(--hyunsub-title-bg);
     border-bottom-color: var(--hyunsub-border-color-primary);
+  }
+
+  .card-body {
+    background-color: var(--hyunsub-content-bg);
   }
 }
 

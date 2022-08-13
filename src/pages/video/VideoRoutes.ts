@@ -7,6 +7,8 @@ const VideoRoutes = {
     const query = (videoId) ? `?videoId=${videoId}` : ''
     return `/video/${entryId}${query}`;
   },
+
+  upload: '/upload',
 }
 
 export default VideoRoutes;

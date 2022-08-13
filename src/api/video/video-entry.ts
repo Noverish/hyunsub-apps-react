@@ -25,6 +25,8 @@ const request = generateApi<GetVideoEntriesParams, VideoEntry[]>(params => ({
 
 const getQueryKey = (params: GetVideoEntriesParams) => `list|${JSON.stringify(params)}`;
 
+// TODO 이거 파일마다 만들지 말고 어떻게 잘 하기
+
 export function useVideoEntriesQuery(params: GetVideoEntriesParams): VideoEntry[] {
   return useQuery(getQueryKey(params), () => request(params)).data!!;
 }
