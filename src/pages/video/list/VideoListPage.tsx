@@ -50,7 +50,7 @@ export function VideoListPage({ category }: { category: VideoCategory }) {
       <VideoHeader />
       <Container id="content">
         <VideoSortDropdown sort={sort} />
-        <VideoEntryList entries={entries} />
+        <VideoEntryList category={category} entries={entries} />
         {loading && <div className="flex_center" style={{ height: '8rem' }}>
           <Spinner animation="border"></Spinner>
         </div>}

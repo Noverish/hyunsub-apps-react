@@ -12,7 +12,7 @@ function VideoHeaderMenus() {
 
   const menus = categories.map(v => (
     <Link key={v.name} to={`/${v.name}`} className="gray_on_hover">
-      <i className={v.htmlClass}></i>
+      <i className={v.iconHtmlClass}></i>
       <span>{v.displayName}</span>
     </Link>
   ));

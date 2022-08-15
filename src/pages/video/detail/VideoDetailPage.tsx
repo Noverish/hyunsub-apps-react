@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Button, Container } from "react-bootstrap";
+import { useQuery } from "react-query";
 import { useParams, useSearchParams } from "react-router-dom";
+import getCategories from "src/api/video/category";
 import { useVideoDetailQuery } from "src/api/video/video-entry-detail";
 import VideoAdminSection from "src/components/video/VideoAdminSection";
 import VideoEpisodeSection from "src/components/video/VideoEpisodeSection";
@@ -31,8 +33,11 @@ export default function VideoDetailPage() {
   const { showSetting, showAdmin } = useSelector(s => s.video.detail);
 
   const detail = useVideoDetailQuery({ entryId, videoId });
-  const { video, episodes, group } = detail;
+  const { category: categoryStr, video, episodes, group } = detail;
   const { title, videoUrl, thumbnailUrl, subtitles, metadata } = video;
+
+  const categories = useQuery('categories', () => getCategories()).data!!;
+  const category = categories.filter(v => v.name === categoryStr)[0];
 
   useEffect(() => {
     document.title = title;
@@ -57,7 +62,7 @@ export default function VideoDetailPage() {
         <Button id="video_setting_btn" variant="secondary" onClick={showSettingSection}>Play Setting</Button>
       </div>
       {episodes && <VideoEpisodeSection episodes={episodes} videoId={video.videoId} />}
-      {group && <VideoGroupSection group={group} />}
+      {group && <VideoGroupSection category={category} group={group} />}
     </>
   )
 

@@ -1,7 +1,9 @@
 export interface VideoCategory {
   name: string;
   displayName: string;
-  htmlClass: string;
+  iconHtmlClass: string;
+  listHtmlClass: string;
+  itemCss: string;
 }
 
 export interface VideoEntry {
@@ -13,6 +15,7 @@ export interface VideoEntry {
 export type VideoEpisodeList = {[season: string]: VideoEpisode[]};
 
 export interface VideoEntryDetail {
+  category: string;
   video: Video;
   episodes?: VideoEpisodeList;
   group?: VideoGroup;
