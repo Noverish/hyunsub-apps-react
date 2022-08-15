@@ -70,10 +70,6 @@ header.home_header {
     height: 3rem;
     font-size: 1.25rem;
 
-    &:last-of-type {
-      margin-right: -0.5rem;
-    }
-
     .header_icon_wrapper {
       display: flex;
       align-items: center;
@@ -88,4 +84,10 @@ header.home_header {
       }
     }
   }
+}
+
+#header_profile_dropdown {
+  width: 3rem;
+  height: 3rem;
+  margin-right: -0.5rem;
 }

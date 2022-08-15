@@ -9,6 +9,8 @@ const VideoRoutes = {
   },
 
   upload: '/upload',
+
+  my: '/my',
 }
 
 export default VideoRoutes;

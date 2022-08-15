@@ -9,6 +9,7 @@ const VideoIndexPage = lazy(() => import('src/pages/video/detail/VideoIndexPage'
 const VideoListPage = lazy(() => import('src/pages/video/list/VideoListPage'));
 const VideoDetailPage = lazy(() => import('src/pages/video/detail/VideoDetailPage'));
 const VideoUploadPage = lazy(() => import('src/pages/video/upload/VideoUploadPage'));
+const VideoMyPage = lazy(() => import('src/pages/video/my/VideoMyPage'));
 
 export default function AuthIndex() {
   return (
@@ -20,6 +21,7 @@ export default function AuthIndex() {
           <Route path={routes.list} element={<VideoListPage />} />
           <Route path={routes.detail} element={<VideoDetailPage />} />
           <Route path={routes.upload} element={<VideoUploadPage />} />
+          <Route path={routes.my} element={<VideoMyPage />} />
         </Routes>
       </Suspense>
     </HistoryRouter>
