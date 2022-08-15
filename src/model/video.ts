@@ -61,3 +61,7 @@ export enum VideoSort {
   abc = 'abc',
   zyx = 'zyx',
 }
+
+export interface VideoSearchResult {
+  entries: {[category: string]: VideoEntry[]};
+}

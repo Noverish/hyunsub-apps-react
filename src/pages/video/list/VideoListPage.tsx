@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Container, Spinner } from "react-bootstrap";
 import { useQuery } from "react-query";
 import { useParams, useSearchParams } from "react-router-dom";
-import getCategories from "src/api/video/category";
+import getCategories, { useCategories } from "src/api/video/category";
 import VideoEntryList from "src/components/video/VideoEntryList";
 import VideoHeader from "src/components/video/VideoHeader";
 import VideoSortDropdown from "src/components/video/VideoSortDropdown";
@@ -60,11 +60,10 @@ export function VideoListPage({ category }: { category: VideoCategory }) {
 }
 
 export default function VideoListPageWrapper() {
-  const categoryStr = useParams().category || '';
+  const categories = useCategories();
+  const categoryName = useParams().category || '';
 
-  const categories = useQuery('categories', () => getCategories()).data!!;
-
-  const category = categories.filter(v => v.name === categoryStr)[0];
+  const category = categories.filter(v => v.name === categoryName)[0];
   if (!category) {
     return <NotFoundPage />;
   }

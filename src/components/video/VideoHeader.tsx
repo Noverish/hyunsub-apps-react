@@ -1,14 +1,15 @@
 import React from 'react';
 import { Dropdown } from "react-bootstrap";
-import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
-import getCategories from "src/api/video/category";
+import { useCategories } from "src/api/video/category";
+import { VideoSearchActions } from 'src/pages/video/search/VideoSearchState';
 import VideoRoutes from 'src/pages/video/VideoRoutes';
+import { useDispatch } from 'src/redux';
 
 import './VideoHeader.scss';
 
 function VideoHeaderMenus() {
-  const categories = useQuery('categories', () => getCategories()).data!!;
+  const categories = useCategories();
 
   const menus = categories.map(v => (
     <Link key={v.name} to={`/${v.name}`} className="gray_on_hover">
@@ -31,6 +32,12 @@ const ProfileDropdownToggle = React.forwardRef<HTMLDivElement, React.DOMAttribut
 ));
 
 export default function VideoHeader() {
+  const dispatch = useDispatch();
+  
+  const searchBtnClick = () => {
+    dispatch(VideoSearchActions.update({ showSearchModal: true }));
+  }
+
   return (
     <header className="home_header">
       <div className="container">
@@ -39,7 +46,7 @@ export default function VideoHeader() {
           <VideoHeaderMenus />
         </div>
         <div id="header_button_section">
-          <div className="header_icon_btn gray_on_hover" data-bs-toggle="modal" data-bs-target="#search_modal">
+          <div className="header_icon_btn gray_on_hover" onClick={searchBtnClick}>
             <div className="header_icon_wrapper">
               <i className="fas fa-search"></i>
             </div>

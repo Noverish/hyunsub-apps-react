@@ -11,6 +11,11 @@ const VideoRoutes = {
   upload: '/upload',
 
   my: '/my',
+
+  search: '/search',
+  getSearchRoute: (query: string) => {
+    return `/search?q=${encodeURIComponent(query)}`
+  },
 }
 
 export default VideoRoutes;

@@ -6,9 +6,23 @@
   }
 }
 
+.gray_on_hover:hover {
+  color: #bbbbbb;
+}
+
 .flex_center {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+input.input_dark {
+  background-color: var(--bs-gray-dark)!important;
+  color: white!important;
+
+  &:focus {
+    background-color: var(--bs-gray);
+    color: white;
+  }
 }

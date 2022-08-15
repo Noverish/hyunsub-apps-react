@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Button, Container } from "react-bootstrap";
-import { useQuery } from "react-query";
 import { useParams, useSearchParams } from "react-router-dom";
-import getCategories from "src/api/video/category";
+import { useCategories } from "src/api/video/category";
 import { useVideoDetailQuery } from "src/api/video/video-entry-detail";
 import VideoAdminSection from "src/components/video/VideoAdminSection";
 import VideoEpisodeSection from "src/components/video/VideoEpisodeSection";
@@ -12,9 +11,9 @@ import VideoPlayer from "src/components/video/VideoPlayer";
 import VideoSettingSection from "src/components/video/VideoSettingSection";
 import { VideoMetadata } from "src/model/video";
 import { useDispatch, useSelector } from "src/redux";
+import { VideoDetailActions } from "./VideoDetailState";
 
 import './VideoDetailPage.scss';
-import { VideoDetailActions } from "./VideoDetailState";
 
 function VideoMetadataSection({ metadata }: { metadata: VideoMetadata }) {
   return (
@@ -33,11 +32,11 @@ export default function VideoDetailPage() {
   const { showSetting, showAdmin } = useSelector(s => s.video.detail);
 
   const detail = useVideoDetailQuery({ entryId, videoId });
-  const { category: categoryStr, video, episodes, group } = detail;
+  const { category: categoryName, video, episodes, group } = detail;
   const { title, videoUrl, thumbnailUrl, subtitles, metadata } = video;
 
-  const categories = useQuery('categories', () => getCategories()).data!!;
-  const category = categories.filter(v => v.name === categoryStr)[0];
+  const categories = useCategories();
+  const category = categories.filter(v => v.name === categoryName)[0];
 
   useEffect(() => {
     document.title = title;
