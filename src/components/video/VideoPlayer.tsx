@@ -24,7 +24,7 @@ export function VideoPlayer({ thumbnailUrl, videoUrl, subtitles }: Props) {
           setCaptionFontSize(fontSize);
         });
       }
-    }, 0);
+    }, 10);
   }, [videoUrl]);
 
   const options: Options = {

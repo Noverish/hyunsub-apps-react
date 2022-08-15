@@ -4,7 +4,7 @@ interface Props {
   result: any;
 }
 
-export default function VideoApiResultCard({ result }: Props) {
+export default function ApiResultCard({ result }: Props) {
   return (
     <Card>
       <Card.Header>Result</Card.Header>

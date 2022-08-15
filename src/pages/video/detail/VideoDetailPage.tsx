@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Button, Container } from "react-bootstrap";
 import { useParams, useSearchParams } from "react-router-dom";
 import { useVideoDetailQuery } from "src/api/video/video-entry-detail";
+import VideoAdminSection from "src/components/video/VideoAdminSection";
 import VideoEpisodeSection from "src/components/video/VideoEpisodeSection";
 import VideoGroupSection from "src/components/video/VideoGroupSection";
 import VideoHeader from "src/components/video/VideoHeader";
@@ -27,7 +28,7 @@ export default function VideoDetailPage() {
   const videoId = searchParams.get('videoId') ?? undefined;
 
   const dispatch = useDispatch();
-  const { showSetting } = useSelector(s => s.video.detail);
+  const { showSetting, showAdmin } = useSelector(s => s.video.detail);
 
   const detail = useVideoDetailQuery({ entryId, videoId });
   const { video, episodes, group } = detail;
@@ -41,6 +42,10 @@ export default function VideoDetailPage() {
     dispatch(VideoDetailActions.update({ showSetting: true }));
   }
 
+  const showAdminSection = () => {
+    dispatch(VideoDetailActions.update({ showAdmin: true }));
+  }
+
   const sections = (
     <>
       <div id="video_title_section">
@@ -48,6 +53,7 @@ export default function VideoDetailPage() {
           <h3>{title}</h3>
           {metadata && <VideoMetadataSection metadata={metadata} />}
         </div>
+        <Button id="video_admin_btn" variant="secondary" onClick={showAdminSection}>Admin Setting</Button>
         <Button id="video_setting_btn" variant="secondary" onClick={showSettingSection}>Play Setting</Button>
       </div>
       {episodes && <VideoEpisodeSection episodes={episodes} videoId={video.videoId} />}
@@ -63,7 +69,8 @@ export default function VideoDetailPage() {
           <VideoPlayer videoUrl={videoUrl} thumbnailUrl={thumbnailUrl} subtitles={subtitles} />
         </section>
         {showSetting && <VideoSettingSection />}
-        {!showSetting && sections}
+        {showAdmin && <VideoAdminSection detail={detail} />}
+        {!showSetting && !showAdmin && sections}
       </Container>
     </div>
   )

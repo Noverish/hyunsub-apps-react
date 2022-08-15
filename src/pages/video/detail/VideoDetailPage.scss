@@ -21,6 +21,16 @@
     }
   }
 
+  #video_admin_btn {
+    @include media-breakpoint-up(lg) {
+      margin-left: auto;
+      margin-right: .5rem;
+    }
+    @include media-breakpoint-down(lg) {
+      margin-top: 1rem;
+    }
+  }
+
   #video_setting_btn {
     @include media-breakpoint-down(lg) {
       margin-top: 1rem;

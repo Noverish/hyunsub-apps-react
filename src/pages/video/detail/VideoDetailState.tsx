@@ -3,10 +3,13 @@ import { VideoEntry } from 'src/model/video';
 
 interface State {
   showSetting: boolean;
+  showAdmin: boolean;
+  scanMetadataResult?: any;
 };
 
 const initialState: State = {
   showSetting: false,
+  showAdmin: false,
 };
 
 const slice = createSlice({
