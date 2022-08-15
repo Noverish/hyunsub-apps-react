@@ -6,6 +6,12 @@ import { getCaptionFontSize, setCaptionFontSize } from "./VideoSettingSection";
 
 import "plyr-react/plyr.css";
 
+declare global {
+  interface Window {
+    player?: Plyr;
+  }
+}
+
 interface Props {
   thumbnailUrl: string;
   videoUrl: string;
@@ -19,6 +25,7 @@ export function VideoPlayer({ thumbnailUrl, videoUrl, subtitles }: Props) {
     setTimeout(() => {
       const plyr = ref.current?.plyr;
       if (plyr) {
+        window.player = plyr;
         plyr.on('play', () => {
           const fontSize = getCaptionFontSize();
           setCaptionFontSize(fontSize);
