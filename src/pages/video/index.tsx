@@ -6,7 +6,7 @@ import videoHistory from './VideoHistory';
 import VideoSearchModal from 'src/components/video/VideoSearchModal';
 
 const NotFoundPage = lazy(() => import('src/pages/NotFoundPage'));
-const VideoIndexPage = lazy(() => import('src/pages/video/detail/VideoIndexPage'));
+const VideoIndexPage = lazy(() => import('src/pages/video/home/VideoIndexPage'));
 const VideoListPage = lazy(() => import('src/pages/video/list/VideoListPage'));
 const VideoDetailPage = lazy(() => import('src/pages/video/detail/VideoDetailPage'));
 const VideoUploadPage = lazy(() => import('src/pages/video/upload/VideoUploadPage'));

@@ -1,8 +1,7 @@
 import { useEffect } from "react";
 import { Container, Spinner } from "react-bootstrap";
-import { useQuery } from "react-query";
 import { useParams, useSearchParams } from "react-router-dom";
-import getCategories, { useCategories } from "src/api/video/category";
+import { useCategories } from "src/api/video/category";
 import VideoEntryList from "src/components/video/VideoEntryList";
 import VideoHeader from "src/components/video/VideoHeader";
 import VideoSortDropdown from "src/components/video/VideoSortDropdown";

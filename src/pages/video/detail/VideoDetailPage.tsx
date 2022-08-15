@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "src/redux";
 import { VideoDetailActions } from "./VideoDetailState";
 
 import './VideoDetailPage.scss';
+import { useIsAdmin } from "src/api/auth/authorities";
 
 function VideoMetadataSection({ metadata }: { metadata: VideoMetadata }) {
   return (
@@ -31,6 +32,7 @@ export default function VideoDetailPage() {
   const dispatch = useDispatch();
   const { showSetting, showAdmin } = useSelector(s => s.video.detail);
 
+  const isAdmin = useIsAdmin();
   const detail = useVideoDetailQuery({ entryId, videoId });
   const { category: categoryName, video, episodes, group } = detail;
   const { title, videoUrl, thumbnailUrl, subtitles, metadata } = video;
@@ -57,7 +59,7 @@ export default function VideoDetailPage() {
           <h3>{title}</h3>
           {metadata && <VideoMetadataSection metadata={metadata} />}
         </div>
-        <Button id="video_admin_btn" variant="secondary" onClick={showAdminSection}>Admin Setting</Button>
+        {isAdmin && <Button id="video_admin_btn" variant="secondary" onClick={showAdminSection}>Admin Setting</Button>}
         <Button id="video_setting_btn" variant="secondary" onClick={showSettingSection}>Play Setting</Button>
       </div>
       {episodes && <VideoEpisodeSection episodes={episodes} videoId={video.videoId} />}
