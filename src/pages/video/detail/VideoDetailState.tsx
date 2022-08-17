@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { VideoThumbnailResult } from 'src/api/video/video-thumbnail';
-import { VideoEntry } from 'src/model/video';
 
 interface State {
   showSetting: boolean;

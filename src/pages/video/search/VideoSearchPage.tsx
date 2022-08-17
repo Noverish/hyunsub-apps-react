@@ -1,6 +1,6 @@
 import { Container } from "react-bootstrap";
 import { useQuery } from "react-query";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { useCategories } from "src/api/video/category";
 import searchVideo from "src/api/video/video-search";
 import VideoEntryList from "src/components/video/VideoEntryList";
