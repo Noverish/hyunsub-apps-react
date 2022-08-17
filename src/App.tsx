@@ -11,10 +11,14 @@ function renderIndex(): JSX.Element | undefined {
   if (host.includes('auth2.hyunsub.kim')) {
     return <AuthIndex />;
   }
-  if (host === 'video2.hyunsub.kim' || host === 'local-video.hyunsub.kim') {
+
+  if (host.endsWith('video.hyunsub.kim')) {
     return <VideoIndex />;
   }
-  return undefined;
+
+  return (
+    <h1>Unknown host: {window.location.host}</h1>
+  );
 }
 
 function App() {
