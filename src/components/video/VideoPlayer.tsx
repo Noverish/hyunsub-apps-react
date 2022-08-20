@@ -22,6 +22,11 @@ export function VideoPlayer({ thumbnailUrl, videoUrl, subtitles }: Props) {
   const ref = useRef<APITypes>(null);
 
   useEffect(() => {
+    const videoElement: HTMLVideoElement | null = document.querySelector('video');
+    if (videoElement) {
+      videoElement.setAttribute('crossorigin', 'use-credentials');
+    }
+
     setTimeout(() => {
       const plyr = ref.current?.plyr;
       if (plyr) {
