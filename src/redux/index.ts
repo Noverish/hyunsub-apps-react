@@ -31,7 +31,10 @@ export type RootState = ReturnType<typeof reducer>;
 
 export const store = configureStore({
   reducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+  middleware: (getDefaultMiddleware) =>
+    (process.env.NODE_ENV === `development`)
+      ? getDefaultMiddleware().concat(logger)
+      : getDefaultMiddleware(),
   preloadedState: undefined, // loadState(),
 });
 

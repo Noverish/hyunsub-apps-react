@@ -5,6 +5,7 @@ import getCategories from "src/api/video/category";
 import { VideoSearchActions } from 'src/pages/video/search/VideoSearchState';
 import VideoRoutes from 'src/pages/video/VideoRoutes';
 import { useDispatch } from 'src/redux';
+import { logoutAction } from 'src/redux/actions';
 
 import './VideoHeader.scss';
 
@@ -38,6 +39,10 @@ export default function VideoHeader() {
     dispatch(VideoSearchActions.update({ showSearchModal: true }));
   }
 
+  const onLogout = () => {
+    dispatch(logoutAction());
+  }
+
   return (
     <header className="home_header">
       <div className="container">
@@ -60,7 +65,7 @@ export default function VideoHeader() {
             <Dropdown.Menu variant="dark">
               <Dropdown.Item as={Link} to={VideoRoutes.my}>My Page</Dropdown.Item>
               <Dropdown.Divider />
-              <Dropdown.Item as="button" className="text-danger">Logout</Dropdown.Item>
+              <Dropdown.Item as="button" className="text-danger" onClick={onLogout}>Logout</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
         </div>
