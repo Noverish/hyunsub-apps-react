@@ -3,10 +3,10 @@ import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { Container } from "react-bootstrap";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useTranslation } from 'react-i18next';
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from 'src/redux';
 import routes from '../AuthRoutes';
-import { login } from './LoginContext';
+import { login, validUrlAction } from './LoginContext';
 import ReCAPTCHA from "react-google-recaptcha";
 import AppConstant from 'src/utils/constants';
 
@@ -20,21 +20,27 @@ export interface LoginFormState {
 
 export default function LoginPage() {
   const { t } = useTranslation();
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const captchaRef = useRef<ReCAPTCHA>(null);
   const [captcha, setCaptcha] = useState<string | null>(null);
   const { showCaptcha } = useSelector(s => s.auth.login);
+  const url = searchParams.get('url') || '';
 
   const { register, handleSubmit, formState: { errors } } = useForm<LoginFormState>({ defaultValues: { remember: true } });
 
   const onSubmit: SubmitHandler<LoginFormState> = (state: LoginFormState) => {
-    dispatch(login({t, navigate, state, captcha: captcha || undefined, captchaObj: captchaRef.current || undefined }));
+    dispatch(login({navigate, state, url, captcha: captcha || undefined, captchaObj: captchaRef.current || undefined }));
   };
 
   useEffect(() => {
     document.title = t('auth.login');
   }, [t]);
+
+  useEffect(() => {
+    dispatch(validUrlAction({ navigate, url }));
+  }, [dispatch, t, navigate, url]);
 
   const usernameRegister = register('username', {
     required: t('auth.errMsg.empty-id'),
@@ -48,7 +54,7 @@ export default function LoginPage() {
   const passwordErrMsg = errors.password?.message;
 
   return (
-    <div id="LoginPage" className="h-100 flex_center">
+    <div id="LoginPage" className="vh-100 flex_center">
       <Suspense>
         <VantaGlobe />
       </Suspense>

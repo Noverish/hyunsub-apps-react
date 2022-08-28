@@ -1,13 +1,22 @@
 import { Dispatch } from "@reduxjs/toolkit";
-import { TFunction } from "i18next";
 import { NavigateFunction } from "react-router-dom";
-import registerApi, { RegisterParams } from 'src/api/auth/register';
-import rsaKey from "src/api/auth/rsa-key";
+import registerApi, { RegisterParams } from 'src/api/auth/auth/register';
+import rsaKey from "src/api/auth/auth/rsa-key";
+import t from 'src/i18n';
 import routes from 'src/pages/auth/AuthRoutes';
 import { RootState } from 'src/redux';
+import { GlobalActions } from "src/redux/global";
 import { encrypt } from "src/utils/rsa-key";
 
-export const register = (t: TFunction, navigate: NavigateFunction, params: RegisterParams) => async (dispatch: Dispatch, getState: () => RootState) => {
+interface RegisterActionParams {
+  navigate: NavigateFunction;
+  params: RegisterParams;
+}
+
+export const registerAction = (p: RegisterActionParams) => async (dispatch: Dispatch, getState: () => RootState) => {
+  const { navigate, params } = p;
+  dispatch(GlobalActions.update({ loading: true }));
+
   const { publicKey } = await rsaKey(dispatch);
 
   const registerParams: RegisterParams = {
@@ -15,8 +24,15 @@ export const register = (t: TFunction, navigate: NavigateFunction, params: Regis
     password: encrypt(publicKey, params.password),
   }
 
-  await registerApi(registerParams, dispatch, t);
+  try {
+    await registerApi(registerParams, dispatch);
+  } catch (ex) {
+    dispatch(GlobalActions.update({ loading: false }));
+    return;
+  }
 
   alert(t('auth.msg.register-success'));
-  navigate(routes.login);
+  navigate(routes.login + '?' + window.location.search);
+
+  dispatch(GlobalActions.update({ loading: false }));
 }

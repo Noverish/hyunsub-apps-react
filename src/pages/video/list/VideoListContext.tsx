@@ -1,6 +1,6 @@
 import { Dispatch } from "@reduxjs/toolkit";
-import {fetchVideoEntries} from "src/api/video/video-entry";
-import { getVideoDetailCache, prefetchVideoDetail } from "src/api/video/video-entry-detail";
+import getVideoEntries from "src/api/video/video-entry";
+import getVideoDetail from "src/api/video/video-entry-detail";
 import { VideoSort } from "src/model/video";
 import { RootState } from "src/redux";
 import { GlobalActions } from "src/redux/global";
@@ -16,7 +16,7 @@ export const loadFirstEntries = (category: string, sort?: VideoSort) => async (d
   }
   dispatch(VideoListActions.update({ loading: true, entries: [] }));
 
-  const entries = await fetchVideoEntries({
+  const entries = await getVideoEntries.fetch({
     category,
     page: 0,
     sort,
@@ -39,7 +39,7 @@ export const loadNextEntries = (category: string, sort?: VideoSort) => async (di
   dispatch(VideoListActions.update({ loading: true }));
 
   const nextPage = page + 1;
-  const nextEntries = await fetchVideoEntries({
+  const nextEntries = await getVideoEntries.fetch({
     category,
     sort,
     page: nextPage,
@@ -55,10 +55,10 @@ export const loadNextEntries = (category: string, sort?: VideoSort) => async (di
 }
 
 export const loadVideoDetail = (entryId: string) => async (dispatch: Dispatch, getState: () => RootState) => {
-  const cache = getVideoDetailCache({ entryId });
+  const cache = getVideoDetail.cache({ entryId });
   if (!cache) {
     dispatch(GlobalActions.update({ loading: true }));
-    await prefetchVideoDetail({ entryId });
+    await getVideoDetail.prefetch({ entryId });
     dispatch(GlobalActions.update({ loading: false }));
   }
   videoHistory.push(VideoRoutes.getDetailRoute(entryId, undefined));

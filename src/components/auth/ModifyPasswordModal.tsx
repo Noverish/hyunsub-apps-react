@@ -6,7 +6,7 @@ import { TFunction, useTranslation } from "react-i18next";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 import logout from "src/api/auth/logout";
 import { MyPageUserInfo } from "src/api/auth/my-page-user-info";
-import rsaKey from "src/api/auth/rsa-key";
+import rsaKey from "src/api/auth/auth/rsa-key";
 import updateUserInfo from "src/api/auth/update-user-info";
 import routes from "src/pages/auth/AuthRoutes";
 import { updateMyPageState } from "src/pages/auth/my/MyPageState";

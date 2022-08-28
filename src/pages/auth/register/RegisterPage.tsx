@@ -3,10 +3,11 @@ import { lazy, Suspense, useEffect, useRef } from "react";
 import { Container } from "react-bootstrap";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useTranslation } from 'react-i18next';
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useDispatch } from 'src/redux';
 import routes from '../AuthRoutes';
-import { register as doRegister } from './RegisterContext';
+import { registerAction } from './RegisterContext';
+import { validUrlAction } from '../login/LoginContext';
 
 const VantaNet = lazy(() => import('src/components/vanta/VantaNet'));
 
@@ -18,20 +19,27 @@ export interface RegisterFormState {
 
 export default function RegisterPage() {
   const { t } = useTranslation();
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const url = searchParams.get('url') || '';
 
   const { register, handleSubmit, watch, formState: { errors } } = useForm<RegisterFormState>();
   const passwordRef = useRef<string>();
   passwordRef.current = watch('password1');
 
   const onSubmit: SubmitHandler<RegisterFormState> = (state: RegisterFormState) => {
-    dispatch(doRegister(t, navigate, { username: state.username, password: state.password1 }));
+    const params = { username: state.username, password: state.password1 };
+    dispatch(registerAction({ navigate, params }));
   };
 
   useEffect(() => {
     document.title = t('auth.register');
   }, [t]);
+
+  useEffect(() => {
+    dispatch(validUrlAction({ navigate, url }));
+  }, [dispatch, t, navigate, url]);
 
   const usernameRegister = register('username', {
     required: t('auth.errMsg.empty-id'),
@@ -56,7 +64,7 @@ export default function RegisterPage() {
   const password2ErrMsg = errors.password2?.message;
 
   return (
-    <div id="RegisterPage" className="h-100 flex_center">
+    <div id="RegisterPage" className="vh-100 flex_center">
       <Suspense>
         <VantaNet />
       </Suspense>

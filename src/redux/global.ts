@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface State {
   loading: boolean;
+  errMsg?: string;
 }
 
 const initialState: State ={

@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import App from './App';
 import { store } from './redux';
 import reportWebVitals from './reportWebVitals';
-import { QueryClientProvider } from 'react-query';
+import { QueryClientProvider } from '@tanstack/react-query';
 import queryClient from './api/query-client';
 
 import 'src/i18n';

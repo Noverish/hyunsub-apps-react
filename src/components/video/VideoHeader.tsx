@@ -1,7 +1,7 @@
 import React from 'react';
 import { Dropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { useCategories } from "src/api/video/category";
+import getCategories from "src/api/video/category";
 import { VideoSearchActions } from 'src/pages/video/search/VideoSearchState';
 import VideoRoutes from 'src/pages/video/VideoRoutes';
 import { useDispatch } from 'src/redux';
@@ -9,7 +9,7 @@ import { useDispatch } from 'src/redux';
 import './VideoHeader.scss';
 
 function VideoHeaderMenus() {
-  const categories = useCategories();
+  const categories = getCategories.useApi();
 
   const menus = categories.map(v => (
     <Link key={v.name} to={`/${v.name}`} className="gray_on_hover">

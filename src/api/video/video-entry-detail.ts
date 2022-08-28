@@ -1,29 +1,18 @@
-import { useQuery } from "react-query";
 import { VideoEntryDetail } from "src/model/video";
-import { generateApi } from "../generate-api";
-import queryClient from '../query-client';
+import { generateQuery } from "../generate-api-v2";
 
 export interface GetVideoDetailParams {
   entryId: string;
   videoId?: string;
 }
 
-const request = generateApi<GetVideoDetailParams, VideoEntryDetail>(params => ({
-  url: `/api/v1/entry/${params.entryId}`,
-  method: 'GET',
-  params: { videoId: params.videoId },
-}));
+const getVideoDetail = generateQuery<GetVideoDetailParams, VideoEntryDetail>({
+  api: (params) => ({
+    url: `/api/v1/entry/${params.entryId}`,
+    method: 'GET',
+    params: { videoId: params.videoId },
+  }),
+  key: (params) => ['videoDetail', params.entryId, params.videoId || ''],
+});
 
-const getQueryKey = ({ entryId, videoId }: GetVideoDetailParams) => `entry|${entryId}|${videoId}`;
-
-export function useVideoDetailQuery(params: GetVideoDetailParams): VideoEntryDetail {
-  return useQuery(getQueryKey(params), () => request(params)).data!!;
-}
-
-export async function prefetchVideoDetail(params: GetVideoDetailParams) {
-  await queryClient.prefetchQuery(getQueryKey(params), () => request(params))
-}
-
-export function getVideoDetailCache(params: GetVideoDetailParams): VideoEntryDetail | undefined {
-  return queryClient.getQueryData<VideoEntryDetail>(getQueryKey(params));
-}
+export default getVideoDetail;

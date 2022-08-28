@@ -1,7 +1,6 @@
 import { Container } from "react-bootstrap";
-import { useQuery } from "react-query";
 import { useSearchParams } from "react-router-dom";
-import { useCategories } from "src/api/video/category";
+import getCategories from "src/api/video/category";
 import searchVideo from "src/api/video/video-search";
 import VideoEntryList from "src/components/video/VideoEntryList";
 import VideoHeader from "src/components/video/VideoHeader";
@@ -9,9 +8,10 @@ import VideoHeader from "src/components/video/VideoHeader";
 export default function VideoSearchPage() {
   const [searchParams] = useSearchParams();
   const query = searchParams.get('q') || '';
+  const params = { query };
 
-  const searchResult = useQuery(`search|${query}`, () => searchVideo({ query })).data!!;
-  const categories = useCategories();
+  const searchResult = searchVideo.useApi(params);
+  const categories = getCategories.useApi();
   const resultNum = Object.values(searchResult.entries).reduce((prev, curr) => prev + curr.length, 0);
 
   const entriesList = Object.entries(searchResult.entries).map(([categoryName, entries]) => {

@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import { Container, Spinner } from "react-bootstrap";
 import { useParams, useSearchParams } from "react-router-dom";
-import { useCategories } from "src/api/video/category";
+import getCategories from "src/api/video/category";
 import VideoEntryList from "src/components/video/VideoEntryList";
 import VideoHeader from "src/components/video/VideoHeader";
 import VideoSortDropdown from "src/components/video/VideoSortDropdown";
 import { VideoCategory, VideoSort } from "src/model/video";
-import NotFoundPage from "src/pages/NotFoundPage";
+import NotFoundPage from "src/pages/common/NotFoundPage";
 import { useDispatch, useSelector } from "src/redux";
 import { loadFirstEntries, loadNextEntries } from "./VideoListContext";
 
@@ -59,7 +59,7 @@ export function VideoListPage({ category }: { category: VideoCategory }) {
 }
 
 export default function VideoListPageWrapper() {
-  const categories = useCategories();
+  const categories = getCategories.useApi();
   const categoryName = useParams().category || '';
 
   const category = categories.filter(v => v.name === categoryName)[0];

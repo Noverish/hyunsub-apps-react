@@ -1,14 +1,17 @@
-import { lazy } from 'react';
+import { lazy, Suspense } from 'react';
 import ToastDisplay from './components/toast/ToastDisplay';
-import LoadingPageDim from './pages/LoadingPageDim';
+import ErrorBoundary from './pages/common/ErrorBoundary';
+import LoadingPage from './pages/common/LoadingPage';
+import LoadingPageDim from './pages/common/LoadingPageDim';
 import { useSelector } from './redux';
 
 const AuthIndex = lazy(() => import('src/pages/auth'));
 const VideoIndex = lazy(() => import('src/pages/video'));
 
-function renderIndex(): JSX.Element | undefined {
+function renderIndex(): JSX.Element {
   const host = window.location.hostname;
-  if (host.includes('auth2.hyunsub.kim')) {
+
+  if (host === 'auth2.hyunsub.kim' || host === 'local-auth.hyunsub.kim') {
     return <AuthIndex />;
   }
 
@@ -25,11 +28,13 @@ function App() {
   const { loading } = useSelector(s => s.global);
 
   return (
-    <>
-      {renderIndex()}
-      <ToastDisplay />
-      {loading && <LoadingPageDim />}
-    </>
+    <ErrorBoundary>
+      <Suspense fallback={<LoadingPage />}>
+        {renderIndex()}
+        <ToastDisplay />
+        {loading && <LoadingPageDim />}
+      </Suspense>
+    </ErrorBoundary>
   );
 }
 
