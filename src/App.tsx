@@ -11,7 +11,7 @@ const VideoIndex = lazy(() => import('src/pages/video'));
 function renderIndex(): JSX.Element {
   const host = window.location.hostname;
 
-  if (host === 'auth2.hyunsub.kim' || host === 'local-auth.hyunsub.kim') {
+  if (host.endsWith('auth.hyunsub.kim')) {
     return <AuthIndex />;
   }
 

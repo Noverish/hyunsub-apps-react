@@ -3,7 +3,7 @@ import { generateNoParamApi } from "../generate-api";
 // TODO 뭔가 더 깔끔하게
 const url = window.location.host.includes('auth')
   ? ''
-  : `https://auth2.hyunsub.kim`;
+  : `https://auth.hyunsub.kim`;
 
 export interface LogoutResult {
   success: boolean;

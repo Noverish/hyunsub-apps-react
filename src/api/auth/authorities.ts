@@ -3,7 +3,7 @@ import { generateNoParamQuery } from "../generate-api-v2";
 // TODO 뭔가 더 깔끔하게
 const url = window.location.host.includes('auth')
   ? ''
-  : `https://auth2.hyunsub.kim`;
+  : `https://auth.hyunsub.kim`;
 
 const getAuthorities = generateNoParamQuery<string[]>({
   api: () => ({
