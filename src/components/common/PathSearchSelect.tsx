@@ -41,7 +41,11 @@ const defaultState: State = {
   result: [],
 }
 
-export default function PathSearchSelect() {
+interface Props {
+  onSelect?: (info: FileInfo | undefined) => void;
+}
+
+export default function PathSearchSelect({ onSelect }: Props) {
   const [state, setState] = useState(defaultState);
   const [inputValue, setInputValue] = useState(defaultState.path);
   const { path, result, loading } = state;
@@ -56,11 +60,14 @@ export default function PathSearchSelect() {
       const newPath = newValue.path;
       if (newValue.isDir) {
         setState({ path: newPath, result: [], loading: true });
+      } else {
+        onSelect?.(newValue);
       }
       setInputValue(newPath);
     } else if (actionMeta.action === 'clear') {
       setState(defaultState);
       setInputValue(defaultState.path);
+      onSelect?.(undefined);
     }
   }
 

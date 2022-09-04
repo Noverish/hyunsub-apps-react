@@ -1,9 +1,9 @@
 import { generateApi } from "../generate-api";
 
 export interface VideoRegisterParams {
-  type: string;
+  category: string;
   videoPath: string;
-  videoEntryId: string;
+  outputPath: string;
 }
 
 const videoRegister = generateApi<VideoRegisterParams, any>(params => ({

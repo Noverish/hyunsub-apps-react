@@ -1,10 +1,13 @@
 import { Dispatch } from '@reduxjs/toolkit';
+import { useRef } from 'react';
 import { Button, Card, Form } from 'react-bootstrap';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { FileInfo } from 'src/api/file/readdir-detail';
 import videoRegister, { VideoRegisterParams } from 'src/api/video/video-register';
 import { VideoUploadActions } from 'src/pages/video/upload/VideoUploadState';
 import { RootState, useDispatch } from 'src/redux';
 import { GlobalActions } from 'src/redux/global';
+import PathSearchSelect from '../common/PathSearchSelect';
 
 const requestVideoRegister = (params: VideoRegisterParams) => async (dispatch: Dispatch, getState: () => RootState) => {
   dispatch(GlobalActions.update({ loading: true }));
@@ -18,29 +21,40 @@ const requestVideoRegister = (params: VideoRegisterParams) => async (dispatch: D
 export default function VideoRegisterCard() {
   const dispatch = useDispatch();
   const { register, handleSubmit } = useForm<VideoRegisterParams>()
+  const videoPathRef = useRef<string>();
 
   const onSubmit: SubmitHandler<VideoRegisterParams> = (params: VideoRegisterParams) => {
-    dispatch(requestVideoRegister(params));
+    const videoPath = videoPathRef.current;
+    if (!videoPath) {
+      alert('No Video Path');
+      return;
+    }
+
+    dispatch(requestVideoRegister({ ...params, videoPath }));
   };
+
+  const onVideoPathSelect = (info?: FileInfo) => {
+    videoPathRef.current = info?.path;
+  }
 
   return (
     <Card>
-      <Card.Header>Register Exist Video</Card.Header>
+      <Card.Header>Register Video</Card.Header>
       <Card.Body>
         <Form onSubmit={handleSubmit(onSubmit)}>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Type</Form.Label>
-            <Form.Control {...register('type')}/>
+          <Form.Group className="mb-3" controlId="form_category">
+            <Form.Label>Category</Form.Label>
+            <Form.Control {...register('category')} className="input_dark" />
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Video Path</Form.Label>
-            <Form.Control {...register('videoPath')} />
+          <Form.Group className="mb-3" controlId="form_video_path">
+            <Form.Label>Video Original Path</Form.Label>
+            <PathSearchSelect onSelect={onVideoPathSelect} />
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Video Entry ID</Form.Label>
-            <Form.Control {...register('videoEntryId')} />
+          <Form.Group className="mb-3" controlId="form_output_path">
+            <Form.Label>Video Destination Path</Form.Label>
+            <Form.Control {...register('outputPath')} className="input_dark" />
           </Form.Group>
 
           <Button variant="primary" type="submit">

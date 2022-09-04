@@ -3,7 +3,6 @@ import { Container } from "react-bootstrap";
 import ApiResultCard from "src/components/common/ApiResultCard";
 import VideoHeader from "src/components/video/VideoHeader";
 import VideoRegisterCard from "src/components/video/VideoRegisterCard";
-import VideoRegisterSection from "src/components/video/VideoRegisterSection";
 import { useSelector } from "src/redux";
 
 export default function VideoUploadPage() {
@@ -19,7 +18,6 @@ export default function VideoUploadPage() {
       <Container id="content" className="d-grid gap-3">
         {result && <ApiResultCard result={result} />}
         <VideoRegisterCard />
-        <VideoRegisterSection />
       </Container>
     </div>
   )
