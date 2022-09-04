@@ -6,6 +6,7 @@ interface State {
   showAdmin: boolean;
   scanMetadataResult?: any;
   videoThumbnailResult?: VideoThumbnailResult;
+  videoSubtitleUploadresult?: any;
 };
 
 const initialState: State = {

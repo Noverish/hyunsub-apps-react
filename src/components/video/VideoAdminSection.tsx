@@ -7,6 +7,7 @@ import { VideoDetailActions } from "src/pages/video/detail/VideoDetailState";
 import { RootState, useDispatch, useSelector } from "src/redux";
 import { GlobalActions } from "src/redux/global";
 import ApiResultCard from "../common/ApiResultCard";
+import VideoSubtitleUploadSection from "./VideoSubtitleUploadSection";
 
 const scanVideoMetadataAction = (videoId: string) => async (dispatch: Dispatch, getState: () => RootState) => {
   dispatch(GlobalActions.update({ loading: true }));
@@ -57,6 +58,9 @@ export default function VideoAdminSection({ detail }: Props) {
         <h4>비디오 썸네일 생성</h4>
         <Button variant="primary" onClick={videoThumbnailClick}>생성</Button>
         {videoThumbnailResult && <ApiResultCard result={videoThumbnailResult} />}
+      </div>
+      <div className="mb-3">
+        <VideoSubtitleUploadSection videoId={detail.video.videoId} />
       </div>
     </section>
   )

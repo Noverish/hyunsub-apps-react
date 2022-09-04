@@ -42,17 +42,17 @@ export default function VideoRegisterCard() {
       <Card.Header>Register Video</Card.Header>
       <Card.Body>
         <Form onSubmit={handleSubmit(onSubmit)}>
-          <Form.Group className="mb-3" controlId="form_category">
+          <Form.Group className="mb-3">
             <Form.Label>Category</Form.Label>
             <Form.Control {...register('category')} className="input_dark" />
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="form_video_path">
+          <Form.Group className="mb-3">
             <Form.Label>Video Original Path</Form.Label>
             <PathSearchSelect onSelect={onVideoPathSelect} />
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="form_output_path">
+          <Form.Group className="mb-3">
             <Form.Label>Video Destination Path</Form.Label>
             <Form.Control {...register('outputPath')} className="input_dark" />
           </Form.Group>
