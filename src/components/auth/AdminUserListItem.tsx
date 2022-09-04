@@ -10,7 +10,7 @@ interface Props {
   authorities: AdminAuthority[];
 }
 
-const colourStyles: StylesConfig<AdminAuthority, true> = {
+const styleConfig: StylesConfig<AdminAuthority, true> = {
   input: (styles) => ({
     ...styles,
     color: 'white',
@@ -64,7 +64,7 @@ export default function AdminUserListItem(props: Props) {
         getOptionLabel={getOptionLabel}
         getOptionValue={getOptionValue}
         options={authorities}
-        styles={colourStyles}
+        styles={styleConfig}
         defaultValue={userAuthorities}
         isMulti
         onChange={onChange}

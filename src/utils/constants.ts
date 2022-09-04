@@ -7,6 +7,10 @@ const AppConstant = {
     
     SETTING_SUBTITLE_DEFAULT_FONT_SIZE: '18',
     SETTING_SUBTITLE_FONT_SIZE: 'SETTING_SUBTITLE_FONT_SIZE',
+  },
+
+  file: {
+    HOST: 'https://file.hyunsub.kim'
   }
 }
 
