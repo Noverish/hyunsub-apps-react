@@ -3,14 +3,20 @@ import { generateApiV2 } from '../generate-api-v2';
 
 export interface VideoSubtitleUploadParams {
   videoId: string;
-  file: File;
+  file?: File;
   lang: string;
+  path?: string;
 }
 
 const videoSubtitleUpload = generateApiV2<VideoSubtitleUploadParams, any>(params => {
   const formData = new FormData();
   formData.append('lang', params.lang);
-  formData.append('file', params.file);
+  if (params.file) {
+    formData.append('file', params.file);
+  }
+  if (params.path) {
+    formData.append('path', params.path);
+  }
 
   return {
     url: `/api/v1/video/${params.videoId}/subtitle`,
