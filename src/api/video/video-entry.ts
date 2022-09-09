@@ -1,6 +1,6 @@
 import { VideoEntry, VideoSort } from "src/model/video";
 import AppConstant from "src/utils/constants";
-import { generateQuery } from "../generate-api-v2";
+import { generateQuery } from "src/api/generate-api";
 
 export interface GetVideoEntriesParams {
   category: string;

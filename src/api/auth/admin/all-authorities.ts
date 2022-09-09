@@ -1,5 +1,5 @@
 import { AdminAuthority } from "src/model/auth";
-import { generateNoParamQuery} from '../../generate-api-v2';
+import { generateNoParamQuery} from 'src/api/generate-api';
 
 const getAllAuthorities = generateNoParamQuery<AdminAuthority[]>({
   api: () => ({

@@ -10,7 +10,7 @@ import AuthRoutes from '../AuthRoutes';
 
 export function fetchMyPageUserInfo() {
   return async (dispatch: Dispatch, getState: () => RootState) => {
-    const userInfo = await getMyPageUserInfo(dispatch);
+    const userInfo = await getMyPageUserInfo();
     dispatch(updateMyPageState({ userInfo }));
   }
 }

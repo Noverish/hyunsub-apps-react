@@ -1,5 +1,5 @@
 import { VideoSearchResult } from "src/model/video";
-import { generateQuery } from "../generate-api-v2";
+import { generateQuery } from "src/api/generate-api";
 
 export interface VideoSearchParams {
   query: string;

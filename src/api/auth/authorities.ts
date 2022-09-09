@@ -1,4 +1,4 @@
-import { generateNoParamQuery } from "../generate-api-v2";
+import { generateNoParamQuery } from "src/api/generate-api";
 
 // TODO 뭔가 더 깔끔하게
 const url = window.location.host.includes('auth')

@@ -1,11 +1,11 @@
-import { generateApiV2 } from "../../generate-api-v2";
+import { generateApi } from "src/api/generate-api";
 
 export interface DelUserAuthorityParams {
   idNo: string;
   authorityId: number;
 }
 
-const delUserAuthority = generateApiV2<any, DelUserAuthorityParams>(params => ({
+const delUserAuthority = generateApi<any, DelUserAuthorityParams>(params => ({
   url: '/api/v1/admin/users/authority',
   method: 'DELETE',
   data: params,

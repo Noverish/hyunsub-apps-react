@@ -26,7 +26,7 @@ export const login = (params: LoginParameter) => async (dispatch: Dispatch, getS
   const { navigate, state, captcha, captchaObj, url } = params;
   dispatch(GlobalActions.update({ loading: true }));
 
-  const { publicKey } = await rsaKey(dispatch);
+  const { publicKey } = await rsaKey();
 
   const loginParams: LoginParams = {
     username: encrypt(publicKey, state.username),
@@ -36,7 +36,7 @@ export const login = (params: LoginParameter) => async (dispatch: Dispatch, getS
   }
 
   try {
-    await loginApi(loginParams, dispatch);
+    await loginApi(loginParams);
     if (url) {
       if (url.startsWith('https://')) {
         window.location.href = url;

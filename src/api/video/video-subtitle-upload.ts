@@ -1,5 +1,5 @@
 import { AxiosRequestConfig } from 'axios';
-import { generateApiV2 } from '../generate-api-v2';
+import { generateApi } from 'src/api/generate-api';
 
 export interface VideoSubtitleUploadParams {
   videoId: string;
@@ -8,7 +8,7 @@ export interface VideoSubtitleUploadParams {
   path?: string;
 }
 
-const videoSubtitleUpload = generateApiV2<VideoSubtitleUploadParams, any>(params => {
+const videoSubtitleUpload = generateApi<VideoSubtitleUploadParams, any>(params => {
   const formData = new FormData();
   formData.append('lang', params.lang);
   if (params.file) {

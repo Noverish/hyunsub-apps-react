@@ -1,4 +1,4 @@
-import { generateNoParamApi } from "../generate-api";
+import { generateNoParamApi } from "src/api/generate-api";
 
 // TODO 뭔가 더 깔끔하게
 const url = window.location.host.includes('auth')

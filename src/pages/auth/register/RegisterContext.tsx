@@ -17,7 +17,7 @@ export const registerAction = (p: RegisterActionParams) => async (dispatch: Disp
   const { navigate, params } = p;
   dispatch(GlobalActions.update({ loading: true }));
 
-  const { publicKey } = await rsaKey(dispatch);
+  const { publicKey } = await rsaKey();
 
   const registerParams: RegisterParams = {
     username: encrypt(publicKey, params.username),
@@ -25,7 +25,7 @@ export const registerAction = (p: RegisterActionParams) => async (dispatch: Disp
   }
 
   try {
-    await registerApi(registerParams, dispatch);
+    await registerApi(registerParams);
   } catch (ex) {
     dispatch(GlobalActions.update({ loading: false }));
     return;

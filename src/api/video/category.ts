@@ -1,5 +1,5 @@
 import { VideoCategory } from "src/model/video";
-import { generateNoParamQuery } from "../generate-api-v2";
+import { generateNoParamQuery } from "src/api/generate-api";
 
 const getCategories = generateNoParamQuery<VideoCategory[]>({
   api: () => ({

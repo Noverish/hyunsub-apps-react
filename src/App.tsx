@@ -1,9 +1,10 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import ToastDisplay from './components/toast/ToastDisplay';
 import ErrorBoundary from './pages/common/ErrorBoundary';
 import LoadingPage from './pages/common/LoadingPage';
 import LoadingPageDim from './pages/common/LoadingPageDim';
-import { useSelector } from './redux';
+import { useDispatch, useSelector } from './redux';
+import { loadAuthorities } from './redux/actions';
 
 const AuthIndex = lazy(() => import('src/pages/auth'));
 const VideoIndex = lazy(() => import('src/pages/video'));
@@ -25,7 +26,12 @@ function renderIndex(): JSX.Element {
 }
 
 function App() {
+  const dispatch = useDispatch();
   const { loading } = useSelector(s => s.global);
+
+  useEffect(() => {
+    dispatch(loadAuthorities());
+  }, []);
 
   return (
     <ErrorBoundary>
