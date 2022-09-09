@@ -5,7 +5,7 @@ import { TFunction, useTranslation } from "react-i18next";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 import logout from "src/api/auth/logout";
 import { MyPageUserInfo } from "src/api/auth/my-page-user-info";
-import rsaKey from "src/api/auth/rsa-key";
+import rsaKey from "src/api/auth/auth/rsa-key";
 import updateUserInfo from "src/api/auth/update-user-info";
 import routes from "src/pages/auth/AuthRoutes";
 import { updateMyPageState } from 'src/pages/auth/my/MyPageState';
@@ -66,17 +66,17 @@ export default function ModifyUsernameModal({ userInfo }: Props) {
 
 function modifyUsername(t: TFunction, navigate: NavigateFunction, username: string) {
   return async (dispatch: Dispatch, getState: () => RootState) => {
-    const { publicKey } = await rsaKey(dispatch);
+    const { publicKey } = await rsaKey();
 
     const encrypted = encrypt(publicKey, username);
 
-    const result = await updateUserInfo({ username: encrypted }, dispatch);
+    const result = await updateUserInfo({ username: encrypted }, );
 
     alert(t(result.username ? 'auth.modify-username-modal.success' : 'auth.modify-username-modal.failure'));
 
     dispatch(updateMyPageState({ showUsernameModal: false }));
 
-    await logout(dispatch);
+    await logout();
 
     navigate(routes.login);
   }

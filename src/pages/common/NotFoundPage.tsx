@@ -10,7 +10,7 @@ export default function NotFoundPage() {
   }, []);
 
   return (
-    <div id="NotFoundPage" className="h-100 flex-center text-center">
+    <div id="NotFoundPage" className="flex_center text-center" style={{ height: '100vh' }}>
       <h1 style={{ fontSize: '6rem' }}>{t('common.404.oh')}</h1>
       <h2>404 Not Found</h2>
       <div>{t('common.404.not-exist')}</div>

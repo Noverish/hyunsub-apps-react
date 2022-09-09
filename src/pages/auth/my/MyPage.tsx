@@ -3,10 +3,10 @@ import { Button, Card, Container, ListGroup } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import ModifyPasswordModal from "src/components/auth/ModifyPasswordModal";
 import ModifyUsernameModal from "src/components/auth/ModifyUsernameModal";
-import LoadingPage from "src/pages/LoadingPage";
+import LoadingPage from "src/pages/common/LoadingPage";
 import { useDispatch, useSelector } from "src/redux";
 import './MyPage.scss';
-import { fetchMyPageUserInfo } from "./MyPageContext";
+import {fetchMyPageUserInfo, signOutAction} from './MyPageContext';
 import { updateMyPageState } from "./MyPageState";
 
 function ListItem({ name, value, btn, onClick }: { name: string, value: string, btn: string, onClick?: () => void }) {
@@ -34,6 +34,7 @@ export default function MyPage() {
 
   const onUsernameBtnClick = () => dispatch(updateMyPageState({ showUsernameModal: true }));
   const onPasswordBtnClick = () => dispatch(updateMyPageState({ showPasswordModal: true }));
+  const onSignOut = () => dispatch(signOutAction());
 
   if (!userInfo) {
     return <LoadingPage />;
@@ -59,7 +60,8 @@ export default function MyPage() {
             </ListGroup>
           </Card>
           <div>
-            <Button variant="danger">{t('auth.withdraw')}</Button>
+            <Button variant="warning" href="/logout">{t('auth.logout')}</Button>
+            <Button variant="danger" className="ms-3" onClick={onSignOut}>{t('auth.sign-out')}</Button>
           </div>
         </div>
       </Container>

@@ -1,14 +1,15 @@
 import cs from 'classnames';
-import { lazy, Suspense, useEffect, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useRef } from "react";
 import { Container } from "react-bootstrap";
+import ReCAPTCHA from "react-google-recaptcha";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useTranslation } from 'react-i18next';
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from 'src/redux';
-import routes from '../AuthRoutes';
-import { login } from './LoginContext';
-import ReCAPTCHA from "react-google-recaptcha";
 import AppConstant from 'src/utils/constants';
+import routes from '../AuthRoutes';
+import { loginAction, validUrlAction } from './LoginContext';
+import { LoginActions } from './LoginState';
 
 const VantaGlobe = lazy(() => import('src/components/vanta/VantaGlobe'));
 
@@ -20,21 +21,29 @@ export interface LoginFormState {
 
 export default function LoginPage() {
   const { t } = useTranslation();
-  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const dispatch = useDispatch();
   const captchaRef = useRef<ReCAPTCHA>(null);
-  const [captcha, setCaptcha] = useState<string | null>(null);
   const { showCaptcha } = useSelector(s => s.auth.login);
+  const url = searchParams.get('url') || '';
 
   const { register, handleSubmit, formState: { errors } } = useForm<LoginFormState>({ defaultValues: { remember: true } });
 
   const onSubmit: SubmitHandler<LoginFormState> = (state: LoginFormState) => {
-    dispatch(login({t, navigate, state, captcha: captcha || undefined, captchaObj: captchaRef.current || undefined }));
+    dispatch(loginAction({ state, captchaObj: captchaRef.current }));
+  };
+
+  const onCaptchaClick = (captcha: string | null) => {
+    dispatch(LoginActions.update({ captcha }))
   };
 
   useEffect(() => {
     document.title = t('auth.login');
   }, [t]);
+
+  useEffect(() => {
+    dispatch(validUrlAction({ url }));
+  }, [dispatch, url]);
 
   const usernameRegister = register('username', {
     required: t('auth.errMsg.empty-id'),
@@ -48,7 +57,7 @@ export default function LoginPage() {
   const passwordErrMsg = errors.password?.message;
 
   return (
-    <div id="LoginPage" className="h-100 flex-center">
+    <div id="LoginPage" className="vh-100 flex_center">
       <Suspense>
         <VantaGlobe />
       </Suspense>
@@ -66,11 +75,11 @@ export default function LoginPage() {
             <div className="invalid-feedback">{passwordErrMsg}</div>
           </div>
           {showCaptcha && <ReCAPTCHA
-            className='flex-center'
+            className='flex_center'
             ref={captchaRef}
             theme='dark'
             sitekey={AppConstant.RECAPTCHA_SITE_KEY}
-            onChange={setCaptcha}
+            onChange={onCaptchaClick}
           />}
           <button type="submit" className="btn btn-primary">{t('auth.login')}</button>
           <div className="d-flex justify-content-between">

@@ -6,7 +6,7 @@ import { TFunction, useTranslation } from "react-i18next";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 import logout from "src/api/auth/logout";
 import { MyPageUserInfo } from "src/api/auth/my-page-user-info";
-import rsaKey from "src/api/auth/rsa-key";
+import rsaKey from "src/api/auth/auth/rsa-key";
 import updateUserInfo from "src/api/auth/update-user-info";
 import routes from "src/pages/auth/AuthRoutes";
 import { updateMyPageState } from "src/pages/auth/my/MyPageState";
@@ -80,17 +80,17 @@ export default function ModifyPasswordModal({ userInfo }: Props) {
 
 function modifyPassword(t: TFunction, navigate: NavigateFunction, password: string) {
   return async (dispatch: Dispatch, getState: () => RootState) => {
-    const { publicKey } = await rsaKey(dispatch);
+    const { publicKey } = await rsaKey();
 
     const encrypted = encrypt(publicKey, password);
 
-    const result = await updateUserInfo({ password: encrypted }, dispatch);
+    const result = await updateUserInfo({ password: encrypted });
 
     alert(t(result.password ? 'auth.modify-password-modal.success' : 'auth.modify-password-modal.failure'));
 
     dispatch(updateMyPageState({ showPasswordModal: false }));
 
-    await logout(dispatch);
+    await logout();
 
     navigate(routes.login);
   }

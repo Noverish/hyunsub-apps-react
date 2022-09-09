@@ -2,10 +2,12 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface State {
   showCaptcha: boolean;
+  captcha: string | null;
 };
 
 const initialState: State = {
   showCaptcha: false,
+  captcha: null,
 };
 
 const slice = createSlice({

@@ -1,11 +1,11 @@
-import { generateNoParamApi } from "../generate-api";
+import { generateNoParamApi } from "src/api/generate-api";
 
 export interface RsaKeyResult {
   publicKey: string;
 }
 
 const rsaKey = generateNoParamApi<RsaKeyResult>(() => ({
-  url: '/api/v1/rsa-key',
+  url: '/api/v1/auth/rsa-key',
   method: 'GET',
 }));
 

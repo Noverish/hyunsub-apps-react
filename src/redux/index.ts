@@ -1,8 +1,10 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch as _useDispatch, useSelector as _useSelector } from 'react-redux';
 import logger from 'redux-logger';
-import auth from 'src/pages/auth/redux';
+import auth from 'src/pages/auth/AuthRedux';
+import video from 'src/pages/video/VideoRedux';
 import toast from './toast';
+import global from './global';
 
 export const loadState = () => {
   try {
@@ -23,13 +25,16 @@ export const saveState = (state: RootState) => {
   }
 };
 
-const reducer = combineReducers({ auth, toast })
+const reducer = combineReducers({ auth, video, toast, global })
 
 export type RootState = ReturnType<typeof reducer>;
 
 export const store = configureStore({
   reducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+  middleware: (getDefaultMiddleware) =>
+    (process.env.NODE_ENV === `development`)
+      ? getDefaultMiddleware().concat(logger)
+      : getDefaultMiddleware(),
   preloadedState: undefined, // loadState(),
 });
 
@@ -39,3 +44,4 @@ store.subscribe(() => {
 
 export const useDispatch = () => _useDispatch<typeof store.dispatch>();
 export const useSelector: TypedUseSelectorHook<RootState> = _useSelector;
+export const dispatch = store.dispatch;

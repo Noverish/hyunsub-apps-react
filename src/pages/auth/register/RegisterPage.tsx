@@ -1,12 +1,16 @@
 import cs from 'classnames';
-import { lazy, Suspense, useEffect, useRef } from "react";
+import { lazy, Suspense, useEffect, useRef } from 'react';
 import { Container } from "react-bootstrap";
+import ReCAPTCHA from 'react-google-recaptcha';
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useTranslation } from 'react-i18next';
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useDispatch } from 'src/redux';
+import AppConstant from 'src/utils/constants';
 import routes from '../AuthRoutes';
-import { register as doRegister } from './RegisterContext';
+import { validUrlAction } from '../login/LoginContext';
+import { registerAction } from './RegisterContext';
+import { RegisterActions } from './RegisterState';
 
 const VantaNet = lazy(() => import('src/components/vanta/VantaNet'));
 
@@ -18,20 +22,30 @@ export interface RegisterFormState {
 
 export default function RegisterPage() {
   const { t } = useTranslation();
-  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const dispatch = useDispatch();
+  const captchaRef = useRef<ReCAPTCHA>(null);
+  const url = searchParams.get('url') || '';
 
   const { register, handleSubmit, watch, formState: { errors } } = useForm<RegisterFormState>();
   const passwordRef = useRef<string>();
   passwordRef.current = watch('password1');
 
   const onSubmit: SubmitHandler<RegisterFormState> = (state: RegisterFormState) => {
-    dispatch(doRegister(t, navigate, { username: state.username, password: state.password1 }));
+    dispatch(registerAction({ state, captchaObj: captchaRef.current }));
+  };
+
+  const onCaptchaClick = (captcha: string | null) => {
+    dispatch(RegisterActions.update({ captcha }))
   };
 
   useEffect(() => {
     document.title = t('auth.register');
   }, [t]);
+
+  useEffect(() => {
+    dispatch(validUrlAction({ url }));
+  }, [dispatch, url]);
 
   const usernameRegister = register('username', {
     required: t('auth.errMsg.empty-id'),
@@ -56,7 +70,7 @@ export default function RegisterPage() {
   const password2ErrMsg = errors.password2?.message;
 
   return (
-    <div id="RegisterPage" className="h-100 flex-center">
+    <div id="RegisterPage" className="vh-100 flex_center">
       <Suspense>
         <VantaNet />
       </Suspense>
@@ -78,6 +92,13 @@ export default function RegisterPage() {
             <input type="password" className={cs('form-control', { 'is-invalid': password2ErrMsg })} {...passwordRegister2} />
             <div className="invalid-feedback">{password2ErrMsg}</div>
           </div>
+          <ReCAPTCHA
+            className='flex_center'
+            ref={captchaRef}
+            theme='dark'
+            sitekey={AppConstant.RECAPTCHA_SITE_KEY}
+            onChange={onCaptchaClick}
+          />
           <button type="submit" className="btn btn-primary">{t('auth.register')}</button>
           <div className="d-flex justify-content-end">
             <Link to={`${routes.login}${window.location.search}`} className="link-light">{t('auth.login')}</Link>

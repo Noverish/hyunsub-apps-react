@@ -1,10 +1,10 @@
-import { generateApi } from "../generate-api";
+import { generateApi } from "src/api/generate-api";
 
 export interface LoginParams {
   username: string;
   password: string;
   remember: boolean;
-  captcha?: string;
+  captcha: string | null;
 }
 
 export interface LoginResult {
@@ -16,7 +16,7 @@ export interface LoginError {
 }
 
 const login = generateApi<LoginParams, LoginResult>(params => ({
-  url: '/api/v1/login',
+  url: '/api/v1/auth/login',
   method: 'POST',
   data: params,
 }));
