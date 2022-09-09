@@ -7,11 +7,13 @@ interface State {
   scanMetadataResult?: any;
   videoThumbnailResult?: VideoThumbnailResult;
   videoSubtitleUploadresult?: any;
+  subtitleSync: { [subtitleUrl: string]: number };
 };
 
 const initialState: State = {
   showSetting: false,
   showAdmin: false,
+  subtitleSync: {},
 };
 
 const slice = createSlice({
@@ -22,6 +24,11 @@ const slice = createSlice({
       ...state,
       ...payload,
     }),
+    setSubtitleSyncSetting: (state: State, { payload }: PayloadAction<{ [subtitleUrl: string]: number }>) => {
+      Object.entries(payload).forEach(([subtitleUrl, sync]) => {
+        state.subtitleSync[subtitleUrl] = sync;
+      })
+    }
   }
 });
 

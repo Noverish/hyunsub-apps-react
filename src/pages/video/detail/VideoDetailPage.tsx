@@ -74,7 +74,7 @@ export default function VideoDetailPage() {
         <section id="video_player_section">
           <VideoPlayer videoUrl={videoUrl} thumbnailUrl={thumbnailUrl} subtitles={subtitles} />
         </section>
-        {showSetting && <VideoSettingSection />}
+        {showSetting && <VideoSettingSection video={video} />}
         {showAdmin && <VideoAdminSection detail={detail} />}
         {!showSetting && !showAdmin && sections}
       </Container>

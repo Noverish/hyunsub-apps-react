@@ -1,8 +1,10 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
+import { Video } from "src/model/video";
 import { VideoDetailActions } from "src/pages/video/detail/VideoDetailState";
 import { useDispatch } from "src/redux";
 import AppConstant from "src/utils/constants";
+import VideoSubtitleSettingCard from "./VideoSubtitleSettingCard";
 
 export function setCaptionFontSize(size: number) {
   window.localStorage.setItem(AppConstant.video.SETTING_SUBTITLE_FONT_SIZE, size.toString());
@@ -19,7 +21,11 @@ export function getCaptionFontSize(): number {
   return parseInt(value);
 }
 
-export default function VideoSettingSection() {
+interface Props {
+  video: Video;
+}
+
+export default function VideoSettingSection({ video }: Props) {
   const initFontSize = getCaptionFontSize();
   const [fontSize, setFontSize] = useState(initFontSize);
 
@@ -44,6 +50,7 @@ export default function VideoSettingSection() {
       <hr />
       <Form.Label>자막 글자 크기: {fontSize}px</Form.Label>
       <Form.Range onChange={onChange} min={1} max={100} value={fontSize} />
+      <VideoSubtitleSettingCard subtitles={video.subtitles} />
     </section>
   )
 }
