@@ -1,13 +1,16 @@
 import cs from 'classnames';
-import { lazy, Suspense, useEffect, useRef } from "react";
+import { lazy, Suspense, useEffect, useRef } from 'react';
 import { Container } from "react-bootstrap";
+import ReCAPTCHA from 'react-google-recaptcha';
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useTranslation } from 'react-i18next';
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useDispatch } from 'src/redux';
+import AppConstant from 'src/utils/constants';
 import routes from '../AuthRoutes';
-import { registerAction } from './RegisterContext';
 import { validUrlAction } from '../login/LoginContext';
+import { registerAction } from './RegisterContext';
+import { RegisterActions } from './RegisterState';
 
 const VantaNet = lazy(() => import('src/components/vanta/VantaNet'));
 
@@ -20,8 +23,8 @@ export interface RegisterFormState {
 export default function RegisterPage() {
   const { t } = useTranslation();
   const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const captchaRef = useRef<ReCAPTCHA>(null);
   const url = searchParams.get('url') || '';
 
   const { register, handleSubmit, watch, formState: { errors } } = useForm<RegisterFormState>();
@@ -29,8 +32,11 @@ export default function RegisterPage() {
   passwordRef.current = watch('password1');
 
   const onSubmit: SubmitHandler<RegisterFormState> = (state: RegisterFormState) => {
-    const params = { username: state.username, password: state.password1 };
-    dispatch(registerAction({ navigate, params }));
+    dispatch(registerAction({ state, captchaObj: captchaRef.current }));
+  };
+
+  const onCaptchaClick = (captcha: string | null) => {
+    dispatch(RegisterActions.update({ captcha }))
   };
 
   useEffect(() => {
@@ -38,8 +44,8 @@ export default function RegisterPage() {
   }, [t]);
 
   useEffect(() => {
-    dispatch(validUrlAction({ navigate, url }));
-  }, [dispatch, t, navigate, url]);
+    dispatch(validUrlAction({ url }));
+  }, [dispatch, url]);
 
   const usernameRegister = register('username', {
     required: t('auth.errMsg.empty-id'),
@@ -86,6 +92,13 @@ export default function RegisterPage() {
             <input type="password" className={cs('form-control', { 'is-invalid': password2ErrMsg })} {...passwordRegister2} />
             <div className="invalid-feedback">{password2ErrMsg}</div>
           </div>
+          <ReCAPTCHA
+            className='flex_center'
+            ref={captchaRef}
+            theme='dark'
+            sitekey={AppConstant.RECAPTCHA_SITE_KEY}
+            onChange={onCaptchaClick}
+          />
           <button type="submit" className="btn btn-primary">{t('auth.register')}</button>
           <div className="d-flex justify-content-end">
             <Link to={`${routes.login}${window.location.search}`} className="link-light">{t('auth.login')}</Link>

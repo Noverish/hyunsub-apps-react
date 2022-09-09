@@ -3,6 +3,7 @@ import { generateApi } from "src/api/generate-api";
 export interface RegisterParams {
   username: string;
   password: string;
+  captcha: string | null;
 }
 
 export interface RegisterResult {

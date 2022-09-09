@@ -8,5 +8,8 @@ export const logoutAction = () => async () => {
 }
 
 export const loadAuthorities = () => async () => {
-  getAuthorities.prefetch();
+  const { pathname } = window.location;
+  if (pathname !== '/login' && pathname !== '/register') {
+    getAuthorities.prefetch();
+  }
 };

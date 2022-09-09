@@ -31,7 +31,7 @@ function App() {
 
   useEffect(() => {
     dispatch(loadAuthorities());
-  }, []);
+  }, [dispatch]);
 
   return (
     <ErrorBoundary>

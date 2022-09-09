@@ -4,7 +4,7 @@ export interface LoginParams {
   username: string;
   password: string;
   remember: boolean;
-  captcha?: string;
+  captcha: string | null;
 }
 
 export interface LoginResult {

@@ -1,38 +1,50 @@
 import { Dispatch } from "@reduxjs/toolkit";
-import { NavigateFunction } from "react-router-dom";
+import ReCAPTCHA from 'react-google-recaptcha';
 import registerApi, { RegisterParams } from 'src/api/auth/auth/register';
 import rsaKey from "src/api/auth/auth/rsa-key";
 import t from 'src/i18n';
 import routes from 'src/pages/auth/AuthRoutes';
 import { RootState } from 'src/redux';
 import { GlobalActions } from "src/redux/global";
+import { insertToast } from 'src/redux/toast';
 import { encrypt } from "src/utils/rsa-key";
+import { RegisterFormState } from './RegisterPage';
+import { RegisterActions } from "./RegisterState";
+import AuthHistory from '../AuthHistory';
 
 interface RegisterActionParams {
-  navigate: NavigateFunction;
-  params: RegisterParams;
+  state: RegisterFormState;
+  captchaObj: ReCAPTCHA | null;
 }
 
 export const registerAction = (p: RegisterActionParams) => async (dispatch: Dispatch, getState: () => RootState) => {
-  const { navigate, params } = p;
+  const { state, captchaObj } = p;
+  const { captcha } = getState().auth.register;
+
+  if (!captcha) {
+    dispatch(insertToast(t('auth.errMsg.captcha-required')));
+    return;
+  }
+
   dispatch(GlobalActions.update({ loading: true }));
 
   const { publicKey } = await rsaKey();
 
   const registerParams: RegisterParams = {
-    username: encrypt(publicKey, params.username),
-    password: encrypt(publicKey, params.password),
+    username: encrypt(publicKey, state.username),
+    password: encrypt(publicKey, state.password1),
+    captcha,
   }
 
   try {
     await registerApi(registerParams);
-  } catch (ex) {
-    dispatch(GlobalActions.update({ loading: false }));
-    return;
-  }
 
-  alert(t('auth.msg.register-success'));
-  navigate(routes.login + '?' + window.location.search);
+    alert(t('auth.msg.register-success'));
+    AuthHistory.push(routes.login + '?' + window.location.search);
+  } catch (ex) {
+    captchaObj?.reset();
+    dispatch(RegisterActions.update({ captcha: null }));
+  }
 
   dispatch(GlobalActions.update({ loading: false }));
 }
