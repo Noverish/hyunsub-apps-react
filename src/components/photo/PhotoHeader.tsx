@@ -1,24 +1,9 @@
 import React from 'react';
 import { Dropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import getCategories from "src/api/video/category";
-import { VideoSearchActions } from 'src/pages/video/search/VideoSearchState';
-import VideoRoutes from 'src/pages/video/VideoRoutes';
+import routes from 'src/pages/photo/PhotoRoutes';
 import { useDispatch } from 'src/redux';
 import { logoutAction } from 'src/redux/actions';
-
-function VideoHeaderMenus() {
-  const categories = getCategories.useApi();
-
-  const menus = categories.map(v => (
-    <Link key={v.name} to={`/${v.name}`} className="gray_on_hover">
-      <i className={v.iconHtmlClass}></i>
-      <span>{v.displayName}</span>
-    </Link>
-  ));
-
-  return (<>{menus}</>)
-}
 
 const ProfileDropdownToggle = React.forwardRef<HTMLDivElement, React.DOMAttributes<HTMLDivElement>>(({ children, onClick }, ref) => (
   <div
@@ -30,11 +15,11 @@ const ProfileDropdownToggle = React.forwardRef<HTMLDivElement, React.DOMAttribut
   </div>
 ));
 
-export default function VideoHeader() {
+export default function PhotoHeader() {
   const dispatch = useDispatch();
-  
+
   const searchBtnClick = () => {
-    dispatch(VideoSearchActions.update({ showSearchModal: true }));
+    alert('search btn clicked!');
   }
 
   const onLogout = () => {
@@ -44,9 +29,16 @@ export default function VideoHeader() {
   return (
     <header className="home_header">
       <div className="container">
-        <a href="/" id="header_title" className="gray_on_hover">HyunFlix</a>
+        <a href="/" id="header_title" className="gray_on_hover">HyunPhoto</a>
         <div id="header_menu_section" className="overflow_scroll">
-          <VideoHeaderMenus />
+          <Link to={routes.albumList()} className="gray_on_hover">
+            <i className="fas fa-book"></i>
+            <span>Albums</span>
+          </Link>
+          <Link to={routes.photoList()} className="gray_on_hover">
+            <i className="fas fa-images"></i>
+            <span>Photos</span>
+          </Link>
         </div>
         <div id="header_button_section">
           <div className="header_icon_btn gray_on_hover" onClick={searchBtnClick}>
@@ -61,7 +53,7 @@ export default function VideoHeader() {
               </div>
             </Dropdown.Toggle>
             <Dropdown.Menu variant="dark">
-              <Dropdown.Item as={Link} to={VideoRoutes.my}>My Page</Dropdown.Item>
+              <Dropdown.Item as={Link} to={routes.setting()}>Setting</Dropdown.Item>
               <Dropdown.Divider />
               <Dropdown.Item as="button" className="text-danger" onClick={onLogout}>Logout</Dropdown.Item>
             </Dropdown.Menu>

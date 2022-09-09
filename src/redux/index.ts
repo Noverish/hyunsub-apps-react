@@ -3,6 +3,7 @@ import { TypedUseSelectorHook, useDispatch as _useDispatch, useSelector as _useS
 import logger from 'redux-logger';
 import auth from 'src/pages/auth/AuthRedux';
 import video from 'src/pages/video/VideoRedux';
+import photo from 'src/pages/photo/PhotoRedux';
 import toast from './toast';
 import global from './global';
 
@@ -25,7 +26,7 @@ export const saveState = (state: RootState) => {
   }
 };
 
-const reducer = combineReducers({ auth, video, toast, global })
+const reducer = combineReducers({ auth, video, photo, toast, global });
 
 export type RootState = ReturnType<typeof reducer>;
 

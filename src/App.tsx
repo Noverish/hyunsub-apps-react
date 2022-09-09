@@ -6,8 +6,9 @@ import LoadingPageDim from './pages/common/LoadingPageDim';
 import { useDispatch, useSelector } from './redux';
 import { loadAuthorities } from './redux/actions';
 
-const AuthIndex = lazy(() => import('src/pages/auth'));
-const VideoIndex = lazy(() => import('src/pages/video'));
+const AuthIndex = lazy(() => import('src/pages/auth/AuthIndex'));
+const VideoIndex = lazy(() => import('src/pages/video/VideoIndex'));
+const PhotoIndex = lazy(() => import('src/pages/photo/PhotoIndex'));
 
 function renderIndex(): JSX.Element {
   const host = window.location.hostname;
@@ -18,6 +19,10 @@ function renderIndex(): JSX.Element {
 
   if (host.endsWith('video.hyunsub.kim')) {
     return <VideoIndex />;
+  }
+
+  if (host.endsWith('photo.hyunsub.kim')) {
+    return <PhotoIndex />;
   }
 
   return (
