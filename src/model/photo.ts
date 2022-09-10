@@ -1,7 +1,12 @@
-export interface Album {
+export interface AlbumPreview {
   id: number;
   name: string;
   thumbnail: string;
+}
+
+export interface Album {
+  total: number;
+  preview: AlbumPreview;
 }
 
 export interface Photo {
@@ -12,4 +17,5 @@ export interface Photo {
   height: number;
   date: string;
   size: number;
+  liveVideo: string | null;
 }

@@ -8,6 +8,7 @@ import VideoSortDropdown from "src/components/video/VideoSortDropdown";
 import { VideoCategory, VideoSort } from "src/model/video";
 import NotFoundPage from "src/pages/common/NotFoundPage";
 import { useDispatch, useSelector } from "src/redux";
+import { useScrollBottom } from "src/utils";
 import { loadFirstEntries, loadNextEntries } from "./VideoListContext";
 
 export function VideoListPage({ category }: { category: VideoCategory }) {
@@ -25,23 +26,8 @@ export function VideoListPage({ category }: { category: VideoCategory }) {
     document.title = `HyunFlix - ${category.displayName}`;
   }, [category.displayName]);
 
-  useEffect(() => {
-    const handler = () => {
-      const totalHeight = document.documentElement.scrollHeight;
-      const scrollY = window.scrollY;
-      const windowHeight = window.innerHeight;
-      const remaining = totalHeight - scrollY - windowHeight;
-
-      if (remaining < 100) {
-        dispatch(loadNextEntries(category.name, sort));
-      }
-    };
-
-    document.addEventListener('scroll', handler);
-
-    return () => {
-      document.removeEventListener('scroll', handler);
-    }
+  useScrollBottom(() => {
+    dispatch(loadNextEntries(category.name, sort));
   }, [dispatch, category.name, sort]);
 
   return (
