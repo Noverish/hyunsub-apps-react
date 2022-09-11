@@ -10,7 +10,7 @@ export interface AlbumPhotosParams {
 
 const albumPhotosApi = generateQuery<AlbumPhotosParams, PageData<Photo>>({
   api: (params) => ({
-    url: `/api/v1/album/${params.albumId}/photos`,
+    url: `/api/v1/albums/${params.albumId}/photos`,
     method: 'GET',
     params: {
       p: params.page,

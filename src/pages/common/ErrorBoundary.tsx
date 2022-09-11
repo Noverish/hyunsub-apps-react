@@ -31,7 +31,7 @@ class ErrorBoundary extends React.Component<Props, State> {
       <div id="ErrorBoundary" className="flex_center text-center" style={{ height: '100vh' }}>
         <h1 style={{ fontSize: '6rem' }}>{t('common.500.oh')}</h1>
         <div>{t('common.500.error')}</div>
-        <Card className='mt-3 text-start'>
+        <Card className="mt-3 text-start overflow-scroll">
           <Card.Body>
             <pre><code>{JSON.stringify(error, null, 4)}</code></pre>
           </Card.Body>

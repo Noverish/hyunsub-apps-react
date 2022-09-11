@@ -65,7 +65,15 @@ export default function AlbumViewerPage() {
           setShowInfoModal(true)
         }}
       />
-      <i className="fas fa-expand"></i>
+      <i
+        className="fas fa-expand"
+        onClick={(e: React.MouseEvent<HTMLElement>) => {
+          e.stopPropagation();
+          if (currentPhoto) {
+            navigate(routes.photoOriginal(currentPhoto.id))
+          }
+        }}
+      />
     </>
   )
 

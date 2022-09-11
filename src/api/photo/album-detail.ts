@@ -7,7 +7,7 @@ export interface AlbumDetailParams {
 
 const albumDetailApi = generateQuery<AlbumDetailParams, Album>({
   api: (params) => ({
-    url: `/api/v1/album/${params.albumId}`,
+    url: `/api/v1/albums/${params.albumId}`,
     method: 'GET',
   }),
   key: () => 'albumDetail',

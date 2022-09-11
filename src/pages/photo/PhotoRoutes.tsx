@@ -1,12 +1,21 @@
 const PhotoRoutes = {
-  albumList: () => '/album',
-  albumDetail: (albumId?: number) => `/album/${albumId ?? ':albumId'}`,
+  albumList: () => '/albums',
+  albumDetail: (albumId?: number) => (
+    (albumId)
+      ? `/albums/${albumId}`
+      : '/albums/:albumId'
+  ),
   albumViewer: (albumId?: number, photoId?: number) => (
     (albumId && photoId)
-      ? `/album/${albumId}/viewer?photoId=${photoId}`
-      : '/album/:albumId/viewer'
+      ? `/albums/${albumId}/viewer?photoId=${photoId}`
+      : '/albums/:albumId/viewer'
   ),
-  photoList: () => '/photo',
+  photoList: () => '/photos',
+  photoOriginal: (photoId?: number) => (
+    photoId
+      ? `/photos/${photoId}`
+      : '/photos/:photoId'
+  ),
   setting: () => '/setting',
 }
 

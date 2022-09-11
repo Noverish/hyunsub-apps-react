@@ -3,7 +3,7 @@ import { generateNoParamQuery } from "../generate-api";
 
 const albumListApi = generateNoParamQuery<AlbumPreview[]>({
   api: () => ({
-    url: '/api/v1/album',
+    url: '/api/v1/albums',
     method: 'GET',
   }),
   key: () => 'albumList',
