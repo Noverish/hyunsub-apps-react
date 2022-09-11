@@ -11,7 +11,7 @@ const getAuthorities = generateNoParamQuery<string[]>({
     method: 'GET',
     withCredentials: true,
   }),
-  key: () => ['authorities'],
+  key: () => 'authorities',
 });
 
 export default getAuthorities;

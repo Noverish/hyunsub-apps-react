@@ -6,7 +6,7 @@ const getCategories = generateNoParamQuery<VideoCategory[]>({
     url: '/api/v1/category',
     method: 'GET',
   }),
-  key: () => ['categories'],
+  key: () => 'categories',
 });
 
 export default getCategories;

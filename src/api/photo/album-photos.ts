@@ -17,7 +17,7 @@ const albumPhotosApi = generateQuery<AlbumPhotosParams, PageData<Photo>>({
       photoId: params.photoId,
     }
   }),
-  key: (params) => ['albumPhotos', JSON.stringify(params, Object.keys(params).sort())],
+  key: () => 'albumPhotos',
 })
 
 export default albumPhotosApi;

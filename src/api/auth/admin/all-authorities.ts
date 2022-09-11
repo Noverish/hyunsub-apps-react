@@ -6,7 +6,7 @@ const getAllAuthorities = generateNoParamQuery<AdminAuthority[]>({
     url: '/api/v1/admin/authorities',
     method: 'GET',
   }),
-  key: () => ['allAuthorities'],
+  key: () => 'allAuthorities',
 });
 
 export default getAllAuthorities;

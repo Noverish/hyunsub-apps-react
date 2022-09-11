@@ -10,6 +10,10 @@ export function isDev() {
   return !process.env.NODE_ENV || process.env.NODE_ENV === 'development';
 }
 
+export function toJSON(obj: any) {
+  return JSON.stringify(obj, Object.keys(obj).sort());
+}
+
 export function useScrollBottom(callback: () => void, deps: DependencyList) {
   useEffect(() => {
     const handler = () => {

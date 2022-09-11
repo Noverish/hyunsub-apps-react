@@ -13,7 +13,7 @@ const searchVideo = generateQuery<VideoSearchParams, VideoSearchResult>({
       q: params.query,
     },
   }),
-  key: (params) => ['searchVideo', params.query],
+  key: () => 'searchVideo',
 });
 
 export default searchVideo;

@@ -6,7 +6,7 @@ const albumListApi = generateNoParamQuery<AlbumPreview[]>({
     url: '/api/v1/album',
     method: 'GET',
   }),
-  key: () => ['albumList'],
+  key: () => 'albumList',
 })
 
 export default albumListApi;
