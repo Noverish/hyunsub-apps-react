@@ -47,6 +47,11 @@ const ko = {
     'auth.modify-password-modal.title': '비밀번호 변경하기',
     'auth.modify-password-modal.success': '비밀번호 변경에 성공했습니다. 다시 로그인 해주세요',
     'auth.modify-password-modal.failure': '비밀번호 변경에 실패했습니다',
+
+    'PageSelectModal.title': '페이지 이동',
+    'PageSelectModal.close': '취소',
+    'PageSelectModal.move': '이동',
+    'PageSelectModal.msg.invalid-page': '올바른 값을 입력해주세요',
   }
 };
 

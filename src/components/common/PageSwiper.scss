@@ -1,0 +1,79 @@
+#PageSwiper {
+  .swiper_header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3rem;
+    z-index: 2;
+
+    display: flex;
+    align-items: stretch;
+
+    border-bottom: 1px solid #232323;
+    background-color: var(--header_bg);
+    color: var(--header_font_color);
+    backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(7px);
+
+    .left {
+      flex: 1 1 0;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .center {
+      cursor: pointer;
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      padding: 0 1rem;
+
+      &:hover {
+        color: grey;
+      }
+    }
+
+    .right {
+      flex: 1 1 0;
+      display: flex;
+      flex-direction: row-reverse;
+      align-items: center;
+    }
+
+    i {
+      cursor: pointer;
+      width: 3rem;
+      height: 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+
+      &:hover {
+        color: grey;
+      }
+    }
+  }
+
+  .swiper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+  }
+
+  .swiper-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  img, video {
+    max-height: 100%;
+    max-width: 100%;
+  }
+}

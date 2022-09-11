@@ -47,6 +47,11 @@ const en = {
     'auth.modify-password-modal.title': 'Modify Password',
     'auth.modify-password-modal.success': 'Modification password is successful. Please login again',
     'auth.modify-password-modal.failure': 'Modification password is failed',
+
+    'PageSelectModal.title': 'Move Page',
+    'PageSelectModal.close': 'Close',
+    'PageSelectModal.move': 'Move',
+    'PageSelectModal.msg.invalid-page': 'Please enter a valid value',
   }
 };
 

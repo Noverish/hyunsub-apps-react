@@ -37,9 +37,9 @@ export default function AlbumDetailPage() {
 
   const { data, fetchNextPage, isFetching } = useInfiniteQuery(
     albumPhotosApi.key({ albumId, page: 0 }),
-    ({ pageParam }) => albumPhotosApi.api({ albumId, page: pageParam ?? 0 }),
+    ({ pageParam }) => albumPhotosApi.fetch({ albumId, page: pageParam ?? 0 }),
     {
-      getNextPageParam: (lastPage, pages) => (lastPage.length === 0) ? undefined : pages.length,
+      getNextPageParam: (lastPage, pages) => (lastPage.total === lastPage.end + 1) ? undefined : pages.length,
       suspense: false,
       staleTime: Infinity,
     }
@@ -53,7 +53,7 @@ export default function AlbumDetailPage() {
     }
   }, [isFetching, fetchNextPage]);
 
-  const photos = flatten(data?.pages ?? []);
+  const photos = flatten(data?.pages.map(v => v.data) ?? []);
   const photoMap = groupBy(photos, v => v.date.substring(0, 10));
   const groups = Object.entries(photoMap).map(([date, photos]) => (
     <PhotoGroupPerDay key={date} date={date} photos={photos} />
