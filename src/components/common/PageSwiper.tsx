@@ -9,11 +9,12 @@ import { Swiper as SwiperComponent, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import './PageSwiper.scss';
 
-interface Props<T> {
+export interface PageSwiperProps<T> {
   page: number;
   slides: (T | null)[];
   onPageChange: (page: number) => void;
   renderSlide: (slide: T | null) => JSX.Element;
+  headerRightIcons?: JSX.Element;
 }
 
 function printSwiperStatus<T>(slide: number, slides: (T | null)[]) {
@@ -26,7 +27,7 @@ function printSwiperStatus<T>(slide: number, slides: (T | null)[]) {
   console.log(str);
 }
 
-export default function PageSwiper<T>(props: Props<T>) {
+export default function PageSwiper<T>(props: PageSwiperProps<T>) {
   const { slides, page } = props;
   const [now, setNow] = useState(page);
   const [hideHeader, setHideHeader] = useState(false);
@@ -79,8 +80,7 @@ export default function PageSwiper<T>(props: Props<T>) {
           <span id="max_page">{slides.length}</span>
         </div>
         <div className="right">
-          <i className="fas fa-info-circle"></i>
-          <i className="fas fa-expand"></i>
+          {props.headerRightIcons}
         </div>
       </div>
       <SwiperComponent

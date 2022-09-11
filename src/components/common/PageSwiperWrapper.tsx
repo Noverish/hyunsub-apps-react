@@ -1,17 +1,16 @@
 import { useQuery } from '@tanstack/react-query';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { PageData } from 'src/model/api';
-import PageSwiper from './PageSwiper';
+import PageSwiper, { PageSwiperProps } from './PageSwiper';
 
 export type PageDataList<T> = (PageData<T> | null)[];
 export type SlideList<T> = (T | null)[];
 
-interface Props<T> {
+interface Props<T> extends PageSwiperProps<T> {
+  pageDataList: PageDataList<T>;
   readyOffSlideSize?: number;
-  slidePredicate: (slide: T | null) => boolean;
-  renderSlide: (slide: T | null) => JSX.Element;
-  onSlideChange: (slide: T) => void;
-  fetchSlides: (page?: number) => Promise<PageData<T>>;
+  fetchInitial: () => Promise<PageData<T>>;
+  fetchSlides: (page: number) => void;
 }
 
 function makePageDataList<T>(pageData: PageData<T>): PageDataList<T> {
@@ -23,8 +22,12 @@ function makePageDataList<T>(pageData: PageData<T>): PageDataList<T> {
   )
 }
 
-function makeSlides<T>(pageDataList: PageDataList<T>): (T | null)[] {
-  const anyPageData = pageDataList.filter(v => !!v)[0]!!;
+export function makeSlides<T>(pageDataList: PageDataList<T>): (T | null)[] {
+  const anyPageData = pageDataList.filter(v => !!v)[0];
+  if (!anyPageData) {
+    return [];
+  }
+
   const slides = Array.from({ length: anyPageData.total }, () => null as T | null);
 
   for (const pageData of pageDataList) {
@@ -46,35 +49,29 @@ function getPage<T>(pageDataList: PageDataList<T>, index: number) {
 }
 
 export default function PageSwiperWrapper<T>(props: Props<T>) {
-  const { fetchSlides, readyOffSlideSize = 0 } = props;
+  const {
+    pageDataList,
+    fetchInitial: initialFetchSlides,
+    fetchSlides,
+    readyOffSlideSize = 0,
+    onPageChange,
+    ...etc
+  } = props;
 
-  const initPageData = useQuery(['PageSwiperWrapper'], () => fetchSlides()).data!!;
-  const [pageDataList, setPageDataList] = useState<PageDataList<T>>(makePageDataList(initPageData));
+  useQuery(['PageSwiperWrapper'], () => initialFetchSlides());
+
   const loadingRef = useRef(new Map<number, boolean>());
-
-  const slides = makeSlides(pageDataList);
-  const index = slides.findIndex(props.slidePredicate);
 
   const readyPage = (page: number) => {
     if (pageDataList[page] || loadingRef.current.get(page)) {
       return;
     }
     loadingRef.current.set(page, true);
-
-    props.fetchSlides(page)
-      .then((pageData) => {
-        pageDataList[pageData.page] = pageData;
-        setPageDataList([...pageDataList]);
-        loadingRef.current.delete(page);
-      });
+    fetchSlides(page);
   }
 
   const onSlideChange = (index: number) => {
-    // TODO 로딩 전 페이지로 넘어갔을 때 어떻게 콜백 처리할지 고민하기
-    const slide = slides[index];
-    if (slide) {
-      props.onSlideChange(slide);
-    }
+    onPageChange(index);
 
     const pageBehind = getPage(pageDataList, index - readyOffSlideSize);
     readyPage(pageBehind);
@@ -85,10 +82,8 @@ export default function PageSwiperWrapper<T>(props: Props<T>) {
 
   return (
     <PageSwiper
-      page={index}
-      slides={slides}
+      {...etc}
       onPageChange={onSlideChange}
-      renderSlide={props.renderSlide}
     />
   )
 }

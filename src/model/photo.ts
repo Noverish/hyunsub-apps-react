@@ -16,6 +16,6 @@ export interface Photo {
   width: number;
   height: number;
   date: string;
-  size: number;
+  size: string;
   liveVideo: string | null;
 }
