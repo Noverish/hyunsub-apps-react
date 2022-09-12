@@ -1,10 +1,18 @@
-import { Container } from "react-bootstrap"
-import PhotoHeader from "src/components/photo/PhotoHeader"
-import albumListApi from "src/api/photo/album-list"
-import routes from 'src/pages/photo/PhotoRoutes';
+import { useEffect } from 'react';
+import { Container } from "react-bootstrap";
+import { useTranslation } from 'react-i18next';
 import { Link } from "react-router-dom";
+import albumListApi from "src/api/photo/album-list";
+import PhotoHeader from "src/components/photo/PhotoHeader";
+import routes from 'src/pages/photo/PhotoRoutes';
 
 export default function AlbumListPage() {
+  const { t } = useTranslation();
+
+  useEffect(() => {
+    document.title = t('photo.page.album-list.title');
+  }, [t]);
+
   const albums = albumListApi.useApi();
 
   const albumItems = albums.map(v => (

@@ -48,6 +48,13 @@ const ko = {
     'auth.modify-password-modal.success': '비밀번호 변경에 성공했습니다. 다시 로그인 해주세요',
     'auth.modify-password-modal.failure': '비밀번호 변경에 실패했습니다',
 
+    'photo.page.album-list.title': '내 앨범 목록',
+    'photo.page.album-detail.title': '사진 목록 - {{0}}',
+    'photo.page.album-viewer.title': '사진 뷰어 - {{0}}',
+    'photo.page.photo-list.title': '내 사진 목록',
+    'photo.page.photo-original.title': '원본 보기 - {{0}}',
+    'photo.page.setting.title': '설정',
+
     'PageSelectModal.title': '페이지 이동',
     'PageSelectModal.close': '취소',
     'PageSelectModal.move': '이동',

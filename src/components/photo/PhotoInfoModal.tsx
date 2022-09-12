@@ -1,5 +1,6 @@
 import { Modal, Stack } from 'react-bootstrap';
 import { Photo } from 'src/model/photo';
+import { urlToName } from 'src/utils';
 
 interface Props {
   photo: Photo;
@@ -10,7 +11,7 @@ interface Props {
 export default function PhotoInfoModal(props: Props) {
   const { show, onHide, photo } = props;
 
-  const name = decodeURIComponent(photo.url.split('/').reverse()[0]);
+  const name = urlToName(photo.url);
 
   return (
     <Modal show={show} onHide={onHide} onClick={(e: any) => e.stopPropagation()}>

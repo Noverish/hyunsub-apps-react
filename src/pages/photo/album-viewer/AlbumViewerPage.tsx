@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Spinner } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import albumDetailApi from 'src/api/photo/album-detail';
 import albumPhotosApi from 'src/api/photo/album-photos';
 import PageSwiperWrapper, { makeSlides } from 'src/components/common/PageSwiperWrapper';
 import PhotoInfoModal from 'src/components/photo/PhotoInfoModal';
@@ -24,8 +26,15 @@ function renderSlide(photo: Photo | null) {
 }
 
 export default function AlbumViewerPage() {
+  const { t } = useTranslation();
   const albumId = parseInt(useParams().albumId!!, 10);
   const photoId = parseInt(useSearchParams()[0].get('photoId')!!, 10);
+
+  const album = albumDetailApi.useApi({ albumId });
+
+  useEffect(() => {
+    document.title = t('photo.page.album-viewer.title', [album.preview.name]);
+  }, [t, album.preview.name]);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -35,7 +44,7 @@ export default function AlbumViewerPage() {
   const currentPhoto = slides[page];
 
   const [showInfoModal, setShowInfoModal] = useState(false);
-  
+
   const fetchInitial = async () => {
     const initialPageData = await albumPhotosApi.fetch({ albumId, photoId });
     dispatch(AlbumViewerActions.putPageData(initialPageData));

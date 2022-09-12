@@ -48,6 +48,13 @@ const en = {
     'auth.modify-password-modal.success': 'Modification password is successful. Please login again',
     'auth.modify-password-modal.failure': 'Modification password is failed',
 
+    'photo.page.album-list.title': 'My Album List',
+    'photo.page.album-detail.title': 'Photo List - {{0}}',
+    'photo.page.album-viewer.title': 'Photo Viewer - {{0}}',
+    'photo.page.photo-list.title': 'My Photo List',
+    'photo.page.photo-original.title': 'View Original - {{0}}',
+    'photo.page.setting.title': 'Setting',
+
     'PageSelectModal.title': 'Move Page',
     'PageSelectModal.close': 'Close',
     'PageSelectModal.move': 'Move',

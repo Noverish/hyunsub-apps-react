@@ -34,3 +34,7 @@ export function useScrollBottom(callback: () => void, deps: DependencyList) {
     }
   }, [deps, callback]);
 }
+
+export function urlToName(url: string) {
+  return decodeURIComponent(url.split('/').reverse()[0]);
+}

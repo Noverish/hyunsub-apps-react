@@ -1,7 +1,9 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 import flatten from 'lodash/flatten';
 import groupBy from 'lodash/groupBy';
+import { useEffect } from 'react';
 import { Container, Spinner } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import albumDetailApi from 'src/api/photo/album-detail';
 import albumPhotosApi from 'src/api/photo/album-photos';
@@ -33,6 +35,7 @@ function PhotoGroupPerDay({ date, photos }: Props) {
 }
 
 export default function AlbumDetailPage() {
+  const { t } = useTranslation();
   const albumId = parseInt(useParams().albumId!!, 10);
 
   const { data, fetchNextPage, isFetching } = useInfiniteQuery(
@@ -46,6 +49,10 @@ export default function AlbumDetailPage() {
   );
 
   const album = albumDetailApi.useApi({ albumId });
+
+  useEffect(() => {
+    document.title = t('photo.page.album-detail.title', [album.preview.name]);
+  }, [t, album.preview.name]);
 
   useScrollBottom(() => {
     if (!isFetching) {
