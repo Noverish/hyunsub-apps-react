@@ -1,0 +1,20 @@
+#PhotoExifDateTable {
+  font-size: 12px;
+
+  th {
+    text-align: center;
+  }
+
+  td {
+    text-align: center;
+    cursor: default;
+  }
+
+  td.different {
+    color: red;
+  }
+
+  td.similar {
+    color: yellow;
+  }
+}
