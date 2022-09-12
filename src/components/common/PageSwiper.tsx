@@ -1,5 +1,4 @@
 import cs from 'classnames';
-import chunk from 'lodash/chunk';
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PageSelectModal from 'src/components/common/PageSelectModal';
@@ -17,15 +16,15 @@ export interface PageSwiperProps<T> {
   headerRightIcons?: JSX.Element;
 }
 
-function printSwiperStatus<T>(slide: number, slides: (T | null)[]) {
-  const list = slides.map((v, i) => {
-    if (i === slide) return 'X';
-    else if (v) return 'O';
-    else return '_';
-  });
-  const str = chunk(list, 48).map(v => v.join('')).join('\n');
-  console.log(str);
-}
+// function printSwiperStatus<T>(slide: number, slides: (T | null)[]) {
+//   const list = slides.map((v, i) => {
+//     if (i === slide) return 'X';
+//     else if (v) return 'O';
+//     else return '_';
+//   });
+//   const str = chunk(list, 48).map(v => v.join('')).join('\n');
+//   console.log(str);
+// }
 
 export default function PageSwiper<T>(props: PageSwiperProps<T>) {
   const { slides, page } = props;

@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import { PageData } from 'src/model/api';
 import PageSwiper, { PageSwiperProps } from './PageSwiper';
 
@@ -11,15 +11,6 @@ interface Props<T> extends PageSwiperProps<T> {
   readyOffSlideSize?: number;
   fetchInitial: () => Promise<PageData<T>>;
   fetchSlides: (page: number) => void;
-}
-
-function makePageDataList<T>(pageData: PageData<T>): PageDataList<T> {
-  const { total, pageSize, page } = pageData;
-  const totalPage = Math.floor((total - 1) / pageSize) + 1;
-  return Array.from(
-    { length: totalPage },
-    (_, i) => i === page ? pageData : null,
-  )
 }
 
 export function makeSlides<T>(pageDataList: PageDataList<T>): (T | null)[] {
