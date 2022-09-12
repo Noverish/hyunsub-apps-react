@@ -5,8 +5,10 @@ export interface AlbumPreview {
 }
 
 export interface Album {
-  total: number;
-  preview: AlbumPreview;
+  id: number;
+  name: string;
+  thumbnail: string;
+  photos: number;
 }
 
 export interface Photo {

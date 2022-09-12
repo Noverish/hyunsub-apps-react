@@ -8,6 +8,7 @@ const NotFoundPage = lazy(() => import('src/pages/common/NotFoundPage'));
 const AlbumListPage = lazy(() => import('src/pages/photo/album-list/AlbumListPage'));
 const AlbumDetailPage = lazy(() => import('src/pages/photo/album-detail/AlbumDetailPage'));
 const AlbumViewerPage = lazy(() => import('src/pages/photo/album-viewer/AlbumViewerPage'));
+const AlbumUploadPage = lazy(() => import('src/pages/photo/album-upload/AlbumUploadPage'));
 const AlbumExifDatePage = lazy(() => import('src/pages/photo/album-exif-date/AlbumExifDatePage'));
 const PhotoListPage = lazy(() => import('src/pages/photo/photo-list/PhotoListPage'));
 const PhotoOriginalPage = lazy(() => import('src/pages/photo/photo-original/PhotoOriginalPage'));
@@ -23,6 +24,7 @@ export default function PhotoIndex() {
         <Route path={routes.albumList()} element={<AlbumListPage />} />
         <Route path={routes.albumDetail()} element={<AlbumDetailPage />} />
         <Route path={routes.albumViewer()} element={<AlbumViewerPage />} />
+        <Route path={routes.albumUpload()} element={<AlbumUploadPage />} />
         <Route path={routes.albumExifDate()} element={<AlbumExifDatePage />} />
         <Route path={routes.photoList()} element={<PhotoListPage />} />
         <Route path={routes.photoOriginal()} element={<PhotoOriginalPage />} />

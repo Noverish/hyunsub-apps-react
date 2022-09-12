@@ -33,8 +33,8 @@ export default function AlbumViewerPage() {
   const album = albumDetailApi.useApi({ albumId });
 
   useEffect(() => {
-    document.title = t('photo.page.album-viewer.title', [album.preview.name]);
-  }, [t, album.preview.name]);
+    document.title = t('photo.page.album-viewer.title', [album.name]);
+  }, [t, album.name]);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();

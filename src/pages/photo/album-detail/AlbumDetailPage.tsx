@@ -2,15 +2,16 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import flatten from 'lodash/flatten';
 import groupBy from 'lodash/groupBy';
 import { useEffect } from 'react';
-import { Container, Spinner } from 'react-bootstrap';
+import { Button, Container, Spinner } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import albumDetailApi from 'src/api/photo/album-detail';
 import albumPhotosApi from 'src/api/photo/album-photos';
 import PhotoHeader from 'src/components/photo/PhotoHeader';
 import PhotoThumbnail from 'src/components/photo/PhotoThumbnail';
 import { Photo } from 'src/model/photo';
 import { useScrollBottom } from 'src/utils';
+import routes from 'src/pages/photo/PhotoRoutes';
 
 interface Props {
   date: string;
@@ -51,8 +52,8 @@ export default function AlbumDetailPage() {
   const album = albumDetailApi.useApi({ albumId });
 
   useEffect(() => {
-    document.title = t('photo.page.album-detail.title', [album.preview.name]);
-  }, [t, album.preview.name]);
+    document.title = t('photo.page.album-detail.title', [album.name]);
+  }, [t, album.name]);
 
   useScrollBottom(() => {
     if (!isFetching) {
@@ -70,8 +71,12 @@ export default function AlbumDetailPage() {
     <div id="AlbumDetailPage">
       <PhotoHeader />
       <Container id="content">
-        <h1>{album.preview.name}</h1>
-        <h2>{album.total} Photos</h2>
+        <Link to={routes.albumUpload(albumId)} style={{ float: 'right' }}>
+          <Button>{t('photo.page.album-detail.upload')}</Button>
+        </Link>
+        <h1>{album.name}</h1>
+        <hr />
+        <h2>{t('photo.page.album-detail.photo-num', [album.photos])}</h2>
         <div className="d-grid gap-3">
           {groups}
         </div>

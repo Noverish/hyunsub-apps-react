@@ -50,7 +50,13 @@ const ko = {
 
     'photo.page.album-list.title': '내 앨범 목록',
     'photo.page.album-detail.title': '사진 목록 - {{0}}',
+    'photo.page.album-detail.upload': '사진 업로드',
+    'photo.page.album-detail.photo-num': '{{0}}개의 사진',
     'photo.page.album-viewer.title': '사진 뷰어 - {{0}}',
+    'photo.page.album-upload.title': '사진 업로드 - {{0}}',
+    'photo.page.album-upload.back-to-album': '앨범으로 돌아가기',
+    'photo.page.album-upload.upload': '업로드',
+    'photo.page.album-upload.msg.empty-upload': '업로드할 파일을 선택해주세요',
     'photo.page.photo-list.title': '내 사진 목록',
     'photo.page.photo-original.title': '원본 보기 - {{0}}',
     'photo.page.setting.title': '설정',

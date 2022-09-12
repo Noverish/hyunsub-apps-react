@@ -50,7 +50,13 @@ const en = {
 
     'photo.page.album-list.title': 'My Album List',
     'photo.page.album-detail.title': 'Photo List - {{0}}',
+    'photo.page.album-detail.upload': 'Upload Photos',
+    'photo.page.album-detail.photo-num': '{{0}} Photos',
     'photo.page.album-viewer.title': 'Photo Viewer - {{0}}',
+    'photo.page.album-upload.title': 'Photo Upload - {{0}}',
+    'photo.page.album-upload.back-to-album': 'Back to album',
+    'photo.page.album-upload.upload': 'Upload',
+    'photo.page.album-upload.msg.empty-upload': 'Please select files to upload',
     'photo.page.photo-list.title': 'My Photo List',
     'photo.page.photo-original.title': 'View Original - {{0}}',
     'photo.page.setting.title': 'Setting',

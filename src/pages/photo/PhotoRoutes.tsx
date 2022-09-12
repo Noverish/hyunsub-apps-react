@@ -10,6 +10,11 @@ const PhotoRoutes = {
       ? `/albums/${albumId}/viewer?photoId=${photoId}`
       : '/albums/:albumId/viewer'
   ),
+  albumUpload: (albumId?: number) => (
+    (albumId)
+      ? `/albums/${albumId}/upload`
+      : '/albums/:albumId/upload'
+  ),
   albumExifDate: (albumId?: number) => (
     (albumId)
       ? `/albums/${albumId}/exif/date`

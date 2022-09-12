@@ -1,0 +1,16 @@
+.PhotoUploadCell {
+  .ratio {
+    background-color: #333;
+  }
+
+  .progress_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .progress {
+    --bs-progress-bar-transition: width 0.1s ease !important;
+    width: 66%;
+  }
+}
