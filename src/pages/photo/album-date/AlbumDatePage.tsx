@@ -3,22 +3,22 @@ import { InfiniteData, useInfiniteQuery } from '@tanstack/react-query';
 import flatMap from 'lodash/flatMap';
 import { Spinner } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
-import albumExifDateApi from "src/api/photo/album-exif-date";
+import albumDateApi from "src/api/photo/album-date";
 import photoUpdateApi from "src/api/photo/photo-update";
 import queryClient from 'src/api/query-client';
-import PhotoExifDateTable from "src/components/photo/PhotoExifDateTable";
+import PhotoDateTable from "src/components/photo/PhotoDateTable";
 import { PageData } from "src/model/api";
-import { PhotoExifDate } from "src/model/photo";
+import { PhotoDate } from "src/model/photo";
 import { RootState, useDispatch } from "src/redux";
 import { GlobalActions } from 'src/redux/global';
 import { useScrollBottom } from 'src/utils';
 
-const updateDate = (albumId: number, data: PhotoExifDate, date: string) => async (dispatch: Dispatch, getState: () => RootState) => {
+const updateDate = (albumId: number, data: PhotoDate, date: string) => async (dispatch: Dispatch, getState: () => RootState) => {
   dispatch(GlobalActions.update({ loading: true }));
 
   const result = await photoUpdateApi({ id: data.photoId, date });
-  const key = albumExifDateApi.key({ albumId, page: 0 });
-  queryClient.setQueryData<InfiniteData<PageData<PhotoExifDate>>>(key, (cache) => {
+  const key = albumDateApi.key({ albumId, page: 0 });
+  queryClient.setQueryData<InfiniteData<PageData<PhotoDate>>>(key, (cache) => {
     if (!cache) {
       return cache;
     }
@@ -37,13 +37,13 @@ const updateDate = (albumId: number, data: PhotoExifDate, date: string) => async
   dispatch(GlobalActions.update({ loading: false }));
 }
 
-export default function AlbumExifDatePage() {
+export default function AlbumDatePage() {
   const dispatch = useDispatch();
   const albumId = parseInt(useParams().albumId!!, 10);
 
   const { data, fetchNextPage, isFetching } = useInfiniteQuery(
-    albumExifDateApi.key({ albumId, page: 0 }),
-    ({ pageParam }) => albumExifDateApi.fetch({ albumId, page: pageParam ?? 0 }),
+    albumDateApi.key({ albumId, page: 0 }),
+    ({ pageParam }) => albumDateApi.fetch({ albumId, page: pageParam ?? 0 }),
     {
       getNextPageParam: (lastPage, pages) => (lastPage.total === lastPage.end + 1) ? undefined : pages.length,
       staleTime: Infinity,
@@ -56,16 +56,16 @@ export default function AlbumExifDatePage() {
     }
   }, [isFetching, fetchNextPage]);
 
-  const onCellClick = (data: PhotoExifDate, date: string) => {
+  const onCellClick = (data: PhotoDate, date: string) => {
     dispatch(updateDate(albumId, data, date));
   }
 
   const list = flatMap(data!!.pages.map(v => v.data));
 
   return (
-    <div id="AlbumExifDatePage">
-      <h1>AlbumExifDatePage</h1>
-      <PhotoExifDateTable list={list} onCellClick={onCellClick} />
+    <div id="AlbumDatePage">
+      <h1>AlbumDatePage</h1>
+      <PhotoDateTable list={list} onCellClick={onCellClick} />
       {isFetching && <div className="flex_center" style={{ height: '8rem' }}>
         <Spinner animation="border"></Spinner>
       </div>}

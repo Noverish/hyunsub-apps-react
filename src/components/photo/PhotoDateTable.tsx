@@ -1,23 +1,30 @@
 import { Table } from "react-bootstrap";
-import { PhotoExifDate } from "src/model/photo";
+import { PhotoDate } from "src/model/photo";
 
-import './PhotoExifDateTable.scss';
+import './PhotoDateTable.scss';
 
 interface Props {
-  list: PhotoExifDate[];
-  onCellClick: (data: PhotoExifDate, date: string) => void;
+  list: PhotoDate[];
+  onCellClick: (data: PhotoDate, date: string) => void;
 }
 
-export function renderCell(onClickCell: (date: string) => void, photoDate: string, date: string) {
+export function renderCell(onClickCell: (date: string) => void, photoDate: string, date: string | null) {
+  if (!date) {
+    return (
+      <td></td>
+    )
+  }
+
   const dateObj = new Date(date);
   const photoDateObj = new Date(photoDate);
+  const diff = Math.abs(dateObj.getTime() - photoDateObj.getTime());
 
   let className = '';
-  if (photoDate === date) {
+  if (diff <= 3000) {
     className = '';
-  } else if (Math.abs(dateObj.getTime() - photoDateObj.getTime()) < 60 * 1000) {
+  } else if (diff <= 60 * 1000) {
     className = 'similar';
-  } else if (dateObj.getTime() !== photoDateObj.getTime()) {
+  } else {
     className = "different";
   }
 
@@ -26,17 +33,21 @@ export function renderCell(onClickCell: (date: string) => void, photoDate: strin
   };
 
   return (
-    <td className={className} onClick={onClick}>{date}</td>
+    <td className={className} onClick={onClick}>
+      {date.split(' ')[0]}
+      <br />
+      {date.split(' ')[1]}
+    </td>
   )
 }
 
-interface PhotoExifDateTableRowProps {
+interface PhotoDateTableRowProps {
   i: number;
-  data: PhotoExifDate;
-  onCellClick: (data: PhotoExifDate, date: string) => void;
+  data: PhotoDate;
+  onCellClick: (data: PhotoDate, date: string) => void;
 }
 
-export function PhotoExifDateTableRow(props: PhotoExifDateTableRowProps) {
+export function PhotoDateTableRow(props: PhotoDateTableRowProps) {
   const { i, data, onCellClick } = props;
 
   const onClickCell = (date: string) => {
@@ -48,30 +59,34 @@ export function PhotoExifDateTableRow(props: PhotoExifDateTableRowProps) {
       <td>{i + 1}</td>
       <td>{data.photoId}</td>
       <td>{data.name}</td>
-      <td>{data.date}</td>
+      <td>
+        {data.date.split(' ')[0]}
+        <br />
+        {data.date.split(' ')[1]}
+      </td>
       {renderCell(onClickCell, data.date, data.nameDate)}
-      {renderCell(onClickCell, data.date, data.dateTimeCreated)}
       {renderCell(onClickCell, data.date, data.subSecCreateDate)}
-      {renderCell(onClickCell, data.date, data.fileModifyDate)}
       {renderCell(onClickCell, data.date, data.modifyDate)}
       {renderCell(onClickCell, data.date, data.createDate)}
-      {renderCell(onClickCell, data.date, data.creationDate)}
       {renderCell(onClickCell, data.date, data.dateTimeOriginal)}
+      {renderCell(onClickCell, data.date, data.dateTimeCreated)}
       {renderCell(onClickCell, data.date, data.timeStamp)}
+      {renderCell(onClickCell, data.date, data.creationDate)}
+      {renderCell(onClickCell, data.date, data.fileModifyDate)}
       {renderCell(onClickCell, data.date, data.gpsDateTime)}
     </tr>
   )
 }
 
-export default function PhotoExifDateTable(props: Props) {
+export default function PhotoDateTable(props: Props) {
   const { list, onCellClick } = props;
 
   const rows = list.map((v, i) =>
-    <PhotoExifDateTableRow key={v.photoId} i={i} data={v} onCellClick={onCellClick} />
+    <PhotoDateTableRow key={v.photoId} i={i} data={v} onCellClick={onCellClick} />
   )
 
   return (
-    <Table striped bordered hover variant="dark" id="PhotoExifDateTable">
+    <Table striped bordered hover variant="dark" id="PhotoDateTable">
       <thead>
         <tr>
           <th>#</th>
@@ -79,14 +94,14 @@ export default function PhotoExifDateTable(props: Props) {
           <th>name</th>
           <th>date</th>
           <th>nameDate</th>
-          <th>dateTimeCreated</th>
           <th>subSecCreateDate</th>
-          <th>fileModifyDate</th>
           <th>modifyDate</th>
           <th>createDate</th>
-          <th>creationDate</th>
           <th>dateTimeOriginal</th>
+          <th>dateTimeCreated</th>
           <th>timeStamp</th>
+          <th>creationDate</th>
+          <th>fileModifyDate</th>
           <th>gpsDateTime</th>
         </tr>
       </thead>

@@ -1,5 +1,10 @@
-#PhotoExifDateTable {
+#PhotoDateTable {
   font-size: 12px;
+
+  thead {
+    position: sticky;
+    top: -1px;
+  }
 
   th {
     text-align: center;

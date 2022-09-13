@@ -22,18 +22,18 @@ export interface Photo {
   liveVideo: string | null;
 }
 
-export interface PhotoExifDate {
+export interface PhotoDate {
   photoId: number;
   name: string;
   date: string;
-  nameDate: string;
-  dateTimeCreated: string;
-  subSecCreateDate: string;
-  fileModifyDate: string;
-  modifyDate: string;
-  createDate: string;
-  creationDate: string;
-  dateTimeOriginal: string;
-  timeStamp: string;
-  gpsDateTime: string;
+  nameDate: string | null;
+  dateTimeCreated: string | null;
+  subSecCreateDate: string | null;
+  fileModifyDate: string | null;
+  modifyDate: string | null;
+  createDate: string | null;
+  creationDate: string | null;
+  dateTimeOriginal: string | null;
+  timeStamp: string | null;
+  gpsDateTime: string | null;
 }

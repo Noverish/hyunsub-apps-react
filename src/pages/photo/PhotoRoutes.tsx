@@ -15,10 +15,10 @@ const PhotoRoutes = {
       ? `/albums/${albumId}/upload`
       : '/albums/:albumId/upload'
   ),
-  albumExifDate: (albumId?: number) => (
+  albumDate: (albumId?: number) => (
     (albumId)
-      ? `/albums/${albumId}/exif/date`
-      : '/albums/:albumId/exif/date'
+      ? `/albums/${albumId}/date`
+      : '/albums/:albumId/date'
   ),
   photoList: () => '/photos',
   photoOriginal: (photoId?: number) => (

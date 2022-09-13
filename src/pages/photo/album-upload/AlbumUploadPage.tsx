@@ -1,29 +1,23 @@
-import React, { useEffect } from 'react';
-import { Container, Form, Button, Stack } from 'react-bootstrap';
+import React, { useEffect, useRef } from 'react';
+import { Button, Container, Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import {useParams, Link} from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import albumDetailApi from 'src/api/photo/album-detail';
 import PhotoHeader from 'src/components/photo/PhotoHeader';
 import PhotoUploadList from 'src/components/photo/PhotoUploadList';
-import { useDispatch } from 'src/redux';
-import { prepareUploadAction, albumUploadAction } from './AlbumUploadContext';
-import { useForm, SubmitHandler } from 'react-hook-form';
 import routes from 'src/pages/photo/PhotoRoutes';
+import { useDispatch } from 'src/redux';
+import { albumUploadAction, prepareUploadAction } from './AlbumUploadContext';
 
 import './AlbumUploadPage.scss';
-
-interface FormState {
-  files: FileList;
-}
 
 export default function AlbumUploadPage() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const albumId = parseInt(useParams().albumId!!, 10);
+  const filesRef = useRef<FileList | null>();
 
   const album = albumDetailApi.useApi({ albumId });
-
-  const { register, handleSubmit } = useForm<FormState>();
 
   useEffect(() => {
     document.title = t('photo.page.album-upload.title', [album.name]);
@@ -31,16 +25,19 @@ export default function AlbumUploadPage() {
 
   const onFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.currentTarget.files;
+    filesRef.current = files;
     dispatch(prepareUploadAction(files?.length ?? 0));
   }
 
-  const onSubmit: SubmitHandler<FormState> = (params: FormState) => {
-    if (params.files.length === 0) {
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const files = filesRef.current;
+    if (!files || files.length === 0) {
       alert(t('photo.page.album-upload.msg.empty-upload'));
       return;
     }
 
-    dispatch(albumUploadAction(params.files, albumId));
+    dispatch(albumUploadAction(files, albumId));
   };
 
   return (
@@ -52,8 +49,8 @@ export default function AlbumUploadPage() {
         </Link>
         <h1>{album.name}</h1>
         <hr />
-        <Form id="album_upload_form" onSubmit={handleSubmit(onSubmit)}>
-          <Form.Control type="file" {...register('files')} className="input_dark" multiple onChange={onFileSelect} />
+        <Form id="album_upload_form" onSubmit={onSubmit}>
+          <Form.Control type="file" className="input_dark" multiple onChange={onFileSelect} accept="image/jpeg,image/png" />
           <div className="vr" />
           <Button variant="primary" type="submit">
             {t('photo.page.album-upload.upload')}
