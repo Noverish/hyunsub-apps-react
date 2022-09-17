@@ -45,7 +45,7 @@ export default function AlbumDatePage() {
     albumDateApi.key({ albumId, page: 0 }),
     ({ pageParam }) => albumDateApi.fetch({ albumId, page: pageParam ?? 0 }),
     {
-      getNextPageParam: (lastPage, pages) => (lastPage.total === lastPage.end + 1) ? undefined : pages.length,
+      getNextPageParam: (lastPage, pages) => (lastPage.data.length === 0) ? undefined : pages.length,
       staleTime: Infinity,
     }
   );
