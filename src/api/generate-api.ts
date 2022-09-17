@@ -37,7 +37,7 @@ interface GenerateNoParamApiResult<R> {
   prefetch: () => void;
 }
 
-export function generateApi<P, R>(func: (p: P) => AxiosRequestConfig<P>) {
+export function generateApi<P, R>(func: (p: P) => AxiosRequestConfig) {
   return async (p: P): Promise<R> => {
     try {
       const res: AxiosResponse<R> = await axios(func(p));
