@@ -3,12 +3,15 @@ import albumUploadApi from "src/api/photo/album-upload";
 import { RootState } from "src/redux";
 import { AlbumUploadActions, PhotoUploadStatus } from "./AlbumUploadState";
 
-export const prepareUploadAction = (fileNum: number) => async (dispatch: Dispatch, getState: () => RootState) => {
-  const statusList: PhotoUploadStatus[] = Array.from({ length: fileNum }, () => ({ progress: 0 }));
+export const prepareUploadAction = (files: File[]) => async (dispatch: Dispatch, getState: () => RootState) => {
+  const statusList: PhotoUploadStatus[] = files.map((file) => ({
+    name: file.name,
+    progress: 0,
+  }))
   dispatch(AlbumUploadActions.update({ statusList }));
 }
 
-export const albumUploadAction = (files: FileList, albumId: number) => async (dispatch: Dispatch, getState: () => RootState) => {
+export const albumUploadAction = (files: File[], albumId: number) => async (dispatch: Dispatch, getState: () => RootState) => {
   for (let i = 0; i < files.length; i++) {
     const file = files[i];
 

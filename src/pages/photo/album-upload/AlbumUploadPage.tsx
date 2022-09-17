@@ -15,7 +15,7 @@ export default function AlbumUploadPage() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const albumId = parseInt(useParams().albumId!!, 10);
-  const filesRef = useRef<FileList | null>();
+  const filesRef = useRef<File[]>([]);
 
   const album = albumDetailApi.useApi({ albumId });
 
@@ -24,15 +24,15 @@ export default function AlbumUploadPage() {
   }, [t, album.name]);
 
   const onFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.currentTarget.files;
+    const files = Array.from(e.currentTarget.files || []);
+    dispatch(prepareUploadAction(files));
     filesRef.current = files;
-    dispatch(prepareUploadAction(files?.length ?? 0));
   }
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const files = filesRef.current;
-    if (!files || files.length === 0) {
+    if (files.length === 0) {
       alert(t('photo.page.album-upload.msg.empty-upload'));
       return;
     }
@@ -50,7 +50,7 @@ export default function AlbumUploadPage() {
         <h1>{album.name}</h1>
         <hr />
         <Form id="album_upload_form" onSubmit={onSubmit}>
-          <Form.Control type="file" className="input_dark" multiple onChange={onFileSelect} accept="image/jpeg,image/png" />
+          <Form.Control type="file" className="input_dark" multiple onChange={onFileSelect} accept="image/jpeg,image/png,video/mp4,video/quicktime" />
           <div className="vr" />
           <Button variant="primary" type="submit">
             {t('photo.page.album-upload.upload')}

@@ -9,7 +9,7 @@ interface Props {
 
 export default function PhotoUploadCell(props: Props) {
   const { status } = props;
-  const { progress, photo } = status;
+  const { progress, photo, name } = status;
 
   const progressBar = (progress >= 0)
     ? <ProgressBar striped now={progress} label={`${progress}%`} />
@@ -17,7 +17,12 @@ export default function PhotoUploadCell(props: Props) {
 
   const content = (photo)
     ? <img className="img-fluid" src={photo.thumbnail} alt={photo.thumbnail} />
-    : <div className="progress_container">{progressBar}</div>
+    : (
+      <div className="progress_container">
+        <div className="name">{name}</div>
+        {progressBar}
+      </div>
+    )
 
   return (
     <div className="PhotoUploadCell">

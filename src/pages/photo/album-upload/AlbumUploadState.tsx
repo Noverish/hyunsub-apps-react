@@ -2,12 +2,13 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Photo } from 'src/model/photo';
 
 export interface PhotoUploadStatus {
+  name: string;
   progress: number;
   photo?: Photo;
 }
 
 interface UpdateStatusPayload {
-  status: PhotoUploadStatus;
+  status: Partial<PhotoUploadStatus>;
   index: number;
 }
 
@@ -28,7 +29,8 @@ const slice = createSlice({
       ...payload,
     }),
     updateStatus: (state: State, { payload }: PayloadAction<UpdateStatusPayload>) => {
-      state.statusList[payload.index] = payload.status;
+      const status = state.statusList[payload.index];
+      state.statusList[payload.index] = { ...status, ...payload.status };
     }
   }
 });
