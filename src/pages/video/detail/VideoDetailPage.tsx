@@ -15,6 +15,8 @@ import { VideoDetailActions } from "./VideoDetailState";
 
 import './VideoDetailPage.scss';
 import { useIsAdmin } from "src/api/auth/authorities";
+import SimpleVideoPlayer from "src/components/video/SimpleVideoPlayer";
+import { isIOS } from "src/utils/user-agent";
 
 function VideoMetadataSection({ metadata }: { metadata: VideoMetadata }) {
   return (
@@ -67,12 +69,16 @@ export default function VideoDetailPage() {
     </>
   )
 
+  const videoPlayer = isIOS()
+    ? <SimpleVideoPlayer videoUrl={videoUrl} thumbnailUrl={thumbnailUrl} subtitles={subtitles} />
+    : <VideoPlayer videoUrl={videoUrl} thumbnailUrl={thumbnailUrl} subtitles={subtitles} />;
+
   return (
     <div id="VideoDetailPage">
       <VideoHeader />
       <Container id="content">
         <section id="video_player_section">
-          <VideoPlayer videoUrl={videoUrl} thumbnailUrl={thumbnailUrl} subtitles={subtitles} />
+          {videoPlayer}
         </section>
         {showSetting && <VideoSettingSection video={video} />}
         {showAdmin && <VideoAdminSection detail={detail} />}
