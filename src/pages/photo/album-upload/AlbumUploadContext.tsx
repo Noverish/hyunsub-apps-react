@@ -15,7 +15,7 @@ export const prepareUploadAction = (files: File[]) => async (dispatch: Dispatch,
 export const albumUploadAction = (files: File[], albumId: number) => async (dispatch: Dispatch, getState: () => RootState) => {
   for (let i = 0; i < files.length; i++) {
     const file = files[i];
-    const fileName = file.name;
+    const fileName = file.name.normalize();
 
     const { nonce } = await uploadApi({
       file,
