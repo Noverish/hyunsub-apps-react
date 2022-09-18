@@ -13,13 +13,13 @@ declare global {
   }
 }
 
-interface Props {
+export interface VidepPlayerProps {
   thumbnailUrl: string;
   videoUrl: string;
   subtitles: VideoSubtitle[];
 }
 
-export function VideoPlayer({ thumbnailUrl, videoUrl, subtitles }: Props) {
+export function VideoPlayer({ thumbnailUrl, videoUrl, subtitles }: VidepPlayerProps) {
   const subtitleSync = useSelector(s => s.video.detail.subtitleSync);
   const ref = useRef<APITypes>(null);
 
