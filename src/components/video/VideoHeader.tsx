@@ -7,8 +7,6 @@ import VideoRoutes from 'src/pages/video/VideoRoutes';
 import { useDispatch } from 'src/redux';
 import { logoutAction } from 'src/redux/actions';
 
-import './VideoHeader.scss';
-
 function VideoHeaderMenus() {
   const categories = getCategories.useApi();
 

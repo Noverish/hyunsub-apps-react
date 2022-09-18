@@ -12,7 +12,7 @@ const getVideoDetail = generateQuery<GetVideoDetailParams, VideoEntryDetail>({
     method: 'GET',
     params: { videoId: params.videoId },
   }),
-  key: (params) => ['videoDetail', params.entryId, params.videoId || ''],
+  key: () => 'videoDetail',
 });
 
 export default getVideoDetail;

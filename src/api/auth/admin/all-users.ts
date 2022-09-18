@@ -6,7 +6,7 @@ const getAllUsers = generateNoParamQuery<AdminUser[]>({
     url: '/api/v1/admin/users',
     method: 'GET',
   }),
-  key: () => ['allUsers'],
+  key: () => 'allUsers',
 });
 
 export default getAllUsers;

@@ -6,17 +6,17 @@ import t from 'src/i18n';
 import getErrMsg from 'src/i18n/server-error';
 import { ErrorResponse } from 'src/model/api';
 import { insertToast } from 'src/redux/toast';
-import { isDev, sleep } from 'src/utils';
+import { isDev, sleep, toJSON } from 'src/utils';
 import { dispatch } from 'src/redux';
 
 interface GenerateApiOption<P> {
   api: (p: P) => AxiosRequestConfig<P>;
-  key: (p: P) => string[];
+  key: (p: P) => string;
 }
 
 interface GenerateNoParamApiOption {
   api: () => AxiosRequestConfig;
-  key: () => string[];
+  key: () => string;
 }
 
 interface GenerateApiResult<P, R> {
@@ -37,7 +37,7 @@ interface GenerateNoParamApiResult<R> {
   prefetch: () => void;
 }
 
-export function generateApi<P, R>(func: (p: P) => AxiosRequestConfig<P>) {
+export function generateApi<P, R>(func: (p: P) => AxiosRequestConfig) {
   return async (p: P): Promise<R> => {
     try {
       const res: AxiosResponse<R> = await axios(func(p));
@@ -82,7 +82,7 @@ export function generateNoParamApi<R>(func: () => AxiosRequestConfig) {
 }
 
 export function generateQuery<P, R>(option: GenerateApiOption<P>): GenerateApiResult<P, R> {
-  const key = option.key;
+  const key = (p: P) => [option.key(p), toJSON(p)];
   const api = generateApi<P, R>(option.api);
 
   const useApi = (p: P) => useQuery(key(p), () => api(p), { staleTime: Infinity }).data!!;
@@ -101,7 +101,7 @@ export function generateQuery<P, R>(option: GenerateApiOption<P>): GenerateApiRe
 }
 
 export function generateNoParamQuery<R>(option: GenerateNoParamApiOption): GenerateNoParamApiResult<R> {
-  const key = option.key;
+  const key = () => [option.key()];
   const api = () => generateNoParamApi<R>(option.api)();
 
   const useApi = () => useQuery(key(), () => api(), { staleTime: Infinity }).data!!;

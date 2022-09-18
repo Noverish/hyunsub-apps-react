@@ -11,3 +11,7 @@ tab_width = 4
 [*.{ts,tsx}]
 indent_style = space
 indent_size = 2
+
+[*.scss]
+indent_style = space
+indent_size = 2

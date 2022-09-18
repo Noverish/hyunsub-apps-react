@@ -1,7 +1,7 @@
 import { lazy } from 'react';
 import { Route, Routes, unstable_HistoryRouter as HistoryRouter } from 'react-router-dom';
 import routes from './VideoRoutes';
-import videoHistory from './VideoHistory';
+import history from 'src/pages/common/history';
 import VideoSearchModal from 'src/components/video/VideoSearchModal';
 import ErrorPage from '../common/ErrorPage';
 
@@ -15,7 +15,7 @@ const VideoSearchPage = lazy(() => import('src/pages/video/search/VideoSearchPag
 
 export default function VideoIndex() {
   return (
-    <HistoryRouter history={videoHistory}>
+    <HistoryRouter history={history}>
       <Routes>
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/" element={<VideoIndexPage />} />

@@ -5,7 +5,7 @@ import { RootState } from 'src/redux';
 import { GlobalActions } from 'src/redux/global';
 import { updateMyPageState } from './MyPageState';
 import t from 'src/i18n';
-import AuthHistory from '../AuthHistory';
+import history from 'src/pages/common/history';
 import AuthRoutes from '../AuthRoutes';
 
 export function fetchMyPageUserInfo() {
@@ -25,5 +25,5 @@ export const signOutAction = () => async (dispatch: Dispatch, getState: () => Ro
   dispatch(GlobalActions.update({ loading: false }));
 
   alert(t('auth.sign-out.success'));
-  AuthHistory.push(AuthRoutes.login);
+  history.push(AuthRoutes.login);
 }

@@ -21,7 +21,7 @@ const getVideoEntries = generateQuery<GetVideoEntriesParams, VideoEntry[]>({
       ps: AppConstant.video.ENTRY_PAGE_SIZE,
     }
   }),
-  key: (params) => ['videoEntries', JSON.stringify(params)],
+  key: () => 'videoEntries',
 });
 
 export default getVideoEntries;

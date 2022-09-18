@@ -14,7 +14,7 @@ const validUrl = generateQuery<ValidUrlParams, ValidUrlResult>({
     method: 'POST',
     data: params,
   }),
-  key: (params) => ['validUrl', params.url],
+  key: () => 'validUrl',
 });
 
 export default validUrl;

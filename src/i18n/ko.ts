@@ -47,6 +47,24 @@ const ko = {
     'auth.modify-password-modal.title': '비밀번호 변경하기',
     'auth.modify-password-modal.success': '비밀번호 변경에 성공했습니다. 다시 로그인 해주세요',
     'auth.modify-password-modal.failure': '비밀번호 변경에 실패했습니다',
+
+    'photo.page.album-list.title': '내 앨범 목록',
+    'photo.page.album-detail.title': '사진 목록 - {{0}}',
+    'photo.page.album-detail.upload': '사진 업로드',
+    'photo.page.album-detail.photo-num': '{{0}}개의 사진',
+    'photo.page.album-viewer.title': '사진 뷰어 - {{0}}',
+    'photo.page.album-upload.title': '사진 업로드 - {{0}}',
+    'photo.page.album-upload.back-to-album': '앨범으로 돌아가기',
+    'photo.page.album-upload.upload': '업로드',
+    'photo.page.album-upload.msg.empty-upload': '업로드할 파일을 선택해주세요',
+    'photo.page.photo-list.title': '내 사진 목록',
+    'photo.page.photo-original.title': '원본 보기 - {{0}}',
+    'photo.page.setting.title': '설정',
+
+    'PageSelectModal.title': '페이지 이동',
+    'PageSelectModal.close': '취소',
+    'PageSelectModal.move': '이동',
+    'PageSelectModal.msg.invalid-page': '올바른 값을 입력해주세요',
   }
 };
 

@@ -7,7 +7,7 @@ import { GlobalActions } from "src/redux/global";
 import AppConstant from "src/utils/constants";
 import VideoRoutes from "../VideoRoutes";
 import { VideoListActions } from "./VideoListState";
-import videoHistory from '../VideoHistory';
+import history from 'src/pages/common/history';
 
 export const loadFirstEntries = (category: string, sort?: VideoSort) => async (dispatch: Dispatch, getState: () => RootState) => {
   const { loading, seed } = getState().video.list;
@@ -61,5 +61,5 @@ export const loadVideoDetail = (entryId: string) => async (dispatch: Dispatch, g
     await getVideoDetail.prefetch({ entryId });
     dispatch(GlobalActions.update({ loading: false }));
   }
-  videoHistory.push(VideoRoutes.getDetailRoute(entryId, undefined));
+  history.push(VideoRoutes.getDetailRoute(entryId, undefined));
 };
