@@ -30,7 +30,14 @@ export default function VideoRegisterCard() {
       return;
     }
 
-    dispatch(requestVideoRegister({ ...params, videoPath }));
+    const newParams: VideoRegisterParams = {
+      category: params.category,
+      outputPath: params.outputPath,
+      videoPath,
+      videoGroupId: params.videoGroupId ? params.videoGroupId : undefined,
+    }
+
+    dispatch(requestVideoRegister(newParams));
   };
 
   const onVideoPathSelect = (info?: FileInfo) => {
@@ -55,6 +62,11 @@ export default function VideoRegisterCard() {
           <Form.Group className="mb-3">
             <Form.Label>Video Destination Path</Form.Label>
             <Form.Control {...register('outputPath')} className="input_dark" />
+          </Form.Group>
+
+          <Form.Group className="mb-3">
+            <Form.Label>Video Group Id</Form.Label>
+            <Form.Control {...register('videoGroupId')} className="input_dark" />
           </Form.Group>
 
           <Button variant="primary" type="submit">
