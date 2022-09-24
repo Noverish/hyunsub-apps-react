@@ -8,6 +8,7 @@ interface State {
   videoThumbnailResult?: VideoThumbnailResult;
   videoSubtitleUploadresult?: any;
   videoRenameResult?: any;
+  videoEncodeResult?: any;
   subtitleSync: { [subtitleUrl: string]: number };
 };
 

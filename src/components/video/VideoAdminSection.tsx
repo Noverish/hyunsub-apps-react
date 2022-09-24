@@ -2,6 +2,7 @@ import { Button } from "react-bootstrap";
 import { VideoEntryDetail } from "src/model/video";
 import { VideoDetailActions } from "src/pages/video/detail/VideoDetailState";
 import { useDispatch } from "src/redux";
+import VideoEncodeCard from "./VideoEncodeCard";
 import VideoMetadataScanCard from "./VideoMetadataScanCard";
 import VideoRenameCard from "./VideoRenameCard";
 import VideoSubtitleUploadSection from "./VideoSubtitleUploadSection";
@@ -36,6 +37,9 @@ export default function VideoAdminSection({ detail }: Props) {
       </div>
       <div className="mb-3">
         <VideoRenameCard videoId={videoId} title={title} />
+      </div>
+      <div className="mb-3">
+        <VideoEncodeCard videoId={videoId} />
       </div>
     </section>
   )
