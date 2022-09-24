@@ -7,6 +7,7 @@ import { VideoDetailActions } from "src/pages/video/detail/VideoDetailState";
 import { RootState, useDispatch, useSelector } from "src/redux";
 import { GlobalActions } from "src/redux/global";
 import ApiResultCard from "../common/ApiResultCard";
+import VideoRenameCard from "./VideoRenameCard";
 import VideoSubtitleUploadSection from "./VideoSubtitleUploadSection";
 
 const scanVideoMetadataAction = (videoId: string) => async (dispatch: Dispatch, getState: () => RootState) => {
@@ -61,6 +62,9 @@ export default function VideoAdminSection({ detail }: Props) {
       </div>
       <div className="mb-3">
         <VideoSubtitleUploadSection videoId={detail.video.videoId} />
+      </div>
+      <div className="mb-3">
+        <VideoRenameCard videoId={detail.video.videoId} title={detail.video.title} />
       </div>
     </section>
   )

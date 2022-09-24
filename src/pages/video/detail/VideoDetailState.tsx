@@ -7,6 +7,7 @@ interface State {
   scanMetadataResult?: any;
   videoThumbnailResult?: VideoThumbnailResult;
   videoSubtitleUploadresult?: any;
+  videoRenameResult?: any;
   subtitleSync: { [subtitleUrl: string]: number };
 };
 
