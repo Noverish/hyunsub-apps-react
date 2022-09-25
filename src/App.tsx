@@ -9,6 +9,7 @@ import { loadAuthorities } from './redux/actions';
 const AuthIndex = lazy(() => import('src/pages/auth/AuthIndex'));
 const VideoIndex = lazy(() => import('src/pages/video/VideoIndex'));
 const PhotoIndex = lazy(() => import('src/pages/photo/PhotoIndex'));
+const ApparelIndex = lazy(() => import('src/pages/apparel/ApparelIndex'));
 
 function renderIndex(): JSX.Element {
   const host = window.location.hostname;
@@ -23,6 +24,10 @@ function renderIndex(): JSX.Element {
 
   if (host.endsWith('photo.hyunsub.kim')) {
     return <PhotoIndex />;
+  }
+
+  if (host.endsWith('apparel.hyunsub.kim')) {
+    return <ApparelIndex />;
   }
 
   return (

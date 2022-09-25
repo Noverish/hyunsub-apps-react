@@ -61,10 +61,15 @@ const en = {
     'photo.page.photo-original.title': 'View Original - {{0}}',
     'photo.page.setting.title': 'Setting',
 
+    'apparel.page.list.title': 'My Apparel List',
+    'apparel.page.detail.title': 'Apparel Detail',
+    'apparel.page.edit.title': 'Edit - {{0}}',
+
     'PageSelectModal.title': 'Move Page',
     'PageSelectModal.close': 'Close',
     'PageSelectModal.move': 'Move',
     'PageSelectModal.msg.invalid-page': 'Please enter a valid value',
+    'ExtendedImage.msg.delete-confirm': 'Are you sure you want to delete it?',
   }
 };
 

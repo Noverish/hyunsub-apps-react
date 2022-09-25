@@ -61,10 +61,28 @@ const ko = {
     'photo.page.photo-original.title': '원본 보기 - {{0}}',
     'photo.page.setting.title': '설정',
 
+    'apparel.page.list.title': '내 의류 목록',
+    'apparel.page.detail.title': '자세한 의류 정보',
+    'apparel.page.edit.title': '수정 - {{0}}',
+    'apparel.term.name': '이름',
+    'apparel.term.itemNo': '상품번호',
+    'apparel.term.brand': '브랜드',
+    'apparel.term.type': '분류',
+    'apparel.term.size': '사이즈',
+    'apparel.term.color': '색상',
+    'apparel.term.originPrice': '원가',
+    'apparel.term.discountPrice': '할인가',
+    'apparel.term.buyDt': '구매일',
+    'apparel.term.buyLoc': '구매장소',
+    'apparel.term.material': '소재',
+    'apparel.term.size2': '사이즈 상세',
+    'apparel.term.makeDt': '제조년월',
+
     'PageSelectModal.title': '페이지 이동',
     'PageSelectModal.close': '취소',
     'PageSelectModal.move': '이동',
     'PageSelectModal.msg.invalid-page': '올바른 값을 입력해주세요',
+    'ExtendedImage.msg.delete-confirm': '정말로 삭제하시겠습니까?',
   }
 };
 

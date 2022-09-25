@@ -1,0 +1,19 @@
+.ExtendedImage {
+  &:hover > .delete {
+    opacity: 1;
+  }
+
+  .delete {
+    transition: opacity 0.1s;
+    opacity: 0;
+    background-color: rgba(255, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    i {
+      font-size: 3rem;
+    }
+  }
+}
