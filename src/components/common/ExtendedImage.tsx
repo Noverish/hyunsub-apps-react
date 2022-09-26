@@ -18,7 +18,7 @@ export function ExtendedImage(props: Props) {
 
   return (
     <div className="ExtendedImage ratio">
-      <img {...imageProps} />
+      <img {...imageProps} alt={imageProps.alt} />
       {onDelete && <div className="delete" onClick={onDeleteClick}>
         <i className="fas fa-times"></i>
       </div>}

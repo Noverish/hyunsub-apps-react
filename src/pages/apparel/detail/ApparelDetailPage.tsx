@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Button, Container, Stack } from 'react-bootstrap';
+import { Button, Container } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import apparelDetail from 'src/api/apparel/apparel-detail';
 import ApparelHeader from 'src/components/apparel/ApparelHeader';

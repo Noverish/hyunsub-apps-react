@@ -14,7 +14,7 @@ export default function ApparelEditPage() {
 
   useEffect(() => {
     document.title = t('apparel.page.edit.title', [apparel.name]);
-  }, [t]);
+  }, [t, apparel.name]);
 
   return (
     <div id="ApparelEditPage">

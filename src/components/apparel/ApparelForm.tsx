@@ -51,7 +51,7 @@ export default function ApparelForm(props: Props) {
   const { apparel } = props;
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const { register, handleSubmit } = useForm<Apparel>({ defaultValues: apparel });
+  const { register } = useForm<Apparel>({ defaultValues: apparel });
 
   const apparelId = apparel.id;
 
