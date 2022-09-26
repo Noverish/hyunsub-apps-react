@@ -7,6 +7,8 @@ const ApparelRoutes = {
   edit: '/apparels/:apparelId/edit',
   editRoute: (apparelId: string) => `/apparels/${apparelId}/edit`,
 
+  add: '/apparels/add',
+
   setting: '/setting'
 }
 

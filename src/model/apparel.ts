@@ -12,18 +12,18 @@ export interface ApparelImage {
 
 export interface Apparel {
   id: string;
-  itemNo: string;
+  itemNo?: string;
   name: string;
-  brand: string;
+  brand?: string;
   type: string;
-  size: string;
-  color: string;
-  originPrice: number;
+  size?: string;
+  color?: string;
+  originPrice?: number;
   discountPrice?: number;
-  material: string;
-  size2: string;
-  buyDt: string;
-  buyLoc: string;
+  material?: string;
+  size2?: string;
+  buyDt?: string;
+  buyLoc?: string;
   makeDt?: string;
   images: ApparelImage[];
 }

@@ -2,6 +2,7 @@ const en = {
   translation: {
     'modify': 'Modify',
     'view': 'View',
+    'add': 'Add',
 
     'common.404.oh': 'Ah!',
     'common.404.not-exist': 'This page is not exist',
@@ -64,6 +65,20 @@ const en = {
     'apparel.page.list.title': 'My Apparel List',
     'apparel.page.detail.title': 'Apparel Detail',
     'apparel.page.edit.title': 'Edit - {{0}}',
+    'apparel.page.add.title': 'Add My Apparel',
+    'apparel.term.name': 'Name',
+    'apparel.term.itemNo': 'Item No',
+    'apparel.term.brand': 'Brand',
+    'apparel.term.type': 'Type',
+    'apparel.term.size': 'Size',
+    'apparel.term.color': 'Color',
+    'apparel.term.originPrice': 'Origin Price',
+    'apparel.term.discountPrice': 'Discount Price',
+    'apparel.term.buyDt': 'Buy Date',
+    'apparel.term.buyLoc': 'Buy Location',
+    'apparel.term.material': 'Materials',
+    'apparel.term.size2': 'Size Detail',
+    'apparel.term.makeDt': 'Made Date',
 
     'PageSelectModal.title': 'Move Page',
     'PageSelectModal.close': 'Close',

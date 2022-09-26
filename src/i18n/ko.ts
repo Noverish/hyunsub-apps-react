@@ -2,6 +2,7 @@ const ko = {
   translation: {
     'modify': '변경',
     'view': '보기',
+    'add': '추가하기',
 
     'common.404.oh': '앗!',
     'common.404.not-exist': '해당 페이지가 존재하지 않습니다',
@@ -64,6 +65,7 @@ const ko = {
     'apparel.page.list.title': '내 의류 목록',
     'apparel.page.detail.title': '자세한 의류 정보',
     'apparel.page.edit.title': '수정 - {{0}}',
+    'apparel.page.add.title': '의류 추가하기',
     'apparel.term.name': '이름',
     'apparel.term.itemNo': '상품번호',
     'apparel.term.brand': '브랜드',

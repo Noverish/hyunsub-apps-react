@@ -3,14 +3,14 @@ import './ImageAddButton.scss';
 
 interface Props {
   multiple?: boolean;
-  callback: (images: File[]) => void;
+  callback?: (images: File[]) => void;
 }
 
 export default function ImageAddButton({ multiple, callback }: Props) {
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const images = Array.from((e.currentTarget.files || []))
     if (images) {
-      callback(images);
+      callback?.(images);
       e.currentTarget.value = '';
     }
   }
