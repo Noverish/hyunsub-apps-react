@@ -16,7 +16,7 @@ export default function ApparelDetailPage() {
   }, [t]);
 
   const apparel = apparelDetail.useApi({ apparelId });
-  const urls = apparel.images.map(v => v.url);
+  const urls = apparel.images.map(v => v.url + '?size=512');
 
   return (
     <div id="ApparelDetailPage">

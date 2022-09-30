@@ -34,7 +34,7 @@ export function ApparelFormImage({ image }: { image: ApparelImage }) {
   return (
     <div className="col">
       <div className="ratio ratio-1x1">
-        <ExtendedImage className="img-fluid" src={image.url} loading="lazy" alt={image.imageId} onDelete={onDelete} />
+        <ExtendedImage className="img-fluid" src={image.url + '?size=512'} loading="lazy" alt={image.imageId} onDelete={onDelete} />
       </div>
     </div>
   )

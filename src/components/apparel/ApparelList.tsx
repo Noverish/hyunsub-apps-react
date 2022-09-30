@@ -21,7 +21,7 @@ export default function ApparelList({ apparels }: ApparelListProps) {
   const elements = apparels.map(v => <ApparelPreviewComponent key={v.id} apparel={v} />);
 
   return (
-    <div id="ApparelList" className="row g-3 row-cols-3 row-cols-md-4 row-cols-lg-5 row-cols-xl-6">
+    <div id="ApparelList" className="row g-3 row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 row-cols-xl-6">
       {elements}
     </div>
   )

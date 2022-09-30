@@ -3,6 +3,7 @@
   --header_font_color: white;
   --main_header_height: 64px;
   --header_height: 64px;
+  --header_height_mobile: 48px;
 }
 
 header {
@@ -18,6 +19,59 @@ header {
   -webkit-backdrop-filter: blur(7px);
 }
 
+header.mobile_header {
+  height: var(--header_height_mobile);
+
+  display: flex;
+
+  .left {
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: row;
+
+    .menu_btn {
+      height: var(--header_height_mobile);
+      width: var(--header_height_mobile);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+  }
+
+  .center {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    #header_title {
+      font-family: 'Train One', serif;
+      font-size: 1.5rem;
+    }
+  }
+
+  .right {
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: row-reverse;
+
+    .my_btn {
+      height: var(--header_height_mobile);
+      width: var(--header_height_mobile);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.75rem;
+    }
+  }
+
+  & + #content {
+    padding-top: calc(var(--header_height_mobile) + 1rem);
+    padding-bottom: 1rem;
+  }
+}
+
 header.home_header {
   height: var(--header_height);
 
@@ -28,15 +82,15 @@ header.home_header {
     flex-flow: row nowrap;
   }
 
+  #header_title {
+    font-family: 'Train One', serif;
+    font-size: 2rem;
+  }
+
   & + #content {
     padding-top: calc(var(--header_height) + 1rem);
     padding-bottom: 1rem;
   }
-}
-
-#header_title {
-  font-family: 'Train One', serif;
-  font-size: 2rem;
 }
 
 #header_menu_section {
@@ -90,4 +144,35 @@ header.home_header {
   width: 3rem;
   height: 3rem;
   margin-right: -0.5rem;
+}
+
+.offcanvas {
+  width: 100vw !important;
+
+  .offcanvas-header {
+    background-color: #111;
+  
+    .btn-close {
+      filter: invert(1);
+    }
+  }
+  
+  .offcanvas-body {
+    background-color: #222;
+    padding: 1rem;
+    
+    a {
+      display: block;
+      padding: 1rem;
+  
+      i {
+        font-size: 1.5rem;
+        margin-right: 1rem;
+      }
+  
+      span {
+        font-size: 1.75rem;
+      }
+    }
+  }
 }
