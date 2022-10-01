@@ -40,7 +40,7 @@ export default function ApparelMobileHeader() {
             <i className="fas fa-th-large"></i>
             <span>Categories</span>
           </Link>
-          <Link to={ApparelRoutes.list}>
+          <Link to={ApparelRoutes.brandList}>
             <i className="fas fa-tag"></i>
             <span>Brands</span>
           </Link>

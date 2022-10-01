@@ -11,6 +11,8 @@ const ApparelEditPage = lazy(() => import('src/pages/apparel/edit/ApparelEditPag
 const ApparelAddPage = lazy(() => import('src/pages/apparel/add/ApparelAddPage'));
 const ApparelCategoryListPage = lazy(() => import('src/pages/apparel/category-list/ApparelCategoryListPage'));
 const ApparelCategoryDetailPage = lazy(() => import('src/pages/apparel/category-detail/ApparelCategoryDetailPage'));
+const ApparelBrandListPage = lazy(() => import('src/pages/apparel/brand-list/ApparelBrandListPage'));
+const ApparelBrandDetailPage = lazy(() => import('src/pages/apparel/brand-detail/ApparelBrandDetailPage'));
 
 export default function ApparelIndex() {
   return (
@@ -24,6 +26,8 @@ export default function ApparelIndex() {
         <Route path={routes.edit} element={<ApparelEditPage />} />
         <Route path={routes.categoryList} element={<ApparelCategoryListPage />} />
         <Route path={routes.categoryDetail} element={<ApparelCategoryDetailPage />} />
+        <Route path={routes.brandList} element={<ApparelBrandListPage />} />
+        <Route path={routes.brandDetail} element={<ApparelBrandDetailPage />} />
       </Routes>
     </HistoryRouter>
   )

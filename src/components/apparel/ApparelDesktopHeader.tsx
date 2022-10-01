@@ -39,6 +39,10 @@ export default function ApparelDesktopHeader() {
             <i className="fas fa-th-large"></i>
             <span>Categories</span>
           </Link>
+          <Link to={routes.brandList} className="gray_on_hover">
+            <i className="fas fa-tag"></i>
+            <span>Brands</span>
+          </Link>
         </div>
         <div id="header_button_section">
           <div className="header_icon_btn gray_on_hover" onClick={searchBtnClick}>
