@@ -2,16 +2,17 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import flatten from 'lodash/flatten';
 import groupBy from 'lodash/groupBy';
 import { useEffect } from 'react';
-import { Button, Container, Spinner } from 'react-bootstrap';
+import { Button, Container } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'react-router-dom';
 import albumDetailApi from 'src/api/photo/album-detail';
 import albumPhotosApi from 'src/api/photo/album-photos';
+import ListLoadingIndicator from 'src/components/common/ListLoadingIndicator';
 import PhotoHeader from 'src/components/photo/PhotoHeader';
 import PhotoThumbnail from 'src/components/photo/PhotoThumbnail';
 import { Photo } from 'src/model/photo';
-import { useScrollBottom } from 'src/utils';
 import routes from 'src/pages/photo/PhotoRoutes';
+import { useScrollBottom } from 'src/utils';
 
 interface Props {
   date: string;
@@ -80,9 +81,7 @@ export default function AlbumDetailPage() {
         <div className="d-grid gap-3">
           {groups}
         </div>
-        {isFetching && <div className="flex_center" style={{ height: '8rem' }}>
-          <Spinner animation="border"></Spinner>
-        </div>}
+        <ListLoadingIndicator isFetching={isFetching} />
       </Container>
     </div>
   )

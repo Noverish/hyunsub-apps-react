@@ -1,7 +1,8 @@
 import { useEffect } from "react";
-import { Container, Spinner } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import { useParams, useSearchParams } from "react-router-dom";
 import getCategories from "src/api/video/category";
+import ListLoadingIndicator from 'src/components/common/ListLoadingIndicator';
 import VideoEntryList from "src/components/video/VideoEntryList";
 import VideoHeader from "src/components/video/VideoHeader";
 import VideoSortDropdown from "src/components/video/VideoSortDropdown";
@@ -36,9 +37,7 @@ export function VideoListPage({ category }: { category: VideoCategory }) {
       <Container id="content">
         <VideoSortDropdown sort={sort} />
         <VideoEntryList category={category} entries={entries} />
-        {loading && <div className="flex_center" style={{ height: '8rem' }}>
-          <Spinner animation="border"></Spinner>
-        </div>}
+        <ListLoadingIndicator isFetching={loading} />
       </Container>
     </div>
   )

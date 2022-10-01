@@ -33,6 +33,19 @@ pre {
   margin-bottom: 0;
 }
 
+header {
+  position: fixed;
+  width: 100vw;
+  top: 0;
+  z-index: 1000;
+
+  border-bottom: 1px solid #232323;
+  background-color: rgba(36, 36, 36, .8);
+  color: white;
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+}
+
 .card {
   border-color: var(--hyunsub-border-color-primary);
   overflow: hidden;
@@ -54,6 +67,10 @@ pre {
     background-color: var(--hyunsub-content-bg);
     color: var(--hyunsub-text-color);
     border-color: var(--hyunsub-border-color-secondary);
+
+    &:hover {
+      background-color: var(--hyunsub-title-bg);
+    }
   }
 }
 

@@ -1,9 +1,9 @@
+import { Button, ListGroup } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
+import Select, { ActionMeta, MultiValue, StylesConfig } from 'react-select';
 import { AdminAuthority, AdminUser } from 'src/model/auth';
-import { ListGroup, Button } from 'react-bootstrap';
-import Select, { StylesConfig, MultiValue, ActionMeta } from 'react-select';
+import { adminSignOutAction, delUserAuthorityAction, putUserAuthorityAction } from 'src/pages/auth/admin/AuthAdminContext';
 import { useDispatch } from 'src/redux';
-import { delUserAuthorityAction, putUserAuthorityAction } from 'src/pages/auth/admin/AuthAdminContext';
-import { adminSignOutAction } from '../../pages/auth/admin/AuthAdminContext';
 
 interface Props {
   user: AdminUser;
@@ -35,6 +35,7 @@ const getOptionValue = (option: AdminAuthority) => option.id.toString();
 export default function AdminUserListItem(props: Props) {
   const { user, authorities } = props;
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const userAuthorities = authorities.filter(v => user.authorities.includes(v.id));
 
@@ -57,7 +58,7 @@ export default function AdminUserListItem(props: Props) {
     <ListGroup.Item>
       <div className="d-flex justify-content-between align-items-center">
         <div className="fs-4">[{user.idNo}] {user.username}</div>
-        <Button variant="danger" size="sm" onClick={onSignOut}>회원 탈퇴</Button>
+        <Button variant="danger" size="sm" onClick={onSignOut}>{t('auth.sign-out')}</Button>
       </div>
       <Select
         className="mt-2"

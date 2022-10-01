@@ -1,4 +1,4 @@
-export function generateFetch<Params, Result>(promise: Promise<Result>): { read(): Result } {
+export function generateFetch<Result>(promise: Promise<Result>): { read(): Result } {
   let response: Result | undefined;
   let error: any | undefined;
 

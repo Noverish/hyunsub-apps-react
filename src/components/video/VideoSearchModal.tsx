@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { VideoSearchActions } from "src/pages/video/search/VideoSearchState";
 import VideoRoutes from "src/pages/video/VideoRoutes";
@@ -10,6 +11,7 @@ export default function VideoSearchModal() {
   const dispatch = useDispatch();
   const [query, setQuery] = useState('');
   const { showSearchModal } = useSelector(s => s.video.search);
+  const { t } = useTranslation();
 
   const onClose = () => {
     dispatch(VideoSearchActions.update({ showSearchModal: false }));
@@ -29,10 +31,10 @@ export default function VideoSearchModal() {
   return (
     <Modal show={showSearchModal} onHide={onClose}>
       <Modal.Header closeButton>
-        <Modal.Title>비디오 검색</Modal.Title>
+        <Modal.Title>{t('video.search-modal.title')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <label htmlFor="search_query" className="form-label">검색어</label>
+        <label htmlFor="search_query" className="form-label">{t('video.search-modal.label')}</label>
 				<input
           type="text"
           className="form-control input_dark"
@@ -44,10 +46,10 @@ export default function VideoSearchModal() {
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={onClose}>
-          Close
+          {t('close')}
         </Button>
         <Button variant="primary" onClick={onSearch}>
-          Search
+          {t('search')}
         </Button>
       </Modal.Footer>
     </Modal>

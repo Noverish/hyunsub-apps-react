@@ -1,11 +1,11 @@
 import { Dispatch } from "@reduxjs/toolkit";
 import { InfiniteData, useInfiniteQuery } from '@tanstack/react-query';
 import flatMap from 'lodash/flatMap';
-import { Spinner } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import albumDateApi from "src/api/photo/album-date";
 import photoUpdateApi from "src/api/photo/photo-update";
 import queryClient from 'src/api/query-client';
+import ListLoadingIndicator from 'src/components/common/ListLoadingIndicator';
 import PhotoDateTable from "src/components/photo/PhotoDateTable";
 import { PageData } from "src/model/api";
 import { PhotoDate } from "src/model/photo";
@@ -66,9 +66,7 @@ export default function AlbumDatePage() {
     <div id="AlbumDatePage">
       <h1>AlbumDatePage</h1>
       <PhotoDateTable list={list} onCellClick={onCellClick} />
-      {isFetching && <div className="flex_center" style={{ height: '8rem' }}>
-        <Spinner animation="border"></Spinner>
-      </div>}
+      <ListLoadingIndicator isFetching={isFetching} />
     </div>
   )
 }

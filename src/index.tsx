@@ -10,7 +10,6 @@ import queryClient from './api/query-client';
 import 'src/i18n';
 import './index.scss';
 import './custom_class.scss';
-import './header.scss';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

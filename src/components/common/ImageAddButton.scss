@@ -1,0 +1,29 @@
+.ImageAddButton {
+  border-style: dashed;
+  border-color: white;
+
+  transition: background-color 0.1s;
+
+  &:hover {
+    background-color: #555;
+  }
+
+  &.hover {
+    background-color: #555;
+  }
+
+  input {
+    cursor: pointer;
+    opacity: 0;
+  }
+
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    i {
+      font-size: 3rem;
+    }
+  }
+}

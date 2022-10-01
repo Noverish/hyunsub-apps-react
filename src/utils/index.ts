@@ -38,3 +38,7 @@ export function useScrollBottom(callback: () => void, deps: DependencyList) {
 export function urlToName(url: string) {
   return decodeURIComponent(url.split('/').reverse()[0]);
 }
+
+export function numberWithComma(num: number) {
+  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
