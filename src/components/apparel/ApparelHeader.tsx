@@ -1,11 +1,38 @@
-import ApparelDesktopHeader from './ApparelDesktopHeader';
-import ApparelMobileHeader from './ApparelMobileHeader';
+import ApparelRoutes from 'src/pages/apparel/ApparelRoutes';
+import { Header, HeaderProps } from '../common/header/Header';
 
-// TODO 모든 서비스의 header를 합치고, scss 도 정리하기
 export default function ApparelHeader() {
-  if (window.innerWidth < 738) {
-    return <ApparelMobileHeader />
-  } else {
-    return <ApparelDesktopHeader />
+  const props: HeaderProps = {
+    title : 'HyunApparel',
+    menus: [
+      {
+        name: 'All Apparels',
+        link: ApparelRoutes.list,
+        iconClass: 'fas fa-tshirt',
+      },
+      {
+        name: 'Categories',
+        link: ApparelRoutes.categoryList,
+        iconClass: 'fas fa-th-large',
+      },
+      {
+        name: 'Brands',
+        link: ApparelRoutes.brandList,
+        iconClass: 'fas fa-tag',
+      }
+    ],
+    dropdowns: [
+      {
+        name: 'Setting',
+        link: ApparelRoutes.setting,
+      }
+    ],
+    onSearch: () => {
+      alert('Not yet implemented');
+    },
   }
+
+  return (
+    <Header {...props} />
+  )
 }
