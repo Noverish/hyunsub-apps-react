@@ -1,11 +1,12 @@
 import flatMap from 'lodash/flatMap';
 import { useEffect } from 'react';
-import { Button, Container, Spinner } from 'react-bootstrap';
+import { Button, Container } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import apparelList from 'src/api/apparel/apparel-list';
 import ApparelHeader from 'src/components/apparel/ApparelHeader';
 import ApparelList from 'src/components/apparel/ApparelList';
+import ListLoadingIndicator from 'src/components/common/ListLoadingIndicator';
 import ApparelRoutes from 'src/pages/apparel/ApparelRoutes';
 import { useScrollBottom } from 'src/utils';
 
@@ -35,9 +36,7 @@ export default function ApparelListPage() {
           <Link to={ApparelRoutes.add}><Button variant="primary">{t('add')}</Button></Link>
         </div>
         <ApparelList apparels={apparels} />
-        {isFetching && <div className="flex_center" style={{ height: '8rem' }}>
-          <Spinner animation="border"></Spinner>
-        </div>}
+        <ListLoadingIndicator isFetching={isFetching} />
       </Container>
     </div>
   )
