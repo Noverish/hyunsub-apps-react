@@ -36,8 +36,8 @@ export default function ApparelDetailPage() {
             <div>{apparel.brand}</div>
           </div>
           <div className="col">
-            <div className="fw-bold fs-5">{t('apparel.term.type')}</div>
-            <div>{apparel.type}</div>
+            <div className="fw-bold fs-5">{t('apparel.term.category')}</div>
+            <div>{apparel.category}</div>
           </div>
           <div className="col">
             <div className="fw-bold fs-5">{t('apparel.term.size')}</div>

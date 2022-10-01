@@ -33,7 +33,11 @@ export default function ApparelDesktopHeader() {
         <div id="header_menu_section" className="overflow_scroll">
           <Link to={routes.list} className="gray_on_hover">
             <i className="fas fa-tshirt"></i>
-            <span>Apparels</span>
+            <span>All Apparels</span>
+          </Link>
+          <Link to={routes.categoryList} className="gray_on_hover">
+            <i className="fas fa-th-large"></i>
+            <span>Categories</span>
           </Link>
         </div>
         <div id="header_button_section">

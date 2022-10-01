@@ -9,6 +9,10 @@ const ApparelRoutes = {
 
   add: '/apparels/add',
 
+  categoryList: '/categories',
+  categoryDetail: '/categories/:category',
+  categoryDetailRoute: (category: string) => `/categories/${category}`,
+
   setting: '/setting'
 }
 

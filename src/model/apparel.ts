@@ -15,7 +15,7 @@ export interface Apparel {
   itemNo?: string;
   name: string;
   brand?: string;
-  type: string;
+  category: string;
   size?: string;
   color?: string;
   originPrice?: number;

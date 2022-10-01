@@ -36,9 +36,9 @@ export default function ApparelMobileHeader() {
             <i className="fas fa-tshirt"></i>
             <span>All Apparels</span>
           </Link>
-          <Link to={ApparelRoutes.list}>
+          <Link to={ApparelRoutes.categoryList}>
             <i className="fas fa-th-large"></i>
-            <span>Types</span>
+            <span>Categories</span>
           </Link>
           <Link to={ApparelRoutes.list}>
             <i className="fas fa-tag"></i>

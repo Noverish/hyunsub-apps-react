@@ -73,8 +73,8 @@ export default function ApparelForm(props: Props) {
             <Form.Control {...register('brand')} className="input_dark" />
           </Form.Group>
           <Form.Group className="col">
-            <Form.Label>{t('apparel.term.type')}</Form.Label>
-            <Form.Control {...register('type')} className="input_dark" />
+            <Form.Label>{t('apparel.term.category')}</Form.Label>
+            <Form.Control {...register('category')} className="input_dark" />
           </Form.Group>
           <Form.Group className="col">
             <Form.Label>{t('apparel.term.size')}</Form.Label>
