@@ -4,6 +4,9 @@ const ko = {
     'view': '보기',
     'add': '추가하기',
 
+    'msg.delete-confirm': '정말로 삭제하시겠습니까?',
+    'msg.delete-success': '삭제되었습니다',
+
     'common.404.oh': '앗!',
     'common.404.not-exist': '해당 페이지가 존재하지 않습니다',
     'common.404.go-to-home': '홈으로',
@@ -63,6 +66,7 @@ const ko = {
     'photo.page.setting.title': '설정',
 
     'apparel.page.list.title': '내 의류 목록',
+    'apparel.page.list.inner-title': '총 {{0}}개의 의류',
     'apparel.page.detail.title': '자세한 의류 정보',
     'apparel.page.edit.title': '수정 - {{0}}',
     'apparel.page.add.title': '의류 추가하기',
@@ -90,7 +94,6 @@ const ko = {
     'PageSelectModal.close': '취소',
     'PageSelectModal.move': '이동',
     'PageSelectModal.msg.invalid-page': '올바른 값을 입력해주세요',
-    'ExtendedImage.msg.delete-confirm': '정말로 삭제하시겠습니까?',
   }
 };
 

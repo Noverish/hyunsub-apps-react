@@ -1,12 +1,9 @@
-import { Dispatch } from "@reduxjs/toolkit";
 import { Button, Form } from 'react-bootstrap';
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { deleteApparelDetailImageCache } from "src/api/apparel/apparel-detail";
-import apparelImageDelete from "src/api/apparel/apparel-image-delete";
 import { Apparel, ApparelImage } from "src/model/apparel";
 import { useDispatch } from "src/redux";
-import { GlobalActions } from 'src/redux/global';
+import { apparelImageDeleteAction } from 'src/pages/apparel/edit/ApparelEditContext';
 import { ExtendedImage } from "../common/ExtendedImage";
 import ImageAddButton from "../common/ImageAddButton";
 
@@ -15,13 +12,6 @@ interface Props {
   onImageAdd?: (images: File[]) => void;
   onSubmit: (apparel: Apparel) => void;
   confirmBtnText: string;
-}
-
-export const apparelImageDeleteAction = (image: ApparelImage) => async (dispatch: Dispatch) => {
-  dispatch(GlobalActions.update({ loading: true }));
-  await apparelImageDelete(image);
-  deleteApparelDetailImageCache(image);
-  dispatch(GlobalActions.update({ loading: false }));
 }
 
 export function ApparelFormImage({ image }: { image: ApparelImage }) {

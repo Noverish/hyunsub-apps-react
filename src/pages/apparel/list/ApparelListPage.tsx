@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { Button, Container, Spinner } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { useInfiniteApparel } from 'src/api/apparel/apparel-list';
+import apparelList from 'src/api/apparel/apparel-list';
 import ApparelHeader from 'src/components/apparel/ApparelHeader';
 import ApparelList from 'src/components/apparel/ApparelList';
 import ApparelRoutes from 'src/pages/apparel/ApparelRoutes';
@@ -16,7 +16,7 @@ export default function ApparelListPage() {
     document.title = t('apparel.page.list.title');
   }, [t]);
 
-  const { data, fetchNextPage, isFetching } = useInfiniteApparel({ page: 0 });
+  const { data, fetchNextPage, isFetching } = apparelList.useInfiniteApi({});
 
   useScrollBottom(() => {
     if (!isFetching) {
@@ -30,6 +30,7 @@ export default function ApparelListPage() {
     <div id="ApparelListPage">
       <ApparelHeader />
       <Container id="content">
+        <h1 className="mb-3">{t('apparel.page.list.inner-title', [data?.pages[0].total])}</h1>
         <div className="mb-3">
           <Link to={ApparelRoutes.add}><Button variant="primary">{t('add')}</Button></Link>
         </div>

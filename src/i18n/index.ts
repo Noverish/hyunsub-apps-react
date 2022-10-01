@@ -1,5 +1,5 @@
 import i18n from "i18next";
-import { initReactI18next } from "react-i18next";
+import { initReactI18next, TFunction } from "react-i18next";
 import en from './en';
 import ko from './ko';
 import TimeAgo from 'javascript-time-ago';
@@ -25,4 +25,6 @@ i18n
     }
   });
 
-export default i18n.t;
+const t: TFunction<'translation', undefined> = i18n.t;
+
+export default t;

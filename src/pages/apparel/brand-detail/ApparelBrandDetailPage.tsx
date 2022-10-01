@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import {Container, Spinner} from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
-import { useInfiniteApparelBrandApparels } from 'src/api/apparel/apparel-brand-apparels';
+import apparelBrandApparels from 'src/api/apparel/apparel-brand-apparels';
 import ApparelHeader from 'src/components/apparel/ApparelHeader';
 import {useScrollBottom} from 'src/utils';
 import flatMap from 'lodash/flatMap';
@@ -16,7 +16,7 @@ export default function ApparelBrandDetailPage() {
     document.title = t('apparel.page.brand-detail.title', [brand]);
   }, [t, brand]);
 
-  const { data, fetchNextPage, isFetching } = useInfiniteApparelBrandApparels({ page: 0, brand });
+  const { data, fetchNextPage, isFetching } = apparelBrandApparels.useInfiniteApi({ brand });
 
   useScrollBottom(() => {
     if (!isFetching) {

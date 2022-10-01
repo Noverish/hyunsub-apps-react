@@ -1,12 +1,12 @@
+import flatMap from 'lodash/flatMap';
 import { useEffect } from 'react';
-import {Container, Spinner} from 'react-bootstrap';
+import { Container, Spinner } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
-import { useInfiniteApparelCategoryApparels } from 'src/api/apparel/apparel-category-apparels';
+import apparelCategoryApparels from 'src/api/apparel/apparel-category-apparels';
 import ApparelHeader from 'src/components/apparel/ApparelHeader';
-import {useScrollBottom} from 'src/utils';
-import flatMap from 'lodash/flatMap';
 import ApparelList from 'src/components/apparel/ApparelList';
+import { useScrollBottom } from 'src/utils';
 
 export default function ApparelCategoryDetailPage() {
   const category = useParams().category!!;
@@ -16,7 +16,7 @@ export default function ApparelCategoryDetailPage() {
     document.title = t('apparel.page.category-detail.title', [category]);
   }, [t, category]);
 
-  const { data, fetchNextPage, isFetching } = useInfiniteApparelCategoryApparels({ page: 0, category });
+  const { data, fetchNextPage, isFetching } = apparelCategoryApparels.useInfiniteApi({ category });
 
   useScrollBottom(() => {
     if (!isFetching) {

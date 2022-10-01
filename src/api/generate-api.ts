@@ -1,13 +1,13 @@
-import { AxiosRequestConfig, AxiosError, AxiosResponse } from 'axios';
-import QueryClient from './query-client';
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
+import { InfiniteData, useInfiniteQuery, UseInfiniteQueryResult, useQuery } from '@tanstack/react-query';
+import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import t from 'src/i18n';
 import getErrMsg from 'src/i18n/server-error';
-import { ErrorResponse } from 'src/model/api';
+import { ErrorResponse, PageData } from 'src/model/api';
+import { dispatch } from 'src/redux';
 import { insertToast } from 'src/redux/toast';
 import { isDev, sleep, toJSON } from 'src/utils';
-import { dispatch } from 'src/redux';
+import { Updater } from '../../node_modules/@tanstack/query-core/build/types/packages/query-core/src/utils';
+import QueryClient from './query-client';
 
 interface GenerateApiOption<P> {
   api: (p: P) => AxiosRequestConfig<P>;
@@ -19,6 +19,11 @@ interface GenerateNoParamApiOption {
   key: () => string;
 }
 
+interface GenerateInfiniteApiOption<P> {
+  api: (p: P & PageParam) => AxiosRequestConfig<P>;
+  key: (p: P) => string;
+}
+
 interface GenerateApiResult<P, R> {
   api: (p: P) => Promise<R>;
   key: (p: P) => string[];
@@ -26,6 +31,7 @@ interface GenerateApiResult<P, R> {
   fetch: (p: P) => Promise<R>;
   cache: (p: P) => R | undefined;
   prefetch: (p: P) => void;
+  setCache: (p: P, updater: Updater<R | undefined, R | undefined>) => void;
 }
 
 interface GenerateNoParamApiResult<R> {
@@ -35,6 +41,16 @@ interface GenerateNoParamApiResult<R> {
   fetch: () => Promise<R>;
   cache: () => R | undefined;
   prefetch: () => void;
+  setCache: (updater: Updater<R | undefined, R | undefined>) => void;
+}
+
+interface GenerateInfiniteApiResult<P, R> {
+  useInfiniteApi: (p: P) => UseInfiniteQueryResult<PageData<R>>;
+  updateCache: (p: P, updater: (list: R[]) => R[]) => void;
+}
+
+interface PageParam {
+  page: number;
 }
 
 export function generateApi<P, R>(func: (p: P) => AxiosRequestConfig) {
@@ -89,6 +105,7 @@ export function generateQuery<P, R>(option: GenerateApiOption<P>): GenerateApiRe
   const cache = (p: P) => QueryClient.getQueryData<R>(key(p));
   const fetch = (p: P) => QueryClient.fetchQuery(key(p), () => api(p), { staleTime: Infinity });
   const prefetch = (p: P) => QueryClient.prefetchQuery(key(p), () => api(p), { staleTime: Infinity });
+  const setCache = (p: P, updater: Updater<R | undefined, R | undefined>) => QueryClient.setQueryData<R>(key(p), updater);
 
   return {
     api,
@@ -97,6 +114,7 @@ export function generateQuery<P, R>(option: GenerateApiOption<P>): GenerateApiRe
     fetch,
     cache,
     prefetch,
+    setCache,
   };
 }
 
@@ -108,6 +126,7 @@ export function generateNoParamQuery<R>(option: GenerateNoParamApiOption): Gener
   const cache = () => QueryClient.getQueryData<R>(key());
   const fetch = () => QueryClient.fetchQuery(key(), () => api(), { staleTime: Infinity });
   const prefetch = () => QueryClient.prefetchQuery(key(), () => api(), { staleTime: Infinity });
+  const setCache = (updater: Updater<R | undefined, R | undefined>) => QueryClient.setQueryData<R>(key(), updater);
 
   return {
     api,
@@ -116,5 +135,40 @@ export function generateNoParamQuery<R>(option: GenerateNoParamApiOption): Gener
     fetch,
     cache,
     prefetch,
+    setCache,
+  };
+}
+
+export function generateInfiniteQuery<P, R>(option: GenerateInfiniteApiOption<P>): GenerateInfiniteApiResult<P, R> {
+  const key = (p: P) => [option.key(p), toJSON(p)];
+  const api = generateApi<P & PageParam, PageData<R>>(option.api);
+
+  const useInfiniteApi = (p: P) => useInfiniteQuery(
+    key(p),
+    ({ pageParam }) => api({ ...p, page: pageParam ?? 0 }),
+    {
+      getNextPageParam: (lastPage, pages) => (lastPage.data.length === 0) ? undefined : pages.length,
+      staleTime: Infinity,
+    }
+  )
+  const updateCache = (p: P, updater: (list: R[]) => R[]) => {
+    QueryClient.setQueryData<InfiniteData<PageData<R>>>(key(p), (cache) => {
+      if (!cache) {
+        return cache;
+      }
+
+      return {
+        ...cache,
+        pages: cache.pages.map((data) => ({
+          ...data,
+          data: updater(data.data),
+        })),
+      }
+    })
+  }
+
+  return {
+    useInfiniteApi,
+    updateCache,
   };
 }

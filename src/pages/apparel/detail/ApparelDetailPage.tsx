@@ -6,14 +6,22 @@ import ApparelHeader from 'src/components/apparel/ApparelHeader';
 import { Link, useParams } from 'react-router-dom';
 import ImageSwiper from 'src/components/common/ImageSwiper';
 import ApparelRoutes from 'src/pages/apparel/ApparelRoutes';
+import { numberWithComma } from 'src/utils';
+import { useDispatch } from 'src/redux';
+import { apparelDeleteAction } from './ApparelDetailContext';
 
 export default function ApparelDetailPage() {
+  const dispatch = useDispatch();
   const apparelId = useParams().apparelId!!;
   const { t } = useTranslation();
 
   useEffect(() => {
     document.title = t('apparel.page.detail.title');
   }, [t]);
+
+  const onDelete = () => {
+    dispatch(apparelDeleteAction(apparelId));
+  }
 
   const apparel = apparelDetail.useApi({ apparelId });
   const urls = apparel.images.map(v => v.url + '?size=512');
@@ -49,11 +57,11 @@ export default function ApparelDetailPage() {
           </div>
           <div className="col">
             <div className="fw-bold fs-5">{t('apparel.term.originPrice')}</div>
-            <div>{apparel.originPrice}</div>
+            <div>{(apparel.originPrice) ? numberWithComma(apparel.originPrice) : undefined}</div>
           </div>
           <div className="col">
             <div className="fw-bold fs-5">{t('apparel.term.discountPrice')}</div>
-            <div>{apparel.discountPrice}</div>
+            <div>{(apparel.discountPrice) ? numberWithComma(apparel.discountPrice) : undefined}</div>
           </div>
           <div className="col">
             <div className="fw-bold fs-5">{t('apparel.term.buyDt')}</div>
@@ -76,7 +84,10 @@ export default function ApparelDetailPage() {
             <div>{apparel.makeDt}</div>
           </div>
         </div>
-        <Link to={ApparelRoutes.editRoute(apparelId)}><Button className="mt-3">수정하기</Button></Link>
+        <div className="mt-3">
+          <Link to={ApparelRoutes.editRoute(apparelId)}><Button>수정하기</Button></Link>
+          <Button variant="danger" className="ms-2" onClick={onDelete}>삭제하기</Button>
+        </div>
       </Container>
     </div>
   )

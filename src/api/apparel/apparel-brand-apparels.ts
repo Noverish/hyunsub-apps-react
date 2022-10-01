@@ -1,15 +1,12 @@
 import { ApparelPreview } from "src/model/apparel";
-import { generateQuery } from "../generate-api";
-import {useInfiniteQuery} from '@tanstack/react-query';
-import { PageData } from "src/model/api";
+import { generateInfiniteQuery } from "../generate-api";
 
 interface ApparelBrandApparelsParams {
   brand: string;
-  page: number;
 }
 
-const apparelBrandApparels = generateQuery<ApparelBrandApparelsParams, PageData<ApparelPreview>>({
-  api: (params: ApparelBrandApparelsParams) => ({
+const apparelBrandApparels = generateInfiniteQuery<ApparelBrandApparelsParams, ApparelPreview>({
+  api: (params) => ({
     url: `/api/v1/brands/${params.brand}/apparels`,
     method: 'GET',
     params: {
@@ -20,12 +17,3 @@ const apparelBrandApparels = generateQuery<ApparelBrandApparelsParams, PageData<
 })
 
 export default apparelBrandApparels;
-
-export const useInfiniteApparelBrandApparels = (params: ApparelBrandApparelsParams) => useInfiniteQuery(
-  apparelBrandApparels.key(params),
-  ({ pageParam }) => apparelBrandApparels.fetch({ ...params, page: pageParam ?? 0 }),
-  {
-    getNextPageParam: (lastPage, pages) => (lastPage.data.length === 0) ? undefined : pages.length,
-    staleTime: Infinity,
-  }
-)

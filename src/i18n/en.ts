@@ -4,6 +4,9 @@ const en = {
     'view': 'View',
     'add': 'Add',
 
+    'msg.delete-confirm': 'Are you sure you want to delete?',
+    'msg.delete-success': 'Successfully deleted',
+
     'common.404.oh': 'Ah!',
     'common.404.not-exist': 'This page is not exist',
     'common.404.go-to-home': 'Go to Home',
@@ -63,6 +66,7 @@ const en = {
     'photo.page.setting.title': 'Setting',
 
     'apparel.page.list.title': 'My Apparel List',
+    'apparel.page.list.inner-title': 'Total {{0}} items',
     'apparel.page.detail.title': 'Apparel Detail',
     'apparel.page.edit.title': 'Edit - {{0}}',
     'apparel.page.add.title': 'Add My Apparel',
@@ -90,7 +94,6 @@ const en = {
     'PageSelectModal.close': 'Close',
     'PageSelectModal.move': 'Move',
     'PageSelectModal.msg.invalid-page': 'Please enter a valid value',
-    'ExtendedImage.msg.delete-confirm': 'Are you sure you want to delete it?',
   }
 };
 

@@ -1,24 +1,13 @@
-import { Dispatch } from '@reduxjs/toolkit';
 import { useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
-import apparelDetail, { addApparelDetailImageCache } from 'src/api/apparel/apparel-detail';
-import apparelImageUpload from 'src/api/apparel/apparel-image-upload';
+import apparelDetail from 'src/api/apparel/apparel-detail';
 import ApparelForm from 'src/components/apparel/ApparelForm';
 import ApparelHeader from 'src/components/apparel/ApparelHeader';
 import { Apparel } from 'src/model/apparel';
 import { useDispatch } from 'src/redux';
-import { GlobalActions } from 'src/redux/global';
-
-const apparelImageUploadAction = (apparelId: string, images: File[]) => async (dispatch: Dispatch) => {
-  dispatch(GlobalActions.update({ loading: true }));
-  for (const image of images) {
-    const apparelImage = await apparelImageUpload({ apparelId, image });
-    addApparelDetailImageCache(apparelImage);
-  }
-  dispatch(GlobalActions.update({ loading: false }));
-}
+import { apparelImageUploadAction, apparelUpdateAction } from './ApparelEditContext';
 
 export default function ApparelEditPage() {
   const apparelId = useParams().apparelId!!;
@@ -36,7 +25,7 @@ export default function ApparelEditPage() {
   };
 
   const onSubmit = (newApparel: Apparel) => {
-
+    dispatch(apparelUpdateAction(apparelId, newApparel));
   };
 
   return (
