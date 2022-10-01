@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './ImageAddButton.scss';
+import cs from 'classnames';
 
 interface Props {
   multiple?: boolean;
@@ -7,6 +8,8 @@ interface Props {
 }
 
 export default function ImageAddButton({ multiple, callback }: Props) {
+  const [hover, setHover] = useState(false);
+
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const images = Array.from((e.currentTarget.files || []))
     if (images) {
@@ -15,8 +18,17 @@ export default function ImageAddButton({ multiple, callback }: Props) {
     }
   }
 
+  const onDragEnter = () => {
+    setHover(true);
+  }
+
+  const onDragLeave = () => {
+    console.log('onDragLeave');
+    setHover(false);
+  }
+
   return (
-    <div className="ImageAddButton ratio">
+    <div className={cs("ImageAddButton ratio", { hover })} onDragEnter={onDragEnter} onDragLeave={onDragLeave}>
       <div>
         <i className="fas fa-plus"></i>
       </div>
