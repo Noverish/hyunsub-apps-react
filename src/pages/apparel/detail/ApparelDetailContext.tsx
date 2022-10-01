@@ -4,7 +4,6 @@ import apparelImageUpload from "src/api/apparel/apparel-image-upload";
 import { GlobalActions } from 'src/redux/global';
 import history from 'src/pages/common/history';
 import t from 'src/i18n';
-import listApparel from "src/api/apparel/apparel-list";
 import apparelList from "src/api/apparel/apparel-list";
 
 export const apparelImageUploadAction = (apparelId: string, images: File[]) => async (dispatch: Dispatch) => {

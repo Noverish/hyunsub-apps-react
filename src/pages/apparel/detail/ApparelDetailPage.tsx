@@ -85,8 +85,8 @@ export default function ApparelDetailPage() {
           </div>
         </div>
         <div className="mt-3">
-          <Link to={ApparelRoutes.editRoute(apparelId)}><Button>수정하기</Button></Link>
-          <Button variant="danger" className="ms-2" onClick={onDelete}>삭제하기</Button>
+          <Link to={ApparelRoutes.editRoute(apparelId)}><Button>{t('edit')}</Button></Link>
+          <Button variant="danger" className="ms-2" onClick={onDelete}>{t('delete')}</Button>
         </div>
       </Container>
     </div>

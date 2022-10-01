@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, Form, InputGroup } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import { VideoSubtitle } from 'src/model/video';
 import { VideoDetailActions } from 'src/pages/video/detail/VideoDetailState';
 import { useDispatch } from 'src/redux';
@@ -9,13 +10,15 @@ interface Props {
 }
 
 export default function VideoSubtitleSettingCard({ subtitles }: Props) {
+  const { t } = useTranslation();
+
   const items = subtitles.map(v => (
     <VideoSubtitleSettingItem key={v.url} subtitle={v} />
   ));
 
   return (
     <Card>
-      <Card.Header>Subtitle Sync Setting</Card.Header>
+      <Card.Header>{t('video.subtitle-setting.title')}</Card.Header>
       <Card.Body>
         <div className="d-flex gap-3 flex-wrap">
           {items}

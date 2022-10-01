@@ -1,14 +1,15 @@
 import { VideoSort } from "src/model/video";
 import Dropdown from 'react-bootstrap/Dropdown';
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
-const getVideoSortName = (sort: VideoSort) => {
-  switch(sort) {
-    case VideoSort.random: return '랜덤순';
-    case VideoSort.new: return '최신 업로드순';
-    case VideoSort.old: return '오래된 업로드순';
-    case VideoSort.abc: return '가나다순';
-    case VideoSort.zyx: return '가나다역순';
+const getVideoSortName = (sort: VideoSort): any => {
+  switch (sort) {
+    case VideoSort.random: return 'video.term.sort.random';
+    case VideoSort.new: return 'video.term.sort.new';
+    case VideoSort.old: return 'video.term.sort.old';
+    case VideoSort.abc: return 'video.term.sort.abc';
+    case VideoSort.zyx: return 'video.term.sort.zyx';
   }
 }
 
@@ -18,6 +19,7 @@ interface Props {
 
 export default function VideoSortDropdown(props: Props) {
   const sort = props.sort || VideoSort.random;
+  const { t } = useTranslation();
 
   const navigate = useNavigate();
 
@@ -27,15 +29,22 @@ export default function VideoSortDropdown(props: Props) {
     navigate(window.location.pathname + '?' + params.toString());
   };
 
+  const items = [VideoSort.random, VideoSort.new, VideoSort.old, VideoSort.abc, VideoSort.zyx].map(v => (
+    <Dropdown.Item
+      key={v}
+      as='button'
+      active={sort === v}
+      eventKey={v}
+    >
+      {t(getVideoSortName(v))}
+    </Dropdown.Item>
+  ))
+
   return (
     <Dropdown className="mb-3" onSelect={onSelect}>
       <Dropdown.Toggle variant="secondary">{getVideoSortName(sort)}</Dropdown.Toggle>
       <Dropdown.Menu>
-        <Dropdown.Item active={sort === VideoSort.random} as='button' eventKey={VideoSort.random}>{getVideoSortName(VideoSort.random)}</Dropdown.Item>
-        <Dropdown.Item active={sort === VideoSort.new} as='button' eventKey={VideoSort.new}>{getVideoSortName(VideoSort.new)}</Dropdown.Item>
-        <Dropdown.Item active={sort === VideoSort.old} as='button' eventKey={VideoSort.old}>{getVideoSortName(VideoSort.old)}</Dropdown.Item>
-        <Dropdown.Item active={sort === VideoSort.abc} as='button' eventKey={VideoSort.abc}>{getVideoSortName(VideoSort.abc)}</Dropdown.Item>
-        <Dropdown.Item active={sort === VideoSort.zyx} as='button' eventKey={VideoSort.zyx}>{getVideoSortName(VideoSort.zyx)}</Dropdown.Item>
+        {items}
       </Dropdown.Menu>
     </Dropdown>
   )

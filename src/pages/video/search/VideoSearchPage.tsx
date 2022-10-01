@@ -1,4 +1,5 @@
 import { Container } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router-dom";
 import getCategories from "src/api/video/category";
 import searchVideo from "src/api/video/video-search";
@@ -9,6 +10,7 @@ export default function VideoSearchPage() {
   const [searchParams] = useSearchParams();
   const query = searchParams.get('q') || '';
   const params = { query };
+  const { t } = useTranslation();
 
   const searchResult = searchVideo.useApi(params);
   const categories = getCategories.useApi();
@@ -29,7 +31,7 @@ export default function VideoSearchPage() {
     <div id="VideoSearchPage">
       <VideoHeader />
       <Container id="content">
-        <h2>'{query}'에 대한 {resultNum}건의 검색 결과</h2>
+        <h2>{t('video.page.search.title', [query, resultNum])}</h2>
         <hr />
         {entriesList}
       </Container>

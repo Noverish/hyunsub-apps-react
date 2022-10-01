@@ -1,5 +1,6 @@
 import React from 'react';
 import { Dropdown } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'src/redux';
 import { logoutAction } from 'src/redux/actions';
@@ -20,6 +21,7 @@ const ProfileDropdownToggle = React.forwardRef<HTMLDivElement, React.DOMAttribut
 export default function DesktopHeader(props: HeaderProps) {
   const { menus, onSearch, dropdowns, title } = props;
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const onLogout = () => {
     dispatch(logoutAction());
@@ -54,7 +56,7 @@ export default function DesktopHeader(props: HeaderProps) {
             <Dropdown.Menu variant="dark">
               {dropdownElements}
               <Dropdown.Divider />
-              <Dropdown.Item as="button" className="text-danger" onClick={onLogout}>Logout</Dropdown.Item>
+              <Dropdown.Item as="button" className="text-danger" onClick={onLogout}>{t('logout')}</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
         </div>

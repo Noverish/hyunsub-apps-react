@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Dropdown, Offcanvas } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'src/redux';
 import { logoutAction } from 'src/redux/actions';
@@ -20,6 +21,7 @@ const ProfileDropdownToggle = React.forwardRef<HTMLDivElement, React.DOMAttribut
 export default function MobileHeader(props: HeaderProps) {
   const { menus, onSearch, dropdowns, title } = props;
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -59,7 +61,7 @@ export default function MobileHeader(props: HeaderProps) {
             <Dropdown.Menu variant="dark">
               {dropdownElements}
               <Dropdown.Divider />
-              <Dropdown.Item as="button" className="text-danger" onClick={onLogout}>Logout</Dropdown.Item>
+              <Dropdown.Item as="button" className="text-danger" onClick={onLogout}>{t('logout')}</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
         </div>
@@ -67,13 +69,13 @@ export default function MobileHeader(props: HeaderProps) {
 
       <Offcanvas show={show} onHide={handleClose}>
         <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Menus</Offcanvas.Title>
+          <Offcanvas.Title>{t('menus')}</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
           {menuElements}
           <div onClick={onSearch} className="menu_item">
             <i className="fas fa-search"></i>
-            <span>Search</span>
+            <span>{t('search')}</span>
           </div>
         </Offcanvas.Body>
       </Offcanvas>
