@@ -23,7 +23,7 @@ export default function ApparelDetailPage() {
       <ApparelHeader />
       <Container id="content">
         <h1>{apparel.name}</h1>
-        <div className="mt-3" style={{ height: '480px' }}>
+        <div className="mt-3">
           <ImageSwiper urls={urls} />
         </div>
         <div className="mt-0 row g-3 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">

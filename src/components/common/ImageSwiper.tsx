@@ -12,9 +12,9 @@ export default function ImageSwiper({ urls }: Props) {
   const swiperRef = useRef<Swiper>();
 
   const slides = urls.map((v) => (
-    <SwiperSlide key={v} style={{ width: '480px' }}>
+    <SwiperSlide key={v} style={{ maxWidth: '360px' }}>
       <div className="ratio ratio-1x1">
-        <img src={v} alt={v} style={{ maxWidth: '100%', maxHeight: '100%' }} />
+        <img src={v} alt={v} />
       </div>
     </SwiperSlide>
   ))
