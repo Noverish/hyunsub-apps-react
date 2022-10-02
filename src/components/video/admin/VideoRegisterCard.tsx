@@ -1,12 +1,11 @@
 import { Button, Card, Form } from 'react-bootstrap';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { FileInfo } from 'src/api/file/readdir-detail';
 import { VideoRegisterParams } from 'src/api/video/video-register';
 import ApiResult from 'src/components/common/ApiResult';
-import PathSearchSelect from 'src/components/common/PathSearchSelect';
+import PathSelect from 'src/components/common/PathSelect';
 import VieoCategorySelect from 'src/components/video/select/VideoCategorySelect';
 import VideoGroupSelect from 'src/components/video/select/VideoGroupSelect';
-import {VideoCategory, VideoGroupPreview} from 'src/model/video';
+import { VideoCategory, VideoGroupPreview } from 'src/model/video';
 import { videoRegisterAction } from 'src/pages/video/admin/VideoAdminContext';
 import { useDispatch, useSelector } from 'src/redux';
 
@@ -16,8 +15,12 @@ export default function VideoRegisterCard() {
 
   const { register, handleSubmit, setValue, formState: { errors } } = useForm<VideoRegisterParams>();
 
-  const onVideoPathSelect = (info: FileInfo | null) => {
-    setValue('videoPath', info?.path ?? '', { shouldValidate: true });
+  const onVideoPathSelect = (path: string) => {
+    setValue('videoPath', path, { shouldValidate: true });
+  }
+
+  const onOutputPathSelect = (path: string) => {
+    setValue('outputPath', path, { shouldValidate: true });
   }
 
   const onCategorySelect = (category: VideoCategory | null) => {
@@ -32,17 +35,9 @@ export default function VideoRegisterCard() {
     dispatch(videoRegisterAction(params));
   }
 
-  register('category', {
-    required: 'There is no category',
-  });
-
-  register('videoPath', {
-    required: 'There is no video path',
-  });
-
-  const outputPathRegister = register('outputPath', {
-    required: 'There is no output path',
-  });
+  register('category', { required: 'There is no category' });
+  register('videoPath', { required: 'There is no video path' });
+  register('outputPath', { required: 'There is no output path' });
 
   return (
     <Card>
@@ -57,13 +52,13 @@ export default function VideoRegisterCard() {
 
           <Form.Group className="mb-3">
             <Form.Label>Video Original Path</Form.Label>
-            <PathSearchSelect onSelect={onVideoPathSelect} isInvalid={!!errors.videoPath?.message} />
+            <PathSelect onSelect={onVideoPathSelect} isInvalid={!!errors.videoPath?.message} />
             <Form.Control.Feedback type="invalid">{errors.videoPath?.message}</Form.Control.Feedback>
           </Form.Group>
 
           <Form.Group className="mb-3">
             <Form.Label>Video Destination Path</Form.Label>
-            <Form.Control {...outputPathRegister} className="input_dark" isInvalid={!!errors.outputPath?.message} />
+            <PathSelect onSelect={onOutputPathSelect} isInvalid={!!errors.outputPath?.message} />
             <Form.Control.Feedback type="invalid">{errors.outputPath?.message}</Form.Control.Feedback>
           </Form.Group>
 

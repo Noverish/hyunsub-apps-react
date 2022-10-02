@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { VideoEntry } from 'src/model/video';
 
 interface State {
   seed: number;

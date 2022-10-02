@@ -1,12 +1,11 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { Button, ButtonGroup, Card, Form, ToggleButton } from 'react-bootstrap';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { FileInfo } from 'src/api/file/readdir-detail';
 import ApiResult from 'src/components/common/ApiResult';
-import PathSearchSelect from 'src/components/common/PathSearchSelect';
+import PathSelect from 'src/components/common/PathSelect';
 import { videoSubtitleUploadAction } from 'src/pages/video/admin/VideoAdminContext';
 import { useDispatch, useSelector } from 'src/redux';
-import {VideoSubtitleUploadParams} from '../../../api/video/video-subtitle-upload';
+import { VideoSubtitleUploadParams } from '../../../api/video/video-subtitle-upload';
 
 interface Props {
   videoId: string;
@@ -23,8 +22,8 @@ export default function VideoSubtitleUploadCard({ videoId }: Props) {
     setUploadMode(e.currentTarget.value === 'true');
   }
 
-  const onVideoPathSelect = (info: FileInfo | null) => {
-    setValue('path', info?.path ?? undefined);
+  const onVideoPathSelect = (path: string) => {
+    setValue('path', path);
   }
 
   const onSubmit: SubmitHandler<VideoSubtitleUploadParams> = (params: VideoSubtitleUploadParams) => {
@@ -73,7 +72,7 @@ export default function VideoSubtitleUploadCard({ videoId }: Props) {
 
           {!isUploadMode && <Form.Group className="mb-3">
             <Form.Label>Video Original Path</Form.Label>
-            <PathSearchSelect onSelect={onVideoPathSelect} />
+            <PathSelect onSelect={onVideoPathSelect} />
           </Form.Group>}
 
           <Form.Group className="mb-3">
