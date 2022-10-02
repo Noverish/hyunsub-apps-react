@@ -42,7 +42,7 @@ export default function VideoSortDropdown(props: Props) {
 
   return (
     <Dropdown className="mb-3" onSelect={onSelect}>
-      <Dropdown.Toggle variant="secondary">{getVideoSortName(sort)}</Dropdown.Toggle>
+      <Dropdown.Toggle variant="secondary">{t(getVideoSortName(sort))}</Dropdown.Toggle>
       <Dropdown.Menu>
         {items}
       </Dropdown.Menu>

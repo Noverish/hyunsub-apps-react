@@ -1,23 +1,11 @@
-import { Dispatch } from '@reduxjs/toolkit';
 import { useRef, useState } from 'react';
 import { Button, ButtonGroup, Card, Form, ToggleButton } from 'react-bootstrap';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { FileInfo } from 'src/api/file/readdir-detail';
-import videoSubtitleUpload, { VideoSubtitleUploadParams } from 'src/api/video/video-subtitle-upload';
 import ApiResult from 'src/components/common/ApiResult';
 import PathSearchSelect from 'src/components/common/PathSearchSelect';
-import { VideoDetailActions } from 'src/pages/video/detail/VideoDetailState';
-import { RootState, useDispatch, useSelector } from 'src/redux';
-import { GlobalActions } from 'src/redux/global';
-
-const videoSubtitleUploadAction = (params: VideoSubtitleUploadParams) => async (dispatch: Dispatch, getState: () => RootState) => {
-  dispatch(GlobalActions.update({ loading: true }));
-
-  const result = await videoSubtitleUpload(params);
-  dispatch(VideoDetailActions.update({ videoSubtitleUploadresult: result }));
-
-  dispatch(GlobalActions.update({ loading: false }));
-};
+import { videoSubtitleUploadAction } from 'src/pages/video/admin/VideoAdminContext';
+import { useDispatch, useSelector } from 'src/redux';
 
 interface Props {
   videoId: string;
@@ -28,9 +16,9 @@ interface FormState {
   file: FileList;
 }
 
-export default function VideoSubtitleUploadSection({ videoId }: Props) {
+export default function VideoSubtitleUploadCard({ videoId }: Props) {
   const dispatch = useDispatch();
-  const result = useSelector(s => s.video.detail.videoSubtitleUploadresult);
+  const result = useSelector(s => s.video.admin.videoSubtitleUploadResult);
   const [isUploadMode, setUploadMode] = useState(true);
   const videoPathRef = useRef<string>();
 

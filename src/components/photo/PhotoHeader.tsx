@@ -1,7 +1,10 @@
+import { useTranslation } from 'react-i18next';
 import PhotoRoutes from 'src/pages/photo/PhotoRoutes';
 import { Header, HeaderProps } from '../common/header/Header';
 
 export default function PhotoHeader() {
+  const { t } = useTranslation();
+  
   const props: HeaderProps = {
     title : 'HyunPhoto',
     menus: [
@@ -18,7 +21,7 @@ export default function PhotoHeader() {
     ],
     dropdowns: [
       {
-        name: 'Setting',
+        name: t('setting'),
         link: PhotoRoutes.setting(),
       }
     ],

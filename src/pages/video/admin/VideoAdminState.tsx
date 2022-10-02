@@ -1,14 +1,19 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface State {
-  result?: any;
+  videoRegisterResult?: any;
+  videoMetadataScanResult?: any;
+  videoEncodeResult?: any;
+  videoRenameResult?: any;
+  videoSubtitleUploadResult?: any;
+  videoThumbnailResult?: any;
 };
 
 const initialState: State = {
 };
 
 const slice = createSlice({
-  name: 'upload',
+  name: 'admin',
   initialState,
   reducers: {
     update: (state: State, { payload }: PayloadAction<Partial<State>>) => ({
@@ -20,4 +25,4 @@ const slice = createSlice({
 
 export default slice;
 
-export const VideoUploadActions = slice.actions;
+export const VideoAdminActions = slice.actions;

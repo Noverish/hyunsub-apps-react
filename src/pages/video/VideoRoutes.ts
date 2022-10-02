@@ -8,7 +8,7 @@ const VideoRoutes = {
     return `/video/${entryId}${query}`;
   },
 
-  upload: '/upload',
+  admin: '/admin',
 
   my: '/my',
 

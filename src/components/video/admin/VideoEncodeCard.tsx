@@ -1,18 +1,9 @@
-import { Dispatch } from '@reduxjs/toolkit';
 import { Button, Card, Form } from 'react-bootstrap';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import videoEncode, { VideoEncodeParams } from 'src/api/video/video-encode';
+import { VideoEncodeParams } from 'src/api/video/video-encode';
 import ApiResult from 'src/components/common/ApiResult';
-import { VideoDetailActions } from 'src/pages/video/detail/VideoDetailState';
+import { videoEncodeAction } from 'src/pages/video/admin/VideoAdminContext';
 import { useDispatch, useSelector } from 'src/redux';
-import { GlobalActions } from 'src/redux/global';
-
-const videoEncodeAction = (params: VideoEncodeParams) => async (dispatch: Dispatch) => {
-  dispatch(GlobalActions.update({ loading: true }));
-  const videoEncodeResult = await videoEncode(params);
-  dispatch(VideoDetailActions.update({ videoEncodeResult }));
-  dispatch(GlobalActions.update({ loading: false }));
-}
 
 interface Props {
   videoId: string;
@@ -20,7 +11,7 @@ interface Props {
 
 export default function VideoEncodeCard({ videoId }: Props) {
   const dispatch = useDispatch();
-  const result = useSelector(s => s.video.detail.videoEncodeResult);
+  const result = useSelector(s => s.video.admin.videoEncodeResult);
   const { register, handleSubmit } = useForm<VideoEncodeParams>({
     defaultValues: { options: '-vcodec libx264 -acodec copy -crf 29' },
   });

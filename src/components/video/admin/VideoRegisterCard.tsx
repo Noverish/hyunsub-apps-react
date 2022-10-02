@@ -1,27 +1,19 @@
-import { Dispatch } from '@reduxjs/toolkit';
 import { useRef } from 'react';
 import { Button, Card, Form } from 'react-bootstrap';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { FileInfo } from 'src/api/file/readdir-detail';
-import videoRegister, { VideoRegisterParams } from 'src/api/video/video-register';
-import { VideoUploadActions } from 'src/pages/video/upload/VideoUploadState';
-import { RootState, useDispatch } from 'src/redux';
-import { GlobalActions } from 'src/redux/global';
-import PathSearchSelect from '../common/PathSearchSelect';
-
-const requestVideoRegister = (params: VideoRegisterParams) => async (dispatch: Dispatch, getState: () => RootState) => {
-  dispatch(GlobalActions.update({ loading: true }));
-
-  const result = await videoRegister(params);
-  dispatch(VideoUploadActions.update({ result }));
-
-  dispatch(GlobalActions.update({ loading: false }));
-}
+import { VideoRegisterParams } from 'src/api/video/video-register';
+import ApiResult from 'src/components/common/ApiResult';
+import PathSearchSelect from 'src/components/common/PathSearchSelect';
+import { videoRegisterAction } from 'src/pages/video/admin/VideoAdminContext';
+import { useDispatch, useSelector } from 'src/redux';
 
 export default function VideoRegisterCard() {
   const dispatch = useDispatch();
   const { register, handleSubmit } = useForm<VideoRegisterParams>()
   const videoPathRef = useRef<string>();
+
+  const result = useSelector(s => s.video.admin.videoRegisterResult);
 
   const onSubmit: SubmitHandler<VideoRegisterParams> = (params: VideoRegisterParams) => {
     const videoPath = videoPathRef.current;
@@ -37,7 +29,7 @@ export default function VideoRegisterCard() {
       videoGroupId: params.videoGroupId ? params.videoGroupId : undefined,
     }
 
-    dispatch(requestVideoRegister(newParams));
+    dispatch(videoRegisterAction(newParams));
   };
 
   const onVideoPathSelect = (info?: FileInfo) => {
@@ -72,6 +64,8 @@ export default function VideoRegisterCard() {
           <Button variant="primary" type="submit">
             Register
           </Button>
+
+          {result && <ApiResult className="mt-3" result={result} />}
         </Form>
       </Card.Body>
     </Card>

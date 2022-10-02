@@ -1,14 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { VideoThumbnailResult } from 'src/api/video/video-thumbnail';
 
 interface State {
   showSetting: boolean;
   showAdmin: boolean;
-  scanMetadataResult?: any;
-  videoThumbnailResult?: VideoThumbnailResult;
-  videoSubtitleUploadresult?: any;
-  videoRenameResult?: any;
-  videoEncodeResult?: any;
   subtitleSync: { [subtitleUrl: string]: number };
 };
 

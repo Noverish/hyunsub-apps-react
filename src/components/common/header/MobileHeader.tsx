@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'src/redux';
 import { logoutAction } from 'src/redux/actions';
 import { HeaderProps } from "./Header";
+import {useIsAdmin} from 'src/api/auth/authorities';
 
 import './MobileHeader.scss';
 
@@ -22,6 +23,7 @@ export default function MobileHeader(props: HeaderProps) {
   const { menus, onSearch, dropdowns, title } = props;
   const dispatch = useDispatch();
   const { t } = useTranslation();
+  const isAdmin = useIsAdmin();
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -61,6 +63,7 @@ export default function MobileHeader(props: HeaderProps) {
             <Dropdown.Menu variant="dark">
               {dropdownElements}
               <Dropdown.Divider />
+              {isAdmin && <Dropdown.Item as={Link} to="/admin">Admin</Dropdown.Item>}
               <Dropdown.Item as="button" className="text-danger" onClick={onLogout}>{t('logout')}</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
