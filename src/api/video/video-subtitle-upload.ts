@@ -3,8 +3,8 @@ import { generateApi } from 'src/api/generate-api';
 
 export interface VideoSubtitleUploadParams {
   videoId: string;
-  file?: File;
   lang: string;
+  file?: File;
   path?: string;
 }
 

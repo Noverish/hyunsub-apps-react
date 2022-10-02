@@ -1,40 +1,48 @@
-import { useRef } from 'react';
 import { Button, Card, Form } from 'react-bootstrap';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { FileInfo } from 'src/api/file/readdir-detail';
 import { VideoRegisterParams } from 'src/api/video/video-register';
 import ApiResult from 'src/components/common/ApiResult';
 import PathSearchSelect from 'src/components/common/PathSearchSelect';
+import VieoCategorySelect from 'src/components/video/select/VideoCategorySelect';
+import VideoGroupSelect from 'src/components/video/select/VideoGroupSelect';
+import {VideoCategory, VideoGroupPreview} from 'src/model/video';
 import { videoRegisterAction } from 'src/pages/video/admin/VideoAdminContext';
 import { useDispatch, useSelector } from 'src/redux';
 
 export default function VideoRegisterCard() {
   const dispatch = useDispatch();
-  const { register, handleSubmit } = useForm<VideoRegisterParams>()
-  const videoPathRef = useRef<string>();
-
   const result = useSelector(s => s.video.admin.videoRegisterResult);
 
-  const onSubmit: SubmitHandler<VideoRegisterParams> = (params: VideoRegisterParams) => {
-    const videoPath = videoPathRef.current;
-    if (!videoPath) {
-      alert('No Video Path');
-      return;
-    }
+  const { register, handleSubmit, setValue, formState: { errors } } = useForm<VideoRegisterParams>();
 
-    const newParams: VideoRegisterParams = {
-      category: params.category,
-      outputPath: params.outputPath,
-      videoPath,
-      videoGroupId: params.videoGroupId ? params.videoGroupId : undefined,
-    }
-
-    dispatch(videoRegisterAction(newParams));
-  };
-
-  const onVideoPathSelect = (info?: FileInfo) => {
-    videoPathRef.current = info?.path;
+  const onVideoPathSelect = (info: FileInfo | null) => {
+    setValue('videoPath', info?.path ?? '', { shouldValidate: true });
   }
+
+  const onCategorySelect = (category: VideoCategory | null) => {
+    setValue('category', category?.name ?? '', { shouldValidate: true });
+  }
+
+  const onGroupSelect = (group: VideoGroupPreview | null) => {
+    setValue('videoGroupId', group?.id ?? '', { shouldValidate: true });
+  }
+
+  const onSubmit: SubmitHandler<VideoRegisterParams> = (params: VideoRegisterParams) => {
+    dispatch(videoRegisterAction(params));
+  }
+
+  register('category', {
+    required: 'There is no category',
+  });
+
+  register('videoPath', {
+    required: 'There is no video path',
+  });
+
+  const outputPathRegister = register('outputPath', {
+    required: 'There is no output path',
+  });
 
   return (
     <Card>
@@ -43,22 +51,35 @@ export default function VideoRegisterCard() {
         <Form onSubmit={handleSubmit(onSubmit)}>
           <Form.Group className="mb-3">
             <Form.Label>Category</Form.Label>
-            <Form.Control {...register('category')} className="input_dark" />
+            <VieoCategorySelect onSelect={onCategorySelect} isInvalid={!!errors.category?.message} />
+            <Form.Control.Feedback type="invalid">{errors.category?.message}</Form.Control.Feedback>
           </Form.Group>
 
           <Form.Group className="mb-3">
             <Form.Label>Video Original Path</Form.Label>
-            <PathSearchSelect onSelect={onVideoPathSelect} />
+            <PathSearchSelect onSelect={onVideoPathSelect} isInvalid={!!errors.videoPath?.message} />
+            <Form.Control.Feedback type="invalid">{errors.videoPath?.message}</Form.Control.Feedback>
           </Form.Group>
 
           <Form.Group className="mb-3">
             <Form.Label>Video Destination Path</Form.Label>
-            <Form.Control {...register('outputPath')} className="input_dark" />
+            <Form.Control {...outputPathRegister} className="input_dark" isInvalid={!!errors.outputPath?.message} />
+            <Form.Control.Feedback type="invalid">{errors.outputPath?.message}</Form.Control.Feedback>
           </Form.Group>
 
           <Form.Group className="mb-3">
-            <Form.Label>Video Group Id</Form.Label>
-            <Form.Control {...register('videoGroupId')} className="input_dark" />
+            <Form.Label>Group Id</Form.Label>
+            <VideoGroupSelect onSelect={onGroupSelect} />
+          </Form.Group>
+
+          <Form.Group className="mb-3">
+            <Form.Label>New Group Name</Form.Label>
+            <Form.Control {...register('newGroupName')} className="input_dark" />
+          </Form.Group>
+
+          <Form.Group className="mb-3">
+            <Form.Label>Thumbnail Url</Form.Label>
+            <Form.Control {...register('thumbnailUrl')} className="input_dark" />
           </Form.Group>
 
           <Button variant="primary" type="submit">

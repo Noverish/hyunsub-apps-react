@@ -6,38 +6,33 @@ import ApiResult from 'src/components/common/ApiResult';
 import PathSearchSelect from 'src/components/common/PathSearchSelect';
 import { videoSubtitleUploadAction } from 'src/pages/video/admin/VideoAdminContext';
 import { useDispatch, useSelector } from 'src/redux';
+import {VideoSubtitleUploadParams} from '../../../api/video/video-subtitle-upload';
 
 interface Props {
   videoId: string;
-}
-
-interface FormState {
-  lang: string;
-  file: FileList;
 }
 
 export default function VideoSubtitleUploadCard({ videoId }: Props) {
   const dispatch = useDispatch();
   const result = useSelector(s => s.video.admin.videoSubtitleUploadResult);
   const [isUploadMode, setUploadMode] = useState(true);
-  const videoPathRef = useRef<string>();
 
-  const { register, handleSubmit } = useForm<FormState>();
+  const { register, handleSubmit, setValue } = useForm<VideoSubtitleUploadParams>();
 
   const onToggle = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUploadMode(e.currentTarget.value === 'true');
   }
 
-  const onVideoPathSelect = (info?: FileInfo) => {
-    videoPathRef.current = info?.path;
+  const onVideoPathSelect = (info: FileInfo | null) => {
+    setValue('path', info?.path ?? undefined);
   }
 
-  const onSubmit: SubmitHandler<FormState> = (params: FormState) => {
+  const onSubmit: SubmitHandler<VideoSubtitleUploadParams> = (params: VideoSubtitleUploadParams) => {
     dispatch(videoSubtitleUploadAction({
       videoId,
       lang: params.lang,
-      file: (isUploadMode) ? params.file[0] : undefined,
-      path: (isUploadMode) ? undefined : videoPathRef.current,
+      file: (isUploadMode) ? params.file : undefined,
+      path: (isUploadMode) ? undefined : params.path,
     }));
   };
 

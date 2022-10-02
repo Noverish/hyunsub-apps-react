@@ -6,29 +6,6 @@ const Input = (props: any) => <components.Input {...props} isHidden={false} />;
 const getOptionLabel = (option: FileInfo) => option.path;
 const getOptionValue = (option: FileInfo) => option.path;
 
-const styleConfig: StylesConfig<FileInfo, false> = {
-  input: (styles) => ({
-    ...styles,
-    color: 'white',
-  }),
-  menu: (styles) => ({
-    ...styles,
-    backgroundColor: 'black',
-  }),
-  option: (styles, state) => ({
-    ...styles,
-    backgroundColor: state.isFocused ? '#333' : undefined,
-  }),
-  control: (styles) => ({
-    ...styles,
-    backgroundColor: 'black',
-  }),
-  singleValue: (style) => ({
-    ...style,
-    color: 'white',
-  })
-};
-
 interface State {
   path: string;
   loading: boolean;
@@ -42,10 +19,11 @@ const defaultState: State = {
 }
 
 interface Props {
-  onSelect?: (info: FileInfo | undefined) => void;
+  onSelect?: (value: FileInfo | null) => void;
+  isInvalid?: boolean;
 }
 
-export default function PathSearchSelect({ onSelect }: Props) {
+export default function PathSearchSelect({ onSelect, isInvalid }: Props) {
   const [state, setState] = useState(defaultState);
   const [inputValue, setInputValue] = useState(defaultState.path);
   const { path, result, loading } = state;
@@ -67,7 +45,7 @@ export default function PathSearchSelect({ onSelect }: Props) {
     } else if (actionMeta.action === 'clear') {
       setState(defaultState);
       setInputValue(defaultState.path);
-      onSelect?.(undefined);
+      onSelect?.(null);
     }
   }
 
@@ -80,9 +58,10 @@ export default function PathSearchSelect({ onSelect }: Props) {
   return (
     <Select
       menuPortalTarget={window.document.body}
+      className={isInvalid ? 'is-invalid' : ''}
       isClearable={true}
       isLoading={loading}
-      styles={styleConfig}
+      classNamePrefix="select"
       options={result}
       getOptionLabel={getOptionLabel}
       getOptionValue={getOptionValue}

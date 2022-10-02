@@ -37,7 +37,7 @@ export default function VideoRenameCard({ title, videoId }: Props) {
           </Form.Group>
 
           <Form.Group className="mb-3">
-            <Form.Check {...register('isRegex')} className="input_dark" type="checkbox" label="isRegex" defaultChecked={false} />
+            <Form.Check {...register('isRegex')} type="checkbox" label="isRegex" defaultChecked={false} />
           </Form.Group>
 
           <Button variant="primary" type="submit">

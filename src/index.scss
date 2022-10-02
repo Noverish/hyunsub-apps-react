@@ -119,3 +119,38 @@ header {
     }
   }
 }
+
+.select__control {
+  background-color: var(--bs-gray-dark)!important;
+  cursor: pointer!important;
+}
+
+.is-invalid .select__control {
+  border-color: var(--bs-danger)!important;
+}
+
+.select__input {
+  color: white!important;
+}
+
+.select__menu {
+  background-color: var(--bs-gray-dark)!important;
+  border: white 1px solid;
+}
+
+.select__option {
+  background-color: var(--bs-gray-dark)!important;
+  cursor: pointer!important;
+}
+
+.select__option--is-focused {
+  background-color: var(--bs-gray)!important;
+}
+
+.select__single-value {
+  color: white!important;
+}
+
+.select--is-disabled {
+  opacity: 0.5;
+}
