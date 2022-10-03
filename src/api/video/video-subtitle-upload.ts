@@ -6,11 +6,13 @@ export interface VideoSubtitleUploadParams {
   lang: string;
   file?: FileList;
   path?: string;
+  override: boolean;
 }
 
 const videoSubtitleUpload = generateApi<VideoSubtitleUploadParams, any>(params => {
   const formData = new FormData();
   formData.append('lang', params.lang);
+  formData.append('override', params.override.toString());
   if (params.file) {
     formData.append('file', params.file!![0]);
   }
