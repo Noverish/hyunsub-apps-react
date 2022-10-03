@@ -9,6 +9,7 @@ const en = {
     'menus': 'Menus',
     'search': 'Search',
     'close': 'Close',
+    'setting': 'Setting',
 
     'msg.delete-confirm': 'Are you sure you want to delete?',
     'msg.delete-success': 'Successfully deleted',
@@ -62,7 +63,7 @@ const en = {
     'video.term.sort.random': 'Random',
     'video.term.sort.new': 'Recently Uploads',
     'video.term.sort.old': 'Old Uploads',
-    'video.term.sort.abs': 'Name Ascending',
+    'video.term.sort.abc': 'Name Ascending',
     'video.term.sort.zyx': 'Name Descending',
     'video.episode-section.title': 'Total {{0}} episodes',
     'video.group-section.title': 'List of {{0}}',

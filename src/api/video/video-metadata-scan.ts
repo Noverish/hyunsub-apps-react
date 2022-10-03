@@ -4,10 +4,10 @@ export interface VideoScanMetadataParams {
   videoId: string;
 }
 
-const scanVideoMetadata = generateApi<VideoScanMetadataParams, any>(params => ({
+const videoMetadataScan = generateApi<VideoScanMetadataParams, any>(params => ({
   url: `/api/v1/metadata/scan`,
   method: 'POST',
   data: params,
 }));
 
-export default scanVideoMetadata;
+export default videoMetadataScan;

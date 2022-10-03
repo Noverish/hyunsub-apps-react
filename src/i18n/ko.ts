@@ -9,6 +9,7 @@ const ko = {
     'menus': '메뉴',
     'search': '검색',
     'close': '닫기',
+    'setting': '설정',
 
     'msg.delete-confirm': '정말로 삭제하시겠습니까?',
     'msg.delete-success': '삭제되었습니다',
@@ -62,7 +63,7 @@ const ko = {
     'video.term.sort.random': '랜덤순',
     'video.term.sort.new': '최신 업로드순',
     'video.term.sort.old': '오래된 업로드순',
-    'video.term.sort.abs': '가나다순',
+    'video.term.sort.abc': '가나다순',
     'video.term.sort.zyx': '가나다역순',
     'video.episode-section.title': '전체 {{0}}화',
     'video.group-section.title': '다른 {{0}} 목록',

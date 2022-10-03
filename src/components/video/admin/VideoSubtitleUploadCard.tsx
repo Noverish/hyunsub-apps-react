@@ -1,55 +1,38 @@
-import { Dispatch } from '@reduxjs/toolkit';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { Button, ButtonGroup, Card, Form, ToggleButton } from 'react-bootstrap';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { FileInfo } from 'src/api/file/readdir-detail';
-import videoSubtitleUpload, { VideoSubtitleUploadParams } from 'src/api/video/video-subtitle-upload';
 import ApiResult from 'src/components/common/ApiResult';
-import PathSearchSelect from 'src/components/common/PathSearchSelect';
-import { VideoDetailActions } from 'src/pages/video/detail/VideoDetailState';
-import { RootState, useDispatch, useSelector } from 'src/redux';
-import { GlobalActions } from 'src/redux/global';
-
-const videoSubtitleUploadAction = (params: VideoSubtitleUploadParams) => async (dispatch: Dispatch, getState: () => RootState) => {
-  dispatch(GlobalActions.update({ loading: true }));
-
-  const result = await videoSubtitleUpload(params);
-  dispatch(VideoDetailActions.update({ videoSubtitleUploadresult: result }));
-
-  dispatch(GlobalActions.update({ loading: false }));
-};
+import PathSelect from 'src/components/common/PathSelect';
+import { videoSubtitleUploadAction } from 'src/pages/video/admin/VideoAdminContext';
+import { useDispatch, useSelector } from 'src/redux';
+import { VideoSubtitleUploadParams } from '../../../api/video/video-subtitle-upload';
 
 interface Props {
   videoId: string;
 }
 
-interface FormState {
-  lang: string;
-  file: FileList;
-}
-
-export default function VideoSubtitleUploadSection({ videoId }: Props) {
+export default function VideoSubtitleUploadCard({ videoId }: Props) {
   const dispatch = useDispatch();
-  const result = useSelector(s => s.video.detail.videoSubtitleUploadresult);
+  const result = useSelector(s => s.video.admin.videoSubtitleUploadResult);
   const [isUploadMode, setUploadMode] = useState(true);
-  const videoPathRef = useRef<string>();
 
-  const { register, handleSubmit } = useForm<FormState>();
+  const { register, handleSubmit, setValue } = useForm<VideoSubtitleUploadParams>();
 
   const onToggle = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUploadMode(e.currentTarget.value === 'true');
   }
 
-  const onVideoPathSelect = (info?: FileInfo) => {
-    videoPathRef.current = info?.path;
+  const onVideoPathSelect = (path: string) => {
+    setValue('path', path);
   }
 
-  const onSubmit: SubmitHandler<FormState> = (params: FormState) => {
+  const onSubmit: SubmitHandler<VideoSubtitleUploadParams> = (params: VideoSubtitleUploadParams) => {
     dispatch(videoSubtitleUploadAction({
       videoId,
       lang: params.lang,
-      file: (isUploadMode) ? params.file[0] : undefined,
-      path: (isUploadMode) ? undefined : videoPathRef.current,
+      file: (isUploadMode) ? params.file : undefined,
+      path: (isUploadMode) ? undefined : params.path,
+      override: params.override,
     }));
   };
 
@@ -90,12 +73,16 @@ export default function VideoSubtitleUploadSection({ videoId }: Props) {
 
           {!isUploadMode && <Form.Group className="mb-3">
             <Form.Label>Video Original Path</Form.Label>
-            <PathSearchSelect onSelect={onVideoPathSelect} />
+            <PathSelect onSelect={onVideoPathSelect} />
           </Form.Group>}
 
           <Form.Group className="mb-3">
             <Form.Label>Language</Form.Label>
             <Form.Control {...register('lang')} className="input_dark" />
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="override_checkbox">
+            <Form.Check {...register('override')} label="Override?" />
           </Form.Group>
 
           <Button variant="primary" type="submit">

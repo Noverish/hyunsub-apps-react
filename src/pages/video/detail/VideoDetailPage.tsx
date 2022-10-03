@@ -3,7 +3,7 @@ import { Button, Container } from "react-bootstrap";
 import { useParams, useSearchParams } from "react-router-dom";
 import getCategories from "src/api/video/category";
 import getVideoDetail from "src/api/video/video-entry-detail";
-import VideoAdminSection from "src/components/video/VideoAdminSection";
+import VideoAdminSection from "src/components/video/admin/VideoAdminSection";
 import VideoEpisodeSection from "src/components/video/VideoEpisodeSection";
 import VideoGroupSection from "src/components/video/VideoGroupSection";
 import VideoHeader from "src/components/video/VideoHeader";

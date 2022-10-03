@@ -1,18 +1,9 @@
-import { Dispatch } from '@reduxjs/toolkit';
 import { Button, Card, Form } from 'react-bootstrap';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import videoRename, { VideoRenameParams } from 'src/api/video/video-rename';
+import { VideoRenameParams } from 'src/api/video/video-rename';
 import ApiResult from 'src/components/common/ApiResult';
-import { VideoDetailActions } from 'src/pages/video/detail/VideoDetailState';
+import { videoRenameAction } from 'src/pages/video/admin/VideoAdminContext';
 import { useDispatch, useSelector } from 'src/redux';
-import { GlobalActions } from 'src/redux/global';
-
-const videoRenameAction = (params: VideoRenameParams) => async (dispatch: Dispatch) => {
-  dispatch(GlobalActions.update({ loading: true }));
-  const videoRenameResult = await videoRename(params);
-  dispatch(VideoDetailActions.update({ videoRenameResult }));
-  dispatch(GlobalActions.update({ loading: false }));
-}
 
 interface Props {
   title: string;
@@ -21,7 +12,7 @@ interface Props {
 
 export default function VideoRenameCard({ title, videoId }: Props) {
   const dispatch = useDispatch();
-  const result = useSelector(s => s.video.detail.videoRenameResult);
+  const result = useSelector(s => s.video.admin.videoRenameResult);
   const { register, handleSubmit } = useForm<VideoRenameParams>({
     defaultValues: { from: title, to: title },
   });
@@ -46,7 +37,7 @@ export default function VideoRenameCard({ title, videoId }: Props) {
           </Form.Group>
 
           <Form.Group className="mb-3">
-            <Form.Check {...register('isRegex')} className="input_dark" type="checkbox" label="isRegex" defaultChecked={false} />
+            <Form.Check {...register('isRegex')} type="checkbox" label="isRegex" defaultChecked={false} />
           </Form.Group>
 
           <Button variant="primary" type="submit">

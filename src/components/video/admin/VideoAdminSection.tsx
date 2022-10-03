@@ -5,7 +5,7 @@ import { useDispatch } from "src/redux";
 import VideoEncodeCard from "./VideoEncodeCard";
 import VideoMetadataScanCard from "./VideoMetadataScanCard";
 import VideoRenameCard from "./VideoRenameCard";
-import VideoSubtitleUploadSection from "./VideoSubtitleUploadSection";
+import VideoSubtitleUploadCard from "./VideoSubtitleUploadCard";
 import VideoThumbnailGenerateCard from "./VideoThumbnailGenerateCard";
 
 interface Props {
@@ -26,19 +26,11 @@ export default function VideoAdminSection({ detail }: Props) {
       <Button variant="secondary" style={{ float: 'right' }} onClick={hideAdminSection}>Close</Button>
       <h3>관리자용 비디오 설정</h3>
       <hr />
-      <div className="mb-3">
+      <div className="d-grid gap-3">
         <VideoMetadataScanCard videoId={videoId} />
-      </div>
-      <div className="mb-3">
         <VideoThumbnailGenerateCard videoId={videoId} />
-      </div>
-      <div className="mb-3">
-        <VideoSubtitleUploadSection videoId={videoId} />
-      </div>
-      <div className="mb-3">
+        <VideoSubtitleUploadCard videoId={videoId} />
         <VideoRenameCard videoId={videoId} title={title} />
-      </div>
-      <div className="mb-3">
         <VideoEncodeCard videoId={videoId} />
       </div>
     </section>

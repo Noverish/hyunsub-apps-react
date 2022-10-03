@@ -5,6 +5,8 @@ export interface VideoRegisterParams {
   videoPath: string;
   outputPath: string;
   videoGroupId?: string;
+  newGroupName?: string;
+  thumbnailUrl?: string;
 }
 
 const videoRegister = generateApi<VideoRegisterParams, any>(params => ({

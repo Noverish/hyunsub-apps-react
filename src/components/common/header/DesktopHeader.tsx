@@ -7,6 +7,7 @@ import { logoutAction } from 'src/redux/actions';
 import { HeaderProps } from "./Header";
 
 import './DesktopHeader.scss';
+import { useIsAdmin } from 'src/api/auth/authorities';
 
 const ProfileDropdownToggle = React.forwardRef<HTMLDivElement, React.DOMAttributes<HTMLDivElement>>(({ children, onClick }, ref) => (
   <div
@@ -22,6 +23,7 @@ export default function DesktopHeader(props: HeaderProps) {
   const { menus, onSearch, dropdowns, title } = props;
   const dispatch = useDispatch();
   const { t } = useTranslation();
+  const isAdmin = useIsAdmin();
 
   const onLogout = () => {
     dispatch(logoutAction());
@@ -56,6 +58,7 @@ export default function DesktopHeader(props: HeaderProps) {
             <Dropdown.Menu variant="dark">
               {dropdownElements}
               <Dropdown.Divider />
+              {isAdmin && <Dropdown.Item as={Link} to="/admin">Admin</Dropdown.Item>}
               <Dropdown.Item as="button" className="text-danger" onClick={onLogout}>{t('logout')}</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>

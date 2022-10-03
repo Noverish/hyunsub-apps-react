@@ -15,20 +15,22 @@ export default function VideoHeader() {
     link: `/${v.name}`
   }))
 
+  const dropdowns = [
+    {
+      name: 'My Page',
+      link: VideoRoutes.my,
+    }
+  ];
+
   const props: HeaderProps = {
-    title : 'HyunPhoto',
-    menus: menus,
-    dropdowns: [
-      {
-        name: 'My Page',
-        link: VideoRoutes.my,
-      }
-    ],
+    title: 'HyunPhoto',
+    menus,
+    dropdowns,
     onSearch: () => {
       dispatch(VideoSearchActions.update({ showSearchModal: true }));
     },
   }
-  
+
   return (
     <Header {...props} />
   )

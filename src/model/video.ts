@@ -54,6 +54,11 @@ export interface VideoGroup {
   entries: VideoEntry[];
 }
 
+export interface VideoGroupPreview {
+  id: string;
+  name: string;
+}
+
 export enum VideoSort {
   random = 'random',
   new = 'new',

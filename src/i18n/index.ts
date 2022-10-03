@@ -5,8 +5,9 @@ import ko from './ko';
 import TimeAgo from 'javascript-time-ago';
 import timeAgoEn from 'javascript-time-ago/locale/en';
 import timeAgoKo from 'javascript-time-ago/locale/ko';
+import Cookies from 'js-cookie';
 
-const lang = new URLSearchParams(window.location.search).get('lang') || 'ko';
+const lang = Cookies.get('lang') || 'ko';
 
 TimeAgo.addLocale(timeAgoEn);
 TimeAgo.addLocale(timeAgoKo);

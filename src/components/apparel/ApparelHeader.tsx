@@ -26,7 +26,7 @@ export default function ApparelHeader() {
     ],
     dropdowns: [
       {
-        name: 'Setting',
+        name: t('setting'),
         link: ApparelRoutes.setting,
       }
     ],

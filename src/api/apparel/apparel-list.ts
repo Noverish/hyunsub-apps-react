@@ -14,7 +14,7 @@ const apparelList = generateInfiniteQuery<ListApparelParams, ApparelPreview>({
       q: params.query,
     }
   }),
-  key: () => 'apparels',
+  key: () => 'apparelList',
 })
 
 export default apparelList;
