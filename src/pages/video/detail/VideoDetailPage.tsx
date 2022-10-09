@@ -81,7 +81,7 @@ export default function VideoDetailPage() {
           {videoPlayer}
         </section>
         {showSetting && <VideoSettingSection video={video} />}
-        {showAdmin && <VideoAdminSection detail={detail} />}
+        {showAdmin && <VideoAdminSection detail={detail} entryId={entryId} />}
         {!showSetting && !showAdmin && sections}
       </Container>
     </div>
