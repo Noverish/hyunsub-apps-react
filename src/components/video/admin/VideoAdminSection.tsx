@@ -4,15 +4,17 @@ import { VideoDetailActions } from "src/pages/video/detail/VideoDetailState";
 import { useDispatch } from "src/redux";
 import VideoEncodeCard from "./VideoEncodeCard";
 import VideoMetadataScanCard from "./VideoMetadataScanCard";
+import VideoRegisterToEntryCard from "./VideoRegisterToEntryCard";
 import VideoRenameCard from "./VideoRenameCard";
 import VideoSubtitleUploadCard from "./VideoSubtitleUploadCard";
 import VideoThumbnailGenerateCard from "./VideoThumbnailGenerateCard";
 
 interface Props {
-  detail: VideoEntryDetail,
+  entryId: string;
+  detail: VideoEntryDetail;
 }
 
-export default function VideoAdminSection({ detail }: Props) {
+export default function VideoAdminSection({ entryId, detail }: Props) {
   const dispatch = useDispatch();
 
   const hideAdminSection = () => {
@@ -28,8 +30,9 @@ export default function VideoAdminSection({ detail }: Props) {
       <hr />
       <div className="d-grid gap-3">
         <VideoMetadataScanCard videoId={videoId} />
-        <VideoThumbnailGenerateCard videoId={videoId} />
+        <VideoRegisterToEntryCard entryId={entryId} />
         <VideoSubtitleUploadCard videoId={videoId} />
+        <VideoThumbnailGenerateCard videoId={videoId} />
         <VideoRenameCard videoId={videoId} title={title} />
         <VideoEncodeCard videoId={videoId} />
       </div>

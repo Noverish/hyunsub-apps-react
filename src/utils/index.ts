@@ -42,3 +42,15 @@ export function urlToName(url: string) {
 export function numberWithComma(num: number) {
   return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+
+export function filterEmptyString(obj: any): any {
+  const result: any = {};
+
+  Object.entries(obj).forEach(([k, v]) => {
+    if (v !== '') {
+      result[k] = v;
+    }
+  })
+
+  return result;
+}

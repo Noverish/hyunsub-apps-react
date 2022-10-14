@@ -70,7 +70,7 @@ export default function PathSelect({ onSelect, isInvalid }: Props) {
   }
 
   const onInputChange = (newPath: string, actionMeta: InputActionMeta) => {
-    if (actionMeta.action !== 'input-change') {
+    if (actionMeta.action !== 'input-change' && actionMeta.action !== 'set-value') {
       console.log('onInputChange', { newPath, actionMeta });
       return;
     }

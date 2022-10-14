@@ -1,8 +1,8 @@
 import { Dispatch } from '@reduxjs/toolkit';
 import videoEncode, { VideoEncodeParams } from 'src/api/video/video-encode';
+import videoMetadataScan from 'src/api/video/video-metadata-scan';
 import videoRegister, { VideoRegisterParams } from 'src/api/video/video-register';
 import videoRename, { VideoRenameParams } from 'src/api/video/video-rename';
-import videoMetadataScan from 'src/api/video/video-metadata-scan';
 import videoSubtitleUpload, { VideoSubtitleUploadParams } from 'src/api/video/video-subtitle-upload';
 import videoThumbnail from 'src/api/video/video-thumbnail';
 import { VideoAdminActions } from 'src/pages/video/admin/VideoAdminState';
@@ -14,6 +14,15 @@ export const videoRegisterAction = (params: VideoRegisterParams) => async (dispa
 
   const videoRegisterResult = await videoRegister(params);
   dispatch(VideoAdminActions.update({ videoRegisterResult }));
+
+  dispatch(GlobalActions.update({ loading: false }));
+}
+
+export const videoRegisterToEntryAction = (params: VideoRegisterParams) => async (dispatch: Dispatch) => {
+  dispatch(GlobalActions.update({ loading: true }));
+
+  const videoRegisterToEntryResult = await videoRegister(params);
+  dispatch(VideoAdminActions.update({ videoRegisterToEntryResult }));
 
   dispatch(GlobalActions.update({ loading: false }));
 }
@@ -41,7 +50,7 @@ export const videoRenameAction = (params: VideoRenameParams) => async (dispatch:
 
   const videoRenameResult = await videoRename(params);
   dispatch(VideoAdminActions.update({ videoRenameResult }));
-  
+
   dispatch(GlobalActions.update({ loading: false }));
 }
 
