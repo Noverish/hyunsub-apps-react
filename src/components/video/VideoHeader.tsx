@@ -23,7 +23,7 @@ export default function VideoHeader() {
   ];
 
   const props: HeaderProps = {
-    title: 'HyunPhoto',
+    title: 'HyunVideo',
     menus,
     dropdowns,
     onSearch: () => {
