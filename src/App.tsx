@@ -10,6 +10,7 @@ const AuthIndex = lazy(() => import('src/pages/auth/AuthIndex'));
 const VideoIndex = lazy(() => import('src/pages/video/VideoIndex'));
 const PhotoIndex = lazy(() => import('src/pages/photo/PhotoIndex'));
 const ApparelIndex = lazy(() => import('src/pages/apparel/ApparelIndex'));
+const EncodeIndex = lazy(() => import('src/pages/encode/EncodeIndex'));
 
 function renderIndex(): JSX.Element {
   const host = window.location.hostname;
@@ -28,6 +29,10 @@ function renderIndex(): JSX.Element {
 
   if (host.endsWith('apparel.hyunsub.kim')) {
     return <ApparelIndex />;
+  }
+
+  if (host.endsWith('encode.hyunsub.kim')) {
+    return <EncodeIndex />;
   }
 
   return (

@@ -4,6 +4,7 @@ import logger from 'redux-logger';
 import auth from 'src/pages/auth/AuthRedux';
 import video from 'src/pages/video/VideoRedux';
 import photo from 'src/pages/photo/PhotoRedux';
+import encode from 'src/pages/encode/EncodeRedux';
 import toast from './toast';
 import global from './global';
 
@@ -26,7 +27,7 @@ export const saveState = (state: RootState) => {
   }
 };
 
-const reducer = combineReducers({ auth, video, photo, toast, global });
+const reducer = combineReducers({ auth, video, photo, encode, toast, global });
 
 export type RootState = ReturnType<typeof reducer>;
 
