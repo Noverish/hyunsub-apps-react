@@ -1,44 +1,12 @@
-import { lazy, Suspense, useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
+import { RouterProvider } from 'react-router-dom';
 import ToastDisplay from './components/toast/ToastDisplay';
 import ErrorBoundary from './pages/common/ErrorBoundary';
 import LoadingPage from './pages/common/LoadingPage';
 import LoadingPageDim from './pages/common/LoadingPageDim';
+import router from './pages/router';
 import { useDispatch, useSelector } from './redux';
 import { loadAuthorities } from './redux/actions';
-
-const AuthIndex = lazy(() => import('src/pages/auth/AuthIndex'));
-const VideoIndex = lazy(() => import('src/pages/video/VideoIndex'));
-const PhotoIndex = lazy(() => import('src/pages/photo/PhotoIndex'));
-const ApparelIndex = lazy(() => import('src/pages/apparel/ApparelIndex'));
-const EncodeIndex = lazy(() => import('src/pages/encode/EncodeIndex'));
-
-function renderIndex(): JSX.Element {
-  const host = window.location.hostname;
-
-  if (host.endsWith('auth.hyunsub.kim')) {
-    return <AuthIndex />;
-  }
-
-  if (host.endsWith('video.hyunsub.kim')) {
-    return <VideoIndex />;
-  }
-
-  if (host.endsWith('photo.hyunsub.kim')) {
-    return <PhotoIndex />;
-  }
-
-  if (host.endsWith('apparel.hyunsub.kim')) {
-    return <ApparelIndex />;
-  }
-
-  if (host.endsWith('encode.hyunsub.kim')) {
-    return <EncodeIndex />;
-  }
-
-  return (
-    <h1>Unknown host: {window.location.host}</h1>
-  );
-}
 
 function App() {
   const dispatch = useDispatch();
@@ -51,7 +19,7 @@ function App() {
   return (
     <ErrorBoundary>
       <Suspense fallback={<LoadingPage />}>
-        {renderIndex()}
+        <RouterProvider router={router} />
         <ToastDisplay />
         {loading && <LoadingPageDim />}
       </Suspense>

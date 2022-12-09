@@ -12,7 +12,7 @@ export default function VantaNet() {
         el: ref.current,
         gyroControls: true,
         color: 0x0d6efd,
-        backgroundColor: 0x222222,
+        backgroundColor: 0x141414,
       }));
     }
 

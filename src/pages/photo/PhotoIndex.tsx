@@ -1,6 +1,5 @@
 import { lazy } from 'react';
-import { Navigate, Route, Routes, unstable_HistoryRouter as HistoryRouter } from 'react-router-dom';
-import history from 'src/pages/common/history';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import ErrorPage from '../common/ErrorPage';
 import routes from './PhotoRoutes';
 
@@ -16,7 +15,7 @@ const SettingPage = lazy(() => import('src/pages/photo/setting/SettingPage'));
 
 export default function PhotoIndex() {
   return (
-    <HistoryRouter history={history}>
+    <>
       <Routes>
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/" element={<Navigate to={routes.albumList()} />} />
@@ -30,6 +29,6 @@ export default function PhotoIndex() {
         <Route path={routes.photoOriginal()} element={<PhotoOriginalPage />} />
         <Route path={routes.setting()} element={<SettingPage />} />
       </Routes>
-    </HistoryRouter>
+    </>
   )
 }

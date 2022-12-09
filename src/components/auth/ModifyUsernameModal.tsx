@@ -1,7 +1,7 @@
 import { Dispatch } from "@reduxjs/toolkit";
 import { Button, Form, Modal } from "react-bootstrap";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { TFunction, useTranslation } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 import logout from "src/api/auth/logout";
 import { MyPageUserInfo } from "src/api/auth/my-page-user-info";
@@ -11,6 +11,7 @@ import routes from "src/pages/auth/AuthRoutes";
 import { updateMyPageState } from 'src/pages/auth/my/MyPageState';
 import { RootState, useDispatch, useSelector } from "src/redux";
 import { encrypt } from "src/utils/rsa-key";
+import { TFunction } from "i18next";
 
 interface Props {
   userInfo: MyPageUserInfo;
@@ -31,7 +32,7 @@ export default function ModifyUsernameModal({ userInfo }: Props) {
   const { register, handleSubmit, formState: { errors } } = useForm<FormState>({ defaultValues: { username: userInfo.username } });
 
   const usernameRegister = register('username', {
-    required: t('auth.errMsg.empty-id'),
+    required: t('auth.errMsg.empty-id') as string,
     minLength: { value: 4, message: t('auth.errMsg.short-id') },
     maxLength: { value: 20, message: t('auth.errMsg.long-id') },
     pattern: { value: /^[A-Za-z0-9]+$/, message: t('auth.errMsg.wrong-pattern-id') },

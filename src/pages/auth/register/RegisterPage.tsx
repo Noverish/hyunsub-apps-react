@@ -48,21 +48,21 @@ export default function RegisterPage() {
   }, [dispatch, url]);
 
   const usernameRegister = register('username', {
-    required: t('auth.errMsg.empty-id'),
+    required: t('auth.errMsg.empty-id') as string,
     minLength: { value: 4, message: t('auth.errMsg.short-id') },
     maxLength: { value: 20, message: t('auth.errMsg.long-id') },
     pattern: { value: /^[A-Za-z0-9]+$/, message: t('auth.errMsg.wrong-pattern-id') },
   });
 
   const passwordRegister1 = register('password1', {
-    required: t('auth.errMsg.empty-pw'),
+    required: t('auth.errMsg.empty-pw') as string,
     minLength: { value: 8, message: t('auth.errMsg.short-pw') },
     maxLength: { value: 20, message: t('auth.errMsg.long-pw') },
   });
 
   const passwordRegister2 = register('password2', {
-    required: t('auth.errMsg.empty-pw'),
-    validate: v => v === passwordRef.current || t('auth.errMsg.not-equal-pw'),
+    required: t('auth.errMsg.empty-pw') as string,
+    validate: v => v === passwordRef.current || t('auth.errMsg.not-equal-pw') as string,
   });
 
   const usernameErrMsg = errors.username?.message;

@@ -1,8 +1,7 @@
 import { lazy } from 'react';
-import { Navigate, Route, Routes, unstable_HistoryRouter as HistoryRouter} from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import ErrorPage from '../common/ErrorPage';
 import routes from './AuthRoutes';
-import history from 'src/pages/common/history';
 
 const NotFoundPage = lazy(() => import('src/pages/common/NotFoundPage'));
 const LoginPage = lazy(() => import('src/pages/auth/login/LoginPage'));
@@ -12,7 +11,7 @@ const AuthAdminPage = lazy(() => import('src/pages/auth/admin/AuthAdminPage'));
 
 export default function AuthIndex() {
   return (
-    <HistoryRouter history={history}>
+    <>
       <Routes>
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/" element={<Navigate to={routes.my} />} />
@@ -22,6 +21,6 @@ export default function AuthIndex() {
         <Route path={routes.my} element={<MyPage />} />
         <Route path={routes.admin} element={<AuthAdminPage />} />
       </Routes>
-    </HistoryRouter>
+    </>
   )
 }

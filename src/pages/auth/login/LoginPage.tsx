@@ -46,11 +46,11 @@ export default function LoginPage() {
   }, [dispatch, url]);
 
   const usernameRegister = register('username', {
-    required: t('auth.errMsg.empty-id'),
+    required: t('auth.errMsg.empty-id') as string,
   });
 
   const passwordRegister = register('password', {
-    required: t('auth.errMsg.empty-pw'),
+    required: t('auth.errMsg.empty-pw') as string,
   });
 
   const usernameErrMsg = errors.username?.message;

@@ -3,7 +3,7 @@ import { RootState } from "src/redux";
 import { GlobalActions } from "src/redux/global";
 import getVideoDetail from "src/api/video/video-entry-detail";
 import VideoRoutes from 'src/pages/video/VideoRoutes';
-import history from 'src/pages/common/history';
+import router from 'src/pages/router';
 
 interface LoadOtherEpisodeParams {
   entryId: string;
@@ -17,5 +17,5 @@ export const loadOtherEpisode = ({ entryId, videoId }: LoadOtherEpisodeParams) =
     await getVideoDetail.prefetch({ entryId, videoId });
     dispatch(GlobalActions.update({ loading: false }));
   }
-  history.push(VideoRoutes.getDetailRoute(entryId, videoId));
+  router.navigate(VideoRoutes.getDetailRoute(entryId, videoId));
 }
