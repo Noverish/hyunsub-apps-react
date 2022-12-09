@@ -25,8 +25,8 @@ export default function ApparelAddPage() {
 
   return (
     <div id="ApparelAddPage">
-      <ApparelHeader />
-      <Container id="content">
+      <ApparelHeader title={t('add')} />
+      <Container id="content" className="with_tab_bar">
         <h1 className="mb-3">{t('apparel.page.add.title')}</h1>
         <ApparelForm
           onImageAdd={onImageAdd}

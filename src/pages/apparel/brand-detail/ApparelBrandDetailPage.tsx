@@ -12,10 +12,11 @@ import { useScrollBottom } from 'src/utils';
 export default function ApparelBrandDetailPage() {
   const brand = useParams().brand!!;
   const { t } = useTranslation();
+  const title = t('apparel.page.brand-detail.title', [brand]);
 
   useEffect(() => {
-    document.title = t('apparel.page.brand-detail.title', [brand]);
-  }, [t, brand]);
+    document.title = title;
+  }, [title]);
 
   const { data, fetchNextPage, isFetching } = apparelBrandApparels.useInfiniteApi({ brand });
 
@@ -29,7 +30,7 @@ export default function ApparelBrandDetailPage() {
 
   return (
     <div id="ApparelBrandDetailPage">
-      <ApparelHeader />
+      <ApparelHeader title={title} back={true} />
       <Container id="content">
         <h1 className="mb-3">{t('apparel.page.brand-detail.inner-title', [brand, apparels.length])}</h1>
         <ApparelList apparels={apparels} />

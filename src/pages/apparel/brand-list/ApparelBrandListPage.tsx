@@ -23,8 +23,8 @@ export default function ApparelBrandListPage() {
 
   return (
     <div id="ApparelBrandListPage">
-      <ApparelHeader />
-      <Container id="content">
+      <ApparelHeader title={t('apparel.menu.brands')} />
+      <Container id="content" className="with_tab_bar">
         <h1 className="mb-3">{t('apparel.page.brand-list.title')}</h1>
         <ListGroup>
           {elements}

@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import PhotoRoutes from 'src/pages/photo/PhotoRoutes';
 import { isMobile } from 'src/utils/user-agent';
 import DesktopHeader, { DesktopHeaderProps } from '../common/header/DesktopHeader';
-import MobileHeaderV2, { MobileHeaderProps } from '../common/header/MobileHeaderV2';
+import MobileHeader, { MobileHeaderProps } from '../common/header/MobileHeader';
 
 export default function PhotoHeader(props: MobileHeaderProps) {
   const { t } = useTranslation();
@@ -33,7 +33,7 @@ export default function PhotoHeader(props: MobileHeaderProps) {
   }
 
   if (isMobile()) {
-    return <MobileHeaderV2 {...props} />
+    return <MobileHeader {...props} />
   } else {
     return <DesktopHeader {...desktopProps} />
   }

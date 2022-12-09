@@ -2,47 +2,24 @@
   height: var(--header_height_mobile);
 
   display: flex;
+  flex-direction: row;
+  align-items: center;
 
-  .left {
-    flex: 1 1 0;
+  .back {
+    height: 100%;
+    width: 1.5rem;
+
     display: flex;
     flex-direction: row;
-
-    .menu_btn {
-      height: var(--header_height_mobile);
-      width: var(--header_height_mobile);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-    }
-  }
-
-  .center {
-    flex: 0 0 auto;
-    display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
 
-    #header_title {
-      font-family: 'Train One', serif;
-      font-size: 1.5rem;
-    }
+    font-size: 1.3rem;
   }
 
-  .right {
-    flex: 1 1 0;
-    display: flex;
-    flex-direction: row-reverse;
-
-    #header_profile_dropdown {
-      height: var(--header_height_mobile);
-      width: var(--header_height_mobile);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.75rem;
-    }
+  .title {
+    font-size: 1.5rem;
+    margin-left: 1rem;
   }
 
   & + #content {

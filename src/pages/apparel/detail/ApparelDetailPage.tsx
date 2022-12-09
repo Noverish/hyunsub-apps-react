@@ -14,10 +14,11 @@ export default function ApparelDetailPage() {
   const dispatch = useDispatch();
   const apparelId = useParams().apparelId!!;
   const { t } = useTranslation();
+  const title = t('apparel.page.detail.title');
 
   useEffect(() => {
-    document.title = t('apparel.page.detail.title');
-  }, [t]);
+    document.title = title;
+  }, [title]);
 
   const onDelete = () => {
     dispatch(apparelDeleteAction(apparelId));
@@ -28,7 +29,7 @@ export default function ApparelDetailPage() {
 
   return (
     <div id="ApparelDetailPage">
-      <ApparelHeader />
+      <ApparelHeader title={title} back={true} />
       <Container id="content">
         <h1>{apparel.name}</h1>
         <div className="mt-3">

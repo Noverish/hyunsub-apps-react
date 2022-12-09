@@ -15,10 +15,11 @@ export default function ApparelEditPage() {
   const dispatch = useDispatch();
 
   const apparel = apparelDetail.useApi({ apparelId });
+  const title = t('apparel.page.edit.title', [apparel.name]);
 
   useEffect(() => {
-    document.title = t('apparel.page.edit.title', [apparel.name]);
-  }, [t, apparel.name]);
+    document.title = title;
+  }, [title]);
 
   const onImageAdd = (images: File[]) => {
     dispatch(apparelImageUploadAction(apparelId, images));
@@ -30,7 +31,7 @@ export default function ApparelEditPage() {
 
   return (
     <div id="ApparelEditPage">
-      <ApparelHeader />
+      <ApparelHeader title={title} back={true} />
       <Container id="content">
         <h1 className="mb-3">{t('apparel.page.edit.title', [apparel.name])}</h1>
         <ApparelForm

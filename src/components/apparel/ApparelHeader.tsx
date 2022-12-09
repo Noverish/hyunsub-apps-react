@@ -1,11 +1,13 @@
 import { useTranslation } from 'react-i18next';
 import ApparelRoutes from 'src/pages/apparel/ApparelRoutes';
-import { Header, HeaderProps } from '../common/header/Header';
+import { isMobile } from 'src/utils/user-agent';
+import DesktopHeader, { DesktopHeaderProps } from '../common/header/DesktopHeader';
+import MobileHeader, { MobileHeaderProps } from '../common/header/MobileHeader';
 
-export default function ApparelHeader() {
+export default function ApparelHeader(props: MobileHeaderProps) {
   const { t } = useTranslation();
 
-  const props: HeaderProps = {
+  const desktopProps: DesktopHeaderProps = {
     title : 'HyunApparel',
     menus: [
       {
@@ -26,8 +28,8 @@ export default function ApparelHeader() {
     ],
     dropdowns: [
       {
-        name: t('setting'),
-        link: ApparelRoutes.setting,
+        name: t('menus'),
+        link: ApparelRoutes.menu,
       }
     ],
     onSearch: () => {
@@ -35,7 +37,9 @@ export default function ApparelHeader() {
     },
   }
 
-  return (
-    <Header {...props} />
-  )
+  if (isMobile()) {
+    return <MobileHeader {...props} />
+  } else {
+    return <DesktopHeader {...desktopProps} />
+  }
 }

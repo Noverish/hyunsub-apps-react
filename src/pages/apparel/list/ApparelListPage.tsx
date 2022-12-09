@@ -29,8 +29,8 @@ export default function ApparelListPage() {
 
   return (
     <div id="ApparelListPage">
-      <ApparelHeader />
-      <Container id="content">
+      <ApparelHeader title={t('apparel.menu.all-apparels')} />
+      <Container id="content" className="with_tab_bar">
         <h1 className="mb-3">{t('apparel.page.list.inner-title', [data?.pages[0].total])}</h1>
         <div className="mb-3">
           <Link to={ApparelRoutes.add}><Button variant="primary">{t('add')}</Button></Link>
