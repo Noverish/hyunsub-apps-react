@@ -9,6 +9,7 @@
   --hyunsub-border-color-secondary: #777;
 
   --header_height_mobile: 48px;
+  --hyunsub_tabbar_height: 60px;
 }
 
 html, body, #root {
@@ -44,6 +45,12 @@ header {
 
   border-bottom: 1px solid #232323;
   background-color: var(--hyunsub-header-bg);
+}
+
+#content {
+  &.with_tab_bar {
+    padding-bottom: calc(var(--hyunsub_tabbar_height) + .5rem)!important;
+  }
 }
 
 // ===============================================================

@@ -36,7 +36,7 @@ export function VideoListPage({ category }: { category: VideoCategory }) {
   return (
     <div id="VideoHomePage">
       <VideoHeader title={category.displayName} />
-      <Container id="content">
+      <Container id="content" className="with_tab_bar">
         <VideoSortDropdown sort={sort} />
         <VideoEntryList category={category} entries={entries} />
         <ListLoadingIndicator isFetching={isFetching} />

@@ -20,8 +20,8 @@ export default function VideoSearchPage() {
 
   return (
     <div id="VideoSearchPage">
-      <VideoHeader title="검색" />
-      <Container id="content">
+      <VideoHeader title={t('search')} />
+      <Container id="content" className="with_tab_bar">
 
         <Form onSubmit={handleSubmit(onSubmit)}>
           <Form.Group>

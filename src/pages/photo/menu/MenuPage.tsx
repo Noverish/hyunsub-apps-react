@@ -5,7 +5,7 @@ export default function MenuPage() {
   return (
     <div id="MenuPage">
       <PhotoHeader title="Menu" />
-      <Container id="content">
+      <Container id="content" className="with_tab_bar">
         <a href="https://apps.hyunsub.kim"><Button>Apps</Button></a>
       </Container>
     </div>

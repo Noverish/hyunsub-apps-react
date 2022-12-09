@@ -1,5 +1,5 @@
 #TabBar {
-  height: 60px;
+  height: var(--hyunsub_tabbar_height);
   width: 100vw;
   position: fixed;
   bottom: 0;
