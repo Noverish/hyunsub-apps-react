@@ -1,9 +1,10 @@
-import { useTranslation } from 'react-i18next';
 import { useEffect } from 'react';
-import ApparelHeader from 'src/components/apparel/ApparelHeader';
-import { Container, ListGroup } from 'react-bootstrap';
-import apparelBrands from 'src/api/apparel/apparel-brands';
+import { ListGroup } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import apparelBrands from 'src/api/apparel/apparel-brands';
+import ApparelHeader from 'src/components/apparel/ApparelHeader';
+import CommonContainer from 'src/components/common/header/CommonContainer';
 import ApparelRoutes from 'src/pages/apparel/ApparelRoutes';
 
 export default function ApparelBrandListPage() {
@@ -24,12 +25,12 @@ export default function ApparelBrandListPage() {
   return (
     <div id="ApparelBrandListPage">
       <ApparelHeader title={t('apparel.menu.brands')} />
-      <Container id="content" className="with_tab_bar">
+      <CommonContainer>
         <h1 className="mb-3">{t('apparel.page.brand-list.title')}</h1>
         <ListGroup>
           {elements}
         </ListGroup>
-      </Container>
+      </CommonContainer>
     </div>
   )
 }

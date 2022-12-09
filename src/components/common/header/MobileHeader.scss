@@ -5,6 +5,11 @@
   flex-direction: row;
   align-items: center;
 
+  &.is_app {
+    height: calc(var(--header_height_mobile) + var(--hyunsub_app_top_safe_area_height));
+    padding-top: var(--hyunsub_app_top_safe_area_height);
+  }
+
   .back {
     height: 100%;
     width: 1.5rem;
@@ -20,10 +25,5 @@
   .title {
     font-size: 1.5rem;
     margin-left: 1rem;
-  }
-
-  & + #content {
-    padding-top: calc(var(--header_height_mobile) + 1rem);
-    padding-bottom: 1rem;
   }
 }

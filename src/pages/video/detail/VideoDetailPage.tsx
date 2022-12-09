@@ -1,9 +1,12 @@
 import { useEffect } from "react";
-import { Button, Container } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { useParams, useSearchParams } from "react-router-dom";
+import { useIsAdmin } from "src/api/auth/authorities";
 import getCategories from "src/api/video/category";
 import getVideoDetail from "src/api/video/video-entry-detail";
+import CommonContainer from 'src/components/common/header/CommonContainer';
 import VideoAdminSection from "src/components/video/admin/VideoAdminSection";
+import SimpleVideoPlayer from "src/components/video/SimpleVideoPlayer";
 import VideoEpisodeSection from "src/components/video/VideoEpisodeSection";
 import VideoGroupSection from "src/components/video/VideoGroupSection";
 import VideoHeader from "src/components/video/VideoHeader";
@@ -11,12 +14,10 @@ import VideoPlayer from "src/components/video/VideoPlayer";
 import VideoSettingSection from "src/components/video/VideoSettingSection";
 import { VideoMetadata } from "src/model/video";
 import { useDispatch, useSelector } from "src/redux";
+import { isIOS } from "src/utils/user-agent";
 import { VideoDetailActions } from "./VideoDetailState";
 
 import './VideoDetailPage.scss';
-import { useIsAdmin } from "src/api/auth/authorities";
-import SimpleVideoPlayer from "src/components/video/SimpleVideoPlayer";
-import { isIOS } from "src/utils/user-agent";
 
 function VideoMetadataSection({ metadata }: { metadata: VideoMetadata }) {
   return (
@@ -76,14 +77,14 @@ export default function VideoDetailPage() {
   return (
     <div id="VideoDetailPage">
       <VideoHeader title={title} back={true} />
-      <Container id="content">
+      <CommonContainer>
         <section id="video_player_section">
           {videoPlayer}
         </section>
         {showSetting && <VideoSettingSection video={video} />}
         {showAdmin && <VideoAdminSection detail={detail} entryId={entryId} />}
         {!showSetting && !showAdmin && sections}
-      </Container>
+      </CommonContainer>
     </div>
   )
 }

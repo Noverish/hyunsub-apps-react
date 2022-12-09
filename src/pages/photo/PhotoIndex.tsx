@@ -19,6 +19,7 @@ const SharePage = lazy(() => import('src/pages/photo/share/SharePage'));
 export default function PhotoIndex() {
   return (
     <>
+      <PhotoTabBar />
       <Routes>
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/" element={<Navigate to={routes.albums} />} />
@@ -34,7 +35,6 @@ export default function PhotoIndex() {
         <Route path={routes.share} element={<SharePage />} />
         <Route path={routes.menu} element={<PhotoMenuPage />} />
       </Routes>
-      <PhotoTabBar />
     </>
   )
 }

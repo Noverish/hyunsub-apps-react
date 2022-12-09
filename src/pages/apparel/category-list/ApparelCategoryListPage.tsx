@@ -1,9 +1,10 @@
-import { useTranslation } from 'react-i18next';
 import { useEffect } from 'react';
-import ApparelHeader from 'src/components/apparel/ApparelHeader';
-import { Container, ListGroup } from 'react-bootstrap';
-import apparelCategories from 'src/api/apparel/apparel-categories';
+import { ListGroup } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import apparelCategories from 'src/api/apparel/apparel-categories';
+import ApparelHeader from 'src/components/apparel/ApparelHeader';
+import CommonContainer from 'src/components/common/header/CommonContainer';
 import ApparelRoutes from 'src/pages/apparel/ApparelRoutes';
 
 export default function ApparelCategoryListPage() {
@@ -24,12 +25,12 @@ export default function ApparelCategoryListPage() {
   return (
     <div id="ApparelCategoryListPage">
       <ApparelHeader title={t('apparel.menu.categories')} />
-      <Container id="content" className="with_tab_bar">
+      <CommonContainer>
         <h1 className="mb-3">{t('apparel.page.category-list.title')}</h1>
         <ListGroup>
           {elements}
         </ListGroup>
-      </Container>
+      </CommonContainer>
     </div>
   )
 }

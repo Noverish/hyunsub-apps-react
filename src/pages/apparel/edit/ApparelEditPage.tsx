@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
-import { Container } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import apparelDetail from 'src/api/apparel/apparel-detail';
 import ApparelForm from 'src/components/apparel/ApparelForm';
 import ApparelHeader from 'src/components/apparel/ApparelHeader';
+import CommonContainer from 'src/components/common/header/CommonContainer';
 import { Apparel } from 'src/model/apparel';
 import { useDispatch } from 'src/redux';
 import { apparelImageUploadAction, apparelUpdateAction } from './ApparelEditContext';
@@ -32,7 +32,7 @@ export default function ApparelEditPage() {
   return (
     <div id="ApparelEditPage">
       <ApparelHeader title={title} back={true} />
-      <Container id="content">
+      <CommonContainer>
         <h1 className="mb-3">{t('apparel.page.edit.title', [apparel.name])}</h1>
         <ApparelForm
           apparel={apparel}
@@ -40,7 +40,7 @@ export default function ApparelEditPage() {
           onSubmit={onSubmit}
           confirmBtnText={t('modify')}
         />
-      </Container>
+      </CommonContainer>
     </div>
   )
 }

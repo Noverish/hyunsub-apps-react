@@ -8,10 +8,12 @@
   --hyunsub-border-color-primary: #DDD;
   --hyunsub-border-color-secondary: #777;
 
+  --header_height_desktop: 64px;
   --header_height_mobile: 48px;
   --hyunsub_tabbar_height: 60px;
 
   --hyunsub_app_bottom_safe_area_height: 34px;
+  --hyunsub_app_top_safe_area_height: 59px;
 }
 
 html, body, #root {
@@ -49,12 +51,6 @@ header {
   background-color: var(--hyunsub-header-bg);
   backdrop-filter: blur(7px);
   -webkit-backdrop-filter: blur(7px);
-}
-
-#content {
-  &.with_tab_bar {
-    padding-bottom: calc(var(--hyunsub_tabbar_height) + .5rem)!important;
-  }
 }
 
 // ===============================================================

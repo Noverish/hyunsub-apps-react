@@ -1,7 +1,3 @@
-:root {
-  --header_height_desktop: 64px;
-}
-
 #header.desktop_header {
   height: var(--header_height_desktop);
 
@@ -19,13 +15,13 @@
     #header_menu_section {
       white-space: nowrap;
       font-size: 1.5rem;
-    
+
       a {
         display: inline-flex;
         align-items: center;
         margin-left: 1.5rem;
       }
-    
+
       i {
         margin-right: .5rem;
       }
@@ -35,13 +31,13 @@
       display: flex;
       align-items: center;
       margin-left: auto;
-    
+
       .header_icon_btn {
         display: flex;
         align-items: center;
         justify-content: center;
         cursor: pointer;
-    
+
         width: var(--header_height_desktop);
         height: var(--header_height_desktop);
         font-size: 1.5rem;
@@ -50,7 +46,7 @@
       #header_profile_dropdown {
         width: calc(var(--header_height_desktop) - 1rem);
         height: var(--header_height_desktop);
-        
+
         .header_profile_dropdown_toggle {
           width: 100%;
           height: 100%;
@@ -62,10 +58,5 @@
         }
       }
     }
-  }
-
-  & + #content {
-    padding-top: calc(var(--header_height_desktop) + 1rem);
-    padding-bottom: 1rem;
   }
 }

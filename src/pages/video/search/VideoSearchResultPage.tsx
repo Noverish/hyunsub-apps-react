@@ -1,8 +1,8 @@
-import { Container } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router-dom";
 import getCategories from "src/api/video/category";
 import searchVideo from "src/api/video/video-search";
+import CommonContainer from 'src/components/common/header/CommonContainer';
 import VideoEntryList from "src/components/video/VideoEntryList";
 import VideoHeader from "src/components/video/VideoHeader";
 
@@ -32,11 +32,11 @@ export default function VideoSearchResultPage() {
   return (
     <div id="VideoSearchResultPage">
       <VideoHeader title={title} back={true} />
-      <Container id="content">
+      <CommonContainer>
         <h2>{title}</h2>
         <hr />
         {entriesList}
-      </Container>
+      </CommonContainer>
     </div>
   )
 }

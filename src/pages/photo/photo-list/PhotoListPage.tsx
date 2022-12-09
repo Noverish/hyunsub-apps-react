@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import { Container } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import CommonContainer from 'src/components/common/header/CommonContainer';
 import PhotoHeader from 'src/components/photo/PhotoHeader';
 
 export default function PhotoListPage() {
@@ -13,9 +13,9 @@ export default function PhotoListPage() {
   return (
     <div id="PhotoListPage">
       <PhotoHeader title="Photos" />
-      <Container id="content" className="with_tab_bar">
+      <CommonContainer>
 
-      </Container>
+      </CommonContainer>
     </div>
   )
 }
