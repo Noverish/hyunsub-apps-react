@@ -1,13 +1,31 @@
 import React from 'react';
 import { Dropdown } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import {Link, To} from 'react-router-dom';
 import { useDispatch } from 'src/redux';
 import { logoutAction } from 'src/redux/actions';
 import { HeaderProps } from "./Header";
+import { useIsAdmin } from 'src/api/auth/authorities';
 
 import './DesktopHeader.scss';
-import { useIsAdmin } from 'src/api/auth/authorities';
+
+export interface DesktopHeaderProps {
+  title: string;
+  menus: DesktopHeaderMenu[];
+  dropdowns: DesktopHeaderDropdown[];
+  onSearch: () => void;
+}
+
+export interface DesktopHeaderMenu {
+  link: To;
+  iconClass: string;
+  name: string;
+}
+
+export interface DesktopHeaderDropdown {
+  link: To;
+  name: string;
+}
 
 const ProfileDropdownToggle = React.forwardRef<HTMLDivElement, React.DOMAttributes<HTMLDivElement>>(({ children, onClick }, ref) => (
   <div

@@ -1,7 +1,3 @@
-:root {
-  --header_height_mobile: 48px;
-}
-
 #header.mobile_header {
   height: var(--header_height_mobile);
 
@@ -52,36 +48,5 @@
   & + #content {
     padding-top: calc(var(--header_height_mobile) + 1rem);
     padding-bottom: 1rem;
-  }
-}
-
-.offcanvas {
-  width: 100vw !important;
-
-  .offcanvas-header {
-    background-color: #111;
-  
-    .btn-close {
-      filter: invert(1);
-    }
-  }
-  
-  .offcanvas-body {
-    background-color: #222;
-    padding: .5rem;
-    
-    .menu_item {
-      display: block;
-      padding: .5rem;
-  
-      i {
-        font-size: 1.25rem;
-        margin-right: .75rem;
-      }
-  
-      span {
-        font-size: 1.5rem;
-      }
-    }
   }
 }
