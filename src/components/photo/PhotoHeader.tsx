@@ -1,28 +1,30 @@
 import { useTranslation } from 'react-i18next';
 import PhotoRoutes from 'src/pages/photo/PhotoRoutes';
-import { Header, HeaderProps } from '../common/header/Header';
+import { isMobile } from 'src/utils/user-agent';
+import DesktopHeader, { DesktopHeaderProps } from '../common/header/DesktopHeader';
+import MobileHeaderV2, { MobileHeaderProps } from '../common/header/MobileHeaderV2';
 
-export default function PhotoHeader() {
+export default function PhotoHeader(props: MobileHeaderProps) {
   const { t } = useTranslation();
-  
-  const props: HeaderProps = {
-    title : 'HyunPhoto',
+
+  const desktopProps: DesktopHeaderProps = {
+    title: 'HyunPhoto',
     menus: [
       {
         name: 'Albums',
-        link: PhotoRoutes.albumList(),
+        link: PhotoRoutes.albums,
         iconClass: 'fas fa-book',
       },
       {
         name: 'Photos',
-        link: PhotoRoutes.photoList(),
+        link: PhotoRoutes.photos,
         iconClass: 'fas fa-images',
       },
     ],
     dropdowns: [
       {
         name: t('setting'),
-        link: PhotoRoutes.setting(),
+        link: PhotoRoutes.menu,
       }
     ],
     onSearch: () => {
@@ -30,7 +32,9 @@ export default function PhotoHeader() {
     },
   }
 
-  return (
-    <Header {...props} />
-  )
+  if (isMobile()) {
+    return <MobileHeaderV2 {...props} />
+  } else {
+    return <DesktopHeader {...desktopProps} />
+  }
 }

@@ -1,5 +1,6 @@
 import { lazy } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
+import PhotoTabBar from 'src/components/photo/PhotoTabBar';
 import ErrorPage from '../common/ErrorPage';
 import routes from './PhotoRoutes';
 
@@ -11,24 +12,29 @@ const AlbumUploadPage = lazy(() => import('src/pages/photo/album-upload/AlbumUpl
 const AlbumDatePage = lazy(() => import('src/pages/photo/album-date/AlbumDatePage'));
 const PhotoListPage = lazy(() => import('src/pages/photo/photo-list/PhotoListPage'));
 const PhotoOriginalPage = lazy(() => import('src/pages/photo/photo-original/PhotoOriginalPage'));
-const SettingPage = lazy(() => import('src/pages/photo/setting/SettingPage'));
+const UploadPage = lazy(() => import('src/pages/photo/upload/UploadPage'));
+const SharePage = lazy(() => import('src/pages/photo/share/SharePage'));
+const MenuPage = lazy(() => import('src/pages/photo/menu/MenuPage'));
 
 export default function PhotoIndex() {
   return (
     <>
       <Routes>
         <Route path="*" element={<NotFoundPage />} />
-        <Route path="/" element={<Navigate to={routes.albumList()} />} />
+        <Route path="/" element={<Navigate to={routes.albums} />} />
         <Route path="/error" element={<ErrorPage />} />
-        <Route path={routes.albumList()} element={<AlbumListPage />} />
-        <Route path={routes.albumDetail()} element={<AlbumDetailPage />} />
-        <Route path={routes.albumViewer()} element={<AlbumViewerPage />} />
-        <Route path={routes.albumUpload()} element={<AlbumUploadPage />} />
-        <Route path={routes.albumDate()} element={<AlbumDatePage />} />
-        <Route path={routes.photoList()} element={<PhotoListPage />} />
-        <Route path={routes.photoOriginal()} element={<PhotoOriginalPage />} />
-        <Route path={routes.setting()} element={<SettingPage />} />
+        <Route path={routes.albums} element={<AlbumListPage />} />
+        <Route path={routes.albumDetailRoute} element={<AlbumDetailPage />} />
+        <Route path={routes.albumViewerRoute} element={<AlbumViewerPage />} />
+        <Route path={routes.albumUploadRoute} element={<AlbumUploadPage />} />
+        <Route path={routes.albumDateRoute} element={<AlbumDatePage />} />
+        <Route path={routes.photos} element={<PhotoListPage />} />
+        <Route path={routes.photoOriginalRoute} element={<PhotoOriginalPage />} />
+        <Route path={routes.upload} element={<UploadPage />} />
+        <Route path={routes.share} element={<SharePage />} />
+        <Route path={routes.menu} element={<MenuPage />} />
       </Routes>
+      <PhotoTabBar />
     </>
   )
 }

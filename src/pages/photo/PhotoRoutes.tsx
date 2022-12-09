@@ -1,32 +1,26 @@
 const PhotoRoutes = {
-  albumList: () => '/albums',
-  albumDetail: (albumId?: number) => (
-    (albumId)
-      ? `/albums/${albumId}`
-      : '/albums/:albumId'
-  ),
-  albumViewer: (albumId?: number, photoId?: number) => (
-    (albumId && photoId)
-      ? `/albums/${albumId}/viewer?photoId=${photoId}`
-      : '/albums/:albumId/viewer'
-  ),
-  albumUpload: (albumId?: number) => (
-    (albumId)
-      ? `/albums/${albumId}/upload`
-      : '/albums/:albumId/upload'
-  ),
-  albumDate: (albumId?: number) => (
-    (albumId)
-      ? `/albums/${albumId}/date`
-      : '/albums/:albumId/date'
-  ),
-  photoList: () => '/photos',
-  photoOriginal: (photoId?: number) => (
-    photoId
-      ? `/photos/${photoId}`
-      : '/photos/:photoId'
-  ),
-  setting: () => '/setting',
+  albums: '/albums',
+
+  albumDetailRoute: '/albums/:albumId',
+  albumDetail: (albumId: number) => `/albums/${albumId}`,
+
+  albumViewerRoute: '/albums/:albumId/viewer',
+  albumViewer: (albumId: number, photoId: number) => `/albums/${albumId}/viewer?photoId=${photoId}`,
+
+  albumUploadRoute: '/albums/:albumId/upload',
+  albumUpload: (albumId: number) => `/albums/${albumId}/upload`,
+
+  albumDateRoute: '/albums/:albumId/date',
+  albumDate: (albumId: number) => `/albums/${albumId}/date`,
+
+  photos: '/photos',
+
+  photoOriginalRoute: '/photos/:photoId',
+  photoOriginal: (photoId: number) => `/photos/${photoId}`,
+
+  upload: '/upload',
+  share: '/share',
+  menu: '/menu',
 }
 
 export default PhotoRoutes;

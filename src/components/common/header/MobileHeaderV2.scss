@@ -1,0 +1,29 @@
+#header.mobile_header_v2 {
+  height: var(--header_height_mobile);
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .back {
+    height: 100%;
+    width: 1.5rem;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+
+    font-size: 1.3rem;
+  }
+
+  .title {
+    font-size: 1.5rem;
+    margin-left: 1rem;
+  }
+
+  & + #content {
+    padding-top: calc(var(--header_height_mobile) + 1rem);
+    padding-bottom: 1rem;
+  }
+}

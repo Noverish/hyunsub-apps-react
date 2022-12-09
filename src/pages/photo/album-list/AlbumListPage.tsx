@@ -3,7 +3,7 @@ import { Container } from "react-bootstrap";
 import { useTranslation } from 'react-i18next';
 import { Link } from "react-router-dom";
 import albumListApi from "src/api/photo/album-list";
-import PhotoHeader from "src/components/photo/PhotoHeader";
+import PhotoHeader from 'src/components/photo/PhotoHeader';
 import routes from 'src/pages/photo/PhotoRoutes';
 
 export default function AlbumListPage() {
@@ -26,7 +26,7 @@ export default function AlbumListPage() {
 
   return (
     <div id="AlbumListPage">
-      <PhotoHeader />
+      <PhotoHeader title="Albums" />
       <Container id="content">
         <div className="row g-3 row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-6">
           {albumItems}

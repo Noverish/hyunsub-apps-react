@@ -1,11 +1,14 @@
 :root {
   --hyunsub-bg: #141414;
+  --hyunsub-header-bg: #202020;
   --hyunsub-title-bg: #323232;
   --hyunsub-content-bg: #454545;
   --hyunsub-text-color: white;
 
   --hyunsub-border-color-primary: #DDD;
   --hyunsub-border-color-secondary: #777;
+
+  --header_height_mobile: 48px;
 }
 
 html, body, #root {
@@ -40,10 +43,7 @@ header {
   z-index: 1000;
 
   border-bottom: 1px solid #232323;
-  background-color: rgba(36, 36, 36, .8);
-  color: white;
-  backdrop-filter: blur(7px);
-  -webkit-backdrop-filter: blur(7px);
+  background-color: var(--hyunsub-header-bg);
 }
 
 .card {

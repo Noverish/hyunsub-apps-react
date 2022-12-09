@@ -42,7 +42,7 @@ export default function AlbumUploadPage() {
 
   return (
     <div id="AlbumUploadPage">
-      <PhotoHeader />
+      <PhotoHeader title="Upload to Album" />
       <Container id="content">
         <Link to={routes.albumDetail(albumId)} style={{ float: 'right' }}>
           <Button variant='secondary'>{t('photo.page.album-upload.back-to-album')}</Button>

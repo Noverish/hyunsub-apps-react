@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import PhotoHeader from 'src/components/photo/PhotoHeader';
 
 export default function PhotoListPage() {
   const { t } = useTranslation();
@@ -10,7 +11,7 @@ export default function PhotoListPage() {
 
   return (
     <div id="PhotoListPage">
-      <h1>PhotoListPage</h1>
+      <PhotoHeader title="Photos" />
     </div>
   )
 }
