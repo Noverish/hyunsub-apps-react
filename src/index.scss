@@ -9,6 +9,7 @@
   --hyunsub-border-color-secondary: #777;
 
   --header_height_mobile: 48px;
+  --hyunsub_tabbar_height: 60px;
 }
 
 html, body, #root {
@@ -45,6 +46,47 @@ header {
   border-bottom: 1px solid #232323;
   background-color: var(--hyunsub-header-bg);
 }
+
+#content {
+  &.with_tab_bar {
+    padding-bottom: calc(var(--hyunsub_tabbar_height) + .5rem)!important;
+  }
+}
+
+// ===============================================================
+// custom class
+
+input {
+  background-color: var(--bs-gray-dark)!important;
+  color: white!important;
+
+  &:focus {
+    background-color: var(--bs-gray);
+    color: white;
+  }
+}
+
+.move_up_on_hover {
+  transition: transform .3s;
+
+  &:hover {
+    transform: translateY(-6px);
+  }
+}
+
+.gray_on_hover:hover {
+  color: #bbbbbb;
+}
+
+.flex_center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+// ===============================================================
+// custom bootstrap
 
 .card {
   border-color: var(--hyunsub-border-color-primary);
@@ -119,6 +161,9 @@ header {
     }
   }
 }
+
+// ===============================================================
+// custom select
 
 .select__control {
   background-color: var(--bs-gray-dark)!important;

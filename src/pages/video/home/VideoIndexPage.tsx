@@ -10,5 +10,5 @@ export default function VideoIndexPage() {
     return <NotFoundPage />;
   }
 
-  return <Navigate to={routes.getListRoute(categories[0].name)} />;
+  return <Navigate to={routes.listRoute(categories[0].name)} />;
 }

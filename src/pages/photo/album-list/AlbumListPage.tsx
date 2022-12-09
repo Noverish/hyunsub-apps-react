@@ -27,7 +27,7 @@ export default function AlbumListPage() {
   return (
     <div id="AlbumListPage">
       <PhotoHeader title="Albums" />
-      <Container id="content">
+      <Container id="content" className="with_tab_bar">
         <div className="row g-3 row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-6">
           {albumItems}
         </div>

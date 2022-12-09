@@ -2,9 +2,11 @@ import getCategories from "src/api/video/category";
 import { VideoSearchActions } from 'src/pages/video/search/VideoSearchState';
 import VideoRoutes from 'src/pages/video/VideoRoutes';
 import { useDispatch } from 'src/redux';
-import { Header, HeaderProps } from '../common/header/Header';
+import { isMobile } from 'src/utils/user-agent';
+import DesktopHeader, { DesktopHeaderProps } from '../common/header/DesktopHeader';
+import MobileHeaderV2, { MobileHeaderProps } from '../common/header/MobileHeaderV2';
 
-export default function VideoHeader() {
+export default function VideoHeader(props: MobileHeaderProps) {
   const dispatch = useDispatch();
 
   const categories = getCategories.useApi();
@@ -15,23 +17,23 @@ export default function VideoHeader() {
     link: `/${v.name}`
   }))
 
-  const dropdowns = [
-    {
-      name: 'My Page',
-      link: VideoRoutes.my,
-    }
-  ];
-
-  const props: HeaderProps = {
+  const desktopProps: DesktopHeaderProps = {
     title: 'HyunVideo',
     menus,
-    dropdowns,
+    dropdowns: [
+      {
+        name: 'My Page',
+        link: VideoRoutes.my,
+      }
+    ],
     onSearch: () => {
       dispatch(VideoSearchActions.update({ showSearchModal: true }));
     },
   }
 
-  return (
-    <Header {...props} />
-  )
+  if (isMobile()) {
+    return <MobileHeaderV2 {...props} />
+  } else {
+    return <DesktopHeader {...desktopProps} />
+  }
 }

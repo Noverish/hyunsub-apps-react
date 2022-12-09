@@ -1,9 +1,9 @@
 const VideoRoutes = {
   list: '/:category',
-  getListRoute: (category: string) => `/${category}`,
+  listRoute: (category: string) => `/${category}`,
 
   detail: '/video/:entryId',
-  getDetailRoute: (entryId: string, videoId?: string) => {
+  detailRoute: (entryId: string, videoId?: string) => {
     const query = (videoId) ? `?videoId=${videoId}` : ''
     return `/video/${entryId}${query}`;
   },
@@ -13,9 +13,13 @@ const VideoRoutes = {
   my: '/my',
 
   search: '/search',
-  getSearchRoute: (query: string) => {
-    return `/search?q=${encodeURIComponent(query)}`
+
+  searchResult: '/search/result',
+  searchResultRoute: (query: string) => {
+    return `/search/result?q=${encodeURIComponent(query)}`
   },
+
+  menu: '/menu',
 }
 
 export default VideoRoutes;

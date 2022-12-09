@@ -112,7 +112,7 @@ function VideoEpisodeItem({ episode, active }: VideoEpisodeItemProps) {
     }))
   }
 
-  const href = VideoRoutes.getDetailRoute(entryId, episode.videoId);
+  const href = VideoRoutes.detailRoute(entryId, episode.videoId);
   const className = cs('episode_item col-6 d-flex', { active });
 
   return (
