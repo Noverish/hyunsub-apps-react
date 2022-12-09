@@ -9,8 +9,10 @@
 
   display: flex;
 
-  background-color: var(--hyunsub-header-bg);
   border-top: 1px solid var(--hyunsub-bg);
+  background-color: var(--hyunsub-header-bg);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
 
   a {
     flex: 1 1 0;
