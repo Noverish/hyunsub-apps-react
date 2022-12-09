@@ -14,7 +14,7 @@ export default function VantaGlobe() {
         size: 0.8,
         color: 0x0d6efd,
         color2: 0xFFFFFF,
-        backgroundColor: 0x222222,
+        backgroundColor: 0x141414,
       }));
     }
 

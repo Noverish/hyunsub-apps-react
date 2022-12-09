@@ -11,7 +11,7 @@ export function ExtendedImage(props: Props) {
   const { t } = useTranslation();
 
   const onDeleteClick = () => {
-    if (window.confirm(t('msg.delete-confirm'))) {
+    if (window.confirm(t('msg.delete-confirm') as string)) {
       onDelete?.();
     }
   }

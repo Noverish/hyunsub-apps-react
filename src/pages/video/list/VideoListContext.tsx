@@ -1,6 +1,6 @@
 import { Dispatch } from "@reduxjs/toolkit";
 import getVideoDetail from "src/api/video/video-entry-detail";
-import history from 'src/pages/common/history';
+import router from 'src/pages/router';
 import { GlobalActions } from "src/redux/global";
 import VideoRoutes from "../VideoRoutes";
 
@@ -11,5 +11,5 @@ export const loadVideoDetail = (entryId: string) => async (dispatch: Dispatch) =
     await getVideoDetail.fetch({ entryId });
     dispatch(GlobalActions.update({ loading: false }));
   }
-  history.push(VideoRoutes.getDetailRoute(entryId, undefined));
+  router.navigate(VideoRoutes.getDetailRoute(entryId, undefined));
 };

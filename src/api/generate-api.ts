@@ -6,7 +6,6 @@ import { ErrorResponse, PageData } from 'src/model/api';
 import { dispatch } from 'src/redux';
 import { insertToast } from 'src/redux/toast';
 import { isDev, sleep, toJSON } from 'src/utils';
-import { Updater } from '../../node_modules/@tanstack/query-core/build/types/packages/query-core/src/utils';
 import QueryClient from './query-client';
 
 interface GenerateApiOption<P> {
@@ -31,7 +30,6 @@ interface GenerateApiResult<P, R> {
   fetch: (p: P) => Promise<R>;
   cache: (p: P) => R | undefined;
   prefetch: (p: P) => void;
-  setCache: (p: P, updater: Updater<R | undefined, R | undefined>) => void;
 }
 
 interface GenerateNoParamApiResult<R> {
@@ -41,7 +39,6 @@ interface GenerateNoParamApiResult<R> {
   fetch: () => Promise<R>;
   cache: () => R | undefined;
   prefetch: () => void;
-  setCache: (updater: Updater<R | undefined, R | undefined>) => void;
 }
 
 interface GenerateInfiniteApiResult<P, R> {
@@ -105,7 +102,6 @@ export function generateQuery<P, R>(option: GenerateApiOption<P>): GenerateApiRe
   const cache = (p: P) => QueryClient.getQueryData<R>(key(p));
   const fetch = (p: P) => QueryClient.fetchQuery(key(p), () => api(p), { staleTime: Infinity });
   const prefetch = (p: P) => QueryClient.prefetchQuery(key(p), () => api(p), { staleTime: Infinity });
-  const setCache = (p: P, updater: Updater<R | undefined, R | undefined>) => QueryClient.setQueryData<R>(key(p), updater);
 
   return {
     api,
@@ -114,7 +110,6 @@ export function generateQuery<P, R>(option: GenerateApiOption<P>): GenerateApiRe
     fetch,
     cache,
     prefetch,
-    setCache,
   };
 }
 
@@ -126,7 +121,6 @@ export function generateNoParamQuery<R>(option: GenerateNoParamApiOption): Gener
   const cache = () => QueryClient.getQueryData<R>(key());
   const fetch = () => QueryClient.fetchQuery(key(), () => api(), { staleTime: Infinity });
   const prefetch = () => QueryClient.prefetchQuery(key(), () => api(), { staleTime: Infinity });
-  const setCache = (updater: Updater<R | undefined, R | undefined>) => QueryClient.setQueryData<R>(key(), updater);
 
   return {
     api,
@@ -135,7 +129,6 @@ export function generateNoParamQuery<R>(option: GenerateNoParamApiOption): Gener
     fetch,
     cache,
     prefetch,
-    setCache,
   };
 }
 

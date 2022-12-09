@@ -11,7 +11,7 @@ import { RootState } from 'src/redux';
 import { GlobalActions } from "src/redux/global";
 import { insertToast } from 'src/redux/toast';
 import { encrypt } from "src/utils/rsa-key";
-import history from 'src/pages/common/history';
+import router from 'src/pages/router';
 import { LoginFormState } from "./LoginPage";
 import { LoginActions } from "./LoginState";
 
@@ -48,10 +48,10 @@ export const loginAction = (params: LoginParameter) => async (dispatch: Dispatch
       if (url.startsWith('https://')) {
         window.location.href = url;
       } else {
-        history.push(url);
+        router.navigate(url);
       }
     } else {
-      history.push(routes.my);
+      router.navigate(routes.my);
     }
   } catch (err) {
     const payload = ((err as AxiosError<ErrorResponse>).response?.data.payload as LoginError);
@@ -72,7 +72,7 @@ export const validUrlAction = (params: ValidUrlActionParam) => async (dispatch: 
   const { url } = params;
   const { valid } = await validUrl.fetch({ url });
   if (!valid) {
-    dispatch(GlobalActions.update({ errMsg: t('auth.api.valid-url.failure') }));
-    history.push('/error');
+    dispatch(GlobalActions.update({ errMsg: t('auth.api.valid-url.failure') as string }));
+    router.navigate('/error');
   }
 }

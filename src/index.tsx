@@ -1,15 +1,15 @@
+import { QueryClientProvider } from '@tanstack/react-query';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
+import queryClient from './api/query-client';
 import App from './App';
 import { store } from './redux';
 import reportWebVitals from './reportWebVitals';
-import { QueryClientProvider } from '@tanstack/react-query';
-import queryClient from './api/query-client';
 
 import 'src/i18n';
-import './index.scss';
 import './custom_class.scss';
+import './index.scss';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

@@ -2,7 +2,7 @@ import { Dispatch } from "@reduxjs/toolkit";
 import apparelDelete from "src/api/apparel/apparel-delete";
 import apparelImageUpload from "src/api/apparel/apparel-image-upload";
 import { GlobalActions } from 'src/redux/global';
-import history from 'src/pages/common/history';
+import router from 'src/pages/router';
 import t from 'src/i18n';
 import apparelList from "src/api/apparel/apparel-list";
 
@@ -14,7 +14,7 @@ export const apparelImageUploadAction = (apparelId: string, images: File[]) => a
 }
 
 export const apparelDeleteAction = (apparelId: string) => async (dispatch: Dispatch) => {
-  if (!window.confirm(t('msg.delete-confirm'))) {
+  if (!window.confirm(t('msg.delete-confirm') as string)) {
     return;
   }
 
@@ -25,5 +25,5 @@ export const apparelDeleteAction = (apparelId: string) => async (dispatch: Dispa
 
   apparelList.updateCache({}, list => list.filter(v => v.id !== apparelId));
 
-  history.go(-1);
+  router.navigate(-1);
 }

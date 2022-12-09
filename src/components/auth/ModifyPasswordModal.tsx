@@ -2,7 +2,7 @@ import { Dispatch } from "@reduxjs/toolkit";
 import { useRef } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { TFunction, useTranslation } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import { NavigateFunction, useNavigate } from "react-router-dom";
 import logout from "src/api/auth/logout";
 import { MyPageUserInfo } from "src/api/auth/my-page-user-info";
@@ -12,6 +12,7 @@ import routes from "src/pages/auth/AuthRoutes";
 import { updateMyPageState } from "src/pages/auth/my/MyPageState";
 import { RootState, useDispatch, useSelector } from "src/redux";
 import { encrypt } from "src/utils/rsa-key";
+import { TFunction } from "i18next";
 
 interface Props {
   userInfo: MyPageUserInfo;
@@ -35,14 +36,14 @@ export default function ModifyPasswordModal({ userInfo }: Props) {
   passwordRef.current = watch('password1');
 
   const passwordRegister1 = register('password1', {
-    required: t('auth.errMsg.empty-pw'),
+    required: t('auth.errMsg.empty-pw') as string,
     minLength: { value: 8, message: t('auth.errMsg.short-pw') },
     maxLength: { value: 20, message: t('auth.errMsg.long-pw') },
   });
 
   const passwordRegister2 = register('password2', {
-    required: t('auth.errMsg.empty-pw'),
-    validate: v => v === passwordRef.current || t('auth.errMsg.not-equal-pw'),
+    required: t('auth.errMsg.empty-pw') as string,
+    validate: v => v === passwordRef.current || t('auth.errMsg.not-equal-pw') as string,
   });
 
   const password1ErrMsg = errors.password1?.message;

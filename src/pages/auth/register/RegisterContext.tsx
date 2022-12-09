@@ -10,7 +10,7 @@ import { insertToast } from 'src/redux/toast';
 import { encrypt } from "src/utils/rsa-key";
 import { RegisterFormState } from './RegisterPage';
 import { RegisterActions } from "./RegisterState";
-import history from 'src/pages/common/history';
+import router from 'src/pages/router';
 
 interface RegisterActionParams {
   state: RegisterFormState;
@@ -40,7 +40,7 @@ export const registerAction = (p: RegisterActionParams) => async (dispatch: Disp
     await registerApi(registerParams);
 
     alert(t('auth.msg.register-success'));
-    history.push(routes.login + '?' + window.location.search);
+    router.navigate(routes.login + '?' + window.location.search);
   } catch (ex) {
     captchaObj?.reset();
     dispatch(RegisterActions.update({ captcha: null }));

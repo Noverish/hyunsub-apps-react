@@ -1,5 +1,6 @@
 import AppConstant from 'src/utils/constants';
 import { generateApi } from 'src/api/generate-api';
+import { AxiosProgressEvent } from 'axios';
 
 interface UploadParams {
   file: File;
@@ -18,8 +19,11 @@ const uploadApi = generateApi<UploadParams, UploadResult>(params => ({
   headers: {
     'Content-Type': 'application/octet-stream',
   },
-  onUploadProgress: (e: ProgressEvent) => {
-    params.progress?.(Math.round((e.loaded / e.total) * 100));
+  onUploadProgress: (e: AxiosProgressEvent) => {
+    const total = e.total;
+    if (total) {
+      params.progress?.(Math.round((e.loaded / total) * 100));
+    }
   }
 }));
 

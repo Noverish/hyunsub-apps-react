@@ -1,8 +1,7 @@
 import { lazy } from 'react';
-import { Route, Routes, unstable_HistoryRouter as HistoryRouter } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { useIsAdmin } from 'src/api/auth/authorities';
 import VideoSearchModal from 'src/components/video/VideoSearchModal';
-import history from 'src/pages/common/history';
 import ErrorPage from '../common/ErrorPage';
 import routes from './VideoRoutes';
 
@@ -18,7 +17,7 @@ export default function VideoIndex() {
   const isAdmin = useIsAdmin();
 
   return (
-    <HistoryRouter history={history}>
+    <>
       <Routes>
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/" element={<VideoIndexPage />} />
@@ -30,6 +29,6 @@ export default function VideoIndex() {
         <Route path={routes.search} element={<VideoSearchPage />} />
       </Routes>
       <VideoSearchModal />
-    </HistoryRouter>
+    </>
   )
 }

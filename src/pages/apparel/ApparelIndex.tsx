@@ -1,6 +1,5 @@
 import { lazy } from 'react';
-import { Route, Routes, unstable_HistoryRouter as HistoryRouter } from 'react-router-dom';
-import history from 'src/pages/common/history';
+import { Route, Routes } from 'react-router-dom';
 import ErrorPage from '../common/ErrorPage';
 import routes from './ApparelRoutes';
 
@@ -16,7 +15,7 @@ const ApparelBrandDetailPage = lazy(() => import('src/pages/apparel/brand-detail
 
 export default function ApparelIndex() {
   return (
-    <HistoryRouter history={history}>
+    <>
       <Routes>
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/error" element={<ErrorPage />} />
@@ -29,6 +28,6 @@ export default function ApparelIndex() {
         <Route path={routes.brandList} element={<ApparelBrandListPage />} />
         <Route path={routes.brandDetail} element={<ApparelBrandDetailPage />} />
       </Routes>
-    </HistoryRouter>
+    </>
   )
 }
