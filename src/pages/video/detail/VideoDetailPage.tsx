@@ -75,7 +75,7 @@ export default function VideoDetailPage() {
 
   return (
     <div id="VideoDetailPage">
-      <VideoHeader />
+      <VideoHeader title={title} back={true} />
       <Container id="content">
         <section id="video_player_section">
           {videoPlayer}

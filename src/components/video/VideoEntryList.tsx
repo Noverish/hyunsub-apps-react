@@ -18,7 +18,7 @@ export default function VideoEntryList({ category, entries }: Props) {
   const style: any = category.itemCss && JSON.parse(category.itemCss);
 
   const elements = entries.map(entry => {
-    const href = VideoRoutes.getDetailRoute(entry.id);
+    const href = VideoRoutes.detailRoute(entry.id);
 
     const onClick = (e: React.MouseEvent) => {
       e.preventDefault();

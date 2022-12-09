@@ -1,39 +1,34 @@
-import { Container } from "react-bootstrap";
+import { Container, Form } from "react-bootstrap";
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from "react-i18next";
-import { useSearchParams } from "react-router-dom";
-import getCategories from "src/api/video/category";
-import searchVideo from "src/api/video/video-search";
-import VideoEntryList from "src/components/video/VideoEntryList";
+import { useNavigate } from 'react-router-dom';
 import VideoHeader from "src/components/video/VideoHeader";
+import VideoRoutes from 'src/pages/video/VideoRoutes';
+
+interface FormState {
+  query: string;
+}
 
 export default function VideoSearchPage() {
-  const [searchParams] = useSearchParams();
-  const query = searchParams.get('q') || '';
-  const params = { query };
+  const navigate = useNavigate();
   const { t } = useTranslation();
+  const { register, handleSubmit } = useForm<FormState>();
 
-  const searchResult = searchVideo.useApi(params);
-  const categories = getCategories.useApi();
-  const resultNum = Object.values(searchResult.entries).reduce((prev, curr) => prev + curr.length, 0);
-
-  const entriesList = Object.entries(searchResult.entries).map(([categoryName, entries]) => {
-    const category = categories.filter(v => v.name === categoryName)[0];
-
-    return (
-      <div key={category.name} className="mb-3">
-        <h3>{category.displayName}</h3>
-        <VideoEntryList category={category} entries={entries} />
-      </div>
-    );
-  })
+  const onSubmit: SubmitHandler<FormState> = (state: FormState) => {
+    navigate(VideoRoutes.searchResultRoute(state.query));
+  };
 
   return (
     <div id="VideoSearchPage">
-      <VideoHeader />
+      <VideoHeader title="검색" />
       <Container id="content">
-        <h2>{t('video.page.search.title', [query, resultNum])}</h2>
-        <hr />
-        {entriesList}
+
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          <Form.Group>
+            <Form.Control {...register('query')} placeholder={t('msg.type-query') as string} />
+          </Form.Group>
+        </Form>
+
       </Container>
     </div>
   )

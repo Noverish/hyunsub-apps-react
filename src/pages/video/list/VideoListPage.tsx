@@ -22,7 +22,7 @@ export function VideoListPage({ category }: { category: VideoCategory }) {
   useEffect(() => {
     document.title = `HyunFlix - ${category.displayName}`;
   }, [category.displayName]);
-  
+
   const { data, fetchNextPage, isFetching } = videoList.useInfiniteApi({ category: category.name, sort, seed });
 
   useScrollBottom(() => {
@@ -35,7 +35,7 @@ export function VideoListPage({ category }: { category: VideoCategory }) {
 
   return (
     <div id="VideoHomePage">
-      <VideoHeader />
+      <VideoHeader title={category.displayName} />
       <Container id="content">
         <VideoSortDropdown sort={sort} />
         <VideoEntryList category={category} entries={entries} />

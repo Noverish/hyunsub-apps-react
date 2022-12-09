@@ -13,6 +13,7 @@ const en = {
 
     'msg.delete-confirm': 'Are you sure you want to delete?',
     'msg.delete-success': 'Successfully deleted',
+    'msg.type-query': 'Please type search query...',
 
     'common.404.oh': 'Ah!',
     'common.404.not-exist': 'This page is not exist',

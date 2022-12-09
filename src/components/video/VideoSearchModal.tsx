@@ -19,7 +19,7 @@ export default function VideoSearchModal() {
 
   const onSearch = () => {
     dispatch(VideoSearchActions.update({ showSearchModal: false }));
-    navigate(VideoRoutes.getSearchRoute(query));
+    navigate(VideoRoutes.searchResultRoute(query));
   }
 
   const onEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {

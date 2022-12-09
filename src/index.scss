@@ -46,6 +46,41 @@ header {
   background-color: var(--hyunsub-header-bg);
 }
 
+// ===============================================================
+// custom class
+
+input {
+  background-color: var(--bs-gray-dark)!important;
+  color: white!important;
+
+  &:focus {
+    background-color: var(--bs-gray);
+    color: white;
+  }
+}
+
+.move_up_on_hover {
+  transition: transform .3s;
+
+  &:hover {
+    transform: translateY(-6px);
+  }
+}
+
+.gray_on_hover:hover {
+  color: #bbbbbb;
+}
+
+.flex_center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+// ===============================================================
+// custom bootstrap
+
 .card {
   border-color: var(--hyunsub-border-color-primary);
   overflow: hidden;
@@ -119,6 +154,9 @@ header {
     }
   }
 }
+
+// ===============================================================
+// custom select
 
 .select__control {
   background-color: var(--bs-gray-dark)!important;

@@ -8,7 +8,6 @@ import { store } from './redux';
 import reportWebVitals from './reportWebVitals';
 
 import 'src/i18n';
-import './custom_class.scss';
 import './index.scss';
 
 const root = ReactDOM.createRoot(

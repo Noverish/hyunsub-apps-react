@@ -6,11 +6,11 @@ import VideoHeader from "src/components/video/VideoHeader";
 export default function VideoAdminPage() {
   useEffect(() => {
     document.title = 'Hyunflix Video Upload';
-  }, []); 
+  }, []);
 
   return (
     <div id="VideoAdminPage">
-      <VideoHeader />
+      <VideoHeader title="어드민 페이지" />
       <Container id="content">
         <h1>어드민 페이지</h1>
         <hr />

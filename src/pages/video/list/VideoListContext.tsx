@@ -11,5 +11,5 @@ export const loadVideoDetail = (entryId: string) => async (dispatch: Dispatch) =
     await getVideoDetail.fetch({ entryId });
     dispatch(GlobalActions.update({ loading: false }));
   }
-  router.navigate(VideoRoutes.getDetailRoute(entryId, undefined));
+  router.navigate(VideoRoutes.detailRoute(entryId, undefined));
 };

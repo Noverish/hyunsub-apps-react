@@ -13,6 +13,7 @@ const ko = {
 
     'msg.delete-confirm': '정말로 삭제하시겠습니까?',
     'msg.delete-success': '삭제되었습니다',
+    'msg.type-query': '검색어를 입력하세요...',
 
     'common.404.oh': '앗!',
     'common.404.not-exist': '해당 페이지가 존재하지 않습니다',
