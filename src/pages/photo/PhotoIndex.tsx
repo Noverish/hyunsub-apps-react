@@ -12,9 +12,9 @@ const AlbumUploadPage = lazy(() => import('src/pages/photo/album-upload/AlbumUpl
 const AlbumDatePage = lazy(() => import('src/pages/photo/album-date/AlbumDatePage'));
 const PhotoListPage = lazy(() => import('src/pages/photo/photo-list/PhotoListPage'));
 const PhotoOriginalPage = lazy(() => import('src/pages/photo/photo-original/PhotoOriginalPage'));
+const PhotoMenuPage = lazy(() => import('src/pages/photo/menu/PhotoMenuPage'));
 const UploadPage = lazy(() => import('src/pages/photo/upload/UploadPage'));
 const SharePage = lazy(() => import('src/pages/photo/share/SharePage'));
-const MenuPage = lazy(() => import('src/pages/photo/menu/MenuPage'));
 
 export default function PhotoIndex() {
   return (
@@ -32,7 +32,7 @@ export default function PhotoIndex() {
         <Route path={routes.photoOriginalRoute} element={<PhotoOriginalPage />} />
         <Route path={routes.upload} element={<UploadPage />} />
         <Route path={routes.share} element={<SharePage />} />
-        <Route path={routes.menu} element={<MenuPage />} />
+        <Route path={routes.menu} element={<PhotoMenuPage />} />
       </Routes>
       <PhotoTabBar />
     </>
