@@ -13,7 +13,7 @@ export default function VideoHeader(props: MobileHeaderProps) {
 
   const menus = categories.map(v => ({
     name: v.displayName,
-    iconClass: v.iconHtmlClass,
+    icon: v.iconHtmlClass,
     link: `/${v.name}`
   }))
 

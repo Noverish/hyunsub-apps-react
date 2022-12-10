@@ -1,10 +1,21 @@
+import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 
 import './AppsIndex.scss';
 
 export default function AppsIndex() {
+  const [click, setClick] = useState(0);
+
+  const onClick = () => {
+    if (click < 4) {
+      setClick(v => v + 1);
+    } else {
+      window.location.href = 'https://agnam.hyunsub.kim'
+    }
+  }
+
   return (
-    <div id="AppsIndex">
+    <div id="AppsIndex" onClick={onClick}>
       <div className="wrapper">
         <Row>
           <Col>
