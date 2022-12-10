@@ -1,8 +1,9 @@
 import React, { useEffect, useRef } from 'react';
-import { Button, Container, Form } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'react-router-dom';
 import albumDetailApi from 'src/api/photo/album-detail';
+import CommonContainer from 'src/components/common/header/CommonContainer';
 import PhotoHeader from 'src/components/photo/PhotoHeader';
 import PhotoUploadList from 'src/components/photo/PhotoUploadList';
 import routes from 'src/pages/photo/PhotoRoutes';
@@ -43,7 +44,7 @@ export default function AlbumUploadPage() {
   return (
     <div id="AlbumUploadPage">
       <PhotoHeader title="Upload to Album" />
-      <Container id="content">
+      <CommonContainer>
         <Link to={routes.albumDetail(albumId)} style={{ float: 'right' }}>
           <Button variant='secondary'>{t('photo.page.album-upload.back-to-album')}</Button>
         </Link>
@@ -57,7 +58,7 @@ export default function AlbumUploadPage() {
           </Button>
         </Form>
         <PhotoUploadList />
-      </Container>
+      </CommonContainer>
     </div>
   )
 }

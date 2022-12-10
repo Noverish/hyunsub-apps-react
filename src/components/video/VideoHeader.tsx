@@ -4,7 +4,7 @@ import VideoRoutes from 'src/pages/video/VideoRoutes';
 import { useDispatch } from 'src/redux';
 import { isMobile } from 'src/utils/user-agent';
 import DesktopHeader, { DesktopHeaderProps } from '../common/header/DesktopHeader';
-import MobileHeaderV2, { MobileHeaderProps } from '../common/header/MobileHeaderV2';
+import MobileHeader, { MobileHeaderProps } from '../common/header/MobileHeader';
 
 export default function VideoHeader(props: MobileHeaderProps) {
   const dispatch = useDispatch();
@@ -32,7 +32,7 @@ export default function VideoHeader(props: MobileHeaderProps) {
   }
 
   if (isMobile()) {
-    return <MobileHeaderV2 {...props} />
+    return <MobileHeader {...props} />
   } else {
     return <DesktopHeader {...desktopProps} />
   }

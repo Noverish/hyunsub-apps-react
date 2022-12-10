@@ -1,23 +1,25 @@
 import { useEffect } from 'react';
-import { Button, Container } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import { Link, useParams } from 'react-router-dom';
 import apparelDetail from 'src/api/apparel/apparel-detail';
 import ApparelHeader from 'src/components/apparel/ApparelHeader';
-import { Link, useParams } from 'react-router-dom';
+import CommonContainer from 'src/components/common/header/CommonContainer';
 import ImageSwiper from 'src/components/common/ImageSwiper';
 import ApparelRoutes from 'src/pages/apparel/ApparelRoutes';
-import { numberWithComma } from 'src/utils';
 import { useDispatch } from 'src/redux';
+import { numberWithComma } from 'src/utils';
 import { apparelDeleteAction } from './ApparelDetailContext';
 
 export default function ApparelDetailPage() {
   const dispatch = useDispatch();
   const apparelId = useParams().apparelId!!;
   const { t } = useTranslation();
+  const title = t('apparel.page.detail.title');
 
   useEffect(() => {
-    document.title = t('apparel.page.detail.title');
-  }, [t]);
+    document.title = title;
+  }, [title]);
 
   const onDelete = () => {
     dispatch(apparelDeleteAction(apparelId));
@@ -28,8 +30,8 @@ export default function ApparelDetailPage() {
 
   return (
     <div id="ApparelDetailPage">
-      <ApparelHeader />
-      <Container id="content">
+      <ApparelHeader title={title} back={true} />
+      <CommonContainer>
         <h1>{apparel.name}</h1>
         <div className="mt-3">
           <ImageSwiper urls={urls} />
@@ -88,7 +90,7 @@ export default function ApparelDetailPage() {
           <Link to={ApparelRoutes.editRoute(apparelId)}><Button>{t('edit')}</Button></Link>
           <Button variant="danger" className="ms-2" onClick={onDelete}>{t('delete')}</Button>
         </div>
-      </Container>
+      </CommonContainer>
     </div>
   )
 }

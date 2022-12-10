@@ -1,7 +1,8 @@
-import { Container, Form } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from "react-i18next";
 import { useNavigate } from 'react-router-dom';
+import CommonContainer from 'src/components/common/header/CommonContainer';
 import VideoHeader from "src/components/video/VideoHeader";
 import VideoRoutes from 'src/pages/video/VideoRoutes';
 
@@ -21,7 +22,7 @@ export default function VideoSearchPage() {
   return (
     <div id="VideoSearchPage">
       <VideoHeader title={t('search')} />
-      <Container id="content" className="with_tab_bar">
+      <CommonContainer>
 
         <Form onSubmit={handleSubmit(onSubmit)}>
           <Form.Group>
@@ -29,7 +30,7 @@ export default function VideoSearchPage() {
           </Form.Group>
         </Form>
 
-      </Container>
+      </CommonContainer>
     </div>
   )
 }

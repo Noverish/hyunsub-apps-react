@@ -2,11 +2,12 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import flatten from 'lodash/flatten';
 import groupBy from 'lodash/groupBy';
 import { useEffect } from 'react';
-import { Button, Container } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'react-router-dom';
 import albumDetailApi from 'src/api/photo/album-detail';
 import albumPhotosApi from 'src/api/photo/album-photos';
+import CommonContainer from 'src/components/common/header/CommonContainer';
 import ListLoadingIndicator from 'src/components/common/ListLoadingIndicator';
 import PhotoHeader from 'src/components/photo/PhotoHeader';
 import PhotoThumbnail from 'src/components/photo/PhotoThumbnail';
@@ -71,7 +72,7 @@ export default function AlbumDetailPage() {
   return (
     <div id="AlbumDetailPage">
       <PhotoHeader title={album.name} back={true} />
-      <Container id="content">
+      <CommonContainer>
         <Link to={routes.albumUpload(albumId)} style={{ float: 'right' }}>
           <Button>{t('photo.page.album-detail.upload')}</Button>
         </Link>
@@ -82,7 +83,7 @@ export default function AlbumDetailPage() {
           {groups}
         </div>
         <ListLoadingIndicator isFetching={isFetching} />
-      </Container>
+      </CommonContainer>
     </div>
   )
 }

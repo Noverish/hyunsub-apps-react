@@ -1,9 +1,9 @@
 import flatMap from 'lodash/flatMap';
 import { useEffect } from "react";
-import { Container } from "react-bootstrap";
 import { useParams, useSearchParams } from "react-router-dom";
 import getCategories from "src/api/video/category";
 import videoList from "src/api/video/video-list";
+import CommonContainer from 'src/components/common/header/CommonContainer';
 import ListLoadingIndicator from 'src/components/common/ListLoadingIndicator';
 import VideoEntryList from "src/components/video/VideoEntryList";
 import VideoHeader from "src/components/video/VideoHeader";
@@ -36,11 +36,11 @@ export function VideoListPage({ category }: { category: VideoCategory }) {
   return (
     <div id="VideoHomePage">
       <VideoHeader title={category.displayName} />
-      <Container id="content" className="with_tab_bar">
+      <CommonContainer>
         <VideoSortDropdown sort={sort} />
         <VideoEntryList category={category} entries={entries} />
         <ListLoadingIndicator isFetching={isFetching} />
-      </Container>
+      </CommonContainer>
     </div>
   )
 }

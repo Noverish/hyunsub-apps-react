@@ -1,5 +1,6 @@
 import { lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
+import ApparelTabBar from 'src/components/apparel/ApparelTabBar';
 import ErrorPage from '../common/ErrorPage';
 import routes from './ApparelRoutes';
 
@@ -12,6 +13,7 @@ const ApparelCategoryListPage = lazy(() => import('src/pages/apparel/category-li
 const ApparelCategoryDetailPage = lazy(() => import('src/pages/apparel/category-detail/ApparelCategoryDetailPage'));
 const ApparelBrandListPage = lazy(() => import('src/pages/apparel/brand-list/ApparelBrandListPage'));
 const ApparelBrandDetailPage = lazy(() => import('src/pages/apparel/brand-detail/ApparelBrandDetailPage'));
+const ApparelMenuPage = lazy(() => import('src/pages/apparel/menu/ApparelMenuPage'));
 
 export default function ApparelIndex() {
   return (
@@ -27,7 +29,9 @@ export default function ApparelIndex() {
         <Route path={routes.categoryDetail} element={<ApparelCategoryDetailPage />} />
         <Route path={routes.brandList} element={<ApparelBrandListPage />} />
         <Route path={routes.brandDetail} element={<ApparelBrandDetailPage />} />
+        <Route path={routes.menu} element={<ApparelMenuPage />} />
       </Routes>
+      <ApparelTabBar />
     </>
   )
 }

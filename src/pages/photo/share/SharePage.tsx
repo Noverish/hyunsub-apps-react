@@ -1,13 +1,13 @@
+import CommonContainer from 'src/components/common/header/CommonContainer';
 import PhotoHeader from 'src/components/photo/PhotoHeader';
-import {Container} from 'react-bootstrap';
 
 export default function SharePage() {
   return (
     <div id="SharePage">
       <PhotoHeader title="Share" />
-      <Container id="content" className="with_tab_bar">
+      <CommonContainer>
 
-      </Container>
+      </CommonContainer>
     </div>
   )
 }

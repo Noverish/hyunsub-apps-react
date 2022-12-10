@@ -1,0 +1,31 @@
+#container.container {
+  &.is_mobile {
+    .top {
+      height: calc(var(--header_height_mobile) + var(--hyunsub_app_top_safe_area_height));
+    }
+
+    .content {
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+    }
+  }
+
+  &.is_desktop {
+    .top {
+      height: var(--header_height_desktop);
+    }
+
+    .content {
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+    }
+  }
+}
+
+#TabBar + div #container.container {
+  &.is_mobile {
+    .bottom {
+      height: calc(var(--hyunsub_tabbar_height) + var(--hyunsub_app_bottom_safe_area_height));
+    }
+  }
+}

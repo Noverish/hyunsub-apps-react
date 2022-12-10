@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Container } from "react-bootstrap";
+import CommonContainer from 'src/components/common/header/CommonContainer';
 import VideoRegisterCard from "src/components/video/admin/VideoRegisterCard";
 import VideoHeader from "src/components/video/VideoHeader";
 
@@ -11,13 +11,13 @@ export default function VideoAdminPage() {
   return (
     <div id="VideoAdminPage">
       <VideoHeader title="어드민 페이지" />
-      <Container id="content">
+      <CommonContainer>
         <h1>어드민 페이지</h1>
         <hr />
         <div className="d-grid gap3">
           <VideoRegisterCard />
         </div>
-      </Container>
+      </CommonContainer>
     </div>
   )
 }

@@ -1,13 +1,13 @@
+import CommonContainer from 'src/components/common/header/CommonContainer';
 import PhotoHeader from 'src/components/photo/PhotoHeader';
-import {Container} from 'react-bootstrap';
 
 export default function UploadPage() {
   return (
     <div id="UploadPage">
       <PhotoHeader title="Upload" />
-      <Container id="content" className="with_tab_bar">
+      <CommonContainer>
 
-      </Container>
+      </CommonContainer>
     </div>
   )
 }

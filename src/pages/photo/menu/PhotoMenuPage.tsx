@@ -1,11 +1,11 @@
 import CommonContainer from 'src/components/common/header/CommonContainer';
 import CommonMenu from 'src/components/common/header/CommonMenu';
-import VideoHeader from 'src/components/video/VideoHeader';
+import PhotoHeader from 'src/components/photo/PhotoHeader';
 
-export default function VideoMenuPage() {
+export default function PhotoMenuPage() {
   return (
-    <div id="VideoMenuPage">
-      <VideoHeader title="Menu" />
+    <div id="PhotoMenuPage">
+      <PhotoHeader title="Menu" />
       <CommonContainer>
         <CommonMenu />
       </CommonContainer>

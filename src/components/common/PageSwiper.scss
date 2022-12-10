@@ -4,7 +4,8 @@
     top: 0;
     left: 0;
     right: 0;
-    height: 3rem;
+    height: calc(var(--header_height_mobile) + var(--hyunsub_app_top_safe_area_height));
+    padding-top: var(--hyunsub_app_top_safe_area_height);
     z-index: 2;
 
     display: flex;
