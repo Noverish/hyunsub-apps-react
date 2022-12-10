@@ -6,6 +6,7 @@ const VideoIndex = lazy(() => import('src/pages/video/VideoIndex'));
 const PhotoIndex = lazy(() => import('src/pages/photo/PhotoIndex'));
 const ApparelIndex = lazy(() => import('src/pages/apparel/ApparelIndex'));
 const EncodeIndex = lazy(() => import('src/pages/encode/EncodeIndex'));
+const DriveIndex = lazy(() => import('src/pages/drive/DriveIndex'));
 
 export default function RootIndex(): JSX.Element {
   const host = window.location.hostname;
@@ -32,6 +33,10 @@ export default function RootIndex(): JSX.Element {
 
   if (host.endsWith('encode.hyunsub.kim')) {
     return <EncodeIndex />;
+  }
+
+  if (host.endsWith('drive.hyunsub.kim')) {
+    return <DriveIndex />;
   }
 
   return (
