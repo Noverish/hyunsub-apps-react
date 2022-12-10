@@ -10,6 +10,9 @@
     flex-direction: column;
     height: 50vh;
     width: 60vw;
+
+    position: relative;
+    top: var(--hyunsub_app_top_safe_area_height);
   }
 
   .row {
