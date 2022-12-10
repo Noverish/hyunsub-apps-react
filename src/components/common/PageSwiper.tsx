@@ -2,7 +2,7 @@ import cs from 'classnames';
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PageSelectModal from 'src/components/common/PageSelectModal';
-import Swiper, { Keyboard, Virtual } from 'swiper';
+import Swiper, { Keyboard, Virtual, Zoom } from 'swiper';
 import { Swiper as SwiperComponent, SwiperSlide } from 'swiper/react';
 
 import 'swiper/css';
@@ -61,7 +61,9 @@ export default function PageSwiper<T>(props: PageSwiperProps<T>) {
 
   const elements = slides.map((v, i) => (
     <SwiperSlide key={i}>
-      {props.renderSlide(v)}
+      <div className="swiper-zoom-container">
+        {props.renderSlide(v)}
+      </div>
     </SwiperSlide>
   ))
 
@@ -84,7 +86,7 @@ export default function PageSwiper<T>(props: PageSwiperProps<T>) {
       </div>
       <SwiperComponent
         onSwiper={(swiper: Swiper) => swiperRef.current = swiper}
-        modules={[Virtual, Keyboard]}
+        modules={[Virtual, Keyboard, Zoom]}
         virtual={{ slides, enabled: true }}
         initialSlide={page}
         spaceBetween={24}
