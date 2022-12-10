@@ -13,17 +13,17 @@ export default function ApparelHeader(props: MobileHeaderProps) {
       {
         name: t('apparel.menu.all-apparels'),
         link: ApparelRoutes.list,
-        iconClass: 'fas fa-tshirt',
+        icon: 'fas fa-tshirt',
       },
       {
         name: t('apparel.menu.categories'),
         link: ApparelRoutes.categoryList,
-        iconClass: 'fas fa-th-large',
+        icon: 'fas fa-th-large',
       },
       {
         name: t('apparel.menu.brands'),
         link: ApparelRoutes.brandList,
-        iconClass: 'fas fa-tag',
+        icon: 'fas fa-tag',
       }
     ],
     dropdowns: [

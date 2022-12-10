@@ -17,7 +17,7 @@ export interface DesktopHeaderProps {
 
 export interface DesktopHeaderMenu {
   link: To;
-  iconClass: string;
+  icon: string;
   name: string;
 }
 
@@ -48,7 +48,7 @@ export default function DesktopHeader(props: DesktopHeaderProps) {
 
   const menuElements = menus.map(v => (
     <Link key={v.name} to={v.link} className="gray_on_hover">
-      <i className={v.iconClass}></i>
+      <i className={v.icon}></i>
       <span>{v.name}</span>
     </Link>
   ));
