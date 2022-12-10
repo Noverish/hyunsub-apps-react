@@ -1,4 +1,3 @@
-import cs from 'classnames';
 import { useEffect, useState } from 'react';
 import { Spinner } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
@@ -10,7 +9,6 @@ import PhotoInfoModal from 'src/components/photo/PhotoInfoModal';
 import { Photo } from 'src/model/photo';
 import routes from 'src/pages/photo/PhotoRoutes';
 import { useDispatch, useSelector } from 'src/redux';
-import { isApp } from 'src/utils/user-agent';
 import { AlbumViewerActions } from './AlbumViewerState';
 
 import './AlbumViewerPage.scss';
@@ -89,7 +87,7 @@ export default function AlbumViewerPage() {
   )
 
   return (
-    <div id="AlbumViewerPage" className={cs({ 'is_app': isApp() })}>
+    <div id="AlbumViewerPage">
       <PageSwiperWrapper
         pageDataList={pageDataList}
         readyOffSlideSize={2}

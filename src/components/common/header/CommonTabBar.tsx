@@ -1,6 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { isApp, isMobile } from 'src/utils/user-agent';
-import cs from 'classnames';
+import { isMobile } from 'src/utils/user-agent';
 
 import './CommonTabBar.scss';
 
@@ -31,7 +30,7 @@ export default function CommonTabBar({ items }: Props) {
   }
 
   return (
-    <div id="TabBar" className={cs({ 'is_app': isApp() })}>
+    <div id="TabBar">
       {elements}
     </div>
   )

@@ -1,14 +1,10 @@
 #header.mobile_header {
-  height: var(--header_height_mobile);
+  height: var(--header_height_mobile) + var(--hyunsub_app_top_safe_area_height);
+  padding-top: var(--hyunsub_app_top_safe_area_height);
 
   display: flex;
   flex-direction: row;
   align-items: center;
-
-  &.is_app {
-    height: calc(var(--header_height_mobile) + var(--hyunsub_app_top_safe_area_height));
-    padding-top: var(--hyunsub_app_top_safe_area_height);
-  }
 
   .back {
     height: 100%;

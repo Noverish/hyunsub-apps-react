@@ -1,18 +1,7 @@
 #container.container {
-  &.is_app {
-    .top {
-      height: calc(var(--header_height_mobile) + var(--hyunsub_app_top_safe_area_height));
-    }
-
-    .content {
-      padding-top: 1rem;
-      padding-bottom: 1rem;
-    }
-  }
-
   &.is_mobile {
     .top {
-      height: var(--header_height_mobile);
+      height: calc(var(--header_height_mobile) + var(--hyunsub_app_top_safe_area_height));
     }
 
     .content {
@@ -34,15 +23,9 @@
 }
 
 #TabBar + div #container.container {
-  &.is_app {
-    .bottom {
-      height: calc(var(--hyunsub_tabbar_height) + var(--hyunsub_app_bottom_safe_area_height));
-    }
-  }
-
   &.is_mobile {
     .bottom {
-      height: var(--hyunsub_tabbar_height);
+      height: calc(var(--hyunsub_tabbar_height) + var(--hyunsub_app_bottom_safe_area_height));
     }
   }
 }

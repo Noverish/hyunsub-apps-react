@@ -1,11 +1,12 @@
 #TabBar {
-  height: var(--hyunsub_tabbar_height);
+  height: calc(var(--hyunsub_tabbar_height) + var(--hyunsub_app_bottom_safe_area_height));
   width: 100vw;
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
   z-index: 1005;
+  padding-bottom: var(--hyunsub_app_bottom_safe_area_height);
 
   display: flex;
 
@@ -13,11 +14,6 @@
   background-color: var(--hyunsub-header-bg);
   backdrop-filter: blur(7px);
   -webkit-backdrop-filter: blur(7px);
-
-  &.is_app {
-    height: calc(var(--hyunsub_tabbar_height) + var(--hyunsub_app_bottom_safe_area_height))!important;
-    padding-bottom: var(--hyunsub_app_bottom_safe_area_height);
-  }
 
   a {
     flex: 1 1 0;

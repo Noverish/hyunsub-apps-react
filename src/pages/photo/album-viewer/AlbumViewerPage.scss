@@ -1,13 +1,9 @@
 #AlbumViewerPage {
   position: absolute;
-  top: 0;
+  top: var(--hyunsub_app_top_safe_area_height);
   left: 0;
   right: 0;
   bottom: 0;
-
-  &.is_app {
-    top: var(--hyunsub_app_top_safe_area_height);
-  }
 
   #PageSwiper {
     position: absolute;
