@@ -12,8 +12,8 @@
   --header_height_mobile: 48px;
   --hyunsub_tabbar_height: 60px;
 
-  --hyunsub_app_bottom_safe_area_height: 34px;
-  --hyunsub_app_top_safe_area_height: 59px;
+  --hyunsub_app_bottom_safe_area_height: env(safe-area-inset-bottom);
+  --hyunsub_app_top_safe_area_height: env(safe-area-inset-top);
 }
 
 html, body, #root {
