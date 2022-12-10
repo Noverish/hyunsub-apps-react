@@ -1,5 +1,5 @@
 #header.mobile_header {
-  height: var(--header_height_mobile) + var(--hyunsub_app_top_safe_area_height);
+  height: calc(var(--header_height_mobile) + var(--hyunsub_app_top_safe_area_height));
   padding-top: var(--hyunsub_app_top_safe_area_height);
 
   display: flex;
