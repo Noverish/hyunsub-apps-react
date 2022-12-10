@@ -15,12 +15,14 @@ export interface MobileHeaderButton {
 export default function MobileHeader({ title, back }: MobileHeaderProps) {
   const navigate = useNavigate();
 
-  const onBack = () => navigate(-1);
+  const onBack = () => back ? navigate(-1) : undefined;
 
   return (
     <header className="mobile_header" id="header">
-      {back && <div className="back" onClick={onBack}><i className="fas fa-chevron-left"></i></div>}
-      <div className="title">{title}</div>
+      <div className="title" onClick={onBack}>
+        {back && <i className="fas fa-chevron-left"></i>}
+        <span>{title}</span>
+      </div>
     </header>
   )
 }
