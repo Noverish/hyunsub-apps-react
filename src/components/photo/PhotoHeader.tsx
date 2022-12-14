@@ -13,12 +13,12 @@ export default function PhotoHeader(props: MobileHeaderProps) {
       {
         name: 'Albums',
         link: PhotoRoutes.albums,
-        iconClass: 'fas fa-book',
+        icon: 'fas fa-book',
       },
       {
         name: 'Photos',
         link: PhotoRoutes.photos,
-        iconClass: 'fas fa-images',
+        icon: 'fas fa-images',
       },
     ],
     dropdowns: [
