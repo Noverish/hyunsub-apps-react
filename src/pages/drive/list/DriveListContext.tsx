@@ -2,12 +2,15 @@ import { Dispatch } from "@reduxjs/toolkit";
 import { join } from 'path-browserify';
 import driveListApi from "src/api/drive/drive-list";
 import driveTextGetApi from "src/api/drive/drive-text-get";
+import fileRemoveApi from "src/api/file/file-remove";
 import fileUploadRenameApi from "src/api/file/file-upload-rename";
 import uploadApi from "src/api/file/upload";
 import { FileWithPath } from "src/model/file";
 import { dispatch, RootState } from "src/redux";
+import { GlobalActions } from "src/redux/global";
 import { getPath } from '../DriveHooks';
 import { DriveActions } from '../DriveRedux';
+import t from 'src/i18n';
 
 export const keyboardAction = (e: KeyboardEvent) => async (dispatch: Dispatch, getState: () => RootState) => {
   const path = getPath();
@@ -64,14 +67,12 @@ export const nextAudioAction = () => async (dispatch: Dispatch, getState: () => 
 export const textFileSelectAction = () => async (dispath: Dispatch, getState: () => RootState) => {
   const path = getPath();
   const { file } = getState().drive;
-
   if (!file || file.type !== 'TEXT') {
     return;
   }
+  const filePath = join(path, file.name);
 
   dispatch(DriveActions.update({ text: undefined }));
-
-  const filePath = path + '/' + file.name;
 
   const text = await driveTextGetApi.api({ path: filePath });
 
@@ -106,4 +107,22 @@ export const driveUploadAction = (files: FileWithPath[]) => async (dispatch: Dis
       path: join(currentPath, file.path),
     })
   }
+}
+
+export const driveRemoveAction = () => async (dispatch: Dispatch, getState: () => RootState) => {
+  const path = getPath();
+  const { file } = getState().drive;
+  if (!file) {
+    return;
+  }
+
+  if (!window.confirm(t('drive.msg.remove-confirm') as string)) {
+    return;
+  }
+
+  const filePath = join(path, file.name);
+
+  dispatch(GlobalActions.update({ loading: true }));
+  await fileRemoveApi({ path: filePath });
+  dispatch(GlobalActions.update({ loading: false }));
 }

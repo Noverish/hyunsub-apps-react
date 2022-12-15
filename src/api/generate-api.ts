@@ -4,6 +4,7 @@ import t from 'src/i18n';
 import getErrMsg from 'src/i18n/server-error';
 import { ErrorResponse, PageData } from 'src/model/api';
 import { dispatch } from 'src/redux';
+import { GlobalActions } from 'src/redux/global';
 import { insertToast } from 'src/redux/toast';
 import { isDev, sleep, toJSON } from 'src/utils';
 import QueryClient from './query-client';
@@ -60,6 +61,7 @@ export function generateApi<P, R>(func: (p: P) => AxiosRequestConfig) {
       return res.data;
     } catch (ex) {
       const res = (ex as AxiosError<ErrorResponse>).response!!;
+      dispatch(GlobalActions.update({ loading: false }));
       if (res.status === 400) {
         dispatch(insertToast(getErrMsg(t, res.data)));
       } else if (res.status === 401) {
@@ -82,6 +84,7 @@ export function generateNoParamApi<R>(func: () => AxiosRequestConfig) {
       return res.data;
     } catch (ex) {
       const res = (ex as AxiosError<ErrorResponse>).response!!;
+      dispatch(GlobalActions.update({ loading: false }));
       if (res.status === 400) {
         dispatch(insertToast(getErrMsg(t, res.data)));
       } else if (res.status === 401) {

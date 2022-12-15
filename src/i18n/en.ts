@@ -119,6 +119,7 @@ const en = {
     'apparel.term.makeDt': 'Made Date',
 
     'drive.status-modal.title': 'Upload Status',
+    'drive.msg.remove-confirm': 'Are you sure you want to delete it?',
 
     'PageSelectModal.title': 'Move Page',
     'PageSelectModal.close': 'Close',

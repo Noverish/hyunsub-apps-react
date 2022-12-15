@@ -119,6 +119,7 @@ const ko = {
     'apparel.term.makeDt': '제조년월',
 
     'drive.status-modal.title': '업로드 현황',
+    'drive.msg.remove-confirm': '정말로 삭제하시겠습니까?',
 
     'PageSelectModal.title': '페이지 이동',
     'PageSelectModal.close': '취소',

@@ -7,6 +7,18 @@
 
   section {
     flex: 1 1 0;
+
+    .top_bar {
+      flex: 0 0 auto;
+
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding-right: .75rem;
+
+      font-size: 1.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, .25);
+    }
   }
 
   section.list {
@@ -15,22 +27,9 @@
     border-right: 1px solid rgba(255, 255, 255, .25);
 
     .top_bar {
-      flex: 0 0 auto;
-
-      display: flex;
-      flex-direction: row;
-
-      font-size: 1.5rem;
-      border-bottom: 1px solid rgba(255, 255, 255, .25);
-
       .path {
         padding: .75rem;
         margin-right: auto;
-      }
-
-      .DriveUploadButton {
-        align-self: center;
-        margin-right: .75rem;
       }
     }
 
@@ -40,10 +39,11 @@
   }
 
   section.viewer {
-    .name {
-      font-size: 1.5rem;
-      padding: .75rem;
-      border-bottom: 1px solid rgba(255, 255, 255, .25);
+    .top_bar {
+      .name {
+        padding: .75rem;
+        margin-right: auto;
+      }
     }
 
     .content {
