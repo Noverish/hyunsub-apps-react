@@ -12,6 +12,10 @@ export default function AppsIndex() {
     } else {
       window.location.href = 'https://agnam.hyunsub.kim'
     }
+
+    setTimeout(() => {
+      setClick(0);
+    }, 3000);
   }
 
   return (
