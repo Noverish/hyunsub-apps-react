@@ -1,7 +1,7 @@
 import { AlbumPreview } from "src/model/photo";
-import { generateNoParamQuery } from "../generate-api";
+import { generateQuery } from "../generate-api";
 
-const albumListApi = generateNoParamQuery<AlbumPreview[]>({
+const albumListApi = generateQuery<{}, AlbumPreview[]>({
   api: () => ({
     url: '/api/v1/albums',
     method: 'GET',

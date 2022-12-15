@@ -1,6 +1,6 @@
-import { generateNoParamQuery } from "../generate-api";
+import { generateQuery } from "../generate-api";
 
-const apparelBrands = generateNoParamQuery<string[]>({
+const apparelBrands = generateQuery<{}, string[]>({
   api: () => ({
     url: '/api/v1/brands',
     method: 'GET',

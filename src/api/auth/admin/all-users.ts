@@ -1,7 +1,7 @@
 import { AdminUser } from "src/model/auth";
-import { generateNoParamQuery } from 'src/api/generate-api';
+import { generateQuery } from 'src/api/generate-api';
 
-const getAllUsers = generateNoParamQuery<AdminUser[]>({
+const getAllUsers = generateQuery<{}, AdminUser[]>({
   api: () => ({
     url: '/api/v1/admin/users',
     method: 'GET',

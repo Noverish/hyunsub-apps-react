@@ -14,7 +14,7 @@ export default function ApparelCategoryListPage() {
     document.title = t('apparel.page.category-list.title');
   }, [t]);
 
-  const categories = apparelCategories.useApi();
+  const categories = apparelCategories.useApi({});
 
   const elements = categories.map(v => (
     <ListGroup.Item key={v} as={Link} to={ApparelRoutes.categoryDetailRoute(v)}>

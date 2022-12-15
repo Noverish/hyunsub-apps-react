@@ -14,7 +14,7 @@ export default function ApparelBrandListPage() {
     document.title = t('apparel.page.brand-list.title');
   }, [t]);
 
-  const brands = apparelBrands.useApi();
+  const brands = apparelBrands.useApi({});
 
   const elements = brands.map(v => (
     <ListGroup.Item key={v} as={Link} to={ApparelRoutes.brandDetailRoute(v)}>

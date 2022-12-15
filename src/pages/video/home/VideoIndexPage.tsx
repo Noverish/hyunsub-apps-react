@@ -4,7 +4,7 @@ import NotFoundPage from "src/pages/common/NotFoundPage";
 import routes from 'src/pages/video/VideoRoutes';
 
 export default function VideoIndexPage() {
-  const categories = getCategories.useApi();
+  const categories = getCategories.useApi({});
 
   if (categories.length === 0) {
     return <NotFoundPage />;

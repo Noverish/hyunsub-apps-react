@@ -1,4 +1,4 @@
-import { generateNoParamApi } from "src/api/generate-api";
+import { generateApi } from "src/api/generate-api";
 
 export interface MyPageUserInfo {
   username: string;
@@ -6,7 +6,7 @@ export interface MyPageUserInfo {
   deviceNum: number;
 }
 
-const getMyPageUserInfo = generateNoParamApi<MyPageUserInfo>(() => ({
+const getMyPageUserInfo = generateApi<{}, MyPageUserInfo>(() => ({
   url: '/api/v1/user/my-page',
   method: 'GET',
 }));

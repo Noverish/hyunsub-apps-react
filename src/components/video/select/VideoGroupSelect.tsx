@@ -12,7 +12,7 @@ interface Props {
 
 export default function VieoGroupSelect(props: Props) {
   const { onSelect, disabled } = props;
-  const groups = videoGroups.useApi();
+  const groups = videoGroups.useApi({});
 
   const onSelectChange = (newValue: SingleValue<VideoGroupPreview>, actionMeta: ActionMeta<VideoGroupPreview>) => {
     onSelect?.(newValue);

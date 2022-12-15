@@ -31,7 +31,7 @@ export const loginAction = (params: LoginParameter) => async (dispatch: Dispatch
 
   dispatch(GlobalActions.update({ loading: true }));
 
-  const { publicKey } = await rsaKey();
+  const { publicKey } = await rsaKey({});
 
   const loginParams: LoginParams = {
     username: encrypt(publicKey, state.username),

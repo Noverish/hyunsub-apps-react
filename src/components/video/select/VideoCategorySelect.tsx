@@ -12,7 +12,7 @@ interface Props {
 
 export default function VieoCategorySelect(props: Props) {
   const { onSelect, isInvalid } = props;
-  const categories = getCategories.useApi();
+  const categories = getCategories.useApi({});
 
   const onSelectChange = (newValue : SingleValue<VideoCategory>, actionMeta: ActionMeta<VideoCategory>) => {
     onSelect?.(newValue);
