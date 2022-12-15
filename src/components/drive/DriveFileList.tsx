@@ -1,10 +1,14 @@
 import { useEffect } from 'react';
 import driveListApi from 'src/api/drive/drive-list';
 import DriveFileView from 'src/components/drive/DriveFileView';
-import { useDispatch } from 'src/redux';
 import { usePath } from 'src/pages/drive/DriveHooks';
 import { DriveActions } from 'src/pages/drive/DriveRedux';
-import { keyboardAction } from 'src/pages/drive/list/DriveListContext';
+import { driveUploadAction, keyboardAction } from 'src/pages/drive/list/DriveListContext';
+import { useDispatch } from 'src/redux';
+import FileUploadZone from 'src/components/common/FileUploadZone';
+import { FileWithPath } from 'src/model/file';
+
+import './DriveFileList.scss';
 
 export default function DriveFileList() {
   const dispatch = useDispatch();
@@ -26,14 +30,23 @@ export default function DriveFileList() {
     }
   }, [dispatch]);
 
+  const onUpload = (files: FileWithPath[]) => {
+    dispatch(driveUploadAction(files));
+  }
+
   const elements = list.map(v => (
     <DriveFileView key={v.name} info={v} />
   ));
 
   return (
-    <div className="DriveFileList my-2">
-      {path !== '/' && <DriveFileView info={{ name: '../', type: 'FOLDER', size: '', date: '' }} />}
-      {elements}
-    </div>
+    <FileUploadZone onUpload={onUpload} className="DriveFileList">
+      <div className="wrapper fit_parent">
+        <div className="py-2">
+          {path !== '/' && <DriveFileView info={{ name: '../', type: 'FOLDER', size: '', date: '' }} />}
+          {elements}
+        </div>
+      </div>
+    </FileUploadZone>
+
   )
 }

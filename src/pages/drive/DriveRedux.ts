@@ -1,12 +1,19 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { DriveFileInfo } from 'src/model/drive';
+import { DriveFileInfo, DriveUploadingFile } from 'src/model/drive';
 
 interface State {
   file?: DriveFileInfo;
   text?: string;
+  uploads: DriveUploadingFile[];
 };
 
+interface UpdateUploadPayload {
+  path: string;
+  progress: number;
+}
+
 const initialState: State = {
+  uploads: [],
 };
 
 const slice = createSlice({
@@ -17,6 +24,12 @@ const slice = createSlice({
       ...state,
       ...payload,
     }),
+    updateUpload: (state: State, { payload }: PayloadAction<UpdateUploadPayload>) => {
+      const current = state.uploads.filter(v => v.path === payload.path)[0];
+      if (current) {
+        current.progress = payload.progress;
+      }
+    },
   }
 });
 

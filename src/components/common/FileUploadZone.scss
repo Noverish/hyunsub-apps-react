@@ -1,0 +1,15 @@
+.FileUploadZone {
+  position: relative;
+
+  .dropzone {
+    display: none;
+    font-size: 5rem;
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+
+  &.hover {
+    .dropzone {
+      display: flex;
+    }
+  }
+}

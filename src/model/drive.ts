@@ -20,3 +20,8 @@ export type DriveFileType = typeof _DriveFileType[keyof typeof _DriveFileType];
 export interface DrivePathParams {
   path: string;
 }
+
+export interface DriveUploadingFile {
+  path: string;
+  progress: number;
+}

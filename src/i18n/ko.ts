@@ -118,6 +118,8 @@ const ko = {
     'apparel.term.size2': '사이즈 상세',
     'apparel.term.makeDt': '제조년월',
 
+    'drive.status-modal.title': '업로드 현황',
+
     'PageSelectModal.title': '페이지 이동',
     'PageSelectModal.close': '취소',
     'PageSelectModal.move': '이동',

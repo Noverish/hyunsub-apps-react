@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import './ImageAddButton.scss';
 import cs from 'classnames';
+
+import './ImageAddButton.scss';
 
 interface Props {
   multiple?: boolean;
@@ -23,7 +24,6 @@ export default function ImageAddButton({ multiple, callback }: Props) {
   }
 
   const onDragLeave = () => {
-    console.log('onDragLeave');
     setHover(false);
   }
 

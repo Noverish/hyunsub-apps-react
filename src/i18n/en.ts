@@ -118,6 +118,8 @@ const en = {
     'apparel.term.size2': 'Size Detail',
     'apparel.term.makeDt': 'Made Date',
 
+    'drive.status-modal.title': 'Upload Status',
+
     'PageSelectModal.title': 'Move Page',
     'PageSelectModal.close': 'Close',
     'PageSelectModal.move': 'Move',

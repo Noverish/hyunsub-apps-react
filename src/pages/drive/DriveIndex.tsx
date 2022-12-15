@@ -1,5 +1,6 @@
 import { lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
+import DriveStatusModal from 'src/components/drive/DriveStatusModal';
 import ErrorPage from '../common/ErrorPage';
 import routes from './DriveRoutes';
 
@@ -14,6 +15,7 @@ export default function ApparelIndex() {
         <Route path="/error" element={<ErrorPage />} />
         <Route path={routes.list} element={<DriveListPage />} />
       </Routes>
+      <DriveStatusModal />
     </>
   )
 }
