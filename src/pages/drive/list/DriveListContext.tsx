@@ -3,10 +3,12 @@ import { Dispatch } from "@reduxjs/toolkit";
 import driveListApi from "src/api/drive/drive-list";
 import driveTextGetApi from "src/api/drive/drive-text-get";
 import { dispatch, RootState } from "src/redux";
-import {DriveActions} from '../DriveRedux';
+import { getPath } from '../DriveHooks';
+import { DriveActions } from '../DriveRedux';
 
 export const keyboardAction = (e: KeyboardEvent) => async (dispatch: Dispatch, getState: () => RootState) => {
-  const { path, file } = getState().drive;
+  const path = getPath();
+  const { file } = getState().drive;
   const list = driveListApi.cache({ path }) || [];
 
   if (!file) {
@@ -40,7 +42,8 @@ export const keyboardAction = (e: KeyboardEvent) => async (dispatch: Dispatch, g
 };
 
 export const textFileSelectAction = () => async (dispath: Dispatch, getState: () => RootState) => {
-  const { path, file } = getState().drive;
+  const path = getPath();
+  const { file } = getState().drive;
 
   if (!file || file.type !== 'TEXT') {
     return;

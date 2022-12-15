@@ -1,7 +1,8 @@
-import { DriveFileInfo, DriveFileType } from "src/model/drive"
+import cs from 'classnames';
+import { DriveFileInfo, DriveFileType } from "src/model/drive";
+import { usePath } from 'src/pages/drive/DriveHooks';
 import { DriveActions } from "src/pages/drive/DriveRedux";
 import { useDispatch, useSelector } from "src/redux";
-import cs from 'classnames';
 
 import './DriveFileView.scss';
 
@@ -23,7 +24,8 @@ function getIcon(type: DriveFileType): string {
 
 export default function DriveFileView({ info }: Props) {
   const dispatch = useDispatch();
-  const { path, file } = useSelector(s => s.drive);
+  const [path, setPath] = usePath();
+  const { file } = useSelector(s => s.drive);
   const filePath = path + ((path === '/') ? '' : '/') + info.name;
 
   const selected = file === info;
@@ -33,12 +35,12 @@ export default function DriveFileView({ info }: Props) {
       const segments = path.split('/');
       const newPath = segments.slice(0, segments.length - 1).join('/');
       const newPath2 = (newPath === '') ? '/' : newPath;
-      dispatch(DriveActions.update({ path: newPath2 }));
+      setPath(newPath2);
       return;
     }
 
     if (info.type === 'FOLDER') {
-      dispatch(DriveActions.update({ path: filePath }));
+      setPath(filePath);
       return;
     }
 

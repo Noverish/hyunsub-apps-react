@@ -1,13 +1,14 @@
-import driveListApi from 'src/api/drive/drive-list';
-import { useDispatch, useSelector } from 'src/redux';
 import { useEffect } from 'react';
-import { DriveActions } from '../../pages/drive/DriveRedux';
+import driveListApi from 'src/api/drive/drive-list';
 import DriveFileView from 'src/components/drive/DriveFileView';
-import {keyboardAction} from '../../pages/drive/list/DriveListContext';
+import { useDispatch } from 'src/redux';
+import { usePath } from 'src/pages/drive/DriveHooks';
+import { DriveActions } from 'src/pages/drive/DriveRedux';
+import { keyboardAction } from 'src/pages/drive/list/DriveListContext';
 
 export default function DriveFileList() {
   const dispatch = useDispatch();
-  const { path } = useSelector(s => s.drive);
+  const [path] = usePath();
 
   const list = driveListApi.useApi({ path });
 

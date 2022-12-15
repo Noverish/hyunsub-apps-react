@@ -1,12 +1,14 @@
 import { useEffect } from "react";
 import { Spinner } from "react-bootstrap";
+import { usePath } from 'src/pages/drive/DriveHooks';
 import { useDispatch, useSelector } from "src/redux";
 import AppConstant from "src/utils/constants";
 import { textFileSelectAction } from '../../pages/drive/list/DriveListContext';
 
 export default function DriveFileViewer() {
   const dispatch = useDispatch();
-  const { path, file, text } = useSelector(s => s.drive);
+  const [path] = usePath();
+  const { file, text } = useSelector(s => s.drive);
 
   useEffect(() => {
     if (file && file.type === 'TEXT') {

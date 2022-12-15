@@ -2,12 +2,12 @@ import { Suspense } from "react";
 import DriveFileList from "src/components/drive/DriveFileList";
 import DriveFileViewer from 'src/components/drive/DriveFileViewer';
 import LoadingPage from "src/pages/common/LoadingPage";
-import { useSelector } from 'src/redux';
+import { usePath } from '../DriveHooks';
 
 import './DriveListPage.scss';
 
 export default function DriveListPage() {
-  const { path } = useSelector(s => s.drive);
+  const [path] = usePath();
 
   return (
     <div id="DriveListPage">

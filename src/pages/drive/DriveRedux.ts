@@ -2,13 +2,11 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { DriveFileInfo } from 'src/model/drive';
 
 interface State {
-  path: string;
   file?: DriveFileInfo;
   text?: string;
 };
 
 const initialState: State = {
-  path: '/',
 };
 
 const slice = createSlice({
