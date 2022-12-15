@@ -3,7 +3,7 @@ import { Spinner } from "react-bootstrap";
 import { usePath } from 'src/pages/drive/DriveHooks';
 import { useDispatch, useSelector } from "src/redux";
 import AppConstant from "src/utils/constants";
-import { textFileSelectAction } from '../../pages/drive/list/DriveListContext';
+import { nextAudioAction, textFileSelectAction } from '../../pages/drive/list/DriveListContext';
 
 export default function DriveFileViewer() {
   const dispatch = useDispatch();
@@ -15,6 +15,10 @@ export default function DriveFileViewer() {
       dispatch(textFileSelectAction());
     }
   }, [file, dispatch]);
+
+  const onAudioEnd = () => {
+    dispatch(nextAudioAction());
+  };
 
   if (!file) {
     return <></>
@@ -31,7 +35,7 @@ export default function DriveFileViewer() {
   }
 
   if (file.type === 'AUDIO') {
-    return <audio src={fileUrl} controls autoPlay={true} />;
+    return <audio src={fileUrl} controls autoPlay={true} onEnded={onAudioEnd}/>;
   }
 
   if (file.type === 'TEXT') {

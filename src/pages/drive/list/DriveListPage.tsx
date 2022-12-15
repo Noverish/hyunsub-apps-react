@@ -2,12 +2,14 @@ import { Suspense } from "react";
 import DriveFileList from "src/components/drive/DriveFileList";
 import DriveFileViewer from 'src/components/drive/DriveFileViewer';
 import LoadingPage from "src/pages/common/LoadingPage";
+import { useSelector } from "src/redux";
 import { usePath } from '../DriveHooks';
 
 import './DriveListPage.scss';
 
 export default function DriveListPage() {
   const [path] = usePath();
+  const { file } = useSelector(s => s.drive);
 
   return (
     <div id="DriveListPage">
@@ -22,7 +24,11 @@ export default function DriveListPage() {
       </section>
       <div className="vr" />
       <section className="viewer">
-        <DriveFileViewer />
+        <div className="name">{file?.name || 'No file selected'}</div>
+        <hr />
+        <div className="content">
+          <DriveFileViewer />
+        </div>
       </section>
     </div>
   )

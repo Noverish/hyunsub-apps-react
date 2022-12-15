@@ -41,6 +41,23 @@ export const keyboardAction = (e: KeyboardEvent) => async (dispatch: Dispatch, g
   }
 };
 
+export const nextAudioAction = () => async (dispatch: Dispatch, getState: () => RootState) => {
+  const path = getPath();
+  const { file } = getState().drive;
+  const list = driveListApi.cache({ path }) || [];
+  const audios = list.filter(v => v.name.endsWith('.mp3'));
+
+  if (!file) {
+    return;
+  }
+
+  const index = audios.indexOf(file);
+  const nextAudio = audios[index + 1];
+  if (nextAudio) {
+    dispatch(DriveActions.update({ file: nextAudio }));
+  }
+}
+
 export const textFileSelectAction = () => async (dispath: Dispatch, getState: () => RootState) => {
   const path = getPath();
   const { file } = getState().drive;
