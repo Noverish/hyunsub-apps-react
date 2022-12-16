@@ -31,11 +31,11 @@ export default function DriveFileViewer() {
   }
 
   if (file.type === 'VIDEO') {
-    return <video src={fileUrl} controls />;
+    return <video src={fileUrl} controls autoPlay />;
   }
 
   if (file.type === 'AUDIO') {
-    return <audio src={fileUrl} controls autoPlay={true} onEnded={onAudioEnd}/>;
+    return <audio src={fileUrl} controls autoPlay onEnded={onAudioEnd}/>;
   }
 
   if (file.type === 'TEXT') {

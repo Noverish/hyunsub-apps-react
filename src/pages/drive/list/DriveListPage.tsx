@@ -7,6 +7,7 @@ import LoadingPage from "src/pages/common/LoadingPage";
 import { useDispatch, useSelector } from "src/redux";
 import { usePath } from '../DriveHooks';
 import { driveRemoveAction } from "./DriveListContext";
+import AppConstant from 'src/utils/constants';
 
 import './DriveListPage.scss';
 
@@ -23,6 +24,19 @@ export default function DriveListPage() {
     dispatch(driveRemoveAction());
   }
 
+  const onDownload = () => {
+    if (!file) {
+      return;
+    }
+
+    const fileUrl = AppConstant.file.HOST + path + '/' + file.name;
+
+    const link = document.createElement('a');
+    link.href = fileUrl;
+    link.download = file.name;
+    link.click();
+  }
+
   return (
     <div id="DriveListPage">
       <section className="list">
@@ -37,7 +51,10 @@ export default function DriveListPage() {
       <section className="viewer">
         <div className="top_bar">
           <div className="name">{file?.name || 'No file selected'}</div>
-          {file && <Button variant="danger" onClick={onRemove}><i className="fas fa-trash"/></Button>}
+          <div className="btn_bar">
+            {file && <Button variant="primary" onClick={onDownload}><i className="fas fa-download" /></Button>}
+            {file && <Button variant="danger" onClick={onRemove}><i className="fas fa-trash" /></Button>}
+          </div>
         </div>
         <div className="content">
           <DriveFileViewer />

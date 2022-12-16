@@ -44,6 +44,12 @@
         padding: .75rem;
         margin-right: auto;
       }
+
+      .btn_bar {
+        display: flex;
+        flex-direction: row;
+        gap: .75rem;
+      }
     }
 
     .content {
