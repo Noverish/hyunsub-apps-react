@@ -1,6 +1,5 @@
 import driveListApi from 'src/api/drive/drive-list';
 import DriveFileView from 'src/components/drive/DriveFileView';
-import CommonSuspense from "../common/CommonSuspense";
 import { usePath } from 'src/pages/drive/DriveHooks';
 import { DriveFileInfo } from 'src/model/drive';
 import { useEffect } from 'react';
@@ -12,7 +11,7 @@ interface InnerProps {
 
 function DriveFileListInner({ parent, files }: InnerProps) {
   const elements = files.map(v => (
-    <DriveFileView key={v.name} info={v} />
+    <DriveFileView key={JSON.stringify(v)} info={v} />
   ));
 
   return (
@@ -35,9 +34,8 @@ function DriveFileListOnCurrentPath({ onPathChange }: Pick<Props, 'onPathChange'
   const files = driveListApi.useApi({ path });
 
   useEffect(() => {
-    console.log({ path, files });
     onPathChange?.(path, files);
-  }, [path, files])
+  }, [path, files, onPathChange])
 
   return (
     <DriveFileListInner parent={path !== '/'} files={files} />

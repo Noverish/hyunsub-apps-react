@@ -9,7 +9,7 @@ import DriveHeader from 'src/components/drive/DriveHeader';
 import { useDispatch, useSelector } from 'src/redux';
 import { usePath } from '../DriveHooks';
 import { DriveActions } from '../DriveRedux';
-import { addNumberAction, padNumberAction, replaceAction, resetAction } from './DriveRenameContext';
+import { addNumberAction, padNumberAction, renameBulkAction, replaceAction, resetAction } from './DriveRenameContext';
 
 import './DriveRenamePage.scss';
 
@@ -32,14 +32,18 @@ export default function DriveRenamePage() {
   });
   const [renameMode, setRenameMode] = useState<RenameMode>('');
 
+  const onModeClick = (mode: RenameMode) => () => {
+    if (renameMode === mode) {
+      setRenameMode('');
+    } else {
+      setRenameMode(mode);
+    }
+  }
+
   const replace = () => {
     const from = getValues('from');
     const to = getValues('to');
     dispatch(replaceAction(from, to));
-  }
-
-  const reset = () => {
-    dispatch(resetAction());
   }
 
   const addNumber = (front: boolean) => () => {
@@ -53,12 +57,12 @@ export default function DriveRenamePage() {
     dispatch(padNumberAction(padNum));
   }
 
-  const onModeClick = (mode: RenameMode) => () => {
-    if (renameMode === mode) {
-      setRenameMode('');
-    } else {
-      setRenameMode(mode);
-    }
+  const reset = () => {
+    dispatch(resetAction());
+  }
+
+  const submit = () => {
+    dispatch(renameBulkAction());
   }
 
   return (
@@ -72,7 +76,7 @@ export default function DriveRenamePage() {
               <Button variant={renameMode === 'add_number' ? 'secondary' : 'outline-secondary'} onClick={onModeClick('add_number')}>번호 붙이기</Button>
               <Button variant={renameMode === 'pad_number' ? 'secondary' : 'outline-secondary'} onClick={onModeClick('pad_number')}>자리수 맞추기</Button>
               <Button variant="danger" onClick={reset}>초기화</Button>
-              <Button variant="primary">실제로 적용하기</Button>
+              <Button variant="primary" onClick={submit}>실제로 적용하기</Button>
             </div>
             {renameMode === 'replace' && <div className="mt-2 option">
               <InputGroup className="from">
@@ -118,7 +122,7 @@ function FileListSection() {
 
   useEffect(() => {
     dispatch(DriveActions.update({ renames: prevList }));
-  }, [prevList]);
+  }, [dispatch, prevList]);
 
   return (
     <div id="file_list">

@@ -124,5 +124,6 @@ export const driveRemoveAction = () => async (dispatch: Dispatch, getState: () =
 
   dispatch(GlobalActions.update({ loading: true }));
   await fileRemoveApi({ path: filePath });
+  await driveListApi.fetch({ path }, true);
   dispatch(GlobalActions.update({ loading: false }));
 }

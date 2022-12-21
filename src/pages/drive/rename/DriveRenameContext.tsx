@@ -1,6 +1,8 @@
 import { Dispatch } from "@reduxjs/toolkit";
 import driveListApi from "src/api/drive/drive-list";
+import driveRenameBulkApi, { DriveRenameBulkParamsData } from "src/api/drive/drive-rename-bulk";
 import { RootState } from "src/redux";
+import { GlobalActions } from "src/redux/global";
 import { getPath } from "../DriveHooks";
 import { DriveActions } from "../DriveRedux";
 
@@ -19,12 +21,6 @@ export const replaceAction = (from: string, to: string) => async (dispatch: Disp
     name: v.name.replace(regex, to),
   }));
 
-  const check = new Set(next.map(v => v.name));
-  if (check.size !== next.length) {
-    alert('has duplicates');
-    return;
-  }
-
   dispatch(DriveActions.update({ renames: next }));
 }
 
@@ -41,18 +37,11 @@ export const addNumberAction = (front: boolean, startNum: number, padNum: number
     }
   });
 
-  const check = new Set(next.map(v => v.name));
-  if (check.size !== next.length) {
-    alert('has duplicates');
-    return;
-  }
-
   dispatch(DriveActions.update({ renames: next }));
 };
 
 export const padNumberAction = (padNum: number) => async (dispatch: Dispatch, getState: () => RootState) => {
   const prev = getState().drive.renames;
-  const pad = ''.padStart(padNum, '0');
 
   const next = prev.map((v) => {
     const newName = v.name.replace(/\d+/, (m) => m.padStart(padNum, '0'));
@@ -63,11 +52,33 @@ export const padNumberAction = (padNum: number) => async (dispatch: Dispatch, ge
     }
   });
 
-  const check = new Set(next.map(v => v.name));
-  if (check.size !== next.length) {
-    alert('has duplicates');
+  dispatch(DriveActions.update({ renames: next }));
+};
+
+export const renameBulkAction = () => async (dispatch: Dispatch, getState: () => RootState) => {
+  dispatch(GlobalActions.update({ loading: true }));
+
+  const path = getPath();
+  const prev = driveListApi.cache({ path });
+  if (!prev) {
     return;
   }
 
-  dispatch(DriveActions.update({ renames: next }));
+  const next = getState().drive.renames;
+
+  const renames: DriveRenameBulkParamsData[] = [];
+  for(let i = 0; i < prev?.length; i++) {
+    const from = prev[i].name;
+    const to = next[i].name;
+    if (from !== to) {
+      renames.push({ from, to });
+    }
+  }
+
+  await driveRenameBulkApi({ path, renames });
+
+  const newList = await driveListApi.fetch({ path }, true);
+
+  dispatch(DriveActions.update({ renames: newList }));
+  dispatch(GlobalActions.update({ loading: false }));
 };
