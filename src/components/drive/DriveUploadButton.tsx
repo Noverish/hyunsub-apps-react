@@ -1,5 +1,5 @@
 import { Dropdown, DropdownButton } from 'react-bootstrap';
-import { driveUploadAction } from 'src/pages/drive/list/DriveListContext';
+import { driveUploadAction } from 'src/pages/drive/DriveContext';
 import { useDispatch } from 'src/redux';
 
 export default function DriveUploadButton() {

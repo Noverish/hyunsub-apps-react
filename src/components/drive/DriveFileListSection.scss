@@ -1,0 +1,42 @@
+.DriveFileListSection {
+  display: flex;
+  flex-direction: column;
+
+  .top_bar {
+    flex: 0 0 auto;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-right: .75rem;
+
+    font-size: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, .25);
+
+    .path {
+      padding: .75rem;
+      margin-right: auto;
+    }
+  }
+
+  .content {
+    flex: 1 1 0;
+    position: relative;
+
+    & > .CommonSuspenseFallback {
+      height: 100%;
+    }
+
+    .FileUploadZone {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+
+      .file_list_container {
+        width: 100%;
+        height: 100%;
+        overflow: scroll;
+      }
+    }
+  }
+}

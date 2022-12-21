@@ -1,4 +1,4 @@
-import { InfiniteData, useInfiniteQuery, UseInfiniteQueryResult, useQuery } from '@tanstack/react-query';
+import { InfiniteData, useInfiniteQuery, UseInfiniteQueryResult, useQuery, UseQueryResult } from '@tanstack/react-query';
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import t from 'src/i18n';
 import getErrMsg from 'src/i18n/server-error';
@@ -23,6 +23,7 @@ interface GenerateApiResult<P, R> {
   api: (p: P) => Promise<R>;
   key: (p: P) => string[];
   useApi: (p: P) => R;
+  useApiResult: (p: P) => UseQueryResult<R, unknown>;
   fetch: (p: P) => Promise<R>;
   cache: (p: P) => R | undefined;
   prefetch: (p: P) => void;
@@ -65,6 +66,7 @@ export function generateQuery<P, R>(option: GenerateApiOption<P>): GenerateApiRe
   const api = generateApi<P, R>(option.api);
 
   const useApi = (p: P) => useQuery(key(p), () => api(p), { staleTime: Infinity }).data!!;
+  const useApiResult = (p: P) => useQuery(key(p), () => api(p), { staleTime: Infinity, suspense: false });
   const cache = (p: P) => QueryClient.getQueryData<R>(key(p));
   const fetch = (p: P) => QueryClient.fetchQuery(key(p), () => api(p), { staleTime: Infinity });
   const prefetch = (p: P) => QueryClient.prefetchQuery(key(p), () => api(p), { staleTime: Infinity });
@@ -73,6 +75,7 @@ export function generateQuery<P, R>(option: GenerateApiOption<P>): GenerateApiRe
     api,
     key,
     useApi,
+    useApiResult,
     fetch,
     cache,
     prefetch,

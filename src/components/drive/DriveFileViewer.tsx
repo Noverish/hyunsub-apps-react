@@ -3,7 +3,7 @@ import { Spinner } from "react-bootstrap";
 import { usePath } from 'src/pages/drive/DriveHooks';
 import { useDispatch, useSelector } from "src/redux";
 import AppConstant from "src/utils/constants";
-import { nextAudioAction, textFileSelectAction } from '../../pages/drive/list/DriveListContext';
+import { nextAudioAction, textFileSelectAction } from '../../pages/drive/DriveContext';
 
 export default function DriveFileViewer() {
   const dispatch = useDispatch();

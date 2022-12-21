@@ -45,7 +45,7 @@ export default function FileUploadZone(props: Props) {
       onDragOver={onDragOver}
     >
       {children}
-      <div className="dropzone fit_parent flex_center">
+      <div className="dropzone flex_center">
         <i className="fas fa-upload" />
       </div>
     </div>

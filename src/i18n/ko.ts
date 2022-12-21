@@ -120,6 +120,9 @@ const ko = {
 
     'drive.status-modal.title': '업로드 현황',
     'drive.msg.remove-confirm': '정말로 삭제하시겠습니까?',
+    'drive.menu.preview': '미리 보기',
+    'drive.menu.rename': '이름 변경',
+    'drive.menu.move': '파일 이동',
 
     'PageSelectModal.title': '페이지 이동',
     'PageSelectModal.close': '취소',

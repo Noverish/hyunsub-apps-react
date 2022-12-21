@@ -1,10 +1,11 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { DriveFileInfo, DriveUploadingFile } from 'src/model/drive';
 
 interface State {
   file?: DriveFileInfo;
   text?: string;
   uploads: DriveUploadingFile[];
+  renames: DriveFileInfo[];
 };
 
 interface UpdateUploadPayload {
@@ -14,6 +15,7 @@ interface UpdateUploadPayload {
 
 const initialState: State = {
   uploads: [],
+  renames: [],
 };
 
 const slice = createSlice({

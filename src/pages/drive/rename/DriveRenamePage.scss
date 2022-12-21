@@ -1,0 +1,29 @@
+#DriveRenamePage {
+  .drive_container_content {
+    display: flex;
+    flex-direction: column;
+
+    #btn_bar {
+      flex: 0 0 auto;
+
+      .option {
+        display: flex;
+        gap: .5rem;
+
+        & > div {
+          flex: 0 0 auto;
+          width: auto;
+        }
+      }
+    }
+
+    #file_list {
+      flex: 1 1 0;
+      overflow: scroll;
+
+      .drive_two_column {
+        min-height: 100%;
+      }
+    }
+  }
+}

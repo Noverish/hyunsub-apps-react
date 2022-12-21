@@ -1,0 +1,22 @@
+#DriveContainer {
+  height: 100vh;
+  width: 100vw;
+
+  &.is_mobile {
+    padding-top: calc(var(--header_height_mobile) + var(--hyunsub_app_top_safe_area_height));
+  }
+
+  &.is_desktop {
+    padding-top: var(--header_height_desktop);
+  }
+
+  & > * {
+    height: 100%;
+  }
+}
+
+#TabBar + div #DriveContainer {
+  &.is_mobile {
+    padding-bottom: calc(var(--hyunsub_tabbar_height) + var(--hyunsub_app_bottom_safe_area_height));
+  }
+}

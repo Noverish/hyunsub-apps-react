@@ -120,6 +120,9 @@ const en = {
 
     'drive.status-modal.title': 'Upload Status',
     'drive.msg.remove-confirm': 'Are you sure you want to delete it?',
+    'drive.menu.preview': 'Preview',
+    'drive.menu.rename': 'Rename',
+    'drive.menu.move': 'Move File',
 
     'PageSelectModal.title': 'Move Page',
     'PageSelectModal.close': 'Close',

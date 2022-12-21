@@ -1,21 +1,23 @@
+import cs from 'classnames';
 import { ReactNode } from "react";
-import { Container } from "react-bootstrap";
 import { isMobile } from 'src/utils/user-agent';
 
 import './CommonContainer.scss';
 
 interface Props {
+  noContainer?: boolean;
   children?: ReactNode | undefined;
 }
 
-export default function CommonContainer({ children }: Props) {
+export default function CommonContainer({ children, noContainer }: Props) {
   const className = isMobile() ? 'is_mobile' : 'is_desktop';
+  const className2 = noContainer ? 'no_container' : 'container';
 
   return (
-    <Container id="container" className={className}>
+    <div id="CommonContainer" className={cs(className, className2)}>
       <div className="top" />
       <div className="content">{children}</div>
       <div className="bottom" />
-    </Container>
+    </div>
   )
 }
