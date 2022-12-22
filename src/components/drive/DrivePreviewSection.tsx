@@ -4,6 +4,7 @@ import { usePath } from 'src/pages/drive/DriveHooks';
 import { driveRemoveAction } from 'src/pages/drive/DriveContext';
 import { useDispatch, useSelector } from 'src/redux';
 import AppConstant from 'src/utils/constants';
+import DriveSectionTemplate from './DriveSectionTemplate';
 
 import './DrivePreviewSection.scss';
 
@@ -29,18 +30,20 @@ export default function DrivePreviewSection() {
     link.click();
   }
 
+  const btnBarChilren = (
+    <>
+      {file && <Button variant="primary" onClick={onDownload}><i className="fas fa-download" /></Button>}
+      {file && <Button variant="danger" onClick={onRemove}><i className="fas fa-trash" /></Button>}
+    </>
+  )
+
   return (
-    <section id="DrivePreviewSection">
-      <div className="top_bar">
-        <div className="name">{file?.name || 'No file selected'}</div>
-        <div className="btn_bar">
-          {file && <Button variant="primary" onClick={onDownload}><i className="fas fa-download" /></Button>}
-          {file && <Button variant="danger" onClick={onRemove}><i className="fas fa-trash" /></Button>}
-        </div>
-      </div>
-      <div className="content">
-        <DriveFileViewer />
-      </div>
-    </section>
+    <DriveSectionTemplate
+      className="DrivePreviewSection"
+      title={file?.name || 'No file selected'}
+      btnBarChildren={btnBarChilren}
+    >
+      <DriveFileViewer />
+    </DriveSectionTemplate>
   )
 }

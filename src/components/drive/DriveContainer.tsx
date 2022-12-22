@@ -12,7 +12,9 @@ export default function DriveContainer({ children, className, ...etc }: Props) {
 
   return (
     <div id="DriveContainer" className={cs(className, className1)}>
-      {children}
+      <div className="drive_container_content">
+        {children}
+      </div>
     </div>
   )
 }

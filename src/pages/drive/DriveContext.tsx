@@ -127,3 +127,16 @@ export const driveRemoveAction = () => async (dispatch: Dispatch, getState: () =
   await driveListApi.fetch({ path }, true);
   dispatch(GlobalActions.update({ loading: false }));
 }
+
+export const driveRemoveFolderAction = () => async (dispatch: Dispatch, getState: () => RootState) => {
+  const path = getPath();
+
+  if (!window.confirm(t('drive.msg.remove-confirm') as string)) {
+    return;
+  }
+
+  dispatch(GlobalActions.update({ loading: true }));
+  await fileRemoveApi({ path });
+  await driveListApi.fetch({ path }, true);
+  dispatch(GlobalActions.update({ loading: false }));
+};

@@ -1,15 +1,19 @@
-import driveListApi from 'src/api/drive/drive-list';
-import DriveFileView from 'src/components/drive/DriveFileView';
-import { usePath } from 'src/pages/drive/DriveHooks';
-import { DriveFileInfo } from 'src/model/drive';
 import { useEffect } from 'react';
+import { Button } from 'react-bootstrap';
+import driveListApi from 'src/api/drive/drive-list';
+import FileUploadZone from 'src/components/common/FileUploadZone';
+import DriveFileView from 'src/components/drive/DriveFileView';
+import DriveUploadButton from 'src/components/drive/DriveUploadButton';
+import { DriveFileInfo } from 'src/model/drive';
+import { FileWithPath } from 'src/model/file';
+import { driveRemoveAction, driveUploadAction, keyboardAction } from 'src/pages/drive/DriveContext';
+import { useDispatch } from 'src/redux';
+import { CommonSuspenseFallback } from '../common/CommonSuspense';
 
-interface InnerProps {
-  parent?: boolean;
-  files: DriveFileInfo[];
-}
+import './DriveFileList.scss';
+import DriveSectionTemplate from './DriveSectionTemplate';
 
-function DriveFileListInner({ parent, files }: InnerProps) {
+export function renderDriveFileList(files: DriveFileInfo[], parent?: boolean) {
   const elements = files.map(v => (
     <DriveFileView key={JSON.stringify(v)} info={v} />
   ));
@@ -22,44 +26,70 @@ function DriveFileListInner({ parent, files }: InnerProps) {
   )
 }
 
-function DriveFileListWithPath({ path }: { path: string }) {
-  const files = driveListApi.useApi({ path });
-  return (
-    <DriveFileListInner parent={path !== '/'} files={files} />
-  )
+interface Props {
+  path: string;
 }
 
-function DriveFileListOnCurrentPath({ onPathChange }: Pick<Props, 'onPathChange'>) {
-  const [path] = usePath();
-  const files = driveListApi.useApi({ path });
+export default function DriveFileList({ path }: Props) {
+  const dispatch = useDispatch();
+  const { data: files } = driveListApi.useApiResult({ path });
+  const parent = path !== '/';
 
   useEffect(() => {
-    onPathChange?.(path, files);
-  }, [path, files, onPathChange])
+    window.onkeydown = (e: KeyboardEvent) => {
+      dispatch(keyboardAction(e));
+    }
 
-  return (
-    <DriveFileListInner parent={path !== '/'} files={files} />
-  )
-}
+    return () => {
+      window.onkeydown = null;
+    }
+  }, [dispatch]);
 
-interface Props {
-  path?: string;
-  files?: DriveFileInfo[];
-  parent?: boolean;
-  onPathChange?: (path: string, files: DriveFileInfo[]) => void;
-}
-
-export default function DriveFileList({ path, files, parent, onPathChange }: Props) {
-  let content;
-  if (files) {
-    content = <DriveFileListInner files={files} parent={parent} />;
-  } else if (path) {
-    content = <DriveFileListWithPath path={path} />;
-  } else {
-    content = <DriveFileListOnCurrentPath onPathChange={onPathChange} />;
+  const onUpload = (files: FileWithPath[]) => {
+    dispatch(driveUploadAction(files));
   }
 
+  const onRemove = () => {
+    dispatch(driveRemoveAction());
+  }
+
+  const onNewFolder = () => {
+
+  }
+
+  const content = files
+    ? (
+      <>
+        <div className="files">
+          <FileUploadZone onUpload={onUpload}>
+            <div className="files_inner">
+              {renderDriveFileList(files, parent)}
+            </div>
+          </FileUploadZone>
+        </div>
+        <div className="status flex_center">
+          {files.length} items
+        </div>
+      </>
+    ) : (
+      <CommonSuspenseFallback />
+    )
+
+  const btnBarChildren = (
+    <>
+      <Button variant="danger" onClick={onRemove}><i className="fas fa-trash" /></Button>
+      <Button variant="primary" onClick={onNewFolder}><i className="fas fa-folder-plus" /></Button>
+      <DriveUploadButton />
+    </>
+  );
+
   return (
-    <div className="DriveFileList">{content}</div>
+    <DriveSectionTemplate
+      className="DriveFileList"
+      title={path}
+      btnBarChildren={btnBarChildren}
+    >
+      {content}
+    </DriveSectionTemplate>
   )
 }

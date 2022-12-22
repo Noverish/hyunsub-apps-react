@@ -13,9 +13,9 @@ export default function DriveHeader(props: MobileHeaderProps) {
     title : 'Drive',
     menus: [
       {
-        name: t('drive.menu.preview'),
+        name: t('drive.menu.explorer'),
         link: DriveRoutes.explorerRoute(path),
-        icon: 'far fa-image',
+        icon: 'fas fa-folder',
       },
       {
         name: t('drive.menu.rename'),

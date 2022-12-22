@@ -20,3 +20,7 @@ export function getPath(): string {
   const searchParams = new URLSearchParams(window.location.search);
   return searchParams.get('path') || '/';
 }
+
+export function setPath(path: string) {
+
+}

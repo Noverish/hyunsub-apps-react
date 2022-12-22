@@ -1,11 +1,13 @@
 import { useEffect } from "react";
 import DriveContainer from "src/components/drive/DriveContainer";
-import DriveFileListSection from 'src/components/drive/DriveFileListSection';
+import DriveFileList from "src/components/drive/DriveFileList";
 import DriveHeader from 'src/components/drive/DriveHeader';
 import DrivePreviewSection from "src/components/drive/DrivePreviewSection";
 import { DriveActions } from 'src/pages/drive/DriveRedux';
 import { useDispatch } from "src/redux";
 import { usePath } from '../DriveHooks';
+
+import './DriveExplorerPage.scss';
 
 export default function DriveExplorerPage() {
   const dispatch = useDispatch();
@@ -23,10 +25,8 @@ export default function DriveExplorerPage() {
     <div id="DriveExplorerPage">
       <DriveHeader title="Drive" />
       <DriveContainer>
-        <div className="drive_two_column">
-          <DriveFileListSection />
-          <DrivePreviewSection />
-        </div>
+        <DriveFileList path={path} />
+        <DrivePreviewSection />
       </DriveContainer>
     </div>
   )
