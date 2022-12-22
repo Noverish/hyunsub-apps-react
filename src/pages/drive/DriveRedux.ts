@@ -6,6 +6,7 @@ interface State {
   text?: string;
   uploads: DriveUploadingFile[];
   renames: DriveFileInfo[];
+  showNewFolderModal: boolean;
 };
 
 interface UpdateUploadPayload {
@@ -16,6 +17,7 @@ interface UpdateUploadPayload {
 const initialState: State = {
   uploads: [],
   renames: [],
+  showNewFolderModal: false,
 };
 
 const slice = createSlice({

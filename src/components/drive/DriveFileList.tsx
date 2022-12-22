@@ -6,12 +6,13 @@ import DriveFileView from 'src/components/drive/DriveFileView';
 import DriveUploadButton from 'src/components/drive/DriveUploadButton';
 import { DriveFileInfo } from 'src/model/drive';
 import { FileWithPath } from 'src/model/file';
-import { driveRemoveAction, driveUploadAction, keyboardAction } from 'src/pages/drive/DriveContext';
+import { driveUploadAction, keyboardAction } from 'src/pages/drive/DriveContext';
+import { DriveActions } from 'src/pages/drive/DriveRedux';
 import { useDispatch } from 'src/redux';
 import { CommonSuspenseFallback } from '../common/CommonSuspense';
+import DriveSectionTemplate from './DriveSectionTemplate';
 
 import './DriveFileList.scss';
-import DriveSectionTemplate from './DriveSectionTemplate';
 
 export function renderDriveFileList(files: DriveFileInfo[], parent?: boolean) {
   const elements = files.map(v => (
@@ -50,11 +51,11 @@ export default function DriveFileList({ path }: Props) {
   }
 
   const onRemove = () => {
-    dispatch(driveRemoveAction());
+
   }
 
   const onNewFolder = () => {
-
+    dispatch(DriveActions.update({ showNewFolderModal: true }));
   }
 
   const content = files

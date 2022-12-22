@@ -123,6 +123,9 @@ const ko = {
     'drive.menu.explorer': '파일 탐색기',
     'drive.menu.rename': '이름 변경',
     'drive.menu.move': '파일 이동',
+    'drive.DriveNewFolderModal.title': '새 폴더 생성',
+    'drive.DriveNewFolderModal.label': '새 폴더 이름',
+    'drive.DriveNewFolderModal.button': '생성',
 
     'PageSelectModal.title': '페이지 이동',
     'PageSelectModal.close': '취소',

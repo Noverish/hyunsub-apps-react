@@ -123,6 +123,9 @@ const en = {
     'drive.menu.explorer': 'Explorer',
     'drive.menu.rename': 'Rename',
     'drive.menu.move': 'Move File',
+    'drive.DriveNewFolderModal.title': 'Create New Folder',
+    'drive.DriveNewFolderModal.label': 'Folder Name',
+    'drive.DriveNewFolderModal.button': 'Create',
 
     'PageSelectModal.title': 'Move Page',
     'PageSelectModal.close': 'Close',

@@ -24,7 +24,7 @@ function getIcon(type: DriveFileType): string {
 
 export default function DriveFileView({ info }: Props) {
   const dispatch = useDispatch();
-  const [path, setPath] = usePath();
+  const [path, setPath, goParent] = usePath();
   const { file } = useSelector(s => s.drive);
   const filePath = path + ((path === '/') ? '' : '/') + info.name;
 
@@ -32,10 +32,7 @@ export default function DriveFileView({ info }: Props) {
 
   const onClick = () => {
     if (info.name === '../') {
-      const segments = path.split('/');
-      const newPath = segments.slice(0, segments.length - 1).join('/');
-      const newPath2 = (newPath === '') ? '/' : newPath;
-      setPath(newPath2);
+      goParent();
       return;
     }
 

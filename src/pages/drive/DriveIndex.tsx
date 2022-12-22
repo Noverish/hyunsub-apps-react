@@ -1,5 +1,6 @@
 import { lazy } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
+import DriveNewFolderModal from 'src/components/drive/DriveNewFolderModal';
 import DriveStatusModal from 'src/components/drive/DriveStatusModal';
 import ErrorPage from '../common/ErrorPage';
 import routes from './DriveRoutes';
@@ -10,7 +11,7 @@ const NotFoundPage = lazy(() => import('src/pages/common/NotFoundPage'));
 const DriveExplorerPage = lazy(() => import('src/pages/drive/explorer/DriveExplorerPage'));
 const DriveRenamePage = lazy(() => import('src/pages/drive/rename/DriveRenamePage'));
 
-export default function ApparelIndex() {
+export default function DriveIndex() {
   return (
     <>
       <Routes>
@@ -21,6 +22,7 @@ export default function ApparelIndex() {
         <Route path={routes.rename} element={<DriveRenamePage />} />
       </Routes>
       <DriveStatusModal />
+      <DriveNewFolderModal />
     </>
   )
 }

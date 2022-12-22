@@ -1,16 +1,17 @@
 import { Dispatch } from "@reduxjs/toolkit";
 import { join } from 'path-browserify';
 import driveListApi from "src/api/drive/drive-list";
+import driveNewFolderApi from "src/api/drive/drive-new-folder";
 import driveTextGetApi from "src/api/drive/drive-text-get";
 import fileRemoveApi from "src/api/file/file-remove";
 import fileUploadRenameApi from "src/api/file/file-upload-rename";
 import uploadApi from "src/api/file/upload";
+import t from 'src/i18n';
 import { FileWithPath } from "src/model/file";
 import { dispatch, RootState } from "src/redux";
 import { GlobalActions } from "src/redux/global";
-import { getPath } from './DriveHooks';
+import { getParent, getPath } from './DriveHooks';
 import { DriveActions } from './DriveRedux';
-import t from 'src/i18n';
 
 export const keyboardAction = (e: KeyboardEvent) => async (dispatch: Dispatch, getState: () => RootState) => {
   const path = getPath();
@@ -128,15 +129,23 @@ export const driveRemoveAction = () => async (dispatch: Dispatch, getState: () =
   dispatch(GlobalActions.update({ loading: false }));
 }
 
-export const driveRemoveFolderAction = () => async (dispatch: Dispatch, getState: () => RootState) => {
-  const path = getPath();
-
+export const driveRemoveFolderAction = (path: string) => async (dispatch: Dispatch, getState: () => RootState) => {
   if (!window.confirm(t('drive.msg.remove-confirm') as string)) {
     return;
   }
 
   dispatch(GlobalActions.update({ loading: true }));
   await fileRemoveApi({ path });
+  const parent = getParent(path);
+  await driveListApi.fetch({ path: parent }, true);
+  dispatch(GlobalActions.update({ loading: false }));
+};
+
+export const driveNewFolderAction = (name: string) => async (dispatch: Dispatch, getState: () => RootState) => {
+  dispatch(GlobalActions.update({ loading: true }));
+  const path = getPath();
+  const folderPath = path + '/' + name;
+  await driveNewFolderApi({ path: folderPath });
   await driveListApi.fetch({ path }, true);
   dispatch(GlobalActions.update({ loading: false }));
 };
