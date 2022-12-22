@@ -33,7 +33,7 @@ export default function DriveUploadButton() {
   }
 
   return (
-    <DropdownButton className="DriveUploadButton" align="end" title="Upload" menuVariant="dark">
+    <DropdownButton className="DriveUploadButton d-flex" align="end" title="Upload" menuVariant="dark">
       <Dropdown.Item onClick={onUploadFile}>Upload Files</Dropdown.Item>
       <Dropdown.Item onClick={onUploadFolder}>Upload Folder</Dropdown.Item>
     </DropdownButton>

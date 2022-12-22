@@ -3,7 +3,6 @@
   flex-direction: column;
 
   & > .top_bar {
-    height: 64px;
     flex: 0 0 auto;
 
     display: flex;
@@ -14,6 +13,11 @@
 
     font-size: 1.5rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+
+    & > .title {
+      align-self: flex-start;
+      height: 38px;
+    }
 
     & > .btn_bar {
       display: flex;
