@@ -1,31 +1,28 @@
 import { useTranslation } from 'react-i18next';
 import DriveRoutes from 'src/pages/drive/DriveRoutes';
-import { usePath } from 'src/pages/drive/DriveHooks';
 import { isMobile } from 'src/utils/user-agent';
 import DesktopHeader, { DesktopHeaderProps } from '../common/header/DesktopHeader';
 import MobileHeader, { MobileHeaderProps } from '../common/header/MobileHeader';
 
 export default function DriveHeader(props: MobileHeaderProps) {
   const { t } = useTranslation();
-  const [path] = usePath();
-  const [path2] = usePath(2);
 
   const desktopProps: DesktopHeaderProps = {
     title : 'Drive',
     menus: [
       {
         name: t('drive.menu.explorer'),
-        link: DriveRoutes.explorerRoute(path),
+        link: DriveRoutes.explorer,
         icon: 'fas fa-folder',
       },
       {
         name: t('drive.menu.rename'),
-        link: DriveRoutes.renameRoute(path),
+        link: DriveRoutes.rename,
         icon: 'fas fa-edit',
       },
       {
         name: t('drive.menu.move'),
-        link: DriveRoutes.moveRoute(path, path2),
+        link: DriveRoutes.move,
         icon: 'fas fa-exchange-alt',
       }
     ],

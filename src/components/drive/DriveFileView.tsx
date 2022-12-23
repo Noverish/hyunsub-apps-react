@@ -1,14 +1,14 @@
 import cs from 'classnames';
+import React from 'react';
 import { DriveFileInfo, DriveFileType } from "src/model/drive";
-import { usePath } from 'src/pages/drive/DriveHooks';
-import { DriveActions } from "src/pages/drive/DriveRedux";
+import { driveFileClickAction } from 'src/pages/drive/DriveContext';
 import { useDispatch, useSelector } from "src/redux";
 
 import './DriveFileView.scss';
 
 interface Props {
   info: DriveFileInfo;
-  index?: number;
+  index: number;
 }
 
 function getIcon(type: DriveFileType): string {
@@ -25,28 +25,15 @@ function getIcon(type: DriveFileType): string {
 
 export default function DriveFileView({ info, index }: Props) {
   const dispatch = useDispatch();
-  const [path, setPath, goParent] = usePath(index);
-  const { file } = useSelector(s => s.drive);
-  const filePath = path + ((path === '/') ? '' : '/') + info.name;
+  const selects = useSelector(s => s.drive.status[index]?.selects) || [];
+  const selected = selects.includes(info.name);
 
-  const selected = file === info;
-
-  const onClick = () => {
-    if (info.name === '../') {
-      goParent();
-      return;
-    }
-
-    if (info.type === 'FOLDER') {
-      setPath(filePath);
-      return;
-    }
-
-    dispatch(DriveActions.update({ file: info }));
+  const onClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    dispatch(driveFileClickAction(index, info, e));
   }
 
   return (
-    <div className={cs('DriveFileView', { selected })} onClick={onClick}>
+    <div className={cs('DriveFileView', { selected })} onClick={onClick} draggable>
       <div className={cs('icon', info.type.toLowerCase())}>
         <i className={getIcon(info.type)} />
       </div>

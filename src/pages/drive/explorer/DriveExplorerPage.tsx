@@ -3,16 +3,16 @@ import DriveContainer from "src/components/drive/DriveContainer";
 import DriveFileList from "src/components/drive/DriveFileList";
 import DriveHeader from 'src/components/drive/DriveHeader';
 import DrivePreviewSection from "src/components/drive/DrivePreviewSection";
+import { keyboardAction } from 'src/pages/drive/DriveContext';
+import { useDriveStatus } from 'src/pages/drive/DriveHooks';
 import { DriveActions } from 'src/pages/drive/DriveRedux';
 import { useDispatch } from "src/redux";
-import { usePath } from '../DriveHooks';
-import { keyboardAction } from 'src/pages/drive/DriveContext';
 
 import './DriveExplorerPage.scss';
 
 export default function DriveExplorerPage() {
   const dispatch = useDispatch();
-  const [path] = usePath();
+  const { path } = useDriveStatus();
 
   useEffect(() => {
     window.document.title = path;
@@ -36,7 +36,7 @@ export default function DriveExplorerPage() {
     <div id="DriveExplorerPage">
       <DriveHeader title="Drive" />
       <DriveContainer>
-        <DriveFileList />
+        <DriveFileList index={0} />
         <DrivePreviewSection />
       </DriveContainer>
     </div>

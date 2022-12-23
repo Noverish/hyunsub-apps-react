@@ -20,12 +20,8 @@ export const loadState = () => {
 };
 
 export const saveState = (state: RootState) => {
-  try {
-    const serializedState = JSON.stringify(state);
-    localStorage.setItem("redux", serializedState);
-  } catch (err) {
-    console.log(err);
-  }
+  const serializedState = JSON.stringify(state);
+  localStorage.setItem("redux", serializedState);
 };
 
 const reducer = combineReducers({ auth, video, photo, encode, toast, global, drive });

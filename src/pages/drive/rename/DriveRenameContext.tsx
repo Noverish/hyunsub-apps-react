@@ -3,11 +3,11 @@ import driveListApi from "src/api/drive/drive-list";
 import driveRenameBulkApi, { DriveRenameBulkParamsData } from "src/api/drive/drive-rename-bulk";
 import { RootState } from "src/redux";
 import { GlobalActions } from "src/redux/global";
-import { getPath } from "../DriveHooks";
 import { DriveActions } from "../DriveRedux";
+import { getDriveStatus } from 'src/pages/drive/DriveHooks';
 
 export const resetAction = () => async (dispatch: Dispatch, getState: () => RootState) => {
-  const path = getPath();
+  const { path } = getDriveStatus();
   const list = driveListApi.cache({ path });
   dispatch(DriveActions.update({ renames: list }));
 };
@@ -58,7 +58,7 @@ export const padNumberAction = (padNum: number) => async (dispatch: Dispatch, ge
 export const renameBulkAction = () => async (dispatch: Dispatch, getState: () => RootState) => {
   dispatch(GlobalActions.update({ loading: true }));
 
-  const path = getPath();
+  const { path } = getDriveStatus();
   const prev = driveListApi.cache({ path });
   if (!prev) {
     return;

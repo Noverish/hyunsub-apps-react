@@ -1,44 +1,47 @@
-import { useEffect } from "react";
+import { join } from "src/utils/path";
+import { useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
-import { usePath } from 'src/pages/drive/DriveHooks';
-import { useDispatch, useSelector } from "src/redux";
+import driveTextGetApi from "src/api/drive/drive-text-get";
+import { DriveFileInfo } from "src/model/drive";
+import { nextAudioAction } from 'src/pages/drive/DriveContext';
+import { useDispatch } from "src/redux";
 import AppConstant from "src/utils/constants";
-import { nextAudioAction, textFileSelectAction } from '../../pages/drive/DriveContext';
 
-export default function DriveFileViewer() {
+interface Props {
+  path: string;
+  info: DriveFileInfo;
+}
+
+export default function DriveFileViewer({ path, info }: Props) {
   const dispatch = useDispatch();
-  const [path] = usePath();
-  const { file, text } = useSelector(s => s.drive);
+  const [text, setText] = useState('');
+  const filePath = join(path, info.name)
+  const fileUrl = AppConstant.file.HOST + filePath;
 
   useEffect(() => {
-    if (file && file.type === 'TEXT') {
-      dispatch(textFileSelectAction());
+    if (info && info.type === 'TEXT') {
+      setText('');
+      driveTextGetApi.fetch({ path: filePath }).then(v => setText(v));
     }
-  }, [file, dispatch]);
+  }, [dispatch, info, filePath]);
 
   const onAudioEnd = () => {
     dispatch(nextAudioAction());
   };
 
-  if (!file) {
-    return <></>
+  if (info.type === 'IMAGE') {
+    return <img src={fileUrl} alt={info.name} />;
   }
 
-  const fileUrl = AppConstant.file.HOST + path + '/' + file.name;
-
-  if (file.type === 'IMAGE') {
-    return <img src={fileUrl} alt={file.name} />;
-  }
-
-  if (file.type === 'VIDEO') {
+  if (info.type === 'VIDEO') {
     return <video src={fileUrl} controls autoPlay />;
   }
 
-  if (file.type === 'AUDIO') {
+  if (info.type === 'AUDIO') {
     return <audio src={fileUrl} controls autoPlay onEnded={onAudioEnd}/>;
   }
 
-  if (file.type === 'TEXT') {
+  if (info.type === 'TEXT') {
     if (text) {
       return <pre><code>{text}</code></pre>
     } else {
@@ -46,9 +49,9 @@ export default function DriveFileViewer() {
     }
   }
 
-  if (file.type === 'PDF') {
+  if (info.type === 'PDF') {
     return <object data={fileUrl}>{fileUrl}</object>;
   }
 
-  return <div>{fileUrl}</div>;
+  return <div>{filePath}</div>;
 }

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { DriveFileInfo, DriveUploadingFile } from 'src/model/drive';
+import { DriveFileInfo, DriveUploadingFile, DriveWindowStatus } from 'src/model/drive';
 
 interface State {
   file?: DriveFileInfo;
@@ -7,6 +7,7 @@ interface State {
   uploads: DriveUploadingFile[];
   renames: DriveFileInfo[];
   showNewFolderModal: boolean;
+  status: DriveWindowStatus[];
 };
 
 interface UpdateUploadPayload {
@@ -18,6 +19,7 @@ const initialState: State = {
   uploads: [],
   renames: [],
   showNewFolderModal: false,
+  status: [],
 };
 
 const slice = createSlice({
@@ -32,6 +34,18 @@ const slice = createSlice({
       const current = state.uploads.filter(v => v.path === payload.path)[0];
       if (current) {
         current.progress = payload.progress;
+      }
+    },
+    updateStatus: (state: State, { payload }: PayloadAction<Partial<DriveWindowStatus> & { index: number }>) => {
+      const { index, ...newStatus } = payload;
+      const status = state.status[index] || { path: '/', selects: [] };
+      if (newStatus.path) {
+        state.status[index] = { path: newStatus.path, selects: [] };
+      } else {
+        state.status[index] = { ...status, ...newStatus };
+      }
+      if (newStatus.lastSelect) {
+        state.status[index].lastSelectTime = new Date().getTime();
       }
     },
   }

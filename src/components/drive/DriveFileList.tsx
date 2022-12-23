@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 import driveListApi from 'src/api/drive/drive-list';
 import FileUploadZone from 'src/components/common/FileUploadZone';
@@ -6,16 +5,16 @@ import DriveFileView from 'src/components/drive/DriveFileView';
 import DriveUploadButton from 'src/components/drive/DriveUploadButton';
 import { DriveFileInfo } from 'src/model/drive';
 import { FileWithPath } from 'src/model/file';
-import { driveUploadAction, keyboardAction } from 'src/pages/drive/DriveContext';
+import { driveUploadAction } from 'src/pages/drive/DriveContext';
+import { useDriveStatus } from 'src/pages/drive/DriveHooks';
 import { DriveActions } from 'src/pages/drive/DriveRedux';
 import { useDispatch } from 'src/redux';
 import { CommonSuspenseFallback } from '../common/CommonSuspense';
 import DriveSectionTemplate from './DriveSectionTemplate';
-import { usePath } from 'src/pages/drive/DriveHooks';
 
 import './DriveFileList.scss';
 
-export function renderDriveFileList(files: DriveFileInfo[], index?: number, parent?: boolean) {
+export function renderDriveFileList(files: DriveFileInfo[], index: number, parent?: boolean) {
   const elements = files.map(v => (
     <DriveFileView key={JSON.stringify(v)} info={v} index={index} />
   ));
@@ -29,21 +28,16 @@ export function renderDriveFileList(files: DriveFileInfo[], index?: number, pare
 }
 
 interface Props {
-  index?: number;
+  index: number;
 }
 
 export default function DriveFileList({ index }: Props) {
   const dispatch = useDispatch();
-  const [path] = usePath(index);
+  const { path } = useDriveStatus(index);
   const { data: files } = driveListApi.useApiResult({ path });
-  const parent = path !== '/';
 
   const onUpload = (files: FileWithPath[]) => {
     dispatch(driveUploadAction(path, files));
-  }
-
-  const onRemove = () => {
-
   }
 
   const onNewFolder = () => {
@@ -56,7 +50,7 @@ export default function DriveFileList({ index }: Props) {
         <div className="files">
           <FileUploadZone onUpload={onUpload}>
             <div className="files_inner">
-              {renderDriveFileList(files, index, parent)}
+              {renderDriveFileList(files, index, path !== '/')}
             </div>
           </FileUploadZone>
         </div>
@@ -70,7 +64,6 @@ export default function DriveFileList({ index }: Props) {
 
   const btnBarChildren = (
     <>
-      <Button variant="danger" onClick={onRemove}><i className="fas fa-trash" /></Button>
       <Button variant="primary" onClick={onNewFolder}><i className="fas fa-folder-plus" /></Button>
       <DriveUploadButton path={path} />
     </>

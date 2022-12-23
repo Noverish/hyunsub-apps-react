@@ -1,25 +1,25 @@
-import DriveHeader from 'src/components/drive/DriveHeader';
+import { useEffect } from 'react';
 import DriveContainer from 'src/components/drive/DriveContainer';
 import DriveFileList from 'src/components/drive/DriveFileList';
-import { usePath } from '../DriveHooks';
-import { useEffect } from 'react';
+import DriveHeader from 'src/components/drive/DriveHeader';
+import { useDriveStatus } from 'src/pages/drive/DriveHooks';
 
 import './DriveMovePage.scss';
 
 export default function DriveMovePage() {
-  const [path] = usePath();
-  const [path2] = usePath(2);
+  const { path: path1 } = useDriveStatus();
+  const { path: path2 } = useDriveStatus(1);
 
   useEffect(() => {
-    window.document.title = `${path} - ${path2}`;
-  }, [path, path2]);
+    window.document.title = `${path1} - ${path2}`;
+  }, [path1, path2]);
 
   return (
     <div id="DriveMovePage">
       <DriveHeader title="Drive" />
       <DriveContainer>
         <DriveFileList index={0} />
-        <DriveFileList index={2} />
+        <DriveFileList index={1} />
       </DriveContainer>
     </div>
   )

@@ -1,22 +1,18 @@
 import { useEffect } from 'react';
 import driveListApi from 'src/api/drive/drive-list';
-import { useDispatch, useSelector } from 'src/redux';
-import { usePath } from 'src/pages/drive/DriveHooks';
-import { DriveActions } from 'src/pages/drive/DriveRedux';
-import { renderDriveFileList } from './DriveFileList';
 import { CommonSuspenseFallback } from 'src/components/common/CommonSuspense';
-import DriveSectionTemplate from './DriveSectionTemplate';
 import DriveRenameControl from 'src/components/drive/DriveRenameControl';
+import { useDriveStatus } from 'src/pages/drive/DriveHooks';
+import { DriveActions } from 'src/pages/drive/DriveRedux';
+import { useDispatch, useSelector } from 'src/redux';
+import { renderDriveFileList } from './DriveFileList';
+import DriveSectionTemplate from './DriveSectionTemplate';
 
 import './DriveRenameFileList.scss';
 
-interface Props {
-
-}
-
-export default function DriveRenameFileList(props: Props) {
+export default function DriveRenameFileList() {
   const dispatch = useDispatch();
-  const [path] = usePath();
+  const { path } = useDriveStatus();
   const { data: prevList } = driveListApi.useApiResult({ path });
   const { renames: nextList } = useSelector(s => s.drive);
   const parent = path !== '/';

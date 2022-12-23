@@ -25,3 +25,10 @@ export interface DriveUploadingFile {
   path: string;
   progress: number;
 }
+
+export interface DriveWindowStatus {
+  path: string;
+  selects: string[];
+  lastSelect?: DriveFileInfo;
+  lastSelectTime?: number;
+}

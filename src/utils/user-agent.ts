@@ -4,3 +4,4 @@ export const isIOS = () =>
   || (navigator.userAgent.includes('Mac') && 'ontouchend' in document);
 export const isAOS = () => /android/i.test(navigator.userAgent);
 export const isApp = () => /Hyunsub/i.test(navigator.userAgent);
+export const isMac = () => /mac/i.test(navigator.userAgent);
