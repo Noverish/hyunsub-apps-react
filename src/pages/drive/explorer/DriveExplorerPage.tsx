@@ -5,7 +5,6 @@ import DriveHeader from 'src/components/drive/DriveHeader';
 import DrivePreviewSection from "src/components/drive/DrivePreviewSection";
 import { keyboardAction } from 'src/pages/drive/DriveContext';
 import { useDriveStatus } from 'src/pages/drive/DriveHooks';
-import { DriveActions } from 'src/pages/drive/DriveRedux';
 import { useDispatch } from "src/redux";
 
 import './DriveExplorerPage.scss';
@@ -17,10 +16,6 @@ export default function DriveExplorerPage() {
   useEffect(() => {
     window.document.title = path;
   }, [path]);
-
-  useEffect(() => {
-    dispatch(DriveActions.update({ file: undefined }));
-  }, [dispatch, path]);
 
   useEffect(() => {
     window.onkeydown = (e: KeyboardEvent) => {

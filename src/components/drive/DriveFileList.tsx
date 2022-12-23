@@ -33,7 +33,7 @@ interface Props {
 
 export default function DriveFileList({ index }: Props) {
   const dispatch = useDispatch();
-  const { path } = useDriveStatus(index);
+  const { path, selects } = useDriveStatus(index);
   const { data: files } = driveListApi.useApiResult({ path });
 
   const onUpload = (files: FileWithPath[]) => {
@@ -55,7 +55,11 @@ export default function DriveFileList({ index }: Props) {
           </FileUploadZone>
         </div>
         <div className="status flex_center">
-          {files.length} items
+          {
+            selects.length > 0
+              ? `${selects.length} / ${files.length} selected`
+              : `${files.length} items`
+          }
         </div>
       </>
     ) : (

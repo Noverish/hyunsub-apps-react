@@ -53,5 +53,5 @@ export default function DriveFileViewer({ path, info }: Props) {
     return <object data={fileUrl}>{fileUrl}</object>;
   }
 
-  return <div>{filePath}</div>;
+  return <div>{info.name === '../' ? '../' : filePath}</div>;
 }

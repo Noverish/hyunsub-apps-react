@@ -23,7 +23,7 @@ export const keyboardAction = (e: KeyboardEvent) => async (dispatch: Dispatch, g
   if (!file) {
     const firstFile = list[0];
     if (firstFile) {
-      dispatch(DriveActions.updateStatus({ index: 0, selects: [firstFile.name], lastSelect: firstFile }));
+      dispatch(DriveActions.updateStatus({ selects: [firstFile.name], lastSelect: firstFile }));
     }
     return;
   }
@@ -36,7 +36,7 @@ export const keyboardAction = (e: KeyboardEvent) => async (dispatch: Dispatch, g
   if (e.key === 'ArrowDown') {
     const newFile = list[index + 1];
     if (newFile) {
-      dispatch(DriveActions.updateStatus({ index: 0, selects: [newFile.name], lastSelect: newFile }));
+      dispatch(DriveActions.updateStatus({ selects: [newFile.name], lastSelect: newFile }));
     }
     return;
   }
@@ -44,15 +44,14 @@ export const keyboardAction = (e: KeyboardEvent) => async (dispatch: Dispatch, g
   if (e.key === 'ArrowUp') {
     const newFile = list[index - 1];
     if (newFile) {
-      dispatch(DriveActions.updateStatus({ index: 0, selects: [newFile.name],lastSelect: newFile }));
+      dispatch(DriveActions.updateStatus({ selects: [newFile.name],lastSelect: newFile }));
     }
     return;
   }
 };
 
 export const nextAudioAction = () => async (dispatch: Dispatch, getState: () => RootState) => {
-  const { path } = getDriveStatus();
-  const { file } = getState().drive;
+  const { path, lastSelect: file } = getDriveStatus();
   const list = driveListApi.cache({ path }) || [];
   const audios = list.filter(v => v.name.endsWith('.mp3'));
 
@@ -63,7 +62,7 @@ export const nextAudioAction = () => async (dispatch: Dispatch, getState: () => 
   const index = audios.indexOf(file);
   const nextAudio = audios[index + 1];
   if (nextAudio) {
-    dispatch(DriveActions.update({ file: nextAudio }));
+    dispatch(DriveActions.updateStatus({ selects: [nextAudio.name], lastSelect: nextAudio }));
   }
 }
 
@@ -97,8 +96,7 @@ export const driveUploadAction = (path: string, files: FileWithPath[]) => async 
 }
 
 export const driveRemoveAction = () => async (dispatch: Dispatch, getState: () => RootState) => {
-  const { path } = getDriveStatus();
-  const { file } = getState().drive;
+  const { path, lastSelect: file } = getDriveStatus();
   if (!file) {
     return;
   }
