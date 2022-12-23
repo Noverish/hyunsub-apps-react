@@ -2,7 +2,11 @@ import { Dropdown, DropdownButton } from 'react-bootstrap';
 import { driveUploadAction } from 'src/pages/drive/DriveContext';
 import { useDispatch } from 'src/redux';
 
-export default function DriveUploadButton() {
+interface Props {
+  path: string;
+}
+
+export default function DriveUploadButton({ path }: Props) {
   const dispatch = useDispatch();
 
   const onUpload = (input: HTMLInputElement) => {
@@ -11,7 +15,7 @@ export default function DriveUploadButton() {
       path: (v.webkitRelativePath === '') ? v.name : v.webkitRelativePath,
     }));
 
-    dispatch(driveUploadAction(result));
+    dispatch(driveUploadAction(path, result));
   }
 
   const onUploadFile = () => {

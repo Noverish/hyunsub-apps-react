@@ -1,14 +1,15 @@
 import { useSearchParams } from 'react-router-dom';
 
-export function usePath(): [string, (newPath: string) => void, () => void] {
+export function usePath(index?: number): [string, (newPath: string) => void, () => void] {
   const [searchParams, setSearchParams] = useSearchParams();
-  const path = searchParams.get('path') || '/';
+  const name = (index) ? `path${index}` : 'path';
+  const path = searchParams.get(name) || '/';
 
   const setPath = (newPath: string) => {
     if (newPath === '/') {
-      searchParams.delete('path');
+      searchParams.delete(name);
     } else {
-      searchParams.set('path', newPath);
+      searchParams.set(name, newPath);
     }
     setSearchParams(searchParams);
   }
@@ -20,13 +21,10 @@ export function usePath(): [string, (newPath: string) => void, () => void] {
   return [path, setPath, goParent];
 }
 
-export function getPath(): string {
+export function getPath(index?: number): string {
+  const name = (index) ? `path${index}` : 'path';
   const searchParams = new URLSearchParams(window.location.search);
-  return searchParams.get('path') || '/';
-}
-
-export function setPath(path: string) {
-
+  return searchParams.get(name) || '/';
 }
 
 export function getParent(path: string) {

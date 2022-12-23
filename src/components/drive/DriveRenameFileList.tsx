@@ -34,10 +34,10 @@ export default function DriveRenameFileList(props: Props) {
           <div className="files_inner">
             <div className="files_inner_2">
               <div className="files_inner_3">
-                {renderDriveFileList(prevList, parent)}
+                {renderDriveFileList(prevList, 0, parent)}
               </div>
               <div className="files_inner_3">
-                {renderDriveFileList(nextList, parent)}
+                {renderDriveFileList(nextList, 0, parent)}
               </div>
             </div>
           </div>

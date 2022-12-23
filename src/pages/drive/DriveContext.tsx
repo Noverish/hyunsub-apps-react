@@ -80,9 +80,8 @@ export const textFileSelectAction = () => async (dispath: Dispatch, getState: ()
   dispatch(DriveActions.update({ text }));
 }
 
-export const driveUploadAction = (files: FileWithPath[]) => async (dispatch: Dispatch, getState: () => RootState) => {
+export const driveUploadAction = (path: string, files: FileWithPath[]) => async (dispatch: Dispatch, getState: () => RootState) => {
   const { uploads } = getState().drive;
-  const currentPath = getPath();
 
   files.sort((a, b) => a.path.localeCompare(b.path));
 
@@ -105,7 +104,7 @@ export const driveUploadAction = (files: FileWithPath[]) => async (dispatch: Dis
 
     await fileUploadRenameApi({
       nonce,
-      path: join(currentPath, file.path),
+      path: join(path, file.path),
     })
   }
 }

@@ -11,43 +11,35 @@ import { DriveActions } from 'src/pages/drive/DriveRedux';
 import { useDispatch } from 'src/redux';
 import { CommonSuspenseFallback } from '../common/CommonSuspense';
 import DriveSectionTemplate from './DriveSectionTemplate';
+import { usePath } from 'src/pages/drive/DriveHooks';
 
 import './DriveFileList.scss';
 
-export function renderDriveFileList(files: DriveFileInfo[], parent?: boolean) {
+export function renderDriveFileList(files: DriveFileInfo[], index?: number, parent?: boolean) {
   const elements = files.map(v => (
-    <DriveFileView key={JSON.stringify(v)} info={v} />
+    <DriveFileView key={JSON.stringify(v)} info={v} index={index} />
   ));
 
   return (
     <>
-      {parent && <DriveFileView info={{ name: '../', type: 'FOLDER', size: '', date: '' }} />}
+      {parent && <DriveFileView info={{ name: '../', type: 'FOLDER', size: '', date: '' }} index={index} />}
       {elements}
     </>
   )
 }
 
 interface Props {
-  path: string;
+  index?: number;
 }
 
-export default function DriveFileList({ path }: Props) {
+export default function DriveFileList({ index }: Props) {
   const dispatch = useDispatch();
+  const [path] = usePath(index);
   const { data: files } = driveListApi.useApiResult({ path });
   const parent = path !== '/';
 
-  useEffect(() => {
-    window.onkeydown = (e: KeyboardEvent) => {
-      dispatch(keyboardAction(e));
-    }
-
-    return () => {
-      window.onkeydown = null;
-    }
-  }, [dispatch]);
-
   const onUpload = (files: FileWithPath[]) => {
-    dispatch(driveUploadAction(files));
+    dispatch(driveUploadAction(path, files));
   }
 
   const onRemove = () => {
@@ -64,7 +56,7 @@ export default function DriveFileList({ path }: Props) {
         <div className="files">
           <FileUploadZone onUpload={onUpload}>
             <div className="files_inner">
-              {renderDriveFileList(files, parent)}
+              {renderDriveFileList(files, index, parent)}
             </div>
           </FileUploadZone>
         </div>
@@ -80,7 +72,7 @@ export default function DriveFileList({ path }: Props) {
     <>
       <Button variant="danger" onClick={onRemove}><i className="fas fa-trash" /></Button>
       <Button variant="primary" onClick={onNewFolder}><i className="fas fa-folder-plus" /></Button>
-      <DriveUploadButton />
+      <DriveUploadButton path={path} />
     </>
   );
 

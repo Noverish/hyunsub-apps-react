@@ -8,6 +8,7 @@ import MobileHeader, { MobileHeaderProps } from '../common/header/MobileHeader';
 export default function DriveHeader(props: MobileHeaderProps) {
   const { t } = useTranslation();
   const [path] = usePath();
+  const [path2] = usePath(2);
 
   const desktopProps: DesktopHeaderProps = {
     title : 'Drive',
@@ -24,7 +25,7 @@ export default function DriveHeader(props: MobileHeaderProps) {
       },
       {
         name: t('drive.menu.move'),
-        link: DriveRoutes.explorer,
+        link: DriveRoutes.moveRoute(path, path2),
         icon: 'fas fa-exchange-alt',
       }
     ],

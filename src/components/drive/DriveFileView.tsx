@@ -8,6 +8,7 @@ import './DriveFileView.scss';
 
 interface Props {
   info: DriveFileInfo;
+  index?: number;
 }
 
 function getIcon(type: DriveFileType): string {
@@ -22,9 +23,9 @@ function getIcon(type: DriveFileType): string {
   }
 }
 
-export default function DriveFileView({ info }: Props) {
+export default function DriveFileView({ info, index }: Props) {
   const dispatch = useDispatch();
-  const [path, setPath, goParent] = usePath();
+  const [path, setPath, goParent] = usePath(index);
   const { file } = useSelector(s => s.drive);
   const filePath = path + ((path === '/') ? '' : '/') + info.name;
 
