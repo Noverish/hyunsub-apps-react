@@ -2,6 +2,7 @@ import cs from 'classnames';
 import React from 'react';
 import { DriveFileInfo, DriveFileType } from "src/model/drive";
 import { driveFileClickAction } from 'src/pages/drive/DriveContext';
+import { useDriveStatus } from 'src/pages/drive/DriveHooks';
 import { useDispatch, useSelector } from "src/redux";
 
 import './DriveFileView.scss';
@@ -25,15 +26,20 @@ function getIcon(type: DriveFileType): string {
 
 export default function DriveFileView({ info, index }: Props) {
   const dispatch = useDispatch();
-  const selects = useSelector(s => s.drive.status[index]?.selects) || [];
+  const { path, selects } = useDriveStatus(index);
   const selected = selects.includes(info.name);
 
   const onClick = (e: React.MouseEvent<HTMLDivElement>) => {
     dispatch(driveFileClickAction(index, info, e));
   }
 
+  const onDragStart = (e: React.DragEvent<HTMLDivElement>) => {
+    e.dataTransfer.setData('moves', JSON.stringify(selects));
+    e.dataTransfer.setData('path', path);
+  }
+
   return (
-    <div className={cs('DriveFileView', { selected })} onClick={onClick} draggable>
+    <div className={cs('DriveFileView', { selected })} onClick={onClick} draggable onDragStart={onDragStart}>
       <div className={cs('icon', info.type.toLowerCase())}>
         <i className={getIcon(info.type)} />
       </div>

@@ -40,6 +40,12 @@ export default function DriveFileList({ index }: Props) {
     dispatch(driveUploadAction(path, files));
   }
 
+  const onElementDrop = (dataTransfer: DataTransfer) => {
+    const moves: string[] = JSON.parse(dataTransfer.getData('moves'));
+    const fromPath = dataTransfer.getData('path');
+    console.log({ fromPath, moves });
+  }
+
   const onNewFolder = () => {
     dispatch(DriveActions.update({ showNewFolderModal: true }));
   }
@@ -48,7 +54,7 @@ export default function DriveFileList({ index }: Props) {
     ? (
       <>
         <div className="files">
-          <FileUploadZone onUpload={onUpload}>
+          <FileUploadZone onUpload={onUpload} onElementDrop={onElementDrop}>
             <div className="files_inner">
               {renderDriveFileList(files, index, path !== '/')}
             </div>

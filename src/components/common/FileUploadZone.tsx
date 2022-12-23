@@ -9,10 +9,11 @@ const ignores = ['.DS_Store'];
 
 interface Props extends React.HTMLProps<HTMLDivElement> {
   onUpload?: (entries: FileWithPath[]) => void;
+  onElementDrop?: (dataTransfer: DataTransfer) => void;
 }
 
 export default function FileUploadZone(props: Props) {
-  const { children, className, onUpload, ...etc } = props;
+  const { children, className, onUpload, onElementDrop, ...etc } = props;
   const [hover, setHover] = useState(0);
 
   const onDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
@@ -27,6 +28,7 @@ export default function FileUploadZone(props: Props) {
 
   const onDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
+    onElementDrop?.(e.dataTransfer);
     handleDropEvent(e).then(v => onUpload?.(v));
     setHover(0);
   }

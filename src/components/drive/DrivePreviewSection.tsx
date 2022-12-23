@@ -18,6 +18,10 @@ export default function DrivePreviewSection() {
     dispatch(driveRemoveAction());
   }
 
+  const onRename = () => {
+
+  }
+
   const onDownload = () => {
     if (!select) {
       return;
@@ -34,6 +38,7 @@ export default function DrivePreviewSection() {
   const btnBarChilren = (
     <>
       {select && select.type !== 'FOLDER' && <Button variant="primary" onClick={onDownload}><i className="fas fa-download" /></Button>}
+      {select && <Button variant="primary" onClick={onRename}><i className="fas fa-pen" /></Button>}
       {select && <Button variant="danger" onClick={onRemove}><i className="fas fa-trash" /></Button>}
     </>
   )
