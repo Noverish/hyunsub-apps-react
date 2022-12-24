@@ -24,6 +24,31 @@ function getIcon(type: DriveFileType): string {
   }
 }
 
+function renderDragImage(num: number): HTMLCanvasElement {
+  const canvas = window.document.createElement('canvas');
+  canvas.style.backgroundColor = 'transparent';
+  canvas.style.position = 'fixed';
+  canvas.width = 48;
+  canvas.height = 48;
+  const margin = 12;
+  const contentSize = 24;
+
+  const ctx = canvas.getContext('2d')!!;
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  ctx.fillStyle = 'red';
+  ctx.beginPath();
+  ctx.roundRect(margin, margin, contentSize, contentSize, contentSize / 2);
+  ctx.fill();
+
+  ctx.font = "12px system-ui";
+  ctx.fillStyle = 'white';
+  ctx.textAlign = 'center';
+  ctx.fillText(num.toString(), margin + contentSize / 2, margin + contentSize / 2 + 6);
+  window.document.body.appendChild(canvas);
+  return canvas;
+}
+
 export default function DriveFileView({ info, index }: Props) {
   const dispatch = useDispatch();
   const { path, selects } = useDriveStatus(index);
@@ -36,6 +61,7 @@ export default function DriveFileView({ info, index }: Props) {
   const onDragStart = (e: React.DragEvent<HTMLDivElement>) => {
     e.dataTransfer.setData('moves', JSON.stringify(selects));
     e.dataTransfer.setData('path', path);
+    e.dataTransfer.setDragImage(renderDragImage(selects.length), 0, 0);
   }
 
   return (

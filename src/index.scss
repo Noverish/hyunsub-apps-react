@@ -20,6 +20,9 @@ html, body, #root {
   width: 100vw;
   min-height: 100vh;
   color: var(--hyunsub-text-color);
+}
+
+body, #root {
   background-color: var(--hyunsub-bg);
 }
 

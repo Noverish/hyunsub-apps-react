@@ -121,7 +121,7 @@ const ko = {
     'drive.status-modal.title': '업로드 현황',
     'drive.msg.remove-confirm': '정말로 삭제하시겠습니까?',
     'drive.menu.explorer': '파일 탐색기',
-    'drive.menu.rename': '이름 변경',
+    'drive.menu.rename': '이름 일괄 변경',
     'drive.menu.move': '파일 이동',
     'drive.DriveNewFolderModal.title': '새 폴더 생성',
     'drive.DriveNewFolderModal.label': '새 폴더 이름',
