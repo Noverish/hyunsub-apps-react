@@ -1,6 +1,7 @@
 import { Dispatch } from "@reduxjs/toolkit";
 import React from "react";
 import driveListApi from "src/api/drive/drive-list";
+import driveMoveBulkApi, { DriveMoveBulkParams } from "src/api/drive/drive-move-bulk";
 import driveNewFolderApi from "src/api/drive/drive-new-folder";
 import fileRemoveApi from "src/api/file/file-remove";
 import fileUploadRenameApi from "src/api/file/file-upload-rename";
@@ -109,16 +110,17 @@ export const driveRemoveAction = () => async (dispatch: Dispatch, getState: () =
 
   dispatch(GlobalActions.update({ loading: true }));
   await fileRemoveApi({ path: filePath });
-  await driveListApi.fetch({ path }, true);
+  driveListApi.invalidate({ path });
+  dispatch(DriveActions.updateStatus({ path }));
   dispatch(GlobalActions.update({ loading: false }));
 }
 
-export const driveNewFolderAction = (name: string) => async (dispatch: Dispatch, getState: () => RootState) => {
+export const driveNewFolderAction = (index: number, name: string) => async (dispatch: Dispatch, getState: () => RootState) => {
   dispatch(GlobalActions.update({ loading: true }));
-  const { path } = getDriveStatus();
+  const { path } = getDriveStatus(index);
   const folderPath = path + '/' + name;
   await driveNewFolderApi({ path: folderPath });
-  await driveListApi.fetch({ path }, true);
+  driveListApi.invalidate({ path });
   dispatch(GlobalActions.update({ loading: false }));
 };
 
@@ -178,4 +180,12 @@ export const driveFileClickAction = (index: number, info: DriveFileInfo, e: Reac
   }
 
   dispatch(DriveActions.updateStatus({ index, selects: [info.name], lastSelect: info }));
+};
+
+export const driveMoveBulkAction = (params: DriveMoveBulkParams) => async (dispatch: Dispatch, getState: () => RootState) => {
+  dispatch(GlobalActions.update({ loading: true }));
+  await driveMoveBulkApi(params);
+  driveListApi.invalidate({ path: params.from });
+  driveListApi.invalidate({ path: params.to });
+  dispatch(GlobalActions.update({ loading: false }));
 };

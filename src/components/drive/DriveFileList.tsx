@@ -5,12 +5,13 @@ import DriveFileView from 'src/components/drive/DriveFileView';
 import DriveUploadButton from 'src/components/drive/DriveUploadButton';
 import { DriveFileInfo } from 'src/model/drive';
 import { FileWithPath } from 'src/model/file';
-import { driveUploadAction } from 'src/pages/drive/DriveContext';
+import { driveMoveBulkAction, driveUploadAction } from 'src/pages/drive/DriveContext';
 import { useDriveStatus } from 'src/pages/drive/DriveHooks';
 import { DriveActions } from 'src/pages/drive/DriveRedux';
 import { useDispatch } from 'src/redux';
 import { CommonSuspenseFallback } from '../common/CommonSuspense';
 import DriveSectionTemplate from './DriveSectionTemplate';
+import DriveNewFolderModal from './DriveNewFolderModal';
 
 import './DriveFileList.scss';
 
@@ -43,7 +44,7 @@ export default function DriveFileList({ index }: Props) {
   const onElementDrop = (dataTransfer: DataTransfer) => {
     const moves: string[] = JSON.parse(dataTransfer.getData('moves'));
     const fromPath = dataTransfer.getData('path');
-    console.log({ fromPath, moves });
+    dispatch(driveMoveBulkAction({ from: fromPath, to: path, files: moves }));
   }
 
   const onNewFolder = () => {
@@ -80,12 +81,15 @@ export default function DriveFileList({ index }: Props) {
   );
 
   return (
-    <DriveSectionTemplate
-      className="DriveFileList"
-      title={path}
-      btnBarChildren={btnBarChildren}
-    >
-      {content}
-    </DriveSectionTemplate>
+    <>
+      <DriveSectionTemplate
+        className="DriveFileList"
+        title={path}
+        btnBarChildren={btnBarChildren}
+      >
+        {content}
+      </DriveSectionTemplate>
+      <DriveNewFolderModal index={index} />
+    </>
   )
 }

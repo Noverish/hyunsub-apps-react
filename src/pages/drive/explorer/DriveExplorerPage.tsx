@@ -31,8 +31,12 @@ export default function DriveExplorerPage() {
     <div id="DriveExplorerPage">
       <DriveHeader title="Drive" />
       <DriveContainer>
-        <DriveFileList index={0} />
-        <DrivePreviewSection />
+        <div>
+          <DriveFileList index={0} />
+        </div>
+        <div>
+          <DrivePreviewSection />
+        </div>
       </DriveContainer>
     </div>
   )

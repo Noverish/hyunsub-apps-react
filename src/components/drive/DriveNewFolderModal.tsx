@@ -6,14 +6,14 @@ import { DriveActions } from "src/pages/drive/DriveRedux";
 import { useDispatch, useSelector } from "src/redux";
 
 interface Props {
-
+  index: number;
 }
 
 interface FormState {
   name: string;
 }
 
-export default function DriveNewFolderModal(props: Props) {
+export default function DriveNewFolderModal({ index }: Props) {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const { showNewFolderModal } = useSelector(s => s.drive);
@@ -25,7 +25,7 @@ export default function DriveNewFolderModal(props: Props) {
 
   const onConfirm = () => {
     const name = getValues('name');
-    dispatch(driveNewFolderAction(name));
+    dispatch(driveNewFolderAction(index, name));
     onHide();
   }
 

@@ -24,9 +24,10 @@ interface GenerateApiResult<P, R> {
   key: (p: P) => string[];
   useApi: (p: P) => R;
   useApiResult: (p: P) => UseQueryResult<R, unknown>;
-  fetch: (p: P, force?: boolean) => Promise<R>;
+  fetch: (p: P) => Promise<R>;
   cache: (p: P) => R | undefined;
   prefetch: (p: P) => void;
+  invalidate: (p: P) => void;
 }
 
 interface GenerateInfiniteApiResult<P, R> {
@@ -69,13 +70,8 @@ export function generateQuery<P, R>(option: GenerateApiOption<P>): GenerateApiRe
   const useApiResult = (p: P) => useQuery(key(p), () => api(p), { staleTime: Infinity, suspense: false });
   const cache = (p: P) => QueryClient.getQueryData<R>(key(p));
   const prefetch = (p: P) => QueryClient.prefetchQuery(key(p), () => api(p), { staleTime: Infinity });
-  const fetch = (p: P, force?: boolean) => {
-    const queryKey = key(p);
-    if (force) {
-      QueryClient.invalidateQueries({ queryKey, refetchType: 'none' });
-    }
-    return QueryClient.fetchQuery(queryKey, () => api(p), { staleTime: Infinity });
-  };
+  const fetch = (p: P) => QueryClient.fetchQuery(key(p), () => api(p), { staleTime: Infinity });
+  const invalidate = (p: P) => QueryClient.invalidateQueries(key(p), { refetchType: 'active' });
 
   return {
     api,
@@ -85,6 +81,7 @@ export function generateQuery<P, R>(option: GenerateApiOption<P>): GenerateApiRe
     fetch,
     cache,
     prefetch,
+    invalidate,
   };
 }
 

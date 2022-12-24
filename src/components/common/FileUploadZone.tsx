@@ -15,9 +15,13 @@ interface Props extends React.HTMLProps<HTMLDivElement> {
 export default function FileUploadZone(props: Props) {
   const { children, className, onUpload, onElementDrop, ...etc } = props;
   const [hover, setHover] = useState(0);
+  const [isStringItem, setIsStringItem] = useState(false);
 
   const onDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
+    const items = e.dataTransfer.items;
+    const stringItems = Array.from(items).filter(v => v.kind === 'string');
+    setIsStringItem(stringItems.length > 0);
     setHover(v => v + 1);
   }
 
@@ -28,8 +32,19 @@ export default function FileUploadZone(props: Props) {
 
   const onDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
-    onElementDrop?.(e.dataTransfer);
-    handleDropEvent(e).then(v => onUpload?.(v));
+
+    const items = e.dataTransfer.items;
+    const stringItems = Array.from(items).filter(v => v.kind === 'string');
+    const fileItems = Array.from(items).filter(v => v.kind === 'file');
+
+    if (stringItems.length > 0) {
+      onElementDrop?.(e.dataTransfer);
+    }
+
+    if (fileItems.length > 0) {
+      handleDropEvent(fileItems).then(v => onUpload?.(v));
+    }
+
     setHover(0);
   }
 
@@ -48,15 +63,14 @@ export default function FileUploadZone(props: Props) {
     >
       {children}
       <div className="dropzone flex_center">
-        <i className="fas fa-upload" />
+        <i className={isStringItem ? 'fas fa-arrow-down' : 'fas fa-upload'} />
       </div>
     </div>
   )
 }
 
-async function handleDropEvent(e: React.DragEvent<HTMLDivElement>): Promise<FileWithPath[]> {
-  const items = e.dataTransfer.items;
-  const promises = Array.from(items)
+async function handleDropEvent(items: DataTransferItem[]): Promise<FileWithPath[]> {
+  const promises = items
     .map(v => v.webkitGetAsEntry())
     .map(v => processEntry(v));
   const result = await Promise.all(promises);

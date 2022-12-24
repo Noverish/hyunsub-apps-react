@@ -3,7 +3,7 @@ import React from 'react';
 import { DriveFileInfo, DriveFileType } from "src/model/drive";
 import { driveFileClickAction } from 'src/pages/drive/DriveContext';
 import { useDriveStatus } from 'src/pages/drive/DriveHooks';
-import { useDispatch, useSelector } from "src/redux";
+import { useDispatch } from "src/redux";
 
 import './DriveFileView.scss';
 

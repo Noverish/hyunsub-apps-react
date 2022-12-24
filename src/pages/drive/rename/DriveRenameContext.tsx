@@ -77,7 +77,8 @@ export const renameBulkAction = () => async (dispatch: Dispatch, getState: () =>
 
   await driveRenameBulkApi({ path, renames });
 
-  const newList = await driveListApi.fetch({ path }, true);
+  driveListApi.invalidate({ path });
+  const newList = await driveListApi.fetch({ path });
 
   dispatch(DriveActions.update({ renames: newList }));
   dispatch(GlobalActions.update({ loading: false }));
