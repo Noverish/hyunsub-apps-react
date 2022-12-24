@@ -9,7 +9,7 @@ import drive from 'src/pages/drive/DriveRedux';
 import toast from './toast';
 import global from './global';
 
-export const loadState = (): Partial<RootState> | undefined => {
+export const loadState = (): RootState | undefined => {
   try {
     const serializedState = localStorage.getItem("redux");
     if (!serializedState) return undefined;
@@ -20,11 +20,7 @@ export const loadState = (): Partial<RootState> | undefined => {
 };
 
 export const saveState = (state: RootState) => {
-  const save: Partial<RootState> = {
-    drive: state.drive,
-  }
-
-  const serializedState = JSON.stringify(save);
+  const serializedState = JSON.stringify(state);
   localStorage.setItem("redux", serializedState);
 };
 
@@ -38,11 +34,11 @@ export const store = configureStore({
     (process.env.NODE_ENV === `development`)
       ? getDefaultMiddleware().concat(logger)
       : getDefaultMiddleware(),
-  preloadedState: loadState(),
+  preloadedState: undefined, // loadState(),
 });
 
 store.subscribe(() => {
-  saveState(store.getState());
+  // saveState(store.getState());
 });
 
 export const useDispatch = () => _useDispatch<typeof store.dispatch>();
