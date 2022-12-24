@@ -1,11 +1,11 @@
 import { Button } from 'react-bootstrap';
 import DriveFileViewer from 'src/components/drive/DriveFileViewer';
-import { driveRemoveAction } from 'src/pages/drive/DriveContext';
 import { useDriveStatus } from 'src/pages/drive/DriveHooks';
 import { useDispatch, useSelector } from 'src/redux';
 import AppConstant from 'src/utils/constants';
 import { join } from 'src/utils/path';
 import DriveSectionTemplate from './DriveSectionTemplate';
+import { driveRemoveAction } from 'src/pages/drive/explorer/DriveExplorerActions';
 
 import './DrivePreviewSection.scss';
 

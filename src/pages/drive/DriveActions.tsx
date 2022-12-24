@@ -1,71 +1,17 @@
 import { Dispatch } from "@reduxjs/toolkit";
 import React from "react";
 import driveListApi from "src/api/drive/drive-list";
-import driveMoveBulkApi, { DriveMoveBulkParams } from "src/api/drive/drive-move-bulk";
 import driveNewFolderApi from "src/api/drive/drive-new-folder";
-import fileRemoveApi from "src/api/file/file-remove";
 import fileUploadRenameApi from "src/api/file/file-upload-rename";
 import uploadApi from "src/api/file/upload";
-import t from 'src/i18n';
 import { DriveFileInfo } from "src/model/drive";
 import { FileWithPath } from "src/model/file";
 import { RootState } from "src/redux";
 import { GlobalActions } from "src/redux/global";
-import { join, dirname } from 'src/utils/path';
+import { dirname, join } from 'src/utils/path';
 import { isMac } from "src/utils/user-agent";
 import { getDriveStatus } from './DriveHooks';
 import { DriveActions } from './DriveRedux';
-
-export const keyboardAction = (e: KeyboardEvent) => async (dispatch: Dispatch, getState: () => RootState) => {
-  const path = getState().drive.status[0]?.path || '/';
-  const file = getState().drive.status[0]?.lastSelect;
-  const list = driveListApi.cache({ path }) || [];
-
-  if (!file) {
-    const firstFile = list[0];
-    if (firstFile) {
-      dispatch(DriveActions.updateStatus({ selects: [firstFile.name], lastSelect: firstFile }));
-    }
-    return;
-  }
-
-  const index = list.indexOf(file);
-  if (index < 0) {
-    return;
-  }
-
-  if (e.key === 'ArrowDown') {
-    const newFile = list[index + 1];
-    if (newFile) {
-      dispatch(DriveActions.updateStatus({ selects: [newFile.name], lastSelect: newFile }));
-    }
-    return;
-  }
-
-  if (e.key === 'ArrowUp') {
-    const newFile = list[index - 1];
-    if (newFile) {
-      dispatch(DriveActions.updateStatus({ selects: [newFile.name],lastSelect: newFile }));
-    }
-    return;
-  }
-};
-
-export const nextAudioAction = () => async (dispatch: Dispatch, getState: () => RootState) => {
-  const { path, lastSelect: file } = getDriveStatus();
-  const list = driveListApi.cache({ path }) || [];
-  const audios = list.filter(v => v.name.endsWith('.mp3'));
-
-  if (!file) {
-    return;
-  }
-
-  const index = audios.indexOf(file);
-  const nextAudio = audios[index + 1];
-  if (nextAudio) {
-    dispatch(DriveActions.updateStatus({ selects: [nextAudio.name], lastSelect: nextAudio }));
-  }
-}
 
 export const driveUploadAction = (path: string, files: FileWithPath[]) => async (dispatch: Dispatch, getState: () => RootState) => {
   const { uploads } = getState().drive;
@@ -94,25 +40,6 @@ export const driveUploadAction = (path: string, files: FileWithPath[]) => async 
       path: join(path, file.path),
     })
   }
-}
-
-export const driveRemoveAction = () => async (dispatch: Dispatch, getState: () => RootState) => {
-  const { path, lastSelect: file } = getDriveStatus();
-  if (!file) {
-    return;
-  }
-
-  if (!window.confirm(t('drive.msg.remove-confirm') as string)) {
-    return;
-  }
-
-  const filePath = join(path, file.name);
-
-  dispatch(GlobalActions.update({ loading: true }));
-  await fileRemoveApi({ path: filePath });
-  driveListApi.invalidate({ path });
-  dispatch(DriveActions.updateStatus({ path }));
-  dispatch(GlobalActions.update({ loading: false }));
 }
 
 export const driveNewFolderAction = (index: number, name: string) => async (dispatch: Dispatch, getState: () => RootState) => {
@@ -180,12 +107,4 @@ export const driveFileClickAction = (index: number, info: DriveFileInfo, e: Reac
   }
 
   dispatch(DriveActions.updateStatus({ index, selects: [info.name], lastSelect: info }));
-};
-
-export const driveMoveBulkAction = (params: DriveMoveBulkParams) => async (dispatch: Dispatch, getState: () => RootState) => {
-  dispatch(GlobalActions.update({ loading: true }));
-  await driveMoveBulkApi(params);
-  driveListApi.invalidate({ path: params.from });
-  driveListApi.invalidate({ path: params.to });
-  dispatch(GlobalActions.update({ loading: false }));
 };

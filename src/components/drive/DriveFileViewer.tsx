@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
 import driveTextGetApi from "src/api/drive/drive-text-get";
 import { DriveFileInfo } from "src/model/drive";
-import { nextAudioAction } from 'src/pages/drive/DriveContext';
 import { useDispatch } from "src/redux";
 import AppConstant from "src/utils/constants";
+import { nextAudioAction } from "src/pages/drive/explorer/DriveExplorerActions";
 
 interface Props {
   path: string;

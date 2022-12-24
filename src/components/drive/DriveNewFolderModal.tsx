@@ -1,7 +1,7 @@
 import { Button, Form, Modal } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { driveNewFolderAction } from "src/pages/drive/DriveContext";
+import { driveNewFolderAction } from "src/pages/drive/DriveActions";
 import { DriveActions } from "src/pages/drive/DriveRedux";
 import { useDispatch, useSelector } from "src/redux";
 

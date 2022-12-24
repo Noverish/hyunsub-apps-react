@@ -3,9 +3,9 @@ import DriveContainer from "src/components/drive/DriveContainer";
 import DriveFileList from "src/components/drive/DriveFileList";
 import DriveHeader from 'src/components/drive/DriveHeader';
 import DrivePreviewSection from "src/components/drive/DrivePreviewSection";
-import { keyboardAction } from 'src/pages/drive/DriveContext';
 import { useDriveStatus } from 'src/pages/drive/DriveHooks';
 import { useDispatch } from "src/redux";
+import { keyboardAction } from "./DriveExplorerActions";
 
 import './DriveExplorerPage.scss';
 

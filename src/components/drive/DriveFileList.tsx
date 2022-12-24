@@ -5,13 +5,14 @@ import DriveFileView from 'src/components/drive/DriveFileView';
 import DriveUploadButton from 'src/components/drive/DriveUploadButton';
 import { DriveFileInfo } from 'src/model/drive';
 import { FileWithPath } from 'src/model/file';
-import { driveMoveBulkAction, driveUploadAction } from 'src/pages/drive/DriveContext';
+import { driveUploadAction } from 'src/pages/drive/DriveActions';
 import { useDriveStatus } from 'src/pages/drive/DriveHooks';
 import { DriveActions } from 'src/pages/drive/DriveRedux';
 import { useDispatch } from 'src/redux';
 import { CommonSuspenseFallback } from '../common/CommonSuspense';
 import DriveSectionTemplate from './DriveSectionTemplate';
 import DriveNewFolderModal from './DriveNewFolderModal';
+import { driveMoveBulkAction } from 'src/pages/drive/move/DriveMoveActions';
 
 import './DriveFileList.scss';
 

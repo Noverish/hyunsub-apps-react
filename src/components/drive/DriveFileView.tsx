@@ -1,7 +1,7 @@
 import cs from 'classnames';
 import React from 'react';
 import { DriveFileInfo, DriveFileType } from "src/model/drive";
-import { driveFileClickAction } from 'src/pages/drive/DriveContext';
+import { driveFileClickAction } from 'src/pages/drive/DriveActions';
 import { useDriveStatus } from 'src/pages/drive/DriveHooks';
 import { useDispatch } from "src/redux";
 

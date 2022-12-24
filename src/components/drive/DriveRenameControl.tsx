@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'src/redux';
-import { addNumberAction, padNumberAction, renameBulkAction, replaceAction, resetAction } from 'src/pages/drive/rename/DriveRenameContext';
+import { addNumberAction, padNumberAction, renameBulkAction, replaceAction, resetAction } from 'src/pages/drive/rename/DriveRenameActions';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 
 import './DriveRenameControl.scss';
