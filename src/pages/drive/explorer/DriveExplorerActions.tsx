@@ -7,7 +7,8 @@ import { getDriveStatus } from 'src/pages/drive/DriveHooks';
 import { DriveActions } from 'src/pages/drive/DriveRedux';
 import { RootState } from 'src/redux';
 import { GlobalActions } from 'src/redux/global';
-import { join } from 'src/utils/path';
+import AppConstant from 'src/utils/constants';
+import { join } from 'path-browserify';
 
 export const driveKeyboardAction = (e: KeyboardEvent) => async (dispatch: Dispatch, getState: () => RootState) => {
   const path = getState().drive.status[0]?.path || '/';
@@ -38,7 +39,7 @@ export const driveKeyboardAction = (e: KeyboardEvent) => async (dispatch: Dispat
   if (e.key === 'ArrowUp') {
     const newFile = list[index - 1];
     if (newFile) {
-      dispatch(DriveActions.updateStatus({ selects: [newFile.name],lastSelect: newFile }));
+      dispatch(DriveActions.updateStatus({ selects: [newFile.name], lastSelect: newFile }));
     }
     return;
   }
@@ -91,4 +92,13 @@ export const driveRenameAction = (path: string, from: string, to: string) => asy
 
   dispatch(DriveActions.updateStatus({ selects: [to], lastSelect: newSelected }));
   dispatch(GlobalActions.update({ loading: false }));
+};
+
+export const driveDownloadAction = (path: string, file: string) => async (dispatch: Dispatch, getState: () => RootState) => {
+  const fileUrl = AppConstant.file.HOST + join(path, file);
+
+  const link = document.createElement('a');
+  link.href = '';
+  link.download = fileUrl;
+  link.click();
 };

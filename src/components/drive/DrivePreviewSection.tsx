@@ -3,9 +3,8 @@ import { Button } from 'react-bootstrap';
 import DriveFileViewer from 'src/components/drive/DriveFileViewer';
 import { useDriveStatus } from 'src/pages/drive/DriveHooks';
 import { DriveActions } from 'src/pages/drive/DriveRedux';
-import { driveRemoveAction } from 'src/pages/drive/explorer/DriveExplorerActions';
+import { driveRemoveAction, driveDownloadAction } from 'src/pages/drive/explorer/DriveExplorerActions';
 import { useDispatch } from 'src/redux';
-import AppConstant from 'src/utils/constants';
 import DriveSectionTemplate from './DriveSectionTemplate';
 import { useTranslation } from 'react-i18next';
 
@@ -29,16 +28,9 @@ export default function DrivePreviewSection() {
   }
 
   const onDownload = () => {
-    if (!select) {
-      return;
+    if (select) {
+      dispatch(driveDownloadAction(path, select.name));
     }
-
-    const fileUrl = AppConstant.file.HOST + join(path, select.name);
-
-    const link = document.createElement('a');
-    link.href = fileUrl;
-    link.download = select.name;
-    link.click();
   }
 
   const btnBarChilren = (
