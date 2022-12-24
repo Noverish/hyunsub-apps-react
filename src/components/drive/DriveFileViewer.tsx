@@ -5,7 +5,7 @@ import driveTextGetApi from "src/api/drive/drive-text-get";
 import { DriveFileInfo } from "src/model/drive";
 import { useDispatch } from "src/redux";
 import AppConstant from "src/utils/constants";
-import { nextAudioAction } from "src/pages/drive/explorer/DriveExplorerActions";
+import { driveNextAudioAction } from "src/pages/drive/explorer/DriveExplorerActions";
 
 interface Props {
   path: string;
@@ -26,7 +26,7 @@ export default function DriveFileViewer({ path, info }: Props) {
   }, [dispatch, info, filePath]);
 
   const onAudioEnd = () => {
-    dispatch(nextAudioAction());
+    dispatch(driveNextAudioAction());
   };
 
   if (info.type === 'IMAGE') {

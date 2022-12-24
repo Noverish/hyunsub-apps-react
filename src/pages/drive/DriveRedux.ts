@@ -4,7 +4,8 @@ import { DriveFileInfo, DriveUploadingFile, DriveWindowStatus } from 'src/model/
 interface State {
   uploads: DriveUploadingFile[];
   renames: DriveFileInfo[];
-  showNewFolderModal: boolean;
+  newFolderModalIndex?: number;
+  renameModalPath?: string;
   status: DriveWindowStatus[];
 };
 
@@ -16,7 +17,6 @@ interface UpdateUploadPayload {
 const initialState: State = {
   uploads: [],
   renames: [],
-  showNewFolderModal: false,
   status: [],
 };
 

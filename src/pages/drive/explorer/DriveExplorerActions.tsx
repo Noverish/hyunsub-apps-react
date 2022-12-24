@@ -1,14 +1,15 @@
 import { Dispatch } from '@reduxjs/toolkit';
 import driveListApi from 'src/api/drive/drive-list';
-import { RootState } from 'src/redux';
-import { getDriveStatus } from 'src/pages/drive/DriveHooks';
-import { DriveActions } from 'src/pages/drive/DriveRedux';
+import driveRenameBulkApi from 'src/api/drive/drive-rename-bulk';
 import fileRemoveApi from 'src/api/file/file-remove';
 import t from 'src/i18n';
+import { getDriveStatus } from 'src/pages/drive/DriveHooks';
+import { DriveActions } from 'src/pages/drive/DriveRedux';
+import { RootState } from 'src/redux';
 import { GlobalActions } from 'src/redux/global';
 import { join } from 'src/utils/path';
 
-export const keyboardAction = (e: KeyboardEvent) => async (dispatch: Dispatch, getState: () => RootState) => {
+export const driveKeyboardAction = (e: KeyboardEvent) => async (dispatch: Dispatch, getState: () => RootState) => {
   const path = getState().drive.status[0]?.path || '/';
   const file = getState().drive.status[0]?.lastSelect;
   const list = driveListApi.cache({ path }) || [];
@@ -43,7 +44,7 @@ export const keyboardAction = (e: KeyboardEvent) => async (dispatch: Dispatch, g
   }
 };
 
-export const nextAudioAction = () => async (dispatch: Dispatch, getState: () => RootState) => {
+export const driveNextAudioAction = () => async (dispatch: Dispatch, getState: () => RootState) => {
   const { path, lastSelect: file } = getDriveStatus();
   const list = driveListApi.cache({ path }) || [];
   const audios = list.filter(v => v.name.endsWith('.mp3'));
@@ -77,3 +78,17 @@ export const driveRemoveAction = () => async (dispatch: Dispatch, getState: () =
   dispatch(DriveActions.updateStatus({ path }));
   dispatch(GlobalActions.update({ loading: false }));
 }
+
+export const driveRenameAction = (path: string, from: string, to: string) => async (dispatch: Dispatch, getState: () => RootState) => {
+  dispatch(GlobalActions.update({ loading: true }));
+
+  const selected = driveListApi.cache({ path })!!.filter(v => v.name === from)[0];
+  const newSelected = { ...selected, name: to };
+
+  await driveRenameBulkApi({ path, renames: [{ from, to }] });
+  driveListApi.invalidate({ path });
+  await driveListApi.fetch({ path });
+
+  dispatch(DriveActions.updateStatus({ selects: [to], lastSelect: newSelected }));
+  dispatch(GlobalActions.update({ loading: false }));
+};

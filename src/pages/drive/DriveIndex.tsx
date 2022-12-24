@@ -3,6 +3,8 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import DriveStatusModal from 'src/components/drive/DriveStatusModal';
 import ErrorPage from '../common/ErrorPage';
 import routes from './DriveRoutes';
+import DriveNewFolderModal from 'src/components/drive/DriveNewFolderModal';
+import DriveRenameModal from 'src/components/drive/DriveRenameModal';
 
 import './DriveStyle.scss';
 
@@ -23,6 +25,8 @@ export default function DriveIndex() {
         <Route path={routes.move} element={<DriveMovePage />} />
       </Routes>
       <DriveStatusModal />
+      <DriveNewFolderModal />
+      <DriveRenameModal />
     </>
   )
 }

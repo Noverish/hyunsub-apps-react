@@ -1,10 +1,10 @@
 import { Dispatch } from "@reduxjs/toolkit";
 import driveListApi from "src/api/drive/drive-list";
 import driveRenameBulkApi, { DriveRenameBulkParamsData } from "src/api/drive/drive-rename-bulk";
+import { getDriveStatus } from 'src/pages/drive/DriveHooks';
 import { RootState } from "src/redux";
 import { GlobalActions } from "src/redux/global";
 import { DriveActions } from "../DriveRedux";
-import { getDriveStatus } from 'src/pages/drive/DriveHooks';
 
 export const resetAction = () => async (dispatch: Dispatch, getState: () => RootState) => {
   const { path } = getDriveStatus();
@@ -67,7 +67,7 @@ export const renameBulkAction = () => async (dispatch: Dispatch, getState: () =>
   const next = getState().drive.renames;
 
   const renames: DriveRenameBulkParamsData[] = [];
-  for(let i = 0; i < prev?.length; i++) {
+  for (let i = 0; i < prev?.length; i++) {
     const from = prev[i].name;
     const to = next[i].name;
     if (from !== to) {

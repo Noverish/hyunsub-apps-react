@@ -7,12 +7,14 @@ import { DriveActions } from 'src/pages/drive/DriveRedux';
 import { useDispatch, useSelector } from 'src/redux';
 import { renderDriveFileList } from './DriveFileList';
 import DriveSectionTemplate from './DriveSectionTemplate';
+import { useTranslation } from 'react-i18next';
 
 import './DriveRenameFileList.scss';
 
 export default function DriveRenameFileList() {
   const dispatch = useDispatch();
-  const { path } = useDriveStatus();
+  const { t } = useTranslation();
+  const { path, selects } = useDriveStatus();
   const { data: prevList } = driveListApi.useApiResult({ path });
   const { renames: nextList } = useSelector(s => s.drive);
   const parent = path !== '/';
@@ -39,7 +41,9 @@ export default function DriveRenameFileList() {
           </div>
         </div>
         <div className="status flex_center">
-          {nextList.length} items
+          {selects.length > 0
+            ? t('drive.file-list.selected', [selects.length, nextList.length])
+            : t('drive.file-list.no-selection', [nextList.length])}
         </div>
       </>
     ) : (

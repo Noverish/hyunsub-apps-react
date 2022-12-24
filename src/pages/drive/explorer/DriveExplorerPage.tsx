@@ -5,7 +5,7 @@ import DriveHeader from 'src/components/drive/DriveHeader';
 import DrivePreviewSection from "src/components/drive/DrivePreviewSection";
 import { useDriveStatus } from 'src/pages/drive/DriveHooks';
 import { useDispatch } from "src/redux";
-import { keyboardAction } from "./DriveExplorerActions";
+import { driveKeyboardAction } from "./DriveExplorerActions";
 
 import './DriveExplorerPage.scss';
 
@@ -19,7 +19,7 @@ export default function DriveExplorerPage() {
 
   useEffect(() => {
     window.onkeydown = (e: KeyboardEvent) => {
-      dispatch(keyboardAction(e));
+      dispatch(driveKeyboardAction(e));
     }
 
     return () => {

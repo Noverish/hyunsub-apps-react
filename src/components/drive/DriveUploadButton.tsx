@@ -1,4 +1,5 @@
 import { Dropdown, DropdownButton } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import { driveUploadAction } from 'src/pages/drive/DriveActions';
 import { useDispatch } from 'src/redux';
 
@@ -8,6 +9,7 @@ interface Props {
 
 export default function DriveUploadButton({ path }: Props) {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const onUpload = (input: HTMLInputElement) => {
     const result = Array.from(input.files || []).map(v => ({
@@ -37,9 +39,9 @@ export default function DriveUploadButton({ path }: Props) {
   }
 
   return (
-    <DropdownButton className="DriveUploadButton d-flex" align="end" title="Upload" menuVariant="dark">
-      <Dropdown.Item onClick={onUploadFile}>Upload Files</Dropdown.Item>
-      <Dropdown.Item onClick={onUploadFolder}>Upload Folder</Dropdown.Item>
+    <DropdownButton className="DriveUploadButton d-flex" align="end" title={t('drive.DriveUploadButton.upload')} menuVariant="dark">
+      <Dropdown.Item onClick={onUploadFile}>{t('drive.DriveUploadButton.upload-files')}</Dropdown.Item>
+      <Dropdown.Item onClick={onUploadFolder}>{t('drive.DriveUploadButton.upload-folder')}</Dropdown.Item>
     </DropdownButton>
   )
 }

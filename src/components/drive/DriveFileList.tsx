@@ -11,10 +11,10 @@ import { DriveActions } from 'src/pages/drive/DriveRedux';
 import { useDispatch } from 'src/redux';
 import { CommonSuspenseFallback } from '../common/CommonSuspense';
 import DriveSectionTemplate from './DriveSectionTemplate';
-import DriveNewFolderModal from './DriveNewFolderModal';
 import { driveMoveBulkAction } from 'src/pages/drive/move/DriveMoveActions';
 
 import './DriveFileList.scss';
+import { useTranslation } from 'react-i18next';
 
 export function renderDriveFileList(files: DriveFileInfo[], index: number, parent?: boolean) {
   const elements = files.map(v => (
@@ -35,6 +35,7 @@ interface Props {
 
 export default function DriveFileList({ index }: Props) {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const { path, selects } = useDriveStatus(index);
   const { data: files } = driveListApi.useApiResult({ path });
 
@@ -49,7 +50,7 @@ export default function DriveFileList({ index }: Props) {
   }
 
   const onNewFolder = () => {
-    dispatch(DriveActions.update({ showNewFolderModal: true }));
+    dispatch(DriveActions.update({ newFolderModalIndex: index }));
   }
 
   const content = files
@@ -65,8 +66,8 @@ export default function DriveFileList({ index }: Props) {
         <div className="status flex_center">
           {
             selects.length > 0
-              ? `${selects.length} / ${files.length} selected`
-              : `${files.length} items`
+              ? t('drive.file-list.selected', [selects.length, files.length])
+              : t('drive.file-list.no-selection', [files.length])
           }
         </div>
       </>
@@ -82,15 +83,12 @@ export default function DriveFileList({ index }: Props) {
   );
 
   return (
-    <>
-      <DriveSectionTemplate
-        className="DriveFileList"
-        title={path}
-        btnBarChildren={btnBarChildren}
-      >
-        {content}
-      </DriveSectionTemplate>
-      <DriveNewFolderModal index={index} />
-    </>
+    <DriveSectionTemplate
+      className="DriveFileList"
+      title={path}
+      btnBarChildren={btnBarChildren}
+    >
+      {content}
+    </DriveSectionTemplate>
   )
 }
