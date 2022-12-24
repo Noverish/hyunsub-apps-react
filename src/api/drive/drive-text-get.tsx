@@ -6,6 +6,7 @@ const driveTextGetApi = generateQuery<DrivePathParams, string>({
     url: '/api/v1/download-text',
     method: 'POST',
     data: params,
+    responseType: 'text',
   }),
   key: () => 'driveTextGetApi',
 })

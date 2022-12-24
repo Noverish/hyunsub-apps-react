@@ -67,7 +67,7 @@ export default function ModifyUsernameModal({ userInfo }: Props) {
 
 function modifyUsername(t: TFunction, navigate: NavigateFunction, username: string) {
   return async (dispatch: Dispatch, getState: () => RootState) => {
-    const { publicKey } = await rsaKey();
+    const { publicKey } = await rsaKey({});
 
     const encrypted = encrypt(publicKey, username);
 
@@ -77,7 +77,7 @@ function modifyUsername(t: TFunction, navigate: NavigateFunction, username: stri
 
     dispatch(updateMyPageState({ showUsernameModal: false }));
 
-    await logout();
+    await logout({});
 
     navigate(routes.login);
   }

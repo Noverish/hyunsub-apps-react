@@ -1,11 +1,15 @@
 #header.desktop_header {
   height: var(--header_height_desktop);
 
-  .container {
+  .desktop_header_inner {
     height: 100%;
     display: flex;
     align-items: center;
     flex-flow: row nowrap;
+
+    &.no_container {
+      padding: 0 .75rem;
+    }
 
     #header_title {
       font-family: 'Train One', serif;

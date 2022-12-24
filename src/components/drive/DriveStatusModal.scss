@@ -1,0 +1,50 @@
+.DriveStatusModal {
+  position: fixed;
+  bottom: 1rem;
+  left: 1rem;
+
+  min-width: 25vw;
+  background-color: var(--hyunsub-title-bg);
+  border-radius: 0.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+
+  padding: 1rem;
+
+  &.not_uploading {
+    display: none;
+  }
+
+  .header {
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+    display: flex;
+
+    .title {
+      margin-right: auto;
+    }
+
+    i {
+      cursor: pointer;
+    }
+  }
+
+  .current_status {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: .5rem;
+    align-items: center;
+
+    .current_path {
+      margin-right: auto;
+    }
+
+    .current_progress {
+      margin-left: 1rem;
+      width: 5vw;
+    }
+  }
+
+  .total_progress {
+  }
+}

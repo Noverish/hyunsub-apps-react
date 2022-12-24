@@ -1,11 +1,11 @@
-import { generateNoParamQuery } from "src/api/generate-api";
+import { generateQuery } from "src/api/generate-api";
 
 // TODO 뭔가 더 깔끔하게
 const url = window.location.host.includes('auth')
   ? ''
   : `https://auth.hyunsub.kim`;
 
-const getAuthorities = generateNoParamQuery<string[]>({
+const getAuthorities = generateQuery<{}, string[]>({
   api: () => ({
     url: url + '/api/v1/user/authorities',
     method: 'GET',
@@ -17,6 +17,6 @@ const getAuthorities = generateNoParamQuery<string[]>({
 export default getAuthorities;
 
 export function useIsAdmin(): boolean {
-  const authorities = getAuthorities.useApi();
+  const authorities = getAuthorities.useApi({});
   return authorities.includes('admin');
 }

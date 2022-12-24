@@ -13,7 +13,7 @@ export default function VideoSearchResultPage() {
   const { t } = useTranslation();
 
   const searchResult = searchVideo.useApi(params);
-  const categories = getCategories.useApi();
+  const categories = getCategories.useApi({});
   const resultNum = Object.values(searchResult.entries).reduce((prev, curr) => prev + curr.length, 0);
 
   const entriesList = Object.entries(searchResult.entries).map(([categoryName, entries]) => {

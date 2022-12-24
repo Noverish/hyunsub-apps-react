@@ -40,7 +40,7 @@ export default function VideoDetailPage() {
   const { category: categoryName, video, episodes, group } = detail;
   const { title, videoUrl, thumbnailUrl, subtitles, metadata } = video;
 
-  const categories = getCategories.useApi();
+  const categories = getCategories.useApi({});
   const category = categories.filter(v => v.name === categoryName)[0];
 
   useEffect(() => {

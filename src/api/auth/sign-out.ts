@@ -1,6 +1,6 @@
-import { generateNoParamApi } from "src/api/generate-api";
+import { generateApi } from "src/api/generate-api";
 
-const signOut = generateNoParamApi<any>(() => ({
+const signOut = generateApi<{}, any>(() => ({
   url: '/api/v1/sign-out',
   method: 'POST',
 }));

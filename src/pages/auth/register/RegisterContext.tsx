@@ -28,7 +28,7 @@ export const registerAction = (p: RegisterActionParams) => async (dispatch: Disp
 
   dispatch(GlobalActions.update({ loading: true }));
 
-  const { publicKey } = await rsaKey();
+  const { publicKey } = await rsaKey({});
 
   const registerParams: RegisterParams = {
     username: encrypt(publicKey, state.username),

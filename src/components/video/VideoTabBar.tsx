@@ -3,7 +3,7 @@ import VideoRoutes from 'src/pages/video/VideoRoutes';
 import CommonTabBar from "../common/header/CommonTabBar";
 
 export default function VideoTabBar() {
-  const categories = getCategories.useApi();
+  const categories = getCategories.useApi({});
 
   const items = categories.map(v => ({
     name: v.displayName,

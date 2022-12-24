@@ -11,7 +11,7 @@ import adminSignOut from "src/api/auth/admin/admin-sign-out";
 export const putUserAuthorityAction = (params: PutUserAuthorityParams) => async (dispatch: Dispatch, getState: () => RootState) => {
   dispatch(GlobalActions.update({ loading: true }));
   await putUserAuthority(params);
-  QueryClient.setQueryData<AdminUser[]>(getAllUsers.key(), (users) => {
+  QueryClient.setQueryData<AdminUser[]>(getAllUsers.key({}), (users) => {
     if (!users) {
       return [];
     }
@@ -30,7 +30,7 @@ export const putUserAuthorityAction = (params: PutUserAuthorityParams) => async 
 export const delUserAuthorityAction = (params: DelUserAuthorityParams) => async (dispatch: Dispatch, getState: () => RootState) => {
   dispatch(GlobalActions.update({ loading: true }));
   await delUserAuthority(params)
-  QueryClient.setQueryData<AdminUser[]>(getAllUsers.key(), (users) => {
+  QueryClient.setQueryData<AdminUser[]>(getAllUsers.key({}), (users) => {
     if (!users) {
       return [];
     }
@@ -50,7 +50,7 @@ export const delUserAuthorityAction = (params: DelUserAuthorityParams) => async 
 export const adminSignOutAction = (idNo: string) => async (dispatch: Dispatch, getState: () => RootState) => {
   dispatch(GlobalActions.update({ loading: true }));
   await adminSignOut({ idNo });
-  QueryClient.setQueryData<AdminUser[]>(getAllUsers.key(), (users) => {
+  QueryClient.setQueryData<AdminUser[]>(getAllUsers.key({}), (users) => {
     if (!users) {
       return [];
     }

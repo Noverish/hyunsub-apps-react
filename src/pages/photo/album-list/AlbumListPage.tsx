@@ -13,7 +13,7 @@ export default function AlbumListPage() {
     document.title = t('photo.page.album-list.title');
   }, [t]);
 
-  const albums = albumListApi.useApi();
+  const albums = albumListApi.useApi({});
 
   const albumItems = albums.map(v => (
     <Link key={v.id} to={routes.albumDetail(v.id)} className="move_up_on_hover d-block">

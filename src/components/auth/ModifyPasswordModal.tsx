@@ -81,7 +81,7 @@ export default function ModifyPasswordModal({ userInfo }: Props) {
 
 function modifyPassword(t: TFunction, navigate: NavigateFunction, password: string) {
   return async (dispatch: Dispatch, getState: () => RootState) => {
-    const { publicKey } = await rsaKey();
+    const { publicKey } = await rsaKey({});
 
     const encrypted = encrypt(publicKey, password);
 
@@ -91,7 +91,7 @@ function modifyPassword(t: TFunction, navigate: NavigateFunction, password: stri
 
     dispatch(updateMyPageState({ showPasswordModal: false }));
 
-    await logout();
+    await logout({});
 
     navigate(routes.login);
   }

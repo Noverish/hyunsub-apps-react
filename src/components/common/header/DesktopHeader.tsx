@@ -5,6 +5,7 @@ import { Link, To } from 'react-router-dom';
 import { useIsAdmin } from 'src/api/auth/authorities';
 import { useDispatch } from 'src/redux';
 import { logoutAction } from 'src/redux/actions';
+import cs from 'classnames';
 
 import './DesktopHeader.scss';
 
@@ -13,6 +14,7 @@ export interface DesktopHeaderProps {
   menus: DesktopHeaderMenu[];
   dropdowns: DesktopHeaderDropdown[];
   onSearch: () => void;
+  noContainer?: boolean;
 }
 
 export interface DesktopHeaderMenu {
@@ -37,7 +39,7 @@ const ProfileDropdownToggle = React.forwardRef<HTMLDivElement, React.DOMAttribut
 ));
 
 export default function DesktopHeader(props: DesktopHeaderProps) {
-  const { menus, onSearch, dropdowns, title } = props;
+  const { menus, onSearch, dropdowns, title, noContainer } = props;
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const isAdmin = useIsAdmin();
@@ -59,7 +61,7 @@ export default function DesktopHeader(props: DesktopHeaderProps) {
 
   return (
     <header className="desktop_header" id="header">
-      <div className="container">
+      <div className={cs('desktop_header_inner', noContainer ? 'no_container' : 'container')}>
         <a href="/" id="header_title" className="gray_on_hover">{title}</a>
         <div id="header_menu_section" className="overflow_scroll">
           {menuElements}

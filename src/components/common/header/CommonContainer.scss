@@ -1,4 +1,4 @@
-#container.container {
+#CommonContainer {
   &.is_mobile {
     .top {
       height: calc(var(--header_height_mobile) + var(--hyunsub_app_top_safe_area_height));
@@ -22,7 +22,7 @@
   }
 }
 
-#TabBar + div #container.container {
+#TabBar + div #CommonContainer {
   &.is_mobile {
     .bottom {
       height: calc(var(--hyunsub_tabbar_height) + var(--hyunsub_app_bottom_safe_area_height));

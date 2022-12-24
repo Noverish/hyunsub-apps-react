@@ -46,7 +46,7 @@ export function VideoListPage({ category }: { category: VideoCategory }) {
 }
 
 export default function VideoListPageWrapper() {
-  const categories = getCategories.useApi();
+  const categories = getCategories.useApi({});
   const categoryName = useParams().category || '';
 
   const category = categories.filter(v => v.name === categoryName)[0];

@@ -1,0 +1,20 @@
+#DriveExplorerPage {
+  .drive_container_content {
+    display: flex;
+
+    & > div {
+      flex: 1 1 0;
+      position: relative;
+
+      &:first-child {
+        border-right: 1px solid rgba(255, 255, 255, 0.5);
+      }
+
+      & > div {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+}

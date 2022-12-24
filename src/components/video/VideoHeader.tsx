@@ -9,7 +9,7 @@ import MobileHeader, { MobileHeaderProps } from '../common/header/MobileHeader';
 export default function VideoHeader(props: MobileHeaderProps) {
   const dispatch = useDispatch();
 
-  const categories = getCategories.useApi();
+  const categories = getCategories.useApi({});
 
   const menus = categories.map(v => ({
     name: v.displayName,

@@ -9,7 +9,7 @@ import drive from 'src/pages/drive/DriveRedux';
 import toast from './toast';
 import global from './global';
 
-export const loadState = () => {
+export const loadState = (): Partial<RootState> | undefined => {
   try {
     const serializedState = localStorage.getItem("redux");
     if (!serializedState) return undefined;
@@ -20,12 +20,12 @@ export const loadState = () => {
 };
 
 export const saveState = (state: RootState) => {
-  try {
-    const serializedState = JSON.stringify(state);
-    localStorage.setItem("redux", serializedState);
-  } catch (err) {
-    console.log(err);
+  const save: Partial<RootState> = {
+    drive: state.drive,
   }
+
+  const serializedState = JSON.stringify(save);
+  localStorage.setItem("redux", serializedState);
 };
 
 const reducer = combineReducers({ auth, video, photo, encode, toast, global, drive });
@@ -38,7 +38,7 @@ export const store = configureStore({
     (process.env.NODE_ENV === `development`)
       ? getDefaultMiddleware().concat(logger)
       : getDefaultMiddleware(),
-  preloadedState: undefined, // loadState(),
+  preloadedState: loadState(),
 });
 
 store.subscribe(() => {

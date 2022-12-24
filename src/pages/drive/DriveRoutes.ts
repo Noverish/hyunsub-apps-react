@@ -1,5 +1,7 @@
-const ApparelRoutes = {
-  list: '/',
+const DriveRoutes = {
+  explorer: '/explorer',
+  rename: '/rename',
+  move: '/move',
 }
 
-export default ApparelRoutes;
+export default DriveRoutes;

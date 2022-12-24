@@ -1,12 +1,15 @@
-import { DriveFileInfo, DriveFileType } from "src/model/drive"
-import { DriveActions } from "src/pages/drive/DriveRedux";
-import { useDispatch, useSelector } from "src/redux";
 import cs from 'classnames';
+import React from 'react';
+import { DriveFileInfo, DriveFileType } from "src/model/drive";
+import { driveFileClickAction } from 'src/pages/drive/DriveActions';
+import { useDriveStatus } from 'src/pages/drive/DriveHooks';
+import { useDispatch } from "src/redux";
 
 import './DriveFileView.scss';
 
 interface Props {
   info: DriveFileInfo;
+  index: number;
 }
 
 function getIcon(type: DriveFileType): string {
@@ -21,32 +24,48 @@ function getIcon(type: DriveFileType): string {
   }
 }
 
-export default function DriveFileView({ info }: Props) {
+function renderDragImage(num: number): HTMLCanvasElement {
+  const canvas = window.document.createElement('canvas');
+  canvas.style.backgroundColor = 'transparent';
+  canvas.style.position = 'fixed';
+  canvas.width = 48;
+  canvas.height = 48;
+  const margin = 12;
+  const contentSize = 24;
+
+  const ctx = canvas.getContext('2d')!!;
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  ctx.fillStyle = 'red';
+  ctx.beginPath();
+  ctx.roundRect(margin, margin, contentSize, contentSize, contentSize / 2);
+  ctx.fill();
+
+  ctx.font = "12px system-ui";
+  ctx.fillStyle = 'white';
+  ctx.textAlign = 'center';
+  ctx.fillText(num.toString(), margin + contentSize / 2, margin + contentSize / 2 + 6);
+  window.document.body.appendChild(canvas);
+  return canvas;
+}
+
+export default function DriveFileView({ info, index }: Props) {
   const dispatch = useDispatch();
-  const { path, file } = useSelector(s => s.drive);
-  const filePath = path + ((path === '/') ? '' : '/') + info.name;
+  const { path, selects } = useDriveStatus(index);
+  const selected = selects.includes(info.name);
 
-  const selected = file === info;
+  const onClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    dispatch(driveFileClickAction(index, info, e));
+  }
 
-  const onClick = () => {
-    if (info.name === '../') {
-      const segments = path.split('/');
-      const newPath = segments.slice(0, segments.length - 1).join('/');
-      const newPath2 = (newPath === '') ? '/' : newPath;
-      dispatch(DriveActions.update({ path: newPath2 }));
-      return;
-    }
-
-    if (info.type === 'FOLDER') {
-      dispatch(DriveActions.update({ path: filePath }));
-      return;
-    }
-
-    dispatch(DriveActions.update({ file: info }));
+  const onDragStart = (e: React.DragEvent<HTMLDivElement>) => {
+    e.dataTransfer.setData('moves', JSON.stringify(selects));
+    e.dataTransfer.setData('path', path);
+    e.dataTransfer.setDragImage(renderDragImage(selects.length), 0, 0);
   }
 
   return (
-    <div className={cs('DriveFileView', { selected })} onClick={onClick}>
+    <div className={cs('DriveFileView', { selected })} onClick={onClick} draggable onDragStart={onDragStart}>
       <div className={cs('icon', info.type.toLowerCase())}>
         <i className={getIcon(info.type)} />
       </div>

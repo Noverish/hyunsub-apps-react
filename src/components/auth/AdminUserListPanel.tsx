@@ -8,12 +8,12 @@ export default function AdminUserListPanel() {
   const result = useQueries({
     queries: [
       {
-        queryKey: getAllAuthorities.key(),
-        queryFn: () => getAllAuthorities.api(),
+        queryKey: getAllAuthorities.key({}),
+        queryFn: () => getAllAuthorities.api({}),
       },
       {
-        queryKey: getAllUsers.key(),
-        queryFn: () => getAllUsers.api(),
+        queryKey: getAllUsers.key({}),
+        queryFn: () => getAllUsers.api({}),
       }
     ],
   });

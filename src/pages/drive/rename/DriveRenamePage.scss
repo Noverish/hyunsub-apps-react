@@ -1,0 +1,10 @@
+#DriveRenamePage {
+  .drive_container_content {
+    display: flex;
+    flex-direction: column;
+
+    .DriveRenameFileList {
+      flex: 1 1 0;
+    }
+  }
+}

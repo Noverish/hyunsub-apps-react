@@ -1,7 +1,7 @@
-import { generateNoParamQuery } from "src/api/generate-api";
+import { generateQuery } from "src/api/generate-api";
 import { VideoGroupPreview } from 'src/model/video';
 
-const videoGroups = generateNoParamQuery<VideoGroupPreview[]>({
+const videoGroups = generateQuery<{}, VideoGroupPreview[]>({
   api: () => ({
     url: '/api/v1/groups',
     method: 'GET',
