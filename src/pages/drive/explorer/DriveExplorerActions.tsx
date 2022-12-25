@@ -1,14 +1,14 @@
 import { Dispatch } from '@reduxjs/toolkit';
+import { join } from 'path-browserify';
 import driveListApi from 'src/api/drive/drive-list';
-import driveRenameBulkApi from 'src/api/drive/drive-rename-bulk';
 import driveRemoveBulkApi from 'src/api/drive/drive-remove-bulk';
+import driveRenameBulkApi from 'src/api/drive/drive-rename-bulk';
 import t from 'src/i18n';
 import { getDriveStatus } from 'src/pages/drive/DriveHooks';
 import { DriveActions } from 'src/pages/drive/DriveRedux';
 import { RootState } from 'src/redux';
 import { GlobalActions } from 'src/redux/global';
 import AppConstant from 'src/utils/constants';
-import { join } from 'path-browserify';
 
 export const driveKeyboardAction = (e: KeyboardEvent) => async (dispatch: Dispatch, getState: () => RootState) => {
   const path = getState().drive.status[0]?.path || '/';

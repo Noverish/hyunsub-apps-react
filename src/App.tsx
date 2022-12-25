@@ -1,20 +1,14 @@
-import { Suspense, useEffect } from 'react';
+import { Suspense } from 'react';
 import { RouterProvider } from 'react-router-dom';
 import ToastDisplay from './components/toast/ToastDisplay';
 import ErrorBoundary from './pages/common/ErrorBoundary';
 import LoadingPage from './pages/common/LoadingPage';
 import LoadingPageDim from './pages/common/LoadingPageDim';
 import router from './pages/router';
-import { useDispatch, useSelector } from './redux';
-import { loadAuthorities } from './redux/actions';
+import { useSelector } from './redux';
 
 function App() {
-  const dispatch = useDispatch();
   const { loading } = useSelector(s => s.global);
-
-  useEffect(() => {
-    dispatch(loadAuthorities());
-  }, [dispatch]);
 
   return (
     <ErrorBoundary>
