@@ -53,6 +53,10 @@ export default function DriveFileList({ index }: Props) {
     dispatch(DriveActions.update({ newFolderModalIndex: index }));
   }
 
+  const onRefresh = () => {
+    driveListApi.invalidate({ path });
+  }
+
   const content = files
     ? (
       <>
@@ -77,6 +81,7 @@ export default function DriveFileList({ index }: Props) {
 
   const btnBarChildren = (
     <>
+      <Button variant="primary" onClick={onRefresh}><i className="fas fa-sync-alt" /></Button>
       <Button variant="primary" onClick={onNewFolder}><i className="fas fa-folder-plus" /></Button>
       <DriveUploadButton path={path} />
     </>

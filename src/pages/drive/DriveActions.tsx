@@ -1,45 +1,40 @@
 import { Dispatch } from "@reduxjs/toolkit";
+import { groupBy } from "lodash";
 import React from "react";
 import driveListApi from "src/api/drive/drive-list";
 import driveNewFolderApi from "src/api/drive/drive-new-folder";
-import fileUploadRenameApi from "src/api/file/file-upload-rename";
-import uploadApi from "src/api/file/upload";
+import fileUploadMultipartApi from "src/api/file/file-upload-multipart";
 import { DriveFileInfo } from "src/model/drive";
 import { FileWithPath } from "src/model/file";
 import { RootState } from "src/redux";
 import { GlobalActions } from "src/redux/global";
-import { dirname, join } from 'src/utils/path';
+import { dirname, join } from 'path-browserify';
 import { isMac } from "src/utils/user-agent";
 import { getDriveStatus } from './DriveHooks';
 import { DriveActions } from './DriveRedux';
+import driveUploadSessionApi from "src/api/drive/drive-upload-session";
 
 export const driveUploadAction = (path: string, files: FileWithPath[]) => async (dispatch: Dispatch, getState: () => RootState) => {
-  const { uploads } = getState().drive;
-
   files.sort((a, b) => a.path.localeCompare(b.path));
 
-  const newUploads = files.map(v => ({
-    path: v.path,
-    progress: 0,
-  }))
+  const newUploads = files.map(v => ({ path: v.path, progress: 0 }));
 
+  const { uploads } = getState().drive;
   dispatch(DriveActions.update({ uploads: [...uploads, ...newUploads] }))
 
-  for (const file of files) {
-    const { nonce } = await uploadApi({
-      file: file.file,
-      progress: (progress: number) => {
-        dispatch(DriveActions.updateUpload({ progress, path: file.path }));
-      }
-    })
+  const fileMap = groupBy(files, v => dirname(v.path));
 
-    dispatch(DriveActions.updateUpload({ progress: 100, path: file.path }));
+  for (const [parent, children] of Object.entries(fileMap)) {
+    const parentPath = join(path, parent);
+    const sessionKey = (await driveUploadSessionApi({ path: parentPath })).sessionKey;
 
-    await fileUploadRenameApi({
-      nonce,
-      path: join(path, file.path),
-    })
+    for (const file of children) {
+      await fileUploadMultipartApi({ sessionKey, files: [file.file] })
+      dispatch(DriveActions.updateUpload({ path: file.path, progress: 100 }));
+    }
   }
+
+  driveListApi.invalidate({ path });
 }
 
 export const driveNewFolderAction = (index: number, name: string) => async (dispatch: Dispatch, getState: () => RootState) => {
