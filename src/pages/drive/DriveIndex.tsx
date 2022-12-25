@@ -1,7 +1,6 @@
 import { lazy } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import DriveStatusModal from 'src/components/drive/DriveStatusModal';
-import ErrorPage from '../common/ErrorPage';
 import routes from './DriveRoutes';
 import DriveNewFolderModal from 'src/components/drive/DriveNewFolderModal';
 import DriveRenameModal from 'src/components/drive/DriveRenameModal';
@@ -19,7 +18,6 @@ export default function DriveIndex() {
       <Routes>
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/" element={<Navigate to={routes.explorer} />} />
-        <Route path="/error" element={<ErrorPage />} />
         <Route path={routes.explorer} element={<DriveExplorerPage />} />
         <Route path={routes.rename} element={<DriveRenamePage />} />
         <Route path={routes.move} element={<DriveMovePage />} />

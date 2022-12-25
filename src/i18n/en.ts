@@ -15,6 +15,9 @@ const en = {
     'msg.delete-success': 'Successfully deleted',
     'msg.type-query': 'Please type search query...',
 
+    'common.403.oh': 'Huh?!',
+    'common.403.not-exist': 'Cannot access to this page',
+    'common.403.go-to-home': 'Go to home',
     'common.404.oh': 'Ah!',
     'common.404.not-exist': 'This page is not exist',
     'common.404.go-to-home': 'Go to Home',

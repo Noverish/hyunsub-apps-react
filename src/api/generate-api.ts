@@ -3,6 +3,7 @@ import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import t from 'src/i18n';
 import getErrMsg from 'src/i18n/server-error';
 import { ErrorResponse, PageData } from 'src/model/api';
+import router from 'src/pages/router';
 import { dispatch } from 'src/redux';
 import { GlobalActions } from 'src/redux/global';
 import { insertToast } from 'src/redux/toast';
@@ -54,6 +55,8 @@ export function generateApi<P, R>(func: (p: P) => AxiosRequestConfig) {
         dispatch(insertToast(getErrMsg(t, res.data)));
       } else if (res.status === 401) {
         window.location.href = `/login?url=${encodeURIComponent(window.location.href)}`;
+      } else if (res.status === 403) {
+        router.navigate('/forbidden');
       } else {
         dispatch(insertToast(JSON.stringify(res.data)));
       }

@@ -1,6 +1,5 @@
 import { lazy } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import ErrorPage from '../common/ErrorPage';
 import routes from './AuthRoutes';
 
 const NotFoundPage = lazy(() => import('src/pages/common/NotFoundPage'));
@@ -15,7 +14,6 @@ export default function AuthIndex() {
       <Routes>
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/" element={<Navigate to={routes.my} />} />
-        <Route path="/error" element={<ErrorPage />} />
         <Route path={routes.login} element={<LoginPage />} />
         <Route path={routes.register} element={<RegisterPage />} />
         <Route path={routes.my} element={<MyPage />} />
