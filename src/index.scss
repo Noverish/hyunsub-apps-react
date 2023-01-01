@@ -60,8 +60,8 @@ header {
 // custom class
 
 input {
-  background-color: var(--bs-gray-dark)!important;
-  color: white!important;
+  background-color: var(--bs-gray-dark);
+  color: white;
 
   &:focus {
     background-color: var(--bs-gray);
