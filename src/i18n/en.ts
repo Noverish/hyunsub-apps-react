@@ -151,6 +151,9 @@ const en = {
     'drive.DriveRenameModal.label': 'File Name',
     'drive.DriveRenameModal.button': 'Edit',
 
+    'comic.ComicListPage.title': 'Comic List',
+    'comic.ComicDetailPage.subtitle': '{{0}} Episodes',
+
     'PageSelectModal.title': 'Move Page',
     'PageSelectModal.close': 'Close',
     'PageSelectModal.move': 'Move',

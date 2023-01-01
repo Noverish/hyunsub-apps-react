@@ -151,6 +151,9 @@ const ko = {
     'drive.DriveRenameModal.label': '파일 이름',
     'drive.DriveRenameModal.button': '수정',
 
+    'comic.ComicListPage.title': '만화 목록',
+    'comic.ComicDetailPage.subtitle': '{{0}}개의 에피소드',
+
     'PageSelectModal.title': '페이지 이동',
     'PageSelectModal.close': '취소',
     'PageSelectModal.move': '이동',

@@ -87,7 +87,7 @@ export default function PageSwiper<T>(props: PageSwiperProps<T>) {
       <SwiperComponent
         onSwiper={(swiper: Swiper) => swiperRef.current = swiper}
         modules={[Virtual, Keyboard, Zoom]}
-        virtual={{ slides, enabled: true }}
+        virtual={{ slides, enabled: true, addSlidesAfter: 3, addSlidesBefore: 3 }}
         zoom={true}
         initialSlide={page}
         spaceBetween={24}
