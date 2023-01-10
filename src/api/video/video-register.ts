@@ -13,7 +13,7 @@ export interface VideoRegisterParams {
 }
 
 const videoRegister = generateApi<VideoRegisterParams, any>(params => ({
-  url: `/api/v1/video`,
+  url: `/api/v1/register`,
   method: 'POST',
   data: filterEmptyString(params),
 }));
