@@ -12,26 +12,28 @@ import { dirname, join } from 'path-browserify';
 import { isMac } from "src/utils/user-agent";
 import { getDriveStatus } from './DriveHooks';
 import { DriveActions } from './DriveRedux';
-import driveUploadSessionApi from "src/api/drive/drive-upload-session";
+
+function getSize(files: FileWithPath[]) {
+  return files.map(v => v.file.size).reduce((a, b) => a + b);
+}
 
 export const driveUploadAction = (path: string, files: FileWithPath[]) => async (dispatch: Dispatch, getState: () => RootState) => {
   files.sort((a, b) => a.path.localeCompare(b.path));
 
-  const newUploads = files.map(v => ({ path: v.path, progress: 0 }));
+  const totalSize = getSize(files);
+  dispatch(DriveActions.addUploadTotalSize(totalSize));
 
-  const { uploads } = getState().drive;
-  dispatch(DriveActions.update({ uploads: [...uploads, ...newUploads] }))
-
-  const fileMap = groupBy(files, v => dirname(v.path));
-
-  for (const [parent, children] of Object.entries(fileMap)) {
-    const parentPath = join(path, parent);
-    const sessionKey = (await driveUploadSessionApi({ path: parentPath })).sessionKey;
-
-    for (const file of children) {
-      await fileUploadMultipartApi({ sessionKey, files: [file.file] })
-      dispatch(DriveActions.updateUpload({ path: file.path, progress: 100 }));
-    }
+  const fileMap = groupBy(files, v => join(path, dirname(v.path)));
+  for (const [folderPath, children] of Object.entries(fileMap)) {
+    let prev = 0;
+    await fileUploadMultipartApi({
+      path: folderPath,
+      files: children.map(v => v.file),
+      progress: (curr: number) => {
+        dispatch(DriveActions.addUploadCurrSize(curr - prev));
+        prev = curr;
+      }
+    });
   }
 
   driveListApi.invalidate({ path });

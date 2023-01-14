@@ -1,10 +1,11 @@
 import { generateApi } from "../generate-api";
-import { AxiosRequestConfig } from 'axios';
+import { AxiosRequestConfig, AxiosProgressEvent } from 'axios';
 import AppConstant from 'src/utils/constants';
 
 export interface FileUploadMultipartParams {
-  sessionKey: string;
+  path: string;
   files: File[];
+  progress?: (curr: number, total: number) => void;
 }
 
 export interface FileUploadMultipartResult {
@@ -13,7 +14,7 @@ export interface FileUploadMultipartResult {
 
 const fileUploadMultipartApi = generateApi<FileUploadMultipartParams, FileUploadMultipartResult>(params => {
   const formData = new FormData();
-  formData.append('sessionKey', params.sessionKey);
+  formData.append('path', params.path);
   params.files.forEach(v => formData.append('files', v));
 
   return {
@@ -23,6 +24,12 @@ const fileUploadMultipartApi = generateApi<FileUploadMultipartParams, FileUpload
     data: formData,
     headers: {
       "Content-Type": "multipart/form-data",
+    },
+    onUploadProgress: (e: AxiosProgressEvent) => {
+      const total = e.total;
+      if (total) {
+        params.progress?.(e.loaded, total);
+      }
     }
   } as AxiosRequestConfig;
 })

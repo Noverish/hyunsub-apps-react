@@ -10,13 +10,9 @@
 
   padding: 1rem;
 
-  &.not_uploading {
-    display: none;
-  }
-
   .header {
     padding-bottom: 0.5rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.5);
     display: flex;
 
@@ -27,24 +23,5 @@
     i {
       cursor: pointer;
     }
-  }
-
-  .current_status {
-    display: flex;
-    flex-direction: row;
-    margin-bottom: .5rem;
-    align-items: center;
-
-    .current_path {
-      margin-right: auto;
-    }
-
-    .current_progress {
-      margin-left: 1rem;
-      width: 5vw;
-    }
-  }
-
-  .total_progress {
   }
 }

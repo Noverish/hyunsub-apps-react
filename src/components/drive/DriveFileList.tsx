@@ -12,9 +12,9 @@ import { useDispatch } from 'src/redux';
 import { CommonSuspenseFallback } from '../common/CommonSuspense';
 import DriveSectionTemplate from './DriveSectionTemplate';
 import { driveMoveBulkAction } from 'src/pages/drive/move/DriveMoveActions';
+import { useTranslation } from 'react-i18next';
 
 import './DriveFileList.scss';
-import { useTranslation } from 'react-i18next';
 
 export function renderDriveFileList(files: DriveFileInfo[], index: number, parent?: boolean) {
   const elements = files.map(v => (

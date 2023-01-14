@@ -2,10 +2,11 @@ import cs from 'classnames';
 import { flatMap } from 'lodash';
 import React, { useState } from 'react';
 import { FileWithPath } from 'src/model/file';
+import { extname } from 'path-browserify';
 
 import './FileUploadZone.scss';
 
-const ignores = ['.DS_Store'];
+const ignoreExts = ['.DS_Store'];
 
 interface Props extends React.HTMLProps<HTMLDivElement> {
   onUpload?: (entries: FileWithPath[]) => void;
@@ -75,7 +76,7 @@ async function handleDropEvent(items: DataTransferItem[]): Promise<FileWithPath[
     .map(v => processEntry(v));
   const result = await Promise.all(promises);
   return flatMap(result)
-    .filter(v => validPath(v.path));
+    .filter(v => validExt(v.path));
 }
 
 async function processEntry(entry: FileSystemEntry | null): Promise<FileWithPath[]> {
@@ -97,9 +98,24 @@ async function processEntry(entry: FileSystemEntry | null): Promise<FileWithPath
   return [];
 }
 
-function readDir(entry: FileSystemDirectoryEntry): Promise<FileSystemEntry[]> {
+async function readDir(entry: FileSystemDirectoryEntry): Promise<FileSystemEntry[]> {
+  const reader = entry.createReader();
+
+  const result: FileSystemEntry[] = [];
+  while (true) {
+    const files = await readReader(reader);
+    if (files.length === 0) {
+      break;
+    }
+
+    result.push(...files);
+  }
+
+  return result;
+}
+
+function readReader(reader: FileSystemDirectoryReader): Promise<FileSystemEntry[]> {
   return new Promise((resolve, reject) => {
-    const reader = entry.createReader();
     reader.readEntries(
       (files) => resolve(files),
       (err) => reject(err),
@@ -116,9 +132,6 @@ function getFile(entry: FileSystemFileEntry): Promise<FileWithPath> {
   })
 }
 
-function validPath(path: string) {
-  const segments = path.split('.');
-  const ext = segments[segments.length - 1];
-  console.log({ ext, predicate: ignores.includes('.' + ext) });
-  return !ignores.includes('.' + ext);
+function validExt(path: string) {
+  return !ignoreExts.includes(extname(path));
 }

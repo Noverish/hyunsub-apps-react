@@ -1,21 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { DriveFileInfo, DriveUploadingFile, DriveWindowStatus } from 'src/model/drive';
+import { DriveFileInfo, DriveUploadStatus, DriveWindowStatus } from 'src/model/drive';
 
 interface State {
-  uploads: DriveUploadingFile[];
+  uploadStatus?: DriveUploadStatus;
   renames: DriveFileInfo[];
   newFolderModalIndex?: number;
   renameModalPath?: string;
   status: DriveWindowStatus[];
 };
 
-interface UpdateUploadPayload {
-  path: string;
-  progress: number;
-}
-
 const initialState: State = {
-  uploads: [],
   renames: [],
   status: [],
 };
@@ -28,11 +22,15 @@ const slice = createSlice({
       ...state,
       ...payload,
     }),
-    updateUpload: (state: State, { payload }: PayloadAction<UpdateUploadPayload>) => {
-      const current = state.uploads.filter(v => v.path === payload.path)[0];
-      if (current) {
-        current.progress = payload.progress;
-      }
+    addUploadTotalSize: (state: State, { payload }: PayloadAction<number>) => {
+      const status = state.uploadStatus || { total: 0, curr: 0 };
+      status.total += payload;
+      state.uploadStatus = status;
+    },
+    addUploadCurrSize: (state: State, { payload }: PayloadAction<number>) => {
+      const status = state.uploadStatus || { total: 0, curr: 0 };
+      status.curr += payload;
+      state.uploadStatus = status;
     },
     updateStatus: (state: State, { payload }: PayloadAction<Partial<DriveWindowStatus> & { index?: number }>) => {
       const { index = 0, ...newStatus } = payload;
