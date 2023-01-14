@@ -63,6 +63,16 @@ export default function AppsIndex() {
             </a>
           </Col>
         </Row>
+        <Row>
+          <Col>
+            <a href="https://comic.hyunsub.kim">
+              <i className="fas fa-book"></i>
+              <span>Comic</span>
+            </a>
+          </Col>
+          <Col>
+          </Col>
+        </Row>
       </div>
     </div>
   )
