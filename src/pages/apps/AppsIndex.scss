@@ -5,17 +5,11 @@
   justify-content: center;
 
   .wrapper {
+    width: 240px;
+    flex: 0 0 auto;
     display: flex;
-    flex-direction: column;
-    height: 60vh;
-    width: 60vw;
-
-    position: relative;
-    top: var(--hyunsub_app_top_safe_area_height);
-  }
-
-  .row {
-    flex: 1 1 0;
+    flex-direction: row;
+    align-items: center;
   }
 
   .col a {
