@@ -1,19 +1,19 @@
 import { useNavigate } from "react-router-dom";
-import { ComicEpisodePreview } from "src/model/comic"
+import { ComicEpisodePreview } from "src/model/comic";
 import ComicRoutes from "src/pages/comic/ComicRoutes";
 
 import './ComicEpisodeView.scss';
 
 interface Props {
-  name: string;
+  comicId: string;
   episode: ComicEpisodePreview;
 }
 
-export default function ComicEpisodeView({ name, episode }: Props) {
+export default function ComicEpisodeView({ comicId, episode }: Props) {
   const navigate = useNavigate();
 
   const onClick = () => {
-    navigate(ComicRoutes.viewerRoute(name, episode.title));
+    navigate(ComicRoutes.viewerRoute(comicId, episode.order));
   }
 
   return (

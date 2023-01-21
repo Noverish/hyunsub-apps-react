@@ -5,19 +5,19 @@ import ComicRoutes from "src/pages/comic/ComicRoutes";
 import './ComicPreviewView.scss';
 
 interface Props {
-  preview: ComicPreview;
+  comic: ComicPreview;
 }
 
-export default function ComicPreviewView({ preview }: Props) {
+export default function ComicPreviewView({ comic }: Props) {
   const navigate = useNavigate();
 
   const onClick = () => {
-    navigate(ComicRoutes.detailRoute(preview.name))
+    navigate(ComicRoutes.detailRoute(comic.id))
   }
 
   return (
     <div className="ComicPreviewView" onClick={onClick}>
-      {preview.name}
+      {comic.title}
     </div>
   )
 }

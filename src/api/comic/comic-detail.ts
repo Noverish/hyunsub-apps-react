@@ -1,14 +1,13 @@
 import { ComicDetail } from "src/model/comic";
 import { generateQuery } from "../generate-api";
-import { Base64 } from 'js-base64';
 
 export interface ComicDetailParams {
-  name: string;
+  comicId: string;
 }
 
 const comicDetailApi = generateQuery<ComicDetailParams, ComicDetail>({
   api: (params) => ({
-    url: `/api/v1/comics/${Base64.encodeURI(params.name)}`,
+    url: `/api/v1/comics/${params.comicId}`,
     method: 'GET'
   }),
   key: () => 'comicDetailApi',

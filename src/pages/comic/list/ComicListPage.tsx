@@ -11,7 +11,7 @@ export default function ComicListPage() {
   const comics = comicListApi.useApi({});
 
   const elements = comics.map(v => (
-    <ComicPreviewView preview={v} />
+    <ComicPreviewView key={v.id} comic={v} />
   ))
 
   return (

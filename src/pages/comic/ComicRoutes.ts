@@ -1,13 +1,11 @@
-import { Base64 } from 'js-base64';
-
 const ComicRoutes = {
   list: '/',
 
-  detail: '/comics/:name',
-  detailRoute: (name: string) => `/comics/${Base64.encodeURI(name)}`,
+  detail: '/comics/:comicId',
+  detailRoute: (comicId: string) => `/comics/${comicId}`,
 
-  viewer: '/comics/:name/episodes/:episode',
-  viewerRoute: (name: string, episode: string) => `/comics/${Base64.encodeURI(name)}/episodes/${Base64.encodeURI(episode)}`
+  viewer: '/comics/:comicId/:order',
+  viewerRoute: (comicId: string, order: number) => `/comics/${comicId}/${order}`,
 }
 
 export default ComicRoutes;

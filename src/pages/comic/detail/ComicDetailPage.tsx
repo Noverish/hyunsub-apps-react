@@ -1,4 +1,3 @@
-import { Base64 } from 'js-base64';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import comicDetailApi from 'src/api/comic/comic-detail';
@@ -8,19 +7,19 @@ import CommonContainer from 'src/components/common/header/CommonContainer';
 
 export default function ComicDetailPage() {
   const { t } = useTranslation();
-  const name = Base64.decode(useParams().name as string);
+  const comicId = useParams().comicId!;
 
-  const comic = comicDetailApi.useApi({ name });
+  const comicDetail = comicDetailApi.useApi({ comicId });
 
-  const elements = comic.episodes.map(v => (
-    <ComicEpisodeView name={name} episode={v} />
+  const elements = comicDetail.episodes.map(v => (
+    <ComicEpisodeView key={v.order} comicId={comicDetail.id} episode={v} />
   ))
 
   return (
     <div className="ComicDetailPage">
-      <ComicHeader title={name} back />
+      <ComicHeader title={comicDetail.title} back />
       <CommonContainer>
-        <h3>{t('comic.ComicDetailPage.subtitle', [comic.episodes.length])}</h3>
+        <h3>{t('comic.ComicDetailPage.subtitle', [comicDetail.episodes.length])}</h3>
         {elements}
       </CommonContainer>
     </div>
