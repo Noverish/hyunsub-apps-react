@@ -11,7 +11,7 @@ import './PageSwiper.scss';
 export interface PageSwiperProps<T> {
   page: number;
   slides: (T | null)[];
-  onPageChange: (page: number) => void;
+  onPageChange?: (page: number) => void;
   renderSlide: (slide: T | null) => JSX.Element;
   headerRightIcons?: JSX.Element;
 }
@@ -47,7 +47,7 @@ export default function PageSwiper<T>(props: PageSwiperProps<T>) {
   const onPageChangeFromSwiper = (swiper: Swiper) => {
     setNow(swiper.activeIndex);
     if (swiper.activeIndex !== page) {
-      props.onPageChange(swiper.activeIndex);
+      props.onPageChange?.(swiper.activeIndex);
     }
   }
 

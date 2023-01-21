@@ -16,9 +16,14 @@ export default function ComicEpisodeView({ comicId, episode }: Props) {
     navigate(ComicRoutes.viewerRoute(comicId, episode.order));
   }
 
+  const percent = episode.history
+    ? 100 * (episode.history + 1) / episode.length
+    : 0;
+
   return (
     <div className="ComicEpisodeView" onClick={onClick}>
-      {episode.title}
+      <div className="history" style={{ width: `${percent}%`}}></div>
+      <span>{episode.title}</span>
     </div>
   )
 }

@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import comicDetailApi from 'src/api/comic/comic-detail';
@@ -10,6 +11,10 @@ export default function ComicDetailPage() {
   const comicId = useParams().comicId!;
 
   const comicDetail = comicDetailApi.useApi({ comicId });
+
+  useEffect(() => {
+    window.document.title = comicDetail.title;
+  }, [comicDetail.title]);
 
   const elements = comicDetail.episodes.map(v => (
     <ComicEpisodeView key={v.order} comicId={comicDetail.id} episode={v} />

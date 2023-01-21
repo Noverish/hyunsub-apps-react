@@ -29,6 +29,7 @@ interface GenerateApiResult<P, R> {
   cache: (p: P) => R | undefined;
   prefetch: (p: P) => void;
   invalidate: (p: P) => void;
+  updateCache: (p: P, updater: (cache: R) => void) => void;
 }
 
 interface GenerateInfiniteApiResult<P, R> {
@@ -75,6 +76,15 @@ export function generateQuery<P, R>(option: GenerateApiOption<P>): GenerateApiRe
   const prefetch = (p: P) => QueryClient.prefetchQuery(key(p), () => api(p), { staleTime: Infinity });
   const fetch = (p: P) => QueryClient.fetchQuery(key(p), () => api(p), { staleTime: Infinity });
   const invalidate = (p: P) => QueryClient.invalidateQueries(key(p), { refetchType: 'active' });
+  const updateCache = (p: P, updater: (cache: R) => void) => {
+    QueryClient.setQueryData<R>(key(p), (cache) => {
+      if (!cache) {
+        return cache;
+      }
+      updater(cache);
+      return cache;
+    });
+  }
 
   return {
     api,
@@ -85,6 +95,7 @@ export function generateQuery<P, R>(option: GenerateApiOption<P>): GenerateApiRe
     cache,
     prefetch,
     invalidate,
+    updateCache,
   };
 }
 

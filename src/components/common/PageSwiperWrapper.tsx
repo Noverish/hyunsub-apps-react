@@ -62,7 +62,7 @@ export default function PageSwiperWrapper<T>(props: Props<T>) {
   }
 
   const onSlideChange = (index: number) => {
-    onPageChange(index);
+    onPageChange?.(index);
 
     const pageBehind = getPage(pageDataList, index - readyOffSlideSize);
     readyPage(pageBehind);

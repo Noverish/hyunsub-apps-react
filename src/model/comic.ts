@@ -14,6 +14,7 @@ export interface ComicEpisodePreview {
   title: string;
   length: number;
   regDt: string;
+  history?: number;
 }
 
 export interface ComicEpisodeDetail {
@@ -23,4 +24,5 @@ export interface ComicEpisodeDetail {
   length: number;
   regDt: string;
   images: string[];
+  history?: number;
 }
