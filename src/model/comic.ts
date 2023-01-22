@@ -21,6 +21,7 @@ export interface ComicEpisodeDetail {
   comicId: string;
   order: number;
   title: string;
+  episodeTitle: string;
   length: number;
   regDt: string;
   images: string[];

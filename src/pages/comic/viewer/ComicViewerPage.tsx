@@ -12,10 +12,11 @@ export default function ComicViewerPage() {
   const order = parseInt(params.order!);
 
   const comicEpisodeDetail = comicEpisodeDetailApi.useApi({ comicId, order });
+  const { title, episodeTitle } = comicEpisodeDetail;
 
   useEffect(() => {
-    window.document.title = comicEpisodeDetail.title;
-  }, [comicEpisodeDetail.title]);
+    window.document.title = title + ' - ' + episodeTitle;
+  }, [title, episodeTitle]);
 
   const onPageChange = (page: number) => {
     comicHistorySetApi({ comicId, order, page });
@@ -27,9 +28,11 @@ export default function ComicViewerPage() {
     })
   }
 
+  const urls = comicEpisodeDetail.images.map(v => `https://file.hyunsub.kim/Comics/${title}/${episodeTitle}/${v}`);
+
   return (
     <div className="ComicViewerPage">
-      <ImageSwiper images={comicEpisodeDetail.images} onPageChange={onPageChange} initialPage={comicEpisodeDetail.history} />
+      <ImageSwiper images={urls} onPageChange={onPageChange} initialPage={comicEpisodeDetail.history} />
     </div>
   )
 }
