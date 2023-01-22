@@ -55,8 +55,7 @@ export default function ComicViewerPage() {
   return (
     <div className="ComicViewerPage">
       <ImageSwiper
-        page={page}
-        setPage={setPage}
+        pageState={[page, setPage]}
         slides={urls}
         onPageChange={onPageChange}
         additionalLastSlide={additionalLastSlide}

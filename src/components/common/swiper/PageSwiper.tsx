@@ -1,5 +1,5 @@
 import cs from 'classnames';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PageSelectModal from 'src/components/common/PageSelectModal';
 import Swiper, { Keyboard, Virtual, Zoom } from 'swiper';
@@ -9,7 +9,8 @@ import 'swiper/css';
 import './PageSwiper.scss';
 
 export interface PageSwiperProps<T> {
-  page: number;
+  pageState?: [number, (page: number) => void];
+  initialPage?: number;
   slides: (T | null)[];
   onPageChange?: (page: number) => void;
   renderSlide: (slide: T | null) => JSX.Element;
@@ -28,29 +29,37 @@ export interface PageSwiperProps<T> {
 // }
 
 export default function PageSwiper<T>(props: PageSwiperProps<T>) {
-  const { slides, page } = props;
-  const [now, setNow] = useState(page);
+  const { slides, pageState, onPageChange } = props;
   const [hideHeader, setHideHeader] = useState(false);
   const [showPageModal, setShowPageModal] = useState(false);
   const navigate = useNavigate();
   const swiperRef = useRef<Swiper>();
 
-  useEffect(() => onPageChangeNotFromSwiper(page), [page]);
+  const [tmp, setTmp] = useState(props.initialPage || 0);
+  const now = pageState ? pageState[0] : tmp;
+  const setNow = pageState ? pageState[1] : setTmp;
 
-  const onPageChangeNotFromSwiper = (page: number) => {
+  const onPageChangeNotFromSwiper = useCallback((page: number) => {
     setNow(page);
     const swiper: Swiper | undefined = swiperRef?.current;
     if (swiper && swiper.activeIndex !== page) {
       swiper.slideTo(page);
     }
-  }
+  }, [setNow]);
 
-  const onPageChangeFromSwiper = (swiper: Swiper) => {
-    setNow(swiper.activeIndex);
-    if (swiper.activeIndex !== page) {
-      props.onPageChange?.(swiper.activeIndex);
+  const onPageChangeFromSwiper = useCallback((swiper: Swiper) => {
+    if (swiper.activeIndex !== now) {
+      setNow(swiper.activeIndex);
+      onPageChange?.(swiper.activeIndex);
     }
-  }
+  }, [now, setNow, onPageChange]);
+
+  const pageFromProps = pageState?.[0];
+  useEffect(() => {
+    if (pageFromProps !== undefined) {
+      onPageChangeNotFromSwiper(pageFromProps)
+    }
+  }, [onPageChangeNotFromSwiper, pageFromProps]);
 
   const onClick = () => setHideHeader(v => !v);
   const onBack = () => navigate(-1);
@@ -78,7 +87,7 @@ export default function PageSwiper<T>(props: PageSwiperProps<T>) {
     )
   }
 
-  // printSwiperStatus(now, slides);
+  // printSwiperStatus(page, slides);
 
   return (
     <div id="PageSwiper" onClick={onClick}>
@@ -100,7 +109,7 @@ export default function PageSwiper<T>(props: PageSwiperProps<T>) {
         modules={[Virtual, Keyboard, Zoom]}
         virtual={{ enabled: true, addSlidesAfter: 3, addSlidesBefore: 3 }}
         zoom={true}
-        initialSlide={page}
+        initialSlide={now}
         spaceBetween={24}
         onSlideChange={onPageChangeFromSwiper}
         keyboard={true}

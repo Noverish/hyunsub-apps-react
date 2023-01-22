@@ -1,7 +1,7 @@
-import PageSwiper, { PageSwiperV2Props } from "../PageSwiperV2";
+import PageSwiper, { PageSwiperProps } from "./PageSwiper";
 import LoadingImage from "./LoadingImage";
 
-interface Props extends Omit<PageSwiperV2Props<string>, 'renderSlide'> {
+interface Props extends Omit<PageSwiperProps<string>, 'renderSlide'> {
 
 }
 

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import albumDetailApi from 'src/api/photo/album-detail';
 import albumPhotosApi from 'src/api/photo/album-photos';
-import PageSwiperWrapper, { makeSlides } from 'src/components/common/PageSwiperWrapper';
+import PageSwiperWrapper, { makeSlides } from 'src/components/common/swiper/PageSwiperWrapper';
 import PhotoInfoModal from 'src/components/photo/PhotoInfoModal';
 import { Photo } from 'src/model/photo';
 import routes from 'src/pages/photo/PhotoRoutes';
@@ -94,7 +94,7 @@ export default function AlbumViewerPage() {
         fetchInitial={fetchInitial}
         fetchSlides={fetchSlides}
 
-        page={page}
+        initialPage={page}
         slides={slides}
         onPageChange={onSlideChange}
         renderSlide={renderSlide}

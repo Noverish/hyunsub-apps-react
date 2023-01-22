@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { PageDataList } from 'src/components/common/PageSwiperWrapper';
+import { PageDataList } from 'src/components/common/swiper/PageSwiperWrapper';
 import { PageData } from 'src/model/api';
 import { Photo } from 'src/model/photo';
 

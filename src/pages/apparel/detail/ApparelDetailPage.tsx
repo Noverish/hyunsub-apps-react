@@ -5,7 +5,7 @@ import { Link, useParams } from 'react-router-dom';
 import apparelDetail from 'src/api/apparel/apparel-detail';
 import ApparelHeader from 'src/components/apparel/ApparelHeader';
 import CommonContainer from 'src/components/common/header/CommonContainer';
-import ImageSwiper from 'src/components/common/ImageSwiper';
+import ImageCarousel from 'src/components/common/ImageCarousel';
 import ApparelRoutes from 'src/pages/apparel/ApparelRoutes';
 import { useDispatch } from 'src/redux';
 import { numberWithComma } from 'src/utils';
@@ -34,7 +34,7 @@ export default function ApparelDetailPage() {
       <CommonContainer>
         <h1>{apparel.name}</h1>
         <div className="mt-3">
-          <ImageSwiper urls={urls} />
+          <ImageCarousel urls={urls} />
         </div>
         <div className="mt-0 row g-3 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
           <div className="col">
