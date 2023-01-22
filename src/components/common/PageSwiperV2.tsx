@@ -8,8 +8,9 @@ import { Swiper as SwiperComponent, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import './PageSwiper.scss';
 
-export interface PageSwiperProps<T> {
+export interface PageSwiperV2Props<T> {
   page: number;
+  setPage: (page: number) => void;
   slides: (T | null)[];
   onPageChange?: (page: number) => void;
   renderSlide: (slide: T | null) => JSX.Element;
@@ -27,27 +28,25 @@ export interface PageSwiperProps<T> {
 //   console.log(str);
 // }
 
-export default function PageSwiper<T>(props: PageSwiperProps<T>) {
-  const { slides, page } = props;
-  const [now, setNow] = useState(page);
+export default function PageSwiperV2<T>(props: PageSwiperV2Props<T>) {
+  const { slides, page, setPage } = props;
   const [hideHeader, setHideHeader] = useState(false);
   const [showPageModal, setShowPageModal] = useState(false);
   const navigate = useNavigate();
   const swiperRef = useRef<Swiper>();
 
-  useEffect(() => onPageChangeNotFromSwiper(page), [page]);
+  useEffect(() => onPageChangeFromProps(page), [page]);
 
-  const onPageChangeNotFromSwiper = (page: number) => {
-    setNow(page);
-    const swiper: Swiper | undefined = swiperRef?.current;
+  const onPageChangeFromProps = (page: number) => {
+    const swiper = swiperRef?.current;
     if (swiper && swiper.activeIndex !== page) {
       swiper.slideTo(page);
     }
   }
 
   const onPageChangeFromSwiper = (swiper: Swiper) => {
-    setNow(swiper.activeIndex);
     if (swiper.activeIndex !== page) {
+      setPage(swiper.activeIndex);
       props.onPageChange?.(swiper.activeIndex);
     }
   }
@@ -87,7 +86,7 @@ export default function PageSwiper<T>(props: PageSwiperProps<T>) {
           <i className="fas fa-chevron-left" onClick={onBack}></i>
         </div>
         <div className="center" onClick={onShowPageModal}>
-          <span id="now_page">{now + 1}</span>
+          <span id="now_page">{page + 1}</span>
           <span>/</span>
           <span id="max_page">{slides.length}</span>
         </div>
@@ -110,9 +109,9 @@ export default function PageSwiper<T>(props: PageSwiperProps<T>) {
       <PageSelectModal
         show={showPageModal}
         onHide={() => setShowPageModal(false)}
-        page={now}
+        page={page}
         total={slides.length}
-        onPageChange={onPageChangeNotFromSwiper}
+        onPageChange={onPageChangeFromProps}
       />
     </div>
   )

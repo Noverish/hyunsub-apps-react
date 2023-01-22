@@ -26,4 +26,5 @@ export interface ComicEpisodeDetail {
   regDt: string;
   images: string[];
   history?: number;
+  hasNextEpisode: boolean;
 }
