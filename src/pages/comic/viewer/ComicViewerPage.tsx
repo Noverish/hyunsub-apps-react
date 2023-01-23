@@ -4,7 +4,7 @@ import comicEpisodeDetailApi from 'src/api/comic/comic-episode-detail';
 import comicHistorySetApi from 'src/api/comic/comic-history-set';
 import ImageSwiper from "src/components/common/swiper/ImageSwiper";
 import { ComicDetail, ComicEpisodeDetail } from 'src/model/comic';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import ComicRoutes from '../ComicRoutes';
 
@@ -24,7 +24,9 @@ export default function ComicViewerPage() {
   }, [title, episodeTitle]);
 
   useEffect(() => {
-    setPage(comicEpisodeDetail.history || 0);
+    setTimeout(() => {
+      setPage(comicEpisodeDetail.history || 0);
+    }, 0);
   }, [comicEpisodeDetail]);
 
   const onPageChange = (page: number) => {
@@ -41,7 +43,8 @@ export default function ComicViewerPage() {
     })
   }
 
-  const goToNextEpisode = () => {
+  const goToNextEpisode = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
     navigate(ComicRoutes.viewerRoute(comicId, order + 1), { replace: true });
   }
 
