@@ -16,6 +16,7 @@ export interface PageSwiperProps<T> {
   renderSlide: (slide: T | null) => JSX.Element;
   headerRightIcons?: JSX.Element;
   additionalLastSlide?: JSX.Element;
+  titlePrefix?: string;
 }
 
 // function printSwiperStatus<T>(slide: number, slides: (T | null)[]) {
@@ -89,6 +90,10 @@ export default function PageSwiper<T>(props: PageSwiperProps<T>) {
 
   // printSwiperStatus(page, slides);
 
+  const titlePrefix = props.titlePrefix
+    ? `${props.titlePrefix} - `
+    : undefined;
+
   return (
     <div id="PageSwiper" onClick={onClick}>
       <div className={cs('swiper_header', { 'd-none': hideHeader })}>
@@ -96,7 +101,7 @@ export default function PageSwiper<T>(props: PageSwiperProps<T>) {
           <i className="fas fa-chevron-left" onClick={onBack}></i>
         </div>
         <div className="center" onClick={onShowPageModal}>
-          <span id="now_page">{now + 1}</span>
+          <span id="now_page">{titlePrefix}{now + 1}</span>
           <span>/</span>
           <span id="max_page">{slides.length}</span>
         </div>

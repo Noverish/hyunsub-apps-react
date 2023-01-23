@@ -65,6 +65,7 @@ export default function ComicViewerPage() {
         slides={urls}
         onPageChange={onPageChange}
         additionalLastSlide={additionalLastSlide}
+        titlePrefix={episodeTitle}
       />
     </div>
   )
