@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import comicListApi from "src/api/comic/comic-list";
 import ComicHeader from "src/components/comic/ComicHeader";
@@ -7,6 +8,10 @@ import CommonContainer from "src/components/common/header/CommonContainer";
 
 export default function ComicListPage() {
   const { t } = useTranslation();
+
+  useEffect(() => {
+    window.document.title = t('comic.ComicListPage.title');
+  }, [t]);
 
   const comics = comicListApi.useApi({});
 
