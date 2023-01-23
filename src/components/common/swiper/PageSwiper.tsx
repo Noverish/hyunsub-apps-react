@@ -43,7 +43,7 @@ export default function PageSwiper<T>(props: PageSwiperProps<T>) {
     setNow(page);
     const swiper: Swiper | undefined = swiperRef?.current;
     if (swiper && swiper.activeIndex !== page) {
-      swiper.slideTo(page);
+      swiper.slideTo(page, 0);
     }
   }, [setNow]);
 

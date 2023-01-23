@@ -5,7 +5,7 @@ import comicHistorySetApi from 'src/api/comic/comic-history-set';
 import ImageSwiper from "src/components/common/swiper/ImageSwiper";
 import { ComicDetail, ComicEpisodeDetail } from 'src/model/comic';
 import { useEffect, useState } from 'react';
-import { Spinner } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import ComicRoutes from '../ComicRoutes';
 
 export default function ComicViewerPage() {
@@ -29,7 +29,6 @@ export default function ComicViewerPage() {
 
   const onPageChange = (page: number) => {
     if (hasNextEpisode && page === comicEpisodeDetail.length) {
-      navigate(ComicRoutes.viewerRoute(comicId, order + 1));
       return;
     }
 
@@ -42,12 +41,16 @@ export default function ComicViewerPage() {
     })
   }
 
+  const goToNextEpisode = () => {
+    navigate(ComicRoutes.viewerRoute(comicId, order + 1), { replace: true });
+  }
+
   const urls = comicEpisodeDetail.images.map(v => `https://file.hyunsub.kim/Comics/${title}/${episodeTitle}/${v}`);
 
   const additionalLastSlide = hasNextEpisode
     ? (
       <div className="w-100 h-100 flex_Center">
-        <Spinner animation="border"></Spinner>
+        <Button onClick={goToNextEpisode}>다음화 보기</Button>
       </div>
     )
     : undefined;
