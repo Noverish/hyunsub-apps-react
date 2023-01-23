@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import getAuthorities from "src/api/auth/authorities";
 
