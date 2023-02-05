@@ -1,8 +1,8 @@
 import { lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { useIsAdmin } from 'src/api/auth/authorities';
 import VideoSearchModal from 'src/components/video/VideoSearchModal';
 import VideoTabBar from 'src/components/video/VideoTabBar';
+import { useSelector } from 'src/redux';
 import routes from './VideoRoutes';
 
 const NotFoundPage = lazy(() => import('src/pages/common/NotFoundPage'));
@@ -16,7 +16,7 @@ const VideoSearchPage = lazy(() => import('src/pages/video/search/VideoSearchPag
 const VideoSearchResultPage = lazy(() => import('src/pages/video/search/VideoSearchResultPage'));
 
 export default function VideoIndex() {
-  const isAdmin = useIsAdmin();
+  const isAdmin = useSelector(s => s.global.tokenPayload?.isAdmin || false);
 
   return (
     <>

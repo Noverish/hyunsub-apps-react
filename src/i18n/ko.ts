@@ -158,6 +158,8 @@ const ko = {
     'PageSelectModal.close': '취소',
     'PageSelectModal.move': '이동',
     'PageSelectModal.msg.invalid-page': '올바른 값을 입력해주세요',
+
+    'menu.profile': '프로필 보기',
   }
 };
 

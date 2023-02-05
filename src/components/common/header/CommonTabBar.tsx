@@ -1,5 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { isMobile } from 'src/utils/user-agent';
+import CommonRoutes from 'src/pages/common/CommonRoutes';
 
 import './CommonTabBar.scss';
 
@@ -16,9 +17,18 @@ export interface TabBarItem {
 export default function CommonTabBar({ items }: Props) {
   const location = useLocation();
 
-  const show = items.filter(v => v.link === location.pathname).length > 0;
+  const newItems: TabBarItem[] = [
+    ...items,
+    {
+      name: 'Menu',
+      link: CommonRoutes.menu,
+      icon: 'fas fa-bars',
+    },
+  ]
 
-  const elements = items.map(v => (
+  const show = newItems.filter(v => v.link === location.pathname).length > 0;
+
+  const elements = newItems.map(v => (
     <Link key={v.icon} to={v.link}>
       <i className={v.icon} />
       <span>{v.name}</span>

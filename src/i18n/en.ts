@@ -158,6 +158,8 @@ const en = {
     'PageSelectModal.close': 'Close',
     'PageSelectModal.move': 'Move',
     'PageSelectModal.msg.invalid-page': 'Please enter a valid value',
+
+    'menu.profile': 'Show Profile',
   }
 };
 

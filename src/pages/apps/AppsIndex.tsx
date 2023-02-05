@@ -1,51 +1,13 @@
 import { Col, Row } from "react-bootstrap";
-import getAuthorities from "src/api/auth/authorities";
+import { useSelector } from "src/redux";
+import services from "src/utils/services";
 
 import './AppsIndex.scss';
-
-interface Service {
-  name: string;
-  icon: string;
-  title: string;
-}
-
-const services: Service[] = [
-  {
-    name: 'video',
-    icon: 'fas fa-film',
-    title: 'Video',
-  },
-  {
-    name: 'photo',
-    icon: 'fas fa-camera',
-    title: 'Photo',
-  },
-  {
-    name: 'comic',
-    icon: 'fas fa-book',
-    title: 'Comic',
-  },
-  {
-    name: 'apparel',
-    icon: 'fas fa-tshirt',
-    title: 'Apparel',
-  },
-  {
-    name: 'drive',
-    icon: 'fas fa-hdd',
-    title: 'Drive',
-  },
-  {
-    name: 'agnam',
-    icon: 'fas fa-torii-gate',
-    title: 'Agnam',
-  }
-]
 
 export default function AppsIndex() {
   document.title = 'Hyunsub Apps';
 
-  const authorities = getAuthorities.useApi({});
+  const authorities = useSelector(s => s.global.tokenPayload?.authorities) || [];
 
   const items = services.filter(v => authorities.includes(v.name));
 

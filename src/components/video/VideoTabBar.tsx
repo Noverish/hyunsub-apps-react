@@ -17,12 +17,7 @@ export default function VideoTabBar() {
       name: 'Search',
       link: VideoRoutes.search,
       icon: 'fas fa-search',
-    },
-    {
-      name: 'Menu',
-      link: VideoRoutes.menu,
-      icon: 'fas fa-bars',
-    },
+    }
   ]
 
   return (
