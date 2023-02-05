@@ -10,12 +10,13 @@ import CommonContainer from 'src/components/common/header/CommonContainer';
 import ListLoadingIndicator from 'src/components/common/ListLoadingIndicator';
 import ApparelRoutes from 'src/pages/apparel/ApparelRoutes';
 import { useScrollBottom } from 'src/utils';
+import { setDocumentTitle } from 'src/utils/services';
 
 export default function ApparelListPage() {
   const { t } = useTranslation();
 
   useEffect(() => {
-    document.title = t('apparel.page.list.title');
+    setDocumentTitle(t('apparel.page.list.title'));
   }, [t]);
 
   const { data, fetchNextPage, isFetching } = apparelList.useInfiniteApi({});

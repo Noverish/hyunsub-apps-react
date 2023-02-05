@@ -3,6 +3,7 @@ import { isMobile } from 'src/utils/user-agent';
 import CommonRoutes from 'src/pages/common/CommonRoutes';
 
 import './CommonTabBar.scss';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   items: TabBarItem[];
@@ -15,12 +16,13 @@ export interface TabBarItem {
 }
 
 export default function CommonTabBar({ items }: Props) {
+  const { t } = useTranslation();
   const location = useLocation();
 
   const newItems: TabBarItem[] = [
     ...items,
     {
-      name: 'Menu',
+      name: t('CommonTabBar.menu'),
       link: CommonRoutes.menu,
       icon: 'fas fa-bars',
     },

@@ -5,12 +5,13 @@ import ComicHeader from "src/components/comic/ComicHeader";
 import ComicPreviewView from "src/components/comic/ComicPreviewView";
 import ComicTabBar from "src/components/comic/ComicTabBar";
 import CommonContainer from "src/components/common/header/CommonContainer";
+import { setDocumentTitle } from "src/utils/services";
 
 export default function ComicListPage() {
   const { t } = useTranslation();
 
   useEffect(() => {
-    window.document.title = t('comic.ComicListPage.title');
+    setDocumentTitle(t('comic.ComicListPage.title'));
   }, [t]);
 
   const comics = comicListApi.useApi({});

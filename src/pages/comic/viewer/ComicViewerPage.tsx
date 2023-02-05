@@ -7,6 +7,7 @@ import { ComicDetail, ComicEpisodeDetail } from 'src/model/comic';
 import React, { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import ComicRoutes from '../ComicRoutes';
+import { setDocumentTitle } from 'src/utils/services';
 
 export default function ComicViewerPage() {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ export default function ComicViewerPage() {
   const [page, setPage] = useState(history || 0);
 
   useEffect(() => {
-    window.document.title = title + ' - ' + episodeTitle;
+    setDocumentTitle(title + ' - ' + episodeTitle);
   }, [title, episodeTitle]);
 
   useEffect(() => {

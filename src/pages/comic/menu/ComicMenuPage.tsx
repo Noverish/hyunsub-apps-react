@@ -1,20 +1,20 @@
-import { useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
+import ComicHeader from 'src/components/comic/ComicHeader';
 import CommonContainer from 'src/components/common/header/CommonContainer';
 import MenuCommonSection from 'src/components/common/menu/MenuCommonSection';
-import VideoHeader from 'src/components/video/VideoHeader';
+import { useTranslation } from 'react-i18next';
+import { useEffect } from 'react';
 import { setDocumentTitle } from 'src/utils/services';
 
-export default function VideoMenuPage() {
+export default function ComicMenuPage() {
   const { t } = useTranslation();
 
   useEffect(() => {
-    setDocumentTitle(t('CommonTabBar.menu'))
+    setDocumentTitle(t('CommonTabBar.menu'));
   }, [t]);
 
   return (
-    <div id="VideoMenuPage">
-      <VideoHeader title={t('CommonTabBar.menu')} />
+    <div id="ComicMenuPage">
+      <ComicHeader title={t('CommonTabBar.menu')} />
       <CommonContainer>
         <MenuCommonSection />
       </CommonContainer>

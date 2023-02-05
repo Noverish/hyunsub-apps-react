@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'src/redux';
 import { AlbumViewerActions } from './AlbumViewerState';
 
 import './AlbumViewerPage.scss';
+import { setDocumentTitle } from 'src/utils/services';
 
 function renderSlide(photo: Photo | null) {
   if (photo === null) {
@@ -33,7 +34,7 @@ export default function AlbumViewerPage() {
   const album = albumDetailApi.useApi({ albumId });
 
   useEffect(() => {
-    document.title = t('photo.page.album-viewer.title', [album.name]);
+    setDocumentTitle(t('photo.page.album-viewer.title', [album.name]));
   }, [t, album.name]);
 
   const dispatch = useDispatch();

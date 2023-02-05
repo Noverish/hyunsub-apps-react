@@ -8,9 +8,9 @@ import './ErrorPage.scss';
 export default function ErrorPage() {
   const { t } = useTranslation();
   const { errMsg } = useSelector(s => s.global);
-  
+
   useEffect(() => {
-    window.document.title = '500 Server Error';
+    document.title = '500 Server Error';
   }, []);
 
   return (

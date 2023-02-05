@@ -6,7 +6,7 @@ export default function NotFoundPage() {
   const { t } = useTranslation();
 
   useEffect(() => {
-    window.document.title = '404 Not Found';
+    document.title = '404 Not Found';
   }, []);
 
   return (

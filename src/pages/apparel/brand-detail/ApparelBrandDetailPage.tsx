@@ -8,6 +8,7 @@ import ApparelList from 'src/components/apparel/ApparelList';
 import CommonContainer from 'src/components/common/header/CommonContainer';
 import ListLoadingIndicator from 'src/components/common/ListLoadingIndicator';
 import { useScrollBottom } from 'src/utils';
+import { setDocumentTitle } from 'src/utils/services';
 
 export default function ApparelBrandDetailPage() {
   const brand = useParams().brand!!;
@@ -15,7 +16,7 @@ export default function ApparelBrandDetailPage() {
   const title = t('apparel.page.brand-detail.title', [brand]);
 
   useEffect(() => {
-    document.title = title;
+    setDocumentTitle(title);
   }, [title]);
 
   const { data, fetchNextPage, isFetching } = apparelBrandApparels.useInfiniteApi({ brand });

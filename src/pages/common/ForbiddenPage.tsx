@@ -6,7 +6,7 @@ export default function ForbiddenPage() {
   const { t } = useTranslation();
 
   useEffect(() => {
-    window.document.title = '403 Forbidden';
+    document.title = '403 Forbidden';
   }, []);
 
   return (

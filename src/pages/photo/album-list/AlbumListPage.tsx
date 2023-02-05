@@ -5,12 +5,13 @@ import albumListApi from "src/api/photo/album-list";
 import CommonContainer from 'src/components/common/header/CommonContainer';
 import PhotoHeader from 'src/components/photo/PhotoHeader';
 import routes from 'src/pages/photo/PhotoRoutes';
+import { setDocumentTitle } from 'src/utils/services';
 
 export default function AlbumListPage() {
   const { t } = useTranslation();
 
   useEffect(() => {
-    document.title = t('photo.page.album-list.title');
+    setDocumentTitle(t('photo.page.album-list.title'));
   }, [t]);
 
   const albums = albumListApi.useApi({});
@@ -26,7 +27,7 @@ export default function AlbumListPage() {
 
   return (
     <div id="AlbumListPage">
-      <PhotoHeader title="Albums" />
+      <PhotoHeader title={t('photo.page.album-list.title')} />
       <CommonContainer>
         <div className="row g-3 row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-6">
           {albumItems}

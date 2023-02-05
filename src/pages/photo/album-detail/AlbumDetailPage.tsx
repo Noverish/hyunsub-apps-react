@@ -14,6 +14,7 @@ import PhotoThumbnail from 'src/components/photo/PhotoThumbnail';
 import { Photo } from 'src/model/photo';
 import routes from 'src/pages/photo/PhotoRoutes';
 import { useScrollBottom } from 'src/utils';
+import { setDocumentTitle } from 'src/utils/services';
 
 interface Props {
   date: string;
@@ -54,7 +55,7 @@ export default function AlbumDetailPage() {
   const album = albumDetailApi.useApi({ albumId });
 
   useEffect(() => {
-    document.title = t('photo.page.album-detail.title', [album.name]);
+    setDocumentTitle(t('photo.page.album-detail.title', [album.name]));
   }, [t, album.name]);
 
   useScrollBottom(() => {

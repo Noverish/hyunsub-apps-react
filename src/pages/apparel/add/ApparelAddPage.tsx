@@ -5,6 +5,7 @@ import ApparelHeader from 'src/components/apparel/ApparelHeader';
 import CommonContainer from 'src/components/common/header/CommonContainer';
 import { Apparel } from 'src/model/apparel';
 import { useDispatch } from 'src/redux';
+import { setDocumentTitle } from 'src/utils/services';
 import { apparelAddAction } from './ApparelAddContext';
 
 export default function ApparelAddPage() {
@@ -12,7 +13,7 @@ export default function ApparelAddPage() {
   const { t } = useTranslation();
 
   useEffect(() => {
-    document.title = t('apparel.page.add.title');
+    setDocumentTitle(t('apparel.page.add.title'));
   }, [t]);
 
   const onImageAdd = (images: File[]) => {

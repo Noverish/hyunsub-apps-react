@@ -1,6 +1,6 @@
-import CommonTabBar, { TabBarItem } from "../common/header/CommonTabBar";
 import t from "src/i18n";
 import ApparelRoutes from 'src/pages/apparel/ApparelRoutes';
+import CommonTabBar, { TabBarItem } from "../common/header/CommonTabBar";
 
 const items: TabBarItem[] = [
   {
@@ -22,11 +22,6 @@ const items: TabBarItem[] = [
     name: t('apparel.menu.brands'),
     link: ApparelRoutes.brandList,
     icon: 'fas fa-tag',
-  },
-  {
-    name: t('menus'),
-    link: ApparelRoutes.menu,
-    icon: 'fas fa-bars',
   },
 ]
 

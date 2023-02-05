@@ -24,6 +24,7 @@ const ko = {
     'common.500.oh': '이런!',
     'common.500.error': '예상하지 못한 에러가 발생했습니다',
     'common.500.go-to-home': '홈으로',
+    'CommonTabBar.menu': '메뉴',
 
     'auth.login': '로그인',
     'auth.logout': '로그아웃',
@@ -76,6 +77,7 @@ const ko = {
     'video.setting-section.title': '비디오 재생 설정',
     'video.setting-section.subtitle-font-size': '자막 글자 크기: {{0}}px',
     'video.subtitle-setting.title': '자막 싱크 설정',
+    'VideoTabBar.search': '검색',
 
     'photo.page.album-list.title': '내 앨범 목록',
     'photo.page.album-detail.title': '사진 목록 - {{0}}',
@@ -92,6 +94,10 @@ const ko = {
     'photo.term.photo-dimension': '사진 크기',
     'photo.term.photo-date': '촬영 날짜',
     'photo.term.photo-size': '사진 용량',
+    'PhotoTabBar.album': '앨범',
+    'PhotoTabBar.photo': '사진',
+    'PhotoTabBar.upload': '업로드',
+    'PhotoTabBar.share': '공유',
 
     'apparel.page.list.title': '내 의류 목록',
     'apparel.page.list.inner-title': '총 {{0}}개의 의류',
@@ -153,6 +159,10 @@ const ko = {
 
     'comic.ComicListPage.title': '만화 목록',
     'comic.ComicDetailPage.subtitle': '{{0}}개의 에피소드',
+    'ComicTabBar.list': '만화',
+    'ComicTabBar.subscription': '구독',
+    'ComicTabBar.like': '좋아요',
+    'ComicTabBar.history': '감상기록',
 
     'PageSelectModal.title': '페이지 이동',
     'PageSelectModal.close': '취소',

@@ -17,6 +17,7 @@ import { isIOS } from "src/utils/user-agent";
 import { VideoDetailActions } from "./VideoDetailState";
 
 import './VideoDetailPage.scss';
+import { setDocumentTitle } from "src/utils/services";
 
 function VideoMetadataSection({ metadata }: { metadata: VideoMetadata }) {
   return (
@@ -43,7 +44,7 @@ export default function VideoDetailPage() {
   const category = categories.filter(v => v.name === categoryName)[0];
 
   useEffect(() => {
-    document.title = title;
+    setDocumentTitle(title);
   }, [title]);
 
   const showSettingSection = () => {

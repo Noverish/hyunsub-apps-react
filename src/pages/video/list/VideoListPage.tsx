@@ -12,6 +12,7 @@ import { VideoCategory, VideoSort } from "src/model/video";
 import NotFoundPage from "src/pages/common/NotFoundPage";
 import { useDispatch, useSelector } from "src/redux";
 import { useScrollBottom } from "src/utils";
+import { setDocumentTitle } from 'src/utils/services';
 
 export function VideoListPage({ category }: { category: VideoCategory }) {
   const [searchParams] = useSearchParams();
@@ -20,7 +21,7 @@ export function VideoListPage({ category }: { category: VideoCategory }) {
   const { seed } = useSelector(s => s.video.list);
 
   useEffect(() => {
-    document.title = `HyunFlix - ${category.displayName}`;
+    setDocumentTitle(category.displayName);
   }, [category.displayName]);
 
   const { data, fetchNextPage, isFetching } = videoList.useInfiniteApi({ category: category.name, sort, seed });

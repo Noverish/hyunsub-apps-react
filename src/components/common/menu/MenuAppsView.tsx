@@ -10,11 +10,11 @@ interface Props {
 
 export default function MenuAppsView(props: Props) {
   const authorities = useSelector(s => s.global.tokenPayload?.authorities) || [];
-  const items = services.filter(v => authorities.includes(v.name));
+  const items = services.filter(v => authorities.includes(v.code));
 
   const elements = items.map(v => (
-    <Col key={v.name}>
-      <a href={`https://${v.name}.hyunsub.kim`}>
+    <Col key={v.code}>
+      <a href={`https://${v.code}.hyunsub.kim`}>
         <i className={v.icon}></i>
         <span>{v.title}</span>
       </a>

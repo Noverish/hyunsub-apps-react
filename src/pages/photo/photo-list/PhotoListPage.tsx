@@ -2,12 +2,13 @@ import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import CommonContainer from 'src/components/common/header/CommonContainer';
 import PhotoHeader from 'src/components/photo/PhotoHeader';
+import { setDocumentTitle } from 'src/utils/services';
 
 export default function PhotoListPage() {
   const { t } = useTranslation();
 
   useEffect(() => {
-    document.title = t('photo.page.photo-list.title');
+    setDocumentTitle(t('photo.page.photo-list.title'));
   }, [t]);
 
   return (

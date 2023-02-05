@@ -9,6 +9,7 @@ import ImageCarousel from 'src/components/common/ImageCarousel';
 import ApparelRoutes from 'src/pages/apparel/ApparelRoutes';
 import { useDispatch } from 'src/redux';
 import { numberWithComma } from 'src/utils';
+import { setDocumentTitle } from 'src/utils/services';
 import { apparelDeleteAction } from './ApparelDetailContext';
 
 export default function ApparelDetailPage() {
@@ -18,7 +19,7 @@ export default function ApparelDetailPage() {
   const title = t('apparel.page.detail.title');
 
   useEffect(() => {
-    document.title = title;
+    setDocumentTitle(title);
   }, [title]);
 
   const onDelete = () => {

@@ -24,6 +24,7 @@ const en = {
     'common.500.oh': 'Ouch!',
     'common.500.error': 'Unexpeced error occurred',
     'common.500.go-to-home': 'Go to Home',
+    'CommonTabBar.menu': 'Menu',
 
     'auth.login': 'Login',
     'auth.logout': 'Logout',
@@ -76,6 +77,7 @@ const en = {
     'video.setting-section.title': 'Video Play Setting',
     'video.setting-section.subtitle-font-size': 'Subtitle Font Size: {{0}}px',
     'video.subtitle-setting.title': 'Subtitle Sync Setting',
+    'VideoTabBar.search': 'Search',
 
     'photo.page.album-list.title': 'My Album List',
     'photo.page.album-detail.title': 'Photo List - {{0}}',
@@ -92,6 +94,10 @@ const en = {
     'photo.term.photo-dimension': 'Dimension',
     'photo.term.photo-date': 'Date',
     'photo.term.photo-size': 'Size',
+    'PhotoTabBar.album': 'Albums',
+    'PhotoTabBar.photo': 'Photos',
+    'PhotoTabBar.upload': 'Upload',
+    'PhotoTabBar.share': 'Share',
 
     'apparel.page.list.title': 'My Apparel List',
     'apparel.page.list.inner-title': 'Total {{0}} items',
@@ -153,6 +159,10 @@ const en = {
 
     'comic.ComicListPage.title': 'Comic List',
     'comic.ComicDetailPage.subtitle': '{{0}} Episodes',
+    'ComicTabBar.list': 'List',
+    'ComicTabBar.subscription': 'Subscription',
+    'ComicTabBar.like': 'Like',
+    'ComicTabBar.history': 'History',
 
     'PageSelectModal.title': 'Move Page',
     'PageSelectModal.close': 'Close',

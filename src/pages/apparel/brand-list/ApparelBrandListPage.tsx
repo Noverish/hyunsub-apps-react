@@ -6,12 +6,13 @@ import apparelBrands from 'src/api/apparel/apparel-brands';
 import ApparelHeader from 'src/components/apparel/ApparelHeader';
 import CommonContainer from 'src/components/common/header/CommonContainer';
 import ApparelRoutes from 'src/pages/apparel/ApparelRoutes';
+import { setDocumentTitle } from 'src/utils/services';
 
 export default function ApparelBrandListPage() {
   const { t } = useTranslation();
 
   useEffect(() => {
-    document.title = t('apparel.page.brand-list.title');
+    setDocumentTitle(t('apparel.page.brand-list.title'));
   }, [t]);
 
   const brands = apparelBrands.useApi({});

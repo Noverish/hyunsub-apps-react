@@ -5,6 +5,7 @@ import comicDetailApi from 'src/api/comic/comic-detail';
 import ComicEpisodeView from 'src/components/comic/ComicEpisodeView';
 import ComicHeader from 'src/components/comic/ComicHeader';
 import CommonContainer from 'src/components/common/header/CommonContainer';
+import { setDocumentTitle } from 'src/utils/services';
 
 export default function ComicDetailPage() {
   const { t } = useTranslation();
@@ -13,7 +14,7 @@ export default function ComicDetailPage() {
   const comicDetail = comicDetailApi.useApi({ comicId });
 
   useEffect(() => {
-    window.document.title = comicDetail.title;
+    setDocumentTitle(comicDetail.title);
   }, [comicDetail.title]);
 
   const elements = comicDetail.episodes.map(v => (
