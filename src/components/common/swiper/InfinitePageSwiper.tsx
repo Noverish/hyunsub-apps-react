@@ -14,8 +14,9 @@ interface Props<T> extends Omit<PageSwiperProps<T>, 'slides'> {
 }
 
 function getPage<T>(data: Data<T>, index: number): number {
-  const { pageSize } = data.pages[0];
-  return Math.floor(index / pageSize);
+  const { pageSize, total } = data.pages[0];
+  const safeIndex = Math.min(Math.max(index, 0), total - 1);
+  return Math.floor(safeIndex / pageSize);
 }
 
 export default function InfinitePageSwiper<T>(props: Props<T>) {

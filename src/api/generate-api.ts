@@ -1,5 +1,6 @@
 import { InfiniteData, useInfiniteQuery, UseInfiniteQueryResult, useQuery, UseQueryResult } from '@tanstack/react-query';
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
+import { useEffect } from 'react';
 import t from 'src/i18n';
 import getErrMsg from 'src/i18n/server-error';
 import { ErrorResponse, PageData } from 'src/model/api';
@@ -36,7 +37,6 @@ interface GenerateInfiniteApiResult<P, R> {
   useInfiniteApi: (p: P) => UseInfiniteQueryResult<PageData<R>>;
   updateCache: (p: P, updater: (list: R[]) => R[]) => void;
   key: (p: P) => string[];
-  prefetch: (p: P, page: number) => void;
 }
 
 interface PageParam {
@@ -105,14 +105,25 @@ export function generateInfiniteQuery<P, R>(option: GenerateInfiniteApiOption<P>
   const key = (p: P) => [option.key(p), toJSON(p)];
   const api = generateApi<P & PageParam, PageData<R>>(option.api);
 
-  const useInfiniteApi = (p: P) => useInfiniteQuery(
-    key(p),
-    ({ pageParam }) => api({ ...p, page: pageParam ?? 0 }),
-    {
-      getNextPageParam: (lastPage, pages) => (lastPage.data.length === 0) ? undefined : pages.length,
-      staleTime: Infinity,
-    }
-  )
+  const useInfiniteApi = (p: P) => {
+    const result = useInfiniteQuery(
+      key(p),
+      ({ pageParam }) => api({ ...p, page: pageParam ?? 0 }),
+      {
+        getNextPageParam: (lastPage) => (lastPage.total <= (lastPage.page + 1) * lastPage.pageSize) ? undefined : (lastPage.page + 1),
+        staleTime: Infinity,
+      }
+    );
+
+    const pageParams = result.data?.pageParams;
+    useEffect(() => {
+      if (pageParams && pageParams[0] === undefined) {
+        pageParams[0] = 0;
+      }
+    }, [pageParams]);
+
+    return result;
+  }
   const updateCache = (p: P, updater: (list: R[]) => R[]) => {
     QueryClient.setQueryData<InfiniteData<PageData<R>>>(key(p), (cache) => {
       if (!cache) {
@@ -128,22 +139,11 @@ export function generateInfiniteQuery<P, R>(option: GenerateInfiniteApiOption<P>
       }
     })
   }
-  const prefetch = (p: P, page: number) => {
-    const cache = QueryClient.getQueryData<InfiniteData<PageData<R>>>(key(p)) || { pageParams: [], pages: [] };
-    api({ ...p, page }).then(result => {
-      const newCache: InfiniteData<PageData<R>> = {
-        pageParams: [...cache.pageParams, result.page],
-        pages: [...cache.pages, result],
-      }
-      QueryClient.setQueryData<InfiniteData<PageData<R>>>(key(p), newCache);
-    });
-  }
 
   return {
     useInfiniteApi,
     updateCache,
     key,
-    prefetch,
   };
 }
 

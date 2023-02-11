@@ -40,8 +40,8 @@ export default function AlbumViewerPage() {
     setDocumentTitle(t('photo.page.album-viewer.title', [album.name]));
   }, [t, album.name]);
 
-  const data = useAlbumViewerPageFetch(albumId, photoId).data!!;
-  const photos = flatInfiniteData(data);
+  const { data, fetchNextPage } = useAlbumViewerPageFetch(albumId, photoId);
+  const photos = flatInfiniteData(data!!);
   const initialPage = photos.findIndex(v => v?.id === photoId);
   const initialPhoto = photos.filter(v => v?.id === photoId)[0]!!;
   const [slide, setSlide] = useState(initialPage);
@@ -66,7 +66,7 @@ export default function AlbumViewerPage() {
   }
 
   const fetchSlides = (page: number) => {
-    albumPhotosApi.prefetch({ albumId }, page);
+    fetchNextPage({ pageParam: page });
   }
 
   const headerRightIcons = currentPhoto && (
@@ -92,7 +92,7 @@ export default function AlbumViewerPage() {
     <div id="AlbumViewerPage">
       <InfinitePageSwiper
         pageState={[slide, setSlide]}
-        data={data}
+        data={data!!}
         readyOffSlideSize={2}
         fetchSlides={fetchSlides}
         initialPage={initialPage}
