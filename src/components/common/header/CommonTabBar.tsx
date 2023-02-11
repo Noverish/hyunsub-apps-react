@@ -1,9 +1,9 @@
 import { Link, useLocation } from 'react-router-dom';
 import { isMobile } from 'src/utils/user-agent';
 import CommonRoutes from 'src/pages/common/CommonRoutes';
+import { useTranslation } from 'react-i18next';
 
 import './CommonTabBar.scss';
-import { useTranslation } from 'react-i18next';
 
 interface Props {
   items: TabBarItem[];

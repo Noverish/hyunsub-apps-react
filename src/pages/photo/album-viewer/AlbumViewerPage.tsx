@@ -2,17 +2,17 @@ import { useEffect, useState } from 'react';
 import { Spinner } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { flatInfiniteData } from 'src/api/generate-api';
 import albumDetailApi from 'src/api/photo/album-detail';
 import albumPhotosApi from 'src/api/photo/album-photos';
-import PageSwiperWrapper, { makeSlides } from 'src/components/common/swiper/PageSwiperWrapper';
+import InfinitePageSwiper from 'src/components/common/swiper/InfinitePageSwiper';
 import PhotoInfoModal from 'src/components/photo/PhotoInfoModal';
 import { Photo } from 'src/model/photo';
-import routes from 'src/pages/photo/PhotoRoutes';
-import { useDispatch, useSelector } from 'src/redux';
-import { AlbumViewerActions } from './AlbumViewerState';
+import { setDocumentTitle } from 'src/utils/services';
+import PhotoRoutes from '../PhotoRoutes';
+import { useAlbumViewerPageFetch } from './AlbumViewerContext';
 
 import './AlbumViewerPage.scss';
-import { setDocumentTitle } from 'src/utils/services';
 
 function renderSlide(photo: Photo | null) {
   if (photo === null) {
@@ -27,7 +27,10 @@ function renderSlide(photo: Photo | null) {
 }
 
 export default function AlbumViewerPage() {
+  const navigate = useNavigate();
   const { t } = useTranslation();
+  const [showInfoModal, setShowInfoModal] = useState(false);
+
   const albumId = parseInt(useParams().albumId!!, 10);
   const photoId = parseInt(useSearchParams()[0].get('photoId')!!, 10);
 
@@ -37,36 +40,36 @@ export default function AlbumViewerPage() {
     setDocumentTitle(t('photo.page.album-viewer.title', [album.name]));
   }, [t, album.name]);
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { pageDataList } = useSelector(s => s.photo.albumViewer);
-  const slides = makeSlides(pageDataList);
-  const page = slides.findIndex(v => v?.id === photoId);
-  const currentPhoto = slides[page];
+  const data = useAlbumViewerPageFetch(albumId, photoId).data!!;
+  const photos = flatInfiniteData(data);
+  const initialPage = photos.findIndex(v => v?.id === photoId);
+  const initialPhoto = photos.filter(v => v?.id === photoId)[0]!!;
+  const [slide, setSlide] = useState(initialPage);
+  const [currentPhoto, setCurrentPhoto] = useState<Photo | null>(initialPhoto);
 
-  const [showInfoModal, setShowInfoModal] = useState(false);
+  useEffect(() => {
+    const nowPhoto = photos[slide];
+    if (nowPhoto && !currentPhoto) {
+      setCurrentPhoto(nowPhoto);
+      window.history.replaceState(null, '', `?photoId=${nowPhoto.id}`);
+    }
+  }, [photos, slide, currentPhoto]);
 
-  const fetchInitial = async () => {
-    const initialPageData = await albumPhotosApi.fetch({ albumId, photoId });
-    dispatch(AlbumViewerActions.putPageData(initialPageData));
-    return initialPageData;
-  };
-
-  const fetchSlides = (page: number) => {
-    albumPhotosApi.fetch({ albumId, page })
-      .then((pageData) => {
-        dispatch(AlbumViewerActions.putPageData(pageData))
-      });
-  }
-
-  const onSlideChange = (page: number) => {
-    const photo = slides[page];
-    if (photo) {
-      navigate(routes.albumViewer(albumId, photo.id), { replace: true });
+  const onSlideChange = (slide: number) => {
+    const nowPhoto = photos[slide];
+    if (nowPhoto) {
+      setCurrentPhoto(nowPhoto);
+      window.history.replaceState(null, '', `?photoId=${nowPhoto.id}`);
+    } else {
+      setCurrentPhoto(null);
     }
   }
 
-  const headerRightIcons = (
+  const fetchSlides = (page: number) => {
+    albumPhotosApi.prefetch({ albumId }, page);
+  }
+
+  const headerRightIcons = currentPhoto && (
     <>
       <i
         className="fas fa-info-circle"
@@ -79,9 +82,7 @@ export default function AlbumViewerPage() {
         className="fas fa-expand"
         onClick={(e: React.MouseEvent<HTMLElement>) => {
           e.stopPropagation();
-          if (currentPhoto) {
-            navigate(routes.photoOriginal(currentPhoto.id))
-          }
+          navigate(PhotoRoutes.photoOriginal(currentPhoto.id))
         }}
       />
     </>
@@ -89,17 +90,15 @@ export default function AlbumViewerPage() {
 
   return (
     <div id="AlbumViewerPage">
-      <PageSwiperWrapper
-        pageDataList={pageDataList}
+      <InfinitePageSwiper
+        pageState={[slide, setSlide]}
+        data={data}
         readyOffSlideSize={2}
-        fetchInitial={fetchInitial}
         fetchSlides={fetchSlides}
-
-        initialPage={page}
-        slides={slides}
-        onPageChange={onSlideChange}
+        initialPage={initialPage}
         renderSlide={renderSlide}
-        headerRightIcons={headerRightIcons}
+        onPageChange={onSlideChange}
+        headerRightIcons={headerRightIcons || undefined}
       />
       {currentPhoto && <PhotoInfoModal
         show={showInfoModal}

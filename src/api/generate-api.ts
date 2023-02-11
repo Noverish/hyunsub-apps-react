@@ -35,6 +35,8 @@ interface GenerateApiResult<P, R> {
 interface GenerateInfiniteApiResult<P, R> {
   useInfiniteApi: (p: P) => UseInfiniteQueryResult<PageData<R>>;
   updateCache: (p: P, updater: (list: R[]) => R[]) => void;
+  key: (p: P) => string[];
+  prefetch: (p: P, page: number) => void;
 }
 
 interface PageParam {
@@ -126,9 +128,41 @@ export function generateInfiniteQuery<P, R>(option: GenerateInfiniteApiOption<P>
       }
     })
   }
+  const prefetch = (p: P, page: number) => {
+    const cache = QueryClient.getQueryData<InfiniteData<PageData<R>>>(key(p)) || { pageParams: [], pages: [] };
+    api({ ...p, page }).then(result => {
+      const newCache: InfiniteData<PageData<R>> = {
+        pageParams: [...cache.pageParams, result.page],
+        pages: [...cache.pages, result],
+      }
+      QueryClient.setQueryData<InfiniteData<PageData<R>>>(key(p), newCache);
+    });
+  }
 
   return {
     useInfiniteApi,
     updateCache,
+    key,
+    prefetch,
   };
+}
+
+export function flatInfiniteData<T>(data: InfiniteData<PageData<T>>): (T | null)[] {
+  if (data.pages.length === 0) {
+    return [];
+  }
+
+  const { total } = data.pages[0];
+  const result = Array.from({ length: total }, () => null as T | null);
+
+  for (const dataList of data.pages) {
+    const { page, pageSize, data } = dataList;
+    const start = page * pageSize;
+
+    for (let i = 0; i < data.length; i++) {
+      result[i + start] = data[i];
+    }
+  }
+
+  return result;
 }

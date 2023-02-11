@@ -1,4 +1,3 @@
-import { useInfiniteQuery } from '@tanstack/react-query';
 import flatten from 'lodash/flatten';
 import groupBy from 'lodash/groupBy';
 import { useEffect } from 'react';
@@ -42,17 +41,8 @@ export default function AlbumDetailPage() {
   const { t } = useTranslation();
   const albumId = parseInt(useParams().albumId!!, 10);
 
-  const { data, fetchNextPage, isFetching } = useInfiniteQuery(
-    albumPhotosApi.key({ albumId, page: 0 }),
-    ({ pageParam }) => albumPhotosApi.fetch({ albumId, page: pageParam ?? 0 }),
-    {
-      getNextPageParam: (lastPage, pages) => (lastPage.data.length === 0) ? undefined : pages.length,
-      suspense: false,
-      staleTime: Infinity,
-    }
-  );
-
   const album = albumDetailApi.useApi({ albumId });
+  const { data, fetchNextPage, isFetching } = albumPhotosApi.useInfiniteApi({ albumId });
 
   useEffect(() => {
     setDocumentTitle(t('photo.page.album-detail.title', [album.name]));
