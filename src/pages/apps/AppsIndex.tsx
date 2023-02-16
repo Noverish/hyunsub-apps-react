@@ -22,11 +22,9 @@ export default function AppsIndex() {
 
   return (
     <div id="AppsIndex">
-      <div className="wrapper">
-        <Row className="row-cols-2 g-5">
-          {elements}
-        </Row>
-      </div>
+      <Row className="wrapper row-cols-2 g-5">
+        {elements}
+      </Row>
     </div>
   )
 }
