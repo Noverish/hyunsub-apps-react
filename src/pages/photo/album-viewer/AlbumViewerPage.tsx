@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { flatInfiniteData } from 'src/api/generate-api';
 import albumDetailApi from 'src/api/photo/album-detail';
-import albumPhotosApi from 'src/api/photo/album-photos';
 import InfinitePageSwiper from 'src/components/common/swiper/InfinitePageSwiper';
 import PhotoInfoModal from 'src/components/photo/PhotoInfoModal';
 import { Photo } from 'src/model/photo';
