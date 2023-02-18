@@ -2,7 +2,6 @@ import React from 'react';
 import { Dropdown } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { Link, To } from 'react-router-dom';
-import { useIsAdmin } from 'src/api/auth/authorities';
 import { useDispatch } from 'src/redux';
 import { logoutAction } from 'src/redux/actions';
 import cs from 'classnames';
@@ -42,7 +41,6 @@ export default function DesktopHeader(props: DesktopHeaderProps) {
   const { menus, onSearch, dropdowns, title, noContainer } = props;
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const isAdmin = useIsAdmin();
 
   const onLogout = () => {
     dispatch(logoutAction());
@@ -77,7 +75,6 @@ export default function DesktopHeader(props: DesktopHeaderProps) {
             <Dropdown.Menu variant="dark">
               {dropdownElements}
               <Dropdown.Divider />
-              {isAdmin && <Dropdown.Item as={Link} to="/admin">Admin</Dropdown.Item>}
               <Dropdown.Item as="button" className="text-danger" onClick={onLogout}>{t('logout')}</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>

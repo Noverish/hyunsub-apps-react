@@ -7,6 +7,7 @@ import ApparelHeader from 'src/components/apparel/ApparelHeader';
 import CommonContainer from 'src/components/common/header/CommonContainer';
 import { Apparel } from 'src/model/apparel';
 import { useDispatch } from 'src/redux';
+import { setDocumentTitle } from 'src/utils/services';
 import { apparelImageUploadAction, apparelUpdateAction } from './ApparelEditContext';
 
 export default function ApparelEditPage() {
@@ -18,7 +19,7 @@ export default function ApparelEditPage() {
   const title = t('apparel.page.edit.title', [apparel.name]);
 
   useEffect(() => {
-    document.title = title;
+    setDocumentTitle(title);
   }, [title]);
 
   const onImageAdd = (images: File[]) => {

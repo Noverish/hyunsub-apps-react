@@ -1,11 +1,10 @@
-import { join } from "src/utils/path";
 import { useEffect, useState } from "react";
 import { Spinner } from "react-bootstrap";
-import driveTextGetApi from "src/api/drive/drive-text-get";
 import { DriveFileInfo } from "src/model/drive";
+import { driveNextAudioAction } from "src/pages/drive/explorer/DriveExplorerActions";
 import { useDispatch } from "src/redux";
 import AppConstant from "src/utils/constants";
-import { driveNextAudioAction } from "src/pages/drive/explorer/DriveExplorerActions";
+import { join } from "src/utils/path";
 
 interface Props {
   path: string;
@@ -21,9 +20,11 @@ export default function DriveFileViewer({ path, info }: Props) {
   useEffect(() => {
     if (info && info.type === 'TEXT') {
       setText('');
-      driveTextGetApi.fetch({ path: filePath }).then(v => setText(v));
+      fetch(fileUrl, { credentials: 'include' })
+        .then(res => res.text())
+        .then(res => setText(res));
     }
-  }, [dispatch, info, filePath]);
+  }, [dispatch, info, fileUrl]);
 
   const onAudioEnd = () => {
     dispatch(driveNextAudioAction());

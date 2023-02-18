@@ -8,6 +8,7 @@ import PhotoHeader from 'src/components/photo/PhotoHeader';
 import PhotoUploadList from 'src/components/photo/PhotoUploadList';
 import routes from 'src/pages/photo/PhotoRoutes';
 import { useDispatch } from 'src/redux';
+import { setDocumentTitle } from 'src/utils/services';
 import { albumUploadAction, prepareUploadAction } from './AlbumUploadContext';
 
 import './AlbumUploadPage.scss';
@@ -21,7 +22,7 @@ export default function AlbumUploadPage() {
   const album = albumDetailApi.useApi({ albumId });
 
   useEffect(() => {
-    document.title = t('photo.page.album-upload.title', [album.name]);
+    setDocumentTitle(t('photo.page.album-upload.title', [album.name]));
   }, [t, album.name]);
 
   const onFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {

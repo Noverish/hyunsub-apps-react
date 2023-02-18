@@ -21,9 +21,9 @@ export interface DrivePathParams {
   path: string;
 }
 
-export interface DriveUploadingFile {
-  path: string;
-  progress: number;
+export interface DriveUploadStatus {
+  total: number;
+  curr: number;
 }
 
 export interface DriveWindowStatus {

@@ -15,12 +15,16 @@ const en = {
     'msg.delete-success': 'Successfully deleted',
     'msg.type-query': 'Please type search query...',
 
+    'common.403.oh': 'Huh?!',
+    'common.403.not-exist': 'Cannot access to this page',
+    'common.403.go-to-home': 'Go to home',
     'common.404.oh': 'Ah!',
     'common.404.not-exist': 'This page is not exist',
     'common.404.go-to-home': 'Go to Home',
     'common.500.oh': 'Ouch!',
     'common.500.error': 'Unexpeced error occurred',
     'common.500.go-to-home': 'Go to Home',
+    'CommonTabBar.menu': 'Menu',
 
     'auth.login': 'Login',
     'auth.logout': 'Logout',
@@ -73,13 +77,14 @@ const en = {
     'video.setting-section.title': 'Video Play Setting',
     'video.setting-section.subtitle-font-size': 'Subtitle Font Size: {{0}}px',
     'video.subtitle-setting.title': 'Subtitle Sync Setting',
+    'VideoTabBar.search': 'Search',
 
     'photo.page.album-list.title': 'My Album List',
     'photo.page.album-detail.title': 'Photo List - {{0}}',
     'photo.page.album-detail.upload': 'Upload Photos',
     'photo.page.album-detail.photo-num': '{{0}} Photos',
-    'photo.page.album-viewer.title': 'Photo Viewer - {{0}}',
-    'photo.page.album-upload.title': 'Photo Upload - {{0}}',
+    'photo.page.album-viewer.title': '{{0}} - Photo Viewer',
+    'photo.page.album-upload.title': '{{0}} - Photo Upload',
     'photo.page.album-upload.back-to-album': 'Back to album',
     'photo.page.album-upload.upload': 'Upload',
     'photo.page.album-upload.msg.empty-upload': 'Please select files to upload',
@@ -89,6 +94,10 @@ const en = {
     'photo.term.photo-dimension': 'Dimension',
     'photo.term.photo-date': 'Date',
     'photo.term.photo-size': 'Size',
+    'PhotoTabBar.album': 'Albums',
+    'PhotoTabBar.photo': 'Photos',
+    'PhotoTabBar.upload': 'Upload',
+    'PhotoTabBar.share': 'Share',
 
     'apparel.page.list.title': 'My Apparel List',
     'apparel.page.list.inner-title': 'Total {{0}} items',
@@ -148,10 +157,19 @@ const en = {
     'drive.DriveRenameModal.label': 'File Name',
     'drive.DriveRenameModal.button': 'Edit',
 
+    'comic.ComicListPage.title': 'Comic List',
+    'comic.ComicDetailPage.subtitle': '{{0}} Episodes',
+    'ComicTabBar.list': 'List',
+    'ComicTabBar.subscription': 'Subscription',
+    'ComicTabBar.like': 'Like',
+    'ComicTabBar.history': 'History',
+
     'PageSelectModal.title': 'Move Page',
     'PageSelectModal.close': 'Close',
     'PageSelectModal.move': 'Move',
     'PageSelectModal.msg.invalid-page': 'Please enter a valid value',
+
+    'menu.profile': 'Show Profile',
   }
 };
 

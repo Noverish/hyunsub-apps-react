@@ -25,7 +25,7 @@ export default function MyPage() {
   const { userInfo } = useSelector(s => s.auth.my);
 
   useEffect(() => {
-    window.document.title = t('auth.my-page.title');
+    document.title = t('auth.my-page.title');
   }, [t]);
 
   useEffect(() => {

@@ -1,45 +1,42 @@
 import { Dispatch } from "@reduxjs/toolkit";
+import { groupBy } from "lodash";
 import React from "react";
 import driveListApi from "src/api/drive/drive-list";
 import driveNewFolderApi from "src/api/drive/drive-new-folder";
-import fileUploadRenameApi from "src/api/file/file-upload-rename";
-import uploadApi from "src/api/file/upload";
+import fileUploadMultipartApi from "src/api/file/file-upload-multipart";
 import { DriveFileInfo } from "src/model/drive";
 import { FileWithPath } from "src/model/file";
 import { RootState } from "src/redux";
 import { GlobalActions } from "src/redux/global";
-import { dirname, join } from 'src/utils/path';
+import { dirname, join } from 'path-browserify';
 import { isMac } from "src/utils/user-agent";
 import { getDriveStatus } from './DriveHooks';
 import { DriveActions } from './DriveRedux';
 
-export const driveUploadAction = (path: string, files: FileWithPath[]) => async (dispatch: Dispatch, getState: () => RootState) => {
-  const { uploads } = getState().drive;
+function getSize(files: FileWithPath[]) {
+  return files.map(v => v.file.size).reduce((a, b) => a + b);
+}
 
+export const driveUploadAction = (path: string, files: FileWithPath[]) => async (dispatch: Dispatch, getState: () => RootState) => {
   files.sort((a, b) => a.path.localeCompare(b.path));
 
-  const newUploads = files.map(v => ({
-    path: v.path,
-    progress: 0,
-  }))
+  const totalSize = getSize(files);
+  dispatch(DriveActions.addUploadTotalSize(totalSize));
 
-  dispatch(DriveActions.update({ uploads: [...uploads, ...newUploads] }))
-
-  for (const file of files) {
-    const { nonce } = await uploadApi({
-      file: file.file,
-      progress: (progress: number) => {
-        dispatch(DriveActions.updateUpload({ progress, path: file.path }));
+  const fileMap = groupBy(files, v => join(path, dirname(v.path)));
+  for (const [folderPath, children] of Object.entries(fileMap)) {
+    let prev = 0;
+    await fileUploadMultipartApi({
+      path: folderPath,
+      files: children.map(v => v.file),
+      progress: (curr: number) => {
+        dispatch(DriveActions.addUploadCurrSize(curr - prev));
+        prev = curr;
       }
-    })
-
-    dispatch(DriveActions.updateUpload({ progress: 100, path: file.path }));
-
-    await fileUploadRenameApi({
-      nonce,
-      path: join(path, file.path),
-    })
+    });
   }
+
+  driveListApi.invalidate({ path });
 }
 
 export const driveNewFolderAction = (index: number, name: string) => async (dispatch: Dispatch, getState: () => RootState) => {

@@ -4,7 +4,7 @@ import AdminUserListPanel from 'src/components/auth/AdminUserListPanel';
 
 export default function AuthAdminPage() {
   useEffect(() => {
-    window.document.title = '어드민 페이지';
+    document.title = '어드민 페이지';
   }, []);
 
   return (

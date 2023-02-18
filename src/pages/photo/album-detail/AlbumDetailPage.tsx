@@ -1,4 +1,3 @@
-import { useInfiniteQuery } from '@tanstack/react-query';
 import flatten from 'lodash/flatten';
 import groupBy from 'lodash/groupBy';
 import { useEffect } from 'react';
@@ -14,6 +13,7 @@ import PhotoThumbnail from 'src/components/photo/PhotoThumbnail';
 import { Photo } from 'src/model/photo';
 import routes from 'src/pages/photo/PhotoRoutes';
 import { useScrollBottom } from 'src/utils';
+import { setDocumentTitle } from 'src/utils/services';
 
 interface Props {
   date: string;
@@ -41,20 +41,11 @@ export default function AlbumDetailPage() {
   const { t } = useTranslation();
   const albumId = parseInt(useParams().albumId!!, 10);
 
-  const { data, fetchNextPage, isFetching } = useInfiniteQuery(
-    albumPhotosApi.key({ albumId, page: 0 }),
-    ({ pageParam }) => albumPhotosApi.fetch({ albumId, page: pageParam ?? 0 }),
-    {
-      getNextPageParam: (lastPage, pages) => (lastPage.data.length === 0) ? undefined : pages.length,
-      suspense: false,
-      staleTime: Infinity,
-    }
-  );
-
   const album = albumDetailApi.useApi({ albumId });
+  const { data, fetchNextPage, isFetching } = albumPhotosApi.useInfiniteApi({ albumId });
 
   useEffect(() => {
-    document.title = t('photo.page.album-detail.title', [album.name]);
+    setDocumentTitle(t('photo.page.album-detail.title', [album.name]));
   }, [t, album.name]);
 
   useScrollBottom(() => {

@@ -12,9 +12,9 @@ import { useDispatch } from 'src/redux';
 import { CommonSuspenseFallback } from '../common/CommonSuspense';
 import DriveSectionTemplate from './DriveSectionTemplate';
 import { driveMoveBulkAction } from 'src/pages/drive/move/DriveMoveActions';
+import { useTranslation } from 'react-i18next';
 
 import './DriveFileList.scss';
-import { useTranslation } from 'react-i18next';
 
 export function renderDriveFileList(files: DriveFileInfo[], index: number, parent?: boolean) {
   const elements = files.map(v => (
@@ -53,6 +53,10 @@ export default function DriveFileList({ index }: Props) {
     dispatch(DriveActions.update({ newFolderModalIndex: index }));
   }
 
+  const onRefresh = () => {
+    driveListApi.invalidate({ path });
+  }
+
   const content = files
     ? (
       <>
@@ -77,6 +81,7 @@ export default function DriveFileList({ index }: Props) {
 
   const btnBarChildren = (
     <>
+      <Button variant="primary" onClick={onRefresh}><i className="fas fa-sync-alt" /></Button>
       <Button variant="primary" onClick={onNewFolder}><i className="fas fa-folder-plus" /></Button>
       <DriveUploadButton path={path} />
     </>

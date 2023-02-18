@@ -6,12 +6,13 @@ import apparelCategories from 'src/api/apparel/apparel-categories';
 import ApparelHeader from 'src/components/apparel/ApparelHeader';
 import CommonContainer from 'src/components/common/header/CommonContainer';
 import ApparelRoutes from 'src/pages/apparel/ApparelRoutes';
+import { setDocumentTitle } from 'src/utils/services';
 
 export default function ApparelCategoryListPage() {
   const { t } = useTranslation();
 
   useEffect(() => {
-    document.title = t('apparel.page.category-list.title');
+    setDocumentTitle(t('apparel.page.category-list.title'));
   }, [t]);
 
   const categories = apparelCategories.useApi({});

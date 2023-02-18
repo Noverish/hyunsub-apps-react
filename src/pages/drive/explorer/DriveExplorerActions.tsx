@@ -1,14 +1,14 @@
 import { Dispatch } from '@reduxjs/toolkit';
+import { join } from 'path-browserify';
 import driveListApi from 'src/api/drive/drive-list';
+import driveRemoveBulkApi from 'src/api/drive/drive-remove-bulk';
 import driveRenameBulkApi from 'src/api/drive/drive-rename-bulk';
-import fileRemoveApi from 'src/api/file/file-remove';
 import t from 'src/i18n';
 import { getDriveStatus } from 'src/pages/drive/DriveHooks';
 import { DriveActions } from 'src/pages/drive/DriveRedux';
 import { RootState } from 'src/redux';
 import { GlobalActions } from 'src/redux/global';
 import AppConstant from 'src/utils/constants';
-import { join } from 'path-browserify';
 
 export const driveKeyboardAction = (e: KeyboardEvent) => async (dispatch: Dispatch, getState: () => RootState) => {
   const path = getState().drive.status[0]?.path || '/';
@@ -62,19 +62,16 @@ export const driveNextAudioAction = () => async (dispatch: Dispatch, getState: (
 }
 
 export const driveRemoveAction = () => async (dispatch: Dispatch, getState: () => RootState) => {
-  const { path, lastSelect: file } = getDriveStatus();
-  if (!file) {
-    return;
-  }
+  const { path, selects } = getDriveStatus();
 
   if (!window.confirm(t('drive.msg.remove-confirm') as string)) {
     return;
   }
 
-  const filePath = join(path, file.name);
+  const paths = selects.map(v => join(path, v));
 
   dispatch(GlobalActions.update({ loading: true }));
-  await fileRemoveApi({ path: filePath });
+  await driveRemoveBulkApi({ paths });
   driveListApi.invalidate({ path });
   dispatch(DriveActions.updateStatus({ path }));
   dispatch(GlobalActions.update({ loading: false }));

@@ -1,8 +1,10 @@
 import { InfiniteData, useInfiniteQuery, UseInfiniteQueryResult, useQuery, UseQueryResult } from '@tanstack/react-query';
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
+import { useEffect } from 'react';
 import t from 'src/i18n';
 import getErrMsg from 'src/i18n/server-error';
 import { ErrorResponse, PageData } from 'src/model/api';
+import router from 'src/pages/router';
 import { dispatch } from 'src/redux';
 import { GlobalActions } from 'src/redux/global';
 import { insertToast } from 'src/redux/toast';
@@ -28,11 +30,13 @@ interface GenerateApiResult<P, R> {
   cache: (p: P) => R | undefined;
   prefetch: (p: P) => void;
   invalidate: (p: P) => void;
+  updateCache: (p: P, updater: (cache: R) => void) => void;
 }
 
 interface GenerateInfiniteApiResult<P, R> {
   useInfiniteApi: (p: P) => UseInfiniteQueryResult<PageData<R>>;
   updateCache: (p: P, updater: (list: R[]) => R[]) => void;
+  key: (p: P) => string[];
 }
 
 interface PageParam {
@@ -54,6 +58,8 @@ export function generateApi<P, R>(func: (p: P) => AxiosRequestConfig) {
         dispatch(insertToast(getErrMsg(t, res.data)));
       } else if (res.status === 401) {
         window.location.href = `/login?url=${encodeURIComponent(window.location.href)}`;
+      } else if (res.status === 403) {
+        router.navigate('/forbidden');
       } else {
         dispatch(insertToast(JSON.stringify(res.data)));
       }
@@ -72,6 +78,15 @@ export function generateQuery<P, R>(option: GenerateApiOption<P>): GenerateApiRe
   const prefetch = (p: P) => QueryClient.prefetchQuery(key(p), () => api(p), { staleTime: Infinity });
   const fetch = (p: P) => QueryClient.fetchQuery(key(p), () => api(p), { staleTime: Infinity });
   const invalidate = (p: P) => QueryClient.invalidateQueries(key(p), { refetchType: 'active' });
+  const updateCache = (p: P, updater: (cache: R) => void) => {
+    QueryClient.setQueryData<R>(key(p), (cache) => {
+      if (!cache) {
+        return cache;
+      }
+      updater(cache);
+      return cache;
+    });
+  }
 
   return {
     api,
@@ -82,6 +97,7 @@ export function generateQuery<P, R>(option: GenerateApiOption<P>): GenerateApiRe
     cache,
     prefetch,
     invalidate,
+    updateCache,
   };
 }
 
@@ -89,14 +105,25 @@ export function generateInfiniteQuery<P, R>(option: GenerateInfiniteApiOption<P>
   const key = (p: P) => [option.key(p), toJSON(p)];
   const api = generateApi<P & PageParam, PageData<R>>(option.api);
 
-  const useInfiniteApi = (p: P) => useInfiniteQuery(
-    key(p),
-    ({ pageParam }) => api({ ...p, page: pageParam ?? 0 }),
-    {
-      getNextPageParam: (lastPage, pages) => (lastPage.data.length === 0) ? undefined : pages.length,
-      staleTime: Infinity,
-    }
-  )
+  const useInfiniteApi = (p: P) => {
+    const result = useInfiniteQuery(
+      key(p),
+      ({ pageParam }) => api({ ...p, page: pageParam ?? 0 }),
+      {
+        getNextPageParam: (lastPage) => (lastPage.total <= (lastPage.page + 1) * lastPage.pageSize) ? undefined : (lastPage.page + 1),
+        staleTime: Infinity,
+      }
+    );
+
+    const pageParams = result.data?.pageParams;
+    useEffect(() => {
+      if (pageParams && pageParams[0] === undefined) {
+        pageParams[0] = 0;
+      }
+    }, [pageParams]);
+
+    return result;
+  }
   const updateCache = (p: P, updater: (list: R[]) => R[]) => {
     QueryClient.setQueryData<InfiniteData<PageData<R>>>(key(p), (cache) => {
       if (!cache) {
@@ -116,5 +143,26 @@ export function generateInfiniteQuery<P, R>(option: GenerateInfiniteApiOption<P>
   return {
     useInfiniteApi,
     updateCache,
+    key,
   };
+}
+
+export function flatInfiniteData<T>(data: InfiniteData<PageData<T>>): (T | null)[] {
+  if (data.pages.length === 0) {
+    return [];
+  }
+
+  const { total } = data.pages[0];
+  const result = Array.from({ length: total }, () => null as T | null);
+
+  for (const dataList of data.pages) {
+    const { page, pageSize, data } = dataList;
+    const start = page * pageSize;
+
+    for (let i = 0; i < data.length; i++) {
+      result[i + start] = data[i];
+    }
+  }
+
+  return result;
 }

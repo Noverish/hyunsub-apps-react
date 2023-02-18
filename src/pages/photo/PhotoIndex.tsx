@@ -1,7 +1,6 @@
 import { lazy } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import PhotoTabBar from 'src/components/photo/PhotoTabBar';
-import ErrorPage from '../common/ErrorPage';
 import routes from './PhotoRoutes';
 
 const NotFoundPage = lazy(() => import('src/pages/common/NotFoundPage'));
@@ -23,7 +22,6 @@ export default function PhotoIndex() {
       <Routes>
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/" element={<Navigate to={routes.albums} />} />
-        <Route path="/error" element={<ErrorPage />} />
         <Route path={routes.albums} element={<AlbumListPage />} />
         <Route path={routes.albumDetailRoute} element={<AlbumDetailPage />} />
         <Route path={routes.albumViewerRoute} element={<AlbumViewerPage />} />

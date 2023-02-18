@@ -1,5 +1,5 @@
 import cs from 'classnames';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PageSelectModal from 'src/components/common/PageSelectModal';
 import Swiper, { Keyboard, Virtual, Zoom } from 'swiper';
@@ -9,11 +9,14 @@ import 'swiper/css';
 import './PageSwiper.scss';
 
 export interface PageSwiperProps<T> {
-  page: number;
+  pageState?: [number, (page: number) => void];
+  initialPage?: number;
   slides: (T | null)[];
-  onPageChange: (page: number) => void;
+  onPageChange?: (page: number) => void;
   renderSlide: (slide: T | null) => JSX.Element;
   headerRightIcons?: JSX.Element;
+  additionalLastSlide?: JSX.Element;
+  titlePrefix?: string;
 }
 
 // function printSwiperStatus<T>(slide: number, slides: (T | null)[]) {
@@ -27,29 +30,37 @@ export interface PageSwiperProps<T> {
 // }
 
 export default function PageSwiper<T>(props: PageSwiperProps<T>) {
-  const { slides, page } = props;
-  const [now, setNow] = useState(page);
+  const { slides, pageState, onPageChange } = props;
   const [hideHeader, setHideHeader] = useState(false);
   const [showPageModal, setShowPageModal] = useState(false);
   const navigate = useNavigate();
   const swiperRef = useRef<Swiper>();
 
-  useEffect(() => onPageChangeNotFromSwiper(page), [page]);
+  const [tmp, setTmp] = useState(props.initialPage || 0);
+  const now = pageState ? pageState[0] : tmp;
+  const setNow = pageState ? pageState[1] : setTmp;
 
-  const onPageChangeNotFromSwiper = (page: number) => {
+  const onPageChangeNotFromSwiper = useCallback((page: number) => {
     setNow(page);
     const swiper: Swiper | undefined = swiperRef?.current;
     if (swiper && swiper.activeIndex !== page) {
-      swiper.slideTo(page);
+      swiper.slideTo(page, 0);
     }
-  }
+  }, [setNow]);
 
-  const onPageChangeFromSwiper = (swiper: Swiper) => {
-    setNow(swiper.activeIndex);
-    if (swiper.activeIndex !== page) {
-      props.onPageChange(swiper.activeIndex);
+  const onPageChangeFromSwiper = useCallback((swiper: Swiper) => {
+    if (swiper.activeIndex !== now) {
+      setNow(swiper.activeIndex);
+      onPageChange?.(swiper.activeIndex);
     }
-  }
+  }, [now, setNow, onPageChange]);
+
+  const pageFromProps = pageState?.[0];
+  useEffect(() => {
+    if (pageFromProps !== undefined) {
+      onPageChangeNotFromSwiper(pageFromProps)
+    }
+  }, [onPageChangeNotFromSwiper, pageFromProps]);
 
   const onClick = () => setHideHeader(v => !v);
   const onBack = () => navigate(-1);
@@ -67,7 +78,21 @@ export default function PageSwiper<T>(props: PageSwiperProps<T>) {
     </SwiperSlide>
   ))
 
-  // printSwiperStatus(now, slides);
+  if (props.additionalLastSlide) {
+    elements.push(
+      <SwiperSlide key="last">
+        <div className="swiper-zoom-container">
+          {props.additionalLastSlide}
+        </div>
+      </SwiperSlide>
+    )
+  }
+
+  // printSwiperStatus(page, slides);
+
+  const titlePrefix = props.titlePrefix
+    ? `${props.titlePrefix} - `
+    : undefined;
 
   return (
     <div id="PageSwiper" onClick={onClick}>
@@ -76,7 +101,7 @@ export default function PageSwiper<T>(props: PageSwiperProps<T>) {
           <i className="fas fa-chevron-left" onClick={onBack}></i>
         </div>
         <div className="center" onClick={onShowPageModal}>
-          <span id="now_page">{now + 1}</span>
+          <span id="now_page">{titlePrefix}{now + 1}</span>
           <span>/</span>
           <span id="max_page">{slides.length}</span>
         </div>
@@ -87,9 +112,9 @@ export default function PageSwiper<T>(props: PageSwiperProps<T>) {
       <SwiperComponent
         onSwiper={(swiper: Swiper) => swiperRef.current = swiper}
         modules={[Virtual, Keyboard, Zoom]}
-        virtual={{ slides, enabled: true }}
+        virtual={{ enabled: true, addSlidesAfter: 3, addSlidesBefore: 3 }}
         zoom={true}
-        initialSlide={page}
+        initialSlide={now}
         spaceBetween={24}
         onSlideChange={onPageChangeFromSwiper}
         keyboard={true}

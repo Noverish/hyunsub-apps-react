@@ -8,7 +8,7 @@ interface Props {
   urls: string[];
 }
 
-export default function ImageSwiper({ urls }: Props) {
+export default function ImageCarousel({ urls }: Props) {
   const swiperRef = useRef<Swiper>();
 
   const slides = urls.map((v) => (

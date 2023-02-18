@@ -5,6 +5,7 @@ import DriveHeader from 'src/components/drive/DriveHeader';
 import DrivePreviewSection from "src/components/drive/DrivePreviewSection";
 import { useDriveStatus } from 'src/pages/drive/DriveHooks';
 import { useDispatch } from "src/redux";
+import { setDocumentTitle } from "src/utils/services";
 import { driveKeyboardAction } from "./DriveExplorerActions";
 
 import './DriveExplorerPage.scss';
@@ -14,7 +15,7 @@ export default function DriveExplorerPage() {
   const { path } = useDriveStatus();
 
   useEffect(() => {
-    window.document.title = path;
+    setDocumentTitle(path);
   }, [path]);
 
   useEffect(() => {

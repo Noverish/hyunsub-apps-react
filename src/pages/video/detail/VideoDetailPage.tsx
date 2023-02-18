@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { Button } from "react-bootstrap";
 import { useParams, useSearchParams } from "react-router-dom";
-import { useIsAdmin } from "src/api/auth/authorities";
 import getCategories from "src/api/video/category";
 import getVideoDetail from "src/api/video/video-entry-detail";
 import CommonContainer from 'src/components/common/header/CommonContainer';
@@ -18,6 +17,7 @@ import { isIOS } from "src/utils/user-agent";
 import { VideoDetailActions } from "./VideoDetailState";
 
 import './VideoDetailPage.scss';
+import { setDocumentTitle } from "src/utils/services";
 
 function VideoMetadataSection({ metadata }: { metadata: VideoMetadata }) {
   return (
@@ -35,7 +35,7 @@ export default function VideoDetailPage() {
   const dispatch = useDispatch();
   const { showSetting, showAdmin } = useSelector(s => s.video.detail);
 
-  const isAdmin = useIsAdmin();
+  const isAdmin = useSelector(s => s.global.tokenPayload?.isAdmin || false);
   const detail = getVideoDetail.useApi({ entryId, videoId });
   const { category: categoryName, video, episodes, group } = detail;
   const { title, videoUrl, thumbnailUrl, subtitles, metadata } = video;
@@ -44,7 +44,7 @@ export default function VideoDetailPage() {
   const category = categories.filter(v => v.name === categoryName)[0];
 
   useEffect(() => {
-    document.title = title;
+    setDocumentTitle(title);
   }, [title]);
 
   const showSettingSection = () => {

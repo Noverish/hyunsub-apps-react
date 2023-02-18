@@ -6,14 +6,17 @@ import LoadingPage from './pages/common/LoadingPage';
 import LoadingPageDim from './pages/common/LoadingPageDim';
 import router from './pages/router';
 import { useDispatch, useSelector } from './redux';
-import { loadAuthorities } from './redux/actions';
+import { GlobalActions } from './redux/global';
+import { loadTokenPayload } from './utils/token';
 
 function App() {
   const dispatch = useDispatch();
   const { loading } = useSelector(s => s.global);
 
   useEffect(() => {
-    dispatch(loadAuthorities());
+    loadTokenPayload().then((tokenPayload) => {
+      dispatch(GlobalActions.update({ tokenPayload }));
+    });
   }, [dispatch]);
 
   return (

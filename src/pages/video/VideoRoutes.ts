@@ -15,9 +15,7 @@ const VideoRoutes = {
   search: '/search',
 
   searchResult: '/search/result',
-  searchResultRoute: (query: string) => {
-    return `/search/result?q=${encodeURIComponent(query)}`
-  },
+  searchResultRoute: (query: string) => `/search/result?q=${encodeURIComponent(query)}`,
 
   menu: '/menu',
 }
