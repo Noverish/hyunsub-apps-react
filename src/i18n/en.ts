@@ -77,7 +77,12 @@ const en = {
     'video.setting-section.title': 'Video Play Setting',
     'video.setting-section.subtitle-font-size': 'Subtitle Font Size: {{0}}px',
     'video.subtitle-setting.title': 'Subtitle Sync Setting',
+    'VideoTabBar.home': 'Home',
     'VideoTabBar.search': 'Search',
+    'VideoTabBar.history': 'History',
+    'VideoHomePage.title': 'Home Page',
+    'VideoHomePage.recent-title': 'Recent {{0}}',
+    'VideoHomePage.more': 'More >',
 
     'photo.page.album-list.title': 'My Album List',
     'photo.page.album-detail.title': 'Photo List - {{0}}',

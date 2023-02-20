@@ -36,7 +36,7 @@ export function VideoListPage({ category }: { category: VideoCategory }) {
 
   return (
     <div id="VideoHomePage">
-      <VideoHeader title={category.displayName} />
+      <VideoHeader title={category.displayName} back />
       <CommonContainer>
         <VideoSortDropdown sort={sort} />
         <VideoEntryList category={category} entries={entries} />

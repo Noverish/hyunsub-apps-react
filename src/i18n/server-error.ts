@@ -8,6 +8,6 @@ const errorCodeMap: {[code: string]: string} = {
 }
 
 export default function getErrMsg(t: TFunction, err: ErrorResponse): string {
-  const tkey = errorCodeMap[err.code];
+  const tkey = errorCodeMap[err.code] as any;
   return tkey ? t(tkey) : JSON.stringify(err);
 }

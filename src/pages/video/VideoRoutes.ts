@@ -1,6 +1,9 @@
 const VideoRoutes = {
-  list: '/:category',
-  listRoute: (category: string) => `/${category}`,
+  home: '/home',
+  history: '/history',
+
+  list: '/list/:category',
+  listRoute: (category: string) => `/list/${category}`,
 
   detail: '/video/:entryId',
   detailRoute: (entryId: string, videoId?: string) => {

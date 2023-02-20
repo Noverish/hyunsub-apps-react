@@ -77,7 +77,12 @@ const ko = {
     'video.setting-section.title': '비디오 재생 설정',
     'video.setting-section.subtitle-font-size': '자막 글자 크기: {{0}}px',
     'video.subtitle-setting.title': '자막 싱크 설정',
+    'VideoTabBar.home': '홈',
     'VideoTabBar.search': '검색',
+    'VideoTabBar.history': '시청 기록',
+    'VideoHomePage.title': '홈 페이지',
+    'VideoHomePage.recent-title': '최신 {{0}}',
+    'VideoHomePage.more': '더보기 >',
 
     'photo.page.album-list.title': '내 앨범 목록',
     'photo.page.album-detail.title': '사진 목록 - {{0}}',

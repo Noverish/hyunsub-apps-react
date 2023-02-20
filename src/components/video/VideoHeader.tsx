@@ -1,20 +1,18 @@
 import getCategories from "src/api/video/category";
 import { VideoSearchActions } from 'src/pages/video/search/VideoSearchState';
 import VideoRoutes from 'src/pages/video/VideoRoutes';
-import { useDispatch } from 'src/redux';
-import { isMobile } from 'src/utils/user-agent';
+import { dispatch } from 'src/redux';
+import { useBreakpointXs } from "src/utils/breakpoint";
 import DesktopHeader, { DesktopHeaderProps } from '../common/header/DesktopHeader';
 import MobileHeader, { MobileHeaderProps } from '../common/header/MobileHeader';
 
 export default function VideoHeader(props: MobileHeaderProps) {
-  const dispatch = useDispatch();
-
   const categories = getCategories.useApi({});
 
   const menus = categories.map(v => ({
     name: v.displayName,
     icon: v.iconHtmlClass,
-    link: `/${v.name}`
+    link: VideoRoutes.listRoute(v.name),
   }))
 
   const desktopProps: DesktopHeaderProps = {
@@ -31,7 +29,7 @@ export default function VideoHeader(props: MobileHeaderProps) {
     },
   }
 
-  if (isMobile()) {
+  if (useBreakpointXs()) {
     return <MobileHeader {...props} />
   } else {
     return <DesktopHeader {...desktopProps} />
