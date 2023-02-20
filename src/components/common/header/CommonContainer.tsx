@@ -1,6 +1,6 @@
 import cs from 'classnames';
 import { ReactNode } from "react";
-import { useBreakpointXs } from 'src/utils/breakpoint';
+import { useBreakpointSm } from 'src/utils/breakpoint';
 
 import './CommonContainer.scss';
 
@@ -10,8 +10,8 @@ interface Props {
 }
 
 export default function CommonContainer({ children, noContainer }: Props) {
-  const className = useBreakpointXs() ? 'is_mobile' : 'is_desktop';
-  const className2 = noContainer ? 'no_container' : 'container';
+  const className = useBreakpointSm() ? 'is_mobile' : 'is_desktop';
+  const className2 = noContainer ? 'no_container' : 'container-md';
 
   return (
     <div id="CommonContainer" className={cs(className, className2)}>

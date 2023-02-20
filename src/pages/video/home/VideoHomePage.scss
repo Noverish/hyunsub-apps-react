@@ -49,20 +49,20 @@
     }
 
     .recent_entry_scroll {
-      @include media-breakpoint-down(sm) {
+      @include media-breakpoint-down(md) {
         width: 100%;
         overflow: scroll;
       }
     }
 
-    @include media-breakpoint-down(sm) {
+    @include media-breakpoint-down(md) {
       .recent_entry_list {
         display: flex;
         gap: 0.5rem;
       }
 
       .VideoEntryView .title {
-        width: 28vw;
+        width: 7rem;
       }
     }
   }
