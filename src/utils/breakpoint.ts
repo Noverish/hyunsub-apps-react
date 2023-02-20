@@ -52,10 +52,6 @@ export function useBreakPoint(): BreakpointCode {
   }
 }
 
-export function useBreakpointXs(): boolean {
-  return useBreakPoint() === Breakpoint.xs;
-}
-
-export function useBreakpointSm(): boolean {
-  return useBreakPoint() <= Breakpoint.sm;
+export function useBreakpointMobile(): boolean {
+  return useBreakPoint() <= Breakpoint.md;
 }

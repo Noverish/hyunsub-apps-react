@@ -4,7 +4,7 @@
   display: block;
 
   .thumbnail {
-    @include media-breakpoint-up(md) {
+    @include media-breakpoint-up(lg) {
       border-radius: 0.25rem;
     }
   }
@@ -13,11 +13,11 @@
     word-wrap: break-word;
     word-break: break-all;
 
-    @include media-breakpoint-down(md) {
+    @include media-breakpoint-down(lg) {
       font-size: 0.75rem;
       margin-top: .25rem;
     }
-    @include media-breakpoint-up(md) {
+    @include media-breakpoint-up(lg) {
       font-size: 1rem;
       margin-top: .5rem;
     }

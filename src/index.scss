@@ -71,7 +71,7 @@ input, .input_dark {
   }
 }
 
-@include media-breakpoint-up(sm) {
+@include media-breakpoint-up(lg) {
   .move_up_on_hover {
     transition: transform .3s;
 

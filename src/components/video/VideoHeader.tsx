@@ -2,7 +2,7 @@ import getCategories from "src/api/video/category";
 import { VideoSearchActions } from 'src/pages/video/search/VideoSearchState';
 import VideoRoutes from 'src/pages/video/VideoRoutes';
 import { dispatch } from 'src/redux';
-import { useBreakpointSm } from 'src/utils/breakpoint';
+import { useBreakpointMobile } from 'src/utils/breakpoint';
 import DesktopHeader, { DesktopHeaderProps } from '../common/header/DesktopHeader';
 import MobileHeader, { MobileHeaderProps } from '../common/header/MobileHeader';
 
@@ -29,7 +29,7 @@ export default function VideoHeader(props: MobileHeaderProps) {
     },
   }
 
-  if (useBreakpointSm()) {
+  if (useBreakpointMobile()) {
     return <MobileHeader {...props} />
   } else {
     return <DesktopHeader {...desktopProps} />
