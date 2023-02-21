@@ -1,6 +1,6 @@
 @import '/src/breakpoints.scss';
 
-#VideoEpisodeList {
+.VideoEpisodeSection {
   .episode_item {
     @include media-breakpoint-up(lg) {
       flex-direction: row;
@@ -9,8 +9,16 @@
       flex-direction: column;
     }
 
+    .episode_thumbnail_play_icon {
+      display: none;
+      font-size: 2rem;
+    }
+
     &.active {
-      color: var(--bs-primary);
+      .episode_thumbnail_play_icon {
+        display: flex;
+        background-color: rgba(0, 0, 0, 0.4);
+      }
     }
 
     &:hover {
@@ -23,7 +31,7 @@
     @include media-breakpoint-up(xl) {
       width: 16rem;
     }
-    @include media-breakpoint-up(lg) {
+    @include media-breakpoint-between(lg, xl) {
       width: 14rem;
     }
     @include media-breakpoint-down(lg) {
@@ -36,9 +44,6 @@
 
     @include media-breakpoint-up(lg) {
       margin-left: .75rem;
-    }
-    @include media-breakpoint-down(lg) {
-      margin-top: .5rem;
     }
   }
 }

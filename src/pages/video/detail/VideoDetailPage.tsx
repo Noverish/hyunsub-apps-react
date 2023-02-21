@@ -18,6 +18,8 @@ import { VideoDetailActions } from "./VideoDetailState";
 
 import './VideoDetailPage.scss';
 import { setDocumentTitle } from "src/utils/services";
+import { useBreakpointMobile } from "src/utils/breakpoint";
+import { MobileHeaderButton } from 'src/components/common/header/MobileHeader';
 
 function VideoMetadataSection({ metadata }: { metadata: VideoMetadata }) {
   return (
@@ -31,6 +33,7 @@ export default function VideoDetailPage() {
   const [searchParams] = useSearchParams();
   const entryId = useParams().entryId || '';
   const videoId = searchParams.get('videoId') ?? undefined;
+  const isMobile = useBreakpointMobile();
 
   const dispatch = useDispatch();
   const { showSetting, showAdmin } = useSelector(s => s.video.detail);
@@ -55,6 +58,20 @@ export default function VideoDetailPage() {
     dispatch(VideoDetailActions.update({ showAdmin: true }));
   }
 
+  const mobileHeaderButtons: MobileHeaderButton[] = [
+    {
+      icon: 'fas fa-cog',
+      onClick: showSettingSection,
+    }
+  ]
+
+  if (isAdmin) {
+    mobileHeaderButtons.push({
+      icon: 'fas fa-cogs',
+      onClick: showAdminSection,
+    })
+  }
+
   const sections = (
     <>
       <div id="video_title_section">
@@ -62,8 +79,8 @@ export default function VideoDetailPage() {
           <h3>{title}</h3>
           {metadata && <VideoMetadataSection metadata={metadata} />}
         </div>
-        {isAdmin && <Button id="video_admin_btn" variant="secondary" onClick={showAdminSection}>Admin Setting</Button>}
-        <Button id="video_setting_btn" variant="secondary" onClick={showSettingSection}>Play Setting</Button>
+        {!isMobile && isAdmin && <Button id="video_admin_btn" variant="secondary" onClick={showAdminSection}>Admin Setting</Button>}
+        {!isMobile && <Button id="video_setting_btn" variant="secondary" onClick={showSettingSection}>Play Setting</Button>}
       </div>
       {episodes && <VideoEpisodeSection episodes={episodes} videoId={video.videoId} />}
       {group && <VideoGroupSection category={category} group={group} />}
@@ -76,7 +93,7 @@ export default function VideoDetailPage() {
 
   return (
     <div id="VideoDetailPage">
-      <VideoHeader title={title} back={true} />
+      <VideoHeader title={title} back={true} btns={mobileHeaderButtons} />
       <CommonContainer>
         <section id="video_player_section">
           {videoPlayer}

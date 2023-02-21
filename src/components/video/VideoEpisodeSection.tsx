@@ -52,13 +52,13 @@ export default function VideoEpisodeSection({ episodes, videoId }: Props) {
   const hasSeason = seasons.length > 1;
 
   return (
-    <section id="VideoEpisodeList">
+    <section className="VideoEpisodeSection">
       <hr />
       <div className="d-flex align-items-center mb-3">
         <h3 className="d-inline-block me-3 mb-0">{t('video.episode-section.title', [total])}</h3>
         {hasSeason && <VideoSeasonDropdown nowSeason={season} seasons={seasons} setSeason={setSeason} />}
       </div>
-      <div className="row g-3">
+      <div className="row g-2">
         {episodeElements}
       </div>
       <div className="mt-3">
@@ -119,6 +119,9 @@ function VideoEpisodeItem({ episode, active }: VideoEpisodeItemProps) {
     <a className={className} href={href} onClick={onClick}>
       <div className="episode_thumbnail ratio ratio-16x9">
         <img className="img-fluid rounded-1" src={episode.thumbnailUrl} loading="lazy" alt={episode.title} />
+        <div className="episode_thumbnail_play_icon flex_center">
+          <i className="fas fa-play" />
+        </div>
       </div>
       <div className="episode_title">{episode.title}</div>
     </a>

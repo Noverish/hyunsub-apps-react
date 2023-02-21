@@ -53,5 +53,5 @@ export function useBreakPoint(): BreakpointCode {
 }
 
 export function useBreakpointMobile(): boolean {
-  return useBreakPoint() <= Breakpoint.md;
+  return useBreakPoint() <= Breakpoint.sm;
 }

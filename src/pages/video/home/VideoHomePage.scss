@@ -7,11 +7,11 @@
 
   .recent {
     width: 100%;
-    @include media-breakpoint-down(lg) {
+    @include media-breakpoint-down(md) {
       padding-top: .25rem;
       padding-bottom: .5rem;
     }
-    @include media-breakpoint-up(lg) {
+    @include media-breakpoint-up(md) {
       padding-top: .5rem;
       padding-bottom: 1rem;
     }
@@ -24,11 +24,11 @@
 
     .recent_category {
       cursor: pointer;
-      @include media-breakpoint-down(lg) {
+      @include media-breakpoint-down(md) {
         font-size: 1.25rem;
         margin-bottom: 0.25rem;
       }
-      @include media-breakpoint-up(lg) {
+      @include media-breakpoint-up(md) {
         font-size: 1.5rem;
         margin-bottom: 0.5rem;
       }
@@ -36,10 +36,10 @@
 
     .recent_more {
       margin-left: auto;
-      @include media-breakpoint-down(lg) {
+      @include media-breakpoint-down(md) {
         font-size: 0.75rem;
       }
-      @include media-breakpoint-up(lg) {
+      @include media-breakpoint-up(md) {
         font-size: 1rem;
       }
       color: var(--bs-secondary);
@@ -49,13 +49,13 @@
     }
 
     .recent_entry_scroll {
-      @include media-breakpoint-down(lg) {
+      @include media-breakpoint-down(md) {
         width: 100%;
         overflow: scroll;
       }
     }
 
-    @include media-breakpoint-down(lg) {
+    @include media-breakpoint-down(md) {
       .recent_entry_list {
         display: flex;
         gap: 0.5rem;

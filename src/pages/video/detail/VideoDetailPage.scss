@@ -11,28 +11,28 @@
     display: flex;
     margin-top: 1rem;
 
-    @include media-breakpoint-up(lg) {
+    @include media-breakpoint-up(md) {
       flex-direction: row;
       justify-content: space-between;
       align-items: baseline;
     }
-    @include media-breakpoint-down(lg) {
+    @include media-breakpoint-down(md) {
       flex-direction: column;
     }
   }
 
   #video_admin_btn {
-    @include media-breakpoint-up(lg) {
+    @include media-breakpoint-up(md) {
       margin-left: auto;
       margin-right: .5rem;
     }
-    @include media-breakpoint-down(lg) {
+    @include media-breakpoint-down(md) {
       margin-top: 1rem;
     }
   }
 
   #video_setting_btn {
-    @include media-breakpoint-down(lg) {
+    @include media-breakpoint-down(md) {
       margin-top: 1rem;
     }
   }

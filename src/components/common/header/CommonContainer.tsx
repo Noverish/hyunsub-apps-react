@@ -11,7 +11,7 @@ interface Props {
 
 export default function CommonContainer({ children, noContainer }: Props) {
   const className = useBreakpointMobile() ? 'is_mobile' : 'is_desktop';
-  const className2 = noContainer ? 'no_container' : 'container-lg';
+  const className2 = noContainer ? 'no_container' : 'container-md';
 
   return (
     <div id="CommonContainer" className={cs(className, className2)}>
