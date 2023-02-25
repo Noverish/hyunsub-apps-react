@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Card, Form, InputGroup } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { VideoSubtitle } from 'src/model/video';
-import { VideoDetailActions } from 'src/pages/video/detail/VideoDetailState';
-import { useDispatch } from 'src/redux';
+import { VideoDetailContext } from 'src/pages/video/detail/VideoDetailState';
 
 interface Props {
   subtitles: VideoSubtitle[];
@@ -33,12 +32,13 @@ interface VideoSubtitleSettingItemProps {
 }
 
 function VideoSubtitleSettingItem({ subtitle }: VideoSubtitleSettingItemProps) {
-  const dispatch = useDispatch();
+  const [state, setState] = useContext(VideoDetailContext);
   const { label } = subtitle;
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const sync = parseInt(e.currentTarget.value, 10);
-    dispatch(VideoDetailActions.setSubtitleSyncSetting({ [subtitle.url]: sync }));
+    state.subtitleSync[subtitle.url] = sync;
+    setState(state);
   };
 
   return (

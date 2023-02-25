@@ -1,20 +1,20 @@
 import Dropdown from 'react-bootstrap/Dropdown';
-import { VideoSort } from "src/model/video";
-import { useVideoSort } from 'src/pages/video/list/VideoListHook';
+import { VideoSort } from 'src/model/video';
+import { useVideoSort } from 'src/pages/video/list/VideoListHooks';
 
 export default function VideoSortDropdown() {
   const { sort, setSort, getSortName } = useVideoSort();
 
   const onSelect = (key: string | null) => {
-    setSort(key as VideoSort);
+    setSort(VideoSort.parse(key));
   };
 
-  const items = [VideoSort.random, VideoSort.new, VideoSort.old, VideoSort.abc, VideoSort.zyx].map(v => (
+  const items = VideoSort.values().map(v => (
     <Dropdown.Item
-      key={v}
+      key={v.name}
       as='button'
       active={sort === v}
-      eventKey={v}
+      eventKey={v.name}
     >
       {getSortName(v)}
     </Dropdown.Item>

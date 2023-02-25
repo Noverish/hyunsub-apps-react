@@ -1,6 +1,8 @@
 @import '/src/breakpoints.scss';
 
 :root {
+  scroll-behavior: auto!important;
+
   --hyunsub-bg: #141414;
   --hyunsub-header-bg: rgba(36, 36, 36, .8);
   --hyunsub-title-bg: #323232;
@@ -155,8 +157,18 @@ input.form-control {
   --bs-pagination-bg: var(--bs-gray-dark);
   --bs-pagination-color: white;
   --bs-pagination-hover-bg: var(--bs-gray);
+  --bs-pagination-focus-bg: var(--bs-gray);
   --bs-pagination-hover-color: white;
-  --bs-pagination-active-border-color: var(--bs-pagination-border-color)
+  --bs-pagination-focus-color: white;
+  --bs-pagination-active-border-color: var(--bs-pagination-border-color);
+  --bs-pagination-font-size: 1rem;
+
+  @include media-breakpoint-up(md) {
+    --bs-pagination-font-size: 1rem;
+  }
+  @include media-breakpoint-down(md) {
+    --bs-pagination-font-size: .75rem;
+  }
 }
 
 .dropdown {

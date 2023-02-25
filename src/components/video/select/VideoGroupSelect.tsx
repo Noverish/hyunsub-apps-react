@@ -1,12 +1,12 @@
 import Select, { ActionMeta, SingleValue } from "react-select";
-import videoGroups from "src/api/video/video-groups";
-import { VideoGroupPreview } from "src/model/video";
+import videoGroups from "src/api/video/video-group";
+import { VideoGroup } from "src/model/video";
 
-const getOptionLabel = (option: VideoGroupPreview) => option.name;
-const getOptionValue = (option: VideoGroupPreview) => option.id;
+const getOptionLabel = (option: VideoGroup) => option.name;
+const getOptionValue = (option: VideoGroup) => option.id;
 
 interface Props {
-  onSelect?: (value: VideoGroupPreview | null) => void;
+  onSelect?: (value: VideoGroup | null) => void;
   disabled?: boolean;
 }
 
@@ -14,7 +14,7 @@ export default function VieoGroupSelect(props: Props) {
   const { onSelect, disabled } = props;
   const groups = videoGroups.useApi({});
 
-  const onSelectChange = (newValue: SingleValue<VideoGroupPreview>, actionMeta: ActionMeta<VideoGroupPreview>) => {
+  const onSelectChange = (newValue: SingleValue<VideoGroup>, actionMeta: ActionMeta<VideoGroup>) => {
     onSelect?.(newValue);
   }
 

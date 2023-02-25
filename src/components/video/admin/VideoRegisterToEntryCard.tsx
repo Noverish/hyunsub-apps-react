@@ -1,6 +1,6 @@
 import { Button, Card, Form } from 'react-bootstrap';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { VideoRegisterParams } from 'src/api/video/video-register';
+import { VideoRegisterParams } from 'src/api/video/admin/video-register';
 import ApiResult from 'src/components/common/ApiResult';
 import PathSelect from 'src/components/common/PathSelect';
 import { videoRegisterToEntryAction } from 'src/pages/video/admin/VideoAdminContext';

@@ -1,5 +1,5 @@
 import Select, { ActionMeta, SingleValue } from "react-select";
-import getCategories from "src/api/video/category";
+import videoCategoryApi from "src/api/video/video-category";
 import { VideoCategory } from "src/model/video";
 
 const getOptionLabel = (option: VideoCategory) => option.displayName;
@@ -12,7 +12,7 @@ interface Props {
 
 export default function VieoCategorySelect(props: Props) {
   const { onSelect, isInvalid } = props;
-  const categories = getCategories.useApi({});
+  const categories = videoCategoryApi.useApi({});
 
   const onSelectChange = (newValue : SingleValue<VideoCategory>, actionMeta: ActionMeta<VideoCategory>) => {
     onSelect?.(newValue);

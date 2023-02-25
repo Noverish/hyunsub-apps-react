@@ -1,7 +1,7 @@
 import { generateQuery } from "src/api/generate-api";
-import { VideoGroupPreview } from 'src/model/video';
+import { VideoGroup } from 'src/model/video';
 
-const videoGroups = generateQuery<{}, VideoGroupPreview[]>({
+const videoGroups = generateQuery<{}, VideoGroup[]>({
   api: () => ({
     url: '/api/v1/groups',
     method: 'GET',

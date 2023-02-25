@@ -1,10 +1,10 @@
 import { Dispatch } from '@reduxjs/toolkit';
-import videoEncode, { VideoEncodeParams } from 'src/api/video/video-encode';
-import videoMetadataScan from 'src/api/video/video-metadata-scan';
-import videoRegister, { VideoRegisterParams } from 'src/api/video/video-register';
-import videoRename, { VideoRenameParams } from 'src/api/video/video-rename';
-import videoSubtitleUpload, { VideoSubtitleUploadParams } from 'src/api/video/video-subtitle-upload';
-import videoThumbnail from 'src/api/video/video-thumbnail';
+import videoEncode, { VideoEncodeParams } from 'src/api/video/admin/video-encode';
+import videoMetadataScan from 'src/api/video/admin/video-metadata-scan';
+import videoRegister, { VideoRegisterParams } from 'src/api/video/admin/video-register';
+import videoRename, { VideoRenameParams } from 'src/api/video/admin/video-rename';
+import videoSubtitleUpload, { VideoSubtitleUploadParams } from 'src/api/video/admin/video-subtitle-upload';
+import videoThumbnail from 'src/api/video/admin/video-thumbnail';
 import { VideoAdminActions } from 'src/pages/video/admin/VideoAdminState';
 import { RootState } from 'src/redux';
 import { GlobalActions } from 'src/redux/global';

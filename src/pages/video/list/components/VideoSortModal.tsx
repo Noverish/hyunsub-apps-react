@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { ListGroup, Modal } from 'react-bootstrap';
 import { VideoSort } from 'src/model/video';
 import { VideoListContext } from 'src/pages/video/list/VideoListState';
-import { useVideoSort } from '../VideoListHook';
+import { useVideoSort } from '../VideoListHooks';
 
 export default function VideoSortModal() {
   const [state, setState] = useContext(VideoListContext);
@@ -18,13 +18,12 @@ export default function VideoSortModal() {
     setSort(v);
   }
 
-  const sorts = [VideoSort.random, VideoSort.new, VideoSort.old, VideoSort.abc, VideoSort.zyx];
-  const items = sorts.map(v => (
+  const items = VideoSort.values().map(v => (
     <ListGroup.Item
-      key={v}
+      key={v.name}
       as='button'
       active={sort === v}
-      eventKey={v}
+      eventKey={v.name}
       onClick={onClick(v)}
     >
       {getSortName(v)}

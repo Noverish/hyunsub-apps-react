@@ -1,18 +1,18 @@
 import { VideoEntryDetail } from "src/model/video";
 import { generateQuery } from "src/api/generate-api";
 
-export interface GetVideoDetailParams {
+export interface VideoEntryDetailParams {
   entryId: string;
   videoId?: string;
 }
 
-const getVideoDetail = generateQuery<GetVideoDetailParams, VideoEntryDetail>({
+const videoEntryDetailApi = generateQuery<VideoEntryDetailParams, VideoEntryDetail>({
   api: (params) => ({
-    url: `/api/v1/entry/${params.entryId}`,
+    url: `/api/v1/entries/${params.entryId}`,
     method: 'GET',
     params: { videoId: params.videoId },
   }),
-  key: () => 'videoDetail',
+  key: () => 'videoEntryDetailApi',
 });
 
-export default getVideoDetail;
+export default videoEntryDetailApi;

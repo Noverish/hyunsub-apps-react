@@ -8,7 +8,7 @@ import VideoEntryList from "src/components/video/VideoEntryList";
 import NotFoundPage from 'src/pages/common/NotFoundPage';
 import VideoSortDropdown from "src/pages/video/list/components/VideoSortDropdown";
 import VideoSortModal from 'src/pages/video/list/components/VideoSortModal';
-import { useLoadVideoListPage, useVideoCategory } from 'src/pages/video/list/VideoListHook';
+import { useLoadVideoListPage, useVideoCategory } from 'src/pages/video/list/VideoListHooks';
 import { useScrollBottom } from "src/utils";
 import { useBreakpointMobile } from 'src/utils/breakpoint';
 import { setDocumentTitle } from 'src/utils/services';
@@ -35,7 +35,7 @@ function VideoList() {
 }
 
 export function VideoListPage() {
-  const [state, setState] = useContext(VideoListContext);
+  const setState = useContext(VideoListContext)[1];
   const isMobile = useBreakpointMobile();
   const category = useVideoCategory();
 

@@ -1,11 +1,11 @@
 import { t } from 'i18next';
-import getCategories from 'src/api/video/category';
+import videoCategoryApi from 'src/api/video/video-category';
 import DesktopHeader, { DesktopHeaderProps } from 'src/components/common/header/DesktopHeader';
 import router from 'src/pages/router';
 import VideoRoutes from 'src/pages/video/VideoRoutes';
 
 export default function VideoDesktopHeader() {
-  const { data } = getCategories.useApiResult({});
+  const { data } = videoCategoryApi.useApiResult({});
   const categories = data || [];
 
   const menus = categories.map(v => ({

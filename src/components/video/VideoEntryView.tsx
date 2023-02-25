@@ -1,8 +1,7 @@
-import { VideoEntry, VideoCategory } from 'src/model/video';
 import React from 'react';
+import { VideoCategory, VideoEntry } from 'src/model/video';
+import { useNavigateVideoDetail } from 'src/pages/video/list/VideoListHooks';
 import VideoRoutes from 'src/pages/video/VideoRoutes';
-import { dispatch } from 'src/redux';
-import { useNavigateVideoDetail } from 'src/pages/video/list/VideoListHook';
 
 import './VideoEntryView.scss';
 

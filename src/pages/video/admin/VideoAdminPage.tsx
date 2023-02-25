@@ -6,8 +6,6 @@ import NotFoundPage from "src/pages/common/NotFoundPage";
 import { useSelector } from "src/redux";
 
 export function VideoAdminPage() {
-  const isAdmin = useSelector(s => s.global.tokenPayload)?.isAdmin || false;
-
   useEffect(() => {
     document.title = 'Hyunflix Video Upload';
   }, []);

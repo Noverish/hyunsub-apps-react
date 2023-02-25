@@ -1,6 +1,6 @@
 import { Button, Card, Form } from 'react-bootstrap';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { VideoRenameParams } from 'src/api/video/video-rename';
+import { VideoRenameParams } from 'src/api/video/admin/video-rename';
 import ApiResult from 'src/components/common/ApiResult';
 import { videoRenameAction } from 'src/pages/video/admin/VideoAdminContext';
 import { useDispatch, useSelector } from 'src/redux';

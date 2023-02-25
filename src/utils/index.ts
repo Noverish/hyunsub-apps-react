@@ -1,4 +1,4 @@
-import { DependencyList, useEffect } from 'react';
+import { useEffect } from 'react';
 
 export function sleep(ms: number) {
   return new Promise((resolve) => {

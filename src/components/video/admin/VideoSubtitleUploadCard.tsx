@@ -5,7 +5,7 @@ import ApiResult from 'src/components/common/ApiResult';
 import PathSelect from 'src/components/common/PathSelect';
 import { videoSubtitleUploadAction } from 'src/pages/video/admin/VideoAdminContext';
 import { useDispatch, useSelector } from 'src/redux';
-import { VideoSubtitleUploadParams } from '../../../api/video/video-subtitle-upload';
+import { VideoSubtitleUploadParams } from 'src/api/video/admin/video-subtitle-upload';
 
 interface Props {
   videoId: string;

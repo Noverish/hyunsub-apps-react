@@ -1,11 +1,10 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { t } from 'i18next';
+import { ChangeEvent, useContext, useEffect, useState } from 'react';
 import { Button, Form } from "react-bootstrap";
-import { useTranslation } from "react-i18next";
 import { Video } from "src/model/video";
-import { VideoDetailActions } from "src/pages/video/detail/VideoDetailState";
-import { useDispatch } from "src/redux";
+import VideoSubtitleSettingCard from "src/pages/video/detail/components/VideoSubtitleSettingCard";
+import { VideoDetailContext } from 'src/pages/video/detail/VideoDetailState';
 import AppConstant from "src/utils/constants";
-import VideoSubtitleSettingCard from "./VideoSubtitleSettingCard";
 
 export function setCaptionFontSize(size: number) {
   window.localStorage.setItem(AppConstant.video.SETTING_SUBTITLE_FONT_SIZE, size.toString());
@@ -27,11 +26,9 @@ interface Props {
 }
 
 export default function VideoSettingSection({ video }: Props) {
+  const [{ showSetting }, setState] = useContext(VideoDetailContext);
   const initFontSize = getCaptionFontSize();
   const [fontSize, setFontSize] = useState(initFontSize);
-  const { t } = useTranslation();
-
-  const dispatch = useDispatch();
 
   useEffect(() => {
     setCaptionFontSize(fontSize);
@@ -42,7 +39,11 @@ export default function VideoSettingSection({ video }: Props) {
   }
 
   const hideSettingSection = () => {
-    dispatch(VideoDetailActions.update({ showSetting: false }));
+    setState({ showSetting: false });
+  }
+
+  if (!showSetting) {
+    return <></>;
   }
 
   return (

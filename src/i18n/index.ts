@@ -1,11 +1,11 @@
-import i18n, { TFunction } from "i18next";
-import { initReactI18next } from "react-i18next";
-import en from './en';
-import ko from './ko';
+import i18n from "i18next";
 import TimeAgo from 'javascript-time-ago';
 import timeAgoEn from 'javascript-time-ago/locale/en';
 import timeAgoKo from 'javascript-time-ago/locale/ko';
 import Cookies from 'js-cookie';
+import { initReactI18next } from "react-i18next";
+import en from './en';
+import ko from './ko';
 
 const lang = Cookies.get('lang') || 'ko';
 

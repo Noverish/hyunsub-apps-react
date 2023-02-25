@@ -1,11 +1,11 @@
 import { Button, Card, Form } from 'react-bootstrap';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { VideoRegisterParams } from 'src/api/video/video-register';
+import { VideoRegisterParams } from 'src/api/video/admin/video-register';
 import ApiResult from 'src/components/common/ApiResult';
 import PathSelect from 'src/components/common/PathSelect';
 import VieoCategorySelect from 'src/components/video/select/VideoCategorySelect';
 import VideoGroupSelect from 'src/components/video/select/VideoGroupSelect';
-import { VideoCategory, VideoGroupPreview } from 'src/model/video';
+import { VideoCategory, VideoGroup } from 'src/model/video';
 import { videoRegisterAction } from 'src/pages/video/admin/VideoAdminContext';
 import { useDispatch, useSelector } from 'src/redux';
 
@@ -27,7 +27,7 @@ export default function VideoRegisterCard() {
     setValue('category', category?.name ?? '', { shouldValidate: true });
   }
 
-  const onGroupSelect = (group: VideoGroupPreview | null) => {
+  const onGroupSelect = (group: VideoGroup | null) => {
     setValue('videoGroupId', group?.id ?? '', { shouldValidate: true });
   }
 

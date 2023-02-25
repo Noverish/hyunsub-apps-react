@@ -1,7 +1,7 @@
+import { useContext } from 'react';
 import { Button } from "react-bootstrap";
 import { VideoEntryDetail } from "src/model/video";
-import { VideoDetailActions } from "src/pages/video/detail/VideoDetailState";
-import { useDispatch } from "src/redux";
+import { VideoDetailContext } from 'src/pages/video/detail/VideoDetailState';
 import VideoEncodeCard from "./VideoEncodeCard";
 import VideoMetadataScanCard from "./VideoMetadataScanCard";
 import VideoRegisterToEntryCard from "./VideoRegisterToEntryCard";
@@ -15,10 +15,10 @@ interface Props {
 }
 
 export default function VideoAdminSection({ entryId, detail }: Props) {
-  const dispatch = useDispatch();
+  const setState = useContext(VideoDetailContext)[1];
 
   const hideAdminSection = () => {
-    dispatch(VideoDetailActions.update({ showAdmin: false }));
+    setState({ showAdmin: false });
   }
 
   const { title, videoId } = detail.video;

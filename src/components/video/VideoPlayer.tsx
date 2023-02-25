@@ -2,10 +2,9 @@ import { Options, SourceInfo, Track } from "plyr";
 import Plyr, { APITypes } from "plyr-react";
 import { memo, useEffect, useRef } from "react";
 import { VideoSubtitle } from "src/model/video";
-import { getCaptionFontSize, setCaptionFontSize } from "./VideoSettingSection";
+import { getCaptionFontSize, setCaptionFontSize } from "src/pages/video/detail/components/VideoSettingSection";
 
 import "plyr-react/plyr.css";
-import { useSelector } from "src/redux";
 
 declare global {
   interface Window {
@@ -17,10 +16,10 @@ export interface VidepPlayerProps {
   thumbnailUrl: string;
   videoUrl: string;
   subtitles: VideoSubtitle[];
+  subtitleSync: { [subtitleUrl: string]: number };
 }
 
-export function VideoPlayer({ thumbnailUrl, videoUrl, subtitles }: VidepPlayerProps) {
-  const subtitleSync = useSelector(s => s.video.detail.subtitleSync);
+export function VideoPlayer({ thumbnailUrl, videoUrl, subtitles, subtitleSync }: VidepPlayerProps) {
   const ref = useRef<APITypes>(null);
 
   useEffect(() => {
