@@ -81,7 +81,6 @@ const en = {
     'VideoTabBar.search': 'Search',
     'VideoTabBar.history': 'History',
     'VideoHomePage.title': 'Home Page',
-    'VideoHomePage.recent-title': 'Recent {{0}}',
     'VideoHomePage.more': 'More >',
 
     'photo.page.album-list.title': 'My Album List',
