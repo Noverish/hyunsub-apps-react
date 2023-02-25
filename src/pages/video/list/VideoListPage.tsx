@@ -1,59 +1,73 @@
 import flatMap from 'lodash/flatMap';
-import { useEffect } from "react";
-import { useParams, useSearchParams } from "react-router-dom";
-import getCategories from "src/api/video/category";
-import videoList from "src/api/video/video-list";
+import { useContext } from "react";
 import CommonContainer from 'src/components/common/header/CommonContainer';
+import MobileHeader from 'src/components/common/header/MobileHeader';
 import ListLoadingIndicator from 'src/components/common/ListLoadingIndicator';
+import LoadingSuspense from 'src/components/common/LoadingSuspense';
 import VideoEntryList from "src/components/video/VideoEntryList";
-import VideoHeader from "src/components/video/VideoHeader";
-import VideoSortDropdown from "src/components/video/VideoSortDropdown";
-import { VideoCategory, VideoSort } from "src/model/video";
-import NotFoundPage from "src/pages/common/NotFoundPage";
-import { useDispatch, useSelector } from "src/redux";
+import NotFoundPage from 'src/pages/common/NotFoundPage';
+import VideoSortDropdown from "src/pages/video/list/components/VideoSortDropdown";
+import VideoSortModal from 'src/pages/video/list/components/VideoSortModal';
+import { useLoadVideoListPage, useVideoCategory } from 'src/pages/video/list/VideoListHook';
 import { useScrollBottom } from "src/utils";
+import { useBreakpointMobile } from 'src/utils/breakpoint';
 import { setDocumentTitle } from 'src/utils/services';
+import { VideoListContext, VideoListProvider } from './VideoListState';
 
-export function VideoListPage({ category }: { category: VideoCategory }) {
-  const [searchParams] = useSearchParams();
-  const sort = (searchParams.get('sort') || VideoSort.random) as VideoSort;
-  const dispatch = useDispatch();
-  const { seed } = useSelector(s => s.video.list);
+function VideoList() {
+  const category = useVideoCategory();
+  setDocumentTitle(category.displayName);
 
-  useEffect(() => {
-    setDocumentTitle(category.displayName);
-  }, [category.displayName]);
-
-  const { data, fetchNextPage, isFetching } = videoList.useInfiniteApi({ category: category.name, sort, seed });
+  const { data, fetchNextPage, isFetchingNextPage } = useLoadVideoListPage();
 
   useScrollBottom(() => {
-    if (!isFetching) {
+    if (!isFetchingNextPage) {
       fetchNextPage();
     }
-  }, [dispatch, category.name, sort]);
+  });
 
-  const entries = flatMap(data!!.pages.map(v => v.data));
+  return (
+    <>
+      <VideoEntryList category={category} entries={flatMap(data!!.pages.map(v => v.data))} />
+      <ListLoadingIndicator isFetching={isFetchingNextPage} />
+    </>
+  )
+}
+
+export function VideoListPage() {
+  const [state, setState] = useContext(VideoListContext);
+  const isMobile = useBreakpointMobile();
+  const category = useVideoCategory();
+
+  const headerBtns = [
+    {
+      icon: 'fas fa-sort-alpha-down',
+      onClick: () => setState({ showSortModal: true }),
+    }
+  ]
 
   return (
     <div id="VideoHomePage">
-      <VideoHeader title={category.displayName} back />
+      <MobileHeader title={category.displayName} back btns={headerBtns} />
       <CommonContainer>
-        <VideoSortDropdown sort={sort} />
-        <VideoEntryList category={category} entries={entries} />
-        <ListLoadingIndicator isFetching={isFetching} />
+        {isMobile || <VideoSortDropdown />}
+        <LoadingSuspense>
+          <VideoList />
+        </LoadingSuspense>
       </CommonContainer>
+      <VideoSortModal />
     </div>
   )
 }
 
-export default function VideoListPageWrapper() {
-  const categories = getCategories.useApi({});
-  const categoryName = useParams().category || '';
-
-  const category = categories.filter(v => v.name === categoryName)[0];
-  if (!category) {
-    return <NotFoundPage />;
+export default function VideoListIndex() {
+  if (!useVideoCategory()) {
+    return <NotFoundPage />
   }
 
-  return <VideoListPage category={category} />
+  return (
+    <VideoListProvider>
+      <VideoListPage />
+    </VideoListProvider>
+  )
 }

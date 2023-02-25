@@ -3,7 +3,7 @@ import apparelDelete from "src/api/apparel/apparel-delete";
 import apparelImageUpload from "src/api/apparel/apparel-image-upload";
 import { GlobalActions } from 'src/redux/global';
 import router from 'src/pages/router';
-import t from 'src/i18n';
+import { t } from 'i18next';
 import apparelList from "src/api/apparel/apparel-list";
 
 export const apparelImageUploadAction = (apparelId: string, images: File[]) => async (dispatch: Dispatch) => {

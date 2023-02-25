@@ -27,7 +27,7 @@ export default function VideoEncodeCard({ videoId }: Props) {
         <Form onSubmit={handleSubmit(onSubmit)}>
           <Form.Group className="mb-3">
             <Form.Label>options</Form.Label>
-            <Form.Control {...register('options')} className="input_dark" />
+            <Form.Control {...register('options')} />
           </Form.Group>
 
           <Button variant="primary" type="submit">

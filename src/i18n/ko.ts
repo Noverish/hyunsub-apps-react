@@ -64,7 +64,6 @@ const ko = {
     'auth.modify-password-modal.success': '비밀번호 변경에 성공했습니다. 다시 로그인 해주세요',
     'auth.modify-password-modal.failure': '비밀번호 변경에 실패했습니다',
 
-    'video.page.search.title': `'{{0}}'에 대한 {{1}}건의 검색 결과`,
     'video.term.sort.random': '랜덤순',
     'video.term.sort.new': '최신 업로드순',
     'video.term.sort.old': '오래된 업로드순',
@@ -72,8 +71,6 @@ const ko = {
     'video.term.sort.zyx': '가나다역순',
     'video.episode-section.title': '전체 {{0}}화',
     'video.group-section.title': '다른 {{0}} 목록',
-    'video.search-modal.title': '비디오 검색하기',
-    'video.search-modal.label': '검색어',
     'video.setting-section.title': '비디오 재생 설정',
     'video.setting-section.subtitle-font-size': '자막 글자 크기: {{0}}px',
     'video.subtitle-setting.title': '자막 싱크 설정',
@@ -82,6 +79,8 @@ const ko = {
     'VideoTabBar.history': '시청 기록',
     'VideoHomePage.title': '홈 페이지',
     'VideoHomePage.more': '더보기 >',
+    'VideoSearchPage.title': '비디오 검색',
+    'VideoSearchPage.result-title': `'{{0}}'에 대한 {{1}}건의 검색 결과`,
 
     'photo.page.album-list.title': '내 앨범 목록',
     'photo.page.album-detail.title': '사진 목록 - {{0}}',

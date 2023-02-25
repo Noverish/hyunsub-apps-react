@@ -1,12 +1,26 @@
-import { createBrowserRouter } from 'react-router-dom';
-import ErrorPage from './common/ErrorPage';
-import ForbiddenPage from './common/ForbiddenPage';
-import RootIndex from './index';
+import { createBrowserRouter, RouteObject } from 'react-router-dom';
+import ErrorBoundary from './common/ErrorBoundaryV2';
+import NotFoundPage from './common/NotFoundPage';
+import { VideoRotues } from './video/VideoIndex';
+
+function pickRoutes(): RouteObject[] {
+  const host = window.location.hostname;
+
+  if (host.endsWith('video.hyunsub.kim')) {
+    return VideoRotues;
+  }
+
+  return [];
+}
 
 const router = createBrowserRouter([
-  { path: '/forbidden', element: <ForbiddenPage />},
-  { path: '/error', element: <ErrorPage />},
-  { path: '*', element: <RootIndex /> },
-])
+  {
+    errorElement: <ErrorBoundary />,
+    children: [
+      { path: '*', element: <NotFoundPage /> },
+      ...pickRoutes(),
+    ]
+  }
+]);
 
 export default router;

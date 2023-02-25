@@ -25,7 +25,7 @@ export default function ApparelCategoryDetailPage() {
     if (!isFetching) {
       fetchNextPage();
     }
-  }, [isFetching, fetchNextPage]);
+  });
 
   const apparels = flatMap(data!!.pages.map(v => v.data));
 

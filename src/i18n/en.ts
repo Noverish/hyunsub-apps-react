@@ -64,7 +64,6 @@ const en = {
     'auth.modify-password-modal.success': 'Modification password is successful. Please login again',
     'auth.modify-password-modal.failure': 'Modification password is failed',
 
-    'video.page.search.title': `{{1}} results found for '{{0}}'`,
     'video.term.sort.random': 'Random',
     'video.term.sort.new': 'Recently Uploads',
     'video.term.sort.old': 'Old Uploads',
@@ -72,8 +71,6 @@ const en = {
     'video.term.sort.zyx': 'Name Descending',
     'video.episode-section.title': 'Total {{0}} episodes',
     'video.group-section.title': 'List of {{0}}',
-    'video.search-modal.title': 'Search Video',
-    'video.search-modal.label': 'Search Query',
     'video.setting-section.title': 'Video Play Setting',
     'video.setting-section.subtitle-font-size': 'Subtitle Font Size: {{0}}px',
     'video.subtitle-setting.title': 'Subtitle Sync Setting',
@@ -82,6 +79,8 @@ const en = {
     'VideoTabBar.history': 'History',
     'VideoHomePage.title': 'Home Page',
     'VideoHomePage.more': 'More >',
+    'VideoSearchPage.title': 'Search Video',
+    'VideoSearchPage.result-title': `{{1}} results found for '{{0}}'`,
 
     'photo.page.album-list.title': 'My Album List',
     'photo.page.album-detail.title': 'Photo List - {{0}}',

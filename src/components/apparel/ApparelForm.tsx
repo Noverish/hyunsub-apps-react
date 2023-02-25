@@ -50,60 +50,60 @@ export default function ApparelForm(props: Props) {
       <Form className="mt-3 d-grid gap-3" onSubmit={handleSubmit(onSubmit)}>
         <Form.Group>
           <Form.Label>{t('apparel.term.name')}</Form.Label>
-          <Form.Control {...register('name')} className="input_dark" />
+          <Form.Control {...register('name')} />
         </Form.Group>
 
         <div className="row g-3 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
           <Form.Group className="col">
             <Form.Label>{t('apparel.term.itemNo')}</Form.Label>
-            <Form.Control {...register('itemNo')} className="input_dark" />
+            <Form.Control {...register('itemNo')} />
           </Form.Group>
           <Form.Group className="col">
             <Form.Label>{t('apparel.term.brand')}</Form.Label>
-            <Form.Control {...register('brand')} className="input_dark" />
+            <Form.Control {...register('brand')} />
           </Form.Group>
           <Form.Group className="col">
             <Form.Label>{t('apparel.term.category')}</Form.Label>
-            <Form.Control {...register('category')} className="input_dark" />
+            <Form.Control {...register('category')} />
           </Form.Group>
           <Form.Group className="col">
             <Form.Label>{t('apparel.term.size')}</Form.Label>
-            <Form.Control {...register('size')} className="input_dark" />
+            <Form.Control {...register('size')} />
           </Form.Group>
           <Form.Group className="col">
             <Form.Label>{t('apparel.term.color')}</Form.Label>
-            <Form.Control {...register('color')} className="input_dark" />
+            <Form.Control {...register('color')} />
           </Form.Group>
           <Form.Group className="col">
             <Form.Label>{t('apparel.term.originPrice')}</Form.Label>
-            <Form.Control type="number" {...register('originPrice')} className="input_dark" />
+            <Form.Control type="number" {...register('originPrice')} />
           </Form.Group>
           <Form.Group className="col">
             <Form.Label>{t('apparel.term.discountPrice')}</Form.Label>
-            <Form.Control type="number" {...register('discountPrice')} className="input_dark" />
+            <Form.Control type="number" {...register('discountPrice')} />
           </Form.Group>
           <Form.Group className="col">
             <Form.Label>{t('apparel.term.buyDt')}</Form.Label>
-            <Form.Control {...register('buyDt')} className="input_dark" />
+            <Form.Control {...register('buyDt')} />
           </Form.Group>
           <Form.Group className="col">
             <Form.Label>{t('apparel.term.buyLoc')}</Form.Label>
-            <Form.Control {...register('buyLoc')} className="input_dark" />
+            <Form.Control {...register('buyLoc')} />
           </Form.Group>
           <Form.Group className="col">
             <Form.Label>{t('apparel.term.makeDt')}</Form.Label>
-            <Form.Control {...register('makeDt')} className="input_dark" />
+            <Form.Control {...register('makeDt')} />
           </Form.Group>
         </div>
 
         <Form.Group className="col">
           <Form.Label>{t('apparel.term.material')}</Form.Label>
-          <Form.Control {...register('material')} className="input_dark" />
+          <Form.Control {...register('material')} />
         </Form.Group>
 
         <Form.Group className="col">
           <Form.Label>{t('apparel.term.size2')}</Form.Label>
-          <Form.Control {...register('size2')} className="input_dark" />
+          <Form.Control {...register('size2')} />
         </Form.Group>
 
         <div>

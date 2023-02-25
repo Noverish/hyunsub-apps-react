@@ -52,7 +52,7 @@ export default function AlbumUploadPage() {
         <h1>{album.name}</h1>
         <hr />
         <Form id="album_upload_form" onSubmit={onSubmit}>
-          <Form.Control type="file" className="input_dark" multiple onChange={onFileSelect} accept="image/jpeg,image/png,video/mp4,video/quicktime" />
+          <Form.Control type="file" multiple onChange={onFileSelect} accept="image/jpeg,image/png,video/mp4,video/quicktime" />
           <div className="vr" />
           <Button variant="primary" type="submit">
             {t('photo.page.album-upload.upload')}

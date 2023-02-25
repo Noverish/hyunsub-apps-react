@@ -4,7 +4,7 @@ import signOut from "src/api/auth/sign-out";
 import { RootState } from 'src/redux';
 import { GlobalActions } from 'src/redux/global';
 import { updateMyPageState } from './MyPageState';
-import t from 'src/i18n';
+import { t } from 'i18next';
 import router from 'src/pages/router';
 import AuthRoutes from '../AuthRoutes';
 

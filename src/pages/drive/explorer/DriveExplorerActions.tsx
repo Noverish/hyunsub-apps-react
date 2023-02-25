@@ -3,7 +3,7 @@ import { join } from 'path-browserify';
 import driveListApi from 'src/api/drive/drive-list';
 import driveRemoveBulkApi from 'src/api/drive/drive-remove-bulk';
 import driveRenameBulkApi from 'src/api/drive/drive-rename-bulk';
-import t from 'src/i18n';
+import { t } from 'i18next';
 import { getDriveStatus } from 'src/pages/drive/DriveHooks';
 import { DriveActions } from 'src/pages/drive/DriveRedux';
 import { RootState } from 'src/redux';

@@ -13,7 +13,7 @@ export default function VideoEntryList({ category, entries }: Props) {
   ));
 
   return (
-    <div id="VideoEntryList" className={cs('row g-3', category.listHtmlClass)}>
+    <div id="VideoEntryList" className={cs('row g-2 g-md-3', category.listHtmlClass)}>
       {elements}
     </div>
   )

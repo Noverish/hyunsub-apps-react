@@ -61,7 +61,7 @@ export default function VideoEpisodeSection({ episodes, videoId }: Props) {
       <div className="row g-2">
         {episodeElements}
       </div>
-      <div className="mt-3">
+      <div className="mt-3 d-flex flex_center">
         <VideoEpisodePagination curr={page} total={totalPagination} setPage={setPage} />
       </div>
     </section >
@@ -142,7 +142,7 @@ function VideoEpisodePagination({ curr, total, setPage }: VideoEpisodePagination
   ))
 
   return (
-    <Pagination className="justify-content-center">
+    <Pagination>
       {pageItems}
     </Pagination>
   )

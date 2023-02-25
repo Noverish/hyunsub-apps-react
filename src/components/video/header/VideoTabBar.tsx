@@ -1,7 +1,7 @@
 import { TabBarItem } from 'src/components/common/header/CommonTabBar';
-import t from 'src/i18n';
+import { t } from 'i18next';
 import VideoRoutes from 'src/pages/video/VideoRoutes';
-import CommonTabBar from "../common/header/CommonTabBar";
+import CommonTabBar from "../../common/header/CommonTabBar";
 
 const items: TabBarItem[] = [
   {

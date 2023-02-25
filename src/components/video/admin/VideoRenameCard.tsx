@@ -28,12 +28,12 @@ export default function VideoRenameCard({ title, videoId }: Props) {
         <Form onSubmit={handleSubmit(onSubmit)}>
           <Form.Group className="mb-3">
             <Form.Label>from</Form.Label>
-            <Form.Control {...register('from')} className="input_dark" />
+            <Form.Control {...register('from')} />
           </Form.Group>
 
           <Form.Group className="mb-3">
             <Form.Label>to</Form.Label>
-            <Form.Control {...register('to')} className="input_dark" />
+            <Form.Control {...register('to')} />
           </Form.Group>
 
           <Form.Group className="mb-3">

@@ -69,12 +69,12 @@ export default function VideoRegisterCard() {
 
           <Form.Group className="mb-3">
             <Form.Label>New Group Name</Form.Label>
-            <Form.Control {...register('newGroupName')} className="input_dark" />
+            <Form.Control {...register('newGroupName')} />
           </Form.Group>
 
           <Form.Group className="mb-3">
             <Form.Label>Thumbnail Url</Form.Label>
-            <Form.Control {...register('thumbnailUrl')} className="input_dark" />
+            <Form.Control {...register('thumbnailUrl')} />
           </Form.Group>
 
           <Button variant="primary" type="submit">

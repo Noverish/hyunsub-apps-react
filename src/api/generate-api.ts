@@ -1,7 +1,7 @@
 import { InfiniteData, useInfiniteQuery, UseInfiniteQueryResult, useQuery, UseQueryResult } from '@tanstack/react-query';
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { useEffect } from 'react';
-import t from 'src/i18n';
+import { t } from 'i18next';
 import getErrMsg from 'src/i18n/server-error';
 import { ErrorResponse, PageData } from 'src/model/api';
 import router from 'src/pages/router';

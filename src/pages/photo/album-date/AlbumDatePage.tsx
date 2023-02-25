@@ -54,7 +54,7 @@ export default function AlbumDatePage() {
     if (!isFetching) {
       fetchNextPage();
     }
-  }, [isFetching, fetchNextPage]);
+  });
 
   const onCellClick = (data: PhotoDate, date: string) => {
     dispatch(updateDate(albumId, data, date));

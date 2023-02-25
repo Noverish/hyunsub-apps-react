@@ -1,16 +1,20 @@
 import { useEffect } from "react";
 import CommonContainer from 'src/components/common/header/CommonContainer';
+import MobileHeader from 'src/components/common/header/MobileHeader';
 import VideoRegisterCard from "src/components/video/admin/VideoRegisterCard";
-import VideoHeader from "src/components/video/VideoHeader";
+import NotFoundPage from "src/pages/common/NotFoundPage";
+import { useSelector } from "src/redux";
 
-export default function VideoAdminPage() {
+export function VideoAdminPage() {
+  const isAdmin = useSelector(s => s.global.tokenPayload)?.isAdmin || false;
+
   useEffect(() => {
     document.title = 'Hyunflix Video Upload';
   }, []);
 
   return (
     <div id="VideoAdminPage">
-      <VideoHeader title="어드민 페이지" />
+      <MobileHeader title="어드민 페이지" />
       <CommonContainer>
         <h1>어드민 페이지</h1>
         <hr />
@@ -20,4 +24,13 @@ export default function VideoAdminPage() {
       </CommonContainer>
     </div>
   )
+}
+
+export default function VideoAdminIndex() {
+  const isAdmin = useSelector(s => s.global.tokenPayload)?.isAdmin || false;
+  if (!isAdmin) {
+    return <NotFoundPage />
+  }
+
+  return <VideoAdminPage />;
 }

@@ -2,7 +2,7 @@ import { Dispatch } from "@reduxjs/toolkit";
 import ReCAPTCHA from 'react-google-recaptcha';
 import registerApi, { RegisterParams } from 'src/api/auth/auth/register';
 import rsaKey from "src/api/auth/auth/rsa-key";
-import t from 'src/i18n';
+import { t } from 'i18next';
 import routes from 'src/pages/auth/AuthRoutes';
 import { RootState } from 'src/redux';
 import { GlobalActions } from "src/redux/global";

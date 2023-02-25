@@ -1,4 +1,4 @@
-import t from "src/i18n";
+import { t } from 'i18next';
 import PhotoRoutes from 'src/pages/photo/PhotoRoutes';
 import CommonTabBar, { TabBarItem } from "../common/header/CommonTabBar";
 

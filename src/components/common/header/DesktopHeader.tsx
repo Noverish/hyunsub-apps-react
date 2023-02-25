@@ -5,6 +5,7 @@ import { Link, To } from 'react-router-dom';
 import { useDispatch } from 'src/redux';
 import { logoutAction } from 'src/redux/actions';
 import cs from 'classnames';
+import { useBreakpointMobile } from 'src/utils/breakpoint';
 
 import './DesktopHeader.scss';
 
@@ -41,9 +42,14 @@ export default function DesktopHeader(props: DesktopHeaderProps) {
   const { menus, onSearch, dropdowns, title, noContainer } = props;
   const dispatch = useDispatch();
   const { t } = useTranslation();
+  const isMobile = useBreakpointMobile();
 
   const onLogout = () => {
     dispatch(logoutAction());
+  }
+
+  if (isMobile) {
+    return <></>
   }
 
   const menuElements = menus.map(v => (

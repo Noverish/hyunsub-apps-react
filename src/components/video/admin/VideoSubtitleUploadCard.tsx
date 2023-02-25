@@ -68,7 +68,7 @@ export default function VideoSubtitleUploadCard({ videoId }: Props) {
 
           {isUploadMode && <Form.Group className="mb-3">
             <Form.Label>Subtitle File</Form.Label>
-            <Form.Control type="file" {...register('file')} className="input_dark" />
+            <Form.Control type="file" {...register('file')} />
           </Form.Group>}
 
           {!isUploadMode && <Form.Group className="mb-3">
@@ -78,7 +78,7 @@ export default function VideoSubtitleUploadCard({ videoId }: Props) {
 
           <Form.Group className="mb-3">
             <Form.Label>Language</Form.Label>
-            <Form.Control {...register('lang')} className="input_dark" />
+            <Form.Control {...register('lang')} />
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="override_checkbox">

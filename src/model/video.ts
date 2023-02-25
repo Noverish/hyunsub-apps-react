@@ -59,14 +59,12 @@ export interface VideoGroupPreview {
   name: string;
 }
 
-export enum VideoSort {
-  random = 'random',
-  new = 'new',
-  old = 'old',
-  abc = 'abc',
-  zyx = 'zyx',
-}
+export const VideoSort = {
+  random: 'random',
+  new: 'new',
+  old: 'old',
+  abc: 'abc',
+  zyx: 'zyx',
+} as const;
 
-export interface VideoSearchResult {
-  entries: {[category: string]: VideoEntry[]};
-}
+export type VideoSort = typeof VideoSort[keyof typeof VideoSort];

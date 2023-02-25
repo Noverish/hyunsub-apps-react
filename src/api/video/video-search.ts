@@ -1,11 +1,15 @@
-import { VideoSearchResult } from "src/model/video";
 import { generateQuery } from "src/api/generate-api";
+import { VideoEntry } from 'src/model/video';
 
 export interface VideoSearchParams {
   query: string;
 }
 
-const searchVideo = generateQuery<VideoSearchParams, VideoSearchResult>({
+export interface VideoSearchResult {
+  entries: {[category: string]: VideoEntry[]};
+}
+
+const videoSearchApi = generateQuery<VideoSearchParams, VideoSearchResult>({
   api: (params) => ({
     url: `/api/v1/search`,
     method: 'GET',
@@ -13,7 +17,7 @@ const searchVideo = generateQuery<VideoSearchParams, VideoSearchResult>({
       q: params.query,
     },
   }),
-  key: () => 'searchVideo',
+  key: () => 'videoSearchApi',
 });
 
-export default searchVideo;
+export default videoSearchApi;

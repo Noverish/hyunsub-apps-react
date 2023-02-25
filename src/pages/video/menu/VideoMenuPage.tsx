@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import CommonContainer from 'src/components/common/header/CommonContainer';
+import MobileHeader from 'src/components/common/header/MobileHeader';
 import MenuCommonSection from 'src/components/common/menu/MenuCommonSection';
-import VideoHeader from 'src/components/video/VideoHeader';
 import { setDocumentTitle } from 'src/utils/services';
 
 export default function VideoMenuPage() {
@@ -14,7 +14,7 @@ export default function VideoMenuPage() {
 
   return (
     <div id="VideoMenuPage">
-      <VideoHeader title={t('CommonTabBar.menu')} />
+      <MobileHeader title={t('CommonTabBar.menu')} />
       <CommonContainer>
         <MenuCommonSection />
       </CommonContainer>

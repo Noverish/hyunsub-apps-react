@@ -61,7 +61,7 @@ header {
 // ===============================================================
 // custom class
 
-input, .input_dark {
+input.form-control {
   background-color: var(--bs-gray-dark);
   color: white;
 
@@ -121,14 +121,12 @@ input, .input_dark {
 }
 
 .list-group {
-  background-color: var(--hyunsub-content-bg);
+  --bs-list-group-bg: var(--hyunsub-content-bg);
+  --bs-list-group-color: var(--hyunsub-text-color);
+  --bs-list-group-border-color: var(--hyunsub-border-color-secondary);
 
   .list-group-item {
-    background-color: var(--hyunsub-content-bg);
-    color: var(--hyunsub-text-color);
-    border-color: var(--hyunsub-border-color-secondary);
-
-    &:hover {
+    &:hover:not(.active) {
       background-color: var(--hyunsub-title-bg);
     }
   }
@@ -140,6 +138,7 @@ input, .input_dark {
 
   .modal-content {
     background-color: var(--hyunsub-content-bg);
+    overflow: hidden;
 
     .btn-close {
       opacity: 1;
@@ -153,21 +152,11 @@ input, .input_dark {
 }
 
 .pagination {
-  .page-item.active .page-link {
-    color: var(--bs-pagination-active-color);
-    background-color: var(--bs-pagination-active-bg);
-    border-color: var(--bs-pagination-active-border-color);
-  }
-
-  .page-item:not(.active) .page-link {
-    color: white;
-    background-color: var(--bs-gray-dark);
-    border-color: var(--hyunsub-border-color-primary);
-
-    &:hover {
-      background-color: var(--bs-gray);
-    }
-  }
+  --bs-pagination-bg: var(--bs-gray-dark);
+  --bs-pagination-color: white;
+  --bs-pagination-hover-bg: var(--bs-gray);
+  --bs-pagination-hover-color: white;
+  --bs-pagination-active-border-color: var(--bs-pagination-border-color)
 }
 
 .dropdown {

@@ -8,7 +8,6 @@ import VideoAdminSection from "src/components/video/admin/VideoAdminSection";
 import SimpleVideoPlayer from "src/components/video/SimpleVideoPlayer";
 import VideoEpisodeSection from "src/components/video/VideoEpisodeSection";
 import VideoGroupSection from "src/components/video/VideoGroupSection";
-import VideoHeader from "src/components/video/VideoHeader";
 import VideoPlayer from "src/components/video/VideoPlayer";
 import VideoSettingSection from "src/components/video/VideoSettingSection";
 import { VideoMetadata } from "src/model/video";
@@ -16,10 +15,10 @@ import { useDispatch, useSelector } from "src/redux";
 import { isIOS } from "src/utils/user-agent";
 import { VideoDetailActions } from "./VideoDetailState";
 
-import './VideoDetailPage.scss';
-import { setDocumentTitle } from "src/utils/services";
+import MobileHeader, { MobileHeaderButton } from 'src/components/common/header/MobileHeader';
 import { useBreakpointMobile } from "src/utils/breakpoint";
-import { MobileHeaderButton } from 'src/components/common/header/MobileHeader';
+import { setDocumentTitle } from "src/utils/services";
+import './VideoDetailPage.scss';
 
 function VideoMetadataSection({ metadata }: { metadata: VideoMetadata }) {
   return (
@@ -93,7 +92,7 @@ export default function VideoDetailPage() {
 
   return (
     <div id="VideoDetailPage">
-      <VideoHeader title={title} back={true} btns={mobileHeaderButtons} />
+      <MobileHeader title={title} back={true} btns={mobileHeaderButtons} />
       <CommonContainer>
         <section id="video_player_section">
           {videoPlayer}

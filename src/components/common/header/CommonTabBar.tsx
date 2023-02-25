@@ -1,7 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
-import { isMobile } from 'src/utils/user-agent';
 import CommonRoutes from 'src/pages/common/CommonRoutes';
 import { useTranslation } from 'react-i18next';
+import { useBreakpointMobile } from 'src/utils/breakpoint';
 
 import './CommonTabBar.scss';
 
@@ -18,6 +18,7 @@ export interface TabBarItem {
 export default function CommonTabBar({ items }: Props) {
   const { t } = useTranslation();
   const location = useLocation();
+  const isMobile = useBreakpointMobile();
 
   const newItems: TabBarItem[] = [
     ...items,
@@ -37,7 +38,7 @@ export default function CommonTabBar({ items }: Props) {
     </Link>
   ))
 
-  if (!show || !isMobile()) {
+  if (!show || !isMobile) {
     return <></>;
   }
 

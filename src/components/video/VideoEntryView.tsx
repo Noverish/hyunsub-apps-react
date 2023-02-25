@@ -1,8 +1,8 @@
 import { VideoEntry, VideoCategory } from 'src/model/video';
 import React from 'react';
-import { loadVideoDetail } from 'src/pages/video/list/VideoListContext';
 import VideoRoutes from 'src/pages/video/VideoRoutes';
 import { dispatch } from 'src/redux';
+import { useNavigateVideoDetail } from 'src/pages/video/list/VideoListHook';
 
 import './VideoEntryView.scss';
 
@@ -14,10 +14,11 @@ interface Props {
 export default function VideoEntryView({ category, entry }: Props) {
   const href = VideoRoutes.detailRoute(entry.id);
   const style: any = category.itemCss && JSON.parse(category.itemCss);
+  const navigateVideoDetail = useNavigateVideoDetail();
 
   const onClick = (e: React.MouseEvent) => {
     e.preventDefault();
-    dispatch(loadVideoDetail(entry.id));
+    navigateVideoDetail(entry.id);
   };
 
   return (

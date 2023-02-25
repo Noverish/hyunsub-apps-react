@@ -50,7 +50,7 @@ export default function VideoRegisterToEntryCard({ entryId }: Props) {
 
           <Form.Group className="mb-3">
             <Form.Label>Season</Form.Label>
-            <Form.Control {...register('videoSeason')} className="input_dark" />
+            <Form.Control {...register('videoSeason')} />
           </Form.Group>
 
           <Button variant="primary" type="submit">

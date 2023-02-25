@@ -2,8 +2,9 @@ import cs from 'classnames';
 import { t } from 'i18next';
 import videoHomeApi, { VideoHomeRecent } from 'src/api/video/video-home';
 import CommonContainer from 'src/components/common/header/CommonContainer';
+import MobileHeader from 'src/components/common/header/MobileHeader';
+import LoadingSuspense from 'src/components/common/LoadingSuspense';
 import VideoEntryView from 'src/components/video/VideoEntryView';
-import VideoHeader from 'src/components/video/VideoHeader';
 import router from 'src/pages/router';
 import { useBreakpointMobile } from 'src/utils/breakpoint';
 import { setDocumentTitle } from 'src/utils/services';
@@ -38,20 +39,26 @@ function VideoHomePageRecentSection({ recent }: { recent: VideoHomeRecent }) {
   )
 }
 
-export default function VideoHomePage() {
-  setDocumentTitle(t('VideoHomePage.title'));
+function VideoHomePageInner() {
+  const data = videoHomeApi.useApi({});
 
-  const result = videoHomeApi.useApi({});
-
-  const recents = result.recents.map(v => (
+  const recents = data.recents.map(v => (
     <VideoHomePageRecentSection key={v.category.name} recent={v} />
   ));
 
+  return <>{recents}</>
+}
+
+export default function VideoHomePage() {
+  setDocumentTitle(t('VideoHomePage.title'));
+
   return (
     <div className="VideoHomePage">
-      <VideoHeader title="Hyunflix" />
+      <MobileHeader title="Hyunflix" />
       <CommonContainer>
-        {recents}
+        <LoadingSuspense>
+          <VideoHomePageInner />
+        </LoadingSuspense>
       </CommonContainer>
     </div>
   )

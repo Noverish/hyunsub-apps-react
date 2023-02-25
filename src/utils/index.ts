@@ -14,7 +14,7 @@ export function toJSON(obj: any) {
   return JSON.stringify(obj, Object.keys(obj).sort());
 }
 
-export function useScrollBottom(callback: () => void, deps: DependencyList) {
+export function useScrollBottom(callback: () => void) {
   useEffect(() => {
     const handler = () => {
       const totalHeight = document.documentElement.scrollHeight;
@@ -32,7 +32,7 @@ export function useScrollBottom(callback: () => void, deps: DependencyList) {
     return () => {
       document.removeEventListener('scroll', handler);
     }
-  }, [deps, callback]);
+  }, [callback]);
 }
 
 export function urlToName(url: string) {

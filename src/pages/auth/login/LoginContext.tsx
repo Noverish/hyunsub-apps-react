@@ -4,7 +4,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 import loginApi, { LoginError, LoginParams } from 'src/api/auth/auth/login';
 import rsaKey from "src/api/auth/auth/rsa-key";
 import validUrl from "src/api/auth/auth/valid-url";
-import t from 'src/i18n';
+import { t } from 'i18next';
 import { ErrorResponse } from "src/model/api";
 import routes from 'src/pages/auth/AuthRoutes';
 import { RootState } from 'src/redux';

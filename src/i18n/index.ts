@@ -25,7 +25,3 @@ i18n
       escapeValue: false
     }
   });
-
-const t: TFunction<'translation', undefined> = i18n.t;
-
-export default t;

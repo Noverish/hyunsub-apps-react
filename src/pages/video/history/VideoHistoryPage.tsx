@@ -1,10 +1,10 @@
 import { t } from 'i18next';
-import VideoHeader from 'src/components/video/VideoHeader';
+import MobileHeader from 'src/components/common/header/MobileHeader';
 
 export default function VideoHistoryPage() {
   return (
     <div className="VideoHistoryPage">
-      <VideoHeader title={t('VideoTabBar.history')} />
+      <MobileHeader title={t('VideoTabBar.history')} />
     </div>
   )
 }

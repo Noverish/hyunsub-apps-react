@@ -1,24 +1,13 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { generateContext } from 'src/utils/context';
 
 interface State {
   seed: number;
+  showSortModal: boolean;
 };
 
 const initialState: State = {
   seed: Math.floor(new Date().getTime() / 1000),
+  showSortModal: false,
 };
 
-const slice = createSlice({
-  name: 'list',
-  initialState,
-  reducers: {
-    update: (state: State, { payload }: PayloadAction<Partial<State>>) => ({
-      ...state,
-      ...payload,
-    }),
-  }
-});
-
-export default slice;
-
-export const VideoListActions = slice.actions;
+export const [VideoListContext, VideoListProvider] = generateContext(initialState);

@@ -1,5 +1,6 @@
 const VideoRoutes = {
-  home: '/home',
+  home: '/',
+
   history: '/history',
 
   list: '/list/:category',
@@ -13,12 +14,7 @@ const VideoRoutes = {
 
   admin: '/admin',
 
-  my: '/my',
-
   search: '/search',
-
-  searchResult: '/search/result',
-  searchResultRoute: (query: string) => `/search/result?q=${encodeURIComponent(query)}`,
 
   menu: '/menu',
 }

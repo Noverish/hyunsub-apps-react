@@ -52,7 +52,7 @@ export default function AlbumDetailPage() {
     if (!isFetching) {
       fetchNextPage();
     }
-  }, [isFetching, fetchNextPage]);
+  });
 
   const photos = flatten(data?.pages.map(v => v.data) ?? []);
   const photoMap = groupBy(photos, v => v.date.substring(0, 10));
@@ -62,7 +62,7 @@ export default function AlbumDetailPage() {
 
   return (
     <div id="AlbumDetailPage">
-      <PhotoHeader title={album.name} back={true} />
+      <PhotoHeader title={album.name} back />
       <CommonContainer>
         <Link to={routes.albumUpload(albumId)} style={{ float: 'right' }}>
           <Button>{t('photo.page.album-detail.upload')}</Button>
