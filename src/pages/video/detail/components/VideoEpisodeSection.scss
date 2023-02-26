@@ -46,35 +46,8 @@
       flex-direction: column;
     }
 
-    .episode_thumbnail_play_icon {
-      display: none;
-      font-size: 2rem;
-    }
-
-    &.active {
-      .episode_thumbnail_play_icon {
-        display: flex;
-        background-color: rgba(0, 0, 0, 0.4);
-      }
-    }
-
     &:hover {
       text-decoration: underline;
-    }
-
-    .episode_time_container {
-      display: flex;
-      flex-direction: column-reverse;
-
-      .episode_time {
-        background-color: var(--bs-primary);
-        @include media-breakpoint-up(md) {
-          height: 4px;
-        }
-        @include media-breakpoint-down(md) {
-          height: 2px;
-        }
-      }
     }
   }
 

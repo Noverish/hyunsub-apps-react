@@ -1,0 +1,30 @@
+@import '/src/breakpoints.scss';
+
+.VideoThumbnail {
+  .active_container:not(.active) {
+    display: none;
+  }
+
+  .active_container.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.4);
+    font-size: 2rem;
+  }
+
+  .time_container {
+    display: flex;
+    flex-direction: column-reverse;
+
+    .time {
+      background-color: var(--bs-primary);
+      @include media-breakpoint-up(md) {
+        height: 4px;
+      }
+      @include media-breakpoint-down(md) {
+        height: 2px;
+      }
+    }
+  }
+}

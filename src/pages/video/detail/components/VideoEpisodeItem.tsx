@@ -1,5 +1,6 @@
 import cs from 'classnames';
 import { useParams } from 'react-router-dom';
+import VideoThumbnail from 'src/components/video/VideoThumbnail';
 import { VideoEpisode } from 'src/model/video';
 import { loadOtherEpisode } from 'src/pages/video/detail/VideoDetailContext';
 import VideoRoutes from 'src/pages/video/VideoRoutes';
@@ -11,6 +12,7 @@ interface Props {
 }
 
 export default function VideoEpisodeItem({ episode, active }: Props) {
+  const { thumbnailUrl, time, duration } = episode;
   const dispatch = useDispatch();
   const entryId = useParams().entryId!!;
 
@@ -24,19 +26,17 @@ export default function VideoEpisodeItem({ episode, active }: Props) {
 
   const href = VideoRoutes.detailRoute(entryId, episode.videoId);
   const className = cs('episode_item col-6 d-flex', { active });
-  const timePercent = episode.time ? (episode.time / episode.duration * 100) : 0;
 
   return (
     <a className={className} href={href} onClick={onClick}>
-      <div className="episode_thumbnail ratio ratio-16x9">
-        <img className="img-fluid rounded-1" src={episode.thumbnailUrl} loading="lazy" alt={episode.title} />
-        <div className="episode_thumbnail_play_icon flex_center">
-          <i className="fas fa-play" />
-        </div>
-        <div className="episode_time_container">
-          <div className="episode_time" style={{ width: `${timePercent}%` }}></div>
-        </div>
-      </div>
+      <VideoThumbnail
+        className="episode_thumbnail ratio-16x9"
+        src={thumbnailUrl}
+        time={time}
+        duration={duration}
+        alt={episode.title}
+        active={active}
+      />
       <div className="episode_title">{episode.title}</div>
     </a>
   )

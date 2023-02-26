@@ -85,3 +85,13 @@ export module VideoSort {
 
 // eslint-disable-next-line
 export type VideoSort = typeof _VideoSort[keyof typeof _VideoSort];
+
+export interface VideoHistory {
+  videoId: string;
+  time: number;
+  date: string;
+  thumbnailUrl: string;
+  duration: number;
+  entryId: string;
+  title: string;
+}

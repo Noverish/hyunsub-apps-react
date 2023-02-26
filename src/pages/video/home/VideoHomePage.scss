@@ -2,7 +2,6 @@
 
 .VideoHomePage {
   .recent:last-of-type {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
   }
 
   .recent {
@@ -15,7 +14,11 @@
       padding-top: .5rem;
       padding-bottom: 1rem;
     }
-    border-top: 1px solid rgba(255, 255, 255, 0.25);
+
+    border-top: 1px solid var(--hyunsub-divider-color);
+    &:last-of-type {
+      border-bottom: 1px solid var(--hyunsub-divider-color);
+    }
 
     .recent_header {
       display: flex;
