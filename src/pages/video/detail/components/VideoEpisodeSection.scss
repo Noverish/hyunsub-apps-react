@@ -1,6 +1,43 @@
 @import '/src/breakpoints.scss';
 
 .VideoEpisodeSection {
+  .header {
+    display: flex;
+    align-items: center;
+
+    @include media-breakpoint-up(md) {
+      margin-bottom: 1rem;
+    }
+    @include media-breakpoint-down(md) {
+      margin-bottom: .5rem;
+    }
+
+    .VideoSeasonDropdown {
+      a {
+        @include media-breakpoint-up(md) {
+          font-size: 1.5rem;
+          margin-right: 1rem;
+        }
+        @include media-breakpoint-down(md) {
+          font-size: 1rem;
+          margin-right: .5rem;
+        }
+      }
+    }
+
+    .total {
+      display: inline-block;
+      margin-bottom: 0;
+
+      @include media-breakpoint-up(md) {
+        font-size: 1.5rem;
+      }
+      @include media-breakpoint-down(md) {
+        font-size: 1rem;
+      }
+    }
+  }
+
   .episode_item {
     @include media-breakpoint-up(lg) {
       flex-direction: row;
@@ -23,6 +60,16 @@
 
     &:hover {
       text-decoration: underline;
+    }
+
+    .episode_time_container {
+      display: flex;
+      flex-direction: column-reverse;
+
+      .episode_time {
+        height: 4px;
+        background-color: var(--bs-primary);
+      }
     }
   }
 

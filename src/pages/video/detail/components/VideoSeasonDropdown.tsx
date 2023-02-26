@@ -1,7 +1,7 @@
-import { Dropdown } from 'react-bootstrap';
 import { useContext } from 'react';
-import { VideoDetailContext } from 'src/pages/video/detail/VideoDetailState';
+import { NavDropdown } from 'react-bootstrap';
 import { useLoadVideoDetailPage } from 'src/pages/video/detail/VideoDetailHooks';
+import { VideoDetailContext } from 'src/pages/video/detail/VideoDetailState';
 
 export default function VideoSeasonDropdown() {
   const { seasons } = useLoadVideoDetailPage();
@@ -18,7 +18,7 @@ export default function VideoSeasonDropdown() {
   }
 
   const items = seasonNames.sort().map(v => (
-    <Dropdown.Item key={v} active={v === season} as='button' eventKey={v}>{v}</Dropdown.Item>
+    <NavDropdown.Item key={v} active={v === season} as='button' eventKey={v}>{v}</NavDropdown.Item>
   ))
 
   const onSelect = (newSeason: string | null) => {
@@ -28,11 +28,8 @@ export default function VideoSeasonDropdown() {
   };
 
   return (
-    <Dropdown onSelect={onSelect}>
-      <Dropdown.Toggle variant="secondary">{season}</Dropdown.Toggle>
-      <Dropdown.Menu>
-        {items}
-      </Dropdown.Menu>
-    </Dropdown>
+    <NavDropdown title={season} onSelect={onSelect} className="VideoSeasonDropdown">
+      {items}
+    </NavDropdown>
   )
 }

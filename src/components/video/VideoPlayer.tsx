@@ -12,14 +12,17 @@ declare global {
   }
 }
 
-export interface VidepPlayerProps {
+export interface VideoPlayerProps {
   thumbnailUrl: string;
   videoUrl: string;
   subtitles: VideoSubtitle[];
   subtitleSync: { [subtitleUrl: string]: number };
+  time: number;
+  onTimeUpdate: (time: number) => void;
 }
 
-export function VideoPlayer({ thumbnailUrl, videoUrl, subtitles, subtitleSync }: VidepPlayerProps) {
+export function VideoPlayer(props: VideoPlayerProps) {
+  const { thumbnailUrl, videoUrl, subtitles, subtitleSync, time, onTimeUpdate } = props;
   const ref = useRef<APITypes>(null);
 
   useEffect(() => {
@@ -31,9 +34,15 @@ export function VideoPlayer({ thumbnailUrl, videoUrl, subtitles, subtitleSync }:
           const fontSize = getCaptionFontSize();
           setCaptionFontSize(fontSize);
         });
+        plyr.on('loadedmetadata', () => {
+          plyr.currentTime = time;
+        })
+        plyr.on('timeupdate', () => {
+          onTimeUpdate(plyr.currentTime);
+        });
       }
     }, 10);
-  }, [videoUrl]);
+  }, [videoUrl, time, onTimeUpdate]);
 
   useEffect(() => {
     const videoElement: HTMLVideoElement | null = document.querySelector('video');

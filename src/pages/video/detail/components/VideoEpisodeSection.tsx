@@ -22,9 +22,9 @@ export default function VideoEpisodeSection({ seasons, videoId }: Props) {
   return (
     <section className="VideoEpisodeSection">
       <hr className="my-2 my-md-3" />
-      <div className="d-flex align-items-center mb-3">
-        <h3 className="d-inline-block me-3 mb-0">{t('video.episode-section.title', [total])}</h3>
+      <div className="header">
         <VideoSeasonDropdown />
+        <span className="total">{t('video.episode-section.title', [total])}</span>
       </div>
       <div className="row g-2 g-md-3">
         {episodeElements}
@@ -35,4 +35,3 @@ export default function VideoEpisodeSection({ seasons, videoId }: Props) {
     </section >
   )
 }
-

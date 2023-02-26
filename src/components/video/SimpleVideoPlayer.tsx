@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
-import { VidepPlayerProps } from './VideoPlayer';
+import { VideoPlayerProps } from './VideoPlayer';
 
-export default function SimpleVideoPlayer({ thumbnailUrl, videoUrl, subtitles }: VidepPlayerProps) {
+export default function SimpleVideoPlayer({ thumbnailUrl, videoUrl, subtitles }: VideoPlayerProps) {
   const ref = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {

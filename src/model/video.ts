@@ -5,6 +5,7 @@ export interface Video {
   title: string;
   subtitles: VideoSubtitle[];
   metadata: VideoMetadata | null;
+  time: number;
 }
 
 export interface VideoCategory {
@@ -31,8 +32,10 @@ export interface VideoEntryDetail {
 
 export interface VideoEpisode {
   videoId: string;
+  time: number | null;
   thumbnailUrl: string;
   title: string;
+  duration: number;
 }
 
 export interface VideoGroup {

@@ -3,29 +3,27 @@ import { Button } from "react-bootstrap";
 import CommonContainer from 'src/components/common/header/CommonContainer';
 import MobileHeader, { MobileHeaderButton } from 'src/components/common/header/MobileHeader';
 import VideoAdminSection from "src/components/video/admin/VideoAdminSection";
-import SimpleVideoPlayer from "src/components/video/SimpleVideoPlayer";
-import VideoGroupSection from "src/pages/video/detail/components/VideoGroupSection";
-import VideoPlayer from "src/components/video/VideoPlayer";
 import VideoEpisodeSection from "src/pages/video/detail/components/VideoEpisodeSection";
+import VideoGroupSection from "src/pages/video/detail/components/VideoGroupSection";
 import VideoSettingSection from "src/pages/video/detail/components/VideoSettingSection";
 import { VideoDetailContext } from 'src/pages/video/detail/VideoDetailState';
 import { useSelector } from "src/redux";
 import { useBreakpointMobile } from "src/utils/breakpoint";
 import { setDocumentTitle } from "src/utils/services";
-import { isIOS } from "src/utils/user-agent";
 import { useLoadVideoDetailPage, useVideoDetailPageParams } from "./VideoDetailHooks";
 import { VideoDetailProvider } from "./VideoDetailState";
+import VideoDetailPlayer from './components/VideoDetailPlayer';
 
 import './VideoDetailPage.scss';
 
 export function VideoDetailPage() {
   const { entryId } = useVideoDetailPageParams();
   const isMobile = useBreakpointMobile();
-  const [{ showSetting, showAdmin, subtitleSync }, setState] = useContext(VideoDetailContext);
+  const [{ showSetting, showAdmin }, setState] = useContext(VideoDetailContext);
   const isAdmin = useSelector(s => s.global.tokenPayload?.isAdmin || false);
   const data = useLoadVideoDetailPage();
   const { category, entry, video, seasons, group } = data;
-  const { title, videoUrl, thumbnailUrl, subtitles, metadata } = video;
+  const { title, metadata } = video;
 
   setDocumentTitle(title);
 
@@ -70,17 +68,11 @@ export function VideoDetailPage() {
     </>
   )
 
-  const videoPlayer = isIOS()
-    ? <SimpleVideoPlayer videoUrl={videoUrl} thumbnailUrl={thumbnailUrl} subtitles={subtitles} subtitleSync={subtitleSync} />
-    : <VideoPlayer videoUrl={videoUrl} thumbnailUrl={thumbnailUrl} subtitles={subtitles} subtitleSync={subtitleSync} />;
-
   return (
     <div id="VideoDetailPage">
       <MobileHeader title={entry.name} back={true} btns={mobileHeaderButtons} />
       <CommonContainer>
-        <section id="video_player_section">
-          {videoPlayer}
-        </section>
+        <VideoDetailPlayer video={video} />
         <VideoSettingSection video={video} />
         {showAdmin && <VideoAdminSection detail={data} entryId={entryId} />}
         {!showSetting && !showAdmin && sections}

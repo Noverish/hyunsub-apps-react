@@ -24,6 +24,7 @@ export default function VideoEpisodeItem({ episode, active }: Props) {
 
   const href = VideoRoutes.detailRoute(entryId, episode.videoId);
   const className = cs('episode_item col-6 d-flex', { active });
+  const timePercent = episode.time ? (episode.time / episode.duration * 100) : 0;
 
   return (
     <a className={className} href={href} onClick={onClick}>
@@ -31,6 +32,9 @@ export default function VideoEpisodeItem({ episode, active }: Props) {
         <img className="img-fluid rounded-1" src={episode.thumbnailUrl} loading="lazy" alt={episode.title} />
         <div className="episode_thumbnail_play_icon flex_center">
           <i className="fas fa-play" />
+        </div>
+        <div className="episode_time_container">
+          <div className="episode_time" style={{ width: `${timePercent}%` }}></div>
         </div>
       </div>
       <div className="episode_title">{episode.title}</div>

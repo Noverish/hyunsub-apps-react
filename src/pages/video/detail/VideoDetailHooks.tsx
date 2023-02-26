@@ -1,8 +1,10 @@
-import { useContext, useEffect } from 'react';
+import * as StompJS from '@stomp/stompjs';
+import { useCallback, useContext, useEffect, useRef } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 import videoEntryDetailApi from 'src/api/video/video-entry-detail';
 import { VideoSeason } from "src/model/video";
 import { VideoDetailContext } from 'src/pages/video/detail/VideoDetailState';
+import { isDev } from 'src/utils';
 import AppConstant from 'src/utils/constants';
 
 const PAGE_SIZE = AppConstant.video.EPISODE_PAGE_SIZE;
@@ -62,4 +64,40 @@ export function useSeasonAndPage(seasons: VideoSeason[], videoId: string) {
     totalPage,
     setPage: (p: number) => setState({ page: p }),
   }
+}
+
+export function useVideoHistoryUpdator(videoId: string) {
+  const stompRef = useRef<StompJS.Client>();
+
+  useEffect(() => {
+    const stomp = new StompJS.Client({
+      brokerURL: `wss://${window.location.host}/socket`,
+      connectHeaders: {
+        login: 'user',
+        password: 'password',
+      },
+      debug: function (str) {
+        if (isDev()) {
+          console.log(str);
+        }
+      },
+    });
+
+    stomp.activate();
+
+    stompRef.current = stomp;
+
+    return () => {
+      stomp.deactivate();
+    }
+  }, []);
+
+  const onTimeUpdate = useCallback((time: number) => {
+    stompRef.current?.publish(({
+      destination: '/video/history',
+      body: JSON.stringify({ videoId, time: Math.floor(time) }),
+    }));
+  }, [videoId]);
+
+  return onTimeUpdate;
 }

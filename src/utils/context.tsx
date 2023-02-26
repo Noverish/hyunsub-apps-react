@@ -1,4 +1,4 @@
-import { useState, createContext, Dispatch, Context } from 'react';
+import { useState, createContext, Dispatch, Context, useCallback } from 'react';
 
 interface ProviderProps {
   children: React.ReactNode;
@@ -17,10 +17,12 @@ export function generateContext<State>(initialState: State): [ContextType<State>
   const useProvider = ({ children }: ProviderProps) => {
     const [state, setState] = useState(initialState);
 
-    const newSetState = (value: SetStateAction<State>) => {
-      const diff = (typeof value === 'function') ? value(state) : value;
-      setState({ ...state, ...diff });
-    }
+    const newSetState = useCallback((value: SetStateAction<State>) => {
+      setState(s => {
+        const diff = (typeof value === 'function') ? value(s) : value;
+        return { ...s, ...diff };
+      });
+    }, []);
 
     return (
       <context.Provider value={[state, newSetState]}>
