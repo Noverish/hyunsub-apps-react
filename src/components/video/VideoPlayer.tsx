@@ -30,12 +30,10 @@ export function VideoPlayer(props: VideoPlayerProps) {
       const plyr = ref.current?.plyr;
       if (plyr) {
         window.player = plyr;
-        plyr.on('play', () => {
-          const fontSize = getCaptionFontSize();
-          setCaptionFontSize(fontSize);
-        });
         plyr.on('loadedmetadata', () => {
           plyr.currentTime = time;
+          const fontSize = getCaptionFontSize();
+          setCaptionFontSize(fontSize);
         })
         plyr.on('timeupdate', () => {
           onTimeUpdate(plyr.currentTime);

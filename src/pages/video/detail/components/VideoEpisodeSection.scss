@@ -67,8 +67,13 @@
       flex-direction: column-reverse;
 
       .episode_time {
-        height: 4px;
         background-color: var(--bs-primary);
+        @include media-breakpoint-up(md) {
+          height: 4px;
+        }
+        @include media-breakpoint-down(md) {
+          height: 2px;
+        }
       }
     }
   }
