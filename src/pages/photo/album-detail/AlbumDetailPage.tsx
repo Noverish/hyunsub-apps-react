@@ -7,8 +7,8 @@ import { Link, useParams } from 'react-router-dom';
 import albumDetailApi from 'src/api/photo/album-detail';
 import albumPhotosApi from 'src/api/photo/album-photos';
 import CommonContainer from 'src/components/common/header/CommonContainer';
+import MobileHeader from 'src/components/common/header/MobileHeader';
 import ListLoadingIndicator from 'src/components/common/ListLoadingIndicator';
-import PhotoHeader from 'src/components/photo/PhotoHeader';
 import PhotoThumbnail from 'src/components/photo/PhotoThumbnail';
 import { Photo } from 'src/model/photo';
 import routes from 'src/pages/photo/PhotoRoutes';
@@ -62,7 +62,7 @@ export default function AlbumDetailPage() {
 
   return (
     <div id="AlbumDetailPage">
-      <PhotoHeader title={album.name} back />
+      <MobileHeader title={album.name} back />
       <CommonContainer>
         <Link to={routes.albumUpload(albumId)} style={{ float: 'right' }}>
           <Button>{t('photo.page.album-detail.upload')}</Button>

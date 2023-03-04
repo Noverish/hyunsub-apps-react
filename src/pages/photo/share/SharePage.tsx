@@ -1,10 +1,10 @@
 import CommonContainer from 'src/components/common/header/CommonContainer';
-import PhotoHeader from 'src/components/photo/PhotoHeader';
+import MobileHeader from 'src/components/common/header/MobileHeader';
 
 export default function SharePage() {
   return (
     <div id="SharePage">
-      <PhotoHeader title="Share" />
+      <MobileHeader title="Share" />
       <CommonContainer>
 
       </CommonContainer>

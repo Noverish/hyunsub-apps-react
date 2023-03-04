@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import CommonContainer from 'src/components/common/header/CommonContainer';
-import PhotoHeader from 'src/components/photo/PhotoHeader';
+import MobileHeader from 'src/components/common/header/MobileHeader';
 import { setDocumentTitle } from 'src/utils/services';
 
 export default function PhotoListPage() {
@@ -13,7 +13,7 @@ export default function PhotoListPage() {
 
   return (
     <div id="PhotoListPage">
-      <PhotoHeader title="Photos" />
+      <MobileHeader title="Photos" />
       <CommonContainer>
 
       </CommonContainer>

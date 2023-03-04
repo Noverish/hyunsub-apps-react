@@ -1,10 +1,10 @@
 import CommonContainer from 'src/components/common/header/CommonContainer';
-import PhotoHeader from 'src/components/photo/PhotoHeader';
+import MobileHeader from 'src/components/common/header/MobileHeader';
 
 export default function UploadPage() {
   return (
     <div id="UploadPage">
-      <PhotoHeader title="Upload" />
+      <MobileHeader title="Upload" />
       <CommonContainer>
 
       </CommonContainer>

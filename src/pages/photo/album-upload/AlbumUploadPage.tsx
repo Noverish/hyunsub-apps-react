@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'react-router-dom';
 import albumDetailApi from 'src/api/photo/album-detail';
 import CommonContainer from 'src/components/common/header/CommonContainer';
-import PhotoHeader from 'src/components/photo/PhotoHeader';
+import MobileHeader from 'src/components/common/header/MobileHeader';
 import PhotoUploadList from 'src/components/photo/PhotoUploadList';
 import routes from 'src/pages/photo/PhotoRoutes';
 import { useDispatch } from 'src/redux';
@@ -44,7 +44,7 @@ export default function AlbumUploadPage() {
 
   return (
     <div id="AlbumUploadPage">
-      <PhotoHeader title="Upload to Album" />
+      <MobileHeader title="Upload to Album" />
       <CommonContainer>
         <Link to={routes.albumDetail(albumId)} style={{ float: 'right' }}>
           <Button variant='secondary'>{t('photo.page.album-upload.back-to-album')}</Button>
