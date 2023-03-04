@@ -67,11 +67,11 @@ export interface VideoSubtitle {
 }
 
 const _VideoSort = {
-  random: { name: 'random', t: 'video.term.sort.random' },
-  new: { name: 'new', t: 'video.term.sort.new' },
-  old: { name: 'old', t: 'video.term.sort.old' },
-  abc: { name: 'abc', t: 'video.term.sort.abc' },
-  zyx: { name: 'zyx', t: 'video.term.sort.zyx' },
+  random: { name: 'random', value: 'RANDOM', t: 'video.term.sort.random' },
+  new: { name: 'new', value: 'NEW', t: 'video.term.sort.new' },
+  old: { name: 'old', value: 'OLD', t: 'video.term.sort.old' },
+  abc: { name: 'abc', value: 'ABC', t: 'video.term.sort.abc' },
+  zyx: { name: 'zyx', value: 'ZYX', t: 'video.term.sort.zyx' },
 } as const;
 
 export module VideoSort {

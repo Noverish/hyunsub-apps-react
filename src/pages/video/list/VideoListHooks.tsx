@@ -38,7 +38,7 @@ export function useLoadVideoListPage() {
   const seed = state.seed;
   const { sort } = useVideoSort();
   const category = useParams().category || '';
-  return videoEntryListApi.useInfiniteApi({ category, sort: sort.name, seed });
+  return videoEntryListApi.useInfiniteApi({ category, sort: sort.value, seed });
 }
 
 export function useNavigateVideoDetail() {
