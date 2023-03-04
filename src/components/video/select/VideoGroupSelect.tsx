@@ -31,6 +31,8 @@ export default function VieoGroupSelect(props: Props) {
       options={groups}
 
       onChange={onSelectChange}
+
+      styles={{ menuPortal: (base) => ({ ...base, zIndex: 1100 }) }}
     />
   )
 }

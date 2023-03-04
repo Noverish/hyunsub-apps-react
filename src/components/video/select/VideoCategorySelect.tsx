@@ -31,6 +31,8 @@ export default function VieoCategorySelect(props: Props) {
       options={categories}
 
       onChange={onSelectChange}
+
+      styles={{ menuPortal: (base) => ({ ...base, zIndex: 1100 }) }}
     />
   )
 }

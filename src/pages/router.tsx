@@ -1,13 +1,13 @@
 import { createBrowserRouter, RouteObject } from 'react-router-dom';
 import RouteErrorBoundary from './common/RouteErrorBoundary';
 import NotFoundPage from './common/NotFoundPage';
-import { VideoRotues } from './video/VideoIndex';
+import { VideoRotueObjects } from './video/VideoIndex';
 
 function pickRoutes(): RouteObject[] {
   const host = window.location.hostname;
 
   if (host.endsWith('video.hyunsub.kim')) {
-    return VideoRotues;
+    return VideoRotueObjects;
   }
 
   return [];

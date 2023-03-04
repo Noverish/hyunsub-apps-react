@@ -1,7 +1,9 @@
 import { useContext } from 'react';
 import { Button } from "react-bootstrap";
+import { Link } from 'react-router-dom';
 import { VideoEntryDetail } from "src/model/video";
 import { VideoDetailContext } from 'src/pages/video/detail/VideoDetailState';
+import VideoRoutes from 'src/pages/video/VideoRoutes';
 import VideoEncodeCard from "./VideoEncodeCard";
 import VideoMetadataScanCard from "./VideoMetadataScanCard";
 import VideoRegisterToEntryCard from "./VideoRegisterToEntryCard";
@@ -29,6 +31,7 @@ export default function VideoAdminSection({ entryId, detail }: Props) {
       <h3>관리자용 비디오 설정</h3>
       <hr />
       <div className="d-grid gap-3">
+        <Link to={VideoRoutes.manageEntry(entryId)}><Button>Entry 관리 페이지</Button></Link>
         <VideoMetadataScanCard videoId={videoId} />
         <VideoRegisterToEntryCard entryId={entryId} />
         <VideoSubtitleUploadCard videoId={videoId} />

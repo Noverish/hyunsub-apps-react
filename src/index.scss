@@ -91,6 +91,11 @@ input.form-control {
   color: #AAA;
 }
 
+.gray_bg_hover:hover {
+  cursor: pointer;
+  background-color: var(--hyunsub-hover-bg);
+}
+
 .flex_center {
   display: flex;
   flex-direction: column;
@@ -107,6 +112,13 @@ input.form-control {
 .hide_scrollbar {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
+}
+
+.hyunsub_border {
+  border-top: 1px solid var(--hyunsub-divider-color);
+  &:last-of-type {
+    border-bottom: 1px solid var(--hyunsub-divider-color);
+  }
 }
 
 // ===============================================================

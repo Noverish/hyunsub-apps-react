@@ -1,14 +1,21 @@
 import { useEffect } from "react";
+import { Button } from "react-bootstrap";
 import CommonContainer from 'src/components/common/header/CommonContainer';
 import MobileHeader from 'src/components/common/header/MobileHeader';
 import VideoRegisterCard from "src/components/video/admin/VideoRegisterCard";
 import NotFoundPage from "src/pages/common/NotFoundPage";
-import { useSelector } from "src/redux";
+import { dispatch, useSelector } from "src/redux";
+import { VideoAdminActions } from "./VideoAdminState";
+import VideoEntryCreateModal from "./components/VideoEntryCreateModal";
 
 export function VideoAdminPage() {
   useEffect(() => {
     document.title = 'Hyunflix Video Upload';
   }, []);
+
+  const onEntryCreateClick = () => {
+    dispatch(VideoAdminActions.update({ showVideoEntryCreateModal: true }));
+  }
 
   return (
     <div id="VideoAdminPage">
@@ -16,10 +23,13 @@ export function VideoAdminPage() {
       <CommonContainer>
         <h1>어드민 페이지</h1>
         <hr />
-        <div className="d-grid gap3">
+        <div>
+          <Button onClick={onEntryCreateClick}>Entry 생성</Button>
+          <hr />
           <VideoRegisterCard />
         </div>
       </CommonContainer>
+      <VideoEntryCreateModal />
     </div>
   )
 }

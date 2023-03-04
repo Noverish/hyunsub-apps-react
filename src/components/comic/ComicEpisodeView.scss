@@ -2,11 +2,6 @@
   position: relative;
   padding: .5rem 0;
 
-  border-top: 1px solid var(--hyunsub-divider-color);
-  &:last-of-type {
-    border-bottom: 1px solid var(--hyunsub-divider-color);
-  }
-
   span {
     position: relative;
     z-index: 100;

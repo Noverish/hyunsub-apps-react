@@ -8,9 +8,12 @@ interface State {
   videoRenameResult?: any;
   videoSubtitleUploadResult?: any;
   videoThumbnailResult?: any;
+
+  showVideoEntryCreateModal: boolean;
 };
 
 const initialState: State = {
+  showVideoEntryCreateModal: false,
 };
 
 const slice = createSlice({

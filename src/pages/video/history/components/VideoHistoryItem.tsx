@@ -17,7 +17,7 @@ export default function VideoHistoryItem({ history }: Props) {
   }
 
   return (
-    <div className="VideoHistoryItem" onClick={onClick}>
+    <div className="VideoHistoryItem hyunsub_border gray_bg_hover" onClick={onClick}>
       <VideoThumbnail
         className="thumbnail_container ratio-16x9"
         src={thumbnailUrl}

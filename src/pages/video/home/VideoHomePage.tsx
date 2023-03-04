@@ -25,7 +25,7 @@ function VideoHomePageRecentSection({ recent }: { recent: VideoHomeRecent }) {
   ));
 
   return (
-    <section key={category.displayName} className="recent">
+    <section key={category.displayName} className="recent hyunsub_border">
       <div className="recent_header">
         <div className="recent_category gray_on_hover" onClick={onMoreClick}>{category.displayName}</div>
         <div className="recent_more" onClick={onMoreClick}><span>{t('VideoHomePage.more')}</span></div>

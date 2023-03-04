@@ -21,7 +21,7 @@ export default function ComicEpisodeView({ comicId, episode }: Props) {
     : 0;
 
   return (
-    <div className="ComicEpisodeView" onClick={onClick}>
+    <div className="ComicEpisodeView hyunsub_border" onClick={onClick}>
       <div className="history" style={{ width: `${percent}%`}}></div>
       <span>{episode.title}</span>
     </div>

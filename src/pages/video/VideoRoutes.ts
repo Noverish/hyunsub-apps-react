@@ -13,6 +13,9 @@ const VideoRoutes = {
   },
 
   admin: '/admin',
+  
+  manageEntryRoute: '/manage/entries/:entryId',
+  manageEntry: (entryId: string) => `/manage/entries/${entryId}`,
 
   search: '/search',
 

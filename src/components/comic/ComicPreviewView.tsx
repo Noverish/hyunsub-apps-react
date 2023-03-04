@@ -16,7 +16,7 @@ export default function ComicPreviewView({ comic }: Props) {
   }
 
   return (
-    <div className="ComicPreviewView" onClick={onClick}>
+    <div className="ComicPreviewView hyunsub_border" onClick={onClick}>
       {comic.title}
     </div>
   )

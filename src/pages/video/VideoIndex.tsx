@@ -5,6 +5,7 @@ import VideoTabBar from 'src/components/video/header/VideoTabBar';
 import VideoRoutes from './VideoRoutes';
 
 const VideoAdminPage = lazy(() => import('src/pages/video/admin/VideoAdminPage'));
+const VideoEntryManagePage = lazy(() => import('src/pages/video/manage/VideoEntryManagePage'));
 const VideoDetailPage = lazy(() => import('src/pages/video/detail/VideoDetailPage'));
 const VideoHistoryPage = lazy(() => import('src/pages/video/history/VideoHistoryPage'));
 const VideoHomePage = lazy(() => import('src/pages/video/home/VideoHomePage'));
@@ -12,7 +13,7 @@ const VideoListPage = lazy(() => import('src/pages/video/list/VideoListPage'));
 const VideoMenuPage = lazy(() => import('src/pages/video/menu/VideoMenuPage'));
 const VideoSearchPage = lazy(() => import('src/pages/video/search/VideoSearchPage'));
 
-export const VideoRotues: RouteObject[] = [
+export const VideoRotueObjects: RouteObject[] = [
   {
     path: '/',
     element: (
@@ -31,6 +32,7 @@ export const VideoRotues: RouteObject[] = [
       { path: VideoRoutes.list, element: <VideoListPage /> },
       { path: VideoRoutes.menu, element: <VideoMenuPage /> },
       { path: VideoRoutes.search, element: <VideoSearchPage /> },
+      { path: VideoRoutes.manageEntryRoute, element: <VideoEntryManagePage /> },
     ]
   }
 ];

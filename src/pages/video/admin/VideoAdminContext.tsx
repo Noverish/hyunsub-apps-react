@@ -1,13 +1,16 @@
 import { Dispatch } from '@reduxjs/toolkit';
 import videoEncode, { VideoEncodeParams } from 'src/api/video/admin/video-encode';
+import videoEntryCreateApi, { VideoEntryCreateParams } from 'src/api/video/admin/video-entry-create';
 import videoMetadataScan from 'src/api/video/admin/video-metadata-scan';
 import videoRegister, { VideoRegisterParams } from 'src/api/video/admin/video-register';
 import videoRename, { VideoRenameParams } from 'src/api/video/admin/video-rename';
 import videoSubtitleUpload, { VideoSubtitleUploadParams } from 'src/api/video/admin/video-subtitle-upload';
 import videoThumbnail from 'src/api/video/admin/video-thumbnail';
+import router from 'src/pages/router';
 import { VideoAdminActions } from 'src/pages/video/admin/VideoAdminState';
 import { RootState } from 'src/redux';
 import { GlobalActions } from 'src/redux/global';
+import VideoRoutes from '../VideoRoutes';
 
 export const videoRegisterAction = (params: VideoRegisterParams) => async (dispatch: Dispatch) => {
   dispatch(GlobalActions.update({ loading: true }));
@@ -69,6 +72,15 @@ export const videoThumbnailAction = (videoId: string) => async (dispatch: Dispat
   const time = window.player?.currentTime;
   const videoThumbnailResult = await videoThumbnail({ videoId, time });
   dispatch(VideoAdminActions.update({ videoThumbnailResult }));
+
+  dispatch(GlobalActions.update({ loading: false }));
+}
+
+export const videoEntryCreateAction = (params: VideoEntryCreateParams) => async (dispatch: Dispatch) => {
+  dispatch(GlobalActions.update({ loading: true }));
+
+  const result = await videoEntryCreateApi(params);
+  router.navigate(VideoRoutes.manageEntry(result.id));
 
   dispatch(GlobalActions.update({ loading: false }));
 }
