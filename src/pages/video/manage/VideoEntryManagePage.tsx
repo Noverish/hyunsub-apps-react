@@ -25,6 +25,7 @@ export default function VideoEntryManagePage() {
         <h1>{entry.name}</h1>
         <hr />
         {videoIds && <VideoEntryRenameForm videoIds={videoIds} entryId={entryId} />}
+        <hr />
         {seasons?.map(v => renderEntryManageSeason(entryId, v))}
       </CommonContainer>
     </div>
@@ -33,7 +34,7 @@ export default function VideoEntryManagePage() {
 
 function renderEntryManageSeason(entryId: string, season: VideoSeason) {
   return (
-    <div key={season.name}>
+    <div key={season.name} className="mt-4">
       <h3>{season.name}</h3>
       <div>
         {season.episodes.map(v => renderEntryManagerRow(entryId, v))}
