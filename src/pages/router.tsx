@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouteObject } from 'react-router-dom';
-import ErrorBoundary from './common/ErrorBoundaryV2';
+import RouteErrorBoundary from './common/RouteErrorBoundary';
 import NotFoundPage from './common/NotFoundPage';
 import { VideoRotues } from './video/VideoIndex';
 
@@ -15,7 +15,7 @@ function pickRoutes(): RouteObject[] {
 
 const router = createBrowserRouter([
   {
-    errorElement: <ErrorBoundary />,
+    errorElement: <RouteErrorBoundary />,
     children: [
       { path: '*', element: <NotFoundPage /> },
       ...pickRoutes(),

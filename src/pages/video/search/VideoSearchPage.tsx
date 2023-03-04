@@ -1,14 +1,14 @@
-import { useMutation } from "@tanstack/react-query";
 import { t } from "i18next";
 import { Button, Form, InputGroup } from "react-bootstrap";
 import { SubmitHandler, useForm } from 'react-hook-form';
-import videoSearchApi, { VideoSearchParams } from "src/api/video/video-search";
+import { VideoSearchParams } from "src/api/video/video-search";
 import CommonContainer from 'src/components/common/header/CommonContainer';
 import MobileHeader from 'src/components/common/header/MobileHeader';
 import { Loading } from "src/components/common/LoadingSuspense";
 import { useBreakpointMobile } from "src/utils/breakpoint";
 import { setDocumentTitle } from "src/utils/services";
 import VideoSearchResultView from "./components/VideoSearchResultView";
+import { useVideoSearchApi } from "./VideoSearchHooks";
 
 export default function VideoSearchPage() {
   const isMobile = useBreakpointMobile();
@@ -17,12 +17,10 @@ export default function VideoSearchPage() {
 
   const { register, handleSubmit, getValues } = useForm<VideoSearchParams>();
 
-  const { data, isLoading, mutate } = useMutation({
-    mutationFn: (params: VideoSearchParams) => videoSearchApi.api(params),
-  })
+  const { data, isLoading, search } = useVideoSearchApi();
 
   const onSubmit: SubmitHandler<VideoSearchParams> = (state: VideoSearchParams) => {
-    mutate(state);
+    search(state);
   };
 
   return (

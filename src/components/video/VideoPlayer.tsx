@@ -26,6 +26,25 @@ export function VideoPlayer(props: VideoPlayerProps) {
   const ref = useRef<APITypes>(null);
 
   useEffect(() => {
+    window.onkeydown = (e: KeyboardEvent) => {
+      if (e.key === ' ') {
+        const plyr = ref.current?.plyr;
+        if (plyr) {
+          if (plyr.playing) {
+            plyr.pause()
+          } else {
+            plyr.play()
+          }
+        }
+      }
+    }
+
+    return () => {
+      window.onkeydown = null;
+    }
+  }, []);
+
+  useEffect(() => {
     setTimeout(() => {
       const plyr = ref.current?.plyr;
       if (plyr) {
