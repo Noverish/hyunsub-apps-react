@@ -9,12 +9,12 @@ type ContextType<State> = Context<[State, Dispatch<SetStateAction<State>>]>;
 type ProviderType = ({ children }: ProviderProps) => JSX.Element;
 
 export function generateContext<State>(initialState: State): [ContextType<State>, ProviderType] {
-  const context = createContext<[State, Dispatch<SetStateAction<State>>]>([
+  const Context = createContext<[State, Dispatch<SetStateAction<State>>]>([
     initialState,
     () => {},
   ]);
 
-  const useProvider = ({ children }: ProviderProps) => {
+  const Provider = ({ children }: ProviderProps) => {
     const [state, setState] = useState(initialState);
 
     const newSetState = useCallback((value: SetStateAction<State>) => {
@@ -25,11 +25,11 @@ export function generateContext<State>(initialState: State): [ContextType<State>
     }, []);
 
     return (
-      <context.Provider value={[state, newSetState]}>
+      <Context.Provider value={[state, newSetState]}>
         {children}
-      </context.Provider>
+      </Context.Provider>
     )
   }
 
-  return [context, useProvider];
+  return [Context, Provider];
 }

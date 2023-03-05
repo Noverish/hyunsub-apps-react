@@ -18,11 +18,6 @@ const items: TabBarItem[] = [
     link: PhotoRoutes.upload,
     icon: 'fas fa-plus',
   },
-  {
-    name: t('PhotoTabBar.share'),
-    link: PhotoRoutes.share,
-    icon: 'fas fa-share-alt',
-  },
 ]
 
 export default function PhotoTabBar() {

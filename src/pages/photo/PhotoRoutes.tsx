@@ -19,7 +19,6 @@ const PhotoRoutes = {
   photoOriginal: (photoId: number) => `/photos/${photoId}`,
 
   upload: '/upload',
-  share: '/share',
   menu: '/menu',
 }
 

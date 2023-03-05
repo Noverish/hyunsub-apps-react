@@ -101,6 +101,10 @@ const ko = {
     'PhotoTabBar.photo': '사진',
     'PhotoTabBar.upload': '업로드',
     'PhotoTabBar.share': '공유',
+    'PhotoUploadPage.title': '사진 업로드',
+    'PhotoUploadPage.photo-num': '{{0}}개의 사진',
+    'PhotoUploadPage.upload': '업로드',
+    'PhotoUploadPage.cancel': '선택 취소',
 
     'apparel.page.list.title': '내 의류 목록',
     'apparel.page.list.inner-title': '총 {{0}}개의 의류',

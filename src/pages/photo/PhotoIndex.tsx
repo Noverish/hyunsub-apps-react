@@ -12,8 +12,7 @@ const AlbumDatePage = lazy(() => import('src/pages/photo/album-date/AlbumDatePag
 const PhotoListPage = lazy(() => import('src/pages/photo/photo-list/PhotoListPage'));
 const PhotoOriginalPage = lazy(() => import('src/pages/photo/photo-original/PhotoOriginalPage'));
 const PhotoMenuPage = lazy(() => import('src/pages/photo/menu/PhotoMenuPage'));
-const UploadPage = lazy(() => import('src/pages/photo/upload/UploadPage'));
-const SharePage = lazy(() => import('src/pages/photo/share/SharePage'));
+const PhotoUploadPage = lazy(() => import('src/pages/photo/upload/PhotoUploadPage'));
 
 export const PhotoRouteObjects: RouteObject[] = [
   {
@@ -35,8 +34,7 @@ export const PhotoRouteObjects: RouteObject[] = [
       { path: routes.albumDateRoute, element: <AlbumDatePage /> },
       { path: routes.photos, element: <PhotoListPage /> },
       { path: routes.photoOriginalRoute, element: <PhotoOriginalPage /> },
-      { path: routes.upload, element: <UploadPage /> },
-      { path: routes.share, element: <SharePage /> },
+      { path: routes.upload, element: <PhotoUploadPage /> },
       { path: routes.menu, element: <PhotoMenuPage /> },
     ]
   }

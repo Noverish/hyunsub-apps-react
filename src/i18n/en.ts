@@ -101,6 +101,10 @@ const en = {
     'PhotoTabBar.photo': 'Photos',
     'PhotoTabBar.upload': 'Upload',
     'PhotoTabBar.share': 'Share',
+    'PhotoUploadPage.title': 'Photo Upload',
+    'PhotoUploadPage.photo-num': '{{0}} Photos',
+    'PhotoUploadPage.upload': 'Upload',
+    'PhotoUploadPage.cancel': 'Cancel',
 
     'apparel.page.list.title': 'My Apparel List',
     'apparel.page.list.inner-title': 'Total {{0}} items',

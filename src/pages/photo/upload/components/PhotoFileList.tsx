@@ -1,0 +1,45 @@
+import { t } from 'i18next';
+import { useContext } from 'react';
+import { Button, Col, Row } from 'react-bootstrap';
+import { PhotoUploadContext } from 'src/pages/photo/upload/PhotoUploadContext';
+import { usePhotoUpload } from '../PhotoUploadHooks';
+import PhotoUploadImage from './PhotoUploadImage';
+
+import './PhotoFileList.scss';
+
+interface Props {
+
+}
+
+export default function PhotoFileList(props: Props) {
+  const [state, setState] = useContext(PhotoUploadContext);
+  const { items, uploading } = state;
+
+  const photoUpload = usePhotoUpload();
+
+  const onCancel = () => {
+    setState({ items: [], uploading: false });
+  }
+
+  const elements = items.map(v => (
+    <Col key={v.path}>
+      <PhotoUploadImage item={v} />
+    </Col>
+  ));
+
+  return (
+    <div className="PhotoFileList">
+      <div className="header">
+        <div className="photo_num">{t('PhotoUploadPage.photo-num', [items.length])}</div>
+        <div className="btn_grp">
+          {uploading || <Button onClick={photoUpload}>{t('PhotoUploadPage.upload')}</Button>}
+          <Button variant="secondary" onClick={onCancel}>{t('PhotoUploadPage.cancel')}</Button>
+        </div>
+      </div>
+      <hr />
+      <Row className="g-2 row-cols-3 row-cols-md-6">
+        {elements}
+      </Row>
+    </div>
+  )
+}
