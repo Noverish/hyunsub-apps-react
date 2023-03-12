@@ -201,6 +201,10 @@ input.form-control {
   }
 }
 
+.progress {
+  --bs-progress-bar-transition: width 0.1s ease!important;
+}
+
 // ===============================================================
 // custom select
 

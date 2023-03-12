@@ -1,22 +1,21 @@
-import { useState } from 'react';
-import React from 'react';
-import { flatMap } from 'lodash';
+import flatMap from 'lodash/flatMap';
+import { basename } from 'path-browserify';
+import React, { useState } from 'react';
 import { FileWithPath } from 'src/model/file';
-import { extname } from 'path-browserify';
 
-const ignoreExts = ['.DS_Store'];
+const ignores = ['.DS_Store'];
 
 interface Params {
+  accept?: string;
   onFileDrop?: (files: FileWithPath[]) => void;
   onElementDrop?: (DataTransfer: DataTransfer) => void;
 }
 
-export default function useDragAndDrop(params: Params) {
+export default function useDragAndDrop({ accept, onElementDrop, onFileDrop }: Params) {
   const [hover, setHover] = useState(0);
   const [isElement, setIsElement] = useState(false);
 
   const onDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
-    console.log('onDragEnter', hover);
     e.preventDefault();
     const items = e.dataTransfer.items;
     const stringItems = Array.from(items).filter(v => v.kind === 'string');
@@ -25,12 +24,11 @@ export default function useDragAndDrop(params: Params) {
   }
 
   const onDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
-    console.log('onDragLeave', hover);
     e.preventDefault();
     setHover(v => v - 1);
   }
 
-  const onDrop = (e: React.DragEvent<HTMLDivElement>) => {
+  const onDrop = async (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
 
     const items = e.dataTransfer.items;
@@ -38,11 +36,15 @@ export default function useDragAndDrop(params: Params) {
     const fileItems = Array.from(items).filter(v => v.kind === 'file');
 
     if (stringItems.length > 0) {
-      params.onElementDrop?.(e.dataTransfer);
+      onElementDrop?.(e.dataTransfer);
     }
 
     if (fileItems.length > 0) {
-      handleDropEvent(fileItems).then(v => params.onFileDrop?.(v));
+      let files = await handleDropEvent(fileItems);
+      if (accept) {
+        files = files.filter(v => v.file.type && accept.includes(v.file.type));
+      }
+      onFileDrop?.(files);
     }
 
     setHover(0);
@@ -55,7 +57,7 @@ export default function useDragAndDrop(params: Params) {
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from((e.currentTarget.files || []))
       .map(v => ({ file: v, path: v.name }));
-    params.onFileDrop?.(files);
+    onFileDrop?.(files);
   }
 
   return {
@@ -133,7 +135,4 @@ function getFile(entry: FileSystemFileEntry): Promise<FileWithPath> {
     )
   })
 }
-
-function validExt(path: string) {
-  return !ignoreExts.includes(extname(path));
-}
+const validExt = (path: string) => !ignores.includes(basename(path));

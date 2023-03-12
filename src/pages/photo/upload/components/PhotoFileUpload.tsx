@@ -7,6 +7,8 @@ import { PhotoUploadContext, PhotoUploadFileItem } from '../PhotoUploadContext';
 
 import './PhotoFileUpload.scss';
 
+const accept = "image/jpeg,image/png";
+
 interface Props {
 
 }
@@ -18,12 +20,13 @@ export default function PhotoFileUpload(props: Props) {
     const list: PhotoUploadFileItem[] = files.map(file => ({
       file: file.file,
       path: file.path,
+      progress: 0,
       status: 'ready',
     }))
     setState({ items: list });
   }, [setState]);
 
-  const { props: dragAndDropProps, hover, onInputChange } = useDragAndDrop({ onFileDrop });
+  const { props: dragAndDropProps, hover, onInputChange } = useDragAndDrop({ accept, onFileDrop });
 
   return (
     <div className={cs("PhotoFileUpload ratio", { hover })} {...dragAndDropProps}>
@@ -33,7 +36,7 @@ export default function PhotoFileUpload(props: Props) {
         <div className="or">or</div>
         <Button>Browse</Button>
       </div>
-      <input type="file" multiple onChange={onInputChange} accept="image/jpeg,image/png" />
+      <input type="file" multiple onChange={onInputChange} accept={accept} />
     </div>
   )
 }

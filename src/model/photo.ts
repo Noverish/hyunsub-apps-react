@@ -37,3 +37,9 @@ export interface PhotoDate {
   timeStamp: string | null;
   gpsDateTime: string | null;
 }
+
+export interface PhotoPreview {
+  id: string;
+  thumbnail: string;
+  date: string;
+}

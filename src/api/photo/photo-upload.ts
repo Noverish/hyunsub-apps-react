@@ -1,19 +1,21 @@
 import { useEffect } from 'react';
 import useWebSocket from 'src/api/web-socket';
+import { PhotoPreview } from 'src/model/photo';
 
 export interface PhotoUploadParams {
-  path: string;
+  nonce: string;
+  name: string;
 }
 
 export interface PhotoUploadResult {
   success: boolean;
-  path: string;
+  nonce: string;
+  preview: PhotoPreview;
   errMsg: string;
 }
 
-const nonce = Math.random().toString(36).substring(2, 8);
-
-const destination = `/v1/photo/upload/${nonce}`;
+const pathNonce = Math.random().toString(36).substring(2, 8);
+const destination = `/v1/photo/upload/${pathNonce}`;
 
 export default function usePhotoUploadApi(callback: (result: PhotoUploadResult) => void) {
   const client = useWebSocket();

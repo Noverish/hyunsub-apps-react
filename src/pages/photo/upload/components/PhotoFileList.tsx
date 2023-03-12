@@ -1,6 +1,6 @@
 import { t } from 'i18next';
 import { useContext } from 'react';
-import { Button, Col, Row } from 'react-bootstrap';
+import { Button, Col, Row, ProgressBar } from 'react-bootstrap';
 import { PhotoUploadContext } from 'src/pages/photo/upload/PhotoUploadContext';
 import { usePhotoUpload } from '../PhotoUploadHooks';
 import PhotoUploadImage from './PhotoUploadImage';
@@ -13,7 +13,7 @@ interface Props {
 
 export default function PhotoFileList(props: Props) {
   const [state, setState] = useContext(PhotoUploadContext);
-  const { items, uploading } = state;
+  const { items, uploading, progress } = state;
 
   const photoUpload = usePhotoUpload();
 
@@ -37,6 +37,7 @@ export default function PhotoFileList(props: Props) {
         </div>
       </div>
       <hr />
+      {uploading && <ProgressBar now={progress} label={`${progress}%`} className="mb-3" />}
       <Row className="g-2 row-cols-3 row-cols-md-6">
         {elements}
       </Row>
