@@ -13,8 +13,10 @@ const PhotoListPage = lazy(() => import('src/pages/photo/photo-list/PhotoListPag
 const PhotoOriginalPage = lazy(() => import('src/pages/photo/photo-original/PhotoOriginalPage'));
 const PhotoMenuPage = lazy(() => import('src/pages/photo/menu/PhotoMenuPage'));
 const PhotoUploadPage = lazy(() => import('src/pages/photo/upload/PhotoUploadPage'));
+const PhotoViewerPage = lazy(() => import('src/pages/photo/photo-viewer/PhotoViewerPage'));
 
 export const PhotoRouteObjects: RouteObject[] = [
+  { path: routes.photoViewerRoute, element: <PhotoViewerPage /> },
   {
     path: '/',
     element: (
@@ -32,6 +34,7 @@ export const PhotoRouteObjects: RouteObject[] = [
       { path: routes.albumViewerRoute, element: <AlbumViewerPage /> },
       { path: routes.albumUploadRoute, element: <AlbumUploadPage /> },
       { path: routes.albumDateRoute, element: <AlbumDatePage /> },
+      { path: routes.photoViewerRoute, element: <PhotoViewerPage /> },
       { path: routes.photos, element: <PhotoListPage /> },
       { path: routes.photoOriginalRoute, element: <PhotoOriginalPage /> },
       { path: routes.upload, element: <PhotoUploadPage /> },

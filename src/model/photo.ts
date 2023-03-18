@@ -42,4 +42,8 @@ export interface PhotoPreview {
   id: string;
   thumbnail: string;
   date: string;
+  type: PhotoType;
+  ext: string;
 }
+
+export type PhotoType = 'VIDEO' | 'PHOTO';

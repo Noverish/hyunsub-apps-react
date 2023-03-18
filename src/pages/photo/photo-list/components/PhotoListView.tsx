@@ -2,6 +2,8 @@ import { Col, Row } from "react-bootstrap";
 import photoListApi from 'src/api/photo/photo-list';
 import { useScrollBottom } from 'src/utils';
 import flatten from 'lodash/flatten';
+import PhotoPreviewView from "src/components/photo/PhotoPreviewView";
+import PhotoRoutes from "../../PhotoRoutes";
 
 interface Props {
 
@@ -20,9 +22,7 @@ export default function PhotoListView(props: Props) {
 
   const elements = photos.map(v => (
     <Col key={v.id}>
-      <div className="ratio ratio-1x1">
-        <img className="img-fluid" src={v.thumbnail} alt={v.id} />
-      </div>
+      <PhotoPreviewView preview={v} href={PhotoRoutes.photoViewer(v.id)} />
     </Col>
   ));
 

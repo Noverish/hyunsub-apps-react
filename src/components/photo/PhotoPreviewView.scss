@@ -1,0 +1,21 @@
+.PhotoPreviewView {
+  .icon_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .icon_wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background-color: rgba(1, 1, 1, 0.5);
+      border-radius: 50%;
+
+      i {
+        padding-left: 4px;
+      }
+    }
+  }
+}

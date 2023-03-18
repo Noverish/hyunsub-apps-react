@@ -15,6 +15,9 @@ const PhotoRoutes = {
 
   photos: '/photos',
 
+  photoViewerRoute: '/photos/viewer',
+  photoViewer: (photoId: string) => `/photos/viewer?photoId=${photoId}`,
+
   photoOriginalRoute: '/photos/:photoId',
   photoOriginal: (photoId: number) => `/photos/${photoId}`,
 
