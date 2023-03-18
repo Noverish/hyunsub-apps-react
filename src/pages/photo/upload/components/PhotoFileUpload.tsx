@@ -7,7 +7,7 @@ import { PhotoUploadContext, PhotoUploadFileItem } from '../PhotoUploadContext';
 
 import './PhotoFileUpload.scss';
 
-const accept = "image/jpeg,image/png";
+const accept = "image/jpeg,image/png,video/mp4,video/quicktime";
 
 interface Props {
 

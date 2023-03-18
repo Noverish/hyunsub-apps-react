@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import albumDateApi from "src/api/photo/album-date";
 import photoUpdateApi from "src/api/photo/photo-update";
 import queryClient from 'src/api/query-client';
+import CommonContainer from "src/components/common/header/CommonContainer";
 import ListLoadingIndicator from 'src/components/common/ListLoadingIndicator';
 import PhotoDateTable from "src/components/photo/PhotoDateTable";
 import { PageData } from "src/model/api";
@@ -23,8 +24,8 @@ const updateDate = (albumId: number, data: PhotoDate, date: string) => async (di
       return cache;
     }
 
-    for(const page of cache.pages) {
-      for(const item of page.data) {
+    for (const page of cache.pages) {
+      for (const item of page.data) {
         if (item.photoId === data.photoId) {
           item.date = result.date;
         }
@@ -64,9 +65,11 @@ export default function AlbumDatePage() {
 
   return (
     <div id="AlbumDatePage">
-      <h1>AlbumDatePage</h1>
-      <PhotoDateTable list={list} onCellClick={onCellClick} />
-      <ListLoadingIndicator isFetching={isFetching} />
+      <CommonContainer noContainer>
+        <h1>AlbumDatePage</h1>
+        <PhotoDateTable list={list} onCellClick={onCellClick} />
+        <ListLoadingIndicator isFetching={isFetching} />
+      </CommonContainer>
     </div>
   )
 }

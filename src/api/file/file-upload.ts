@@ -64,7 +64,7 @@ const fileUploadInner = generateApi<FileUploadParams, FileUploadResult>(params =
       const i = sizes.findIndex((v) => v >= now) - 1;
       const size = sizes[i + 1] - sizes[i];
       const diff = now - sizes[i];
-      const ratio = Math.floor(diff / size * 100);
+      const ratio = Math.floor(diff / size * 1000) / 10;
       const status: FileUploadStatus = {
         current: {
           index: i,
@@ -75,7 +75,7 @@ const fileUploadInner = generateApi<FileUploadParams, FileUploadResult>(params =
         total: {
           size: total,
           uploaded: now,
-          ratio: Math.floor(now / total * 100),
+          ratio: Math.floor(now / total * 1000) / 10,
         }
       };
       progress(status);

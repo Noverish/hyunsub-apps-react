@@ -11,13 +11,24 @@ interface Props {
 
 export default function PhotoUploadImage({ item }: Props) {
   const { file, path, status, progress, preview } = item;
+  const isImage = file.type.startsWith('image');
 
-  const objectUrl = useMemo(() => URL.createObjectURL(file), [file]);
+  const objectUrl = useMemo(() => isImage ? URL.createObjectURL(file) : '', [isImage, file]);
+
   const src = preview ? preview.thumbnail : objectUrl;
+
+  const thumbnail = (isImage || preview)
+    ? <img className="img-fluid" src={src} alt={path} />
+    : (
+      <div className="flex_center border">
+        <i className="fas fa-file-video mb-2" />
+        <span>{file.name}</span>
+      </div>
+    )
 
   return (
     <div className="PhotoUploadImage ratio ratio-1x1">
-      <img className="img-fluid" src={src} alt={path} />
+      {thumbnail}
       <div className={cs("dim flex_center", { 'd-none': status === 'ready' })}>
         {status === 'uploading' && <ProgressBar now={progress} label={`${progress}%`} />}
         {status === 'registering' && <Spinner animation="border" variant="primary" />}
