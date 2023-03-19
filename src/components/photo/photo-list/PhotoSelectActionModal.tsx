@@ -1,10 +1,10 @@
 import { t } from 'i18next';
 import { useContext } from 'react';
 import ButtonListModal, { ButtonListModalItem } from 'src/components/common/ButtonListModal';
-import { PhotoListContext } from '../PhotoListState';
+import { PhotoSelectContext } from './PhotoSelectContext';
 
 export default function PhotoSelectActionModal() {
-  const [state, setState] = useContext(PhotoListContext);
+  const [state, setState] = useContext(PhotoSelectContext);
 
   const items: ButtonListModalItem[] = [
     {

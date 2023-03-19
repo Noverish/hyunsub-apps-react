@@ -16,4 +16,4 @@ const initialState: State = {
   showAlbumSelectModal: false,
 }
 
-export const [PhotoListContext, PhotoListProvider] = generateContext(initialState);
+export const [PhotoSelectContext, PhotoSelectProvider] = generateContext(initialState);

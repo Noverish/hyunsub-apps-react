@@ -11,6 +11,12 @@ export interface Album {
   photos: number;
 }
 
+export interface AlbumV2 {
+  id: string;
+  name: string;
+  photos: PhotoPreview[];
+}
+
 export interface Photo {
   id: number;
   thumbnail: string;

@@ -1,12 +1,13 @@
 import { useContext } from 'react';
 import albumPhotoRegisterApi from 'src/api/photo/album-photo-register';
 import { AlbumPreview, PhotoPreview } from "src/model/photo";
-import { PhotoListContext } from 'src/pages/photo/photo-list/PhotoListState';
 import { dispatch } from 'src/redux';
 import { GlobalActions } from 'src/redux/global';
+import { PhotoSelectContext } from './PhotoSelectContext';
 
 export function usePhotoListSelect(previews: PhotoPreview[]) {
-  const [state, setState] = useContext(PhotoListContext);
+  const [state, setState] = useContext(PhotoSelectContext);
+
   const { selectMode, selects, lastSelected } = state;
 
   const onSelect = (preview: PhotoPreview, shiftKey: boolean) => {
@@ -33,7 +34,13 @@ export function usePhotoListSelect(previews: PhotoPreview[]) {
     setState({ selects: [...selects] });
   }
 
-  const toggleSelectMode = () => {
+  return { selects, onSelect, selectMode };
+}
+
+export function useToggleSelectMode() {
+  const [{ selectMode }, setState] = useContext(PhotoSelectContext);
+
+  return () => {
     if (selectMode) {
       setState({
         selectMode: false,
@@ -45,13 +52,11 @@ export function usePhotoListSelect(previews: PhotoPreview[]) {
         selectMode: true,
       })
     }
-  };
-
-  return { selects, onSelect, selectMode, toggleSelectMode };
+  }
 }
 
 export function useAlbumPhotoRegister() {
-  const [state, setState] = useContext(PhotoListContext);
+  const [state, setState] = useContext(PhotoSelectContext);
 
   return async (preview: AlbumPreview) => {
     dispatch(GlobalActions.update({ loading: true }));

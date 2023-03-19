@@ -5,13 +5,13 @@ import photoListApi from 'src/api/photo/photo-list';
 import CommonContainer from 'src/components/common/header/CommonContainer';
 import MobileHeader, { MobileHeaderButton } from 'src/components/common/header/MobileHeader';
 import AlbumSelectModal from 'src/components/photo/AlbumSelectModal';
-import PhotoSelectActionModal from 'src/pages/photo/photo-list/components/PhotoSelectActionModal';
+import { PhotoSelectContext, PhotoSelectProvider } from 'src/components/photo/photo-list/PhotoSelectContext';
+import { useAlbumPhotoRegister, usePhotoListSelect, useToggleSelectMode } from 'src/components/photo/photo-list/PhotoListHooks';
+import PhotoListView from 'src/components/photo/photo-list/PhotoListView';
+import PhotoSelectActionModal from 'src/components/photo/photo-list/PhotoSelectActionModal';
 import { useScrollBottom } from 'src/utils';
 import { setDocumentTitle } from 'src/utils/services';
-import PhotoListView from './components/PhotoListView';
-import { usePhotoListSelect } from './PhotoListHooks';
-import { PhotoListContext, PhotoListProvider } from './PhotoListState';
-import { useAlbumPhotoRegister } from 'src/pages/photo/photo-list/PhotoListHooks';
+import PhotoRoutes from '../PhotoRoutes';
 
 function PhotoListPage() {
   setDocumentTitle(t('photo.page.photo-list.title'));
@@ -25,8 +25,9 @@ function PhotoListPage() {
     }
   });
 
-  const [state, setState] = useContext(PhotoListContext);
-  const { selects, selectMode, toggleSelectMode } = usePhotoListSelect(previews);
+  const [state, setState] = useContext(PhotoSelectContext);
+  const toggleSelectMode = useToggleSelectMode();
+  const { selects, selectMode } = usePhotoListSelect(previews);
   const title = selectMode ? t('n-selected', [selects.length]) : 'Photos';
 
   const albumPhotoRegister = useAlbumPhotoRegister();
@@ -49,7 +50,7 @@ function PhotoListPage() {
     <div id="PhotoListPage">
       <MobileHeader title={title} btns={headerBtns} />
       <CommonContainer>
-        <PhotoListView previews={previews} />
+        <PhotoListView previews={previews} itemHref={(v) => PhotoRoutes.photoViewer(v.id)} />
       </CommonContainer>
       <PhotoSelectActionModal />
       <AlbumSelectModal
@@ -63,8 +64,8 @@ function PhotoListPage() {
 
 export default function PhotoListIndex() {
   return (
-    <PhotoListProvider>
+    <PhotoSelectProvider>
       <PhotoListPage />
-    </PhotoListProvider>
+    </PhotoSelectProvider>
   )
 }

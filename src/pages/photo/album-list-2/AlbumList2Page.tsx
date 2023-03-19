@@ -13,7 +13,7 @@ export default function AlbumList2Page(props: Props) {
   const albums = albumListV2Api.useApi({});
 
   const elements = albums.map(v => (
-    <AlbumPreviewView key={v.id} preview={v} onClick={PhotoRoutes.albumDetail(v.id)} />
+    <AlbumPreviewView key={v.id} preview={v} onClick={PhotoRoutes.albumDetail2(v.id)} />
   ))
 
   return (

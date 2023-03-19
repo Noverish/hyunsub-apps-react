@@ -1,27 +1,29 @@
 import { t } from 'i18next';
 import { Button, Row } from "react-bootstrap";
+import { useToggleSelectMode } from 'src/components/photo/photo-list/PhotoListHooks';
 import PhotoPreviewView from "src/components/photo/PhotoPreviewView";
 import { PhotoPreview } from 'src/model/photo';
 import { useBreakpointMobile } from 'src/utils/breakpoint';
-import PhotoRoutes from "../../PhotoRoutes";
-import { usePhotoListSelect } from "../PhotoListHooks";
+import { usePhotoListSelect } from './PhotoListHooks';
 
 import './PhotoListView.scss';
 
 interface Props {
-  previews: PhotoPreview[]
+  previews: PhotoPreview[];
+  itemHref: (preview: PhotoPreview) => string;
 }
 
-export default function PhotoListView({ previews }: Props) {
+export default function PhotoListView({ previews, itemHref: href }: Props) {
   const isMobile = useBreakpointMobile();
 
-  const { selects, onSelect, selectMode, toggleSelectMode } = usePhotoListSelect(previews);
+  const { selects, onSelect, selectMode } = usePhotoListSelect(previews);
+  const toggleSelectMode = useToggleSelectMode();
 
   const elements = previews.map(v => (
     <PhotoPreviewView
       key={v.id}
       preview={v}
-      href={PhotoRoutes.photoViewer(v.id)}
+      href={href(v)}
 
       selectMode={selectMode}
       onSelect={onSelect}
