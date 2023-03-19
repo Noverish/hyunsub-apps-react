@@ -109,6 +109,7 @@ const ko = {
     'PhotoUploadPage.upload': '업로드',
     'PhotoUploadPage.cancel': '선택 취소',
     'PhotoListView.add-to-album': '앨범에 추가',
+    'photo.album-select': '앨범 선택',
 
     'apparel.page.list.title': '내 의류 목록',
     'apparel.page.list.inner-title': '총 {{0}}개의 의류',

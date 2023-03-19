@@ -6,6 +6,7 @@ import queryClient from './api/query-client';
 import App from './App';
 import { store } from './redux';
 import reportWebVitals from './reportWebVitals';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import 'src/i18n';
 import './index.scss';
@@ -19,6 +20,7 @@ root.render(
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>
         <App />
+        <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </Provider>
   </React.StrictMode>

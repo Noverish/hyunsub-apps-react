@@ -1,11 +1,13 @@
-import { useState, useContext } from 'react';
-import { PhotoPreview } from "src/model/photo";
+import { useContext } from 'react';
+import albumPhotoRegisterApi from 'src/api/photo/album-photo-register';
+import { AlbumPreview, PhotoPreview } from "src/model/photo";
 import { PhotoListContext } from 'src/pages/photo/photo-list/PhotoListState';
+import { dispatch } from 'src/redux';
+import { GlobalActions } from 'src/redux/global';
 
 export function usePhotoListSelect(previews: PhotoPreview[]) {
   const [state, setState] = useContext(PhotoListContext);
-  const [lastSelected, setLastSelected] = useState<PhotoPreview | undefined>();
-  const { selectMode, selects } = state;
+  const { selectMode, selects, lastSelected } = state;
 
   const onSelect = (preview: PhotoPreview, shiftKey: boolean) => {
     const index = selects.indexOf(preview);
@@ -22,24 +24,50 @@ export function usePhotoListSelect(previews: PhotoPreview[]) {
 
     if (index < 0) {
       selects.push(preview);
-      setLastSelected(preview);
+      setState({ lastSelected: preview });
     } else {
       selects.splice(index, 1);
-      setLastSelected(undefined);
+      setState({ lastSelected: undefined });
     }
 
     setState({ selects: [...selects] });
   }
 
-  const toggleSelectMode = () => setState({ selectMode: !selectMode });
+  const toggleSelectMode = () => {
+    if (selectMode) {
+      setState({
+        selectMode: false,
+        selects: [],
+        lastSelected: undefined,
+      })
+    } else {
+      setState({
+        selectMode: true,
+      })
+    }
+  };
 
-  const onCancel = () => {
-    setLastSelected(undefined);
+  return { selects, onSelect, selectMode, toggleSelectMode };
+}
+
+export function useAlbumPhotoRegister() {
+  const [state, setState] = useContext(PhotoListContext);
+
+  return async (preview: AlbumPreview) => {
+    dispatch(GlobalActions.update({ loading: true }));
+
+    await albumPhotoRegisterApi({
+      albumId: preview.id,
+      photoIds: state.selects.map(v => v.id),
+    });
+
     setState({
       selectMode: false,
       selects: [],
-    })
-  };
+      lastSelected: undefined,
+      showAlbumSelectModal: false,
+    });
 
-  return { selects, onSelect, selectMode, toggleSelectMode, onCancel };
+    dispatch(GlobalActions.update({ loading: false }));
+  }
 }

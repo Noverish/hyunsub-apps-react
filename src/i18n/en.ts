@@ -109,6 +109,7 @@ const en = {
     'PhotoUploadPage.upload': 'Upload',
     'PhotoUploadPage.cancel': 'Cancel',
     'PhotoListView.add-to-album': 'Add to Album',
+    'photo.album-select': 'Select Album',
 
     'apparel.page.list.title': 'My Apparel List',
     'apparel.page.list.inner-title': 'Total {{0}} items',

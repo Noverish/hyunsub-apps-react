@@ -4,7 +4,7 @@ const PhotoRoutes = {
   albums2: '/albums2',
 
   albumDetailRoute: '/albums/:albumId',
-  albumDetail: (albumId: number) => `/albums/${albumId}`,
+  albumDetail: (albumId: string) => `/albums/${albumId}`,
 
   albumViewerRoute: '/albums/:albumId/viewer',
   albumViewer: (albumId: number, photoId: number) => `/albums/${albumId}/viewer?photoId=${photoId}`,

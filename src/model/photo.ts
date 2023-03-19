@@ -1,5 +1,5 @@
 export interface AlbumPreview {
-  id: number;
+  id: string;
   name: string;
   thumbnail: string;
 }

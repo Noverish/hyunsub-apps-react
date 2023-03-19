@@ -46,7 +46,7 @@ export default function AlbumUploadPage() {
     <div id="AlbumUploadPage">
       <MobileHeader title="Upload to Album" />
       <CommonContainer>
-        <Link to={routes.albumDetail(albumId)} style={{ float: 'right' }}>
+        <Link to={routes.albumDetail(albumId.toString())} style={{ float: 'right' }}>
           <Button variant='secondary'>{t('photo.page.album-upload.back-to-album')}</Button>
         </Link>
         <h1>{album.name}</h1>

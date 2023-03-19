@@ -1,20 +1,28 @@
 import { Link } from "react-router-dom";
 import { AlbumPreview } from "src/model/photo"
 
+import './AlbumPreviewView.scss';
+
 interface Props {
   preview: AlbumPreview;
-  href: string;
+  onClick: string | ((preview: AlbumPreview) => void);
 }
 
-export default function AlbumPreviewView({ preview, href }: Props) {
+export default function AlbumPreviewView({ preview, onClick }: Props) {
   const { name, thumbnail } = preview;
 
-  return (
-    <Link to={href} className="AlbumPreviewView">
+  const content = (
+    <>
       <div className="ratio ratio-1x1">
         <img className="img-fluid" src={thumbnail} alt={name} />
       </div>
-      <div className="mt-2">{name}</div>
-    </Link>
+      <div className="name">{name}</div>
+    </>
   )
+
+  if (typeof onClick === 'string') {
+    return <Link className="AlbumPreviewView" to={onClick}>{content}</Link>
+  } else {
+    return <div className="AlbumPreviewView" onClick={() => onClick(preview)}>{content}</div>
+  }
 }

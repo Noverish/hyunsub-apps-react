@@ -1,9 +1,7 @@
 import { t } from 'i18next';
-import flatten from 'lodash/flatten';
 import { Button, Row } from "react-bootstrap";
-import photoListApi from 'src/api/photo/photo-list';
 import PhotoPreviewView from "src/components/photo/PhotoPreviewView";
-import { useScrollBottom } from 'src/utils';
+import { PhotoPreview } from 'src/model/photo';
 import { useBreakpointMobile } from 'src/utils/breakpoint';
 import PhotoRoutes from "../../PhotoRoutes";
 import { usePhotoListSelect } from "../PhotoListHooks";
@@ -11,22 +9,13 @@ import { usePhotoListSelect } from "../PhotoListHooks";
 import './PhotoListView.scss';
 
 interface Props {
-
+  previews: PhotoPreview[]
 }
 
-export default function PhotoListView(props: Props) {
-  const { data, fetchNextPage, isFetching } = photoListApi.useInfiniteApi({});
+export default function PhotoListView({ previews }: Props) {
   const isMobile = useBreakpointMobile();
 
-  useScrollBottom(() => {
-    if (!isFetching) {
-      fetchNextPage();
-    }
-  });
-
-  const previews = flatten(data?.pages.map(v => v.data) ?? []);
-
-  const { selects, onSelect, selectMode, toggleSelectMode, onCancel } = usePhotoListSelect(previews);
+  const { selects, onSelect, selectMode, toggleSelectMode } = usePhotoListSelect(previews);
 
   const elements = previews.map(v => (
     <PhotoPreviewView
@@ -43,7 +32,7 @@ export default function PhotoListView(props: Props) {
   const buttonContainer = selectMode
     ? (
       <div className="button_container">
-        <Button className="clear_select" variant="secondary" onClick={onCancel}>{t('cancel')}</Button>
+        <Button className="clear_select" variant="secondary" onClick={toggleSelectMode}>{t('cancel')}</Button>
         <span className="select_status">{t('n-selected', [selects.length])}</span>
         <Button className="add_to_album">{t('PhotoListView.add-to-album')}</Button>
       </div>
