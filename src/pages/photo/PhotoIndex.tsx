@@ -5,6 +5,7 @@ import PhotoTabBar from 'src/components/photo/header/PhotoTabBar';
 import routes from './PhotoRoutes';
 
 const AlbumListPage = lazy(() => import('src/pages/photo/album-list/AlbumListPage'));
+const AlbumList2Page = lazy(() => import('src/pages/photo/album-list-2/AlbumList2Page'));
 const AlbumDetailPage = lazy(() => import('src/pages/photo/album-detail/AlbumDetailPage'));
 const AlbumViewerPage = lazy(() => import('src/pages/photo/album-viewer/AlbumViewerPage'));
 const AlbumUploadPage = lazy(() => import('src/pages/photo/album-upload/AlbumUploadPage'));
@@ -30,6 +31,7 @@ export const PhotoRouteObjects: RouteObject[] = [
     children: [
       { path: '/', element: <Navigate to={routes.albums} /> },
       { path: routes.albums, element: <AlbumListPage /> },
+      { path: routes.albums2, element: <AlbumList2Page /> },
       { path: routes.albumDetailRoute, element: <AlbumDetailPage /> },
       { path: routes.albumViewerRoute, element: <AlbumViewerPage /> },
       { path: routes.albumUploadRoute, element: <AlbumUploadPage /> },

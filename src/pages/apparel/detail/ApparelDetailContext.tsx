@@ -9,7 +9,6 @@ import apparelList from "src/api/apparel/apparel-list";
 export const apparelImageUploadAction = (apparelId: string, images: File[]) => async (dispatch: Dispatch) => {
   for (const image of images) {
     const result = await apparelImageUpload({ apparelId, image });
-    console.log(result);
   }
 }
 

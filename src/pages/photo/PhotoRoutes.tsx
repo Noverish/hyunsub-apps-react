@@ -1,6 +1,8 @@
 const PhotoRoutes = {
   albums: '/albums',
 
+  albums2: '/albums2',
+
   albumDetailRoute: '/albums/:albumId',
   albumDetail: (albumId: number) => `/albums/${albumId}`,
 

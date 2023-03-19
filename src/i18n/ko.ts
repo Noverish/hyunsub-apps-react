@@ -10,6 +10,9 @@ const ko = {
     'search': '검색',
     'close': '닫기',
     'setting': '설정',
+    'select': '선택',
+    'cancel': '취소',
+    'n-selected': '{{0}}개 선택됨',
 
     'msg.delete-confirm': '정말로 삭제하시겠습니까?',
     'msg.delete-success': '삭제되었습니다',
@@ -105,6 +108,7 @@ const ko = {
     'PhotoUploadPage.photo-num': '{{0}}개의 사진',
     'PhotoUploadPage.upload': '업로드',
     'PhotoUploadPage.cancel': '선택 취소',
+    'PhotoListView.add-to-album': '앨범에 추가',
 
     'apparel.page.list.title': '내 의류 목록',
     'apparel.page.list.inner-title': '총 {{0}}개의 의류',

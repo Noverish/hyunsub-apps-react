@@ -10,6 +10,9 @@ const en = {
     'search': 'Search',
     'close': 'Close',
     'setting': 'Setting',
+    'select': 'Select',
+    'cancel': 'Cancel',
+    'n-selected': '{{0}} Selected',
 
     'msg.delete-confirm': 'Are you sure you want to delete?',
     'msg.delete-success': 'Successfully deleted',
@@ -105,6 +108,7 @@ const en = {
     'PhotoUploadPage.photo-num': '{{0}} Photos',
     'PhotoUploadPage.upload': 'Upload',
     'PhotoUploadPage.cancel': 'Cancel',
+    'PhotoListView.add-to-album': 'Add to Album',
 
     'apparel.page.list.title': 'My Apparel List',
     'apparel.page.list.inner-title': 'Total {{0}} items',

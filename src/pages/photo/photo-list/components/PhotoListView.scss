@@ -1,0 +1,24 @@
+@import '/src/breakpoints.scss';
+
+.PhotoListView {
+  .button_container {
+    margin-bottom: 1rem;
+    display: flex;
+    gap: .5rem;
+    align-items: center;
+    flex-direction: row-reverse;
+  }
+
+  .add_to_album {
+    margin-right: auto;
+  }
+
+  .select_status {
+    @include media-breakpoint-up(md) {
+      font-size: 1.5rem;
+    }
+    @include media-breakpoint-down(md) {
+      font-size: 1.25rem;
+    }
+  }
+}

@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useBreakpointMobile } from 'src/utils/breakpoint';
+import cs from 'classnames';
 
 import './MobileHeader.scss';
 
@@ -10,7 +11,8 @@ export interface MobileHeaderProps {
 }
 
 export interface MobileHeaderButton {
-  icon: string;
+  icon?: string;
+  text?: string;
   onClick: () => void;
 }
 
@@ -21,8 +23,9 @@ export default function MobileHeader({ title, back, btns }: MobileHeaderProps) {
   const onBack = () => back ? navigate(-1) : undefined;
 
   const buttons = (btns || []).map(v => (
-    <div key={v.icon} onClick={v.onClick} className="header_btn">
-      <i className={v.icon}/>
+    <div key={v.icon ? v.icon : v.text} onClick={v.onClick} className={cs('header_btn', { icon: !!v.icon, text: !!v.text })}>
+      {v.icon && <i className={v.icon}/>}
+      {v.text && <span>{v.text}</span>}
     </div>
   ));
 
