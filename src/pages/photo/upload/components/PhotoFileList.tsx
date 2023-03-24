@@ -8,14 +8,14 @@ import PhotoUploadImage from './PhotoUploadImage';
 import './PhotoFileList.scss';
 
 interface Props {
-
+  albumId?: string;
 }
 
-export default function PhotoFileList(props: Props) {
+export default function PhotoFileList({ albumId }: Props) {
   const [state, setState] = useContext(PhotoUploadContext);
   const { items, uploading, progress } = state;
 
-  const photoUpload = usePhotoUpload();
+  const photoUpload = usePhotoUpload(albumId);
 
   const onCancel = () => {
     setState({ items: [], uploading: false });

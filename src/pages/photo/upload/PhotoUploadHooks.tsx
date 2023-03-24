@@ -3,7 +3,7 @@ import fileUploadApi from 'src/api/file/file-upload';
 import usePhotoUploadApi from 'src/api/photo/photo-upload';
 import { PhotoUploadContext } from 'src/pages/photo/upload/PhotoUploadContext';
 
-export function usePhotoUpload() {
+export function usePhotoUpload(albumId?: string) {
   const [state, setState] = useContext(PhotoUploadContext);
   const { items } = state;
 
@@ -40,7 +40,7 @@ export function usePhotoUpload() {
         items[i].progress = 100;
         items[i].status = 'registering';
         setState({ items });
-        photoUploadApi({ nonce, name });
+        photoUploadApi({ nonce, name, albumId });
       }
     });
   }

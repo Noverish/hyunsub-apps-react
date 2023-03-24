@@ -5,6 +5,7 @@ import { PhotoPreview } from 'src/model/photo';
 export interface PhotoUploadParams {
   nonce: string;
   name: string;
+  albumId?: string;
 }
 
 export interface PhotoUploadResult {
