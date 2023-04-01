@@ -18,7 +18,7 @@ export default function PhotoUploadImage({ item }: Props) {
   const src = preview ? preview.thumbnail : objectUrl;
 
   const thumbnail = (isImage || preview)
-    ? <img className="img-fluid" src={src} alt={path} />
+    ? <img className="img-fluid" src={src} alt={path} loading="lazy" />
     : (
       <div className="flex_center border text-break p-2 text-center">
         <i className="fas fa-file-video mb-2" />

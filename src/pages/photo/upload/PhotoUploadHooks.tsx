@@ -40,7 +40,9 @@ export function usePhotoUpload(albumId?: string) {
         items[i].progress = 100;
         items[i].status = 'registering';
         setState({ items });
-        photoUploadApi({ nonce, name, albumId });
+
+        const millis = files[i].lastModified;
+        photoUploadApi({ nonce, name, albumId, millis });
       }
     });
   }

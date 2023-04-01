@@ -31,7 +31,6 @@ export default function PhotoPreviewView(props: Props) {
         <div className="icon_container">
           {type === 'VIDEO' && <div className="icon_wrapper"><i className="fas fa-play"></i></div>}
         </div>
-        <div className="status_container" />
         <div className="select_container">
           {selected
             ? <i className="fas fa-check-circle" />
