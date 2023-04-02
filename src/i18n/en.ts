@@ -13,6 +13,7 @@ const en = {
     'select': 'Select',
     'cancel': 'Cancel',
     'create': 'Create',
+    'upload': 'Upload',
     'n-selected': '{{0}} Selected',
 
     'msg.delete-confirm': 'Are you sure you want to delete?',

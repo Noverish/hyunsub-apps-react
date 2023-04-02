@@ -10,31 +10,58 @@ import { useContext } from 'react';
 import { MobileHeaderButton } from 'src/components/common/header/MobileHeader';
 import { useToggleSelectMode } from 'src/components/photo/photo-list/PhotoListHooks';
 import PhotoRoutes from "../PhotoRoutes";
+import { setDocumentTitle } from 'src/utils/services';
+import router from "src/pages/router";
 
-function AlbumDetail2Page() {
+import './AlbumDetailPage.scss';
+import { Button } from "react-bootstrap";
+
+function AlbumDetailPage() {
+  // hooks
   const albumId = useParams().albumId!!;
   const isMobile = useBreakpointMobile();
-
   const album = albumDetailV2Api.useApi({ albumId });
+  setDocumentTitle(t('photo.page.album-detail.title', [album.name]));
 
   const [{ selectMode }] = useContext(PhotoSelectContext);
   const toggleSelectMode = useToggleSelectMode();
 
+  // functions
+  const navigateAlbumUpload = () => {
+    router.navigate(PhotoRoutes.albumUpload2(albumId))
+  }
+
+  // elements
   const headerBtns: MobileHeaderButton[] = [
     {
-      text: selectMode ? t('cancel') : t('select'),
-      onClick: () => toggleSelectMode(),
+      icon: 'fas fa-upload',
+      onClick: navigateAlbumUpload,
     }
   ]
 
+  const headerForDesktop = (
+    <div>
+      <h1>{album.name}</h1>
+      <div className="btn_container">
+        <h2>{t('photo.page.album-detail.photo-num', [album.photos.length])}</h2>
+        <Button onClick={navigateAlbumUpload}>{t('upload')}</Button>
+      </div>
+      <hr />
+    </div>
+  )
+
+  const headerForMobile = (
+    <div className="headerForMobile">
+      <h2>{t('photo.page.album-detail.photo-num', [album.photos.length])}</h2>
+    </div>
+  )
+
   return (
-    <div className="AlbumDetail2Page">
+    <div className="AlbumDetailPage">
       <MobileHeader title={album.name} back btns={headerBtns} />
       <CommonContainer>
-        {isMobile || <h1>{album.name}</h1>}
-        {isMobile || <hr />}
-        <h2>{t('photo.page.album-detail.photo-num', [album.photos.length])}</h2>
-        <PhotoListView previews={album.photos} itemHref={(v) => PhotoRoutes.albumViewer2(albumId, v.id)}/>
+        {isMobile ? headerForMobile : headerForDesktop}
+        <PhotoListView previews={album.photos} itemHref={(v) => PhotoRoutes.albumViewer2(albumId, v.id)} />
       </CommonContainer>
     </div>
   )
@@ -43,7 +70,7 @@ function AlbumDetail2Page() {
 export default function AlbumDetailIndex() {
   return (
     <PhotoSelectProvider>
-      <AlbumDetail2Page />
+      <AlbumDetailPage />
     </PhotoSelectProvider>
   )
 }

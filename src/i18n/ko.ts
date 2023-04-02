@@ -13,6 +13,7 @@ const ko = {
     'select': '선택',
     'cancel': '취소',
     'create': '생성',
+    'upload': '업로드',
     'n-selected': '{{0}}개 선택됨',
 
     'msg.delete-confirm': '정말로 삭제하시겠습니까?',

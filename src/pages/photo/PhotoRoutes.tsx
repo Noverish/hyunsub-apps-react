@@ -19,7 +19,7 @@ const PhotoRoutes = {
   albumUpload: (albumId: number) => `/albums/${albumId}/upload`,
 
   albumUploadRoute2: '/albums2/:albumId/upload',
-  albumUpload2: (albumId: number) => `/albums2/${albumId}/upload`,
+  albumUpload2: (albumId: string) => `/albums2/${albumId}/upload`,
 
   albumDateRoute: '/albums/:albumId/date',
   albumDate: (albumId: number) => `/albums/${albumId}/date`,

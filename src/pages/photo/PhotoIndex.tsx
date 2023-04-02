@@ -7,7 +7,7 @@ import routes from './PhotoRoutes';
 const AlbumListPage = lazy(() => import('src/pages/photo/album-list/AlbumListPage'));
 const AlbumList2Page = lazy(() => import('src/pages/photo/album-list-2/AlbumListPage'));
 const AlbumDetailPage = lazy(() => import('src/pages/photo/album-detail/AlbumDetailPage'));
-const AlbumDetail2Page = lazy(() => import('src/pages/photo/album-detail-2/AlbumDetail2Page'));
+const AlbumDetail2Page = lazy(() => import('src/pages/photo/album-detail-2/AlbumDetailPage'));
 const AlbumViewerPage = lazy(() => import('src/pages/photo/album-viewer/AlbumViewerPage'));
 const AlbumViewer2Page = lazy(() => import('src/pages/photo/album-viewer-2/AlbumViewer2Page'));
 const AlbumUploadPage = lazy(() => import('src/pages/photo/album-upload/AlbumUploadPage'));

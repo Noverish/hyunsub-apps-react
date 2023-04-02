@@ -19,7 +19,7 @@ function AlbumUploadPage() {
 
   return (
     <div className="AlbumUploadPage">
-      <MobileHeader title={t('PhotoUploadPage.title')} />
+      <MobileHeader title={t('PhotoUploadPage.title')} back />
       <CommonContainer>
         <h1>{album.name}</h1>
         {state.items.length ? <PhotoFileList albumId={albumId} /> : <PhotoFileUpload />}
