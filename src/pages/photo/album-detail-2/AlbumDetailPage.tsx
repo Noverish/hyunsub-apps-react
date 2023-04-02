@@ -1,30 +1,27 @@
 import { t } from "i18next";
+import { useContext } from 'react';
 import { useParams } from "react-router-dom";
 import albumDetailV2Api from "src/api/photo/album-detail-v2";
 import CommonContainer from 'src/components/common/header/CommonContainer';
-import MobileHeader from 'src/components/common/header/MobileHeader';
-import { PhotoSelectProvider, PhotoSelectContext } from 'src/components/photo/photo-list/PhotoSelectContext';
+import MobileHeader, { MobileHeaderButton } from 'src/components/common/header/MobileHeader';
 import PhotoListView from 'src/components/photo/photo-list/PhotoListView';
-import { useBreakpointMobile } from "src/utils/breakpoint";
-import { useContext } from 'react';
-import { MobileHeaderButton } from 'src/components/common/header/MobileHeader';
-import { useToggleSelectMode } from 'src/components/photo/photo-list/PhotoListHooks';
-import PhotoRoutes from "../PhotoRoutes";
-import { setDocumentTitle } from 'src/utils/services';
+import { PhotoSelectProvider } from 'src/components/photo/photo-list/PhotoSelectContext';
 import router from "src/pages/router";
+import { useBreakpointMobile } from "src/utils/breakpoint";
+import { setDocumentTitle } from 'src/utils/services';
+import PhotoRoutes from "../PhotoRoutes";
+import { Button, Dropdown, DropdownButton } from "react-bootstrap";
+import { AlbumDetailContext, AlbumDetailProvider } from "./AlbumDetailContext";
+import AlbumPhotoMetadataListContainer from "./component/AlbumPhotoMetadataListContainer";
 
 import './AlbumDetailPage.scss';
-import { Button } from "react-bootstrap";
 
 function AlbumDetailPage() {
   // hooks
-  const albumId = useParams().albumId!!;
+  const [{ albumId, mode }, setAlbumDetailState] = useContext(AlbumDetailContext);
   const isMobile = useBreakpointMobile();
   const album = albumDetailV2Api.useApi({ albumId });
   setDocumentTitle(t('photo.page.album-detail.title', [album.name]));
-
-  const [{ selectMode }] = useContext(PhotoSelectContext);
-  const toggleSelectMode = useToggleSelectMode();
 
   // functions
   const navigateAlbumUpload = () => {
@@ -43,7 +40,11 @@ function AlbumDetailPage() {
     <div>
       <h1>{album.name}</h1>
       <div className="btn_container">
-        <h2>{t('photo.page.album-detail.photo-num', [album.photos.length])}</h2>
+        <h2 className="photo_num">{t('photo.page.album-detail.photo-num', [album.photos.length])}</h2>
+        <DropdownButton title="보기">
+          <Dropdown.Item onClick={() => setAlbumDetailState({ mode: 'photo' })}>사진 보기</Dropdown.Item>
+          <Dropdown.Item onClick={() => setAlbumDetailState({ mode: 'metadata' })}>정보 보기</Dropdown.Item>
+        </DropdownButton>
         <Button onClick={navigateAlbumUpload}>{t('upload')}</Button>
       </div>
       <hr />
@@ -56,21 +57,34 @@ function AlbumDetailPage() {
     </div>
   )
 
+  const photoImageList = (
+    <PhotoListView previews={album.photos} itemHref={(v) => PhotoRoutes.albumViewer2(albumId, v.id)} />
+  )
+
+  const photoMetadataList = (
+    <AlbumPhotoMetadataListContainer />
+  )
+
   return (
     <div className="AlbumDetailPage">
       <MobileHeader title={album.name} back btns={headerBtns} />
       <CommonContainer>
         {isMobile ? headerForMobile : headerForDesktop}
-        <PhotoListView previews={album.photos} itemHref={(v) => PhotoRoutes.albumViewer2(albumId, v.id)} />
+        {mode === 'photo' && photoImageList}
       </CommonContainer>
+      {mode === 'photo' || photoMetadataList}
     </div>
   )
 }
 
 export default function AlbumDetailIndex() {
+  const albumId = useParams().albumId!!;
+
   return (
-    <PhotoSelectProvider>
-      <AlbumDetailPage />
-    </PhotoSelectProvider>
+    <AlbumDetailProvider initialState={{ albumId }}>
+      <PhotoSelectProvider>
+        <AlbumDetailPage />
+      </PhotoSelectProvider>
+    </AlbumDetailProvider>
   )
 }

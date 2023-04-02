@@ -53,3 +53,20 @@ export interface PhotoPreview {
 }
 
 export type PhotoType = 'VIDEO' | 'PHOTO';
+
+export interface PhotoMetadata {
+  photoId: string;
+  date: string;
+	userId: string;
+	name: string;
+	fileDt: string;
+	subSecDateTimeOriginal?: string;
+	dateTimeOriginal?: string;
+	gpsDateTime?: string;
+	timeStamp?: string;
+	modifyDate?: string;
+	creationDate?: string;
+	offsetTime?: string;
+	offsetTimeOriginal?: string;
+	offsetTimeDigitized?: string;
+}

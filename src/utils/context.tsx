@@ -1,21 +1,22 @@
-import { useState, createContext, Dispatch, Context, useCallback } from 'react';
+import { useState, createContext, Dispatch, Context, useCallback, useEffect } from 'react';
 
-interface ProviderProps {
+interface ProviderProps<State> {
+  initialState?: Partial<State>;
   children: React.ReactNode;
 }
 
 type SetStateAction<State> = Partial<State> | ((state: State) => Partial<State>);
 type ContextType<State> = Context<[State, Dispatch<SetStateAction<State>>]>;
-type ProviderType = ({ children }: ProviderProps) => JSX.Element;
+type ProviderType<State> = (props: ProviderProps<State>) => JSX.Element;
 
-export function generateContext<State>(initialState: State): [ContextType<State>, ProviderType] {
+export function generateContext<State>(initialState: State): [ContextType<State>, ProviderType<State>] {
   const Context = createContext<[State, Dispatch<SetStateAction<State>>]>([
     initialState,
     () => {},
   ]);
 
-  const Provider = ({ children }: ProviderProps) => {
-    const [state, setState] = useState(initialState);
+  const Provider = ({ children, initialState: initialState2 }: ProviderProps<State>) => {
+    const [state, setState] = useState({ ...initialState, ...initialState2 });
 
     const newSetState = useCallback((value: SetStateAction<State>) => {
       setState(s => {

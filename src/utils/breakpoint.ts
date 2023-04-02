@@ -35,7 +35,7 @@ export function useBreakPoint(): BreakpointCode {
     return () => {
       window.removeEventListener('resize', handleWindowResize);
     };
-  });
+  }, []);
 
   if (width >= getWidth('xxl')) {
     return Breakpoint.xxl as BreakpointCode;
