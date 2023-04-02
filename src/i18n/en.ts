@@ -12,6 +12,7 @@ const en = {
     'setting': 'Setting',
     'select': 'Select',
     'cancel': 'Cancel',
+    'create': 'Create',
     'n-selected': '{{0}} Selected',
 
     'msg.delete-confirm': 'Are you sure you want to delete?',
@@ -110,6 +111,8 @@ const en = {
     'PhotoUploadPage.cancel': 'Cancel',
     'PhotoListView.add-to-album': 'Add to Album',
     'photo.album-select': 'Select Album',
+    'AlbumCreateModal.title': 'Create Album',
+    'AlbumCreateModal.name': 'Album Name',
 
     'apparel.page.list.title': 'My Apparel List',
     'apparel.page.list.inner-title': 'Total {{0}} items',

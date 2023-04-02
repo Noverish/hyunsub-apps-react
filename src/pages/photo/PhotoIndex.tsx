@@ -5,7 +5,7 @@ import PhotoTabBar from 'src/components/photo/header/PhotoTabBar';
 import routes from './PhotoRoutes';
 
 const AlbumListPage = lazy(() => import('src/pages/photo/album-list/AlbumListPage'));
-const AlbumList2Page = lazy(() => import('src/pages/photo/album-list-2/AlbumList2Page'));
+const AlbumList2Page = lazy(() => import('src/pages/photo/album-list-2/AlbumListPage'));
 const AlbumDetailPage = lazy(() => import('src/pages/photo/album-detail/AlbumDetailPage'));
 const AlbumDetail2Page = lazy(() => import('src/pages/photo/album-detail-2/AlbumDetail2Page'));
 const AlbumViewerPage = lazy(() => import('src/pages/photo/album-viewer/AlbumViewerPage'));

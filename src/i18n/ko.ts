@@ -12,6 +12,7 @@ const ko = {
     'setting': '설정',
     'select': '선택',
     'cancel': '취소',
+    'create': '생성',
     'n-selected': '{{0}}개 선택됨',
 
     'msg.delete-confirm': '정말로 삭제하시겠습니까?',
@@ -110,6 +111,8 @@ const ko = {
     'PhotoUploadPage.cancel': '선택 취소',
     'PhotoListView.add-to-album': '앨범에 추가',
     'photo.album-select': '앨범 선택',
+    'AlbumCreateModal.title': '앨범 생성',
+    'AlbumCreateModal.name': '앨범 이름',
 
     'apparel.page.list.title': '내 의류 목록',
     'apparel.page.list.inner-title': '총 {{0}}개의 의류',

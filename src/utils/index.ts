@@ -1,4 +1,3 @@
-import { min } from 'lodash';
 import { useEffect } from 'react';
 
 export function sleep(ms: number) {
