@@ -1,27 +1,33 @@
 import { t } from 'i18next';
 import { useContext } from 'react';
-import { setDocumentTitle } from 'src/utils/services';
-import { PhotoUploadContext, PhotoUploadProvider } from 'src/pages/photo/upload/PhotoUploadContext';
-import MobileHeader from 'src/components/common/header/MobileHeader';
-import CommonContainer from 'src/components/common/header/CommonContainer';
-import PhotoFileList from 'src/pages/photo/upload/components/PhotoFileList';
-import PhotoFileUpload from 'src/pages/photo/upload/components/PhotoFileUpload';
 import { useParams } from 'react-router-dom';
 import albumDetailV2Api from 'src/api/photo/album-detail-v2';
+import CommonContainer from 'src/components/common/header/CommonContainer';
+import MobileHeader from 'src/components/common/header/MobileHeader';
+import { PhotoUploadContext, PhotoUploadProvider } from 'src/pages/photo/upload/PhotoUploadContext';
+import PhotoFileList from 'src/pages/photo/upload/components/PhotoFileList';
+import PhotoFileUpload from 'src/pages/photo/upload/components/PhotoFileUpload';
+import { setDocumentTitle } from 'src/utils/services';
 
 function AlbumUploadPage() {
   const albumId = useParams().albumId!!;
   const [state] = useContext(PhotoUploadContext);
-
   const album = albumDetailV2Api.useApi({ albumId });
 
   setDocumentTitle(t('PhotoUploadPage.title'));
+
+  const titleSectionForDesktop = (
+    <section className="title_section">
+      <div className="album_name">{album.name}</div>
+      <div className="photo_num">{t('photo.page.album-detail.photo-num', [album.photos.length])}</div>
+    </section>
+  )
 
   return (
     <div className="AlbumUploadPage">
       <MobileHeader title={t('PhotoUploadPage.title')} back />
       <CommonContainer>
-        <h1>{album.name}</h1>
+        {titleSectionForDesktop}
         {state.items.length ? <PhotoFileList albumId={albumId} /> : <PhotoFileUpload />}
       </CommonContainer>
     </div>

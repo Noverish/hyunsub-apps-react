@@ -24,6 +24,9 @@ const PhotoRoutes = {
   albumDateRoute: '/albums/:albumId/date',
   albumDate: (albumId: number) => `/albums/${albumId}/date`,
 
+  albumDateRoute2: '/albums2/:albumId/date',
+  albumDate2: (albumId: string) => `/albums2/${albumId}/date`,
+
   photos: '/photos',
 
   photoViewerRoute: '/photos/viewer',

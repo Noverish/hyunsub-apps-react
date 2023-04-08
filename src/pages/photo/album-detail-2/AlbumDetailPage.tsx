@@ -11,13 +11,12 @@ import { setDocumentTitle } from 'src/utils/services';
 import PhotoRoutes from "../PhotoRoutes";
 import { AlbumDetailContext, AlbumDetailProvider } from "./AlbumDetailContext";
 import AlbumDetailPageMobileHeader from "./component/AlbumDetailPageMobileHeader";
-import AlbumPhotoMetadataListContainer from "./component/AlbumPhotoMetadataListContainer";
 
 import './AlbumDetailPage.scss';
 
 function AlbumDetailPage() {
   // hooks
-  const [{ albumId, mode }] = useContext(AlbumDetailContext);
+  const [{ albumId }] = useContext(AlbumDetailContext);
   const album = albumDetailV2Api.useApi({ albumId });
   const isMobile = useBreakpointMobile();
   setDocumentTitle(t('photo.page.album-detail.title', [album.name]));
@@ -35,7 +34,11 @@ function AlbumDetailPage() {
   )
 
   const photoImageList = (
-    <PhotoListView previews={album.photos} itemHref={(v) => PhotoRoutes.albumViewer2(albumId, v.id)} />
+    <PhotoListView
+      albumId={albumId}
+      previews={album.photos}
+      itemHref={(v) => PhotoRoutes.albumViewer2(albumId, v.id)}
+    />
   )
 
   return (
@@ -43,9 +46,8 @@ function AlbumDetailPage() {
       <AlbumDetailPageMobileHeader />
       <CommonContainer>
         {isMobile ? titleSectionForMobile : titleSectionForDesktop}
-        {mode === 'photo' && photoImageList}
+        {photoImageList}
       </CommonContainer>
-      {mode === 'photo' || <AlbumPhotoMetadataListContainer />}
     </div>
   )
 }

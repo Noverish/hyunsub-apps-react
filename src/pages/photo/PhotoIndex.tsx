@@ -13,6 +13,7 @@ const AlbumViewer2Page = lazy(() => import('src/pages/photo/album-viewer-2/Album
 const AlbumUploadPage = lazy(() => import('src/pages/photo/album-upload/AlbumUploadPage'));
 const AlbumUploadPage2 = lazy(() => import('src/pages/photo/upload/AlbumUploadPage'));
 const AlbumDatePage = lazy(() => import('src/pages/photo/album-date/AlbumDatePage'));
+const AlbumDatePage2 = lazy(() => import('src/pages/photo/album-date-2/AlbumDatePage'));
 const PhotoListPage = lazy(() => import('src/pages/photo/photo-list/PhotoListPage'));
 const PhotoOriginalPage = lazy(() => import('src/pages/photo/photo-original/PhotoOriginalPage'));
 const PhotoMenuPage = lazy(() => import('src/pages/photo/menu/PhotoMenuPage'));
@@ -42,6 +43,7 @@ export const PhotoRouteObjects: RouteObject[] = [
       { path: routes.albumUploadRoute, element: <AlbumUploadPage /> },
       { path: routes.albumUploadRoute2, element: <AlbumUploadPage2 /> },
       { path: routes.albumDateRoute, element: <AlbumDatePage /> },
+      { path: routes.albumDateRoute2, element: <AlbumDatePage2 /> },
       { path: routes.photoViewerRoute, element: <PhotoViewerPage /> },
       { path: routes.photos, element: <PhotoListPage /> },
       { path: routes.photoOriginalRoute, element: <PhotoOriginalPage /> },
