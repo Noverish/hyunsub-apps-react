@@ -1,11 +1,16 @@
 .AlbumDetailPage {
-  .btn_container {
+  .title_section {
     display: flex;
-    align-items: center;
-    gap: 1rem;
+    align-items: baseline;
+    margin-bottom: 1rem;
+
+    .album_name {
+      font-size: 2rem;
+    }
 
     .photo_num {
-      margin-right: auto;
+      margin-left: 1rem;
+      font-size: 1.5rem;
     }
-  }
+   }
 }

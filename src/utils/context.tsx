@@ -1,4 +1,4 @@
-import { useState, createContext, Dispatch, Context, useCallback, useEffect } from 'react';
+import { useState, createContext, Dispatch, Context, useCallback } from 'react';
 
 interface ProviderProps<State> {
   initialState?: Partial<State>;
