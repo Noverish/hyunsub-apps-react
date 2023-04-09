@@ -19,7 +19,7 @@ function AlbumUploadPage() {
   const titleSectionForDesktop = (
     <section className="title_section">
       <div className="album_name">{album.name}</div>
-      <div className="photo_num">{t('photo.page.album-detail.photo-num', [album.photos.length])}</div>
+      <div className="photo_num">{t('photo.page.album-detail.photo-num', [album.photos.total])}</div>
     </section>
   )
 

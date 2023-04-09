@@ -9,7 +9,7 @@ import NotFoundPage from 'src/pages/common/NotFoundPage';
 import VideoSortDropdown from "src/pages/video/list/components/VideoSortDropdown";
 import VideoSortModal from 'src/pages/video/list/components/VideoSortModal';
 import { useLoadVideoListPage, useVideoCategory } from 'src/pages/video/list/VideoListHooks';
-import { useScrollBottom } from "src/utils";
+import useScrollBottom from 'src/hooks/scroll-bottom';
 import { useBreakpointMobile } from 'src/utils/breakpoint';
 import { setDocumentTitle } from 'src/utils/services';
 import { VideoListContext, VideoListProvider } from './VideoListState';

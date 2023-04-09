@@ -1,3 +1,5 @@
+import { PageData } from "./api";
+
 export interface AlbumPreview {
   id: string;
   name: string;
@@ -14,7 +16,7 @@ export interface Album {
 export interface AlbumV2 {
   id: string;
   name: string;
-  photos: PhotoPreview[];
+  photos: PageData<PhotoPreview>;
 }
 
 export interface Photo {

@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-
 export function sleep(ms: number) {
   return new Promise((resolve) => {
     setTimeout(resolve, ms);
@@ -12,27 +10,6 @@ export function isDev() {
 
 export function toJSON(obj: any) {
   return JSON.stringify(obj, Object.keys(obj).sort());
-}
-
-export function useScrollBottom(callback: () => void) {
-  useEffect(() => {
-    const handler = () => {
-      const totalHeight = document.documentElement.scrollHeight;
-      const scrollY = window.scrollY;
-      const windowHeight = window.innerHeight;
-      const remaining = totalHeight - scrollY - windowHeight;
-
-      if (remaining < 100) {
-        callback();
-      }
-    };
-
-    document.addEventListener('scroll', handler);
-
-    return () => {
-      document.removeEventListener('scroll', handler);
-    }
-  }, [callback]);
 }
 
 export function urlToName(url: string) {

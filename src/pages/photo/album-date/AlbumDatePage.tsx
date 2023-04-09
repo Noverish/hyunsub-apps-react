@@ -12,7 +12,7 @@ import { PageData } from "src/model/api";
 import { PhotoDate } from "src/model/photo";
 import { RootState, useDispatch } from "src/redux";
 import { GlobalActions } from 'src/redux/global';
-import { useScrollBottom } from 'src/utils';
+import useScrollBottom from 'src/hooks/scroll-bottom';
 
 const updateDate = (albumId: number, data: PhotoDate, date: string) => async (dispatch: Dispatch, getState: () => RootState) => {
   dispatch(GlobalActions.update({ loading: true }));

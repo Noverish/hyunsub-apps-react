@@ -9,7 +9,7 @@ import ApparelList from 'src/components/apparel/ApparelList';
 import CommonContainer from 'src/components/common/header/CommonContainer';
 import ListLoadingIndicator from 'src/components/common/ListLoadingIndicator';
 import ApparelRoutes from 'src/pages/apparel/ApparelRoutes';
-import { useScrollBottom } from 'src/utils';
+import useScrollBottom from 'src/hooks/scroll-bottom';
 import { setDocumentTitle } from 'src/utils/services';
 
 export default function ApparelListPage() {

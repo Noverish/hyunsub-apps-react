@@ -1,21 +1,20 @@
 import { t } from 'i18next';
-import { useParams, useSearchParams } from 'react-router-dom';
-import albumDetailV2Api from 'src/api/photo/album-detail-v2';
+import { useSearchParams } from 'react-router-dom';
 import PhotoViewer from 'src/components/photo/PhotoViewer';
 import { setDocumentTitle } from 'src/utils/services';
+import { useAlbumDetailPage } from '../album-detail-2/AlbumDetailHooks';
 
 export default function AlbumViewer2Page() {
-  const albumId = useParams().albumId!!;
-  const photoId = useSearchParams()[0].get('photoId') || undefined;
+  const { album, photos } = useAlbumDetailPage();
 
-  const album = albumDetailV2Api.useApi({ albumId });
+  const photoId = useSearchParams()[0].get('photoId') || undefined;
 
   setDocumentTitle(t('photo.page.album-viewer.title', [album.name]));
 
   return (
     <div id="AlbumViewerPage">
       <PhotoViewer
-        photos={album.photos}
+        photos={photos}
         photoId={photoId}
       />
     </div>

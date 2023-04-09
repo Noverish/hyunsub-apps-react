@@ -34,7 +34,7 @@ interface GenerateApiResult<P, R> {
 }
 
 interface GenerateInfiniteApiResult<P, R> {
-  useInfiniteApi: (p: P) => UseInfiniteQueryResult<PageData<R>>;
+  useInfiniteApi: (p: P, initialData?: PageData<R>) => UseInfiniteQueryResult<PageData<R>>;
   updateCache: (p: P, updater: (list: R[]) => R[]) => void;
   key: (p: P) => string[];
 }
@@ -105,13 +105,18 @@ export function generateInfiniteQuery<P, R>(option: GenerateInfiniteApiOption<P>
   const key = (p: P) => [option.key(p), toJSON(p)];
   const api = generateApi<P & PageParam, PageData<R>>(option.api);
 
-  const useInfiniteApi = (p: P) => {
+  const useInfiniteApi = (p: P, initialData?: PageData<R>) => {
+    const data = initialData
+      ? { pageParams: [undefined], pages: [initialData] }
+      : undefined
+
     const result = useInfiniteQuery(
       key(p),
       ({ pageParam }) => api({ ...p, page: pageParam ?? 0 }),
       {
         getNextPageParam: (lastPage) => (lastPage.total <= (lastPage.page + 1) * lastPage.pageSize) ? undefined : (lastPage.page + 1),
         staleTime: Infinity,
+        initialData: data
       }
     );
 

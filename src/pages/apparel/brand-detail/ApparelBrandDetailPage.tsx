@@ -7,7 +7,7 @@ import ApparelHeader from 'src/components/apparel/ApparelHeader';
 import ApparelList from 'src/components/apparel/ApparelList';
 import CommonContainer from 'src/components/common/header/CommonContainer';
 import ListLoadingIndicator from 'src/components/common/ListLoadingIndicator';
-import { useScrollBottom } from 'src/utils';
+import useScrollBottom from 'src/hooks/scroll-bottom';
 import { setDocumentTitle } from 'src/utils/services';
 
 export default function ApparelBrandDetailPage() {

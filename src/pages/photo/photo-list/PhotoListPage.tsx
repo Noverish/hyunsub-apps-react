@@ -9,7 +9,7 @@ import { PhotoSelectContext, PhotoSelectProvider } from 'src/components/photo/ph
 import { useAlbumPhotoRegister, usePhotoListSelect, useToggleSelectMode } from 'src/components/photo/photo-list/PhotoListHooks';
 import PhotoListView from 'src/components/photo/photo-list/PhotoListView';
 import PhotoSelectActionModal from 'src/components/photo/photo-list/PhotoSelectActionModal';
-import { useScrollBottom } from 'src/utils';
+import useScrollBottom from 'src/hooks/scroll-bottom';
 import { setDocumentTitle } from 'src/utils/services';
 import PhotoRoutes from '../PhotoRoutes';
 

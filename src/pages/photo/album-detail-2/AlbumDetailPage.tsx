@@ -1,7 +1,6 @@
 import { t } from "i18next";
-import { useContext } from 'react';
 import { useParams } from "react-router-dom";
-import albumDetailV2Api from "src/api/photo/album-detail-v2";
+import ListLoadingIndicator from 'src/components/common/ListLoadingIndicator';
 import CommonContainer from 'src/components/common/header/CommonContainer';
 import PhotoListView from 'src/components/photo/photo-list/PhotoListView';
 import PhotoSelectActionModal from 'src/components/photo/photo-list/PhotoSelectActionModal';
@@ -9,36 +8,31 @@ import { PhotoSelectProvider } from 'src/components/photo/photo-list/PhotoSelect
 import { useBreakpointMobile } from "src/utils/breakpoint";
 import { setDocumentTitle } from 'src/utils/services';
 import PhotoRoutes from "../PhotoRoutes";
-import { AlbumDetailContext, AlbumDetailProvider } from "./AlbumDetailContext";
+import { AlbumDetailProvider } from "./AlbumDetailContext";
+import { useAlbumDetailPage } from "./AlbumDetailHooks";
 import AlbumDetailPageMobileHeader from "./component/AlbumDetailPageMobileHeader";
 
 import './AlbumDetailPage.scss';
 
 function AlbumDetailPage() {
   // hooks
-  const [{ albumId }] = useContext(AlbumDetailContext);
-  const album = albumDetailV2Api.useApi({ albumId });
+  const { album, photos, isFetching } = useAlbumDetailPage();
   const isMobile = useBreakpointMobile();
   setDocumentTitle(t('photo.page.album-detail.title', [album.name]));
+
+  const albumId = album.id;
+  const total = album.photos.total;
 
   // elements
   const titleSectionForDesktop = (
     <section className="title_section">
       <div className="album_name">{album.name}</div>
-      <div className="photo_num">{t('photo.page.album-detail.photo-num', [album.photos.length])}</div>
+      <div className="photo_num">{t('photo.page.album-detail.photo-num', [total])}</div>
     </section>
   )
 
   const titleSectionForMobile = (
-    <h2>{t('photo.page.album-detail.photo-num', [album.photos.length])}</h2>
-  )
-
-  const photoImageList = (
-    <PhotoListView
-      albumId={albumId}
-      previews={album.photos}
-      itemHref={(v) => PhotoRoutes.albumViewer2(albumId, v.id)}
-    />
+    <h2>{t('photo.page.album-detail.photo-num', [total])}</h2>
   )
 
   return (
@@ -46,7 +40,12 @@ function AlbumDetailPage() {
       <AlbumDetailPageMobileHeader />
       <CommonContainer>
         {isMobile ? titleSectionForMobile : titleSectionForDesktop}
-        {photoImageList}
+        <PhotoListView
+          albumId={albumId}
+          previews={photos}
+          itemHref={(v) => PhotoRoutes.albumViewer2(albumId, v.id)}
+        />
+        <ListLoadingIndicator isFetching={isFetching} />
       </CommonContainer>
     </div>
   )

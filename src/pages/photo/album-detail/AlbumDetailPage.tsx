@@ -12,7 +12,7 @@ import ListLoadingIndicator from 'src/components/common/ListLoadingIndicator';
 import PhotoThumbnail from 'src/components/photo/PhotoThumbnail';
 import { Photo } from 'src/model/photo';
 import routes from 'src/pages/photo/PhotoRoutes';
-import { useScrollBottom } from 'src/utils';
+import useScrollBottom from 'src/hooks/scroll-bottom';
 import { setDocumentTitle } from 'src/utils/services';
 
 interface Props {

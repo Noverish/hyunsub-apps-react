@@ -5,7 +5,7 @@ import CommonContainer from 'src/components/common/header/CommonContainer';
 import MobileHeader from 'src/components/common/header/MobileHeader';
 import LoadingSuspense from 'src/components/common/LoadingSuspense';
 import VideoHistoryItem from './components/VideoHistoryItem';
-import { useScrollBottom } from 'src/utils';
+import useScrollBottom from 'src/hooks/scroll-bottom';
 import ListLoadingIndicator from 'src/components/common/ListLoadingIndicator';
 
 function VideoHistoryList() {
