@@ -23,6 +23,8 @@
 
   .select_container {
     display: none;
+    flex-direction: column;
+    justify-content: space-between;
     background: linear-gradient(
       0deg,
       rgba(0, 0, 0, 0) 0%,
@@ -32,10 +34,12 @@
     );
 
     @include media-breakpoint-up(md) {
+      padding-top: 0.4rem;
       padding-left: 0.4rem;
       font-size: 1.5rem;
     }
     @include media-breakpoint-down(md) {
+      padding-top: 0.3rem;
       padding-left: 0.3rem;
       font-size: 1.25rem;
     }
@@ -48,19 +52,19 @@
       }
 
       .select_container {
-        display: block;
+        display: flex;
       }
     }
   }
 
   @include media-breakpoint-up(md) {
     &:hover .select_container {
-      display: block;
+      display: flex;
     }
 
     &.selected .select_container {
       background-color: rgba(255, 255, 255, .5);
-      display: block;
+      display: flex;
     }
 
     &:not(.selected) i:hover {

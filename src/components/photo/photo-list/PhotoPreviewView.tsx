@@ -52,7 +52,7 @@ export default function PhotoPreviewView(props: Props) {
   return (
     <Link to={href} className={cs('PhotoPreviewView', { selectMode, selected })} onClick={onClick} {...onLongClick()}>
       <div className="ratio ratio-1x1">
-        <img className="img-fluid" src={thumbnail} alt={id} />
+        <img className="img-fluid" src={thumbnail} alt={id} loading="lazy" />
         <div className="icon_container">
           {type === 'VIDEO' && <div className="icon_wrapper"><i className="fas fa-play"></i></div>}
         </div>

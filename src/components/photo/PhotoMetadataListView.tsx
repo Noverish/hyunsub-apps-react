@@ -8,10 +8,12 @@ interface Props {
 }
 
 export default function PhotoMetadataListView({ list }: Props) {
-  const rows = list.map(v => (
+  const rows = list.map((v, i) => (
     <tr>
+      <td>{i + 1}</td>
       <td>{v.photoId}</td>
       <td>{v.date}</td>
+      <td>{v.dateType}</td>
       <td>{v.userId}</td>
       <td>{v.name}</td>
       <td>{v.fileDt}</td>
@@ -32,8 +34,10 @@ export default function PhotoMetadataListView({ list }: Props) {
       <Table striped bordered hover variant="dark">
         <thead>
           <tr>
+            <th>#</th>
             <th>photoId</th>
             <th>date</th>
+            <th>dateType</th>
             <th>userId</th>
             <th>name</th>
             <th>fileDt</th>
