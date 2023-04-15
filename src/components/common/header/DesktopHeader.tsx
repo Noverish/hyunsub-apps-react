@@ -1,11 +1,10 @@
+import cs from 'classnames';
 import React from 'react';
 import { Dropdown } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { Link, To } from 'react-router-dom';
-import { useDispatch } from 'src/redux';
-import { logoutAction } from 'src/redux/actions';
-import cs from 'classnames';
 import { useBreakpointMobile } from 'src/utils/breakpoint';
+import useLogout from 'src/hooks/logout';
 
 import './DesktopHeader.scss';
 
@@ -40,13 +39,9 @@ const ProfileDropdownToggle = React.forwardRef<HTMLDivElement, React.DOMAttribut
 
 export default function DesktopHeader(props: DesktopHeaderProps) {
   const { menus, onSearch, dropdowns, title, noContainer } = props;
-  const dispatch = useDispatch();
   const { t } = useTranslation();
   const isMobile = useBreakpointMobile();
-
-  const onLogout = () => {
-    dispatch(logoutAction());
-  }
+  const logout = useLogout();
 
   if (isMobile) {
     return <></>
@@ -81,7 +76,7 @@ export default function DesktopHeader(props: DesktopHeaderProps) {
             <Dropdown.Menu variant="dark">
               {dropdownElements}
               <Dropdown.Divider />
-              <Dropdown.Item as="button" className="text-danger" onClick={onLogout}>{t('logout')}</Dropdown.Item>
+              <Dropdown.Item as="button" className="text-danger" onClick={logout}>{t('logout')}</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
         </div>

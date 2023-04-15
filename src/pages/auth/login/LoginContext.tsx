@@ -1,17 +1,17 @@
 import { Dispatch } from "@reduxjs/toolkit";
 import { AxiosError } from 'axios';
+import { t } from 'i18next';
 import ReCAPTCHA from "react-google-recaptcha";
 import loginApi, { LoginError, LoginParams } from 'src/api/auth/auth/login';
 import rsaKey from "src/api/auth/auth/rsa-key";
 import validUrl from "src/api/auth/auth/valid-url";
-import { t } from 'i18next';
 import { ErrorResponse } from "src/model/api";
-import routes from 'src/pages/auth/AuthRoutes';
+import router from 'src/pages/router';
 import { RootState } from 'src/redux';
 import { GlobalActions } from "src/redux/global";
 import { insertToast } from 'src/redux/toast';
+import AppConstant from "src/utils/constants";
 import { encrypt } from "src/utils/rsa-key";
-import router from 'src/pages/router';
 import { LoginFormState } from "./LoginPage";
 import { LoginActions } from "./LoginState";
 
@@ -51,7 +51,7 @@ export const loginAction = (params: LoginParameter) => async (dispatch: Dispatch
         router.navigate(url);
       }
     } else {
-      router.navigate(routes.my);
+      window.location.href = AppConstant.APPS_HOME;
     }
   } catch (err) {
     const payload = ((err as AxiosError<ErrorResponse>).response?.data.payload as LoginError);

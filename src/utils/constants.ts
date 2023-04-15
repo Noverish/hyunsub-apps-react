@@ -5,6 +5,8 @@ const AppConstant = {
   TOKEN_PUBLIC_KEY: '-----BEGIN PUBLIC KEY-----\nMIGbMBAGByqGSM49AgEGBSuBBAAjA4GGAAQAo4L53u7fUVlrp0u/PV/2uZLFxqj8r5CYp02N5jDzx7bcgi519x4lVWCmS1MWD5n+2tLPynXkEauWUNc5Kt1A7ccAv85CqJCrkg50VONgp7ElgJ5kY1TI9qahDK38m3xvAGhgzA9rinRdo9rjiKMXXDzf8MaC9kT/SzOb1uxAuhf8ORU=\n-----END PUBLIC KEY-----',
   TOKEN_PAYLOAD_FIELD: 'payload',
 
+  APPS_HOME: 'https://apps.hyunsub.kim',
+
   video: {
     EPISODE_PAGE_SIZE: 10,
 
