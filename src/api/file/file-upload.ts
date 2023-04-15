@@ -2,6 +2,7 @@ import { AxiosProgressEvent, AxiosRequestConfig } from 'axios';
 import AppConstant from 'src/utils/constants';
 import { generateApi } from "../generate-api";
 import { encodeURI, decode } from 'js-base64';
+import { sleep } from 'src/utils';
 
 export interface FileUploadParams {
   files: File[];
@@ -33,7 +34,7 @@ export interface FileUploadStatus {
 const pathNonce = Math.random().toString(36).substring(2, 8);
 const url = AppConstant.file.HOST + `/upload/multipart/${pathNonce}`
 
-const fileUploadInner = generateApi<FileUploadParams, FileUploadResult>(params => {
+const fileUpload = generateApi<FileUploadParams, FileUploadResult>(params => {
   const { files, progress } = params;
 
   const formData = new FormData();
@@ -85,13 +86,26 @@ const fileUploadInner = generateApi<FileUploadParams, FileUploadResult>(params =
 
 export default async function fileUploadApi(params: FileUploadParams) {
   const es = new EventSource(url, { withCredentials: true });
-  es.onmessage = (event: MessageEvent<string>) => {
+
+  es.addEventListener('data', (event: MessageEvent<string>) => {
     const result = JSON.parse(event.data);
     result.fileName = decode(result.fileName);
     params.callback?.(result);
-  }
+  });
 
-  await fileUploadInner(params);
+  await waitReady(es);
+
+  await fileUpload(params);
+
+  await sleep(1000);
 
   es.close();
+}
+
+function waitReady(es: EventSource) {
+  return new Promise<void>((resolve) => {
+    es.addEventListener('ready', () => {
+      resolve();
+    });
+  })
 }

@@ -33,6 +33,19 @@ export default function usePhotoUploadApi(callback: (result: PhotoUploadResult) 
     }
   }, [client, callback]);
 
+  useEffect(() => {
+    const timer = setInterval(() => {
+      client?.publish({
+        destination: `/ping`,
+        body: 'ping',
+      });
+    }, 5000);
+
+    return () => {
+      clearInterval(timer);
+    }
+  }, [client]);
+
   return (params: PhotoUploadParams) => {
     client?.publish({
       destination: `${destination}/request`,

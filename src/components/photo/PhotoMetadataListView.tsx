@@ -9,7 +9,7 @@ interface Props {
 
 export default function PhotoMetadataListView({ list }: Props) {
   const rows = list.map((v, i) => (
-    <tr>
+    <tr key={v.photoId}>
       <td>{i + 1}</td>
       <td>{v.photoId}</td>
       <td>{v.date}</td>
