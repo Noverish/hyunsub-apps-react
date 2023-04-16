@@ -79,7 +79,7 @@ export default function RegisterPage() {
         <form className="d-grid gap-3" onSubmit={handleSubmit(onSubmit)}>
           <div>
             <label className="form-label">{t('auth.id')}</label>
-            <input type="text" className={cs('form-control', { 'is-invalid': usernameErrMsg })} {...usernameRegister} />
+            <input type="text" className={cs('form-control', { 'is-invalid': usernameErrMsg })} {...usernameRegister} autoCapitalize="none" />
             <div className="invalid-feedback">{usernameErrMsg}</div>
           </div>
           <div>
