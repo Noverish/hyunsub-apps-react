@@ -1,7 +1,7 @@
 import { t } from 'i18next';
 import { useContext } from 'react';
 import { useParams } from 'react-router-dom';
-import albumDetailV2Api from 'src/api/photo/album-detail-v2';
+import albumDetailApi from 'src/api/photo/album-detail';
 import CommonContainer from 'src/components/common/header/CommonContainer';
 import MobileHeader from 'src/components/common/header/MobileHeader';
 import { PhotoUploadContext, PhotoUploadProvider } from 'src/pages/photo/upload/PhotoUploadContext';
@@ -12,7 +12,7 @@ import { setDocumentTitle } from 'src/utils/services';
 function AlbumUploadPage() {
   const albumId = useParams().albumId!!;
   const [state] = useContext(PhotoUploadContext);
-  const album = albumDetailV2Api.useApi({ albumId });
+  const album = albumDetailApi.useApi({ albumId });
 
   setDocumentTitle(t('PhotoUploadPage.title'));
 

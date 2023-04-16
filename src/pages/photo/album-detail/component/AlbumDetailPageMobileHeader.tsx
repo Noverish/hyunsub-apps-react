@@ -1,8 +1,8 @@
 import MobileHeader from 'src/components/common/header/MobileHeader';
 import { useContext } from 'react';
 import { PhotoSelectContext } from 'src/components/photo/photo-list/PhotoSelectContext';
-import { AlbumDetailContext } from 'src/pages/photo/album-detail-2/AlbumDetailContext';
-import albumDetailV2Api from 'src/api/photo/album-detail-v2';
+import { AlbumDetailContext } from 'src/pages/photo/album-detail/AlbumDetailContext';
+import albumDetailApi from 'src/api/photo/album-detail';
 import { MobileHeaderButton } from 'src/components/common/header/MobileHeader';
 import router from 'src/pages/router';
 import PhotoRoutes from 'src/pages/photo/PhotoRoutes';
@@ -13,12 +13,12 @@ export default function AlbumDetailPageMobileHeader() {
   // hooks
   const [{ selectMode, selects }, setPhotoSelectState] = useContext(PhotoSelectContext);
   const [{ albumId }] = useContext(AlbumDetailContext);
-  const album = albumDetailV2Api.useApi({ albumId });
+  const album = albumDetailApi.useApi({ albumId });
   const toggleSelectMode = useToggleSelectMode();
 
   // functions
   const navigateAlbumUpload = () => {
-    router.navigate(PhotoRoutes.albumUpload2(albumId))
+    router.navigate(PhotoRoutes.albumUpload(albumId))
   }
 
   // elements

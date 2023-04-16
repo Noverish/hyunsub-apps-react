@@ -2,15 +2,15 @@ import { Album } from "src/model/photo";
 import { generateQuery } from "../generate-api";
 
 export interface AlbumDetailParams {
-  albumId: number;
+  albumId: string;
 }
 
 const albumDetailApi = generateQuery<AlbumDetailParams, Album>({
   api: (params) => ({
-    url: `/api/v1/albums/${params.albumId}`,
+    url: `/api/v2/albums/${params.albumId}`,
     method: 'GET',
   }),
-  key: () => 'albumDetail',
+  key: () => 'albumDetailApi',
 })
 
 export default albumDetailApi;

@@ -5,17 +5,11 @@ import PhotoTabBar from 'src/components/photo/header/PhotoTabBar';
 import routes from './PhotoRoutes';
 
 const AlbumListPage = lazy(() => import('src/pages/photo/album-list/AlbumListPage'));
-const AlbumList2Page = lazy(() => import('src/pages/photo/album-list-2/AlbumListPage'));
 const AlbumDetailPage = lazy(() => import('src/pages/photo/album-detail/AlbumDetailPage'));
-const AlbumDetail2Page = lazy(() => import('src/pages/photo/album-detail-2/AlbumDetailPage'));
-const AlbumViewerPage = lazy(() => import('src/pages/photo/album-viewer/AlbumViewerPage'));
-const AlbumViewer2Page = lazy(() => import('src/pages/photo/album-viewer-2/AlbumViewer2Page'));
-const AlbumUploadPage = lazy(() => import('src/pages/photo/album-upload/AlbumUploadPage'));
-const AlbumUploadPage2 = lazy(() => import('src/pages/photo/upload/AlbumUploadPage'));
+const AlbumViewerPage = lazy(() => import('src/pages/photo/album-viewer/AlbumViewer2Page'));
+const AlbumUploadPage = lazy(() => import('src/pages/photo/upload/AlbumUploadPage'));
 const AlbumDatePage = lazy(() => import('src/pages/photo/album-date/AlbumDatePage'));
-const AlbumDatePage2 = lazy(() => import('src/pages/photo/album-date-2/AlbumDatePage'));
 const PhotoListPage = lazy(() => import('src/pages/photo/photo-list/PhotoListPage'));
-const PhotoOriginalPage = lazy(() => import('src/pages/photo/photo-original/PhotoOriginalPage'));
 const PhotoMenuPage = lazy(() => import('src/pages/photo/menu/PhotoMenuPage'));
 const PhotoUploadPage = lazy(() => import('src/pages/photo/upload/PhotoUploadPage'));
 const PhotoViewerPage = lazy(() => import('src/pages/photo/photo-viewer/PhotoViewerPage'));
@@ -35,18 +29,12 @@ export const PhotoRouteObjects: RouteObject[] = [
     children: [
       { path: '/', element: <Navigate to={routes.albums} /> },
       { path: routes.albums, element: <AlbumListPage /> },
-      { path: routes.albums2, element: <AlbumList2Page /> },
       { path: routes.albumDetailRoute, element: <AlbumDetailPage /> },
-      { path: routes.albumDetailRoute2, element: <AlbumDetail2Page /> },
       { path: routes.albumViewerRoute, element: <AlbumViewerPage /> },
-      { path: routes.albumViewerRoute2, element: <AlbumViewer2Page /> },
       { path: routes.albumUploadRoute, element: <AlbumUploadPage /> },
-      { path: routes.albumUploadRoute2, element: <AlbumUploadPage2 /> },
       { path: routes.albumDateRoute, element: <AlbumDatePage /> },
-      { path: routes.albumDateRoute2, element: <AlbumDatePage2 /> },
       { path: routes.photoViewerRoute, element: <PhotoViewerPage /> },
       { path: routes.photos, element: <PhotoListPage /> },
-      { path: routes.photoOriginalRoute, element: <PhotoOriginalPage /> },
       { path: routes.upload, element: <PhotoUploadPage /> },
       { path: routes.menu, element: <PhotoMenuPage /> },
     ]

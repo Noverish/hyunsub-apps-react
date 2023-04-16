@@ -2,7 +2,7 @@ import { t } from 'i18next';
 import { useSearchParams } from 'react-router-dom';
 import PhotoViewer from 'src/components/photo/PhotoViewer';
 import { setDocumentTitle } from 'src/utils/services';
-import { useAlbumDetailPage } from '../album-detail-2/AlbumDetailHooks';
+import { useAlbumDetailPage } from '../album-detail/AlbumDetailHooks';
 
 export default function AlbumViewer2Page() {
   const { album, photos } = useAlbumDetailPage();

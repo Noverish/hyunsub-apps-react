@@ -26,7 +26,7 @@ export default function PhotoListView({ albumId, previews, itemHref: href }: Pro
   // functions
   const navigateAlbumUpload = () => {
     if (albumId) {
-      router.navigate(PhotoRoutes.albumUpload2(albumId));
+      router.navigate(PhotoRoutes.albumUpload(albumId));
     } else {
       router.navigate(PhotoRoutes.upload);
     }

@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import albumPhotoMetadataApi from 'src/api/photo/album-photo-metadata';
 import PhotoMetadataListView from 'src/components/photo/PhotoMetadataListView';
-import { AlbumDetailContext } from 'src/pages/photo/album-detail-2/AlbumDetailContext';
+import { AlbumDetailContext } from 'src/pages/photo/album-detail/AlbumDetailContext';
 
 export default function AlbumPhotoMetadataListContainer() {
   // hooks

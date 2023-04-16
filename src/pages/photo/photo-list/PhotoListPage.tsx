@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import photoListApi from 'src/api/photo/photo-list';
 import CommonContainer from 'src/components/common/header/CommonContainer';
 import MobileHeader, { MobileHeaderButton } from 'src/components/common/header/MobileHeader';
-import AlbumSelectModal from 'src/components/photo/AlbumSelectModal';
+import AlbumSelectModal from 'src/components/photo/modal/AlbumSelectModal';
 import { PhotoSelectContext, PhotoSelectProvider } from 'src/components/photo/photo-list/PhotoSelectContext';
 import { useAlbumPhotoRegister, usePhotoListSelect, useToggleSelectMode } from 'src/components/photo/photo-list/PhotoListHooks';
 import PhotoListView from 'src/components/photo/photo-list/PhotoListView';

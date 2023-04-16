@@ -1,80 +1,65 @@
-import flatten from 'lodash/flatten';
-import groupBy from 'lodash/groupBy';
-import { useEffect } from 'react';
-import { Button } from 'react-bootstrap';
-import { useTranslation } from 'react-i18next';
-import { Link, useParams } from 'react-router-dom';
-import albumDetailApi from 'src/api/photo/album-detail';
-import albumPhotosApi from 'src/api/photo/album-photos';
-import CommonContainer from 'src/components/common/header/CommonContainer';
-import MobileHeader from 'src/components/common/header/MobileHeader';
+import { t } from "i18next";
+import { useParams } from "react-router-dom";
 import ListLoadingIndicator from 'src/components/common/ListLoadingIndicator';
-import PhotoThumbnail from 'src/components/photo/PhotoThumbnail';
-import { Photo } from 'src/model/photo';
-import routes from 'src/pages/photo/PhotoRoutes';
-import useScrollBottom from 'src/hooks/scroll-bottom';
+import CommonContainer from 'src/components/common/header/CommonContainer';
+import PhotoListView from 'src/components/photo/photo-list/PhotoListView';
+import PhotoSelectActionModal from 'src/components/photo/photo-list/PhotoSelectActionModal';
+import { PhotoSelectProvider } from 'src/components/photo/photo-list/PhotoSelectContext';
+import { useBreakpointMobile } from "src/utils/breakpoint";
 import { setDocumentTitle } from 'src/utils/services';
+import PhotoRoutes from "../PhotoRoutes";
+import { AlbumDetailProvider } from "./AlbumDetailContext";
+import { useAlbumDetailPage } from "./AlbumDetailHooks";
+import AlbumDetailPageMobileHeader from "./component/AlbumDetailPageMobileHeader";
 
-interface Props {
-  date: string;
-  photos: Photo[];
-}
+import './AlbumDetailPage.scss';
 
-function PhotoGroupPerDay({ date, photos }: Props) {
-  const albumId = parseInt(useParams().albumId!!, 10);
+function AlbumDetailPage() {
+  // hooks
+  const { album, photos, isFetching } = useAlbumDetailPage();
+  const isMobile = useBreakpointMobile();
+  setDocumentTitle(t('photo.page.album-detail.title', [album.name]));
 
-  const photoItems = photos.map(v => (
-    <PhotoThumbnail key={v.id} albumId={albumId} photo={v} />
-  ))
+  const albumId = album.id;
+  const total = album.photos.total;
+
+  // elements
+  const titleSectionForDesktop = (
+    <section className="title_section">
+      <div className="album_name">{album.name}</div>
+      <div className="photo_num">{t('photo.page.album-detail.photo-num', [total])}</div>
+    </section>
+  )
+
+  const titleSectionForMobile = (
+    <h2>{t('photo.page.album-detail.photo-num', [total])}</h2>
+  )
 
   return (
-    <div>
-      <h3>{date}</h3>
-      <div className="row g-1 row-cols-3 row-cols-md-4 row-cols-lg-5 row-cols-xl-6">
-        {photoItems}
-      </div>
+    <div className="AlbumDetailPage">
+      <AlbumDetailPageMobileHeader />
+      <CommonContainer>
+        {isMobile ? titleSectionForMobile : titleSectionForDesktop}
+        <PhotoListView
+          albumId={albumId}
+          previews={photos}
+          itemHref={(v) => PhotoRoutes.albumViewer(albumId, v.id)}
+        />
+        <ListLoadingIndicator isFetching={isFetching} />
+      </CommonContainer>
     </div>
   )
 }
 
-export default function AlbumDetailPage() {
-  const { t } = useTranslation();
-  const albumId = parseInt(useParams().albumId!!, 10);
-
-  const album = albumDetailApi.useApi({ albumId });
-  const { data, fetchNextPage, isFetching } = albumPhotosApi.useInfiniteApi({ albumId });
-
-  useEffect(() => {
-    setDocumentTitle(t('photo.page.album-detail.title', [album.name]));
-  }, [t, album.name]);
-
-  useScrollBottom(() => {
-    if (!isFetching) {
-      fetchNextPage();
-    }
-  });
-
-  const photos = flatten(data?.pages.map(v => v.data) ?? []);
-  const photoMap = groupBy(photos, v => v.date.substring(0, 10));
-  const groups = Object.entries(photoMap).map(([date, photos]) => (
-    <PhotoGroupPerDay key={date} date={date} photos={photos} />
-  ));
+export default function AlbumDetailIndex() {
+  const albumId = useParams().albumId!!;
 
   return (
-    <div id="AlbumDetailPage">
-      <MobileHeader title={album.name} back />
-      <CommonContainer>
-        <Link to={routes.albumUpload(albumId)} style={{ float: 'right' }}>
-          <Button>{t('photo.page.album-detail.upload')}</Button>
-        </Link>
-        <h1>{album.name}</h1>
-        <hr />
-        <h2>{t('photo.page.album-detail.photo-num', [album.photos])}</h2>
-        <div className="d-grid gap-3">
-          {groups}
-        </div>
-        <ListLoadingIndicator isFetching={isFetching} />
-      </CommonContainer>
-    </div>
+    <AlbumDetailProvider initialState={{ albumId }}>
+      <PhotoSelectProvider>
+        <AlbumDetailPage />
+        <PhotoSelectActionModal />
+      </PhotoSelectProvider>
+    </AlbumDetailProvider>
   )
 }

@@ -1,6 +1,6 @@
 import { t } from "i18next";
 import { Modal, Row } from "react-bootstrap";
-import albumListV2Api from 'src/api/photo/album-list-v2';
+import albumListApi from 'src/api/photo/album-list';
 import AlbumPreviewView from 'src/components/photo/AlbumPreviewView';
 import { AlbumPreview } from "src/model/photo";
 
@@ -11,7 +11,7 @@ interface Props {
 }
 
 export default function AlbumSelectModal({ show, onHide, onClick }: Props) {
-  const albums = albumListV2Api.useApi({});
+  const albums = albumListApi.useApi({});
 
   const elements = albums.map(v => (
     <AlbumPreviewView key={v.id} preview={v} onClick={onClick} />

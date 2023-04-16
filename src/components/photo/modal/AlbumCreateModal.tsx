@@ -11,13 +11,17 @@ interface Props {
 type FormState = AlbumCreateParams;
 
 export default function AlbumCreateModal({ show, callback }: Props) {
-  const { register, handleSubmit } = useForm<FormState>();
+  const { register, handleSubmit, reset } = useForm<FormState>();
 
   const onSubmit: SubmitHandler<FormState> = (state: FormState) => {
+    reset();
     callback(state);
   };
 
-  const onHide = () => callback();
+  const onHide = () => {
+    reset();
+    callback()
+  };
 
   return (
     <Modal className="AlbumCreateModal" show={show} onHide={onHide} centered>
