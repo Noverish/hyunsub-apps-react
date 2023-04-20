@@ -5,6 +5,7 @@ import { dispatch } from 'src/redux';
 import { GlobalActions } from 'src/redux/global';
 import { PhotoSelectContext } from './PhotoSelectContext';
 import albumThumbnailApi from 'src/api/photo/album-thumbnail';
+import albumListApi from 'src/api/photo/album-list';
 
 export function usePhotoListSelect(previews: PhotoPreview[]) {
   const [state, setState] = useContext(PhotoSelectContext);
@@ -25,14 +26,16 @@ export function usePhotoListSelect(previews: PhotoPreview[]) {
     }
 
     if (index < 0) {
-      selects.push(preview);
-      setState({ lastSelected: preview });
+      setState(s => {
+        s.selects.push(preview);
+        s.lastSelected = preview;
+      })
     } else {
-      selects.splice(index, 1);
-      setState({ lastSelected: undefined });
+      setState(s => {
+        s.selects.splice(index, 1);
+        s.lastSelected = undefined;
+      })
     }
-
-    setState({ selects: [...selects] });
   }
 
   return { selects, onSelect, selectMode };
@@ -80,6 +83,7 @@ export function useAlbumPhotoRegister() {
 
 export function useAlbumThumbnailRegister(albumId?: string) {
   const [state, setState] = useContext(PhotoSelectContext);
+  const toggleSelectMode = useToggleSelectMode();
 
   if (!albumId) {
     return undefined;
@@ -92,10 +96,18 @@ export function useAlbumThumbnailRegister(albumId?: string) {
   const photo = state.selects[0];
 
   return async () => {
-    setState({ showSelectActionModal: false });
     dispatch(GlobalActions.update({ loading: true }));
 
-    await albumThumbnailApi({ albumId, photoId: photo.id });
+    setState({ showSelectActionModal: false });
+    toggleSelectMode();
+
+    const album = await albumThumbnailApi({ albumId, photoId: photo.id });
+
+    albumListApi.updateCache2({}, (cache) => {
+      if (cache.id === album.id) {
+        cache.thumbnail = album.thumbnail;
+      }
+    })
 
     dispatch(GlobalActions.update({ loading: false }));
   }

@@ -1,5 +1,5 @@
 import { lazy } from 'react';
-import { Navigate, Outlet, RouteObject, ScrollRestoration } from 'react-router-dom';
+import { Navigate, Outlet, RouteObject } from 'react-router-dom';
 import PhotoDesktopHeader from 'src/components/photo/header/PhotoDesktopHeader';
 import PhotoTabBar from 'src/components/photo/header/PhotoTabBar';
 import routes from './PhotoRoutes';
@@ -15,7 +15,6 @@ const PhotoUploadPage = lazy(() => import('src/pages/photo/upload/PhotoUploadPag
 const PhotoViewerPage = lazy(() => import('src/pages/photo/photo-viewer/PhotoViewerPage'));
 
 export const PhotoRouteObjects: RouteObject[] = [
-  { path: routes.photoViewerRoute, element: <PhotoViewerPage /> },
   {
     path: '/',
     element: (
@@ -23,7 +22,6 @@ export const PhotoRouteObjects: RouteObject[] = [
         <PhotoDesktopHeader />
         <PhotoTabBar />
         <Outlet />
-        <ScrollRestoration />
       </>
     ),
     children: [
@@ -34,8 +32,9 @@ export const PhotoRouteObjects: RouteObject[] = [
       { path: routes.albumUploadRoute, element: <AlbumUploadPage /> },
       { path: routes.albumDateRoute, element: <AlbumDatePage /> },
       { path: routes.photos, element: <PhotoListPage /> },
+      { path: routes.photoViewerRoute, element: <PhotoViewerPage /> },
       { path: routes.upload, element: <PhotoUploadPage /> },
       { path: routes.menu, element: <PhotoMenuPage /> },
     ]
-  }
+  },
 ]

@@ -1,4 +1,4 @@
-import { generateContext } from 'src/utils/context';
+import { generateStateContext } from 'src/utils/context';
 
 interface State {
   showSetting: boolean;
@@ -16,4 +16,4 @@ const initialState: State = {
   page: 0,
 };
 
-export const [VideoDetailContext, VideoDetailProvider] = generateContext(initialState);
+export const [VideoDetailContext, VideoDetailProvider] = generateStateContext(initialState);

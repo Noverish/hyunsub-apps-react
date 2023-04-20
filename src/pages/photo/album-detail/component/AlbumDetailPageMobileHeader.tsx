@@ -1,24 +1,21 @@
-import MobileHeader from 'src/components/common/header/MobileHeader';
-import { useContext } from 'react';
-import { PhotoSelectContext } from 'src/components/photo/photo-list/PhotoSelectContext';
-import { AlbumDetailContext } from 'src/pages/photo/album-detail/AlbumDetailContext';
-import albumDetailApi from 'src/api/photo/album-detail';
-import { MobileHeaderButton } from 'src/components/common/header/MobileHeader';
-import router from 'src/pages/router';
-import PhotoRoutes from 'src/pages/photo/PhotoRoutes';
-import { useToggleSelectMode } from 'src/components/photo/photo-list/PhotoListHooks';
 import { t } from 'i18next';
+import { useContext } from 'react';
+import MobileHeader, { MobileHeaderButton } from 'src/components/common/header/MobileHeader';
+import { useToggleSelectMode } from 'src/components/photo/photo-list/PhotoListHooks';
+import { PhotoSelectContext } from 'src/components/photo/photo-list/PhotoSelectContext';
+import PhotoRoutes from 'src/pages/photo/PhotoRoutes';
+import { useAlbumDetailContext } from 'src/pages/photo/album-detail/AlbumDetailContext';
+import router from 'src/pages/router';
 
 export default function AlbumDetailPageMobileHeader() {
   // hooks
   const [{ selectMode, selects }, setPhotoSelectState] = useContext(PhotoSelectContext);
-  const [{ albumId }] = useContext(AlbumDetailContext);
-  const album = albumDetailApi.useApi({ albumId });
+  const album = useAlbumDetailContext();
   const toggleSelectMode = useToggleSelectMode();
 
   // functions
   const navigateAlbumUpload = () => {
-    router.navigate(PhotoRoutes.albumUpload(albumId))
+    router.navigate(PhotoRoutes.albumUpload(album.id))
   }
 
   // elements

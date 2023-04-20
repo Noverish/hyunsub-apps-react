@@ -1,11 +1,4 @@
-import { generateContext } from 'src/utils/context';
+import { Album } from 'src/model/photo';
+import { generateValueContext } from 'src/utils/context';
 
-export interface State {
-  albumId: string;
-}
-
-const initialState: State = {
-  albumId: '',
-}
-
-export const [AlbumDetailContext, AlbumDetailProvider] = generateContext(initialState);
+export const [AlbumDetailContext, AlbumDetailProvider, useAlbumDetailContext] = generateValueContext<Album>();

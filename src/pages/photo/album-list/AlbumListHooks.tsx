@@ -7,11 +7,9 @@ export function useAlbumCreate() {
   return async (params: AlbumCreateParams) => {
     dispatch(GlobalActions.update({ loading: true }));
 
-    const result = await albumCreateApi(params);
+    const newAlbum = await albumCreateApi(params);
 
-    albumListApi.updateCache({}, (cache) => {
-      cache.splice(0, 0, result);
-    })
+    albumListApi.insertToCache({}, newAlbum);
 
     dispatch(GlobalActions.update({ loading: false }));
   }

@@ -1,5 +1,5 @@
 import { PhotoPreview } from "src/model/photo";
-import { generateContext } from "src/utils/context";
+import { generateStateContext } from "src/utils/context";
 
 interface State {
   selects: PhotoPreview[];
@@ -14,6 +14,6 @@ const initialState: State = {
   selectMode: false,
   showSelectActionModal: false,
   showAlbumSelectModal: false,
-}
+};
 
-export const [PhotoSelectContext, PhotoSelectProvider] = generateContext(initialState);
+export const [PhotoSelectContext, PhotoSelectProvider] = generateStateContext(initialState);

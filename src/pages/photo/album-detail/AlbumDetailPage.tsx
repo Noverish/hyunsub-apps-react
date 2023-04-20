@@ -10,6 +10,7 @@ import PhotoRoutes from "../PhotoRoutes";
 import { AlbumDetailProvider } from "./AlbumDetailContext";
 import { useAlbumDetailPage } from "./AlbumDetailHooks";
 import AlbumDetailPageMobileHeader from "./component/AlbumDetailPageMobileHeader";
+import albumDetailApi from 'src/api/photo/album-detail';
 
 import './AlbumDetailPage.scss';
 
@@ -52,9 +53,10 @@ function AlbumDetailPage() {
 
 export default function AlbumDetailIndex() {
   const albumId = useParams().albumId!!;
+  const album = albumDetailApi.useApi({ albumId });
 
   return (
-    <AlbumDetailProvider initialState={{ albumId }}>
+    <AlbumDetailProvider value={album}>
       <PhotoSelectProvider>
         <AlbumDetailPage />
       </PhotoSelectProvider>

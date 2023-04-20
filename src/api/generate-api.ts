@@ -35,7 +35,10 @@ interface GenerateApiResult<P, R> {
 
 interface GenerateInfiniteApiResult<P, R> {
   useInfiniteApi: (p: P, initialData?: PageData<R>) => UseInfiniteQueryResult<PageData<R>>;
+  useInfiniteApi2: (p: P, initialData?: PageData<R>) => UseInfiniteQueryResult<PageData<R>> & { infiniteData: R[] };
   updateCache: (p: P, updater: (list: R[]) => R[]) => void;
+  updateCache2: (p: P, updater: (cache: R) => void) => void;
+  insertToCache: (p: P, newItem: R) => void;
   key: (p: P) => string[];
 }
 
@@ -129,10 +132,31 @@ export function generateInfiniteQuery<P, R>(option: GenerateInfiniteApiOption<P>
 
     return result;
   }
+
+  const useInfiniteApi2 = (p: P, initialData?: PageData<R>) => {
+    const data = initialData
+      ? { pageParams: [undefined], pages: [initialData] }
+      : undefined
+
+    const result = useInfiniteQuery(
+      key(p),
+      ({ pageParam }) => api({ ...p, page: pageParam ?? 0 }),
+      {
+        getNextPageParam: (lastPage) => (lastPage.total <= (lastPage.page + 1) * lastPage.pageSize) ? undefined : (lastPage.page + 1),
+        staleTime: Infinity,
+        initialData: data
+      }
+    );
+
+    const infiniteData = result.data?.pages.flatMap(v => v.data) ?? [];
+
+    return { infiniteData, ...result };
+  }
+
   const updateCache = (p: P, updater: (list: R[]) => R[]) => {
     QueryClient.setQueryData<InfiniteData<PageData<R>>>(key(p), (cache) => {
       if (!cache) {
-        return cache;
+        return undefined;
       }
 
       return {
@@ -142,12 +166,31 @@ export function generateInfiniteQuery<P, R>(option: GenerateInfiniteApiOption<P>
           data: updater(data.data),
         })),
       }
-    })
+    });
+  }
+
+  const updateCache2 = (p: P, updater: (list: R) => void) => {
+    QueryClient.setQueryData<InfiniteData<PageData<R>>>(key(p), (cache) => {
+      cache?.pages.forEach((page) => {
+        page.data.forEach(item => updater(item));
+      });
+      return cache;
+    });
+  }
+
+  const insertToCache = (p: P, newItem: R) => {
+    QueryClient.setQueryData<InfiniteData<PageData<R>>>(key(p), (cache) => {
+      cache?.pages[0]?.data.splice(0, 0, newItem);
+      return cache;
+    });
   }
 
   return {
     useInfiniteApi,
+    useInfiniteApi2,
     updateCache,
+    updateCache2,
+    insertToCache,
     key,
   };
 }

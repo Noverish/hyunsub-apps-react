@@ -1,5 +1,5 @@
 import { lazy } from 'react';
-import { Outlet, RouteObject, ScrollRestoration } from 'react-router-dom';
+import { Outlet, RouteObject } from 'react-router-dom';
 import VideoDesktopkHeader from 'src/components/video/header/VideoDesktopHeader';
 import VideoTabBar from 'src/components/video/header/VideoTabBar';
 import VideoRoutes from './VideoRoutes';
@@ -21,7 +21,6 @@ export const VideoRotueObjects: RouteObject[] = [
         <VideoDesktopkHeader />
         <VideoTabBar />
         <Outlet />
-        <ScrollRestoration />
       </>
     ),
     children: [

@@ -1,8 +1,6 @@
-import { Suspense, useEffect } from 'react';
+import { useEffect } from 'react';
 import { RouterProvider } from 'react-router-dom';
 import ToastDisplay from './components/toast/ToastDisplay';
-import ErrorBoundary from './pages/common/ErrorBoundary';
-import LoadingPage from './pages/common/LoadingPage';
 import LoadingPageDim from './pages/common/LoadingPageDim';
 import router from './pages/router';
 import { useDispatch, useSelector } from './redux';
@@ -20,13 +18,11 @@ function App() {
   }, [dispatch]);
 
   return (
-    <ErrorBoundary>
-      <Suspense fallback={<LoadingPage />}>
-        <RouterProvider router={router} />
-        <ToastDisplay />
-        {loading && <LoadingPageDim />}
-      </Suspense>
-    </ErrorBoundary>
+    <>
+      <RouterProvider router={router} />
+      <ToastDisplay />
+      {loading && <LoadingPageDim />}
+    </>
   );
 }
 

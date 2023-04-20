@@ -1,7 +1,7 @@
 import { AlbumPreview } from "src/model/photo";
-import { generateQuery } from "../generate-api";
+import { generateInfiniteQuery } from "../generate-api";
 
-const albumListApi = generateQuery<{}, AlbumPreview[]>({
+const albumListApi = generateInfiniteQuery<{}, AlbumPreview>({
   api: () => ({
     url: '/api/v2/albums',
     method: 'GET',

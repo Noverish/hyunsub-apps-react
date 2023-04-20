@@ -1,4 +1,4 @@
-import { generateContext } from 'src/utils/context';
+import { generateStateContext } from 'src/utils/context';
 
 interface State {
   seed: number;
@@ -10,4 +10,4 @@ const initialState: State = {
   showSortModal: false,
 };
 
-export const [VideoListContext, VideoListProvider] = generateContext(initialState);
+export const [VideoListContext, VideoListProvider] = generateStateContext(initialState);

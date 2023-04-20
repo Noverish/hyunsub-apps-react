@@ -1,5 +1,5 @@
 import { PhotoPreview } from 'src/model/photo';
-import { generateContext } from 'src/utils/context';
+import { generateStateContext } from 'src/utils/context';
 
 export interface PhotoUploadFileItem {
   file: File;
@@ -22,4 +22,4 @@ const initialState: State = {
   uploading: false,
 };
 
-export const [PhotoUploadContext, PhotoUploadProvider] = generateContext(initialState);
+export const [PhotoUploadContext, PhotoUploadProvider] = generateStateContext(initialState);

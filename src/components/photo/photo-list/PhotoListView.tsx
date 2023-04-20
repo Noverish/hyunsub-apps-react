@@ -81,13 +81,13 @@ export default function PhotoListView({ albumId, previews, itemHref: href }: Pro
         <Button onClick={showSelectModal}><i className="fas fa-ellipsis-h" /></Button>
         <span className="select_status">{t('n-selected', [selects.length])}</span>
       </>}
+      <hr />
     </div>
   )
 
   return (
     <div className="PhotoListView">
       {isMobile || topBtnsForDesktop}
-      <hr />
       <Row className="g-1 row-cols-3 row-cols-sm-4 row-cols-md-5 row-cols-lg-6">
         {elements}
       </Row>

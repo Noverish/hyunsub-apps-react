@@ -22,6 +22,7 @@
     "bootstrap": "^5.2.3",
     "classnames": "^2.3.2",
     "i18next": "^22.4.10",
+    "immer": "^10.0.1",
     "javascript-time-ago": "^2.5.9",
     "jose": "^4.11.2",
     "js-base64": "^3.7.3",
