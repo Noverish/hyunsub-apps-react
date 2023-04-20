@@ -4,6 +4,7 @@ import { AlbumPreview, PhotoPreview } from "src/model/photo";
 import { dispatch } from 'src/redux';
 import { GlobalActions } from 'src/redux/global';
 import { PhotoSelectContext } from './PhotoSelectContext';
+import albumThumbnailApi from 'src/api/photo/album-thumbnail';
 
 export function usePhotoListSelect(previews: PhotoPreview[]) {
   const [state, setState] = useContext(PhotoSelectContext);
@@ -72,6 +73,29 @@ export function useAlbumPhotoRegister() {
       lastSelected: undefined,
       showAlbumSelectModal: false,
     });
+
+    dispatch(GlobalActions.update({ loading: false }));
+  }
+}
+
+export function useAlbumThumbnailRegister(albumId?: string) {
+  const [state, setState] = useContext(PhotoSelectContext);
+
+  if (!albumId) {
+    return undefined;
+  }
+
+  if (state.selects.length !== 1) {
+    return undefined;
+  }
+
+  const photo = state.selects[0];
+
+  return async () => {
+    setState({ showSelectActionModal: false });
+    dispatch(GlobalActions.update({ loading: true }));
+
+    await albumThumbnailApi({ albumId, photoId: photo.id });
 
     dispatch(GlobalActions.update({ loading: false }));
   }

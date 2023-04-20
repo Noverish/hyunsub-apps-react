@@ -8,6 +8,7 @@ import { useBreakpointMobile } from 'src/utils/breakpoint';
 import { usePhotoListSelect } from './PhotoListHooks';
 import PhotoPreviewView from "./PhotoPreviewView";
 import { PhotoSelectContext } from './PhotoSelectContext';
+import PhotoSelectActionModal from './PhotoSelectActionModal';
 
 import './PhotoListView.scss';
 
@@ -90,6 +91,7 @@ export default function PhotoListView({ albumId, previews, itemHref: href }: Pro
       <Row className="g-1 row-cols-3 row-cols-sm-4 row-cols-md-5 row-cols-lg-6">
         {elements}
       </Row>
+      <PhotoSelectActionModal albumId={albumId} />
     </div>
   )
 }

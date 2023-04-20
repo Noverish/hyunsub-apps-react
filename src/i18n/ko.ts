@@ -114,6 +114,7 @@ const ko = {
     'photo.album-select': '앨범 선택',
     'AlbumCreateModal.title': '앨범 생성',
     'AlbumCreateModal.name': '앨범 이름',
+    'photo.register-thumbnail': '썸네일 등록',
 
     'apparel.page.list.title': '내 의류 목록',
     'apparel.page.list.inner-title': '총 {{0}}개의 의류',

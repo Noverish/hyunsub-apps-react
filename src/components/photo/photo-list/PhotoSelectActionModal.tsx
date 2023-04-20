@@ -1,10 +1,17 @@
 import { t } from 'i18next';
 import { useContext } from 'react';
 import ButtonListModal, { ButtonListModalItem } from 'src/components/common/ButtonListModal';
+import { useAlbumThumbnailRegister } from './PhotoListHooks';
 import { PhotoSelectContext } from './PhotoSelectContext';
 
-export default function PhotoSelectActionModal() {
+interface Props {
+  albumId?: string;
+}
+
+export default function PhotoSelectActionModal({ albumId }: Props) {
   const [state, setState] = useContext(PhotoSelectContext);
+
+  const registerThumbnail = useAlbumThumbnailRegister(albumId);
 
   const items: ButtonListModalItem[] = [
     {
@@ -16,6 +23,13 @@ export default function PhotoSelectActionModal() {
       onClick: () => {},
     }
   ]
+
+  if (registerThumbnail) {
+    items.push({
+      title: t('photo.register-thumbnail'),
+      onClick: registerThumbnail,
+    });
+  }
 
   return (
     <ButtonListModal

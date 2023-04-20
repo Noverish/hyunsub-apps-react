@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import ListLoadingIndicator from 'src/components/common/ListLoadingIndicator';
 import CommonContainer from 'src/components/common/header/CommonContainer';
 import PhotoListView from 'src/components/photo/photo-list/PhotoListView';
-import PhotoSelectActionModal from 'src/components/photo/photo-list/PhotoSelectActionModal';
 import { PhotoSelectProvider } from 'src/components/photo/photo-list/PhotoSelectContext';
 import { useBreakpointMobile } from "src/utils/breakpoint";
 import { setDocumentTitle } from 'src/utils/services';
@@ -58,7 +57,6 @@ export default function AlbumDetailIndex() {
     <AlbumDetailProvider initialState={{ albumId }}>
       <PhotoSelectProvider>
         <AlbumDetailPage />
-        <PhotoSelectActionModal />
       </PhotoSelectProvider>
     </AlbumDetailProvider>
   )

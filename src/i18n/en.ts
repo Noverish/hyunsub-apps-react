@@ -114,6 +114,7 @@ const en = {
     'photo.album-select': 'Select Album',
     'AlbumCreateModal.title': 'Create Album',
     'AlbumCreateModal.name': 'Album Name',
+    'photo.register-thumbnail': 'Register Thumbnail',
 
     'apparel.page.list.title': 'My Apparel List',
     'apparel.page.list.inner-title': 'Total {{0}} items',
