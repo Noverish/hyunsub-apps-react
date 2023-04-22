@@ -3,6 +3,7 @@ import { generateInfiniteQuery } from "../generate-api";
 
 export interface AlbumPhotosParams {
   albumId: string;
+  photoId?: string | null;
 }
 
 const albumPhotosApi = generateInfiniteQuery<AlbumPhotosParams, PhotoPreview>({
@@ -11,6 +12,7 @@ const albumPhotosApi = generateInfiniteQuery<AlbumPhotosParams, PhotoPreview>({
     method: 'GET',
     params: {
       p: params.page,
+      photoId: (params.page === undefined) ? params.photoId : undefined,
     }
   }),
   key: () => 'albumPhotosApi',

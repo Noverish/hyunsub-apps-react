@@ -19,7 +19,7 @@ function AlbumListPage() {
 
   // hooks
   const [state, setState] = useContext(AlbumListContext);
-  const { infiniteData: albums } = albumListApi.useInfiniteApi2({});
+  const { infiniteData: albums } = albumListApi.useInfiniteApi({});
   const albumCreate = useAlbumCreate();
   const isMobile = useBreakpointMobile();
 

@@ -11,7 +11,7 @@ interface Props {
 }
 
 export default function AlbumSelectModal({ show, onHide, onClick }: Props) {
-  const { infiniteData: albums } = albumListApi.useInfiniteApi2({});
+  const { infiniteData: albums } = albumListApi.useInfiniteApi({});
 
   const elements = albums.map(v => (
     <AlbumPreviewView key={v.id} preview={v} onClick={onClick} />

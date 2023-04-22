@@ -1,23 +1,13 @@
-import { useState } from 'react';
 import { Spinner } from 'react-bootstrap';
-import PageSwiper from 'src/components/common/swiper/PageSwiper';
+import InfinitePageSwiper, { InfinitePageSwiperProps } from 'src/components/common/swiper/InfinitePageSwiper';
 import { PhotoPreview } from 'src/model/photo';
 
-interface Props {
-  photos: PhotoPreview[];
-  photoId?: string;
-}
+export type PhotoSwiperProps = Omit<InfinitePageSwiperProps<PhotoPreview>, 'renderSlide'>
 
-export default function PhotoViewer(props: Props) {
-  const { photos, photoId } = props;
-
-  const initialPage = photoId ? photos.findIndex(v => v.id === photoId) : 0;
-
+export default function PhotoSwiper(props: PhotoSwiperProps) {
   return (
-    <PageSwiper
-      pageState={useState(initialPage)}
-      initialPage={initialPage}
-      slides={photos}
+    <InfinitePageSwiper
+      {...props}
       renderSlide={renderSlide}
     />
   )

@@ -12,6 +12,7 @@ import PhotoSelectActionModal from 'src/components/photo/photo-list/PhotoSelectA
 import useScrollBottom from 'src/hooks/scroll-bottom';
 import { setDocumentTitle } from 'src/utils/services';
 import PhotoRoutes from '../PhotoRoutes';
+import ListLoadingIndicator from 'src/components/common/ListLoadingIndicator';
 
 function PhotoListPage() {
   setDocumentTitle(t('photo.page.photo-list.title'));
@@ -51,6 +52,7 @@ function PhotoListPage() {
       <MobileHeader title={title} btns={headerBtns} />
       <CommonContainer>
         <PhotoListView previews={previews} itemHref={(v) => PhotoRoutes.photoViewer(v.id)} />
+        <ListLoadingIndicator isFetching={isFetching} />
       </CommonContainer>
       <PhotoSelectActionModal />
       <AlbumSelectModal

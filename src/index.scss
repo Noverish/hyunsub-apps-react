@@ -75,6 +75,11 @@ input.form-control {
     background-color: var(--bs-gray);
     color: white;
   }
+
+  &:read-only {
+    background-color: var(--bs-gray);
+    color: white;
+  }
 }
 
 @include media-breakpoint-up(md) {

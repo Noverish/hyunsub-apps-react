@@ -1,6 +1,5 @@
 import { InfiniteData, useInfiniteQuery, UseInfiniteQueryResult, useQuery, UseQueryResult } from '@tanstack/react-query';
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
-import { useEffect } from 'react';
 import { t } from 'i18next';
 import getErrMsg from 'src/i18n/server-error';
 import { ErrorResponse, PageData } from 'src/model/api';
@@ -10,6 +9,8 @@ import { GlobalActions } from 'src/redux/global';
 import { insertToast } from 'src/redux/toast';
 import { isDev, sleep, toJSON } from 'src/utils';
 import QueryClient from './query-client';
+import { useEffect } from 'react';
+import { produce } from 'immer';
 
 interface GenerateApiOption<P> {
   api: (p: P) => AxiosRequestConfig<P>;
@@ -34,8 +35,7 @@ interface GenerateApiResult<P, R> {
 }
 
 interface GenerateInfiniteApiResult<P, R> {
-  useInfiniteApi: (p: P, initialData?: PageData<R>) => UseInfiniteQueryResult<PageData<R>>;
-  useInfiniteApi2: (p: P, initialData?: PageData<R>) => UseInfiniteQueryResult<PageData<R>> & { infiniteData: R[] };
+  useInfiniteApi: (p: P, initialData?: PageData<R>) => UseInfiniteQueryResult<PageData<R>> & { infiniteData: R[] };
   updateCache: (p: P, updater: (list: R[]) => R[]) => void;
   updateCache2: (p: P, updater: (cache: R) => void) => void;
   insertToCache: (p: P, newItem: R) => void;
@@ -43,7 +43,7 @@ interface GenerateInfiniteApiResult<P, R> {
 }
 
 interface PageParam {
-  page: number;
+  page?: number;
 }
 
 export function generateApi<P, R>(func: (p: P) => AxiosRequestConfig) {
@@ -109,44 +109,35 @@ export function generateInfiniteQuery<P, R>(option: GenerateInfiniteApiOption<P>
   const api = generateApi<P & PageParam, PageData<R>>(option.api);
 
   const useInfiniteApi = (p: P, initialData?: PageData<R>) => {
-    const data = initialData
-      ? { pageParams: [undefined], pages: [initialData] }
+    const initialData2 = initialData
+      ? { pageParams: [initialData.page], pages: [initialData] }
       : undefined
 
     const result = useInfiniteQuery(
       key(p),
-      ({ pageParam }) => api({ ...p, page: pageParam ?? 0 }),
+      ({ pageParam }) => api({ ...p, page: pageParam }),
       {
         getNextPageParam: (lastPage) => (lastPage.total <= (lastPage.page + 1) * lastPage.pageSize) ? undefined : (lastPage.page + 1),
         staleTime: Infinity,
-        initialData: data
+        initialData: initialData2
       }
     );
 
-    const pageParams = result.data?.pageParams;
+    const data = result.data
+
     useEffect(() => {
-      if (pageParams && pageParams[0] === undefined) {
-        pageParams[0] = 0;
-      }
-    }, [pageParams]);
+      QueryClient.setQueryData<InfiniteData<PageData<R>>>(
+        key(p),
+        (cache) => produce(cache, (draft) => {
+          if (!draft) return;
+          const { pages, pageParams } = draft;
 
-    return result;
-  }
-
-  const useInfiniteApi2 = (p: P, initialData?: PageData<R>) => {
-    const data = initialData
-      ? { pageParams: [undefined], pages: [initialData] }
-      : undefined
-
-    const result = useInfiniteQuery(
-      key(p),
-      ({ pageParam }) => api({ ...p, page: pageParam ?? 0 }),
-      {
-        getNextPageParam: (lastPage) => (lastPage.total <= (lastPage.page + 1) * lastPage.pageSize) ? undefined : (lastPage.page + 1),
-        staleTime: Infinity,
-        initialData: data
-      }
-    );
+          for (let i = 0; i < pages.length; i++) {
+            pageParams[i] = pages[i].page;
+          }
+        }),
+      );
+    }, [data]);
 
     const infiniteData = result.data?.pages.flatMap(v => v.data) ?? [];
 
@@ -187,7 +178,6 @@ export function generateInfiniteQuery<P, R>(option: GenerateInfiniteApiOption<P>
 
   return {
     useInfiniteApi,
-    useInfiniteApi2,
     updateCache,
     updateCache2,
     insertToCache,
