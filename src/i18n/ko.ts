@@ -115,6 +115,7 @@ const ko = {
     'AlbumCreateModal.title': '앨범 생성',
     'AlbumCreateModal.name': '앨범 이름',
     'photo.register-thumbnail': '썸네일 등록',
+    'photo.album-delete-confirm': '정말로 앨범을 삭제하시겠습니까?',
 
     'apparel.page.list.title': '내 의류 목록',
     'apparel.page.list.inner-title': '총 {{0}}개의 의류',

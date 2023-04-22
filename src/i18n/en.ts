@@ -115,6 +115,7 @@ const en = {
     'AlbumCreateModal.title': 'Create Album',
     'AlbumCreateModal.name': 'Album Name',
     'photo.register-thumbnail': 'Register Thumbnail',
+    'photo.album-delete-confirm': 'Are you sure you want to delete the album?',
 
     'apparel.page.list.title': 'My Apparel List',
     'apparel.page.list.inner-title': 'Total {{0}} items',

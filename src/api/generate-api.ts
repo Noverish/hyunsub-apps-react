@@ -10,7 +10,7 @@ import { insertToast } from 'src/redux/toast';
 import { isDev, sleep, toJSON } from 'src/utils';
 import QueryClient from './query-client';
 import { useEffect } from 'react';
-import { produce } from 'immer';
+import { Draft, produce } from 'immer';
 
 interface GenerateApiOption<P> {
   api: (p: P) => AxiosRequestConfig<P>;
@@ -38,7 +38,8 @@ interface GenerateInfiniteApiResult<P, R> {
   useInfiniteApi: (p: P, initialData?: PageData<R>) => UseInfiniteQueryResult<PageData<R>> & { infiniteData: R[] };
   updateCache: (p: P, updater: (list: R[]) => R[]) => void;
   updateCache2: (p: P, updater: (cache: R) => void) => void;
-  insertToCache: (p: P, newItem: R) => void;
+  insertToCache: (p: P, newItem: Draft<R>) => void;
+  deleteFromCache: (p: P, predicate: (r: Draft<R>) => boolean) => void;
   key: (p: P) => string[];
 }
 
@@ -169,11 +170,27 @@ export function generateInfiniteQuery<P, R>(option: GenerateInfiniteApiOption<P>
     });
   }
 
-  const insertToCache = (p: P, newItem: R) => {
-    QueryClient.setQueryData<InfiniteData<PageData<R>>>(key(p), (cache) => {
-      cache?.pages[0]?.data.splice(0, 0, newItem);
-      return cache;
-    });
+  const insertToCache = (p: P, newItem: Draft<R>) => {
+    QueryClient.setQueryData<InfiniteData<PageData<R>>>(
+      key(p),
+      (cache) => produce(cache, (draft) => {
+        draft?.pages[0]?.data.unshift(newItem);
+      }),
+    )
+  }
+
+  const deleteFromCache = (p: P, predicate: (r: Draft<R>) => boolean) => {
+    QueryClient.setQueryData<InfiniteData<PageData<R>>>(
+      key(p),
+      (cache) => {
+        if (!cache) return cache;
+        return produce(cache, (draft) => {
+          for (const page of draft.pages) {
+            page.data = page.data.filter(v => !predicate(v));
+          }
+        })
+      },
+    );
   }
 
   return {
@@ -181,6 +198,7 @@ export function generateInfiniteQuery<P, R>(option: GenerateInfiniteApiOption<P>
     updateCache,
     updateCache2,
     insertToCache,
+    deleteFromCache,
     key,
   };
 }
