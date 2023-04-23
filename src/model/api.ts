@@ -10,3 +10,10 @@ export interface PageData<T> {
   pageSize: number;
   data: T[];
 }
+
+export interface Pagination<T> {
+  total: number;
+  prev: string | null;
+  next: string | null;
+  data: T[];
+}

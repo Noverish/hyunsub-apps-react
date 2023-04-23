@@ -1,13 +1,12 @@
-import { useSearchParams } from 'react-router-dom';
 import albumPhotosApi from 'src/api/photo/album-photos';
 import PhotoViewer from 'src/components/photo/PhotoSwiper';
-import { useUrlParams } from 'src/hooks/url-params';
+import { useOptionalUrlParams, useUrlParams } from 'src/hooks/url-params';
 import { PageData } from 'src/model/api';
 import { PhotoPreview } from 'src/model/photo';
 
 export default function AlbumViewerPage() {
   const [albumId] = useUrlParams('albumId');
-  const photoId = useSearchParams()[0].get('photoId');
+  const [photoId] = useOptionalUrlParams('photoId');
 
   const infiniteQueryResult = albumPhotosApi.useInfiniteApi({ albumId, photoId });
   const { data } = infiniteQueryResult;
@@ -23,7 +22,7 @@ export default function AlbumViewerPage() {
   )
 }
 
-function getInitialPage(photoId: string | null, pageData?: PageData<PhotoPreview>): number | undefined {
+function getInitialPage(photoId?: string, pageData?: PageData<PhotoPreview>): number | undefined {
   if (!pageData || !photoId) {
     return undefined;
   }
@@ -33,7 +32,7 @@ function getInitialPage(photoId: string | null, pageData?: PageData<PhotoPreview
   const i = data.findIndex(v => v.id === photoId);
   if (i >= 0) {
     return i + page * pageSize;
-  } {
+  } else {
     return undefined;
   }
 }

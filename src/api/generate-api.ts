@@ -1,6 +1,8 @@
 import { InfiniteData, useInfiniteQuery, UseInfiniteQueryResult, useQuery, UseQueryResult } from '@tanstack/react-query';
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { t } from 'i18next';
+import { Draft, produce } from 'immer';
+import { useEffect } from 'react';
 import getErrMsg from 'src/i18n/server-error';
 import { ErrorResponse, PageData } from 'src/model/api';
 import router from 'src/pages/router';
@@ -9,8 +11,6 @@ import { GlobalActions } from 'src/redux/global';
 import { insertToast } from 'src/redux/toast';
 import { isDev, sleep, toJSON } from 'src/utils';
 import QueryClient from './query-client';
-import { useEffect } from 'react';
-import { Draft, produce } from 'immer';
 
 interface GenerateApiOption<P> {
   api: (p: P) => AxiosRequestConfig<P>;
@@ -138,7 +138,7 @@ export function generateInfiniteQuery<P, R>(option: GenerateInfiniteApiOption<P>
           }
         }),
       );
-    }, [data]);
+    }, [p, data]);
 
     const infiniteData = result.data?.pages.flatMap(v => v.data) ?? [];
 

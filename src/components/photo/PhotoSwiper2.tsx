@@ -1,23 +1,18 @@
-import { Spinner } from 'react-bootstrap';
-import InfinitePageSwiper, { InfinitePageSwiperProps } from 'src/components/common/swiper/InfinitePageSwiper';
+import InfinitePageSwiper2, { InfinitePageSwiperProps } from 'src/components/common/swiper/InfinitePageSwiper2';
 import { PhotoPreview } from 'src/model/photo';
 
 export type PhotoSwiperProps = Omit<InfinitePageSwiperProps<PhotoPreview>, 'renderSlide'>
 
 export default function PhotoSwiper(props: PhotoSwiperProps) {
   return (
-    <InfinitePageSwiper
-      {...props}
+    <InfinitePageSwiper2
       renderSlide={renderSlide}
+      {...props}
     />
   )
 }
 
-export function renderSlide(photo: PhotoPreview | null) {
-  if (photo === null) {
-    return <Spinner animation="border"></Spinner>;
-  }
-
+function renderSlide(photo: PhotoPreview) {
   if (photo.type === 'VIDEO') {
     const url = photo.thumbnail.replace('thumbnail', 'video').replace('.jpg', '.mp4');
     return <video controls><source src={url} type="video/mp4" /></video>
