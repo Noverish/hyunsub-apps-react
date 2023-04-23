@@ -50,7 +50,7 @@ function PhotoListPage() {
   return (
     <div id="PhotoListPage">
       <MobileHeader title={title} btns={headerBtns} />
-      <CommonContainer>
+      <CommonContainer noPadding={true}>
         <PhotoListView previews={previews} itemHref={(v) => PhotoRoutes.photoViewer(v.id)} />
         <ListLoadingIndicator isFetching={isFetching} />
       </CommonContainer>
