@@ -29,7 +29,7 @@ export default function PhotoListView({ albumId, previews, itemHref: href }: Pro
     if (albumId) {
       router.navigate(PhotoRoutes.albumUpload(albumId));
     } else {
-      router.navigate(PhotoRoutes.upload);
+      router.navigate(PhotoRoutes.photoUpload);
     }
   }
 

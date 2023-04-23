@@ -15,7 +15,7 @@ const items: TabBarItem[] = [
   },
   {
     name: t('PhotoTabBar.upload'),
-    link: PhotoRoutes.upload,
+    link: PhotoRoutes.photoUpload,
     icon: 'fas fa-plus',
   },
 ]

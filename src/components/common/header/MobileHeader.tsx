@@ -1,23 +1,23 @@
 import { useNavigate } from 'react-router-dom';
 import { useBreakpointMobile } from 'src/utils/breakpoint';
-import cs from 'classnames';
 
 import './MobileHeader.scss';
+import MobileHeaderMoreButton, { MobileHeaderMoreButtonMenu } from './MobileHeaderMoreButton';
 
 export interface MobileHeaderProps {
   title: string;
   back?: boolean;
   btns?: MobileHeaderButton[];
+  menus?: MobileHeaderMoreButtonMenu[];
   onClose?: () => void;
 }
 
 export interface MobileHeaderButton {
-  icon?: string;
-  text?: string;
+  icon: string;
   onClick: () => void;
 }
 
-export default function MobileHeader({ title, back, btns, onClose }: MobileHeaderProps) {
+export default function MobileHeader({ title, back, btns, onClose, menus }: MobileHeaderProps) {
   const navigate = useNavigate();
   const isMobile = useBreakpointMobile();
 
@@ -32,11 +32,18 @@ export default function MobileHeader({ title, back, btns, onClose }: MobileHeade
   };
 
   const buttons = (btns || []).map(v => (
-    <div key={v.icon ? v.icon : v.text} onClick={v.onClick} className={cs('header_btn', { icon: !!v.icon, text: !!v.text })}>
-      {v.icon && <i className={v.icon}/>}
-      {v.text && <span>{v.text}</span>}
+    <div
+      key={v.icon}
+      onClick={v.onClick}
+      className="header_btn icon"
+    >
+      <i className={v.icon}/>
     </div>
   ));
+
+  if (menus) {
+    buttons.push(<MobileHeaderMoreButton menus={menus} key="MobileHeaderMoreButton" />);
+  }
 
   if (!isMobile) {
     return <></>;

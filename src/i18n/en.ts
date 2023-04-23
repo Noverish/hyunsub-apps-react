@@ -15,6 +15,8 @@ const en = {
     'create': 'Create',
     'upload': 'Upload',
     'n-selected': '{{0}} Selected',
+    'sort': 'Sort',
+    'filter': 'Filter',
 
     'msg.delete-confirm': 'Are you sure you want to delete?',
     'msg.delete-success': 'Successfully deleted',

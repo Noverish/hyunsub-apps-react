@@ -17,7 +17,7 @@ const desktopProps: DesktopHeaderProps = {
     },
     {
       name: t('PhotoTabBar.upload'),
-      link: PhotoRoutes.upload,
+      link: PhotoRoutes.photoUpload,
       icon: 'fas fa-upload',
     },
   ],

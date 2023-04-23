@@ -3,7 +3,6 @@ import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { PhotoPreview } from "src/model/photo";
 import { useBreakpointMobile } from 'src/utils/breakpoint';
-import { LongPressDetectEvents, useLongPress } from 'use-long-press';
 import { PhotoSelectContext } from './PhotoSelectContext';
 
 import './PhotoPreviewView.scss';
@@ -25,14 +24,6 @@ export default function PhotoPreviewView(props: Props) {
   const selected = selects.includes(preview);
   const isMobile = useBreakpointMobile();
 
-  // hooks
-  const onLongClick = useLongPress<HTMLAnchorElement>(() => {
-    setState({
-      selectMode: true,
-      selects: [preview],
-    });
-  }, { detect: LongPressDetectEvents.TOUCH });
-
   // functions
   const onClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (selectMode) {
@@ -50,7 +41,7 @@ export default function PhotoPreviewView(props: Props) {
   }
 
   return (
-    <Link to={href} className={cs('PhotoPreviewView', { selectMode, selected })} onClick={onClick} {...onLongClick()}>
+    <Link to={href} className={cs('PhotoPreviewView', { selectMode, selected })} onClick={onClick}>
       <div className="ratio ratio-1x1">
         <img className="img-fluid" src={thumbnail} alt={id} loading="lazy" />
         <div className="icon_container">

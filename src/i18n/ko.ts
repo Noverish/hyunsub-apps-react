@@ -15,6 +15,8 @@ const ko = {
     'create': '생성',
     'upload': '업로드',
     'n-selected': '{{0}}개 선택됨',
+    'sort': '정렬',
+    'filter': '필터',
 
     'msg.delete-confirm': '정말로 삭제하시겠습니까?',
     'msg.delete-success': '삭제되었습니다',

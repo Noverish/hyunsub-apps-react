@@ -11,7 +11,7 @@ import { setDocumentTitle } from 'src/utils/services';
 import PhotoRoutes from "../PhotoRoutes";
 import { AlbumDetailProvider } from "./AlbumDetailContext";
 import { useAlbumDelete, useAlbumDetailPage } from "./AlbumDetailHooks";
-import AlbumDetailPageMobileHeader from "./component/AlbumDetailPageMobileHeader";
+import PhotoListMobileHeader from "src/components/photo/photo-list/PhotoListMobileHeader";
 
 import './AlbumDetailPage.scss';
 
@@ -40,7 +40,7 @@ function AlbumDetailPage() {
 
   return (
     <div className="AlbumDetailPage">
-      <AlbumDetailPageMobileHeader />
+      <PhotoListMobileHeader album={album} />
       <CommonContainer noPadding={true}>
         {isMobile ? titleSectionForMobile : titleSectionForDesktop}
         <PhotoListView
