@@ -3,8 +3,8 @@ import { ListGroup } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import apparelCategories from 'src/api/apparel/apparel-categories';
-import ApparelHeader from 'src/components/apparel/ApparelHeader';
 import CommonContainer from 'src/components/common/header/CommonContainer';
+import MobileHeader from 'src/components/common/header/MobileHeader';
 import ApparelRoutes from 'src/pages/apparel/ApparelRoutes';
 import { setDocumentTitle } from 'src/utils/services';
 
@@ -25,7 +25,7 @@ export default function ApparelCategoryListPage() {
 
   return (
     <div id="ApparelCategoryListPage">
-      <ApparelHeader title={t('apparel.menu.categories')} />
+      <MobileHeader title={t('apparel.menu.categories')} />
       <CommonContainer>
         <h1 className="mb-3">{t('apparel.page.category-list.title')}</h1>
         <ListGroup>

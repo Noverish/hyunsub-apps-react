@@ -10,7 +10,7 @@ import { setDocumentTitle } from "src/utils/services";
 export default function ComicListPage() {
   useEffect(() => {
     setDocumentTitle(t('comic.ComicListPage.title'));
-  }, [t]);
+  }, []);
 
   const comics = comicListApi.useApi({});
 

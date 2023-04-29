@@ -4,12 +4,12 @@ import { Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import apparelList from 'src/api/apparel/apparel-list';
-import ApparelHeader from 'src/components/apparel/ApparelHeader';
 import ApparelList from 'src/components/apparel/ApparelList';
-import CommonContainer from 'src/components/common/header/CommonContainer';
 import ListLoadingIndicator from 'src/components/common/ListLoadingIndicator';
-import ApparelRoutes from 'src/pages/apparel/ApparelRoutes';
+import CommonContainer from 'src/components/common/header/CommonContainer';
+import MobileHeader from 'src/components/common/header/MobileHeader';
 import useScrollBottom from 'src/hooks/scroll-bottom';
+import ApparelRoutes from 'src/pages/apparel/ApparelRoutes';
 import { setDocumentTitle } from 'src/utils/services';
 
 export default function ApparelListPage() {
@@ -31,7 +31,7 @@ export default function ApparelListPage() {
 
   return (
     <div id="ApparelListPage">
-      <ApparelHeader title={t('apparel.menu.all-apparels')} />
+      <MobileHeader title={t('apparel.menu.all-apparels')} />
       <CommonContainer>
         <h1 className="mb-3">{t('apparel.page.list.inner-title', [data?.pages[0].total])}</h1>
         <div className="mb-3">

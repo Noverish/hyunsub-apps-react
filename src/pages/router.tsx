@@ -5,6 +5,7 @@ import { AuthRouteObjects } from './auth/AuthIndex';
 import { VideoRotueObjects } from './video/VideoIndex';
 import { PhotoRouteObjects } from './photo/PhotoIndex';
 import { ComicRouteObjects } from './comic/ComicIndex';
+import { ApparelRouteObjects } from './apparel/ApparelIndex';
 import { Suspense } from 'react';
 import LoadingPage from 'src/pages/common/LoadingPage';
 
@@ -25,6 +26,10 @@ function pickRoutes(): RouteObject[] {
 
   if (host.endsWith('comic.hyunsub.kim')) {
     return ComicRouteObjects;
+  }
+
+  if (host.endsWith('apparel.hyunsub.kim')) {
+    return ApparelRouteObjects;
   }
 
   return [];

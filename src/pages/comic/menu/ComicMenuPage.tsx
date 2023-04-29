@@ -8,7 +8,7 @@ import { setDocumentTitle } from 'src/utils/services';
 export default function ComicMenuPage() {
   useEffect(() => {
     setDocumentTitle(t('CommonTabBar.menu'));
-  }, [t]);
+  }, []);
 
   return (
     <div id="ComicMenuPage">

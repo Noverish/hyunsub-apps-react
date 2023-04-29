@@ -1,6 +1,6 @@
 import { t } from 'i18next';
 import ApparelRoutes from 'src/pages/apparel/ApparelRoutes';
-import CommonTabBar, { TabBarItem } from "../common/header/CommonTabBar";
+import CommonTabBar, { TabBarItem } from "../../common/header/CommonTabBar";
 
 const items: TabBarItem[] = [
   {

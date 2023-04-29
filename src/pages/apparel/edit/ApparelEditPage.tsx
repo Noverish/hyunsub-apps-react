@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import apparelDetail from 'src/api/apparel/apparel-detail';
 import ApparelForm from 'src/components/apparel/ApparelForm';
-import ApparelHeader from 'src/components/apparel/ApparelHeader';
 import CommonContainer from 'src/components/common/header/CommonContainer';
+import MobileHeader from 'src/components/common/header/MobileHeader';
 import { Apparel } from 'src/model/apparel';
 import { useDispatch } from 'src/redux';
 import { setDocumentTitle } from 'src/utils/services';
@@ -32,7 +32,7 @@ export default function ApparelEditPage() {
 
   return (
     <div id="ApparelEditPage">
-      <ApparelHeader title={title} back={true} />
+      <MobileHeader title={title} back={true} />
       <CommonContainer>
         <h1 className="mb-3">{t('apparel.page.edit.title', [apparel.name])}</h1>
         <ApparelForm

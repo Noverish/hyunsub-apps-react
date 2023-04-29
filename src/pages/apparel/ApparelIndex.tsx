@@ -1,9 +1,9 @@
 import { lazy } from 'react';
-import { Route, Routes } from 'react-router-dom';
-import ApparelTabBar from 'src/components/apparel/ApparelTabBar';
+import { Outlet, RouteObject } from 'react-router-dom';
+import ApparelTabBar from 'src/components/apparel/header/ApparelTabBar';
 import routes from './ApparelRoutes';
+import ApparelDesktopHeader from 'src/components/apparel/header/ApparelDesktopHeader';
 
-const NotFoundPage = lazy(() => import('src/pages/common/NotFoundPage'));
 const ApparelListPage = lazy(() => import('src/pages/apparel/list/ApparelListPage'));
 const ApparelDetailPage = lazy(() => import('src/pages/apparel/detail/ApparelDetailPage'));
 const ApparelEditPage = lazy(() => import('src/pages/apparel/edit/ApparelEditPage'));
@@ -14,22 +14,26 @@ const ApparelBrandListPage = lazy(() => import('src/pages/apparel/brand-list/App
 const ApparelBrandDetailPage = lazy(() => import('src/pages/apparel/brand-detail/ApparelBrandDetailPage'));
 const ApparelMenuPage = lazy(() => import('src/pages/apparel/menu/ApparelMenuPage'));
 
-export default function ApparelIndex() {
-  return (
-    <>
-      <Routes>
-        <Route path="*" element={<NotFoundPage />} />
-        <Route path={routes.list} element={<ApparelListPage />} />
-        <Route path={routes.add} element={<ApparelAddPage />} />
-        <Route path={routes.detail} element={<ApparelDetailPage />} />
-        <Route path={routes.edit} element={<ApparelEditPage />} />
-        <Route path={routes.categoryList} element={<ApparelCategoryListPage />} />
-        <Route path={routes.categoryDetail} element={<ApparelCategoryDetailPage />} />
-        <Route path={routes.brandList} element={<ApparelBrandListPage />} />
-        <Route path={routes.brandDetail} element={<ApparelBrandDetailPage />} />
-        <Route path={routes.menu} element={<ApparelMenuPage />} />
-      </Routes>
-      <ApparelTabBar />
-    </>
-  )
-}
+export const ApparelRouteObjects: RouteObject[] = [
+  {
+    path: '/',
+    element: (
+      <>
+        <ApparelDesktopHeader />
+        <ApparelTabBar />
+        <Outlet />
+      </>
+    ),
+    children: [
+      { path: routes.list, element: <ApparelListPage /> },
+      { path: routes.add, element: <ApparelAddPage /> },
+      { path: routes.detail, element: <ApparelDetailPage /> },
+      { path: routes.edit, element: <ApparelEditPage /> },
+      { path: routes.categoryList, element: <ApparelCategoryListPage /> },
+      { path: routes.categoryDetail, element: <ApparelCategoryDetailPage /> },
+      { path: routes.brandList, element: <ApparelBrandListPage /> },
+      { path: routes.brandDetail, element: <ApparelBrandDetailPage /> },
+      { path: routes.menu, element: <ApparelMenuPage /> },
+    ]
+  }
+]

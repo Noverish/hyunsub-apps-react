@@ -3,9 +3,9 @@ import { Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'react-router-dom';
 import apparelDetail from 'src/api/apparel/apparel-detail';
-import ApparelHeader from 'src/components/apparel/ApparelHeader';
-import CommonContainer from 'src/components/common/header/CommonContainer';
 import ImageCarousel from 'src/components/common/ImageCarousel';
+import CommonContainer from 'src/components/common/header/CommonContainer';
+import MobileHeader from 'src/components/common/header/MobileHeader';
 import ApparelRoutes from 'src/pages/apparel/ApparelRoutes';
 import { useDispatch } from 'src/redux';
 import { numberWithComma } from 'src/utils';
@@ -31,7 +31,7 @@ export default function ApparelDetailPage() {
 
   return (
     <div id="ApparelDetailPage">
-      <ApparelHeader title={title} back={true} />
+      <MobileHeader title={title} back={true} />
       <CommonContainer>
         <h1>{apparel.name}</h1>
         <div className="mt-3">
