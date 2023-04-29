@@ -19,7 +19,7 @@ export default function PhotoPreviewView(props: Props) {
   const { preview, href, onSelect } = props;
   const { id, thumbnail, type } = preview;
 
-  // context
+  // hooks
   const [{ selects, selectMode }, setState] = useContext(PhotoSelectContext);
   const selected = selects.includes(preview);
   const isMobile = useBreakpointMobile();

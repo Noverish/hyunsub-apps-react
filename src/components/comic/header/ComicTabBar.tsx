@@ -1,5 +1,5 @@
 import { t } from 'i18next';
-import CommonTabBar, { TabBarItem } from "../common/header/CommonTabBar";
+import CommonTabBar, { TabBarItem } from "../../common/header/CommonTabBar";
 import ComicRoutes from 'src/pages/comic/ComicRoutes';
 
 const items: TabBarItem[] = [
