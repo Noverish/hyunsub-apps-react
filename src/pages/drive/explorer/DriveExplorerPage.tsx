@@ -1,16 +1,30 @@
 import { useEffect } from "react";
+import MobileHeader from "src/components/common/header/MobileHeader";
 import DriveContainer from "src/components/drive/DriveContainer";
 import DriveFileList from "src/components/drive/DriveFileList";
-import DriveHeader from 'src/components/drive/DriveHeader';
 import DrivePreviewSection from "src/components/drive/DrivePreviewSection";
 import { useDriveStatus } from 'src/pages/drive/DriveHooks';
 import { useDispatch } from "src/redux";
+import { useBreakpointMobile } from "src/utils/breakpoint";
 import { setDocumentTitle } from "src/utils/services";
 import { driveKeyboardAction } from "./DriveExplorerActions";
 
 import './DriveExplorerPage.scss';
 
-export default function DriveExplorerPage() {
+function DriveExplorerMobilePage() {
+  return (
+    <div id="DriveExplorerPage">
+      <DriveContainer>
+        <MobileHeader title="Drive" />
+        <div>
+          <DriveFileList index={0} />
+        </div>
+      </DriveContainer>
+    </div>
+  )
+}
+
+function DriveExplorerDesktopPage() {
   const dispatch = useDispatch();
   const { path } = useDriveStatus();
 
@@ -30,7 +44,6 @@ export default function DriveExplorerPage() {
 
   return (
     <div id="DriveExplorerPage">
-      <DriveHeader title="Drive" />
       <DriveContainer>
         <div>
           <DriveFileList index={0} />
@@ -41,4 +54,12 @@ export default function DriveExplorerPage() {
       </DriveContainer>
     </div>
   )
+}
+
+export default function DriveExplorerPage() {
+  const isMobile = useBreakpointMobile();
+
+  return isMobile
+    ? <DriveExplorerMobilePage />
+    : <DriveExplorerDesktopPage />
 }

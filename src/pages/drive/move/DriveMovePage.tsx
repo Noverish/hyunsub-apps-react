@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
+import MobileHeader from 'src/components/common/header/MobileHeader';
 import DriveContainer from 'src/components/drive/DriveContainer';
 import DriveFileList from 'src/components/drive/DriveFileList';
-import DriveHeader from 'src/components/drive/DriveHeader';
 import { useDriveStatus } from 'src/pages/drive/DriveHooks';
 import { setDocumentTitle } from 'src/utils/services';
 
@@ -17,7 +17,7 @@ export default function DriveMovePage() {
 
   return (
     <div id="DriveMovePage">
-      <DriveHeader title="Drive" />
+      <MobileHeader title="Drive" />
       <DriveContainer>
         <DriveFileList index={0} />
         <DriveFileList index={1} />
