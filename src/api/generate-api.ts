@@ -124,22 +124,6 @@ export function generateInfiniteQuery<P, R>(option: GenerateInfiniteApiOption<P>
       }
     );
 
-    const data = result.data
-
-    useEffect(() => {
-      QueryClient.setQueryData<InfiniteData<PageData<R>>>(
-        key(p),
-        (cache) => produce(cache, (draft) => {
-          if (!draft) return;
-          const { pages, pageParams } = draft;
-
-          for (let i = 0; i < pages.length; i++) {
-            pageParams[i] = pages[i].page;
-          }
-        }),
-      );
-    }, [p, data]);
-
     const infiniteData = result.data?.pages.flatMap(v => v.data) ?? [];
 
     return { infiniteData, ...result };
