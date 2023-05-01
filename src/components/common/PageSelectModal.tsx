@@ -44,7 +44,7 @@ export default function PageSelectModal(props: Props) {
   }
 
   return (
-    <Modal show={show} onHide={onHide} onClick={(e: any) => e.stopPropagation()}>
+    <Modal show={show} onHide={onHide} onClick={(e: any) => e.stopPropagation()} centered>
       <Modal.Header closeButton>
         <Modal.Title>{t('PageSelectModal.title')}</Modal.Title>
       </Modal.Header>

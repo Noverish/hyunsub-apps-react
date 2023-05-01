@@ -1,28 +1,29 @@
 import cs from 'classnames';
 import { t } from 'i18next';
-import photoDetailApi from 'src/api/photo/photo-detail';
+import albumPhotoDetailApi from 'src/api/photo/album-photo-detail';
 
 import './PhotoInfoSection.scss';
 
 interface Props {
   show: boolean;
   hide: () => void;
+  albumId: string;
   photoId?: string;
 }
 
-export default function PhotoInfoSection({ show, hide, photoId }: Props) {
+export default function PhotoInfoSection({ show, hide, albumId, photoId }: Props) {
   return (
     <div className={cs('PhotoInfoSection', { show })}>
       <div className="close_btn flex_center" onClick={hide}>
         <i className="fas fa-times" />
       </div>
-      {photoId && <PhotoInfoSectionDetail photoId={photoId} />}
+      {photoId && <PhotoInfoSectionDetail albumId={albumId} photoId={photoId} />}
     </div>
   )
 }
 
-function PhotoInfoSectionDetail({ photoId }: { photoId: string }) {
-  const { data } = photoDetailApi.useApiResult({ photoId });
+function PhotoInfoSectionDetail({ albumId, photoId }: { albumId: string, photoId: string }) {
+  const { data } = albumPhotoDetailApi.useApiResult({ albumId, photoId });
 
   return (
     <table>

@@ -45,7 +45,7 @@ export default function AlbumViewerPage() {
           onSlideChange={onSlideChange}
         />
       </div>
-      <PhotoInfoSection show={showInfo} hide={hideInfo} photoId={nowPhotoId} />
+      <PhotoInfoSection show={showInfo} hide={hideInfo} albumId={albumId} photoId={nowPhotoId} />
     </div>
   )
 }
