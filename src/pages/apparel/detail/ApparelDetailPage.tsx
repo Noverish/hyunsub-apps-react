@@ -2,7 +2,7 @@ import { t } from 'i18next';
 import { useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom';
-import apparelDetail from 'src/api/apparel/apparel-detail';
+import apparelDetailApi from 'src/api/apparel/apparel-detail';
 import ImageCarousel from 'src/components/common/ImageCarousel';
 import CommonContainer from 'src/components/common/header/CommonContainer';
 import MobileHeader from 'src/components/common/header/MobileHeader';
@@ -25,7 +25,7 @@ export default function ApparelDetailPage() {
     dispatch(apparelDeleteAction(apparelId));
   }
 
-  const apparel = apparelDetail.useApi({ apparelId });
+  const apparel = apparelDetailApi.useApi({ apparelId });
   const urls = apparel.images.map(v => v.url + '?size=512');
 
   return (

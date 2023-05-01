@@ -1,6 +1,6 @@
 import { generateQuery } from "../generate-api";
 
-const apparelBrands = generateQuery<{}, string[]>({
+const apparelBrandsApi = generateQuery<{}, string[]>({
   api: () => ({
     url: '/api/v1/brands',
     method: 'GET',
@@ -8,4 +8,4 @@ const apparelBrands = generateQuery<{}, string[]>({
   key: () => 'apparelBrands',
 })
 
-export default apparelBrands;
+export default apparelBrandsApi;

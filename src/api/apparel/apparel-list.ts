@@ -5,7 +5,7 @@ interface ListApparelParams {
   query?: string;
 }
 
-const apparelList = generateInfiniteQuery<ListApparelParams, ApparelPreview>({
+const apparelListApi = generateInfiniteQuery<ListApparelParams, ApparelPreview>({
   api: (params) => ({
     url: '/api/v1/apparels',
     method: 'GET',
@@ -17,4 +17,4 @@ const apparelList = generateInfiniteQuery<ListApparelParams, ApparelPreview>({
   key: () => 'apparelList',
 })
 
-export default apparelList;
+export default apparelListApi;

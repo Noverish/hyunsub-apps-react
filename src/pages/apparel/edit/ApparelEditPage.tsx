@@ -1,7 +1,7 @@
 import { t } from 'i18next';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import apparelDetail from 'src/api/apparel/apparel-detail';
+import apparelDetailApi from 'src/api/apparel/apparel-detail';
 import ApparelForm from 'src/components/apparel/ApparelForm';
 import CommonContainer from 'src/components/common/header/CommonContainer';
 import MobileHeader from 'src/components/common/header/MobileHeader';
@@ -14,7 +14,7 @@ export default function ApparelEditPage() {
   const apparelId = useParams().apparelId!!;
   const dispatch = useDispatch();
 
-  const apparel = apparelDetail.useApi({ apparelId });
+  const apparel = apparelDetailApi.useApi({ apparelId });
   const title = t('apparel.page.edit.title', [apparel.name]);
 
   useEffect(() => {

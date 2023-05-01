@@ -1,7 +1,7 @@
 import { t } from 'i18next';
 import { ListGroup } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import apparelBrands from 'src/api/apparel/apparel-brands';
+import apparelBrandsApi from 'src/api/apparel/apparel-brands';
 import CommonContainer from 'src/components/common/header/CommonContainer';
 import MobileHeader from 'src/components/common/header/MobileHeader';
 import ApparelRoutes from 'src/pages/apparel/ApparelRoutes';
@@ -13,7 +13,7 @@ export default function ApparelBrandListPage() {
   setDocumentTitle(title);
 
   const isMobile = useBreakpointMobile();
-  const brands = apparelBrands.useApi({});
+  const brands = apparelBrandsApi.useApi({});
 
   const elements = brands.map(v => (
     <ListGroup.Item key={v} as={Link} to={ApparelRoutes.brandDetail(v)}>

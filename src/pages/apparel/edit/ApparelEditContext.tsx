@@ -1,7 +1,7 @@
 import { Dispatch } from '@reduxjs/toolkit';
-import apparelImageDelete from 'src/api/apparel/apparel-image-delete';
-import apparelImageUpload from 'src/api/apparel/apparel-image-upload';
-import apparelUpdate from 'src/api/apparel/apparel-update';
+import apparelImageDeleteApi from 'src/api/apparel/apparel-image-delete';
+import apparelImageUploadApi from 'src/api/apparel/apparel-image-upload';
+import apparelUpdateApi from 'src/api/apparel/apparel-update';
 import { Apparel, ApparelImage } from 'src/model/apparel';
 import ApparelRoutes from 'src/pages/apparel/ApparelRoutes';
 import router from 'src/pages/router';
@@ -11,7 +11,7 @@ export const apparelImageUploadAction = (apparelId: string, images: File[]) => a
   dispatch(GlobalActions.update({ loading: true }));
 
   for (const image of images) {
-    await apparelImageUpload({ apparelId, image });
+    await apparelImageUploadApi({ apparelId, image });
   }
 
   dispatch(GlobalActions.update({ loading: false }));
@@ -20,7 +20,7 @@ export const apparelImageUploadAction = (apparelId: string, images: File[]) => a
 export const apparelImageDeleteAction = (image: ApparelImage) => async (dispatch: Dispatch) => {
   dispatch(GlobalActions.update({ loading: true }));
 
-  await apparelImageDelete(image);
+  await apparelImageDeleteApi(image);
 
   dispatch(GlobalActions.update({ loading: false }));
 }
@@ -28,7 +28,7 @@ export const apparelImageDeleteAction = (image: ApparelImage) => async (dispatch
 export const apparelUpdateAction = (apparelId: string, apparel: Apparel) => async (dispatch: Dispatch) => {
   dispatch(GlobalActions.update({ loading: true }));
 
-  const result = await apparelUpdate({ apparelId, apparel });
+  const result = await apparelUpdateApi({ apparelId, apparel });
 
   dispatch(GlobalActions.update({ loading: false }));
 

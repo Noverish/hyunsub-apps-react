@@ -6,10 +6,10 @@ interface ApparelUpdateParams {
   apparel: Partial<Apparel>;
 }
 
-const apparelUpdate = generateApi<ApparelUpdateParams, Apparel>(params => ({
+const apparelUpdateApi = generateApi<ApparelUpdateParams, Apparel>(params => ({
   url: `/api/v1/apparels/${params.apparelId}`,
   method: 'PUT',
   data: params.apparel,
 }))
 
-export default apparelUpdate;
+export default apparelUpdateApi;

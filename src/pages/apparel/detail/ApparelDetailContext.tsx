@@ -1,14 +1,14 @@
 import { Dispatch } from "@reduxjs/toolkit";
-import apparelDelete from "src/api/apparel/apparel-delete";
-import apparelImageUpload from "src/api/apparel/apparel-image-upload";
+import apparelDeleteApi from "src/api/apparel/apparel-delete";
+import apparelImageUploadApi from "src/api/apparel/apparel-image-upload";
 import { GlobalActions } from 'src/redux/global';
 import router from 'src/pages/router';
 import { t } from 'i18next';
-import apparelList from "src/api/apparel/apparel-list";
+import apparelListApi from "src/api/apparel/apparel-list";
 
 export const apparelImageUploadAction = (apparelId: string, images: File[]) => async (dispatch: Dispatch) => {
   for (const image of images) {
-    await apparelImageUpload({ apparelId, image });
+    await apparelImageUploadApi({ apparelId, image });
   }
 }
 
@@ -18,11 +18,11 @@ export const apparelDeleteAction = (apparelId: string) => async (dispatch: Dispa
   }
 
   dispatch(GlobalActions.update({ loading: true }));
-  await apparelDelete(apparelId);
+  await apparelDeleteApi(apparelId);
   alert(t('msg.delete-success'));
   dispatch(GlobalActions.update({ loading: false }));
 
-  apparelList.updateCache({}, list => list.filter(v => v.id !== apparelId));
+  apparelListApi.updateCache({}, list => list.filter(v => v.id !== apparelId));
 
   router.navigate(-1);
 }

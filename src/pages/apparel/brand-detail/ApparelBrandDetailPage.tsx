@@ -1,5 +1,5 @@
 import { t } from 'i18next';
-import apparelBrandApparels from 'src/api/apparel/apparel-brand-apparels';
+import apparelBrandApparelsApi from 'src/api/apparel/apparel-brand-apparels';
 import ApparelList from 'src/components/apparel/ApparelList';
 import CommonContainer from 'src/components/common/header/CommonContainer';
 import MobileHeader from 'src/components/common/header/MobileHeader';
@@ -12,7 +12,7 @@ import { setDocumentTitle } from 'src/utils/services';
 export default function ApparelBrandDetailPage() {
   const [brand] = useUrlParams('brand');
   const isMobile = useBreakpointMobile();
-  const { infiniteData: apparels, fetchNextPage, isFetching } = apparelBrandApparels.useInfiniteApi({ brand });
+  const { infiniteData: apparels, fetchNextPage, isFetching } = apparelBrandApparelsApi.useInfiniteApi({ brand });
 
   useScrollBottom(() => {
     if (!isFetching) {

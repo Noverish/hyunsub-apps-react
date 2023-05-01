@@ -7,7 +7,7 @@ export interface ApparelImageUploadParams {
   image: File;
 }
 
-const apparelImageUpload = generateApi<ApparelImageUploadParams, ApparelImage>(params => {
+const apparelImageUploadApi = generateApi<ApparelImageUploadParams, ApparelImage>(params => {
   const formData = new FormData();
   formData.append('image', params.image);
 
@@ -21,4 +21,4 @@ const apparelImageUpload = generateApi<ApparelImageUploadParams, ApparelImage>(p
   } as AxiosRequestConfig;
 });
 
-export default apparelImageUpload;
+export default apparelImageUploadApi;

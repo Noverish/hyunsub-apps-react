@@ -5,7 +5,7 @@ interface ApparelBrandApparelsParams {
   brand: string;
 }
 
-const apparelBrandApparels = generateInfiniteQuery<ApparelBrandApparelsParams, ApparelPreview>({
+const apparelBrandApparelsApi = generateInfiniteQuery<ApparelBrandApparelsParams, ApparelPreview>({
   api: (params) => ({
     url: `/api/v1/brands/${params.brand}/apparels`,
     method: 'GET',
@@ -16,4 +16,4 @@ const apparelBrandApparels = generateInfiniteQuery<ApparelBrandApparelsParams, A
   key: () => 'apparelBrandApparels',
 })
 
-export default apparelBrandApparels;
+export default apparelBrandApparelsApi;

@@ -5,7 +5,7 @@ interface ApparelCategoryApparelsParams {
   category: string;
 }
 
-const apparelCategoryApparels = generateInfiniteQuery<ApparelCategoryApparelsParams, ApparelPreview>({
+const apparelCategoryApparelsApi = generateInfiniteQuery<ApparelCategoryApparelsParams, ApparelPreview>({
   api: (params) => ({
     url: `/api/v1/categories/${params.category}/apparels`,
     method: 'GET',
@@ -16,4 +16,4 @@ const apparelCategoryApparels = generateInfiniteQuery<ApparelCategoryApparelsPar
   key: () => 'apparelCategoryApparels',
 })
 
-export default apparelCategoryApparels;
+export default apparelCategoryApparelsApi;

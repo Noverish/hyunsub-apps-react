@@ -2,7 +2,7 @@ import { t } from 'i18next';
 import flatMap from 'lodash/flatMap';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import apparelList from 'src/api/apparel/apparel-list';
+import apparelListApi from 'src/api/apparel/apparel-list';
 import ApparelList from 'src/components/apparel/ApparelList';
 import ListLoadingIndicator from 'src/components/common/ListLoadingIndicator';
 import CommonContainer from 'src/components/common/header/CommonContainer';
@@ -17,7 +17,7 @@ export default function ApparelListPage() {
   setDocumentTitle(t('apparel.page.list.title'));
 
   const isMobile = useBreakpointMobile();
-  const { data, fetchNextPage, isFetching } = apparelList.useInfiniteApi({});
+  const { data, fetchNextPage, isFetching } = apparelListApi.useInfiniteApi({});
 
   useScrollBottom(() => {
     if (!isFetching) {
