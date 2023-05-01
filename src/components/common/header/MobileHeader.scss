@@ -31,20 +31,11 @@
     display: flex;
     align-items: center;
 
-    .header_btn.icon {
+    i {
+      cursor: pointer;
       font-size: 1.5rem;
       width: var(--header_height_mobile);
       height: var(--header_height_mobile);
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .header_btn.text {
-      font-size: 1.25rem;
-      height: var(--header_height_mobile);
-      padding: 0 .5rem;
 
       display: flex;
       align-items: center;

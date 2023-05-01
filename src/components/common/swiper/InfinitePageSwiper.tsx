@@ -17,7 +17,7 @@ function getPage<T>(data: InfiniteData<PageData<T>>, index: number): number {
 }
 
 export default function InfinitePageSwiper<T>(props: InfinitePageSwiperProps<T>) {
-  const { infiniteQueryResult, onPageChange, ...etc } = props;
+  const { infiniteQueryResult, onSlideChange: onPageChange, ...etc } = props;
   const data = infiniteQueryResult.data!!;
   const { fetchNextPage } = infiniteQueryResult;
   const pageParams = (data.pageParams as number[]).map(v => v ? v : 0);
@@ -33,8 +33,8 @@ export default function InfinitePageSwiper<T>(props: InfinitePageSwiperProps<T>)
     fetchNextPage({ pageParam: page });
   }
 
-  const onSlideChange = (index: number) => {
-    onPageChange?.(index);
+  const onSlideChange = (index: number, slide: T | null) => {
+    onPageChange?.(index, slide);
 
     const pageBehind = getPage(data, index - READY_OFF_SLIDE_SIZE);
     readyPage(pageBehind);
@@ -47,7 +47,7 @@ export default function InfinitePageSwiper<T>(props: InfinitePageSwiperProps<T>)
     <PageSwiper
       {...etc}
       slides={flatInfiniteData(data)}
-      onPageChange={onSlideChange}
+      onSlideChange={onSlideChange}
     />
   )
 }

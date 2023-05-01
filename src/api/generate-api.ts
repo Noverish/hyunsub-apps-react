@@ -2,7 +2,6 @@ import { InfiniteData, useInfiniteQuery, UseInfiniteQueryResult, useQuery, UseQu
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { t } from 'i18next';
 import { Draft, produce } from 'immer';
-import { useEffect } from 'react';
 import getErrMsg from 'src/i18n/server-error';
 import { ErrorResponse, PageData } from 'src/model/api';
 import router from 'src/pages/router';

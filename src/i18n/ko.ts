@@ -118,6 +118,12 @@ const ko = {
     'AlbumCreateModal.name': '앨범 이름',
     'photo.register-thumbnail': '썸네일 등록',
     'photo.album-delete-confirm': '정말로 앨범을 삭제하시겠습니까?',
+    'PhotoInfoSection.image-size': '해상도',
+    'PhotoInfoSection.file-size': '파일 크기',
+    'PhotoInfoSection.date': '촬영 날짜',
+    'PhotoInfoSection.file-name': '파일 이름',
+    'PhotoInfoSection.reg-dt': '업로드 날짜',
+    'PhotoInfoSection.date-type': '촬영 날짜 타입',
 
     'apparel.page.list.title': '내 의류 목록',
     'apparel.page.list.inner-title': '총 {{0}}개의 의류',

@@ -118,6 +118,12 @@ const en = {
     'AlbumCreateModal.name': 'Album Name',
     'photo.register-thumbnail': 'Register Thumbnail',
     'photo.album-delete-confirm': 'Are you sure you want to delete the album?',
+    'PhotoInfoSection.image-size': 'Resolution',
+    'PhotoInfoSection.file-size': 'File Size',
+    'PhotoInfoSection.date': 'Filming Date',
+    'PhotoInfoSection.file-name': 'File Name',
+    'PhotoInfoSection.reg-dt': 'Upload Date',
+    'PhotoInfoSection.date-type': 'Filming Date Type',
 
     'apparel.page.list.title': 'My Apparel List',
     'apparel.page.list.inner-title': 'Total {{0}} items',

@@ -32,13 +32,11 @@ export default function MobileHeader({ title, back, btns, onClose, menus }: Mobi
   };
 
   const buttons = (btns || []).map(v => (
-    <div
+    <i
+      className={v.icon}
       key={v.icon}
       onClick={v.onClick}
-      className="header_btn icon"
-    >
-      <i className={v.icon}/>
-    </div>
+    />
   ));
 
   if (menus) {

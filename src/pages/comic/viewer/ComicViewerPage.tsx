@@ -1,13 +1,14 @@
+import React, { useEffect, useRef } from 'react';
+import { Button } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
 import comicDetailApi from 'src/api/comic/comic-detail';
 import comicEpisodeDetailApi from 'src/api/comic/comic-episode-detail';
 import comicHistorySetApi from 'src/api/comic/comic-history-set';
 import ImageSwiper from "src/components/common/swiper/ImageSwiper";
 import { ComicDetail, ComicEpisodeDetail } from 'src/model/comic';
-import React, { useEffect, useState } from 'react';
-import { Button } from 'react-bootstrap';
-import ComicRoutes from '../ComicRoutes';
 import { setDocumentTitle } from 'src/utils/services';
+import Swiper from 'swiper';
+import ComicRoutes from '../ComicRoutes';
 
 export default function ComicViewerPage() {
   const navigate = useNavigate();
@@ -17,17 +18,14 @@ export default function ComicViewerPage() {
 
   const comicEpisodeDetail = comicEpisodeDetailApi.useApi({ comicId, order });
   const { title, episodeTitle, hasNextEpisode, history } = comicEpisodeDetail;
-
-  const [page, setPage] = useState(history || 0);
+  const swiperRef = useRef<Swiper>();
 
   useEffect(() => {
     setDocumentTitle(title + ' - ' + episodeTitle);
   }, [title, episodeTitle]);
 
   useEffect(() => {
-    setTimeout(() => {
-      setPage(comicEpisodeDetail.history || 0);
-    }, 0);
+    swiperRef.current?.slideTo(comicEpisodeDetail.history || 0, 0);
   }, [comicEpisodeDetail]);
 
   const onPageChange = (page: number) => {
@@ -62,11 +60,12 @@ export default function ComicViewerPage() {
   return (
     <div className="ComicViewerPage">
       <ImageSwiper
-        pageState={[page, setPage]}
+        initialSlide={history || 0}
         slides={urls}
-        onPageChange={onPageChange}
+        onSlideChange={onPageChange}
         additionalLastSlide={additionalLastSlide}
         titlePrefix={episodeTitle}
+        onSwiper={(s) => swiperRef.current = s}
       />
     </div>
   )

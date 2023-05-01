@@ -39,3 +39,13 @@ export interface PhotoMetadata {
   offsetTimeOriginal?: string;
   offsetTimeDigitized?: string;
 }
+
+export interface Photo {
+  id: string;
+  imageSize: string;
+  fileSize: string;
+  date: string;
+  fileName: string;
+  regDt: string;
+  dateType: string;
+}

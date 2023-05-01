@@ -5,14 +5,12 @@ interface ButtonProps {
   onClick: () => void;
 }
 
-const Toggle = forwardRef<HTMLDivElement, ButtonProps>(({ onClick }, ref) => (
-  <div
+const Toggle = forwardRef<HTMLElement, ButtonProps>(({ onClick }, ref) => (
+  <i
+    className="fas fa-ellipsis-h"
     ref={ref}
     onClick={onClick}
-    className="header_btn icon"
-  >
-    <i className="fas fa-ellipsis-h" />
-  </div>
+  />
 ));
 
 export interface MobileHeaderMoreButtonMenu {
@@ -32,7 +30,6 @@ export default function MobileHeaderMoreButton({ menus }: Props) {
   return (
     <Dropdown>
       <Dropdown.Toggle as={Toggle} />
-
       <Dropdown.Menu>
         {items}
       </Dropdown.Menu>

@@ -1,0 +1,27 @@
+.PhotoInfoSection {
+  height: 0;
+  background: var(--hyunsub-header-bg);
+  position: relative;
+  transition: height 0.4s ease;
+
+  &.show {
+    height: 200px;
+  }
+
+  .close_btn {
+    position: absolute;
+    height: 48px;
+    width: 48px;
+    right: 0;
+    font-size: 1.5rem;
+  }
+
+  table {
+    margin: .75rem;
+    width: 100%;
+
+    th {
+      width: 115px;
+    }
+  }
+}

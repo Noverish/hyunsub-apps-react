@@ -1,6 +1,6 @@
 import { UseInfiniteQueryResult } from '@tanstack/react-query';
 import { useEffect, useRef } from 'react';
-import PageSwiper2, { PageSwiperProps } from 'src/components/common/swiper/PageSwiper2';
+import PageSwiper, { PageSwiperProps } from 'src/components/common/swiper/PageSwiper';
 import { usePrevious } from 'src/hooks/previous';
 import { Pagination } from 'src/model/api';
 import Swiper from 'swiper';
@@ -38,8 +38,8 @@ export default function InfinitePageSwiper<T>(props: InfinitePageSwiperProps<T>)
     swiperRef.current = swiper;
   }
 
-  const onSlideChange2 = (index: number) => {
-    onSlideChange?.(index);
+  const onSlideChange2 = (index: number, slide: T | null) => {
+    onSlideChange?.(index, slide);
 
     if (hasPreviousPage && index === 0) {
       isPrevLoading.current = true;
@@ -50,7 +50,7 @@ export default function InfinitePageSwiper<T>(props: InfinitePageSwiperProps<T>)
   }
 
   return (
-    <PageSwiper2
+    <PageSwiper
       {...etc}
       onSwiper={onSwiper}
       onSlideChange={onSlideChange2}

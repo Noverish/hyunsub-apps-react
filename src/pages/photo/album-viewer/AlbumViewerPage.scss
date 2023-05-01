@@ -1,0 +1,13 @@
+#AlbumViewerPage {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  .photo_viewer_container {
+    flex: 1 1 0;
+  }
+
+  .PhotoInfoSection {
+    flex: 0 0 auto;
+  }
+}

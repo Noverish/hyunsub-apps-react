@@ -1,5 +1,5 @@
 #PageSwiper {
-  height: 100vh;
+  height: 100%;
 
   .swiper_header {
     position: absolute;
@@ -47,21 +47,18 @@
 
     i {
       cursor: pointer;
-      width: 3rem;
-      height: 3rem;
+      font-size: 1.5rem;
+      width: var(--header_height_mobile);
+      height: var(--header_height_mobile);
+
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.5rem;
-
-      &:hover {
-        color: grey;
-      }
     }
   }
 
   .swiper {
-    height: 100vh;
+    height: 100%;
     z-index: 1;
   }
 
