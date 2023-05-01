@@ -70,7 +70,7 @@ export function VideoDetailPage() {
 
   return (
     <div id="VideoDetailPage">
-      <MobileHeader title={entry.name} back={true} btns={mobileHeaderButtons} />
+      <MobileHeader title={entry.name} back btns={mobileHeaderButtons} />
       <CommonContainer>
         <VideoDetailPlayer video={video} />
         <VideoSettingSection video={video} />

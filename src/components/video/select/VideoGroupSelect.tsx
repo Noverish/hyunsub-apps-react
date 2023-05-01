@@ -22,8 +22,8 @@ export default function VieoGroupSelect(props: Props) {
     <Select
       classNamePrefix="select"
       menuPortalTarget={window.document.body}
-      isClearable={true}
-      isSearchable={true}
+      isClearable
+      isSearchable
       isDisabled={disabled}
 
       getOptionLabel={getOptionLabel}

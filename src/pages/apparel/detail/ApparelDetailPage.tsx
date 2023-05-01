@@ -31,7 +31,7 @@ export default function ApparelDetailPage() {
 
   return (
     <div id="ApparelDetailPage">
-      <MobileHeader title={title} back={true} />
+      <MobileHeader title={title} back />
       <CommonContainer>
         <h1>{apparel.name}</h1>
         <div className="mt-3">

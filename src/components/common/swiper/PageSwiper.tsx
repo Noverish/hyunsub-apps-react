@@ -58,14 +58,14 @@ export default function PageSwiper<T>(props: PageSwiperProps<T>) {
 
   // elements
   const elements = slides.map((v, i) => (
-    <SwiperSlide key={i} zoom={true}>
+    <SwiperSlide key={i} zoom>
       {props.renderSlide(v)}
     </SwiperSlide>
   ));
 
   if (props.additionalLastSlide) {
     elements.push(
-      <SwiperSlide key="last" zoom={true}>
+      <SwiperSlide key="last" zoom>
         {props.additionalLastSlide}
       </SwiperSlide>
     )
@@ -105,8 +105,8 @@ export default function PageSwiper<T>(props: PageSwiperProps<T>) {
         onSwiper={onSwiper}
         modules={[Virtual, Keyboard, Zoom]}
         virtual={{ enabled: true, addSlidesAfter: 3, addSlidesBefore: 3 }}
-        zoom={true}
-        keyboard={true}
+        zoom
+        keyboard
         initialSlide={props.initialSlide}
         spaceBetween={24}
         onSlideChange={onSlideChangeFromSwiper}

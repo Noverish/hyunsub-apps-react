@@ -6,16 +6,15 @@ import './CommonContainer.scss';
 
 interface Props {
   noContainer?: boolean;
-  noPadding?: boolean;
   children?: ReactNode | undefined;
 }
 
-export default function CommonContainer({ children, noContainer, noPadding }: Props) {
+export default function CommonContainer({ children, noContainer }: Props) {
   const className = useBreakpointMobile() ? 'is_mobile' : 'is_desktop';
   const className2 = noContainer ? 'no_container' : 'container-md';
 
   return (
-    <div id="CommonContainer" className={cs(className, className2, { noPadding })}>
+    <div id="CommonContainer" className={cs(className, className2)}>
       <div className="top" />
       <div className="content">{children}</div>
       <div className="bottom" />

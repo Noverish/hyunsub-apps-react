@@ -102,7 +102,7 @@ export default function PathSelect({ onSelect, isInvalid }: Props) {
       menuPortalTarget={window.document.body}
       className={isInvalid ? 'is-invalid' : ''}
       classNamePrefix="select"
-      isClearable={true}
+      isClearable
       closeMenuOnSelect={false}
       controlShouldRenderValue={false}
 

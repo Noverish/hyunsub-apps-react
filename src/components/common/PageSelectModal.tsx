@@ -57,7 +57,7 @@ export default function PageSelectModal(props: Props) {
             onChange={onInputChange}
           />
           <InputGroup.Text >/</InputGroup.Text>
-          <FormControl type="number" value={total} readOnly={true} />
+          <FormControl type="number" value={total} readOnly />
         </InputGroup>
         <Form.Range
           min={0}

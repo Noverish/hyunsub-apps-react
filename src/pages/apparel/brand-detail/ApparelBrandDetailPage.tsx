@@ -31,7 +31,7 @@ export default function ApparelBrandDetailPage() {
 
   return (
     <div id="ApparelBrandDetailPage">
-      <MobileHeader title={title} back={true} />
+      <MobileHeader title={title} back />
       <CommonContainer>
         <h1 className="mb-3">{t('apparel.page.brand-detail.inner-title', [brand, apparels.length])}</h1>
         <ApparelList apparels={apparels} />

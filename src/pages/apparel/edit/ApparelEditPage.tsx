@@ -32,7 +32,7 @@ export default function ApparelEditPage() {
 
   return (
     <div id="ApparelEditPage">
-      <MobileHeader title={title} back={true} />
+      <MobileHeader title={title} back />
       <CommonContainer>
         <h1 className="mb-3">{t('apparel.page.edit.title', [apparel.name])}</h1>
         <ApparelForm

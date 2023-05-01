@@ -43,7 +43,7 @@ export default function ApparelForm(props: Props) {
         {images}
         <div className="col">
           <div className="ratio ratio-1x1">
-            <ImageAddButton callback={onImageAdd} multiple={true} />
+            <ImageAddButton callback={onImageAdd} multiple />
           </div>
         </div>
       </div>

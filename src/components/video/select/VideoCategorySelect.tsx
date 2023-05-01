@@ -23,8 +23,8 @@ export default function VieoCategorySelect(props: Props) {
       classNamePrefix="select"
       className={isInvalid ? 'is-invalid' : ''}
       menuPortalTarget={window.document.body}
-      isClearable={true}
-      isSearchable={true}
+      isClearable
+      isSearchable
 
       getOptionLabel={getOptionLabel}
       getOptionValue={getOptionValue}
