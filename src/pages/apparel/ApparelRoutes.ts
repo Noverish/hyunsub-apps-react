@@ -1,21 +1,23 @@
 const ApparelRoutes = {
   list: '/',
 
-  detail: '/apparels/:apparelId',
-  detailRoute: (apparelId: string) => `/apparels/${apparelId}`,
+  detailRoute: '/apparels/:apparelId',
+  detail: (apparelId: string) => `/apparels/${apparelId}`,
 
-  edit: '/apparels/:apparelId/edit',
-  editRoute: (apparelId: string) => `/apparels/${apparelId}/edit`,
+  editRoute: '/apparels/:apparelId/edit',
+  edit: (apparelId: string) => `/apparels/${apparelId}/edit`,
 
   add: '/apparels/add',
 
   categoryList: '/categories',
-  categoryDetail: '/categories/:category',
-  categoryDetailRoute: (category: string) => `/categories/${category}`,
+
+  categoryDetailRoute: '/categories/:category',
+  categoryDetail: (category: string) => `/categories/${category}`,
 
   brandList: '/brands',
-  brandDetail: '/brands/:brand',
-  brandDetailRoute: (brand: string) => `/brands/${brand}`,
+
+  brandDetailRoute: '/brands/:brand',
+  brandDetail: (brand: string) => `/brands/${brand}`,
 
   menu: '/menu',
 }

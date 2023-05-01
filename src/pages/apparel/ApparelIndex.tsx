@@ -1,8 +1,9 @@
-import { lazy } from 'react';
+import { lazy, Suspense } from 'react';
 import { Outlet, RouteObject } from 'react-router-dom';
-import ApparelTabBar from 'src/components/apparel/header/ApparelTabBar';
-import routes from './ApparelRoutes';
 import ApparelDesktopHeader from 'src/components/apparel/header/ApparelDesktopHeader';
+import ApparelTabBar from 'src/components/apparel/header/ApparelTabBar';
+import LoadingPage from 'src/pages/common/LoadingPage';
+import routes from './ApparelRoutes';
 
 const ApparelListPage = lazy(() => import('src/pages/apparel/list/ApparelListPage'));
 const ApparelDetailPage = lazy(() => import('src/pages/apparel/detail/ApparelDetailPage'));
@@ -21,18 +22,20 @@ export const ApparelRouteObjects: RouteObject[] = [
       <>
         <ApparelDesktopHeader />
         <ApparelTabBar />
-        <Outlet />
+        <Suspense fallback={<LoadingPage />}>
+          <Outlet />
+        </Suspense>
       </>
     ),
     children: [
       { path: routes.list, element: <ApparelListPage /> },
       { path: routes.add, element: <ApparelAddPage /> },
-      { path: routes.detail, element: <ApparelDetailPage /> },
-      { path: routes.edit, element: <ApparelEditPage /> },
+      { path: routes.detailRoute, element: <ApparelDetailPage /> },
+      { path: routes.editRoute, element: <ApparelEditPage /> },
       { path: routes.categoryList, element: <ApparelCategoryListPage /> },
-      { path: routes.categoryDetail, element: <ApparelCategoryDetailPage /> },
+      { path: routes.categoryDetailRoute, element: <ApparelCategoryDetailPage /> },
       { path: routes.brandList, element: <ApparelBrandListPage /> },
-      { path: routes.brandDetail, element: <ApparelBrandDetailPage /> },
+      { path: routes.brandDetailRoute, element: <ApparelBrandDetailPage /> },
       { path: routes.menu, element: <ApparelMenuPage /> },
     ]
   }

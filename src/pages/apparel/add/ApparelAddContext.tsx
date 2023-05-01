@@ -9,5 +9,5 @@ export const apparelAddAction = (apparel: Apparel) => async (dispatch: Dispatch)
   dispatch(GlobalActions.update({ loading: true }));
   const result = await apparelAdd(apparel);
   dispatch(GlobalActions.update({ loading: false }));
-  router.navigate(ApparelRoutes.detailRoute(result.id));
+  router.navigate(ApparelRoutes.detail(result.id));
 }

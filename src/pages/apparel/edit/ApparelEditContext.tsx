@@ -32,5 +32,5 @@ export const apparelUpdateAction = (apparelId: string, apparel: Apparel) => asyn
 
   dispatch(GlobalActions.update({ loading: false }));
 
-  router.navigate(ApparelRoutes.detailRoute(result.id));
+  router.navigate(ApparelRoutes.detail(result.id));
 }

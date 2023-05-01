@@ -1,24 +1,22 @@
+import { t } from 'i18next';
 import flatMap from 'lodash/flatMap';
-import { useEffect } from 'react';
 import { Button } from 'react-bootstrap';
-import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import apparelList from 'src/api/apparel/apparel-list';
 import ApparelList from 'src/components/apparel/ApparelList';
 import ListLoadingIndicator from 'src/components/common/ListLoadingIndicator';
 import CommonContainer from 'src/components/common/header/CommonContainer';
-import MobileHeader from 'src/components/common/header/MobileHeader';
+import MobileHeader, { MobileHeaderButton } from 'src/components/common/header/MobileHeader';
 import useScrollBottom from 'src/hooks/scroll-bottom';
 import ApparelRoutes from 'src/pages/apparel/ApparelRoutes';
+import router from 'src/pages/router';
+import { useBreakpointMobile } from 'src/utils/breakpoint';
 import { setDocumentTitle } from 'src/utils/services';
 
 export default function ApparelListPage() {
-  const { t } = useTranslation();
+  setDocumentTitle(t('apparel.page.list.title'));
 
-  useEffect(() => {
-    setDocumentTitle(t('apparel.page.list.title'));
-  }, [t]);
-
+  const isMobile = useBreakpointMobile();
   const { data, fetchNextPage, isFetching } = apparelList.useInfiniteApi({});
 
   useScrollBottom(() => {
@@ -29,14 +27,23 @@ export default function ApparelListPage() {
 
   const apparels = flatMap(data!!.pages.map(v => v.data));
 
+  const addBtn = isMobile
+    ? undefined
+    : <Link to={ApparelRoutes.add}><Button variant="primary" className="mb-3">{t('add')}</Button></Link>
+
+  const headerBtns: MobileHeaderButton[] = [
+    {
+      icon: 'fas fa-plus',
+      onClick: () => router.navigate(ApparelRoutes.add),
+    }
+  ]
+
   return (
     <div id="ApparelListPage">
-      <MobileHeader title={t('apparel.menu.all-apparels')} />
+      <MobileHeader title={t('apparel.menu.all-apparels')} btns={headerBtns} />
       <CommonContainer>
-        <h1 className="mb-3">{t('apparel.page.list.inner-title', [data?.pages[0].total])}</h1>
-        <div className="mb-3">
-          <Link to={ApparelRoutes.add}><Button variant="primary">{t('add')}</Button></Link>
-        </div>
+        <h2 className="mb-2">{t('apparel.page.list.inner-title', [data?.pages[0].total])}</h2>
+        {addBtn}
         <ApparelList apparels={apparels} />
         <ListLoadingIndicator isFetching={isFetching} />
       </CommonContainer>

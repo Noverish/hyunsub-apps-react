@@ -1,5 +1,5 @@
+import { t } from 'i18next';
 import { useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import apparelDetail from 'src/api/apparel/apparel-detail';
 import ApparelForm from 'src/components/apparel/ApparelForm';
@@ -12,7 +12,6 @@ import { apparelImageUploadAction, apparelUpdateAction } from './ApparelEditCont
 
 export default function ApparelEditPage() {
   const apparelId = useParams().apparelId!!;
-  const { t } = useTranslation();
   const dispatch = useDispatch();
 
   const apparel = apparelDetail.useApi({ apparelId });

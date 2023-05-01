@@ -1,20 +1,16 @@
-import { useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
+import { t } from 'i18next';
 import ApparelForm from 'src/components/apparel/ApparelForm';
 import CommonContainer from 'src/components/common/header/CommonContainer';
+import MobileHeader from 'src/components/common/header/MobileHeader';
 import { Apparel } from 'src/model/apparel';
 import { useDispatch } from 'src/redux';
 import { setDocumentTitle } from 'src/utils/services';
 import { apparelAddAction } from './ApparelAddContext';
-import MobileHeader from 'src/components/common/header/MobileHeader';
 
 export default function ApparelAddPage() {
   const dispatch = useDispatch();
-  const { t } = useTranslation();
 
-  useEffect(() => {
-    setDocumentTitle(t('apparel.page.add.title'));
-  }, [t]);
+  setDocumentTitle(t('apparel.page.add.title'));
 
   const onImageAdd = (images: File[]) => {
     alert('Not yet implemented!');

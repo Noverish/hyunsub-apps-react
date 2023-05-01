@@ -1,6 +1,6 @@
+import { t } from 'i18next';
 import { useEffect } from 'react';
 import { Button } from 'react-bootstrap';
-import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'react-router-dom';
 import apparelDetail from 'src/api/apparel/apparel-detail';
 import ImageCarousel from 'src/components/common/ImageCarousel';
@@ -15,7 +15,6 @@ import { apparelDeleteAction } from './ApparelDetailContext';
 export default function ApparelDetailPage() {
   const dispatch = useDispatch();
   const apparelId = useParams().apparelId!!;
-  const { t } = useTranslation();
   const title = t('apparel.page.detail.title');
 
   useEffect(() => {
@@ -88,7 +87,7 @@ export default function ApparelDetailPage() {
           </div>
         </div>
         <div className="mt-3">
-          <Link to={ApparelRoutes.editRoute(apparelId)}><Button>{t('edit')}</Button></Link>
+          <Link to={ApparelRoutes.edit(apparelId)}><Button>{t('edit')}</Button></Link>
           <Button variant="danger" className="ms-2" onClick={onDelete}>{t('delete')}</Button>
         </div>
       </CommonContainer>
