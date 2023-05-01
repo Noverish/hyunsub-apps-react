@@ -1,15 +1,48 @@
 import { Spinner } from 'react-bootstrap';
 import InfinitePageSwiper, { InfinitePageSwiperProps } from 'src/components/common/swiper/InfinitePageSwiper';
 import { PhotoPreview } from 'src/model/photo';
+import PhotoInfoSection from 'src/components/photo/PhotoInfoSection';
+import { useState } from 'react';
+import { MobileHeaderButton } from 'src/components/common/header/MobileHeader';
 
-export type PhotoSwiperProps = Omit<InfinitePageSwiperProps<PhotoPreview>, 'renderSlide'>
+import './PhotoSwiper.scss';
+
+export interface PhotoSwiperProps extends Omit<InfinitePageSwiperProps<PhotoPreview>, 'renderSlide'> {
+  albumId: string;
+  photoId?: string;
+}
 
 export default function PhotoSwiper(props: PhotoSwiperProps) {
+  const [showInfo, setShowInfo] = useState(false);
+  const [nowPhotoId, setNowPhotoId] = useState(props.photoId);
+
+  // functions
+  const hideInfo = () => setShowInfo(false);
+
+  const onSlideChange = (index: number, slide: PhotoPreview | null) => {
+    setNowPhotoId(slide?.id);
+  }
+
+  // elements
+  const headerBtns: MobileHeaderButton[] = [
+    {
+      icon: 'fas fa-info-circle',
+      onClick: () => setShowInfo(v => !v),
+    }
+  ]
+
   return (
-    <InfinitePageSwiper
-      {...props}
-      renderSlide={renderSlide}
-    />
+    <div className="PhotoSwiper">
+      <div className="photo_viewer_container">
+        <InfinitePageSwiper
+          {...props}
+          renderSlide={renderSlide}
+          btns={headerBtns}
+          onSlideChange={onSlideChange}
+        />
+      </div>
+      <PhotoInfoSection show={showInfo} hide={hideInfo} albumId={props.albumId} photoId={nowPhotoId} />
+    </div>
   )
 }
 
