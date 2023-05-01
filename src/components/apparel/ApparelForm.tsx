@@ -6,6 +6,8 @@ import { useDispatch } from "src/redux";
 import { apparelImageDeleteAction } from 'src/pages/apparel/edit/ApparelEditContext';
 import { ExtendedImage } from "../common/ExtendedImage";
 import ImageAddButton from "../common/ImageAddButton";
+import ApparelBrandSelect from './ApparelBrandSelect';
+import ApparelCategorySelect from './ApparelCategorySelect';
 
 interface Props {
   apparel?: Apparel;
@@ -33,7 +35,15 @@ export function ApparelFormImage({ image }: { image: ApparelImage }) {
 export default function ApparelForm(props: Props) {
   const { apparel, onImageAdd, onSubmit, confirmBtnText } = props;
   const { t } = useTranslation();
-  const { register, handleSubmit } = useForm<Apparel>({ defaultValues: apparel });
+  const { register, handleSubmit, setValue } = useForm<Apparel>({ defaultValues: apparel });
+
+  const onBrandSelect = (brand?: string) => {
+    setValue('brand', brand ?? '');
+  }
+
+  const onCategorySelect = (category?: string) => {
+    setValue('category', category ?? '');
+  }
 
   const images = (apparel?.images || []).map((v) => <ApparelFormImage image={v} key={v.imageId} />);
 
@@ -60,11 +70,11 @@ export default function ApparelForm(props: Props) {
           </Form.Group>
           <Form.Group className="col">
             <Form.Label>{t('apparel.term.brand')}</Form.Label>
-            <Form.Control {...register('brand')} />
+            <ApparelBrandSelect onSelect={onBrandSelect} />
           </Form.Group>
           <Form.Group className="col">
             <Form.Label>{t('apparel.term.category')}</Form.Label>
-            <Form.Control {...register('category')} />
+            <ApparelCategorySelect onSelect={onCategorySelect} />
           </Form.Group>
           <Form.Group className="col">
             <Form.Label>{t('apparel.term.size')}</Form.Label>
