@@ -3,7 +3,7 @@ import { VideoEntry } from "src/model/video";
 
 export interface VideoEntryCreateParams {
   name: string;
-  thumbnail?: string;
+  thumbnailUrl?: string;
   category: string;
   videoGroupId?: string;
 }

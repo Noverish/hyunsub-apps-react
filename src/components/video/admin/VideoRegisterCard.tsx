@@ -73,7 +73,7 @@ export default function VideoRegisterCard() {
           </Form.Group>
 
           <Form.Group className="mb-3">
-            <Form.Label>Thumbnail Url</Form.Label>
+            <Form.Label>Thumbnail URL</Form.Label>
             <Form.Control {...register('thumbnailUrl')} />
           </Form.Group>
 

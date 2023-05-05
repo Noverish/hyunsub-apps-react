@@ -4,17 +4,13 @@ import { VideoEntryCreateParams } from 'src/api/video/admin/video-entry-create';
 import VieoCategorySelect from 'src/components/video/select/VideoCategorySelect';
 import VideoGroupSelect from 'src/components/video/select/VideoGroupSelect';
 import { VideoCategory, VideoGroup } from 'src/model/video';
+import { useVideoEntryCreate } from 'src/pages/video/admin/VideoAdminHooks';
 import { dispatch, useSelector } from 'src/redux';
-import { filterEmptyString } from 'src/utils';
 import { VideoAdminActions } from '../VideoAdminState';
-
-interface Props {
-
-}
 
 type FormState = VideoEntryCreateParams;
 
-export default function VideoEntryCreateModal(props: Props) {
+export default function VideoEntryCreateModal() {
   const show = useSelector(s => s.video.admin.showVideoEntryCreateModal);
 
   const onHide = () => {
@@ -22,6 +18,7 @@ export default function VideoEntryCreateModal(props: Props) {
   }
 
   const { register, handleSubmit, setValue, formState: { errors } } = useForm<FormState>();
+  const videoEntryCreate = useVideoEntryCreate();
 
   const onCategorySelect = (category: VideoCategory | null) => {
     setValue('category', category?.name ?? '');
@@ -32,7 +29,7 @@ export default function VideoEntryCreateModal(props: Props) {
   }
 
   const onSubmit: SubmitHandler<FormState> = (state: FormState) => {
-    console.log(filterEmptyString(state));
+    videoEntryCreate(state);
   };
 
   register('category', { required: 'Category가 없습니다.' });
@@ -53,8 +50,8 @@ export default function VideoEntryCreateModal(props: Props) {
           </Form.Group>
 
           <Form.Group className="mb-3">
-            <Form.Label>thumbnail</Form.Label>
-            <Form.Control {...register('thumbnail')} />
+            <Form.Label>Thumbnail URL</Form.Label>
+            <Form.Control {...register('thumbnailUrl')} />
           </Form.Group>
 
           <Form.Group className="mb-3">
