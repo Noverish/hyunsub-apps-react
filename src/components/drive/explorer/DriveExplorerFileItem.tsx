@@ -9,6 +9,7 @@ import { useDriveExplorerFileSelect, useDriveExplorerPath } from 'src/components
 import { useDriveFileRename } from 'src/components/drive/explorer/DriveFileHooks';
 import { DriveFileInfo } from 'src/model/drive';
 import DriveRoutes from 'src/pages/drive/DriveRoutes';
+import { getHumanReadableSize } from 'src/utils';
 
 import './DriveExplorerFileItem.scss';
 
@@ -101,7 +102,7 @@ export default function DriveExplorerFileItem({ file }: Props) {
         <DriveFileIcon name={file.name} isDir={file.isDir} />
       </div>
       <div className="cell name">{nameElement}</div>
-      <div className="cell size">{file.size}</div>
+      <div className="cell size">{file.isDir ? '' : getHumanReadableSize(file.size)}</div>
       <div className="cell date">{file.date}</div>
     </div>
   );

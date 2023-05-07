@@ -2,7 +2,7 @@
 
 .VideoHistoryItem {
   display: flex;
-  
+
   @include media-breakpoint-up(md) {
     padding: 1rem 0;
   }
@@ -39,7 +39,7 @@
     }
 
     .date {
-      color: var(--hyunsub-text-color-2);
+      color: var(--hyunsub-text-hover);
       @include media-breakpoint-up(md) {
         font-size: 1rem;
       }

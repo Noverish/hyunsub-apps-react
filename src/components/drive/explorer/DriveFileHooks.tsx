@@ -70,7 +70,7 @@ export function useDriveNewFolder() {
     driveListApi.updateCache({ path }, (cache) => {
       const newFolder: DriveFileInfo = {
         name,
-        size: '',
+        size: 0,
         date: dateToString(new Date()),
         isDir: true,
       };

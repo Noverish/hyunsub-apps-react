@@ -4,6 +4,7 @@ import { useSearchParams } from 'react-router-dom';
 import { DriveExplorerContext } from './DriveExplorerContext';
 import driveListApi from 'src/api/drive/drive-list';
 import { useOptionalUrlParams } from 'src/hooks/url-params';
+import { DriveFileInfo, DriveFileSorts } from 'src/model/drive';
 import { isMac } from 'src/utils/user-agent';
 
 export function useDriveExplorerPath(): [string, (path: string) => void] {
@@ -190,4 +191,58 @@ export function useDriveExplorerKeyDown() {
       window.onkeydown = null;
     };
   }, [handleKeyDown]);
+}
+
+export function useDriveExplorerFilesWithSort() {
+  const [path] = useDriveExplorerPath();
+  const { data: files } = driveListApi.useApiResult({ path });
+  const [{ sort }, setState] = useContext(DriveExplorerContext);
+
+  const { NAME_ASC, SIZE_ASC, DATE_ASC, NAME_DESC, SIZE_DESC, DATE_DESC } = DriveFileSorts;
+
+  const sortFunc = (a: DriveFileInfo, b: DriveFileInfo): number => {
+    if (a.isDir && !b.isDir) {
+      return sort.isAsc ? -1 : 1;
+    } else if (!a.isDir && b.isDir) {
+      return sort.isAsc ? 1 : -1;
+    }
+
+    switch (sort) {
+      case NAME_ASC:
+        return a.name.localeCompare(b.name);
+      case NAME_DESC:
+        return b.name.localeCompare(a.name);
+      case DATE_ASC:
+        return new Date(a.date).getTime() - new Date(b.date).getTime();
+      case DATE_DESC:
+        return new Date(b.date).getTime() - new Date(a.date).getTime();
+      case SIZE_ASC:
+        return a.size - b.size;
+      case SIZE_DESC:
+        return b.size - a.size;
+      default:
+        return 0;
+    }
+  };
+
+  const UP = ' ↑';
+  const DOWN = ' ↓';
+
+  const nameArrow = sort === NAME_ASC ? UP : sort === NAME_DESC ? DOWN : '';
+  const dateArrow = sort === DATE_ASC ? UP : sort === DATE_DESC ? DOWN : '';
+  const sizeArrow = sort === SIZE_ASC ? UP : sort === SIZE_DESC ? DOWN : '';
+
+  const onNameClick = () => setState({ sort: sort === NAME_ASC ? NAME_DESC : NAME_ASC });
+  const onDateClick = () => setState({ sort: sort === DATE_ASC ? DATE_DESC : DATE_ASC });
+  const onSizeClick = () => setState({ sort: sort === SIZE_ASC ? SIZE_DESC : SIZE_ASC });
+
+  return {
+    files: files ? files.sort(sortFunc) : files,
+    nameArrow,
+    dateArrow,
+    sizeArrow,
+    onNameClick,
+    onDateClick,
+    onSizeClick,
+  };
 }

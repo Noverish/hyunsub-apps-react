@@ -15,7 +15,7 @@
       cursor: pointer;
 
       &:hover {
-        color: #AAA;
+        color: var(--hyunsub-text-hover);
       }
     }
   }

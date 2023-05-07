@@ -1,3 +1,4 @@
+import { DriveFileSort, DriveFileSorts } from 'src/model/drive';
 import { generateStateContext } from 'src/utils/context';
 
 interface State {
@@ -6,6 +7,7 @@ interface State {
   rename: boolean;
   renameBulk: boolean;
   viewer: boolean;
+  sort: DriveFileSort;
 }
 
 const initialState: State = {
@@ -13,6 +15,7 @@ const initialState: State = {
   rename: false,
   renameBulk: false,
   viewer: false,
+  sort: DriveFileSorts.NAME_ASC,
 };
 
 export const [DriveExplorerContext, DriveExplorerProvider] = generateStateContext(initialState);

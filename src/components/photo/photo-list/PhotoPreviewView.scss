@@ -68,7 +68,7 @@
     }
 
     &:not(.selected) i:hover {
-      color: #AAA;
+      color: var(--hyunsub-text-hover);
     }
   }
 }

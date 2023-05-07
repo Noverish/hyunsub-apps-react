@@ -7,7 +7,7 @@ import fileUploadMultipartApi from 'src/api/file/file-upload-multipart';
 import { useDriveExplorerContext } from 'src/components/drive/explorer/DriveExplorerHooks';
 import { DriveUploadContext } from 'src/components/drive/upload/DriveUploadContext';
 import { FileUploadResult, FileUploadStatus, FileWithPath } from 'src/model/file';
-import { dateToString, getHumanReadableSize } from 'src/utils';
+import { dateToString } from 'src/utils';
 
 export function useDriveUpload() {
   const { path } = useDriveExplorerContext();
@@ -57,7 +57,7 @@ export function useDriveUpload() {
       driveListApi.updateCache({ path }, (cache) => {
         cache.push({
           name: data.file.name,
-          size: getHumanReadableSize(data.file.size),
+          size: data.file.size,
           date: dateToString(new Date()),
           isDir: false,
         });

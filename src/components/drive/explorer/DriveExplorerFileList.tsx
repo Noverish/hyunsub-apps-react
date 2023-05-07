@@ -2,21 +2,16 @@ import { t } from 'i18next';
 import { useMemo } from 'react';
 import { Spinner } from 'react-bootstrap';
 
+import { useDriveUpload } from '../upload/DriveUploadHooks';
 import FileUploadZone from 'src/components/common/FileUploadZone';
 import DriveFileListItem from 'src/components/drive/explorer/DriveExplorerFileItem';
-import { DriveFileInfo } from 'src/model/drive';
-import { FileWithPath } from 'src/model/file';
+import { useDriveExplorerFilesWithSort } from 'src/components/drive/explorer/DriveExplorerHooks';
 
 import './DriveExplorerFileList.scss';
 
-interface Props {
-  files?: DriveFileInfo[];
-}
-
-export default function DriveExplorerFileList({ files }: Props) {
-  const onUpload = (files: FileWithPath[]) => {
-    // dispatch(driveUploadAction(path, files));
-  };
+export default function DriveExplorerFileList() {
+  const { files, nameArrow, dateArrow, sizeArrow, onNameClick, onDateClick, onSizeClick } = useDriveExplorerFilesWithSort();
+  const upload = useDriveUpload();
 
   const onElementDrop = (dataTransfer: DataTransfer) => {
     // const moves: string[] = JSON.parse(dataTransfer.getData('moves'));
@@ -47,15 +42,30 @@ export default function DriveExplorerFileList({ files }: Props) {
   }, [files]);
 
   return (
-    <FileUploadZone onUpload={onUpload} onElementDrop={onElementDrop}>
+    <FileUploadZone onUpload={upload} onElementDrop={onElementDrop}>
       <div className="DriveExplorerFileList">
         <div className="my_table">
           <div className="table_row table_header">
             <div className="cell check"></div>
             <div className="cell icon">{t('drive.DriveExplorerFileList.type')}</div>
-            <div className="cell name">{t('drive.DriveExplorerFileList.name')}</div>
-            <div className="cell size">{t('drive.DriveExplorerFileList.size')}</div>
-            <div className="cell date">{t('drive.DriveExplorerFileList.date')}</div>
+            <div className="cell name">
+              <span className="sort_btn" onClick={onNameClick}>
+                {t('drive.DriveExplorerFileList.name')}
+                {nameArrow}
+              </span>
+            </div>
+            <div className="cell size">
+              <span className="sort_btn" onClick={onSizeClick}>
+                {t('drive.DriveExplorerFileList.size')}
+                {sizeArrow}
+              </span>
+            </div>
+            <div className="cell date">
+              <span className="sort_btn" onClick={onDateClick}>
+                {t('drive.DriveExplorerFileList.date')}
+                {dateArrow}
+              </span>
+            </div>
           </div>
           {rows}
         </div>

@@ -26,7 +26,7 @@ export default function DriveExplorer() {
     <div className="DriveExplorer">
       <DriveFileListBreadcrumb />
       <DriveExplorerMenu files={files} />
-      <DriveExplorerFileList files={files} />
+      <DriveExplorerFileList />
       <DriveRenameModal />
       <DriveViewerModal />
       {items.length > 0 && <DriveUploadModal />}

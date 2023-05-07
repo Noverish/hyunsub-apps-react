@@ -45,6 +45,14 @@
       padding-right: 12px;
       text-align: right;
     }
+
+    .sort_btn {
+      cursor: pointer;
+
+      &:hover {
+        color: var(--hyunsub-text-hover);
+      }
+    }
   }
 }
 

@@ -10,7 +10,7 @@
   --hyunsub-hover-bg: #333;
 
   --hyunsub-text-color: white;
-  --hyunsub-text-color-2: #AAA;
+  --hyunsub-text-hover: #AAA;
 
   --hyunsub-border-color-primary: #DDD;
   --hyunsub-border-color-secondary: #777;
@@ -93,7 +93,7 @@ input.form-control {
 }
 
 .gray_on_hover:hover {
-  color: #AAA;
+  color: var(--hyunsub-text-hover);
 }
 
 .gray_bg_hover:hover {
