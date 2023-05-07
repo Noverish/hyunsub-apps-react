@@ -1,0 +1,41 @@
+.DriveUploadItem {
+  border-top: 1px solid var(--hyunsub-divider-color);
+
+  td {
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+  }
+
+  &:first-of-type {
+    border-top: 0px;
+  }
+
+  .icon {
+    width: 24px;
+    vertical-align: top;
+  }
+
+  .info {
+    vertical-align: top;
+
+    .name {
+      word-break: break-all;
+      font-size: 14px;
+    }
+
+    .size {
+      font-size: 10px;
+    }
+  }
+
+  .status {
+    align-self: center;
+    width: 64px;
+    text-align: right;
+
+    .CircularProgressbar {
+      width: 48px;
+      height: 48px;
+    }
+  }
+}

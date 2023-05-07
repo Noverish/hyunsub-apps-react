@@ -1,7 +1,6 @@
 const DriveRoutes = {
-  explorer: '/explorer',
-  rename: '/rename',
-  move: '/move',
+  explorerRoute: '/explorer',
+  explorer: (path: string) => `/explorer?path=${path}`,
 }
 
 export default DriveRoutes;

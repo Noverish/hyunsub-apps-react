@@ -49,7 +49,6 @@ export default function PathSelect({ onSelect, isInvalid }: Props) {
   const onChange = (newValue: SingleValue<SelectOption>, actionMeta: ActionMeta<SelectOption>) => {
     const { action } = actionMeta;
     if (action !== 'select-option' && action !== 'create-option' && action !== 'clear') {
-      console.log('onChange', { newValue, actionMeta });
       return;
     }
 
@@ -71,7 +70,6 @@ export default function PathSelect({ onSelect, isInvalid }: Props) {
 
   const onInputChange = (newPath: string, actionMeta: InputActionMeta) => {
     if (actionMeta.action !== 'input-change' && actionMeta.action !== 'set-value') {
-      console.log('onInputChange', { newPath, actionMeta });
       return;
     }
 

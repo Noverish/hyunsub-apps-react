@@ -36,15 +36,15 @@ export default function PhotoListMobileHeader({ album }: Props) {
     },
     {
       text: t('filter'),
-      onClick: () => { console.log('filter') }
+      onClick: () => { alert('Not yet supported!') }
     },
     {
       text: t('sort'),
-      onClick: () => { console.log('sort') }
+      onClick: () => { alert('Not yet supported!') }
     },
     {
       text: t('view'),
-      onClick: () => { console.log('view') }
+      onClick: () => { alert('Not yet supported!') }
     },
   ]
 
@@ -55,7 +55,7 @@ export default function PhotoListMobileHeader({ album }: Props) {
     },
     {
       text: t('delete'),
-      onClick: () => { console.log('delete') }
+      onClick: () => { alert('Not yet supported!') }
     },
   ]
 

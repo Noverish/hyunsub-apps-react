@@ -1,0 +1,50 @@
+.DriveUploadModal {
+  position: fixed;
+  right: 30px;
+  bottom: 40px;
+  width: 380px;
+  border-radius: 0.5rem;
+  border: 1px solid var(--hyunsub-divider-color);
+  overflow: hidden;
+
+  .header {
+    padding: 1rem;
+    border-bottom: 1px solid var(--hyunsub-divider-color);
+    background-color: var(--hyunsub-title-bg);
+
+    .top_bar {
+      display: flex;
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+      align-items: center;
+
+      .minimize {
+        margin-left: auto;
+      }
+
+      .close {
+        margin-left: 1rem;
+      }
+
+      .minimize,
+      .close {
+        cursor: pointer;
+
+        &:hover {
+          color: #aaa;
+        }
+      }
+    }
+  }
+
+  .body {
+    max-height: 360px;
+    padding: 0 1rem;
+    overflow: scroll;
+    background-color: var(--hyunsub-content-bg);
+
+    table {
+      width: 100%;
+    }
+  }
+}

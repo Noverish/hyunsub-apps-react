@@ -2,7 +2,7 @@ export interface DriveFileInfo {
   name: string;
   size: string;
   date: string;
-  type: DriveFileType;
+  isDir: boolean;
 }
 
 const _DriveFileType = {
@@ -22,13 +22,9 @@ export interface DrivePathParams {
 }
 
 export interface DriveUploadStatus {
-  total: number;
-  curr: number;
-}
-
-export interface DriveWindowStatus {
   path: string;
-  selects: string[];
-  lastSelect?: DriveFileInfo;
-  lastSelectTime?: number;
+  name: string;
+  size: number;
+  type: string;
+  progress: number;
 }

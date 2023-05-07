@@ -1,0 +1,12 @@
+.DriveExplorerBreadcrumb {
+  font-size: 1.5rem;
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  li.active span {
+    font-weight: bold;
+    color: white;
+  }
+}

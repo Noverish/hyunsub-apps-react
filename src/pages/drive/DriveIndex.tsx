@@ -1,28 +1,22 @@
 import { lazy } from 'react';
 import { Navigate, Outlet, RouteObject } from 'react-router-dom';
+import DriveDesktopHeader from 'src/components/drive/header/DriveDesktopHeader';
 import routes from './DriveRoutes';
-import PhotoDesktopHeader from 'src/components/photo/header/PhotoDesktopHeader';
-
-import './DriveStyle.scss';
 
 const DriveExplorerPage = lazy(() => import('src/pages/drive/explorer/DriveExplorerPage'));
-const DriveRenamePage = lazy(() => import('src/pages/drive/rename/DriveRenamePage'));
-const DriveMovePage = lazy(() => import('src/pages/drive/move/DriveMovePage'));
 
 export const DriveRouteObjects: RouteObject[] = [
   {
     path: '/',
     element: (
       <>
-        <PhotoDesktopHeader />
+        <DriveDesktopHeader />
         <Outlet />
       </>
     ),
     children: [
-      { path: "/", element: <Navigate to={routes.explorer} /> },
-      { path: routes.explorer, element: <DriveExplorerPage /> },
-      { path: routes.rename, element: <DriveRenamePage /> },
-      { path: routes.move, element: <DriveMovePage /> },
+      { path: "/", element: <Navigate to={routes.explorerRoute} /> },
+      { path: routes.explorerRoute, element: <DriveExplorerPage /> },
     ]
   }
 ]

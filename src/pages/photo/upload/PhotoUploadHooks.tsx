@@ -1,6 +1,7 @@
 import { useContext } from 'react';
-import fileUploadApi from 'src/api/file/file-upload';
+import fileUploadApi from 'src/api/file/file-upload-multipart';
 import usePhotoUploadApi from 'src/api/photo/photo-upload';
+import { FileWithPath } from 'src/model/file';
 import { PhotoUploadContext } from 'src/pages/photo/upload/PhotoUploadContext';
 
 export function usePhotoUpload(albumId?: string) {
@@ -26,7 +27,10 @@ export function usePhotoUpload(albumId?: string) {
     items.forEach(v => v.status = 'uploading');
     setState({ items, uploading: true });
 
-    const files = items.map(v => v.file);
+    const files: FileWithPath[] = items.map(v => ({
+      file: v.file,
+      path: v.file.name,
+    }));
 
     fileUploadApi({
       files,
@@ -35,13 +39,13 @@ export function usePhotoUpload(albumId?: string) {
         items[index].progress = ratio;
         setState({ items, progress: status.total.ratio });
       },
-      callback: ({ i, nonce, fileName: name }) => {
+      callback: ({ index: i, nonce, fileName: name }) => {
         nonces[i] = nonce;
         items[i].progress = 100;
         items[i].status = 'registering';
         setState({ items });
 
-        const millis = files[i].lastModified;
+        const millis = files[i].file.lastModified;
         photoUploadApi({ nonce, name, albumId, millis });
       }
     });

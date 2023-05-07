@@ -5,7 +5,7 @@ interface StateProviderProps {
   children: React.ReactNode;
 }
 
-type SetStateAction<State> = Partial<State> | ((state: State) => void);
+type SetStateAction<State> = Partial<State> | ((state: State) => State | void | undefined);
 type StateContextType<State> = Context<[State, Dispatch<SetStateAction<State>>]>;
 type StateProviderType = (props: StateProviderProps) => JSX.Element;
 

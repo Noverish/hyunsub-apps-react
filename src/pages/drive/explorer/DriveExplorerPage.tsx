@@ -1,65 +1,37 @@
 import { useEffect } from "react";
-import MobileHeader from "src/components/common/header/MobileHeader";
-import DriveContainer from "src/components/drive/DriveContainer";
-import DriveFileList from "src/components/drive/DriveFileList";
-import DrivePreviewSection from "src/components/drive/DrivePreviewSection";
-import { useDriveStatus } from 'src/pages/drive/DriveHooks';
-import { useDispatch } from "src/redux";
-import { useBreakpointMobile } from "src/utils/breakpoint";
+import CommonContainer from "src/components/common/header/CommonContainer";
+import DriveExplorer from "src/components/drive/explorer/DriveExplorer";
+import { DriveExplorerProvider } from "src/components/drive/explorer/DriveExplorerContext";
+import { useDriveExplorerKeyDown, useDriveExplorerPath } from 'src/components/drive/explorer/DriveExplorerHooks';
 import { setDocumentTitle } from "src/utils/services";
-import { driveKeyboardAction } from "./DriveExplorerActions";
+import { DriveUploadProvider } from "src/components/drive/upload/DriveUploadContext";
 
 import './DriveExplorerPage.scss';
 
-function DriveExplorerMobilePage() {
-  return (
-    <div id="DriveExplorerPage">
-      <DriveContainer>
-        <MobileHeader title="Drive" />
-        <div>
-          <DriveFileList index={0} />
-        </div>
-      </DriveContainer>
-    </div>
-  )
-}
+function DriveExplorerPage() {
+  const [path] = useDriveExplorerPath();
 
-function DriveExplorerDesktopPage() {
-  const dispatch = useDispatch();
-  const { path } = useDriveStatus();
+  useDriveExplorerKeyDown();
 
   useEffect(() => {
     setDocumentTitle(path);
-  }, [path]);
-
-  useEffect(() => {
-    window.onkeydown = (e: KeyboardEvent) => {
-      dispatch(driveKeyboardAction(e));
-    }
-
-    return () => {
-      window.onkeydown = null;
-    }
-  }, [dispatch]);
+  }, [path])
 
   return (
     <div id="DriveExplorerPage">
-      <DriveContainer>
-        <div>
-          <DriveFileList index={0} />
-        </div>
-        <div>
-          <DrivePreviewSection />
-        </div>
-      </DriveContainer>
+      <CommonContainer>
+        <DriveExplorer />
+      </CommonContainer>
     </div>
   )
 }
 
-export default function DriveExplorerPage() {
-  const isMobile = useBreakpointMobile();
-
-  return isMobile
-    ? <DriveExplorerMobilePage />
-    : <DriveExplorerDesktopPage />
+export default function DriveExplorerIndex() {
+  return (
+    <DriveExplorerProvider>
+      <DriveUploadProvider>
+        <DriveExplorerPage />
+      </DriveUploadProvider>
+    </DriveExplorerProvider>
+  )
 }

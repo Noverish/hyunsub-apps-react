@@ -1,0 +1,29 @@
+.DriveFileIcon {
+  &.folder {
+    color: var(--bs-yellow);
+  }
+
+  &.image {
+    color: var(--bs-blue);
+  }
+
+  &.video {
+    color: var(--bs-purple);
+  }
+
+  &.text {
+    color: var(--bs-green);
+  }
+
+  &.audio {
+    color: var(--bs-cyan);
+  }
+
+  &.pdf {
+    color: var(--bs-red);
+  }
+
+  &.etc {
+    color: var(--bs-secondary);
+  }
+}

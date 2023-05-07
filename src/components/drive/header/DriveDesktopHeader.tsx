@@ -3,34 +3,23 @@ import DesktopHeader, { DesktopHeaderProps } from 'src/components/common/header/
 import { t } from 'i18next';
 
 const desktopProps: DesktopHeaderProps = {
-  title : 'Drive',
+  title : 'HyunDrive',
   menus: [
     {
       name: t('drive.menu.explorer'),
-      link: DriveRoutes.explorer,
+      link: DriveRoutes.explorerRoute,
       icon: 'fas fa-folder',
     },
-    {
-      name: t('drive.menu.rename'),
-      link: DriveRoutes.rename,
-      icon: 'fas fa-edit',
-    },
-    {
-      name: t('drive.menu.move'),
-      link: DriveRoutes.move,
-      icon: 'fas fa-exchange-alt',
-    }
   ],
   dropdowns: [
     {
       name: t('menus'),
-      link: DriveRoutes.explorer,
+      link: DriveRoutes.explorerRoute,
     }
   ],
   onSearch: () => {
     alert('Not yet implemented');
   },
-  noContainer: true,
 }
 
 export default function DriveDesktopHeader() {

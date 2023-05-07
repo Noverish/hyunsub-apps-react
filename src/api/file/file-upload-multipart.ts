@@ -1,37 +1,86 @@
-import { generateApi } from "../generate-api";
-import { AxiosRequestConfig, AxiosProgressEvent } from 'axios';
+import { AxiosProgressEvent, AxiosRequestConfig } from 'axios';
 import AppConstant from 'src/utils/constants';
+import { generateApi } from "../generate-api";
+import { encodeURI, decode } from 'js-base64';
+import { sleep } from 'src/utils';
+import { FileUploadResult, FileUploadStatus, FileWithPath } from 'src/model/file';
+import { calcProgress, calcFormDataSize } from 'src/utils/form-data';
 
-export interface FileUploadMultipartParams {
-  path: string;
-  files: File[];
-  progress?: (curr: number, total: number) => void;
+export interface FileUploadParams {
+  files: FileWithPath[];
+  controller?: AbortController;
+  progress?: (status: FileUploadStatus) => void;
+  callback?: (result: FileUploadResult) => void;
+  errorCallback?: (status: FileUploadResult) => void;
 }
 
-export interface FileUploadMultipartResult {
-  results: string[];
-}
+const pathNonce = Math.random().toString(36).substring(2, 8);
+const url = AppConstant.file.HOST + `/upload/multipart/${pathNonce}`;
 
-const fileUploadMultipartApi = generateApi<FileUploadMultipartParams, FileUploadMultipartResult>(params => {
+const fileUpload = generateApi<FileUploadParams, FileUploadResult>(params => {
+  const { files, progress, controller } = params;
+
   const formData = new FormData();
-  formData.append('path', params.path);
-  params.files.forEach(v => formData.append('files', v));
+  files.forEach((v) => formData.append('files', v.file, encodeURI(v.path)));
+
+  const sizes = calcFormDataSize(files);
 
   return {
-    url: AppConstant.file.HOST + `/upload/multipart`,
+    url,
     method: 'POST',
     withCredentials: true,
     data: formData,
     headers: {
       "Content-Type": "multipart/form-data",
     },
+    signal: controller?.signal,
     onUploadProgress: (e: AxiosProgressEvent) => {
-      const total = e.total;
-      if (total) {
-        params.progress?.(e.loaded, total);
+      if (!progress) {
+        return;
+      }
+
+      const status = calcProgress(sizes, e);
+      if (status) {
+        progress(status);
       }
     }
   } as AxiosRequestConfig;
-})
+});
 
-export default fileUploadMultipartApi;
+export default async function fileUploadApi(params: FileUploadParams) {
+  const es = new EventSource(url, { withCredentials: true });
+
+  es.addEventListener('data', (event: MessageEvent<string>) => {
+    const result = JSON.parse(event.data);
+    result.fileName = decode(result.fileName);
+    params.callback?.(result);
+  });
+
+  es.addEventListener('forbidden', (event: MessageEvent<string>) => {
+    const result = JSON.parse(event.data);
+    result.fileName = decode(result.fileName);
+    params.errorCallback?.(result);
+  });
+
+  es.addEventListener('close', () => {
+    es.close();
+  });
+
+  await waitReady(es);
+
+  try {
+    await fileUpload(params);
+  } catch (ex) {
+
+  }
+
+  await sleep(1000);
+}
+
+function waitReady(es: EventSource) {
+  return new Promise<void>((resolve) => {
+    es.addEventListener('ready', () => {
+      resolve();
+    });
+  })
+}

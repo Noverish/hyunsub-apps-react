@@ -4,7 +4,6 @@ import logger from 'redux-logger';
 import auth from 'src/pages/auth/AuthRedux';
 import video from 'src/pages/video/VideoRedux';
 import encode from 'src/pages/encode/EncodeRedux';
-import drive from 'src/pages/drive/DriveRedux';
 import toast from './toast';
 import global from './global';
 
@@ -23,7 +22,7 @@ export const saveState = (state: RootState) => {
   localStorage.setItem("redux", serializedState);
 };
 
-const reducer = combineReducers({ auth, video, encode, toast, global, drive });
+const reducer = combineReducers({ auth, video, encode, toast, global });
 
 export type RootState = ReturnType<typeof reducer>;
 

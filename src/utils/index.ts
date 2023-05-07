@@ -41,3 +41,22 @@ export function dateToString(date: Date) {
   const second = date.getSeconds().toString().padStart(2, '0');
   return `${year}-${month}-${day} ${hour}:${minute}:${second}`;
 }
+
+export function getHumanReadableSize(size: number) {
+  const kb = 1000;
+	const mb = 1000 * 1000;
+	const gb = 1000 * 1000 * 1000;
+
+  if (size > gb) {
+    const tmp = Math.floor(size / gb * 100) / 100;
+    return `${tmp} GB`;
+  }
+
+  if (size > mb) {
+    const tmp = Math.floor(size / mb * 100) / 100;
+    return `${tmp} MB`;
+  }
+
+  const tmp = Math.floor(size / kb * 100) / 100;
+  return `${tmp} KB`;
+}

@@ -30,7 +30,8 @@ interface GenerateApiResult<P, R> {
   cache: (p: P) => R | undefined;
   prefetch: (p: P) => void;
   invalidate: (p: P) => void;
-  updateCache: (p: P, updater: (cache: R) => void) => void;
+  clearCache: (p: P) => void;
+  updateCache: (p: P, updater: (cache: R) => R | void | undefined) => void;
 }
 
 interface GenerateInfiniteApiResult<P, R> {
@@ -55,8 +56,12 @@ export function generateApi<P, R>(func: (p: P) => AxiosRequestConfig) {
       }
       return res.data;
     } catch (ex) {
-      const res = (ex as AxiosError<ErrorResponse>).response!!;
       dispatch(GlobalActions.update({ loading: false }));
+      const res = (ex as AxiosError<ErrorResponse>).response!!;
+      if (!res) {
+        throw ex;
+      }
+
       if (res.status === 400) {
         dispatch(insertToast(getErrMsg(t, res.data)));
       } else if (res.status === 401) {
@@ -81,14 +86,12 @@ export function generateQuery<P, R>(option: GenerateApiOption<P>): GenerateApiRe
   const prefetch = (p: P) => QueryClient.prefetchQuery(key(p), () => api(p), { staleTime: Infinity });
   const fetch = (p: P) => QueryClient.fetchQuery(key(p), () => api(p), { staleTime: Infinity });
   const invalidate = (p: P) => QueryClient.invalidateQueries(key(p), { refetchType: 'active' });
+  const clearCache = (p: P) => QueryClient.removeQueries(key(p));
   const updateCache = (p: P, updater: (cache: R) => void) => {
-    QueryClient.setQueryData<R>(key(p), (cache) => {
-      if (!cache) {
-        return cache;
-      }
-      updater(cache);
-      return cache;
-    });
+    QueryClient.setQueryData<R>(
+      key(p),
+      (cache) => cache ? produce(cache, updater) : cache,
+    );
   }
 
   return {
@@ -100,6 +103,7 @@ export function generateQuery<P, R>(option: GenerateApiOption<P>): GenerateApiRe
     cache,
     prefetch,
     invalidate,
+    clearCache,
     updateCache,
   };
 }
