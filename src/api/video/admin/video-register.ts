@@ -1,5 +1,5 @@
-import { generateApi } from "src/api/generate-api";
-import { filterEmptyString } from "src/utils";
+import { generateApi } from 'src/api/generate-api';
+import { filterEmptyString } from 'src/utils';
 
 export interface VideoRegisterParams {
   category?: string;
@@ -12,7 +12,7 @@ export interface VideoRegisterParams {
   thumbnailUrl?: string;
 }
 
-const videoRegister = generateApi<VideoRegisterParams, any>(params => ({
+const videoRegister = generateApi<VideoRegisterParams, any>((params) => ({
   url: `/api/v1/register`,
   method: 'POST',
   data: filterEmptyString(params),

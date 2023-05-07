@@ -6,7 +6,7 @@ interface State {
   subtitleSync: { [subtitleUrl: string]: number };
   season: string | null;
   page: number;
-};
+}
 
 const initialState: State = {
   showSetting: false,

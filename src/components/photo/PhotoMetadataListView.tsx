@@ -1,5 +1,6 @@
-import { Table } from "react-bootstrap";
-import { PhotoMetadata } from "src/model/photo"
+import { Table } from 'react-bootstrap';
+
+import { PhotoMetadata } from 'src/model/photo';
 
 import './PhotoMetadataListView.scss';
 
@@ -52,10 +53,8 @@ export default function PhotoMetadataListView({ list }: Props) {
             <th>offsetTimeDigitized</th>
           </tr>
         </thead>
-        <tbody>
-          {rows}
-        </tbody>
+        <tbody>{rows}</tbody>
       </Table>
     </div>
-  )
+  );
 }

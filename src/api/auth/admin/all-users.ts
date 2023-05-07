@@ -1,5 +1,5 @@
-import { AdminUser } from "src/model/auth";
 import { generateQuery } from 'src/api/generate-api';
+import { AdminUser } from 'src/model/auth';
 
 const getAllUsers = generateQuery<{}, AdminUser[]>({
   api: () => ({

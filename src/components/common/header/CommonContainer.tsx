@@ -1,5 +1,6 @@
 import cs from 'classnames';
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
+
 import { useBreakpointMobile } from 'src/utils/breakpoint';
 
 import './CommonContainer.scss';
@@ -19,5 +20,5 @@ export default function CommonContainer({ children, noContainer }: Props) {
       <div className="content">{children}</div>
       <div className="bottom" />
     </div>
-  )
+  );
 }

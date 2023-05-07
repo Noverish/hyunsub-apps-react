@@ -1,9 +1,9 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 interface State {
   showCaptcha: boolean;
   captcha: string | null;
-};
+}
 
 const initialState: State = {
   showCaptcha: false,
@@ -18,7 +18,7 @@ const slice = createSlice({
       ...state,
       ...payload,
     }),
-  }
+  },
 });
 
 export default slice;

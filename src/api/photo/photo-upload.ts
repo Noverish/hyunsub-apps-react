@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+
 import useWebSocket from 'src/api/web-socket';
 import { PhotoPreview } from 'src/model/photo';
 
@@ -28,8 +29,8 @@ export default function usePhotoUploadApi(callback: (result: PhotoUploadResult) 
         client.subscribe(`${destination}/response`, (msg) => {
           const result = JSON.parse(msg.body) as PhotoUploadResult;
           callback(result);
-        })
-      }
+        });
+      };
     }
   }, [client, callback]);
 
@@ -43,7 +44,7 @@ export default function usePhotoUploadApi(callback: (result: PhotoUploadResult) 
 
     return () => {
       clearInterval(timer);
-    }
+    };
   }, [client]);
 
   return (params: PhotoUploadParams) => {
@@ -51,5 +52,5 @@ export default function usePhotoUploadApi(callback: (result: PhotoUploadResult) 
       destination: `${destination}/request`,
       body: JSON.stringify(params),
     });
-  }
+  };
 }

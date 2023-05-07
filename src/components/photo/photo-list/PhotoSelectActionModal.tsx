@@ -1,8 +1,9 @@
 import { t } from 'i18next';
 import { useContext } from 'react';
-import ButtonListModal, { ButtonListModalItem } from 'src/components/common/ButtonListModal';
+
 import { useAlbumThumbnailRegister } from './PhotoListHooks';
 import { PhotoSelectContext } from './PhotoSelectContext';
+import ButtonListModal, { ButtonListModalItem } from 'src/components/common/ButtonListModal';
 
 interface Props {
   albumId?: string;
@@ -21,8 +22,8 @@ export default function PhotoSelectActionModal({ albumId }: Props) {
     {
       title: t('delete'),
       onClick: () => {},
-    }
-  ]
+    },
+  ];
 
   if (registerThumbnail) {
     items.push({
@@ -31,12 +32,5 @@ export default function PhotoSelectActionModal({ albumId }: Props) {
     });
   }
 
-  return (
-    <ButtonListModal
-      className="VideoSortModal"
-      show={state.showSelectActionModal}
-      onHide={() => setState({ showSelectActionModal: false })}
-      items={items}
-    />
-  )
+  return <ButtonListModal className="VideoSortModal" show={state.showSelectActionModal} onHide={() => setState({ showSelectActionModal: false })} items={items} />;
 }

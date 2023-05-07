@@ -15,7 +15,7 @@ const _DriveFileType = {
   ETC: 'ETC',
 } as const;
 
-export type DriveFileType = typeof _DriveFileType[keyof typeof _DriveFileType];
+export type DriveFileType = (typeof _DriveFileType)[keyof typeof _DriveFileType];
 
 export interface DrivePathParams {
   path: string;

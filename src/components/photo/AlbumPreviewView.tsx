@@ -1,5 +1,6 @@
-import { Link } from "react-router-dom";
-import { AlbumPreview } from "src/model/photo"
+import { Link } from 'react-router-dom';
+
+import { AlbumPreview } from 'src/model/photo';
 
 import './AlbumPreviewView.scss';
 
@@ -18,11 +19,19 @@ export default function AlbumPreviewView({ preview, onClick }: Props) {
       </div>
       <div className="name">{name}</div>
     </>
-  )
+  );
 
   if (typeof onClick === 'string') {
-    return <Link className="AlbumPreviewView" to={onClick}>{content}</Link>
+    return (
+      <Link className="AlbumPreviewView" to={onClick}>
+        {content}
+      </Link>
+    );
   } else {
-    return <div className="AlbumPreviewView" onClick={() => onClick(preview)}>{content}</div>
+    return (
+      <div className="AlbumPreviewView" onClick={() => onClick(preview)}>
+        {content}
+      </div>
+    );
   }
 }

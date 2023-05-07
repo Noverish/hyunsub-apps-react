@@ -1,32 +1,38 @@
 import { Button, Form, Modal } from 'react-bootstrap';
 import { SubmitHandler, useForm } from 'react-hook-form';
+
+import { VideoAdminActions } from '../VideoAdminState';
 import { VideoEntryCreateParams } from 'src/api/video/admin/video-entry-create';
 import VieoCategorySelect from 'src/components/video/select/VideoCategorySelect';
 import VideoGroupSelect from 'src/components/video/select/VideoGroupSelect';
 import { VideoCategory, VideoGroup } from 'src/model/video';
 import { useVideoEntryCreate } from 'src/pages/video/admin/VideoAdminHooks';
 import { dispatch, useSelector } from 'src/redux';
-import { VideoAdminActions } from '../VideoAdminState';
 
 type FormState = VideoEntryCreateParams;
 
 export default function VideoEntryCreateModal() {
-  const show = useSelector(s => s.video.admin.showVideoEntryCreateModal);
+  const show = useSelector((s) => s.video.admin.showVideoEntryCreateModal);
 
   const onHide = () => {
     dispatch(VideoAdminActions.update({ showVideoEntryCreateModal: false }));
-  }
+  };
 
-  const { register, handleSubmit, setValue, formState: { errors } } = useForm<FormState>();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<FormState>();
   const videoEntryCreate = useVideoEntryCreate();
 
   const onCategorySelect = (category: VideoCategory | null) => {
     setValue('category', category?.name ?? '');
-  }
+  };
 
   const onGroupSelect = (group: VideoGroup | null) => {
     setValue('videoGroupId', group?.id ?? '');
-  }
+  };
 
   const onSubmit: SubmitHandler<FormState> = (state: FormState) => {
     videoEntryCreate(state);
@@ -40,9 +46,7 @@ export default function VideoEntryCreateModal() {
         <Modal.Title>Entry 생성</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-
         <Form onSubmit={handleSubmit(onSubmit)}>
-
           <Form.Group className="mb-3">
             <Form.Label>Name</Form.Label>
             <Form.Control {...register('name', { required: 'Name이 없습니다.' })} isInvalid={!!errors.name?.message} />
@@ -65,10 +69,11 @@ export default function VideoEntryCreateModal() {
             <VideoGroupSelect onSelect={onGroupSelect} />
           </Form.Group>
 
-          <Button variant="primary" type="submit">생성</Button>
+          <Button variant="primary" type="submit">
+            생성
+          </Button>
         </Form>
-
       </Modal.Body>
     </Modal>
-  )
+  );
 }

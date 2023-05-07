@@ -1,10 +1,11 @@
 import { AxiosProgressEvent, AxiosRequestConfig } from 'axios';
-import AppConstant from 'src/utils/constants';
-import { generateApi } from "../generate-api";
-import { encodeURI, decode } from 'js-base64';
-import { sleep } from 'src/utils';
+import { decode, encodeURI } from 'js-base64';
+
+import { generateApi } from '../generate-api';
 import { FileUploadResult, FileUploadStatus, FileWithPath } from 'src/model/file';
-import { calcProgress, calcFormDataSize } from 'src/utils/form-data';
+import { sleep } from 'src/utils';
+import AppConstant from 'src/utils/constants';
+import { calcFormDataSize, calcProgress } from 'src/utils/form-data';
 
 export interface FileUploadParams {
   files: FileWithPath[];
@@ -17,7 +18,7 @@ export interface FileUploadParams {
 const pathNonce = Math.random().toString(36).substring(2, 8);
 const url = AppConstant.file.HOST + `/upload/multipart/${pathNonce}`;
 
-const fileUpload = generateApi<FileUploadParams, FileUploadResult>(params => {
+const fileUpload = generateApi<FileUploadParams, FileUploadResult>((params) => {
   const { files, progress, controller } = params;
 
   const formData = new FormData();
@@ -31,7 +32,7 @@ const fileUpload = generateApi<FileUploadParams, FileUploadResult>(params => {
     withCredentials: true,
     data: formData,
     headers: {
-      "Content-Type": "multipart/form-data",
+      'Content-Type': 'multipart/form-data',
     },
     signal: controller?.signal,
     onUploadProgress: (e: AxiosProgressEvent) => {
@@ -43,7 +44,7 @@ const fileUpload = generateApi<FileUploadParams, FileUploadResult>(params => {
       if (status) {
         progress(status);
       }
-    }
+    },
   } as AxiosRequestConfig;
 });
 
@@ -70,9 +71,7 @@ export default async function fileUploadApi(params: FileUploadParams) {
 
   try {
     await fileUpload(params);
-  } catch (ex) {
-
-  }
+  } catch (ex) {}
 
   await sleep(1000);
 }
@@ -82,5 +81,5 @@ function waitReady(es: EventSource) {
     es.addEventListener('ready', () => {
       resolve();
     });
-  })
+  });
 }

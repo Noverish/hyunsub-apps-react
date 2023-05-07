@@ -1,5 +1,5 @@
-import { Photo } from "src/model/photo";
-import { generateQuery } from "../generate-api";
+import { generateQuery } from '../generate-api';
+import { Photo } from 'src/model/photo';
 
 export interface PhotoDetailParams {
   photoId: string;
@@ -11,6 +11,6 @@ const photoDetailApi = generateQuery<PhotoDetailParams, Photo>({
     method: 'GET',
   }),
   key: () => 'photoDetailApi',
-})
+});
 
 export default photoDetailApi;

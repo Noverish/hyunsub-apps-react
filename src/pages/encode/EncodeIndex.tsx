@@ -1,5 +1,6 @@
 import { lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
+
 import routes from './EncodeRoutes';
 
 const NotFoundPage = lazy(() => import('src/pages/common/NotFoundPage'));
@@ -13,5 +14,5 @@ export default function EncodeIndex() {
         <Route path={routes.home} element={<EncodeHomePage />} />
       </Routes>
     </>
-  )
+  );
 }

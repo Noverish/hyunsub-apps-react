@@ -1,8 +1,9 @@
 import { lazy } from 'react';
 import { Outlet, RouteObject } from 'react-router-dom';
+
+import VideoRoutes from './VideoRoutes';
 import VideoDesktopkHeader from 'src/components/video/header/VideoDesktopHeader';
 import VideoTabBar from 'src/components/video/header/VideoTabBar';
-import VideoRoutes from './VideoRoutes';
 
 const VideoAdminPage = lazy(() => import('src/pages/video/admin/VideoAdminPage'));
 const VideoEntryManagePage = lazy(() => import('src/pages/video/manage/VideoEntryManagePage'));
@@ -32,6 +33,6 @@ export const VideoRotueObjects: RouteObject[] = [
       { path: VideoRoutes.menu, element: <VideoMenuPage /> },
       { path: VideoRoutes.search, element: <VideoSearchPage /> },
       { path: VideoRoutes.manageEntryRoute, element: <VideoEntryManagePage /> },
-    ]
-  }
+    ],
+  },
 ];

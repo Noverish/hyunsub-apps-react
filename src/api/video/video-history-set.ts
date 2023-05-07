@@ -15,5 +15,5 @@ export default function useVideoHistorySetApi() {
       destination: `${destination}/request`,
       body: JSON.stringify(params),
     });
-  }
+  };
 }

@@ -1,7 +1,8 @@
-import { TabBarItem } from 'src/components/common/header/CommonTabBar';
 import { t } from 'i18next';
+
+import { TabBarItem } from 'src/components/common/header/CommonTabBar';
+import CommonTabBar from 'src/components/common/header/CommonTabBar';
 import VideoRoutes from 'src/pages/video/VideoRoutes';
-import CommonTabBar from "src/components/common/header/CommonTabBar";
 
 const items: TabBarItem[] = [
   {
@@ -19,10 +20,8 @@ const items: TabBarItem[] = [
     link: VideoRoutes.history,
     icon: 'fas fa-history',
   },
-]
+];
 
 export default function VideoTabBar() {
-  return (
-    <CommonTabBar items={items} />
-  )
+  return <CommonTabBar items={items} />;
 }

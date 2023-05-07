@@ -1,5 +1,5 @@
-import { PhotoPreview } from "src/model/photo";
-import { generateInfiniteQuery2 } from "../generate-infinite-query";
+import { generateInfiniteQuery2 } from '../generate-infinite-query';
+import { PhotoPreview } from 'src/model/photo';
 
 export interface PhotoListParams {
   photoId?: string;
@@ -10,7 +10,7 @@ const photoListApi = generateInfiniteQuery2<PhotoListParams, PhotoPreview>({
     url: `/api/v2/photos`,
     method: 'GET',
     params: {
-      photoId: (prev || next) ? undefined : photoId,
+      photoId: prev || next ? undefined : photoId,
       prev,
       next,
     },

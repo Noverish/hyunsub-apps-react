@@ -1,17 +1,18 @@
-import { t } from "i18next";
-import { Button } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { t } from 'i18next';
+import { Button } from 'react-bootstrap';
+import { useParams } from 'react-router-dom';
+
+import PhotoRoutes from '../PhotoRoutes';
+import { AlbumDetailProvider } from './AlbumDetailContext';
+import { useAlbumDelete, useAlbumDetailPage } from './AlbumDetailHooks';
 import albumDetailApi from 'src/api/photo/album-detail';
 import ListLoadingIndicator from 'src/components/common/ListLoadingIndicator';
 import CommonContainer from 'src/components/common/header/CommonContainer';
+import PhotoListMobileHeader from 'src/components/photo/photo-list/PhotoListMobileHeader';
 import PhotoListView from 'src/components/photo/photo-list/PhotoListView';
 import { PhotoSelectProvider } from 'src/components/photo/photo-list/PhotoSelectContext';
-import { useBreakpointMobile } from "src/utils/breakpoint";
+import { useBreakpointMobile } from 'src/utils/breakpoint';
 import { setDocumentTitle } from 'src/utils/services';
-import PhotoRoutes from "../PhotoRoutes";
-import { AlbumDetailProvider } from "./AlbumDetailContext";
-import { useAlbumDelete, useAlbumDetailPage } from "./AlbumDetailHooks";
-import PhotoListMobileHeader from "src/components/photo/photo-list/PhotoListMobileHeader";
 
 import './AlbumDetailPage.scss';
 
@@ -30,28 +31,24 @@ function AlbumDetailPage() {
     <section className="title_section">
       <div className="album_name">{album.name}</div>
       <div className="photo_num">{t('photo.page.album-detail.photo-num', [total])}</div>
-      <Button className="delete_button" variant="danger" onClick={() => albumDelete({ albumId })}>{t('delete')}</Button>
+      <Button className="delete_button" variant="danger" onClick={() => albumDelete({ albumId })}>
+        {t('delete')}
+      </Button>
     </section>
-  )
+  );
 
-  const titleSectionForMobile = (
-    <h2>{t('photo.page.album-detail.photo-num', [total])}</h2>
-  )
+  const titleSectionForMobile = <h2>{t('photo.page.album-detail.photo-num', [total])}</h2>;
 
   return (
     <div className="AlbumDetailPage">
       <PhotoListMobileHeader album={album} />
       <CommonContainer>
         {isMobile ? titleSectionForMobile : titleSectionForDesktop}
-        <PhotoListView
-          albumId={albumId}
-          previews={photos}
-          itemHref={(v) => PhotoRoutes.albumViewer(albumId, v.id)}
-        />
+        <PhotoListView albumId={albumId} previews={photos} itemHref={(v) => PhotoRoutes.albumViewer(albumId, v.id)} />
         <ListLoadingIndicator isFetching={isFetching} />
       </CommonContainer>
     </div>
-  )
+  );
 }
 
 export default function AlbumDetailIndex() {
@@ -64,5 +61,5 @@ export default function AlbumDetailIndex() {
         <AlbumDetailPage />
       </PhotoSelectProvider>
     </AlbumDetailProvider>
-  )
+  );
 }

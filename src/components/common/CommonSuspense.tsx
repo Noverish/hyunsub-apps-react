@@ -1,4 +1,4 @@
-import { ReactNode, Suspense } from "react";
+import { ReactNode, Suspense } from 'react';
 import { Spinner } from 'react-bootstrap';
 
 interface Props {
@@ -11,17 +11,13 @@ export function CommonSuspenseFallback() {
     <div className="CommonSuspenseFallback flex_center">
       <Spinner animation="border"></Spinner>
     </div>
-  )
+  );
 }
 
 export default function CommonSuspense({ enable, children }: Props) {
   if (enable) {
-    return <CommonSuspenseFallback />
+    return <CommonSuspenseFallback />;
   }
 
-  return (
-    <Suspense fallback={<CommonSuspenseFallback />}>
-      {children}
-    </Suspense>
-  )
+  return <Suspense fallback={<CommonSuspenseFallback />}>{children}</Suspense>;
 }

@@ -1,5 +1,5 @@
-import { ComicDetail } from "src/model/comic";
-import { generateQuery } from "../generate-api";
+import { generateQuery } from '../generate-api';
+import { ComicDetail } from 'src/model/comic';
 
 export interface ComicDetailParams {
   comicId: string;
@@ -8,7 +8,7 @@ export interface ComicDetailParams {
 const comicDetailApi = generateQuery<ComicDetailParams, ComicDetail>({
   api: (params) => ({
     url: `/api/v1/comics/${params.comicId}`,
-    method: 'GET'
+    method: 'GET',
   }),
   key: () => 'comicDetailApi',
 });

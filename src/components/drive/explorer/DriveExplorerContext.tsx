@@ -1,4 +1,4 @@
-import { generateStateContext } from "src/utils/context";
+import { generateStateContext } from 'src/utils/context';
 
 interface State {
   selects: string[];
@@ -13,6 +13,6 @@ const initialState: State = {
   rename: false,
   renameBulk: false,
   viewer: false,
-}
+};
 
 export const [DriveExplorerContext, DriveExplorerProvider] = generateStateContext(initialState);

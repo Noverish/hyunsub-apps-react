@@ -1,22 +1,22 @@
 const ko = {
   translation: {
-    'modify': '변경',
-    'edit': '수정',
-    'delete': '삭제',
-    'view': '보기',
-    'add': '추가하기',
-    'logout': '로그아웃',
-    'menus': '메뉴',
-    'search': '검색',
-    'close': '닫기',
-    'setting': '설정',
-    'select': '선택',
-    'cancel': '취소',
-    'create': '생성',
-    'upload': '업로드',
+    modify: '변경',
+    edit: '수정',
+    delete: '삭제',
+    view: '보기',
+    add: '추가하기',
+    logout: '로그아웃',
+    menus: '메뉴',
+    search: '검색',
+    close: '닫기',
+    setting: '설정',
+    select: '선택',
+    cancel: '취소',
+    create: '생성',
+    upload: '업로드',
     'n-selected': '{{0}}개 선택됨',
-    'sort': '정렬',
-    'filter': '필터',
+    sort: '정렬',
+    filter: '필터',
 
     'msg.delete-confirm': '정말로 삭제하시겠습니까?',
     'msg.delete-success': '삭제되었습니다',
@@ -196,7 +196,7 @@ const ko = {
     'PageSelectModal.msg.invalid-page': '올바른 값을 입력해주세요',
 
     'menu.profile': '프로필 보기',
-  }
+  },
 };
 
 export default ko;

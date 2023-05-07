@@ -1,9 +1,7 @@
-import { generateApi } from "src/api/generate-api";
+import { generateApi } from 'src/api/generate-api';
 
 // TODO 뭔가 더 깔끔하게
-const url = window.location.host.includes('auth')
-  ? ''
-  : `https://auth.hyunsub.kim`;
+const url = window.location.host.includes('auth') ? '' : `https://auth.hyunsub.kim`;
 
 export interface LogoutResult {
   success: boolean;

@@ -1,4 +1,5 @@
 import { Pagination } from 'react-bootstrap';
+
 import { useBreakpointMobile } from 'src/utils/breakpoint';
 
 interface PaginationProps {
@@ -12,17 +13,17 @@ export default function CommonPagination({ now, total, onClick }: PaginationProp
   const size = isMobile ? 5 : 10;
 
   const needSlide = total > size;
-  const min = Math.floor(now / size) * size
+  const min = Math.floor(now / size) * size;
   const max = (Math.floor(now / size) + 1) * size;
   const length = Math.min(max, total) - min;
 
   const pages = Array.from({ length }, (_, i) => i + min);
 
-  const elements = pages.map(i => (
+  const elements = pages.map((i) => (
     <Pagination.Item key={i} active={i === now} onClick={() => onClick(i)}>
       {i + 1}
     </Pagination.Item>
-  ))
+  ));
 
   return (
     <Pagination>
@@ -30,7 +31,7 @@ export default function CommonPagination({ now, total, onClick }: PaginationProp
       {needSlide && <Pagination.Prev onClick={() => onClick(min - 1)} />}
       {elements}
       {needSlide && <Pagination.Next onClick={() => onClick(max)} />}
-      {needSlide && <Pagination.Last onClick={() => onClick(total - 1)}/>}
+      {needSlide && <Pagination.Last onClick={() => onClick(total - 1)} />}
     </Pagination>
-  )
+  );
 }

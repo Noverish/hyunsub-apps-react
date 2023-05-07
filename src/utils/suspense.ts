@@ -8,8 +8,8 @@ export function generateFetch<Result>(promise: Promise<Result>): { read(): Resul
     },
     (err) => {
       error = err;
-    },
-  )
+    }
+  );
 
   const read = () => {
     if (response) {
@@ -19,7 +19,7 @@ export function generateFetch<Result>(promise: Promise<Result>): { read(): Resul
     } else {
       throw suspender;
     }
-  }
+  };
 
-  return { read }
+  return { read };
 }

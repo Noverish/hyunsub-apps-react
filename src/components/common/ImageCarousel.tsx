@@ -1,8 +1,7 @@
-import Swiper from 'swiper';
-import { Swiper as SwiperComponent, SwiperSlide } from 'swiper/react';
 import { useRef } from 'react';
-
+import Swiper from 'swiper';
 import 'swiper/css';
+import { Swiper as SwiperComponent, SwiperSlide } from 'swiper/react';
 
 interface Props {
   urls: string[];
@@ -17,15 +16,11 @@ export default function ImageCarousel({ urls }: Props) {
         <img src={v} alt={v} />
       </div>
     </SwiperSlide>
-  ))
+  ));
 
   return (
-    <SwiperComponent
-      onSwiper={(swiper: Swiper) => swiperRef.current = swiper}
-      spaceBetween={24}
-      slidesPerView="auto"
-    >
+    <SwiperComponent onSwiper={(swiper: Swiper) => (swiperRef.current = swiper)} spaceBetween={24} slidesPerView="auto">
       {slides}
     </SwiperComponent>
-  )
+  );
 }

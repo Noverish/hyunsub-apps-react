@@ -1,5 +1,5 @@
-import { VideoEntryDetail } from "src/model/video";
-import { generateQuery } from "src/api/generate-api";
+import { generateQuery } from 'src/api/generate-api';
+import { VideoEntryDetail } from 'src/model/video';
 
 export interface VideoEntryDetailParams {
   entryId: string;

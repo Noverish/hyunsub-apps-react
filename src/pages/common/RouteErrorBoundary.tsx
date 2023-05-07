@@ -1,4 +1,4 @@
-import { useRouteError } from "react-router-dom";
+import { useRouteError } from 'react-router-dom';
 
 export default function RouteErrorBoundary() {
   const error = useRouteError() as Error;
@@ -6,7 +6,9 @@ export default function RouteErrorBoundary() {
   return (
     <div className="RouteErrorBoundary">
       <h1>RouteErrorBoundary</h1>
-      <pre><code>{error.stack}</code></pre>
+      <pre>
+        <code>{error.stack}</code>
+      </pre>
     </div>
-  )
+  );
 }

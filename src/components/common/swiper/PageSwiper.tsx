@@ -1,12 +1,13 @@
 import cs from 'classnames';
 import React, { useRef, useState } from 'react';
+import Swiper, { Keyboard, Virtual, Zoom } from 'swiper';
+import 'swiper/css';
+import { Swiper as SwiperComponent, SwiperSlide } from 'swiper/react';
+
 import PageSelectModal from 'src/components/common/PageSelectModal';
 import { MobileHeaderButton } from 'src/components/common/header/MobileHeader';
 import router from 'src/pages/router';
-import Swiper, { Keyboard, Virtual, Zoom } from 'swiper';
-import { Swiper as SwiperComponent, SwiperSlide } from 'swiper/react';
 
-import 'swiper/css';
 import './PageSwiper.scss';
 
 export interface PageSwiperProps<T> {
@@ -32,29 +33,29 @@ export default function PageSwiper<T>(props: PageSwiperProps<T>) {
   const swiper = swiperRef.current;
 
   // functions
-  const onClick = () => setHideHeader(v => !v);
+  const onClick = () => setHideHeader((v) => !v);
   const onBack = () => router.navigate(-1);
 
   const onShowPageModal = (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
     setShowPageModal(true);
-  }
+  };
 
   const onSlideChangeFromSwiper = (swiper: Swiper) => {
     const newIndex = swiper.activeIndex;
     setIndex(newIndex);
     props.onSlideChange?.(swiper.activeIndex, slides[newIndex]);
-  }
+  };
 
   const onSlideChangeFromModal = (page: number) => {
     setIndex(page);
     swiper?.slideTo(page, 0);
-  }
+  };
 
   const onSwiper = (swiper: Swiper) => {
     swiperRef.current = swiper;
     props.onSwiper?.(swiper);
-  }
+  };
 
   // elements
   const elements = slides.map((v, i) => (
@@ -68,10 +69,10 @@ export default function PageSwiper<T>(props: PageSwiperProps<T>) {
       <SwiperSlide key="last" zoom>
         {props.additionalLastSlide}
       </SwiperSlide>
-    )
+    );
   }
 
-  const buttons = (props.btns || []).map(v => (
+  const buttons = (props.btns || []).map((v) => (
     <i
       className={v.icon}
       key={v.icon}
@@ -82,9 +83,7 @@ export default function PageSwiper<T>(props: PageSwiperProps<T>) {
     />
   ));
 
-  const titlePrefix = props.titlePrefix
-    ? `${props.titlePrefix} - `
-    : undefined;
+  const titlePrefix = props.titlePrefix ? `${props.titlePrefix} - ` : undefined;
 
   return (
     <div id="PageSwiper" onClick={onClick}>
@@ -93,33 +92,19 @@ export default function PageSwiper<T>(props: PageSwiperProps<T>) {
           <i className="fas fa-chevron-left" onClick={onBack}></i>
         </div>
         <div className="center" onClick={onShowPageModal}>
-          <span id="now_page">{titlePrefix}{index + 1}</span>
+          <span id="now_page">
+            {titlePrefix}
+            {index + 1}
+          </span>
           <span>/</span>
           <span id="max_page">{slides.length}</span>
         </div>
-        <div className="right">
-          {buttons}
-        </div>
+        <div className="right">{buttons}</div>
       </div>
-      <SwiperComponent
-        onSwiper={onSwiper}
-        modules={[Virtual, Keyboard, Zoom]}
-        virtual={{ enabled: true, addSlidesAfter: 3, addSlidesBefore: 3 }}
-        zoom
-        keyboard
-        initialSlide={props.initialSlide}
-        spaceBetween={24}
-        onSlideChange={onSlideChangeFromSwiper}
-      >
+      <SwiperComponent onSwiper={onSwiper} modules={[Virtual, Keyboard, Zoom]} virtual={{ enabled: true, addSlidesAfter: 3, addSlidesBefore: 3 }} zoom keyboard initialSlide={props.initialSlide} spaceBetween={24} onSlideChange={onSlideChangeFromSwiper}>
         {elements}
       </SwiperComponent>
-      <PageSelectModal
-        show={showPageModal}
-        onHide={() => setShowPageModal(false)}
-        page={index}
-        total={slides.length}
-        onPageChange={onSlideChangeFromModal}
-      />
+      <PageSelectModal show={showPageModal} onHide={() => setShowPageModal(false)} page={index} total={slides.length} onPageChange={onSlideChangeFromModal} />
     </div>
-  )
+  );
 }

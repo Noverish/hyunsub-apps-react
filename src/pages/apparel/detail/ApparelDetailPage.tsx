@@ -2,6 +2,8 @@ import { t } from 'i18next';
 import { useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom';
+
+import { apparelDeleteAction } from './ApparelDetailContext';
 import apparelDetailApi from 'src/api/apparel/apparel-detail';
 import ImageCarousel from 'src/components/common/ImageCarousel';
 import CommonContainer from 'src/components/common/header/CommonContainer';
@@ -10,7 +12,6 @@ import ApparelRoutes from 'src/pages/apparel/ApparelRoutes';
 import { useDispatch } from 'src/redux';
 import { numberWithComma } from 'src/utils';
 import { setDocumentTitle } from 'src/utils/services';
-import { apparelDeleteAction } from './ApparelDetailContext';
 
 export default function ApparelDetailPage() {
   const dispatch = useDispatch();
@@ -23,10 +24,10 @@ export default function ApparelDetailPage() {
 
   const onDelete = () => {
     dispatch(apparelDeleteAction(apparelId));
-  }
+  };
 
   const apparel = apparelDetailApi.useApi({ apparelId });
-  const urls = apparel.images.map(v => v.url + '?size=512');
+  const urls = apparel.images.map((v) => v.url + '?size=512');
 
   return (
     <div id="ApparelDetailPage">
@@ -59,11 +60,11 @@ export default function ApparelDetailPage() {
           </div>
           <div className="col">
             <div className="fw-bold fs-5">{t('apparel.term.originPrice')}</div>
-            <div>{(apparel.originPrice) ? numberWithComma(apparel.originPrice) : undefined}</div>
+            <div>{apparel.originPrice ? numberWithComma(apparel.originPrice) : undefined}</div>
           </div>
           <div className="col">
             <div className="fw-bold fs-5">{t('apparel.term.discountPrice')}</div>
-            <div>{(apparel.discountPrice) ? numberWithComma(apparel.discountPrice) : undefined}</div>
+            <div>{apparel.discountPrice ? numberWithComma(apparel.discountPrice) : undefined}</div>
           </div>
           <div className="col">
             <div className="fw-bold fs-5">{t('apparel.term.buyDt')}</div>
@@ -87,10 +88,14 @@ export default function ApparelDetailPage() {
           </div>
         </div>
         <div className="mt-3">
-          <Link to={ApparelRoutes.edit(apparelId)}><Button>{t('edit')}</Button></Link>
-          <Button variant="danger" className="ms-2" onClick={onDelete}>{t('delete')}</Button>
+          <Link to={ApparelRoutes.edit(apparelId)}>
+            <Button>{t('edit')}</Button>
+          </Link>
+          <Button variant="danger" className="ms-2" onClick={onDelete}>
+            {t('delete')}
+          </Button>
         </div>
       </CommonContainer>
     </div>
-  )
+  );
 }

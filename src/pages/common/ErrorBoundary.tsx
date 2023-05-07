@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Card } from 'react-bootstrap';
-import { withTranslation, WithTranslation } from 'react-i18next';
+import { WithTranslation, withTranslation } from 'react-i18next';
 
 type Props = React.HTMLAttributes<HTMLElement> & WithTranslation;
 
@@ -33,12 +33,16 @@ class ErrorBoundary extends React.Component<Props, State> {
         <div>{t('common.500.error')}</div>
         <Card className="mt-3 text-start overflow-scroll">
           <Card.Body>
-            <pre><code>{JSON.stringify(error, null, 4)}</code></pre>
+            <pre>
+              <code>{JSON.stringify(error, null, 4)}</code>
+            </pre>
           </Card.Body>
         </Card>
-        <Button href="/" variant="primary" className="mt-3">{t('common.500.go-to-home')}</Button>
+        <Button href="/" variant="primary" className="mt-3">
+          {t('common.500.go-to-home')}
+        </Button>
       </div>
-    )
+    );
   }
 }
 

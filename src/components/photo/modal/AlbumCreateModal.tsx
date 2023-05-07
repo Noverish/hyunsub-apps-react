@@ -1,6 +1,7 @@
 import { t } from 'i18next';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { SubmitHandler, useForm } from 'react-hook-form';
+
 import { AlbumCreateParams } from 'src/api/photo/album-create';
 
 interface Props {
@@ -20,7 +21,7 @@ export default function AlbumCreateModal({ show, callback }: Props) {
 
   const onHide = () => {
     reset();
-    callback()
+    callback();
   };
 
   return (
@@ -40,5 +41,5 @@ export default function AlbumCreateModal({ show, callback }: Props) {
         </Modal.Footer>
       </Form>
     </Modal>
-  )
+  );
 }

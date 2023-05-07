@@ -1,5 +1,6 @@
 import * as StompJS from '@stomp/stompjs';
 import { useEffect, useState } from 'react';
+
 import { isDev } from 'src/utils';
 
 export default function useWebSocket() {
@@ -12,7 +13,7 @@ export default function useWebSocket() {
         if (isDev()) {
           console.log(str);
         }
-      }
+      },
     });
 
     stomp.activate();
@@ -21,7 +22,7 @@ export default function useWebSocket() {
     return () => {
       stomp.deactivate();
       setClient(undefined);
-    }
+    };
   }, []);
 
   return client;

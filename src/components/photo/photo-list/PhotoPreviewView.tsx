@@ -1,9 +1,10 @@
 import cs from 'classnames';
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { PhotoPreview } from "src/model/photo";
-import { useBreakpointMobile } from 'src/utils/breakpoint';
+
 import { PhotoSelectContext } from './PhotoSelectContext';
+import { PhotoPreview } from 'src/model/photo';
+import { useBreakpointMobile } from 'src/utils/breakpoint';
 
 import './PhotoPreviewView.scss';
 
@@ -30,7 +31,7 @@ export default function PhotoPreviewView(props: Props) {
       e.preventDefault();
       onSelect?.(preview, e.shiftKey);
     }
-  }
+  };
 
   const onCheckClick = (e: React.MouseEvent<HTMLElement>) => {
     if (!isMobile && !selected && !selectMode) {
@@ -38,22 +39,21 @@ export default function PhotoPreviewView(props: Props) {
       setState({ selectMode: true });
       onSelect?.(preview, e.shiftKey);
     }
-  }
+  };
 
   return (
     <Link to={href} className={cs('PhotoPreviewView', { selectMode, selected })} onClick={onClick}>
       <div className="ratio ratio-1x1">
         <img className="img-fluid" src={thumbnail} alt={id} loading="lazy" />
         <div className="icon_container">
-          {type === 'VIDEO' && <div className="icon_wrapper"><i className="fas fa-play"></i></div>}
+          {type === 'VIDEO' && (
+            <div className="icon_wrapper">
+              <i className="fas fa-play"></i>
+            </div>
+          )}
         </div>
-        <div className="select_container">
-          {selected
-            ? <i className="fas fa-check-circle" onClick={onCheckClick} />
-            : <i className="far fa-circle" onClick={onCheckClick} />
-          }
-        </div>
+        <div className="select_container">{selected ? <i className="fas fa-check-circle" onClick={onCheckClick} /> : <i className="far fa-circle" onClick={onCheckClick} />}</div>
       </div>
     </Link>
-  )
+  );
 }

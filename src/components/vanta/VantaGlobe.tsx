@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import GLOBE from 'vanta/dist/vanta.globe.min.js';
+
 import './Vanta.css';
 
 export default function VantaGlobe() {
@@ -8,21 +9,23 @@ export default function VantaGlobe() {
 
   useEffect(() => {
     if (!vanta) {
-      setVanta(GLOBE({
-        el: ref.current,
-        gyroControls: true,
-        size: 0.8,
-        color: 0x0d6efd,
-        color2: 0xFFFFFF,
-        backgroundColor: 0x141414,
-      }));
+      setVanta(
+        GLOBE({
+          el: ref.current,
+          gyroControls: true,
+          size: 0.8,
+          color: 0x0d6efd,
+          color2: 0xffffff,
+          backgroundColor: 0x141414,
+        })
+      );
     }
 
     return () => {
       if (vanta) {
         vanta.destroy();
       }
-    }
+    };
   }, [vanta]);
 
   return <div className="vanta" ref={ref} />;

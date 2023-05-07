@@ -1,16 +1,17 @@
-import { Dispatch } from "@reduxjs/toolkit";
-import ReCAPTCHA from 'react-google-recaptcha';
-import registerApi, { RegisterParams } from 'src/api/auth/auth/register';
-import rsaKey from "src/api/auth/auth/rsa-key";
+import { Dispatch } from '@reduxjs/toolkit';
 import { t } from 'i18next';
-import routes from 'src/pages/auth/AuthRoutes';
-import { RootState } from 'src/redux';
-import { GlobalActions } from "src/redux/global";
-import { insertToast } from 'src/redux/toast';
-import { encrypt } from "src/utils/rsa-key";
+import ReCAPTCHA from 'react-google-recaptcha';
+
 import { RegisterFormState } from './RegisterPage';
-import { RegisterActions } from "./RegisterState";
+import { RegisterActions } from './RegisterState';
+import registerApi, { RegisterParams } from 'src/api/auth/auth/register';
+import rsaKey from 'src/api/auth/auth/rsa-key';
+import routes from 'src/pages/auth/AuthRoutes';
 import router from 'src/pages/router';
+import { RootState } from 'src/redux';
+import { GlobalActions } from 'src/redux/global';
+import { insertToast } from 'src/redux/toast';
+import { encrypt } from 'src/utils/rsa-key';
 
 interface RegisterActionParams {
   state: RegisterFormState;
@@ -34,7 +35,7 @@ export const registerAction = (p: RegisterActionParams) => async (dispatch: Disp
     username: encrypt(publicKey, state.username),
     password: encrypt(publicKey, state.password1),
     captcha,
-  }
+  };
 
   try {
     await registerApi(registerParams);
@@ -47,4 +48,4 @@ export const registerAction = (p: RegisterActionParams) => async (dispatch: Disp
   }
 
   dispatch(GlobalActions.update({ loading: false }));
-}
+};

@@ -1,5 +1,5 @@
-import { PhotoPreview } from "src/model/photo";
-import { generateStateContext } from "src/utils/context";
+import { PhotoPreview } from 'src/model/photo';
+import { generateStateContext } from 'src/utils/context';
 
 interface State {
   selects: PhotoPreview[];

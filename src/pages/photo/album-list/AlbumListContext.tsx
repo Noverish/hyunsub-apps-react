@@ -6,6 +6,6 @@ export interface State {
 
 const initialState: State = {
   showAlbumCreateModal: false,
-}
+};
 
 export const [AlbumListContext, AlbumListProvider] = generateStateContext(initialState);

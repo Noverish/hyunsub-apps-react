@@ -13,5 +13,5 @@ export default function ListLoadingIndicator({ isFetching }: Props) {
     <div className="flex_center" style={{ height: '8rem' }}>
       <Spinner animation="border"></Spinner>
     </div>
-  )
+  );
 }

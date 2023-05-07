@@ -1,7 +1,9 @@
-import { InfiniteData, useInfiniteQuery, UseInfiniteQueryResult, useQuery, UseQueryResult } from '@tanstack/react-query';
+import { InfiniteData, UseInfiniteQueryResult, UseQueryResult, useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { t } from 'i18next';
 import { Draft, produce } from 'immer';
+
+import QueryClient from './query-client';
 import getErrMsg from 'src/i18n/server-error';
 import { ErrorResponse, PageData } from 'src/model/api';
 import router from 'src/pages/router';
@@ -9,7 +11,6 @@ import { dispatch } from 'src/redux';
 import { GlobalActions } from 'src/redux/global';
 import { insertToast } from 'src/redux/toast';
 import { isDev, sleep, toJSON } from 'src/utils';
-import QueryClient from './query-client';
 
 interface GenerateApiOption<P> {
   api: (p: P) => AxiosRequestConfig<P>;
@@ -73,7 +74,7 @@ export function generateApi<P, R>(func: (p: P) => AxiosRequestConfig) {
       }
       throw ex;
     }
-  }
+  };
 }
 
 export function generateQuery<P, R>(option: GenerateApiOption<P>): GenerateApiResult<P, R> {
@@ -88,11 +89,8 @@ export function generateQuery<P, R>(option: GenerateApiOption<P>): GenerateApiRe
   const invalidate = (p: P) => QueryClient.invalidateQueries(key(p), { refetchType: 'active' });
   const clearCache = (p: P) => QueryClient.removeQueries(key(p));
   const updateCache = (p: P, updater: (cache: R) => void) => {
-    QueryClient.setQueryData<R>(
-      key(p),
-      (cache) => cache ? produce(cache, updater) : cache,
-    );
-  }
+    QueryClient.setQueryData<R>(key(p), (cache) => (cache ? produce(cache, updater) : cache));
+  };
 
   return {
     api,
@@ -113,24 +111,18 @@ export function generateInfiniteQuery<P, R>(option: GenerateInfiniteApiOption<P>
   const api = generateApi<P & PageParam, PageData<R>>(option.api);
 
   const useInfiniteApi = (p: P, initialData?: PageData<R>) => {
-    const initialData2 = initialData
-      ? { pageParams: [initialData.page], pages: [initialData] }
-      : undefined
+    const initialData2 = initialData ? { pageParams: [initialData.page], pages: [initialData] } : undefined;
 
-    const result = useInfiniteQuery(
-      key(p),
-      ({ pageParam }) => api({ ...p, page: pageParam }),
-      {
-        getNextPageParam: (lastPage) => (lastPage.total <= (lastPage.page + 1) * lastPage.pageSize) ? undefined : (lastPage.page + 1),
-        staleTime: Infinity,
-        initialData: initialData2
-      }
-    );
+    const result = useInfiniteQuery(key(p), ({ pageParam }) => api({ ...p, page: pageParam }), {
+      getNextPageParam: (lastPage) => (lastPage.total <= (lastPage.page + 1) * lastPage.pageSize ? undefined : lastPage.page + 1),
+      staleTime: Infinity,
+      initialData: initialData2,
+    });
 
-    const infiniteData = result.data?.pages.flatMap(v => v.data) ?? [];
+    const infiniteData = result.data?.pages.flatMap((v) => v.data) ?? [];
 
     return { infiniteData, ...result };
-  }
+  };
 
   const updateCache = (p: P, updater: (list: R[]) => R[]) => {
     QueryClient.setQueryData<InfiniteData<PageData<R>>>(key(p), (cache) => {
@@ -144,41 +136,37 @@ export function generateInfiniteQuery<P, R>(option: GenerateInfiniteApiOption<P>
           ...data,
           data: updater(data.data),
         })),
-      }
+      };
     });
-  }
+  };
 
   const updateCache2 = (p: P, updater: (list: R) => void) => {
     QueryClient.setQueryData<InfiniteData<PageData<R>>>(key(p), (cache) => {
       cache?.pages.forEach((page) => {
-        page.data.forEach(item => updater(item));
+        page.data.forEach((item) => updater(item));
       });
       return cache;
     });
-  }
+  };
 
   const insertToCache = (p: P, newItem: Draft<R>) => {
-    QueryClient.setQueryData<InfiniteData<PageData<R>>>(
-      key(p),
-      (cache) => produce(cache, (draft) => {
+    QueryClient.setQueryData<InfiniteData<PageData<R>>>(key(p), (cache) =>
+      produce(cache, (draft) => {
         draft?.pages[0]?.data.unshift(newItem);
-      }),
-    )
-  }
+      })
+    );
+  };
 
   const deleteFromCache = (p: P, predicate: (r: Draft<R>) => boolean) => {
-    QueryClient.setQueryData<InfiniteData<PageData<R>>>(
-      key(p),
-      (cache) => {
-        if (!cache) return cache;
-        return produce(cache, (draft) => {
-          for (const page of draft.pages) {
-            page.data = page.data.filter(v => !predicate(v));
-          }
-        })
-      },
-    );
-  }
+    QueryClient.setQueryData<InfiniteData<PageData<R>>>(key(p), (cache) => {
+      if (!cache) return cache;
+      return produce(cache, (draft) => {
+        for (const page of draft.pages) {
+          page.data = page.data.filter((v) => !predicate(v));
+        }
+      });
+    });
+  };
 
   return {
     useInfiniteApi,

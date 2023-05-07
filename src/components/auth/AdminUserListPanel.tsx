@@ -1,8 +1,9 @@
 import { useQueries } from '@tanstack/react-query';
 import { Card, ListGroup } from 'react-bootstrap';
+
+import AdminUserListItem from './AdminUserListItem';
 import getAllAuthorities from 'src/api/auth/admin/all-authorities';
 import getAllUsers from 'src/api/auth/admin/all-users';
-import AdminUserListItem from './AdminUserListItem';
 
 export default function AdminUserListPanel() {
   const result = useQueries({
@@ -14,7 +15,7 @@ export default function AdminUserListPanel() {
       {
         queryKey: getAllUsers.key({}),
         queryFn: () => getAllUsers.api({}),
-      }
+      },
     ],
   });
 
@@ -24,13 +25,11 @@ export default function AdminUserListPanel() {
     return <div />;
   }
 
-  const rows = users.map(user => <AdminUserListItem key={user.idNo} user={user} authorities={authorities} />);
+  const rows = users.map((user) => <AdminUserListItem key={user.idNo} user={user} authorities={authorities} />);
 
   return (
     <Card style={{ overflow: 'visible' }}>
-      <ListGroup variant="flush">
-        {rows}
-      </ListGroup>
+      <ListGroup variant="flush">{rows}</ListGroup>
     </Card>
-  )
+  );
 }

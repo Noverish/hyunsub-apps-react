@@ -1,9 +1,10 @@
-import { lazy, Suspense } from 'react';
+import { Suspense, lazy } from 'react';
 import { Outlet, RouteObject } from 'react-router-dom';
+
+import routes from './ApparelRoutes';
 import ApparelDesktopHeader from 'src/components/apparel/header/ApparelDesktopHeader';
 import ApparelTabBar from 'src/components/apparel/header/ApparelTabBar';
 import LoadingPage from 'src/pages/common/LoadingPage';
-import routes from './ApparelRoutes';
 
 const ApparelListPage = lazy(() => import('src/pages/apparel/list/ApparelListPage'));
 const ApparelDetailPage = lazy(() => import('src/pages/apparel/detail/ApparelDetailPage'));
@@ -37,6 +38,6 @@ export const ApparelRouteObjects: RouteObject[] = [
       { path: routes.brandList, element: <ApparelBrandListPage /> },
       { path: routes.brandDetailRoute, element: <ApparelBrandDetailPage /> },
       { path: routes.menu, element: <ApparelMenuPage /> },
-    ]
-  }
-]
+    ],
+  },
+];

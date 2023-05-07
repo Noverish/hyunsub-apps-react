@@ -1,5 +1,5 @@
-import AppConstant from 'src/utils/constants';
 import { generateQuery } from 'src/api/generate-api';
+import AppConstant from 'src/utils/constants';
 
 export interface FileInfo {
   path: string;
@@ -16,6 +16,6 @@ const readdirDetail = generateQuery<string, FileInfo[]>({
     params: { path },
   }),
   key: () => 'readdirDetail',
-})
+});
 
 export default readdirDetail;

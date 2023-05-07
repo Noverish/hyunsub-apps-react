@@ -2,6 +2,7 @@ import { t } from 'i18next';
 import flatMap from 'lodash/flatMap';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+
 import apparelListApi from 'src/api/apparel/apparel-list';
 import ApparelList from 'src/components/apparel/ApparelList';
 import ListLoadingIndicator from 'src/components/common/ListLoadingIndicator';
@@ -25,18 +26,22 @@ export default function ApparelListPage() {
     }
   });
 
-  const apparels = flatMap(data!!.pages.map(v => v.data));
+  const apparels = flatMap(data!!.pages.map((v) => v.data));
 
-  const addBtn = isMobile
-    ? undefined
-    : <Link to={ApparelRoutes.add}><Button variant="primary" className="mb-3">{t('add')}</Button></Link>
+  const addBtn = isMobile ? undefined : (
+    <Link to={ApparelRoutes.add}>
+      <Button variant="primary" className="mb-3">
+        {t('add')}
+      </Button>
+    </Link>
+  );
 
   const headerBtns: MobileHeaderButton[] = [
     {
       icon: 'fas fa-plus',
       onClick: () => router.navigate(ApparelRoutes.add),
-    }
-  ]
+    },
+  ];
 
   return (
     <div id="ApparelListPage">
@@ -48,5 +53,5 @@ export default function ApparelListPage() {
         <ListLoadingIndicator isFetching={isFetching} />
       </CommonContainer>
     </div>
-  )
+  );
 }

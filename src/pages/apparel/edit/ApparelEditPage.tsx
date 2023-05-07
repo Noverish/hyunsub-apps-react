@@ -1,6 +1,8 @@
 import { t } from 'i18next';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+
+import { apparelImageUploadAction, apparelUpdateAction } from './ApparelEditContext';
 import apparelDetailApi from 'src/api/apparel/apparel-detail';
 import ApparelForm from 'src/components/apparel/ApparelForm';
 import CommonContainer from 'src/components/common/header/CommonContainer';
@@ -8,7 +10,6 @@ import MobileHeader from 'src/components/common/header/MobileHeader';
 import { Apparel } from 'src/model/apparel';
 import { useDispatch } from 'src/redux';
 import { setDocumentTitle } from 'src/utils/services';
-import { apparelImageUploadAction, apparelUpdateAction } from './ApparelEditContext';
 
 export default function ApparelEditPage() {
   const apparelId = useParams().apparelId!!;
@@ -34,13 +35,8 @@ export default function ApparelEditPage() {
       <MobileHeader title={title} back />
       <CommonContainer>
         <h1 className="mb-3">{t('apparel.page.edit.title', [apparel.name])}</h1>
-        <ApparelForm
-          apparel={apparel}
-          onImageAdd={onImageAdd}
-          onSubmit={onSubmit}
-          confirmBtnText={t('modify')}
-        />
+        <ApparelForm apparel={apparel} onImageAdd={onImageAdd} onSubmit={onSubmit} confirmBtnText={t('modify')} />
       </CommonContainer>
     </div>
-  )
+  );
 }

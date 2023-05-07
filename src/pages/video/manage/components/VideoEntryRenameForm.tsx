@@ -1,8 +1,9 @@
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import { SubmitHandler, useForm } from 'react-hook-form';
+
+import { videoEntryRenameAction } from '../VideoEntryManageActions';
 import { VideoRenameBulkParams } from 'src/api/video/admin/video-rename-bulk';
 import { dispatch } from 'src/redux';
-import { videoEntryRenameAction } from '../VideoEntryManageActions';
 
 import './VideoEntryRenameForm.scss';
 
@@ -20,7 +21,7 @@ export default function VideoEntryRenameForm({ entryId, videoIds }: Props) {
       from: '',
       to: '',
       isRegex: false,
-    }
+    },
   });
 
   const onSubmit: SubmitHandler<FormState> = (state: FormState) => {
@@ -34,7 +35,9 @@ export default function VideoEntryRenameForm({ entryId, videoIds }: Props) {
       <div>
         <InputGroup className="from">
           <Form.Control {...register('from')} />
-          <InputGroup.Text><i className="fas fa-arrow-right"></i></InputGroup.Text>
+          <InputGroup.Text>
+            <i className="fas fa-arrow-right"></i>
+          </InputGroup.Text>
           <Form.Control {...register('to')} />
         </InputGroup>
       </div>
@@ -43,5 +46,5 @@ export default function VideoEntryRenameForm({ entryId, videoIds }: Props) {
 
       <Button type="submit">일괄 변경</Button>
     </Form>
-  )
+  );
 }

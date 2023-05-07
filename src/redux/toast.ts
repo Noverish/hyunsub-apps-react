@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 export interface ToastInfo {
   millis: number;
@@ -8,7 +8,7 @@ export interface ToastInfo {
 
 interface State {
   list: ToastInfo[];
-};
+}
 
 const initialState: State = {
   list: [],
@@ -27,7 +27,7 @@ const slice = createSlice({
       });
     },
     delete: (state: State, { payload }: PayloadAction<number>) => {
-      state.list.forEach(v => {
+      state.list.forEach((v) => {
         if (v.millis === payload) {
           v.show = false;
         }
@@ -36,10 +36,10 @@ const slice = createSlice({
     flush: (state: State) => {
       return {
         ...state,
-        list: state.list.filter(v => v.show),
+        list: state.list.filter((v) => v.show),
       };
-    }
-  }
+    },
+  },
 });
 
 export default slice.reducer;

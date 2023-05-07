@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Container } from 'react-bootstrap';
+
 import AdminUserListPanel from 'src/components/auth/AdminUserListPanel';
 
 export default function AuthAdminPage() {

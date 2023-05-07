@@ -1,4 +1,5 @@
 import { t } from 'i18next';
+
 import videoCategoryApi from 'src/api/video/video-category';
 import DesktopHeader, { DesktopHeaderDropdown, DesktopHeaderProps } from 'src/components/common/header/DesktopHeader';
 import router from 'src/pages/router';
@@ -7,10 +8,10 @@ import { useSelector } from 'src/redux';
 
 export default function VideoDesktopHeader() {
   const { data } = videoCategoryApi.useApiResult({});
-  const isAdmin = useSelector(s => s.global.tokenPayload?.isAdmin);
+  const isAdmin = useSelector((s) => s.global.tokenPayload?.isAdmin);
   const categories = data || [];
 
-  const menus = categories.map(v => ({
+  const menus = categories.map((v) => ({
     name: v.displayName,
     icon: v.iconHtmlClass,
     link: VideoRoutes.listRoute(v.name),
@@ -20,14 +21,14 @@ export default function VideoDesktopHeader() {
     {
       name: t('VideoTabBar.history'),
       link: VideoRoutes.history,
-    }
-  ]
+    },
+  ];
 
   if (isAdmin) {
     dropdowns.push({
       name: 'Admin',
       link: VideoRoutes.admin,
-    })
+    });
   }
 
   const desktopProps: DesktopHeaderProps = {
@@ -37,7 +38,7 @@ export default function VideoDesktopHeader() {
     onSearch: () => {
       router.navigate(VideoRoutes.search);
     },
-  }
+  };
 
-  return <DesktopHeader {...desktopProps} />
+  return <DesktopHeader {...desktopProps} />;
 }

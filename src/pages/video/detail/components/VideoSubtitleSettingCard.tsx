@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Card, Form, InputGroup } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+
 import { VideoSubtitle } from 'src/model/video';
 import { VideoDetailContext } from 'src/pages/video/detail/VideoDetailState';
 
@@ -11,20 +12,16 @@ interface Props {
 export default function VideoSubtitleSettingCard({ subtitles }: Props) {
   const { t } = useTranslation();
 
-  const items = subtitles.map(v => (
-    <VideoSubtitleSettingItem key={v.url} subtitle={v} />
-  ));
+  const items = subtitles.map((v) => <VideoSubtitleSettingItem key={v.url} subtitle={v} />);
 
   return (
     <Card>
       <Card.Header>{t('video.subtitle-setting.title')}</Card.Header>
       <Card.Body>
-        <div className="d-flex gap-3 flex-wrap">
-          {items}
-        </div>
+        <div className="d-flex gap-3 flex-wrap">{items}</div>
       </Card.Body>
     </Card>
-  )
+  );
 }
 
 interface VideoSubtitleSettingItemProps {
@@ -47,5 +44,5 @@ function VideoSubtitleSettingItem({ subtitle }: VideoSubtitleSettingItemProps) {
       <Form.Control type="number" className="text-end" onChange={onChange} />
       <InputGroup.Text>ms</InputGroup.Text>
     </InputGroup>
-  )
+  );
 }

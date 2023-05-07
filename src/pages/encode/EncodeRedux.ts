@@ -1,4 +1,5 @@
-import { combineReducers } from "@reduxjs/toolkit";
+import { combineReducers } from '@reduxjs/toolkit';
+
 import home from './home/EncodeHomeState';
 
 export default combineReducers({

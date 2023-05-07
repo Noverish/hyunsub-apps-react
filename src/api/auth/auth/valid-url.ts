@@ -1,4 +1,4 @@
-import { generateQuery } from "src/api/generate-api";
+import { generateQuery } from 'src/api/generate-api';
 
 export interface ValidUrlParams {
   url: string;

@@ -1,13 +1,14 @@
 import { AxiosRequestConfig } from 'axios';
-import { ApparelImage } from "src/model/apparel";
-import { generateApi } from "../generate-api";
+
+import { generateApi } from '../generate-api';
+import { ApparelImage } from 'src/model/apparel';
 
 export interface ApparelImageUploadParams {
   apparelId: string;
   image: File;
 }
 
-const apparelImageUploadApi = generateApi<ApparelImageUploadParams, ApparelImage>(params => {
+const apparelImageUploadApi = generateApi<ApparelImageUploadParams, ApparelImage>((params) => {
   const formData = new FormData();
   formData.append('image', params.image);
 
@@ -16,8 +17,8 @@ const apparelImageUploadApi = generateApi<ApparelImageUploadParams, ApparelImage
     method: 'POST',
     data: formData,
     headers: {
-      "Content-Type": "multipart/form-data",
-    }
+      'Content-Type': 'multipart/form-data',
+    },
   } as AxiosRequestConfig;
 });
 

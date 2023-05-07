@@ -1,6 +1,7 @@
-import { useNavigate } from "react-router-dom";
-import { ComicPreview } from "src/model/comic"
-import ComicRoutes from "src/pages/comic/ComicRoutes";
+import { useNavigate } from 'react-router-dom';
+
+import { ComicPreview } from 'src/model/comic';
+import ComicRoutes from 'src/pages/comic/ComicRoutes';
 
 import './ComicPreviewView.scss';
 
@@ -12,12 +13,12 @@ export default function ComicPreviewView({ comic }: Props) {
   const navigate = useNavigate();
 
   const onClick = () => {
-    navigate(ComicRoutes.detailRoute(comic.id))
-  }
+    navigate(ComicRoutes.detailRoute(comic.id));
+  };
 
   return (
     <div className="ComicPreviewView hyunsub_border" onClick={onClick}>
       {comic.title}
     </div>
-  )
+  );
 }

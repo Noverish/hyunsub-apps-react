@@ -1,4 +1,5 @@
 import { AxiosRequestConfig } from 'axios';
+
 import { generateApi } from 'src/api/generate-api';
 
 export interface VideoSubtitleUploadParams {
@@ -9,7 +10,7 @@ export interface VideoSubtitleUploadParams {
   override: boolean;
 }
 
-const videoSubtitleUpload = generateApi<VideoSubtitleUploadParams, any>(params => {
+const videoSubtitleUpload = generateApi<VideoSubtitleUploadParams, any>((params) => {
   const formData = new FormData();
   formData.append('lang', params.lang);
   formData.append('override', params.override.toString());
@@ -25,9 +26,9 @@ const videoSubtitleUpload = generateApi<VideoSubtitleUploadParams, any>(params =
     method: 'POST',
     data: formData,
     headers: {
-      "Content-Type": "multipart/form-data",
-    }
+      'Content-Type': 'multipart/form-data',
+    },
   } as AxiosRequestConfig;
-})
+});
 
 export default videoSubtitleUpload;

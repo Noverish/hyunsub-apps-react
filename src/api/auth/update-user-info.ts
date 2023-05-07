@@ -1,4 +1,4 @@
-import { generateApi } from "src/api/generate-api";
+import { generateApi } from 'src/api/generate-api';
 
 export interface UpdateUserInfoParams {
   username?: string;
@@ -10,7 +10,7 @@ export interface UpdateUserInfoResult {
   password?: boolean;
 }
 
-const updateUserInfo = generateApi<UpdateUserInfoParams, UpdateUserInfoResult>(params => ({
+const updateUserInfo = generateApi<UpdateUserInfoParams, UpdateUserInfoResult>((params) => ({
   url: '/api/v1/user',
   method: 'PUT',
   data: params,

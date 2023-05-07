@@ -1,4 +1,4 @@
-import { PageData } from "./api";
+import { PageData } from './api';
 
 export interface AlbumPreview {
   id: string;

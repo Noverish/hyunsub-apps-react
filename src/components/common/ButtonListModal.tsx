@@ -14,9 +14,9 @@ interface Props {
 }
 
 export default function ButtonListModal({ className, show, onHide, items }: Props) {
-  const elements = items.map(v => (
+  const elements = items.map((v) => (
     <ListGroup.Item
-      as='button'
+      as="button"
       key={v.title}
       active={v.active}
       onClick={() => {
@@ -26,15 +26,13 @@ export default function ButtonListModal({ className, show, onHide, items }: Prop
     >
       {v.title}
     </ListGroup.Item>
-  ))
+  ));
 
   return (
     <Modal className={className} show={show} centered onHide={onHide}>
       <Modal.Body className="p-0">
-        <ListGroup variant="flush">
-          {elements}
-        </ListGroup>
+        <ListGroup variant="flush">{elements}</ListGroup>
       </Modal.Body>
     </Modal>
-  )
+  );
 }

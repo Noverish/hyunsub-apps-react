@@ -1,6 +1,7 @@
 import { t } from 'i18next';
-import ApparelRoutes from 'src/pages/apparel/ApparelRoutes';
+
 import DesktopHeader, { DesktopHeaderProps } from '../../common/header/DesktopHeader';
+import ApparelRoutes from 'src/pages/apparel/ApparelRoutes';
 
 const desktopProps: DesktopHeaderProps = {
   title: 'HyunApparel',
@@ -19,19 +20,19 @@ const desktopProps: DesktopHeaderProps = {
       name: t('apparel.menu.brands'),
       link: ApparelRoutes.brandList,
       icon: 'fas fa-tag',
-    }
+    },
   ],
   dropdowns: [
     {
       name: t('menus'),
       link: ApparelRoutes.menu,
-    }
+    },
   ],
   onSearch: () => {
     alert('Not yet implemented');
   },
-}
+};
 
 export default function ApparelDesktopHeader() {
-  return <DesktopHeader {...desktopProps} />
+  return <DesktopHeader {...desktopProps} />;
 }

@@ -1,5 +1,5 @@
-import { DriveFileInfo, DrivePathParams } from "src/model/drive";
-import { generateQuery } from "../generate-api";
+import { generateQuery } from '../generate-api';
+import { DriveFileInfo, DrivePathParams } from 'src/model/drive';
 
 const driveListApi = generateQuery<DrivePathParams, DriveFileInfo[]>({
   api: (params) => ({
@@ -8,6 +8,6 @@ const driveListApi = generateQuery<DrivePathParams, DriveFileInfo[]>({
     data: params,
   }),
   key: () => 'driveListApi',
-})
+});
 
 export default driveListApi;

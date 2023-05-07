@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { RouterProvider } from 'react-router-dom';
+
 import ToastDisplay from './components/toast/ToastDisplay';
 import LoadingPageDim from './pages/common/LoadingPageDim';
 import router from './pages/router';
@@ -9,7 +10,7 @@ import { loadTokenPayload } from './utils/token';
 
 function App() {
   const dispatch = useDispatch();
-  const { loading } = useSelector(s => s.global);
+  const { loading } = useSelector((s) => s.global);
 
   useEffect(() => {
     loadTokenPayload().then((tokenPayload) => {

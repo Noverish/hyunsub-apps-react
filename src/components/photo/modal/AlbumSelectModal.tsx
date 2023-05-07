@@ -1,8 +1,9 @@
-import { t } from "i18next";
-import { Modal, Row } from "react-bootstrap";
+import { t } from 'i18next';
+import { Modal, Row } from 'react-bootstrap';
+
 import albumListApi from 'src/api/photo/album-list';
 import AlbumPreviewView from 'src/components/photo/AlbumPreviewView';
-import { AlbumPreview } from "src/model/photo";
+import { AlbumPreview } from 'src/model/photo';
 
 interface Props {
   show: boolean;
@@ -13,9 +14,7 @@ interface Props {
 export default function AlbumSelectModal({ show, onHide, onClick }: Props) {
   const { infiniteData: albums } = albumListApi.useInfiniteApi({});
 
-  const elements = albums.map(v => (
-    <AlbumPreviewView key={v.id} preview={v} onClick={onClick} />
-  ))
+  const elements = albums.map((v) => <AlbumPreviewView key={v.id} preview={v} onClick={onClick} />);
 
   return (
     <Modal className="AlbumSelectModal" centered show={show} onHide={onHide}>
@@ -26,5 +25,5 @@ export default function AlbumSelectModal({ show, onHide, onClick }: Props) {
         <Row className="g-2 row-cols-3">{elements}</Row>
       </Modal.Body>
     </Modal>
-  )
+  );
 }

@@ -1,4 +1,4 @@
-import { generateApi } from "../generate-api";
+import { generateApi } from '../generate-api';
 
 export interface DriveRenameBulkParams {
   path: string;
@@ -14,6 +14,6 @@ const driveRenameBulkApi = generateApi<DriveRenameBulkParams, any>((params) => (
   url: '/api/v1/rename-bulk',
   method: 'POST',
   data: params,
-}))
+}));
 
 export default driveRenameBulkApi;

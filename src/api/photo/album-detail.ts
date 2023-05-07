@@ -1,5 +1,5 @@
-import { Album } from "src/model/photo";
-import { generateQuery } from "../generate-api";
+import { generateQuery } from '../generate-api';
+import { Album } from 'src/model/photo';
 
 export interface AlbumDetailParams {
   albumId: string;
@@ -11,6 +11,6 @@ const albumDetailApi = generateQuery<AlbumDetailParams, Album>({
     method: 'GET',
   }),
   key: () => 'albumDetailApi',
-})
+});
 
 export default albumDetailApi;

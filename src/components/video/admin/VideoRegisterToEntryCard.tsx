@@ -1,5 +1,6 @@
 import { Button, Card, Form } from 'react-bootstrap';
 import { SubmitHandler, useForm } from 'react-hook-form';
+
 import { VideoRegisterParams } from 'src/api/video/admin/video-register';
 import ApiResult from 'src/components/common/ApiResult';
 import PathSelect from 'src/components/common/PathSelect';
@@ -12,21 +13,26 @@ interface Props {
 
 export default function VideoRegisterToEntryCard({ entryId }: Props) {
   const dispatch = useDispatch();
-  const result = useSelector(s => s.video.admin.videoRegisterToEntryResult);
+  const result = useSelector((s) => s.video.admin.videoRegisterToEntryResult);
 
-  const { register, handleSubmit, setValue, formState: { errors } } = useForm<VideoRegisterParams>({ defaultValues: { videoEntryId: entryId }});
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<VideoRegisterParams>({ defaultValues: { videoEntryId: entryId } });
 
   const onVideoPathSelect = (path: string) => {
     setValue('videoPath', path, { shouldValidate: true });
-  }
+  };
 
   const onOutputPathSelect = (path: string) => {
     setValue('outputPath', path, { shouldValidate: true });
-  }
+  };
 
   const onSubmit: SubmitHandler<VideoRegisterParams> = (params: VideoRegisterParams) => {
     dispatch(videoRegisterToEntryAction(params));
-  }
+  };
 
   register('videoPath', { required: 'There is no video path' });
   register('outputPath', { required: 'There is no output path' });
@@ -61,5 +67,5 @@ export default function VideoRegisterToEntryCard({ entryId }: Props) {
         </Form>
       </Card.Body>
     </Card>
-  )
+  );
 }

@@ -1,9 +1,10 @@
 import { t } from 'i18next';
+
 import apparelBrandApparelsApi from 'src/api/apparel/apparel-brand-apparels';
 import ApparelList from 'src/components/apparel/ApparelList';
+import ListLoadingIndicator from 'src/components/common/ListLoadingIndicator';
 import CommonContainer from 'src/components/common/header/CommonContainer';
 import MobileHeader from 'src/components/common/header/MobileHeader';
-import ListLoadingIndicator from 'src/components/common/ListLoadingIndicator';
 import useScrollBottom from 'src/hooks/scroll-bottom';
 import { useUrlParams } from 'src/hooks/url-params';
 import { useBreakpointMobile } from 'src/utils/breakpoint';
@@ -32,5 +33,5 @@ export default function ApparelBrandDetailPage() {
         <ListLoadingIndicator isFetching={isFetching} />
       </CommonContainer>
     </div>
-  )
+  );
 }

@@ -1,11 +1,12 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+
 import { MyPageUserInfo } from 'src/api/auth/my-page-user-info';
 
 interface State {
   userInfo?: MyPageUserInfo;
   showUsernameModal: boolean;
   showPasswordModal: boolean;
-};
+}
 
 const initialState: State = {
   showUsernameModal: false,
@@ -20,7 +21,7 @@ const slice = createSlice({
       ...state,
       ...payload,
     }),
-  }
+  },
 });
 
 export default slice;

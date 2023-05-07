@@ -1,4 +1,4 @@
-import { PropsWithChildren, Suspense } from "react";
+import { PropsWithChildren, Suspense } from 'react';
 import { Spinner } from 'react-bootstrap';
 
 interface Props {
@@ -10,7 +10,7 @@ export function Loading() {
     <div className="LoadingSuspense flex_center" style={{ height: '80vh' }}>
       <Spinner animation="border"></Spinner>
     </div>
-  )
+  );
 }
 
 export default function LoadingSuspense(props: PropsWithChildren<Props>) {
@@ -18,9 +18,5 @@ export default function LoadingSuspense(props: PropsWithChildren<Props>) {
     return <Loading />;
   }
 
-  return (
-    <Suspense fallback={<Loading />}>
-      {props.children}
-    </Suspense>
-  )
+  return <Suspense fallback={<Loading />}>{props.children}</Suspense>;
 }

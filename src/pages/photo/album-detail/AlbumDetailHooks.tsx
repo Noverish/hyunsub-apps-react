@@ -1,6 +1,8 @@
 import { t } from 'i18next';
 import { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
+
+import PhotoRoutes from '../PhotoRoutes';
 import albumDeleteApi, { AlbumDeleteParams } from 'src/api/photo/album-delete';
 import albumDetailApi from 'src/api/photo/album-detail';
 import albumListApi from 'src/api/photo/album-list';
@@ -9,7 +11,6 @@ import useScrollBottom from 'src/hooks/scroll-bottom';
 import router from 'src/pages/router';
 import { dispatch } from 'src/redux';
 import { GlobalActions } from 'src/redux/global';
-import PhotoRoutes from '../PhotoRoutes';
 
 export function useAlbumDetailPage() {
   const albumId = useParams().albumId!!;
@@ -18,7 +19,7 @@ export function useAlbumDetailPage() {
 
   const { data, fetchNextPage, isFetching } = albumPhotosApi.useInfiniteApi({ albumId }, album.photos);
   const pages = data?.pages;
-  const photos = useMemo(() => pages?.flatMap(v => v.data) || [], [pages]);
+  const photos = useMemo(() => pages?.flatMap((v) => v.data) || [], [pages]);
 
   useScrollBottom(() => {
     if (!isFetching) {
@@ -30,7 +31,7 @@ export function useAlbumDetailPage() {
     album,
     photos,
     isFetching,
-  }
+  };
 }
 
 export function useAlbumDelete() {
@@ -49,5 +50,5 @@ export function useAlbumDelete() {
     dispatch(GlobalActions.update({ loading: false }));
 
     router.navigate(PhotoRoutes.albums);
-  }
+  };
 }

@@ -24,6 +24,6 @@ const PhotoRoutes = {
   photoUpload: '/upload',
 
   menu: '/menu',
-}
+};
 
 export default PhotoRoutes;

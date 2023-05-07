@@ -1,14 +1,15 @@
 import { t } from 'i18next';
 import { useContext, useMemo } from 'react';
-import { Button, Row } from "react-bootstrap";
+import { Button, Row } from 'react-bootstrap';
+
+import { usePhotoListSelect } from './PhotoListHooks';
+import PhotoPreviewView from './PhotoPreviewView';
+import PhotoSelectActionModal from './PhotoSelectActionModal';
+import { PhotoSelectContext } from './PhotoSelectContext';
 import { PhotoPreview } from 'src/model/photo';
 import PhotoRoutes from 'src/pages/photo/PhotoRoutes';
 import router from 'src/pages/router';
 import { useBreakpointMobile } from 'src/utils/breakpoint';
-import { usePhotoListSelect } from './PhotoListHooks';
-import PhotoPreviewView from "./PhotoPreviewView";
-import { PhotoSelectContext } from './PhotoSelectContext';
-import PhotoSelectActionModal from './PhotoSelectActionModal';
 
 import './PhotoListView.scss';
 
@@ -31,7 +32,7 @@ export default function PhotoListView({ albumId, previews, itemHref: href }: Pro
     } else {
       router.navigate(PhotoRoutes.photoUpload);
     }
-  }
+  };
 
   const onCheckboxClick = () => {
     if (selects.length === 0) {
@@ -47,20 +48,12 @@ export default function PhotoListView({ albumId, previews, itemHref: href }: Pro
       selects: [],
       lastSelected: undefined,
     });
-  }
+  };
 
   const showSelectModal = () => setState({ showSelectActionModal: true });
 
   // elements
-  const elements = previews.map(v => (
-    <PhotoPreviewView
-      key={v.id}
-      preview={v}
-      href={href(v)}
-
-      onSelect={onSelect}
-    />
-  ));
+  const elements = previews.map((v) => <PhotoPreviewView key={v.id} preview={v} href={href(v)} onSelect={onSelect} />);
 
   const squareIcon = useMemo(() => {
     if (selects.length === previews.length) {
@@ -74,24 +67,28 @@ export default function PhotoListView({ albumId, previews, itemHref: href }: Pro
 
   const topBtnsForDesktop = (
     <div className="button_container">
-      <Button onClick={onCheckboxClick}><i className={squareIcon} /></Button>
+      <Button onClick={onCheckboxClick}>
+        <i className={squareIcon} />
+      </Button>
       <Button onClick={navigateAlbumUpload}>{t('upload')}</Button>
-      {selectMode && <>
-        <div className="vr"></div>
-        <Button onClick={showSelectModal}><i className="fas fa-ellipsis-h" /></Button>
-        <span className="select_status">{t('n-selected', [selects.length])}</span>
-      </>}
+      {selectMode && (
+        <>
+          <div className="vr"></div>
+          <Button onClick={showSelectModal}>
+            <i className="fas fa-ellipsis-h" />
+          </Button>
+          <span className="select_status">{t('n-selected', [selects.length])}</span>
+        </>
+      )}
       <hr />
     </div>
-  )
+  );
 
   return (
     <div className="PhotoListView">
       {isMobile || topBtnsForDesktop}
-      <Row className="g-1 row-cols-3 row-cols-sm-4 row-cols-md-5 row-cols-lg-6">
-        {elements}
-      </Row>
+      <Row className="g-1 row-cols-3 row-cols-sm-4 row-cols-md-5 row-cols-lg-6">{elements}</Row>
       <PhotoSelectActionModal albumId={albumId} />
     </div>
-  )
+  );
 }

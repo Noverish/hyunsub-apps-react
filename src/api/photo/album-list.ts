@@ -1,5 +1,5 @@
-import { AlbumPreview } from "src/model/photo";
-import { generateInfiniteQuery } from "../generate-api";
+import { generateInfiniteQuery } from '../generate-api';
+import { AlbumPreview } from 'src/model/photo';
 
 const albumListApi = generateInfiniteQuery<{}, AlbumPreview>({
   api: () => ({
@@ -7,6 +7,6 @@ const albumListApi = generateInfiniteQuery<{}, AlbumPreview>({
     method: 'GET',
   }),
   key: () => 'albumListApi',
-})
+});
 
 export default albumListApi;

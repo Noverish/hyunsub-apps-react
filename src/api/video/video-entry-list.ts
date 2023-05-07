@@ -1,5 +1,5 @@
-import { generateInfiniteQuery } from "src/api/generate-api";
-import { VideoEntry } from "src/model/video";
+import { generateInfiniteQuery } from 'src/api/generate-api';
+import { VideoEntry } from 'src/model/video';
 
 export interface VideoEntryListParams {
   category: string;
@@ -15,8 +15,8 @@ const videoEntryListApi = generateInfiniteQuery<VideoEntryListParams, VideoEntry
       category: params.category,
       p: params.page,
       sort: params.sort,
-      seed: (params.sort === 'random') ? params.seed : undefined,
-    }
+      seed: params.sort === 'random' ? params.seed : undefined,
+    },
   }),
   key: () => 'videoEntryListApi',
 });

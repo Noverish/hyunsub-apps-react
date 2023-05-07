@@ -1,5 +1,6 @@
 import { Button, Card, Form } from 'react-bootstrap';
 import { SubmitHandler, useForm } from 'react-hook-form';
+
 import { VideoRegisterParams } from 'src/api/video/admin/video-register';
 import ApiResult from 'src/components/common/ApiResult';
 import PathSelect from 'src/components/common/PathSelect';
@@ -11,29 +12,34 @@ import { useDispatch, useSelector } from 'src/redux';
 
 export default function VideoRegisterCard() {
   const dispatch = useDispatch();
-  const result = useSelector(s => s.video.admin.videoRegisterResult);
+  const result = useSelector((s) => s.video.admin.videoRegisterResult);
 
-  const { register, handleSubmit, setValue, formState: { errors } } = useForm<VideoRegisterParams>();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<VideoRegisterParams>();
 
   const onVideoPathSelect = (path: string) => {
     setValue('videoPath', path, { shouldValidate: true });
-  }
+  };
 
   const onOutputPathSelect = (path: string) => {
     setValue('outputPath', path, { shouldValidate: true });
-  }
+  };
 
   const onCategorySelect = (category: VideoCategory | null) => {
     setValue('category', category?.name ?? '', { shouldValidate: true });
-  }
+  };
 
   const onGroupSelect = (group: VideoGroup | null) => {
     setValue('videoGroupId', group?.id ?? '', { shouldValidate: true });
-  }
+  };
 
   const onSubmit: SubmitHandler<VideoRegisterParams> = (params: VideoRegisterParams) => {
     dispatch(videoRegisterAction(params));
-  }
+  };
 
   register('category', { required: 'There is no category' });
   register('videoPath', { required: 'There is no video path' });
@@ -85,5 +91,5 @@ export default function VideoRegisterCard() {
         </Form>
       </Card.Body>
     </Card>
-  )
+  );
 }

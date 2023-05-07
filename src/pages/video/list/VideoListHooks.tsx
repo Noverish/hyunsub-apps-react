@@ -1,13 +1,14 @@
 import { t } from 'i18next';
 import { useContext } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
+
 import videoCategoryApi from 'src/api/video/video-category';
 import videoEntryDetailApi from 'src/api/video/video-entry-detail';
 import videoEntryListApi from 'src/api/video/video-entry-list';
 import { VideoCategory, VideoSort } from 'src/model/video';
 import router from 'src/pages/router';
-import { VideoListContext } from 'src/pages/video/list/VideoListState';
 import VideoRoutes from 'src/pages/video/VideoRoutes';
+import { VideoListContext } from 'src/pages/video/list/VideoListState';
 import { dispatch } from 'src/redux';
 import { GlobalActions } from 'src/redux/global';
 
@@ -24,13 +25,13 @@ export function useVideoSort() {
       setSearchParams(searchParams);
     },
     getSortName,
-  }
+  };
 }
 
 export function useVideoCategory(): VideoCategory {
   const categoryName = useParams().category || '';
   const categories = videoCategoryApi.useApi({});
-  return categories.filter(v => v.name === categoryName)[0];
+  return categories.filter((v) => v.name === categoryName)[0];
 }
 
 export function useLoadVideoListPage() {

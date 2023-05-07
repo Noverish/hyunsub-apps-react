@@ -1,5 +1,5 @@
-import { AdminAuthority } from "src/model/auth";
-import { generateQuery} from 'src/api/generate-api';
+import { generateQuery } from 'src/api/generate-api';
+import { AdminAuthority } from 'src/model/auth';
 
 const getAllAuthorities = generateQuery<{}, AdminAuthority[]>({
   api: () => ({

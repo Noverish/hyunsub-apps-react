@@ -1,13 +1,14 @@
 import { InfiniteData, UseInfiniteQueryResult } from '@tanstack/react-query';
 import { useRef } from 'react';
+
+import PageSwiper, { PageSwiperProps } from './PageSwiper';
 import { flatInfiniteData } from 'src/api/generate-api';
 import { PageData } from 'src/model/api';
-import PageSwiper, { PageSwiperProps } from './PageSwiper';
 
 const READY_OFF_SLIDE_SIZE = 5;
 
 export interface InfinitePageSwiperProps<T> extends Omit<PageSwiperProps<T>, 'slides'> {
-  infiniteQueryResult: UseInfiniteQueryResult<PageData<T>>,
+  infiniteQueryResult: UseInfiniteQueryResult<PageData<T>>;
 }
 
 function getPage<T>(data: InfiniteData<PageData<T>>, index: number): number {
@@ -20,7 +21,7 @@ export default function InfinitePageSwiper<T>(props: InfinitePageSwiperProps<T>)
   const { infiniteQueryResult, onSlideChange: onPageChange, ...etc } = props;
   const data = infiniteQueryResult.data!!;
   const { fetchNextPage } = infiniteQueryResult;
-  const pageParams = (data.pageParams as number[]).map(v => v ? v : 0);
+  const pageParams = (data.pageParams as number[]).map((v) => (v ? v : 0));
 
   // hooks
   const loadingRef = useRef<number[]>([]);
@@ -31,7 +32,7 @@ export default function InfinitePageSwiper<T>(props: InfinitePageSwiperProps<T>)
     }
     loadingRef.current.push(page);
     fetchNextPage({ pageParam: page });
-  }
+  };
 
   const onSlideChange = (index: number, slide: T | null) => {
     onPageChange?.(index, slide);
@@ -41,13 +42,7 @@ export default function InfinitePageSwiper<T>(props: InfinitePageSwiperProps<T>)
 
     const pageAhead = getPage(data, index + READY_OFF_SLIDE_SIZE);
     readyPage(pageAhead);
-  }
+  };
 
-  return (
-    <PageSwiper
-      {...etc}
-      slides={flatInfiniteData(data)}
-      onSlideChange={onSlideChange}
-    />
-  )
+  return <PageSwiper {...etc} slides={flatInfiniteData(data)} onSlideChange={onSlideChange} />;
 }

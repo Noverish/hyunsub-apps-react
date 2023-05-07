@@ -1,4 +1,4 @@
-import { generateApi } from "src/api/generate-api";
+import { generateApi } from 'src/api/generate-api';
 
 export interface LoginParams {
   username: string;
@@ -15,7 +15,7 @@ export interface LoginError {
   needCaptcha: boolean;
 }
 
-const login = generateApi<LoginParams, LoginResult>(params => ({
+const login = generateApi<LoginParams, LoginResult>((params) => ({
   url: '/api/v1/auth/login',
   method: 'POST',
   data: params,

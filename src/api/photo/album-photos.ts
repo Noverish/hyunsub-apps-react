@@ -1,5 +1,5 @@
-import { PhotoPreview } from "src/model/photo";
-import { generateInfiniteQuery } from "../generate-api";
+import { generateInfiniteQuery } from '../generate-api';
+import { PhotoPreview } from 'src/model/photo';
 
 export interface AlbumPhotosParams {
   albumId: string;
@@ -12,8 +12,8 @@ const albumPhotosApi = generateInfiniteQuery<AlbumPhotosParams, PhotoPreview>({
     method: 'GET',
     params: {
       p: params.page,
-      photoId: (params.page === undefined) ? params.photoId : undefined,
-    }
+      photoId: params.page === undefined ? params.photoId : undefined,
+    },
   }),
   key: () => 'albumPhotosApi',
 });

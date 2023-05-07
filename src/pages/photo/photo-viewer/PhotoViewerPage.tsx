@@ -7,15 +7,12 @@ export default function PhotoViewerPage() {
 
   const infiniteQueryResult = photoListApi.useInfiniteApi({ photoId });
 
-  const { infiniteData } = infiniteQueryResult
-  const initialPage = photoId ? infiniteData.findIndex(v => v.id === photoId) : undefined;
+  const { infiniteData } = infiniteQueryResult;
+  const initialPage = photoId ? infiniteData.findIndex((v) => v.id === photoId) : undefined;
 
   return (
     <div className="PhotoViewerPage">
-      <PhotoSwiper2
-        infiniteQueryResult={infiniteQueryResult}
-        initialSlide={initialPage}
-      />
+      <PhotoSwiper2 infiniteQueryResult={infiniteQueryResult} initialSlide={initialPage} />
     </div>
-  )
+  );
 }

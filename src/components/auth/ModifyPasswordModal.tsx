@@ -1,18 +1,19 @@
-import { Dispatch } from "@reduxjs/toolkit";
-import { useRef } from "react";
-import { Button, Form, Modal } from "react-bootstrap";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { useTranslation } from "react-i18next";
-import { NavigateFunction, useNavigate } from "react-router-dom";
-import logout from "src/api/auth/logout";
-import { MyPageUserInfo } from "src/api/auth/my-page-user-info";
-import rsaKey from "src/api/auth/auth/rsa-key";
-import updateUserInfo from "src/api/auth/update-user-info";
-import routes from "src/pages/auth/AuthRoutes";
-import { updateMyPageState } from "src/pages/auth/my/MyPageState";
-import { RootState, useDispatch, useSelector } from "src/redux";
-import { encrypt } from "src/utils/rsa-key";
-import { TFunction } from "i18next";
+import { Dispatch } from '@reduxjs/toolkit';
+import { TFunction } from 'i18next';
+import { useRef } from 'react';
+import { Button, Form, Modal } from 'react-bootstrap';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+import { NavigateFunction, useNavigate } from 'react-router-dom';
+
+import rsaKey from 'src/api/auth/auth/rsa-key';
+import logout from 'src/api/auth/logout';
+import { MyPageUserInfo } from 'src/api/auth/my-page-user-info';
+import updateUserInfo from 'src/api/auth/update-user-info';
+import routes from 'src/pages/auth/AuthRoutes';
+import { updateMyPageState } from 'src/pages/auth/my/MyPageState';
+import { RootState, useDispatch, useSelector } from 'src/redux';
+import { encrypt } from 'src/utils/rsa-key';
 
 interface Props {
   userInfo: MyPageUserInfo;
@@ -27,11 +28,16 @@ export default function ModifyPasswordModal({ userInfo }: Props) {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { showPasswordModal } = useSelector(s => s.auth.my);
+  const { showPasswordModal } = useSelector((s) => s.auth.my);
 
   const onHide = () => dispatch(updateMyPageState({ showPasswordModal: false }));
 
-  const { register, handleSubmit, watch, formState: { errors } } = useForm<FormState>();
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<FormState>();
   const passwordRef = useRef<string>();
   passwordRef.current = watch('password1');
 
@@ -43,7 +49,7 @@ export default function ModifyPasswordModal({ userInfo }: Props) {
 
   const passwordRegister2 = register('password2', {
     required: t('auth.errMsg.empty-pw') as string,
-    validate: v => v === passwordRef.current || t('auth.errMsg.not-equal-pw') as string,
+    validate: (v) => v === passwordRef.current || (t('auth.errMsg.not-equal-pw') as string),
   });
 
   const password1ErrMsg = errors.password1?.message;
@@ -59,7 +65,6 @@ export default function ModifyPasswordModal({ userInfo }: Props) {
         <Modal.Title>{t('auth.modify-password-modal.title')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-
         <Form onSubmit={handleSubmit(onSubmit)}>
           <Form.Group className="mb-3">
             <Form.Label>{t('auth.pw')}</Form.Label>
@@ -71,12 +76,13 @@ export default function ModifyPasswordModal({ userInfo }: Props) {
             <Form.Control type="password" isInvalid={!!password2ErrMsg} {...passwordRegister2} />
             <Form.Control.Feedback type="invalid">{password2ErrMsg}</Form.Control.Feedback>
           </Form.Group>
-          <Button variant="primary" type="submit">{t('modify')}</Button>
+          <Button variant="primary" type="submit">
+            {t('modify')}
+          </Button>
         </Form>
-
       </Modal.Body>
     </Modal>
-  )
+  );
 }
 
 function modifyPassword(t: TFunction, navigate: NavigateFunction, password: string) {
@@ -94,5 +100,5 @@ function modifyPassword(t: TFunction, navigate: NavigateFunction, password: stri
     await logout({});
 
     navigate(routes.login);
-  }
+  };
 }

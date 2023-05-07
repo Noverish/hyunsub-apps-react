@@ -1,4 +1,4 @@
-import { generateApi } from "src/api/generate-api";
+import { generateApi } from 'src/api/generate-api';
 
 export interface VideoRenameBulkParams {
   videoIds: string[];
@@ -7,7 +7,7 @@ export interface VideoRenameBulkParams {
   isRegex: boolean;
 }
 
-const videoRenameBulkApi = generateApi<VideoRenameBulkParams, any>(params => ({
+const videoRenameBulkApi = generateApi<VideoRenameBulkParams, any>((params) => ({
   url: `/api/v1/rename/bulk`,
   method: 'POST',
   data: params,

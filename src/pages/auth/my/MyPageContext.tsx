@@ -1,18 +1,19 @@
-import { Dispatch } from "@reduxjs/toolkit";
-import getMyPageUserInfo from "src/api/auth/my-page-user-info";
-import signOut from "src/api/auth/sign-out";
+import { Dispatch } from '@reduxjs/toolkit';
+import { t } from 'i18next';
+
+import AuthRoutes from '../AuthRoutes';
+import { updateMyPageState } from './MyPageState';
+import getMyPageUserInfo from 'src/api/auth/my-page-user-info';
+import signOut from 'src/api/auth/sign-out';
+import router from 'src/pages/router';
 import { RootState } from 'src/redux';
 import { GlobalActions } from 'src/redux/global';
-import { updateMyPageState } from './MyPageState';
-import { t } from 'i18next';
-import router from 'src/pages/router';
-import AuthRoutes from '../AuthRoutes';
 
 export function fetchMyPageUserInfo() {
   return async (dispatch: Dispatch, getState: () => RootState) => {
     const userInfo = await getMyPageUserInfo({});
     dispatch(updateMyPageState({ userInfo }));
-  }
+  };
 }
 
 export const signOutAction = () => async (dispatch: Dispatch, getState: () => RootState) => {
@@ -26,4 +27,4 @@ export const signOutAction = () => async (dispatch: Dispatch, getState: () => Ro
 
   alert(t('auth.sign-out.success'));
   router.navigate(AuthRoutes.login);
-}
+};

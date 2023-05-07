@@ -1,18 +1,19 @@
 import flatMap from 'lodash/flatMap';
-import { useContext } from "react";
-import CommonContainer from 'src/components/common/header/CommonContainer';
-import MobileHeader from 'src/components/common/header/MobileHeader';
+import { useContext } from 'react';
+
+import { VideoListContext, VideoListProvider } from './VideoListState';
 import ListLoadingIndicator from 'src/components/common/ListLoadingIndicator';
 import LoadingSuspense from 'src/components/common/LoadingSuspense';
-import VideoEntryList from "src/components/video/VideoEntryList";
-import NotFoundPage from 'src/pages/common/NotFoundPage';
-import VideoSortDropdown from "src/pages/video/list/components/VideoSortDropdown";
-import VideoSortModal from 'src/pages/video/list/components/VideoSortModal';
-import { useLoadVideoListPage, useVideoCategory } from 'src/pages/video/list/VideoListHooks';
+import CommonContainer from 'src/components/common/header/CommonContainer';
+import MobileHeader from 'src/components/common/header/MobileHeader';
+import VideoEntryList from 'src/components/video/VideoEntryList';
 import useScrollBottom from 'src/hooks/scroll-bottom';
+import NotFoundPage from 'src/pages/common/NotFoundPage';
+import { useLoadVideoListPage, useVideoCategory } from 'src/pages/video/list/VideoListHooks';
+import VideoSortDropdown from 'src/pages/video/list/components/VideoSortDropdown';
+import VideoSortModal from 'src/pages/video/list/components/VideoSortModal';
 import { useBreakpointMobile } from 'src/utils/breakpoint';
 import { setDocumentTitle } from 'src/utils/services';
-import { VideoListContext, VideoListProvider } from './VideoListState';
 
 function VideoList() {
   const category = useVideoCategory();
@@ -28,10 +29,10 @@ function VideoList() {
 
   return (
     <>
-      <VideoEntryList category={category} entries={flatMap(data!!.pages.map(v => v.data))} />
+      <VideoEntryList category={category} entries={flatMap(data!!.pages.map((v) => v.data))} />
       <ListLoadingIndicator isFetching={isFetchingNextPage} />
     </>
-  )
+  );
 }
 
 export function VideoListPage() {
@@ -43,8 +44,8 @@ export function VideoListPage() {
     {
       icon: 'fas fa-sort-alpha-down',
       onClick: () => setState({ showSortModal: true }),
-    }
-  ]
+    },
+  ];
 
   return (
     <div id="VideoHomePage">
@@ -57,17 +58,17 @@ export function VideoListPage() {
       </CommonContainer>
       <VideoSortModal />
     </div>
-  )
+  );
 }
 
 export default function VideoListIndex() {
   if (!useVideoCategory()) {
-    return <NotFoundPage />
+    return <NotFoundPage />;
   }
 
   return (
     <VideoListProvider>
       <VideoListPage />
     </VideoListProvider>
-  )
+  );
 }

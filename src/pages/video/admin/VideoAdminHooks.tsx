@@ -1,8 +1,8 @@
-import videoEntryCreateApi, { VideoEntryCreateParams } from "src/api/video/admin/video-entry-create";
-import router from "src/pages/router";
-import { dispatch } from "src/redux";
-import { GlobalActions } from "src/redux/global";
-import VideoRoutes from "../VideoRoutes";
+import VideoRoutes from '../VideoRoutes';
+import videoEntryCreateApi, { VideoEntryCreateParams } from 'src/api/video/admin/video-entry-create';
+import router from 'src/pages/router';
+import { dispatch } from 'src/redux';
+import { GlobalActions } from 'src/redux/global';
 
 export function useVideoEntryCreate() {
   return async (params: VideoEntryCreateParams) => {
@@ -13,5 +13,5 @@ export function useVideoEntryCreate() {
     dispatch(GlobalActions.update({ loading: false }));
 
     router.navigate(VideoRoutes.detailRoute(result.id));
-  }
+  };
 }

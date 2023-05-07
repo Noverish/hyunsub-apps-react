@@ -1,10 +1,10 @@
-import { Options, SourceInfo, Track } from "plyr";
-import Plyr, { APITypes } from "plyr-react";
-import { memo, useEffect, useRef } from "react";
-import { VideoSubtitle } from "src/model/video";
-import { getCaptionFontSize, setCaptionFontSize } from "src/pages/video/detail/components/VideoSettingSection";
+import { Options, SourceInfo, Track } from 'plyr';
+import Plyr, { APITypes } from 'plyr-react';
+import 'plyr-react/plyr.css';
+import { memo, useEffect, useRef } from 'react';
 
-import "plyr-react/plyr.css";
+import { VideoSubtitle } from 'src/model/video';
+import { getCaptionFontSize, setCaptionFontSize } from 'src/pages/video/detail/components/VideoSettingSection';
 
 declare global {
   interface Window {
@@ -31,17 +31,17 @@ export function VideoPlayer(props: VideoPlayerProps) {
         const plyr = ref.current?.plyr;
         if (plyr) {
           if (plyr.playing) {
-            plyr.pause()
+            plyr.pause();
           } else {
-            plyr.play()
+            plyr.play();
           }
         }
       }
-    }
+    };
 
     return () => {
       window.onkeydown = null;
-    }
+    };
   }, []);
 
   useEffect(() => {
@@ -53,7 +53,7 @@ export function VideoPlayer(props: VideoPlayerProps) {
           plyr.currentTime = time;
           const fontSize = getCaptionFontSize();
           setCaptionFontSize(fontSize);
-        })
+        });
         plyr.on('timeupdate', () => {
           onTimeUpdate(plyr.currentTime);
         });
@@ -72,20 +72,20 @@ export function VideoPlayer(props: VideoPlayerProps) {
     keyboard: { global: true },
     captions: { active: true, language: 'ko' },
     ratio: '16:9',
-  }
+  };
 
-  const tracks: Track[] = subtitles.map(v => {
+  const tracks: Track[] = subtitles.map((v) => {
     const sync = subtitleSync[v.url];
-    const params = (sync !== undefined) ? `?sync=${sync}` : '';
+    const params = sync !== undefined ? `?sync=${sync}` : '';
 
     return {
       kind: 'captions',
       label: v.label,
       srcLang: v.srclang,
       src: v.url + params,
-      default: v.srclang === 'ko'
-    }
-  })
+      default: v.srclang === 'ko',
+    };
+  });
 
   const source: SourceInfo = {
     type: 'video',
@@ -95,13 +95,11 @@ export function VideoPlayer(props: VideoPlayerProps) {
       {
         src: videoUrl,
         type: 'video/mp4',
-      }
+      },
     ],
   };
 
-  return (
-    <Plyr ref={ref} source={source} options={options} />
-  )
+  return <Plyr ref={ref} source={source} options={options} />;
 }
 
 export default memo(VideoPlayer);

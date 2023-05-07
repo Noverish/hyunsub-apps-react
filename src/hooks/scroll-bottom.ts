@@ -17,6 +17,6 @@ export default function useScrollBottom(callback: () => void) {
 
     return () => {
       document.removeEventListener('scroll', handler);
-    }
+    };
   }, [callback]);
 }

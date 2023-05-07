@@ -1,28 +1,32 @@
-import { useEffect } from "react";
-import { Button, Card, Container, ListGroup } from "react-bootstrap";
-import { useTranslation } from "react-i18next";
-import ModifyPasswordModal from "src/components/auth/ModifyPasswordModal";
-import ModifyUsernameModal from "src/components/auth/ModifyUsernameModal";
-import LoadingPage from "src/pages/common/LoadingPage";
-import { useDispatch, useSelector } from "src/redux";
-import './MyPage.scss';
-import {fetchMyPageUserInfo, signOutAction} from './MyPageContext';
-import { updateMyPageState } from "./MyPageState";
+import { useEffect } from 'react';
+import { Button, Card, Container, ListGroup } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 
-function ListItem({ name, value, btn, onClick }: { name: string, value: string, btn: string, onClick?: () => void }) {
+import { fetchMyPageUserInfo, signOutAction } from './MyPageContext';
+import { updateMyPageState } from './MyPageState';
+import ModifyPasswordModal from 'src/components/auth/ModifyPasswordModal';
+import ModifyUsernameModal from 'src/components/auth/ModifyUsernameModal';
+import LoadingPage from 'src/pages/common/LoadingPage';
+import { useDispatch, useSelector } from 'src/redux';
+
+import './MyPage.scss';
+
+function ListItem({ name, value, btn, onClick }: { name: string; value: string; btn: string; onClick?: () => void }) {
   return (
     <ListGroup.Item>
       <span className="key">{name}</span>
       <span>{value}</span>
-      <Button size="sm" onClick={onClick}>{btn}</Button>
+      <Button size="sm" onClick={onClick}>
+        {btn}
+      </Button>
     </ListGroup.Item>
-  )
+  );
 }
 
 export default function MyPage() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const { userInfo } = useSelector(s => s.auth.my);
+  const { userInfo } = useSelector((s) => s.auth.my);
 
   useEffect(() => {
     document.title = t('auth.my-page.title');
@@ -30,7 +34,7 @@ export default function MyPage() {
 
   useEffect(() => {
     dispatch(fetchMyPageUserInfo());
-  }, [dispatch])
+  }, [dispatch]);
 
   const onUsernameBtnClick = () => dispatch(updateMyPageState({ showUsernameModal: true }));
   const onPasswordBtnClick = () => dispatch(updateMyPageState({ showPasswordModal: true }));
@@ -60,13 +64,17 @@ export default function MyPage() {
             </ListGroup>
           </Card>
           <div>
-            <Button variant="warning" href="/logout">{t('auth.logout')}</Button>
-            <Button variant="danger" className="ms-3" onClick={onSignOut}>{t('auth.sign-out')}</Button>
+            <Button variant="warning" href="/logout">
+              {t('auth.logout')}
+            </Button>
+            <Button variant="danger" className="ms-3" onClick={onSignOut}>
+              {t('auth.sign-out')}
+            </Button>
           </div>
         </div>
       </Container>
       <ModifyUsernameModal userInfo={userInfo} />
       <ModifyPasswordModal userInfo={userInfo} />
     </div>
-  )
+  );
 }

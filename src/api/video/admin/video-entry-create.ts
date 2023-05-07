@@ -1,5 +1,5 @@
-import { generateApi } from "src/api/generate-api";
-import { VideoEntry } from "src/model/video";
+import { generateApi } from 'src/api/generate-api';
+import { VideoEntry } from 'src/model/video';
 
 export interface VideoEntryCreateParams {
   name: string;
@@ -8,7 +8,7 @@ export interface VideoEntryCreateParams {
   videoGroupId?: string;
 }
 
-const videoEntryCreateApi = generateApi<VideoEntryCreateParams, VideoEntry>(params => ({
+const videoEntryCreateApi = generateApi<VideoEntryCreateParams, VideoEntry>((params) => ({
   url: '/api/v1/entries',
   method: 'POST',
   data: params,

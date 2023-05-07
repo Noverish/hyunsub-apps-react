@@ -17,7 +17,7 @@ export function urlToName(url: string) {
 }
 
 export function numberWithComma(num: number) {
-  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
 
 export function filterEmptyString(obj: any): any {
@@ -27,7 +27,7 @@ export function filterEmptyString(obj: any): any {
     if (v !== '') {
       result[k] = v;
     }
-  })
+  });
 
   return result;
 }
@@ -44,19 +44,19 @@ export function dateToString(date: Date) {
 
 export function getHumanReadableSize(size: number) {
   const kb = 1000;
-	const mb = 1000 * 1000;
-	const gb = 1000 * 1000 * 1000;
+  const mb = 1000 * 1000;
+  const gb = 1000 * 1000 * 1000;
 
   if (size > gb) {
-    const tmp = Math.floor(size / gb * 100) / 100;
+    const tmp = Math.floor((size / gb) * 100) / 100;
     return `${tmp} GB`;
   }
 
   if (size > mb) {
-    const tmp = Math.floor(size / mb * 100) / 100;
+    const tmp = Math.floor((size / mb) * 100) / 100;
     return `${tmp} MB`;
   }
 
-  const tmp = Math.floor(size / kb * 100) / 100;
+  const tmp = Math.floor((size / kb) * 100) / 100;
   return `${tmp} KB`;
 }

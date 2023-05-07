@@ -1,11 +1,12 @@
 import { useContext } from 'react';
+
+import { PhotoSelectContext } from './PhotoSelectContext';
+import albumListApi from 'src/api/photo/album-list';
 import albumPhotoRegisterApi from 'src/api/photo/album-photo-register';
-import { AlbumPreview, PhotoPreview } from "src/model/photo";
+import albumThumbnailApi from 'src/api/photo/album-thumbnail';
+import { AlbumPreview, PhotoPreview } from 'src/model/photo';
 import { dispatch } from 'src/redux';
 import { GlobalActions } from 'src/redux/global';
-import { PhotoSelectContext } from './PhotoSelectContext';
-import albumThumbnailApi from 'src/api/photo/album-thumbnail';
-import albumListApi from 'src/api/photo/album-list';
 
 export function usePhotoListSelect(previews: PhotoPreview[]) {
   const [state, setState] = useContext(PhotoSelectContext);
@@ -26,17 +27,17 @@ export function usePhotoListSelect(previews: PhotoPreview[]) {
     }
 
     if (index < 0) {
-      setState(s => {
+      setState((s) => {
         s.selects.push(preview);
         s.lastSelected = preview;
-      })
+      });
     } else {
-      setState(s => {
+      setState((s) => {
         s.selects.splice(index, 1);
         s.lastSelected = undefined;
-      })
+      });
     }
-  }
+  };
 
   return { selects, onSelect, selectMode };
 }
@@ -50,13 +51,13 @@ export function useToggleSelectMode() {
         selectMode: false,
         selects: [],
         lastSelected: undefined,
-      })
+      });
     } else {
       setState({
         selectMode: true,
-      })
+      });
     }
-  }
+  };
 }
 
 export function useAlbumPhotoRegister() {
@@ -67,7 +68,7 @@ export function useAlbumPhotoRegister() {
 
     await albumPhotoRegisterApi({
       albumId: preview.id,
-      photoIds: state.selects.map(v => v.id),
+      photoIds: state.selects.map((v) => v.id),
     });
 
     setState({
@@ -78,7 +79,7 @@ export function useAlbumPhotoRegister() {
     });
 
     dispatch(GlobalActions.update({ loading: false }));
-  }
+  };
 }
 
 export function useAlbumThumbnailRegister(albumId?: string) {
@@ -107,8 +108,8 @@ export function useAlbumThumbnailRegister(albumId?: string) {
       if (cache.id === album.id) {
         cache.thumbnail = album.thumbnail;
       }
-    })
+    });
 
     dispatch(GlobalActions.update({ loading: false }));
-  }
+  };
 }

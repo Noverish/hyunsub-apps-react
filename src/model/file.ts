@@ -21,5 +21,5 @@ export interface FileUploadStatus {
     size: number;
     uploaded: number;
     ratio: number;
-  }
+  };
 }

@@ -7,14 +7,14 @@ const _ServiceCode = {
   agnam: 'agnam',
 } as const;
 
-export type ServiceCode = typeof _ServiceCode[keyof typeof _ServiceCode];
+export type ServiceCode = (typeof _ServiceCode)[keyof typeof _ServiceCode];
 
 export interface Service {
   code: ServiceCode;
   icon: string;
   title: string;
   documentTitle: string;
-};
+}
 
 const services: Service[] = [
   {
@@ -52,13 +52,13 @@ const services: Service[] = [
     icon: 'fas fa-torii-gate',
     title: 'Agnam',
     documentTitle: 'Agnam',
-  }
+  },
 ];
 
 export default services;
 
 function getService(code: ServiceCode): Service | undefined {
-  return services.filter(v => v.code === code)[0];
+  return services.filter((v) => v.code === code)[0];
 }
 
 export function setDocumentTitle(title: string) {

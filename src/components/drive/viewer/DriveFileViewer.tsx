@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
-import { Spinner } from "react-bootstrap";
-import { DriveFileInfo } from "src/model/drive";
-import { useDispatch } from "src/redux";
-import AppConstant from "src/utils/constants";
-import { join } from "src/utils/path";
-import { useDriveExplorerContext } from "../explorer/DriveExplorerHooks";
-import { parseFileType } from "../DriveFileIcon";
+import { useEffect, useState } from 'react';
+import { Spinner } from 'react-bootstrap';
+
+import { parseFileType } from '../DriveFileIcon';
+import { useDriveExplorerContext } from '../explorer/DriveExplorerHooks';
+import { DriveFileInfo } from 'src/model/drive';
+import { useDispatch } from 'src/redux';
+import AppConstant from 'src/utils/constants';
+import { join } from 'src/utils/path';
 
 interface Props {
   file: DriveFileInfo;
@@ -17,7 +18,7 @@ export default function DriveFileViewer({ file }: Props) {
   const dispatch = useDispatch();
   const [text, setText] = useState('');
 
-  const filePath = join(path, file.name)
+  const filePath = join(path, file.name);
   const fileUrl = AppConstant.file.HOST + filePath;
   const type = parseFileType(file.name, file.isDir);
 
@@ -25,8 +26,8 @@ export default function DriveFileViewer({ file }: Props) {
     if (type === 'TEXT') {
       setText('');
       fetch(fileUrl, { credentials: 'include' })
-        .then(res => res.text())
-        .then(res => setText(res));
+        .then((res) => res.text())
+        .then((res) => setText(res));
     }
   }, [dispatch, file, fileUrl, type]);
 
@@ -44,13 +45,17 @@ export default function DriveFileViewer({ file }: Props) {
 
   if (type === 'TEXT') {
     if (text) {
-      return <pre className="container-md"><code>{text}</code></pre>;
+      return (
+        <pre className="container-md">
+          <code>{text}</code>
+        </pre>
+      );
     } else {
       return (
         <div className="spinner_wrapper container-md flex_center">
           <Spinner animation="border" />
         </div>
-      )
+      );
     }
   }
 

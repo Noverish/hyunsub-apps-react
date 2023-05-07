@@ -1,5 +1,5 @@
-import { VideoCategory, VideoEntry } from "src/model/video";
-import { generateQuery } from "../generate-api";
+import { generateQuery } from '../generate-api';
+import { VideoCategory, VideoEntry } from 'src/model/video';
 
 export interface VideoHomeResult {
   recents: VideoHomeRecent[];

@@ -1,5 +1,5 @@
-import { generateInfiniteQuery } from "src/api/generate-api";
-import { ApparelPreview } from "src/model/apparel";
+import { generateInfiniteQuery } from 'src/api/generate-api';
+import { ApparelPreview } from 'src/model/apparel';
 
 interface ListApparelParams {
   query?: string;
@@ -12,9 +12,9 @@ const apparelListApi = generateInfiniteQuery<ListApparelParams, ApparelPreview>(
     params: {
       p: params.page,
       q: params.query,
-    }
+    },
   }),
   key: () => 'apparelList',
-})
+});
 
 export default apparelListApi;

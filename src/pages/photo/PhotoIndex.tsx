@@ -1,8 +1,9 @@
 import { lazy } from 'react';
 import { Navigate, Outlet, RouteObject } from 'react-router-dom';
+
+import routes from './PhotoRoutes';
 import PhotoDesktopHeader from 'src/components/photo/header/PhotoDesktopHeader';
 import PhotoTabBar from 'src/components/photo/header/PhotoTabBar';
-import routes from './PhotoRoutes';
 
 const AlbumListPage = lazy(() => import('src/pages/photo/album-list/AlbumListPage'));
 const AlbumDetailPage = lazy(() => import('src/pages/photo/album-detail/AlbumDetailPage'));
@@ -35,6 +36,6 @@ export const PhotoRouteObjects: RouteObject[] = [
       { path: routes.photoViewerRoute, element: <PhotoViewerPage /> },
       { path: routes.photoUpload, element: <PhotoUploadPage /> },
       { path: routes.menu, element: <PhotoMenuPage /> },
-    ]
+    ],
   },
-]
+];

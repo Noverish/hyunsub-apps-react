@@ -1,13 +1,14 @@
 import { useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+
 import { useSelector } from 'src/redux';
 
 import './ErrorPage.scss';
 
 export default function ErrorPage() {
   const { t } = useTranslation();
-  const { errMsg } = useSelector(s => s.global);
+  const { errMsg } = useSelector((s) => s.global);
 
   useEffect(() => {
     document.title = '500 Server Error';
@@ -18,7 +19,9 @@ export default function ErrorPage() {
       <h1 style={{ fontSize: '6rem' }}>{t('common.500.oh')}</h1>
       <h2>{t('common.500.error')}</h2>
       <div>{errMsg}</div>
-      <Button href="/" variant="primary" className="mt-3">{t('common.500.go-to-home')}</Button>
+      <Button href="/" variant="primary" className="mt-3">
+        {t('common.500.go-to-home')}
+      </Button>
     </div>
-  )
+  );
 }

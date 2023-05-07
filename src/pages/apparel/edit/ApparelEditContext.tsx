@@ -1,4 +1,5 @@
 import { Dispatch } from '@reduxjs/toolkit';
+
 import apparelImageDeleteApi from 'src/api/apparel/apparel-image-delete';
 import apparelImageUploadApi from 'src/api/apparel/apparel-image-upload';
 import apparelUpdateApi from 'src/api/apparel/apparel-update';
@@ -15,7 +16,7 @@ export const apparelImageUploadAction = (apparelId: string, images: File[]) => a
   }
 
   dispatch(GlobalActions.update({ loading: false }));
-}
+};
 
 export const apparelImageDeleteAction = (image: ApparelImage) => async (dispatch: Dispatch) => {
   dispatch(GlobalActions.update({ loading: true }));
@@ -23,7 +24,7 @@ export const apparelImageDeleteAction = (image: ApparelImage) => async (dispatch
   await apparelImageDeleteApi(image);
 
   dispatch(GlobalActions.update({ loading: false }));
-}
+};
 
 export const apparelUpdateAction = (apparelId: string, apparel: Apparel) => async (dispatch: Dispatch) => {
   dispatch(GlobalActions.update({ loading: true }));
@@ -33,4 +34,4 @@ export const apparelUpdateAction = (apparelId: string, apparel: Apparel) => asyn
   dispatch(GlobalActions.update({ loading: false }));
 
   router.navigate(ApparelRoutes.detail(result.id));
-}
+};

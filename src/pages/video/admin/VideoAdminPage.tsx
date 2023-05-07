@@ -1,12 +1,13 @@
-import { useEffect } from "react";
-import { Button } from "react-bootstrap";
+import { useEffect } from 'react';
+import { Button } from 'react-bootstrap';
+
+import { VideoAdminActions } from './VideoAdminState';
+import VideoEntryCreateModal from './components/VideoEntryCreateModal';
 import CommonContainer from 'src/components/common/header/CommonContainer';
 import MobileHeader from 'src/components/common/header/MobileHeader';
-import VideoRegisterCard from "src/components/video/admin/VideoRegisterCard";
-import NotFoundPage from "src/pages/common/NotFoundPage";
-import { dispatch, useSelector } from "src/redux";
-import { VideoAdminActions } from "./VideoAdminState";
-import VideoEntryCreateModal from "./components/VideoEntryCreateModal";
+import VideoRegisterCard from 'src/components/video/admin/VideoRegisterCard';
+import NotFoundPage from 'src/pages/common/NotFoundPage';
+import { dispatch, useSelector } from 'src/redux';
 
 export function VideoAdminPage() {
   useEffect(() => {
@@ -15,7 +16,7 @@ export function VideoAdminPage() {
 
   const onEntryCreateClick = () => {
     dispatch(VideoAdminActions.update({ showVideoEntryCreateModal: true }));
-  }
+  };
 
   return (
     <div id="VideoAdminPage">
@@ -31,13 +32,13 @@ export function VideoAdminPage() {
       </CommonContainer>
       <VideoEntryCreateModal />
     </div>
-  )
+  );
 }
 
 export default function VideoAdminIndex() {
-  const isAdmin = useSelector(s => s.global.tokenPayload)?.isAdmin || false;
+  const isAdmin = useSelector((s) => s.global.tokenPayload)?.isAdmin || false;
   if (!isAdmin) {
-    return <NotFoundPage />
+    return <NotFoundPage />;
   }
 
   return <VideoAdminPage />;

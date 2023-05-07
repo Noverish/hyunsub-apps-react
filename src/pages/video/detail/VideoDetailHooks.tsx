@@ -1,8 +1,9 @@
 import { useCallback, useContext, useEffect } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
+
 import videoEntryDetailApi from 'src/api/video/video-entry-detail';
 import useVideoHistorySetApi from 'src/api/video/video-history-set';
-import { VideoSeason } from "src/model/video";
+import { VideoSeason } from 'src/model/video';
 import { VideoDetailContext } from 'src/pages/video/detail/VideoDetailState';
 import AppConstant from 'src/utils/constants';
 
@@ -50,7 +51,7 @@ export function useSeasonAndPage(seasons: VideoSeason[], videoId: string) {
     });
   }, [seasons, videoId, setState]);
 
-  const episodes = seasons.filter(v => v.name === season)[0]?.episodes || [];
+  const episodes = seasons.filter((v) => v.name === season)[0]?.episodes || [];
   const total = episodes.length;
   const sliced = episodes.slice(page * PAGE_SIZE, (page + 1) * PAGE_SIZE);
 
@@ -62,18 +63,21 @@ export function useSeasonAndPage(seasons: VideoSeason[], videoId: string) {
     page,
     totalPage,
     setPage: (p: number) => setState({ page: p }),
-  }
+  };
 }
 
 export function useVideoHistoryUpdator(videoId: string) {
   const videoHistorySetApi = useVideoHistorySetApi();
 
-  const onTimeUpdate = useCallback((time: number) => {
-    videoHistorySetApi({
-      videoId,
-      time: Math.floor(time),
-    })
-  }, [videoHistorySetApi, videoId]);
+  const onTimeUpdate = useCallback(
+    (time: number) => {
+      videoHistorySetApi({
+        videoId,
+        time: Math.floor(time),
+      });
+    },
+    [videoHistorySetApi, videoId]
+  );
 
   return onTimeUpdate;
 }

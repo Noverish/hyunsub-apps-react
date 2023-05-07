@@ -1,10 +1,8 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-interface State {
-};
+interface State {}
 
-const initialState: State = {
-};
+const initialState: State = {};
 
 const slice = createSlice({
   name: 'home',
@@ -14,7 +12,7 @@ const slice = createSlice({
       ...state,
       ...payload,
     }),
-  }
+  },
 });
 
 export default slice;

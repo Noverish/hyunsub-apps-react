@@ -1,5 +1,6 @@
-import JSEncrypt from "jsencrypt";
-import { CodeError, ErrorCode } from "./error-code";
+import JSEncrypt from 'jsencrypt';
+
+import { CodeError, ErrorCode } from './error-code';
 
 export function encrypt(publicKey: string, plaintext: string): string {
   const encrypt = new JSEncrypt();

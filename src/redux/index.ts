@@ -1,15 +1,16 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch as _useDispatch, useSelector as _useSelector } from 'react-redux';
 import logger from 'redux-logger';
-import auth from 'src/pages/auth/AuthRedux';
-import video from 'src/pages/video/VideoRedux';
-import encode from 'src/pages/encode/EncodeRedux';
-import toast from './toast';
+
 import global from './global';
+import toast from './toast';
+import auth from 'src/pages/auth/AuthRedux';
+import encode from 'src/pages/encode/EncodeRedux';
+import video from 'src/pages/video/VideoRedux';
 
 export const loadState = (): RootState | undefined => {
   try {
-    const serializedState = localStorage.getItem("redux");
+    const serializedState = localStorage.getItem('redux');
     if (!serializedState) return undefined;
     else return JSON.parse(serializedState);
   } catch (err) {
@@ -19,7 +20,7 @@ export const loadState = (): RootState | undefined => {
 
 export const saveState = (state: RootState) => {
   const serializedState = JSON.stringify(state);
-  localStorage.setItem("redux", serializedState);
+  localStorage.setItem('redux', serializedState);
 };
 
 const reducer = combineReducers({ auth, video, encode, toast, global });
@@ -28,10 +29,7 @@ export type RootState = ReturnType<typeof reducer>;
 
 export const store = configureStore({
   reducer,
-  middleware: (getDefaultMiddleware) =>
-    (process.env.NODE_ENV === `development`)
-      ? getDefaultMiddleware().concat(logger)
-      : getDefaultMiddleware(),
+  middleware: (getDefaultMiddleware) => (process.env.NODE_ENV === `development` ? getDefaultMiddleware().concat(logger) : getDefaultMiddleware()),
   preloadedState: undefined, // loadState(),
 });
 

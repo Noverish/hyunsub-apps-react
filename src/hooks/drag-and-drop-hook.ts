@@ -1,6 +1,7 @@
 import flatMap from 'lodash/flatMap';
 import { basename } from 'path-browserify';
 import React, { useState } from 'react';
+
 import { FileWithPath } from 'src/model/file';
 
 const ignores = ['.DS_Store'];
@@ -18,22 +19,22 @@ export default function useDragAndDrop({ accept, onElementDrop, onFileDrop }: Pa
   const onDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     const items = e.dataTransfer.items;
-    const stringItems = Array.from(items).filter(v => v.kind === 'string');
+    const stringItems = Array.from(items).filter((v) => v.kind === 'string');
     setIsElement(stringItems.length > 0);
-    setHover(v => v + 1);
-  }
+    setHover((v) => v + 1);
+  };
 
   const onDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
-    setHover(v => v - 1);
-  }
+    setHover((v) => v - 1);
+  };
 
   const onDrop = async (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
 
     const items = e.dataTransfer.items;
-    const stringItems = Array.from(items).filter(v => v.kind === 'string');
-    const fileItems = Array.from(items).filter(v => v.kind === 'file');
+    const stringItems = Array.from(items).filter((v) => v.kind === 'string');
+    const fileItems = Array.from(items).filter((v) => v.kind === 'file');
 
     if (stringItems.length > 0) {
       onElementDrop?.(e.dataTransfer);
@@ -42,45 +43,41 @@ export default function useDragAndDrop({ accept, onElementDrop, onFileDrop }: Pa
     if (fileItems.length > 0) {
       let files = await handleDropEvent(fileItems);
       if (accept) {
-        files = files.filter(v => v.file.type && accept.includes(v.file.type));
+        files = files.filter((v) => v.file.type && accept.includes(v.file.type));
       }
       onFileDrop?.(files);
     }
 
     setHover(0);
-  }
+  };
 
   const onDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault(); // 이걸 하지 않으면 브라우저의 기본 동작이 실행됨 (새 탭이 열린다거나)
-  }
+  };
 
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = Array.from((e.currentTarget.files || []))
-      .map(v => ({ file: v, path: v.name }));
+    const files = Array.from(e.currentTarget.files || []).map((v) => ({ file: v, path: v.name }));
     onFileDrop?.(files);
-  }
+  };
 
   return {
     props: {
       onDragEnter,
       onDragLeave,
       onDrop,
-      onDragOver
+      onDragOver,
     },
     hover: hover > 0,
     isElement,
     isFile: !isElement,
     onInputChange,
-  }
+  };
 }
 
 async function handleDropEvent(items: DataTransferItem[]): Promise<FileWithPath[]> {
-  const promises = items
-    .map(v => v.webkitGetAsEntry())
-    .map(v => processEntry(v));
+  const promises = items.map((v) => v.webkitGetAsEntry()).map((v) => processEntry(v));
   const result = await Promise.all(promises);
-  return flatMap(result)
-    .filter(v => validExt(v.path));
+  return flatMap(result).filter((v) => validExt(v.path));
 }
 
 async function processEntry(entry: FileSystemEntry | null): Promise<FileWithPath[]> {
@@ -95,7 +92,7 @@ async function processEntry(entry: FileSystemEntry | null): Promise<FileWithPath
 
   if (entry.isDirectory) {
     const entries = await readDir(entry as FileSystemDirectoryEntry);
-    const result = await Promise.all(entries.map(v => processEntry(v)));
+    const result = await Promise.all(entries.map((v) => processEntry(v)));
     return flatMap(result);
   }
 
@@ -122,8 +119,8 @@ function readReader(reader: FileSystemDirectoryReader): Promise<FileSystemEntry[
   return new Promise((resolve, reject) => {
     reader.readEntries(
       (files) => resolve(files),
-      (err) => reject(err),
-    )
+      (err) => reject(err)
+    );
   });
 }
 
@@ -131,8 +128,8 @@ function getFile(entry: FileSystemFileEntry): Promise<FileWithPath> {
   return new Promise((resolve, reject) => {
     entry.file(
       (file) => resolve({ file, path: entry.fullPath.replace(/^\//, '') }),
-      (err) => reject(err),
-    )
-  })
+      (err) => reject(err)
+    );
+  });
 }
 const validExt = (path: string) => !ignores.includes(basename(path));

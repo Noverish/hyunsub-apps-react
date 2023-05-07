@@ -1,6 +1,7 @@
-import AppConstant from 'src/utils/constants';
-import { generateApi } from 'src/api/generate-api';
 import { AxiosProgressEvent } from 'axios';
+
+import { generateApi } from 'src/api/generate-api';
+import AppConstant from 'src/utils/constants';
 
 interface UploadParams {
   file: File;
@@ -11,7 +12,7 @@ interface UploadResult {
   nonce: string;
 }
 
-const uploadApi = generateApi<UploadParams, UploadResult>(params => ({
+const uploadApi = generateApi<UploadParams, UploadResult>((params) => ({
   url: AppConstant.file.HOST + '/upload/public',
   method: 'POST',
   withCredentials: true,
@@ -24,7 +25,7 @@ const uploadApi = generateApi<UploadParams, UploadResult>(params => ({
     if (total) {
       params.progress?.(Math.round((e.loaded / total) * 100));
     }
-  }
+  },
 }));
 
 export default uploadApi;

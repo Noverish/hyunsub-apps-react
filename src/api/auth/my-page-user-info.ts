@@ -1,4 +1,4 @@
-import { generateApi } from "src/api/generate-api";
+import { generateApi } from 'src/api/generate-api';
 
 export interface MyPageUserInfo {
   username: string;

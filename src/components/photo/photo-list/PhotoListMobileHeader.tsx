@@ -1,5 +1,6 @@
 import { t } from 'i18next';
 import { useContext } from 'react';
+
 import MobileHeader, { MobileHeaderButton } from 'src/components/common/header/MobileHeader';
 import { MobileHeaderMoreButtonMenu } from 'src/components/common/header/MobileHeaderMoreButton';
 import { useToggleSelectMode } from 'src/components/photo/photo-list/PhotoListHooks';
@@ -23,30 +24,34 @@ export default function PhotoListMobileHeader({ album }: Props) {
       icon: 'far fa-check-circle',
       onClick: toggleSelectMode,
     },
-  ]
+  ];
 
   const normalMenus: MobileHeaderMoreButtonMenu[] = [
     {
       text: t('upload'),
       onClick: () => {
-        album
-          ? router.navigate(PhotoRoutes.albumUpload(album.id))
-          : router.navigate(PhotoRoutes.photoUpload)
+        album ? router.navigate(PhotoRoutes.albumUpload(album.id)) : router.navigate(PhotoRoutes.photoUpload);
       },
     },
     {
       text: t('filter'),
-      onClick: () => { alert('Not yet supported!') }
+      onClick: () => {
+        alert('Not yet supported!');
+      },
     },
     {
       text: t('sort'),
-      onClick: () => { alert('Not yet supported!') }
+      onClick: () => {
+        alert('Not yet supported!');
+      },
     },
     {
       text: t('view'),
-      onClick: () => { alert('Not yet supported!') }
+      onClick: () => {
+        alert('Not yet supported!');
+      },
     },
-  ]
+  ];
 
   const selectMenus: MobileHeaderMoreButtonMenu[] = [
     {
@@ -55,25 +60,15 @@ export default function PhotoListMobileHeader({ album }: Props) {
     },
     {
       text: t('delete'),
-      onClick: () => { alert('Not yet supported!') }
+      onClick: () => {
+        alert('Not yet supported!');
+      },
     },
-  ]
+  ];
 
-  const title = selectMode
-    ? t('n-selected', [selects.length])
-    : (album ? album.name : t('photo.page.photo-list.title'));
+  const title = selectMode ? t('n-selected', [selects.length]) : album ? album.name : t('photo.page.photo-list.title');
 
-  const back = selectMode
-    ? false
-    : !!album;
+  const back = selectMode ? false : !!album;
 
-  return (
-    <MobileHeader
-      title={title}
-      back={back}
-      onClose={selectMode ? toggleSelectMode : undefined}
-      btns={selectMode ? undefined : normalBtns}
-      menus={selectMode ? selectMenus : normalMenus}
-    />
-  )
+  return <MobileHeader title={title} back={back} onClose={selectMode ? toggleSelectMode : undefined} btns={selectMode ? undefined : normalBtns} menus={selectMode ? selectMenus : normalMenus} />;
 }

@@ -1,14 +1,15 @@
-import { t } from "i18next";
-import { Button, Form, InputGroup } from "react-bootstrap";
+import { t } from 'i18next';
+import { Button, Form, InputGroup } from 'react-bootstrap';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { VideoSearchParams } from "src/api/video/video-search";
+
+import { useVideoSearchApi } from './VideoSearchHooks';
+import VideoSearchResultView from './components/VideoSearchResultView';
+import { VideoSearchParams } from 'src/api/video/video-search';
+import { Loading } from 'src/components/common/LoadingSuspense';
 import CommonContainer from 'src/components/common/header/CommonContainer';
 import MobileHeader from 'src/components/common/header/MobileHeader';
-import { Loading } from "src/components/common/LoadingSuspense";
-import { useBreakpointMobile } from "src/utils/breakpoint";
-import { setDocumentTitle } from "src/utils/services";
-import VideoSearchResultView from "./components/VideoSearchResultView";
-import { useVideoSearchApi } from "./VideoSearchHooks";
+import { useBreakpointMobile } from 'src/utils/breakpoint';
+import { setDocumentTitle } from 'src/utils/services';
 
 export default function VideoSearchPage() {
   const isMobile = useBreakpointMobile();
@@ -27,7 +28,6 @@ export default function VideoSearchPage() {
     <div id="VideoSearchPage">
       <MobileHeader title={t('VideoSearchPage.title')} />
       <CommonContainer>
-
         {isMobile || <h2 className="mb-3">{t('VideoSearchPage.title')}</h2>}
 
         <Form onSubmit={handleSubmit(onSubmit)} className="mb-3">
@@ -42,8 +42,7 @@ export default function VideoSearchPage() {
         {isLoading && <Loading />}
 
         {data && <VideoSearchResultView result={data} query={getValues('query')} />}
-
       </CommonContainer>
     </div>
-  )
+  );
 }

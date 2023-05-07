@@ -1,5 +1,5 @@
-import { ApparelPreview } from "src/model/apparel";
-import { generateInfiniteQuery } from "../generate-api";
+import { generateInfiniteQuery } from '../generate-api';
+import { ApparelPreview } from 'src/model/apparel';
 
 interface ApparelBrandApparelsParams {
   brand: string;
@@ -11,9 +11,9 @@ const apparelBrandApparelsApi = generateInfiniteQuery<ApparelBrandApparelsParams
     method: 'GET',
     params: {
       p: params.page,
-    }
+    },
   }),
   key: () => 'apparelBrandApparels',
-})
+});
 
 export default apparelBrandApparelsApi;

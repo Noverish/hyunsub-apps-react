@@ -1,4 +1,4 @@
-import { generateQuery } from "src/api/generate-api";
+import { generateQuery } from 'src/api/generate-api';
 import { VideoEntry } from 'src/model/video';
 
 export interface VideoSearchParams {
@@ -6,7 +6,7 @@ export interface VideoSearchParams {
 }
 
 export interface VideoSearchResult {
-  entries: {[category: string]: VideoEntry[]};
+  entries: { [category: string]: VideoEntry[] };
 }
 
 const videoSearchApi = generateQuery<VideoSearchParams, VideoSearchResult>({

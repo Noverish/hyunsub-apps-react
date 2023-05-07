@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
-import { useBreakpointMobile } from 'src/utils/breakpoint';
+
 import MobileHeaderMoreButton, { MobileHeaderMoreButtonMenu } from './MobileHeaderMoreButton';
+import { useBreakpointMobile } from 'src/utils/breakpoint';
 
 import './MobileHeader.scss';
 
@@ -31,13 +32,7 @@ export default function MobileHeader({ title, back, btns, onClose, menus }: Mobi
     }
   };
 
-  const buttons = (btns || []).map(v => (
-    <i
-      className={v.icon}
-      key={v.icon}
-      onClick={v.onClick}
-    />
-  ));
+  const buttons = (btns || []).map((v) => <i className={v.icon} key={v.icon} onClick={v.onClick} />);
 
   if (menus) {
     buttons.push(<MobileHeaderMoreButton menus={menus} key="MobileHeaderMoreButton" />);
@@ -56,5 +51,5 @@ export default function MobileHeader({ title, back, btns, onClose, menus }: Mobi
       </div>
       <div className="buttons">{buttons}</div>
     </header>
-  )
+  );
 }

@@ -3,6 +3,6 @@ const routes = {
   register: '/register',
   my: '/my',
   admin: '/admin',
-}
+};
 
 export default routes;

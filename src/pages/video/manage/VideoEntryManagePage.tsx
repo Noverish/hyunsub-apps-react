@@ -1,11 +1,12 @@
 import { Link, useParams } from 'react-router-dom';
+
+import VideoRoutes from '../VideoRoutes';
 import videoEntryDetailApi from 'src/api/video/video-entry-detail';
 import CommonContainer from 'src/components/common/header/CommonContainer';
 import MobileHeader from 'src/components/common/header/MobileHeader';
 import { VideoEpisode, VideoSeason } from 'src/model/video';
 import VideoEntryRenameForm from 'src/pages/video/manage/components/VideoEntryRenameForm';
 import { setDocumentTitle } from 'src/utils/services';
-import VideoRoutes from '../VideoRoutes';
 
 import './VideoEntryManagePage.scss';
 
@@ -16,7 +17,7 @@ export default function VideoEntryManagePage() {
 
   const data = videoEntryDetailApi.useApi({ entryId });
   const { entry, seasons } = data;
-  const videoIds = seasons?.flatMap(v => v.episodes)?.map(v => v.videoId);
+  const videoIds = seasons?.flatMap((v) => v.episodes)?.map((v) => v.videoId);
 
   return (
     <div className="VideoEntryManagePage">
@@ -26,21 +27,19 @@ export default function VideoEntryManagePage() {
         <hr />
         {videoIds && <VideoEntryRenameForm videoIds={videoIds} entryId={entryId} />}
         <hr />
-        {seasons?.map(v => renderEntryManageSeason(entryId, v))}
+        {seasons?.map((v) => renderEntryManageSeason(entryId, v))}
       </CommonContainer>
     </div>
-  )
+  );
 }
 
 function renderEntryManageSeason(entryId: string, season: VideoSeason) {
   return (
     <div key={season.name} className="mt-4">
       <h3>{season.name}</h3>
-      <div>
-        {season.episodes.map(v => renderEntryManagerRow(entryId, v))}
-      </div>
+      <div>{season.episodes.map((v) => renderEntryManagerRow(entryId, v))}</div>
     </div>
-  )
+  );
 }
 
 function renderEntryManagerRow(entryId: string, episode: VideoEpisode) {
@@ -48,5 +47,5 @@ function renderEntryManagerRow(entryId: string, episode: VideoEpisode) {
     <Link to={VideoRoutes.detailRoute(entryId, episode.videoId)} key={episode.videoId} className="episode hyunsub_border gray_bg_hover">
       {episode.title}
     </Link>
-  )
+  );
 }

@@ -1,14 +1,15 @@
 import React, { useEffect, useRef } from 'react';
 import { Button } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
+import Swiper from 'swiper';
+
+import ComicRoutes from '../ComicRoutes';
 import comicDetailApi from 'src/api/comic/comic-detail';
 import comicEpisodeDetailApi from 'src/api/comic/comic-episode-detail';
 import comicHistorySetApi from 'src/api/comic/comic-history-set';
-import ImageSwiper from "src/components/common/swiper/ImageSwiper";
+import ImageSwiper from 'src/components/common/swiper/ImageSwiper';
 import { ComicDetail, ComicEpisodeDetail } from 'src/model/comic';
 import { setDocumentTitle } from 'src/utils/services';
-import Swiper from 'swiper';
-import ComicRoutes from '../ComicRoutes';
 
 export default function ComicViewerPage() {
   const navigate = useNavigate();
@@ -35,38 +36,29 @@ export default function ComicViewerPage() {
 
     comicHistorySetApi({ comicId, order, page });
     comicDetailApi.updateCache({ comicId }, (cache: ComicDetail) => {
-      cache.episodes.filter(v => v.order === order)[0].history = page
+      cache.episodes.filter((v) => v.order === order)[0].history = page;
     });
     comicEpisodeDetailApi.updateCache({ comicId, order }, (cache: ComicEpisodeDetail) => {
       cache.history = page;
-    })
-  }
+    });
+  };
 
   const goToNextEpisode = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     navigate(ComicRoutes.viewerRoute(comicId, order + 1), { replace: true });
-  }
+  };
 
-  const urls = comicEpisodeDetail.images.map(v => `https://file.hyunsub.kim/Comics/${title}/${episodeTitle}/${v}`);
+  const urls = comicEpisodeDetail.images.map((v) => `https://file.hyunsub.kim/Comics/${title}/${episodeTitle}/${v}`);
 
-  const additionalLastSlide = hasNextEpisode
-    ? (
-      <div className="w-100 h-100 flex_Center">
-        <Button onClick={goToNextEpisode}>다음화 보기</Button>
-      </div>
-    )
-    : undefined;
+  const additionalLastSlide = hasNextEpisode ? (
+    <div className="w-100 h-100 flex_Center">
+      <Button onClick={goToNextEpisode}>다음화 보기</Button>
+    </div>
+  ) : undefined;
 
   return (
     <div className="ComicViewerPage">
-      <ImageSwiper
-        initialSlide={history || 0}
-        slides={urls}
-        onSlideChange={onPageChange}
-        additionalLastSlide={additionalLastSlide}
-        titlePrefix={episodeTitle}
-        onSwiper={(s) => swiperRef.current = s}
-      />
+      <ImageSwiper initialSlide={history || 0} slides={urls} onSlideChange={onPageChange} additionalLastSlide={additionalLastSlide} titlePrefix={episodeTitle} onSwiper={(s) => (swiperRef.current = s)} />
     </div>
-  )
+  );
 }

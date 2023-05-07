@@ -1,5 +1,6 @@
 import { lazy } from 'react';
 import { Navigate, RouteObject } from 'react-router-dom';
+
 import routes from './AuthRoutes';
 
 const NotFoundPage = lazy(() => import('src/pages/common/NotFoundPage'));
@@ -15,4 +16,4 @@ export const AuthRouteObjects: RouteObject[] = [
   { path: routes.register, element: <RegisterPage /> },
   { path: routes.my, element: <MyPage /> },
   { path: routes.admin, element: <AuthAdminPage /> },
-]
+];

@@ -1,5 +1,5 @@
-import { ComicPreview } from "src/model/comic";
-import { generateQuery } from "../generate-api";
+import { generateQuery } from '../generate-api';
+import { ComicPreview } from 'src/model/comic';
 
 const comicListApi = generateQuery<{}, ComicPreview[]>({
   api: () => ({

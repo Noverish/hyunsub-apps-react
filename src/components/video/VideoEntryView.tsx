@@ -1,12 +1,13 @@
 import React from 'react';
+
 import { VideoCategory, VideoEntry } from 'src/model/video';
-import { useNavigateVideoDetail } from 'src/pages/video/list/VideoListHooks';
 import VideoRoutes from 'src/pages/video/VideoRoutes';
+import { useNavigateVideoDetail } from 'src/pages/video/list/VideoListHooks';
 
 import './VideoEntryView.scss';
 
 interface Props {
-  category: VideoCategory
+  category: VideoCategory;
   entry: VideoEntry;
 }
 
@@ -27,5 +28,5 @@ export default function VideoEntryView({ category, entry }: Props) {
       </div>
       <div className="title">{entry.name}</div>
     </a>
-  )
+  );
 }

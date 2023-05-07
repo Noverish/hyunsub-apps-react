@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 interface State {
   videoRegisterResult?: any;
@@ -10,7 +10,7 @@ interface State {
   videoThumbnailResult?: any;
 
   showVideoEntryCreateModal: boolean;
-};
+}
 
 const initialState: State = {
   showVideoEntryCreateModal: false,
@@ -24,7 +24,7 @@ const slice = createSlice({
       ...state,
       ...payload,
     }),
-  }
+  },
 });
 
 export default slice;

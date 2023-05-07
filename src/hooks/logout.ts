@@ -10,5 +10,5 @@ export default function useLogout(goToHome: Boolean = false) {
     } else {
       window.location.href = `https://auth.hyunsub.kim/login?url=${href}`;
     }
-  }
+  };
 }

@@ -1,6 +1,7 @@
 import { t } from 'i18next';
 import { useContext } from 'react';
 import { useParams } from 'react-router-dom';
+
 import albumDetailApi from 'src/api/photo/album-detail';
 import CommonContainer from 'src/components/common/header/CommonContainer';
 import MobileHeader from 'src/components/common/header/MobileHeader';
@@ -21,7 +22,7 @@ function AlbumUploadPage() {
       <div className="album_name">{album.name}</div>
       <div className="photo_num">{t('photo.page.album-detail.photo-num', [album.photos.total])}</div>
     </section>
-  )
+  );
 
   return (
     <div className="AlbumUploadPage">
@@ -31,7 +32,7 @@ function AlbumUploadPage() {
         {state.items.length ? <PhotoFileList albumId={albumId} /> : <PhotoFileUpload />}
       </CommonContainer>
     </div>
-  )
+  );
 }
 
 export default function AlbumUploadIndex() {
@@ -39,5 +40,5 @@ export default function AlbumUploadIndex() {
     <PhotoUploadProvider>
       <AlbumUploadPage />
     </PhotoUploadProvider>
-  )
+  );
 }

@@ -1,6 +1,7 @@
 import { Button, ListGroup } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import Select, { ActionMeta, MultiValue, StylesConfig } from 'react-select';
+
 import { AdminAuthority, AdminUser } from 'src/model/auth';
 import { adminSignOutAction, delUserAuthorityAction, putUserAuthorityAction } from 'src/pages/auth/admin/AuthAdminContext';
 import { useDispatch } from 'src/redux';
@@ -37,10 +38,10 @@ export default function AdminUserListItem(props: Props) {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
-  const userAuthorities = authorities.filter(v => user.authorities.includes(v.id));
+  const userAuthorities = authorities.filter((v) => user.authorities.includes(v.id));
 
   const onChange = (newValue: MultiValue<AdminAuthority>, actionMeta: ActionMeta<AdminAuthority>) => {
-    const action = actionMeta.action
+    const action = actionMeta.action;
     if (action === 'select-option') {
       const option = actionMeta.option!!;
       dispatch(putUserAuthorityAction({ idNo: user.idNo, authorityId: option.id }));
@@ -52,24 +53,19 @@ export default function AdminUserListItem(props: Props) {
 
   const onSignOut = () => {
     dispatch(adminSignOutAction(user.idNo));
-  }
+  };
 
   return (
     <ListGroup.Item>
       <div className="d-flex justify-content-between align-items-center">
-        <div className="fs-4">[{user.idNo}] {user.username}</div>
-        <Button variant="danger" size="sm" onClick={onSignOut}>{t('auth.sign-out')}</Button>
+        <div className="fs-4">
+          [{user.idNo}] {user.username}
+        </div>
+        <Button variant="danger" size="sm" onClick={onSignOut}>
+          {t('auth.sign-out')}
+        </Button>
       </div>
-      <Select
-        className="mt-2"
-        getOptionLabel={getOptionLabel}
-        getOptionValue={getOptionValue}
-        options={authorities}
-        styles={styleConfig}
-        defaultValue={userAuthorities}
-        isMulti
-        onChange={onChange}
-      />
+      <Select className="mt-2" getOptionLabel={getOptionLabel} getOptionValue={getOptionValue} options={authorities} styles={styleConfig} defaultValue={userAuthorities} isMulti onChange={onChange} />
     </ListGroup.Item>
-  )
+  );
 }

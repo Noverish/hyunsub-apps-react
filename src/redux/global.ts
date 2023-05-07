@@ -1,4 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+
 import { TokenPayload } from 'src/utils/token';
 
 interface State {
@@ -7,9 +8,9 @@ interface State {
   tokenPayload?: TokenPayload;
 }
 
-const initialState: State ={
+const initialState: State = {
   loading: false,
-}
+};
 
 const slice = createSlice({
   name: 'global',
@@ -19,7 +20,7 @@ const slice = createSlice({
       ...state,
       ...payload,
     }),
-  }
+  },
 });
 
 export default slice.reducer;

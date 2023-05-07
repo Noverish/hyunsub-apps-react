@@ -1,4 +1,5 @@
 import { t } from 'i18next';
+
 import apparelCategoryApparelsApi from 'src/api/apparel/apparel-category-apparels';
 import ApparelList from 'src/components/apparel/ApparelList';
 import ListLoadingIndicator from 'src/components/common/ListLoadingIndicator';
@@ -32,5 +33,5 @@ export default function ApparelCategoryDetailPage() {
         <ListLoadingIndicator isFetching={isFetching} />
       </CommonContainer>
     </div>
-  )
+  );
 }

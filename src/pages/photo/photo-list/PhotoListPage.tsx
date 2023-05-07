@@ -1,5 +1,7 @@
 import { t } from 'i18next';
 import { useContext } from 'react';
+
+import PhotoRoutes from '../PhotoRoutes';
 import photoListApi from 'src/api/photo/photo-list';
 import ListLoadingIndicator from 'src/components/common/ListLoadingIndicator';
 import CommonContainer from 'src/components/common/header/CommonContainer';
@@ -11,7 +13,6 @@ import PhotoSelectActionModal from 'src/components/photo/photo-list/PhotoSelectA
 import { PhotoSelectContext, PhotoSelectProvider } from 'src/components/photo/photo-list/PhotoSelectContext';
 import useScrollBottom from 'src/hooks/scroll-bottom';
 import { setDocumentTitle } from 'src/utils/services';
-import PhotoRoutes from '../PhotoRoutes';
 
 function PhotoListPage() {
   setDocumentTitle(t('photo.page.photo-list.title'));
@@ -35,13 +36,9 @@ function PhotoListPage() {
         <ListLoadingIndicator isFetching={isFetching} />
       </CommonContainer>
       <PhotoSelectActionModal />
-      <AlbumSelectModal
-        show={state.showAlbumSelectModal}
-        onHide={() => setState({ showAlbumSelectModal: false })}
-        onClick={albumPhotoRegister}
-      />
+      <AlbumSelectModal show={state.showAlbumSelectModal} onHide={() => setState({ showAlbumSelectModal: false })} onClick={albumPhotoRegister} />
     </div>
-  )
+  );
 }
 
 export default function PhotoListIndex() {
@@ -49,5 +46,5 @@ export default function PhotoListIndex() {
     <PhotoSelectProvider>
       <PhotoListPage />
     </PhotoSelectProvider>
-  )
+  );
 }

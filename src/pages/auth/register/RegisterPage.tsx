@@ -1,16 +1,17 @@
 import cs from 'classnames';
-import { lazy, Suspense, useEffect, useRef } from 'react';
-import { Container } from "react-bootstrap";
+import { Suspense, lazy, useEffect, useRef } from 'react';
+import { Container } from 'react-bootstrap';
 import ReCAPTCHA from 'react-google-recaptcha';
-import { SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { Link, useSearchParams } from "react-router-dom";
-import { useDispatch } from 'src/redux';
-import AppConstant from 'src/utils/constants';
+import { Link, useSearchParams } from 'react-router-dom';
+
 import routes from '../AuthRoutes';
 import { validUrlAction } from '../login/LoginContext';
 import { registerAction } from './RegisterContext';
 import { RegisterActions } from './RegisterState';
+import { useDispatch } from 'src/redux';
+import AppConstant from 'src/utils/constants';
 
 const VantaNet = lazy(() => import('src/components/vanta/VantaNet'));
 
@@ -27,7 +28,12 @@ export default function RegisterPage() {
   const captchaRef = useRef<ReCAPTCHA>(null);
   const url = searchParams.get('url') || '';
 
-  const { register, handleSubmit, watch, formState: { errors } } = useForm<RegisterFormState>();
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<RegisterFormState>();
   const passwordRef = useRef<string>();
   passwordRef.current = watch('password1');
 
@@ -36,7 +42,7 @@ export default function RegisterPage() {
   };
 
   const onCaptchaClick = (captcha: string | null) => {
-    dispatch(RegisterActions.update({ captcha }))
+    dispatch(RegisterActions.update({ captcha }));
   };
 
   useEffect(() => {
@@ -62,7 +68,7 @@ export default function RegisterPage() {
 
   const passwordRegister2 = register('password2', {
     required: t('auth.errMsg.empty-pw') as string,
-    validate: v => v === passwordRef.current || t('auth.errMsg.not-equal-pw') as string,
+    validate: (v) => v === passwordRef.current || (t('auth.errMsg.not-equal-pw') as string),
   });
 
   const usernameErrMsg = errors.username?.message;
@@ -92,19 +98,17 @@ export default function RegisterPage() {
             <input type="password" className={cs('form-control', { 'is-invalid': password2ErrMsg })} {...passwordRegister2} />
             <div className="invalid-feedback">{password2ErrMsg}</div>
           </div>
-          <ReCAPTCHA
-            className='flex_center'
-            ref={captchaRef}
-            theme='dark'
-            sitekey={AppConstant.RECAPTCHA_SITE_KEY}
-            onChange={onCaptchaClick}
-          />
-          <button type="submit" className="btn btn-primary">{t('auth.register')}</button>
+          <ReCAPTCHA className="flex_center" ref={captchaRef} theme="dark" sitekey={AppConstant.RECAPTCHA_SITE_KEY} onChange={onCaptchaClick} />
+          <button type="submit" className="btn btn-primary">
+            {t('auth.register')}
+          </button>
           <div className="d-flex justify-content-end">
-            <Link to={`${routes.login}${window.location.search}`} className="link-light">{t('auth.login')}</Link>
+            <Link to={`${routes.login}${window.location.search}`} className="link-light">
+              {t('auth.login')}
+            </Link>
           </div>
         </form>
       </Container>
     </div>
-  )
+  );
 }

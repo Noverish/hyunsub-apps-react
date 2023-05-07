@@ -1,11 +1,12 @@
-import { t } from "i18next";
-import { useEffect } from "react";
-import comicListApi from "src/api/comic/comic-list";
-import ComicPreviewView from "src/components/comic/ComicPreviewView";
-import ComicTabBar from "src/components/comic/header/ComicTabBar";
-import CommonContainer from "src/components/common/header/CommonContainer";
-import MobileHeader from "src/components/common/header/MobileHeader";
-import { setDocumentTitle } from "src/utils/services";
+import { t } from 'i18next';
+import { useEffect } from 'react';
+
+import comicListApi from 'src/api/comic/comic-list';
+import ComicPreviewView from 'src/components/comic/ComicPreviewView';
+import ComicTabBar from 'src/components/comic/header/ComicTabBar';
+import CommonContainer from 'src/components/common/header/CommonContainer';
+import MobileHeader from 'src/components/common/header/MobileHeader';
+import { setDocumentTitle } from 'src/utils/services';
 
 export default function ComicListPage() {
   useEffect(() => {
@@ -14,19 +15,15 @@ export default function ComicListPage() {
 
   const comics = comicListApi.useApi({});
 
-  const elements = comics.map(v => (
-    <ComicPreviewView key={v.id} comic={v} />
-  ))
+  const elements = comics.map((v) => <ComicPreviewView key={v.id} comic={v} />);
 
   return (
     <div className="ComicListPage">
       <MobileHeader title={t('comic.ComicListPage.title')} />
       <ComicTabBar />
       <CommonContainer>
-        <div>
-          {elements}
-        </div>
+        <div>{elements}</div>
       </CommonContainer>
     </div>
-  )
+  );
 }

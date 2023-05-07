@@ -1,6 +1,7 @@
 import { t } from 'i18next';
 import { join } from 'path-browserify';
 import { useContext } from 'react';
+
 import driveListApi from 'src/api/drive/drive-list';
 import fileUploadMultipartApi from 'src/api/file/file-upload-multipart';
 import { useDriveExplorerContext } from 'src/components/drive/explorer/DriveExplorerHooks';
@@ -13,11 +14,11 @@ export function useDriveUpload() {
   const setState = useContext(DriveUploadContext)[1];
 
   return async (files: FileWithPath[]) => {
-    files.forEach(v => v.path = join(path, v.path));
+    files.forEach((v) => (v.path = join(path, v.path)));
 
     files.sort((a, b) => a.path.localeCompare(b.path));
 
-    const items = files.map(v => ({
+    const items = files.map((v) => ({
       path: v.path,
       name: v.file.name,
       size: v.file.size,
@@ -32,25 +33,25 @@ export function useDriveUpload() {
     const progress = (status: FileUploadStatus) => {
       const data = files[status.current.index];
 
-      setState(state => {
+      setState((state) => {
         state.progress = status.total.ratio;
-        state.items.forEach(v => {
+        state.items.forEach((v) => {
           if (v.path === data.path) {
             v.progress = status.current.ratio;
           }
-        })
+        });
       });
-    }
+    };
 
     const callback = (result: FileUploadResult) => {
       const data = files[result.index];
 
-      setState(state => {
-        state.items.forEach(v => {
+      setState((state) => {
+        state.items.forEach((v) => {
           if (v.path === data.path) {
             v.progress = 100;
           }
-        })
+        });
       });
 
       driveListApi.updateCache({ path }, (cache) => {
@@ -59,16 +60,16 @@ export function useDriveUpload() {
           size: getHumanReadableSize(data.file.size),
           date: dateToString(new Date()),
           isDir: false,
-        })
+        });
       });
-    }
+    };
 
     await fileUploadMultipartApi({ files, progress, callback, controller });
 
     setState({ controller: undefined });
 
     driveListApi.invalidate({ path });
-  }
+  };
 }
 
 export function useDriveUploadClear() {
@@ -76,7 +77,7 @@ export function useDriveUploadClear() {
 
   return () => {
     setState({ items: [], progress: 0, controller: undefined, aborted: false });
-  }
+  };
 }
 
 export function useDriveUploadClose() {
@@ -92,5 +93,5 @@ export function useDriveUploadClose() {
     } else {
       clear();
     }
-  }
+  };
 }

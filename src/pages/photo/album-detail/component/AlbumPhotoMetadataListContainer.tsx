@@ -7,7 +7,5 @@ export default function AlbumPhotoMetadataListContainer() {
   const album = useAlbumDetailContext();
   const list = albumPhotoMetadataApi.useApi({ albumId: album.id });
 
-  return (
-    <PhotoMetadataListView list={list} />
-  )
+  return <PhotoMetadataListView list={list} />;
 }

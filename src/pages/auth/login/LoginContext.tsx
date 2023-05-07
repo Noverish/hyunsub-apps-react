@@ -1,19 +1,20 @@
-import { Dispatch } from "@reduxjs/toolkit";
+import { Dispatch } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
 import { t } from 'i18next';
-import ReCAPTCHA from "react-google-recaptcha";
+import ReCAPTCHA from 'react-google-recaptcha';
+
+import { LoginFormState } from './LoginPage';
+import { LoginActions } from './LoginState';
 import loginApi, { LoginError, LoginParams } from 'src/api/auth/auth/login';
-import rsaKey from "src/api/auth/auth/rsa-key";
-import validUrl from "src/api/auth/auth/valid-url";
-import { ErrorResponse } from "src/model/api";
+import rsaKey from 'src/api/auth/auth/rsa-key';
+import validUrl from 'src/api/auth/auth/valid-url';
+import { ErrorResponse } from 'src/model/api';
 import router from 'src/pages/router';
 import { RootState } from 'src/redux';
-import { GlobalActions } from "src/redux/global";
+import { GlobalActions } from 'src/redux/global';
 import { insertToast } from 'src/redux/toast';
-import AppConstant from "src/utils/constants";
-import { encrypt } from "src/utils/rsa-key";
-import { LoginFormState } from "./LoginPage";
-import { LoginActions } from "./LoginState";
+import AppConstant from 'src/utils/constants';
+import { encrypt } from 'src/utils/rsa-key';
 
 interface LoginParameter {
   state: LoginFormState;
@@ -38,12 +39,12 @@ export const loginAction = (params: LoginParameter) => async (dispatch: Dispatch
     password: encrypt(publicKey, state.password),
     remember: state.remember,
     captcha,
-  }
+  };
 
   try {
     await loginApi(loginParams);
 
-    const url = (new URLSearchParams(window.location.search)).get('url');
+    const url = new URLSearchParams(window.location.search).get('url');
     if (url) {
       if (url.startsWith('https://')) {
         window.location.href = url;
@@ -54,7 +55,7 @@ export const loginAction = (params: LoginParameter) => async (dispatch: Dispatch
       window.location.href = AppConstant.APPS_HOME;
     }
   } catch (err) {
-    const payload = ((err as AxiosError<ErrorResponse>).response?.data.payload as LoginError);
+    const payload = (err as AxiosError<ErrorResponse>).response?.data.payload as LoginError;
     if (payload.needCaptcha) {
       captchaObj?.reset();
       dispatch(LoginActions.update({ showCaptcha: payload.needCaptcha, captcha: null }));
@@ -62,7 +63,7 @@ export const loginAction = (params: LoginParameter) => async (dispatch: Dispatch
   }
 
   dispatch(GlobalActions.update({ loading: false }));
-}
+};
 
 interface ValidUrlActionParam {
   url: string;
@@ -75,4 +76,4 @@ export const validUrlAction = (params: ValidUrlActionParam) => async (dispatch: 
     dispatch(GlobalActions.update({ errMsg: t('auth.api.valid-url.failure') as string }));
     router.navigate('/error');
   }
-}
+};

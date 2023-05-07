@@ -1,5 +1,6 @@
 import cs from 'classnames';
 import { t } from 'i18next';
+
 import albumPhotoDetailApi from 'src/api/photo/album-photo-detail';
 import photoDetailApi from 'src/api/photo/photo-detail';
 import { Photo } from 'src/model/photo';
@@ -14,11 +15,7 @@ interface Props {
 }
 
 export default function PhotoInfoSection({ show, hide, albumId, photoId }: Props) {
-  const table = !photoId
-    ? <PhotoInfoSectionTable />
-    : albumId
-      ? <PhotoInfoSectionTableForAlbum albumId={albumId} photoId={photoId} />
-      : <PhotoInfoSectionTableForPhoto photoId={photoId} />
+  const table = !photoId ? <PhotoInfoSectionTable /> : albumId ? <PhotoInfoSectionTableForAlbum albumId={albumId} photoId={photoId} /> : <PhotoInfoSectionTableForPhoto photoId={photoId} />;
 
   return (
     <div className={cs('PhotoInfoSection', { show })}>
@@ -27,23 +24,19 @@ export default function PhotoInfoSection({ show, hide, albumId, photoId }: Props
       </div>
       {table}
     </div>
-  )
+  );
 }
 
 function PhotoInfoSectionTableForPhoto({ photoId }: { photoId: string }) {
-  const photo = photoDetailApi.useApiResult({ photoId }).data;;
+  const photo = photoDetailApi.useApiResult({ photoId }).data;
 
-  return (
-    <PhotoInfoSectionTable photo={photo} />
-  )
+  return <PhotoInfoSectionTable photo={photo} />;
 }
 
-function PhotoInfoSectionTableForAlbum({ albumId, photoId }: { albumId: string, photoId: string }) {
+function PhotoInfoSectionTableForAlbum({ albumId, photoId }: { albumId: string; photoId: string }) {
   const photo = albumPhotoDetailApi.useApiResult({ albumId, photoId }).data;
 
-  return (
-    <PhotoInfoSectionTable photo={photo} />
-  )
+  return <PhotoInfoSectionTable photo={photo} />;
 }
 
 function PhotoInfoSectionTable({ photo }: { photo?: Photo }) {
@@ -76,5 +69,5 @@ function PhotoInfoSectionTable({ photo }: { photo?: Photo }) {
         </tr>
       </tbody>
     </table>
-  )
+  );
 }

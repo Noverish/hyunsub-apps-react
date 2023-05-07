@@ -1,6 +1,7 @@
-import { extname } from 'path-browserify';
-import { DriveFileType } from 'src/model/drive';
 import cs from 'classnames';
+import { extname } from 'path-browserify';
+
+import { DriveFileType } from 'src/model/drive';
 
 import './DriveFileIcon.scss';
 
@@ -13,9 +14,7 @@ export default function DriveFileIcon({ name, isDir }: Props) {
   const type = parseFileType(name, isDir);
   const icon = getIcon(type);
 
-  return (
-    <i className={cs('DriveFileIcon', icon, type.toLowerCase())} />
-  )
+  return <i className={cs('DriveFileIcon', icon, type.toLowerCase())} />;
 }
 
 export function parseFileType(name: string, isDir: boolean): DriveFileType {
@@ -37,14 +36,14 @@ export function parseFileType(name: string, isDir: boolean): DriveFileType {
       return 'AUDIO';
     case 'pdf':
       return 'PDF';
-    case "txt":
-    case "md":
-    case "srt":
-    case "smi":
-    case "sh":
-    case "yml":
-    case "json":
-      return 'TEXT'
+    case 'txt':
+    case 'md':
+    case 'srt':
+    case 'smi':
+    case 'sh':
+    case 'yml':
+    case 'json':
+      return 'TEXT';
     default:
       return 'ETC';
   }
@@ -52,12 +51,19 @@ export function parseFileType(name: string, isDir: boolean): DriveFileType {
 
 function getIcon(type: DriveFileType): string {
   switch (type) {
-    case 'FOLDER': return 'fas fa-folder';
-    case 'IMAGE': return 'fas fa-image';
-    case 'VIDEO': return 'fas fa-video';
-    case 'AUDIO': return 'fas fa-volume-up';
-    case 'TEXT': return 'fas fa-file-alt';
-    case 'PDF': return 'fas fa-file-pdf';
-    default: return 'fas fa-file';
+    case 'FOLDER':
+      return 'fas fa-folder';
+    case 'IMAGE':
+      return 'fas fa-image';
+    case 'VIDEO':
+      return 'fas fa-video';
+    case 'AUDIO':
+      return 'fas fa-volume-up';
+    case 'TEXT':
+      return 'fas fa-file-alt';
+    case 'PDF':
+      return 'fas fa-file-pdf';
+    default:
+      return 'fas fa-file';
   }
 }

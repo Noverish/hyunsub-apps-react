@@ -1,6 +1,7 @@
 import { t } from 'i18next';
+
+import CommonTabBar, { TabBarItem } from '../../common/header/CommonTabBar';
 import PhotoRoutes from 'src/pages/photo/PhotoRoutes';
-import CommonTabBar, { TabBarItem } from "../../common/header/CommonTabBar";
 
 const items: TabBarItem[] = [
   {
@@ -18,10 +19,8 @@ const items: TabBarItem[] = [
     link: PhotoRoutes.photoUpload,
     icon: 'fas fa-plus',
   },
-]
+];
 
 export default function PhotoTabBar() {
-  return (
-    <CommonTabBar items={items} />
-  )
+  return <CommonTabBar items={items} />;
 }

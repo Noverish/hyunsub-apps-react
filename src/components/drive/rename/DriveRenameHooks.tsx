@@ -1,16 +1,19 @@
 import { useContext } from 'react';
+
+import { DriveRenameContext } from './DriveRenameContext';
 import driveListApi from 'src/api/drive/drive-list';
 import driveRenameBulkApi, { DriveRenameBulkParamsData } from 'src/api/drive/drive-rename-bulk';
 import { useDriveExplorerContext } from 'src/components/drive/explorer/DriveExplorerHooks';
-import { DriveRenameContext } from './DriveRenameContext';
 
 export function useDriveRenameReset() {
-  const { state: { selects } } = useDriveExplorerContext();
+  const {
+    state: { selects },
+  } = useDriveExplorerContext();
   const setState = useContext(DriveRenameContext)[1];
 
   return () => {
     setState({ renames: selects });
-  }
+  };
 }
 
 export function useDriveRenameReplace() {
@@ -18,10 +21,10 @@ export function useDriveRenameReplace() {
 
   return (from: string, to: string) => {
     const regex = new RegExp(from);
-    const newRenames = renames.map(v => v.replace(regex, to));
+    const newRenames = renames.map((v) => v.replace(regex, to));
 
     setState({ renames: newRenames });
-  }
+  };
 }
 
 export function useDriveRenameAddNumber() {
@@ -34,7 +37,7 @@ export function useDriveRenameAddNumber() {
     });
 
     setState({ renames: newRenames });
-  }
+  };
 }
 
 export function useDriveRenamePadNumber() {
@@ -46,11 +49,15 @@ export function useDriveRenamePadNumber() {
     });
 
     setState({ renames: newRenames });
-  }
+  };
 }
 
 export function useDriveRenameBulk() {
-  const { path, state: { selects: prev }, setState } = useDriveExplorerContext();
+  const {
+    path,
+    state: { selects: prev },
+    setState,
+  } = useDriveExplorerContext();
   const [{ renames: next }] = useContext(DriveRenameContext);
 
   return () => {
@@ -72,8 +79,8 @@ export function useDriveRenameBulk() {
           item.name = next[i];
         }
       }
-    })
+    });
 
     setState({ selects: next, renameBulk: false, lastSelect: undefined });
-  }
+  };
 }

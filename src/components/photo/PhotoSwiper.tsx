@@ -1,9 +1,10 @@
-import { Spinner } from 'react-bootstrap';
-import InfinitePageSwiper, { InfinitePageSwiperProps } from 'src/components/common/swiper/InfinitePageSwiper';
-import { PhotoPreview } from 'src/model/photo';
-import PhotoInfoSection from 'src/components/photo/PhotoInfoSection';
 import { useState } from 'react';
+import { Spinner } from 'react-bootstrap';
+
 import { MobileHeaderButton } from 'src/components/common/header/MobileHeader';
+import InfinitePageSwiper, { InfinitePageSwiperProps } from 'src/components/common/swiper/InfinitePageSwiper';
+import PhotoInfoSection from 'src/components/photo/PhotoInfoSection';
+import { PhotoPreview } from 'src/model/photo';
 
 import './PhotoSwiper.scss';
 
@@ -21,29 +22,24 @@ export default function PhotoSwiper(props: PhotoSwiperProps) {
 
   const onSlideChange = (index: number, slide: PhotoPreview | null) => {
     setNowPhotoId(slide?.id);
-  }
+  };
 
   // elements
   const headerBtns: MobileHeaderButton[] = [
     {
       icon: 'fas fa-info-circle',
-      onClick: () => setShowInfo(v => !v),
-    }
-  ]
+      onClick: () => setShowInfo((v) => !v),
+    },
+  ];
 
   return (
     <div className="PhotoSwiper">
       <div className="photo_viewer_container">
-        <InfinitePageSwiper
-          {...props}
-          renderSlide={renderSlide}
-          btns={headerBtns}
-          onSlideChange={onSlideChange}
-        />
+        <InfinitePageSwiper {...props} renderSlide={renderSlide} btns={headerBtns} onSlideChange={onSlideChange} />
       </div>
       <PhotoInfoSection show={showInfo} hide={hideInfo} albumId={props.albumId} photoId={nowPhotoId} />
     </div>
-  )
+  );
 }
 
 export function renderSlide(photo: PhotoPreview | null) {
@@ -53,7 +49,11 @@ export function renderSlide(photo: PhotoPreview | null) {
 
   if (photo.type === 'VIDEO') {
     const url = photo.thumbnail.replace('thumbnail', 'video').replace('.jpg', '.mp4');
-    return <video controls><source src={url} type="video/mp4" /></video>
+    return (
+      <video controls>
+        <source src={url} type="video/mp4" />
+      </video>
+    );
   }
 
   const url = photo.thumbnail.replace('thumbnail', 'original').replace('jpg', photo.ext);

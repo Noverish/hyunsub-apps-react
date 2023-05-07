@@ -14,23 +14,9 @@ export interface SimpleSelectProps {
 export default function SimpleSelect(props: SimpleSelectProps) {
   const onSelectChange = (newValue: SingleValue<Option>, actionMeta: ActionMeta<Option>) => {
     props.onSelect?.(newValue?.value);
-  }
+  };
 
-  const data: Option[] = (props.data || []).map(v => ({ value: v, label: v }));
+  const data: Option[] = (props.data || []).map((v) => ({ value: v, label: v }));
 
-  return (
-    <Select
-      classNamePrefix="select"
-      className={props.isInvalid ? 'is-invalid' : ''}
-      menuPortalTarget={window.document.body}
-      isClearable
-      isSearchable
-
-      options={data}
-
-      onChange={onSelectChange}
-
-      styles={{ menuPortal: (base) => ({ ...base, zIndex: 1100 }) }}
-    />
-  )
+  return <Select classNamePrefix="select" className={props.isInvalid ? 'is-invalid' : ''} menuPortalTarget={window.document.body} isClearable isSearchable options={data} onChange={onSelectChange} styles={{ menuPortal: (base) => ({ ...base, zIndex: 1100 }) }} />;
 }

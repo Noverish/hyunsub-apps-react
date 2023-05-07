@@ -1,6 +1,7 @@
 import { t } from 'i18next';
-import PhotoRoutes from 'src/pages/photo/PhotoRoutes';
+
 import DesktopHeader, { DesktopHeaderProps } from '../../common/header/DesktopHeader';
+import PhotoRoutes from 'src/pages/photo/PhotoRoutes';
 
 const desktopProps: DesktopHeaderProps = {
   title: 'HyunPhoto',
@@ -25,13 +26,13 @@ const desktopProps: DesktopHeaderProps = {
     {
       name: t('setting'),
       link: PhotoRoutes.menu,
-    }
+    },
   ],
   onSearch: () => {
     alert('Not yet implemented');
   },
-}
+};
 
 export default function PhotoDesktopHeader() {
-  return <DesktopHeader {...desktopProps} />
+  return <DesktopHeader {...desktopProps} />;
 }

@@ -1,5 +1,5 @@
+import { generateQuery } from '../generate-api';
 import { PhotoMetadata } from 'src/model/photo';
-import { generateQuery } from "../generate-api";
 
 export interface AlbumPhotoMetadataParams {
   albumId: string;

@@ -1,7 +1,8 @@
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+
+import DriveFileIcon from '../DriveFileIcon';
 import { DriveUploadStatus } from 'src/model/drive';
 import { getHumanReadableSize } from 'src/utils/index';
-import DriveFileIcon from '../DriveFileIcon';
 
 import './DriveUploadItem.scss';
 
@@ -37,5 +38,5 @@ export default function DriveUploadItem({ status }: Props) {
         />
       </td>
     </tr>
-  )
+  );
 }

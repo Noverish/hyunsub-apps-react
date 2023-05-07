@@ -6,6 +6,6 @@ const ComicRoutes = {
 
   viewer: '/comics/:comicId/:order',
   viewerRoute: (comicId: string, order: number) => `/comics/${comicId}/${order}`,
-}
+};
 
 export default ComicRoutes;

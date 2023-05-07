@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { ActionMeta, InputActionMeta, SingleValue } from 'react-select';
 import CreatableSelect from 'react-select/creatable';
+
 import readdirDetail, { FileInfo } from 'src/api/file/readdir-detail';
 
 const fileInfoToOption = (info: FileInfo): SelectOption => ({ label: info.path, value: info.path, isDir: info.isDir });
@@ -21,7 +22,7 @@ const defaultState: State = {
   path: '/',
   loading: true,
   result: [],
-}
+};
 
 interface Props {
   onSelect?: (path: string) => void;
@@ -34,17 +35,18 @@ export default function PathSelect({ onSelect, isInvalid }: Props) {
   const { path, result, loading } = state;
 
   useEffect(() => {
-    readdirDetail.fetch(path)
-      .then((result) => result.map(v => fileInfoToOption(v)))
-      .then((result) => setState(s => ({ ...s, result, loading: false })));
+    readdirDetail
+      .fetch(path)
+      .then((result) => result.map((v) => fileInfoToOption(v)))
+      .then((result) => setState((s) => ({ ...s, result, loading: false })));
   }, [path]);
 
-  const getOption = (newPath: string) => result.filter(v => v.value === newPath)[0];
+  const getOption = (newPath: string) => result.filter((v) => v.value === newPath)[0];
 
   const setInputValue2 = (newPath: string) => {
     setInputValue(newPath);
     onSelect?.(newPath);
-  }
+  };
 
   const onChange = (newValue: SingleValue<SelectOption>, actionMeta: ActionMeta<SelectOption>) => {
     const { action } = actionMeta;
@@ -66,7 +68,7 @@ export default function PathSelect({ onSelect, isInvalid }: Props) {
     } else {
       setInputValue2(newPath);
     }
-  }
+  };
 
   const onInputChange = (newPath: string, actionMeta: InputActionMeta) => {
     if (actionMeta.action !== 'input-change' && actionMeta.action !== 'set-value') {
@@ -90,31 +92,10 @@ export default function PathSelect({ onSelect, isInvalid }: Props) {
         return;
       }
     }
-  }
+  };
 
   const isValidNewOption = (newPath: string) => newPath !== path && newPath.length > 1 && !getOption(newPath);
   const formatCreateLabel = (newPath: string) => newPath;
 
-  return (
-    <CreatableSelect
-      menuPortalTarget={window.document.body}
-      className={isInvalid ? 'is-invalid' : ''}
-      classNamePrefix="select"
-      isClearable
-      closeMenuOnSelect={false}
-      controlShouldRenderValue={false}
-
-      isLoading={loading}
-      options={result}
-
-      onChange={onChange}
-
-      inputValue={inputValue}
-      onInputChange={onInputChange}
-
-      createOptionPosition="first"
-      formatCreateLabel={formatCreateLabel}
-      isValidNewOption={isValidNewOption}
-    />
-  )
+  return <CreatableSelect menuPortalTarget={window.document.body} className={isInvalid ? 'is-invalid' : ''} classNamePrefix="select" isClearable closeMenuOnSelect={false} controlShouldRenderValue={false} isLoading={loading} options={result} onChange={onChange} inputValue={inputValue} onInputChange={onInputChange} createOptionPosition="first" formatCreateLabel={formatCreateLabel} isValidNewOption={isValidNewOption} />;
 }

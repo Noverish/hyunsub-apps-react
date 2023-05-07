@@ -1,8 +1,9 @@
-import { useEffect, useRef, useState } from "react";
-import { Toast } from "react-bootstrap";
-import { timeAgo } from "src/i18n";
-import { useDispatch } from "src/redux";
-import { deleteToast, flushToast, ToastInfo } from "src/redux/toast";
+import { useEffect, useRef, useState } from 'react';
+import { Toast } from 'react-bootstrap';
+
+import { timeAgo } from 'src/i18n';
+import { useDispatch } from 'src/redux';
+import { ToastInfo, deleteToast, flushToast } from 'src/redux/toast';
 
 const DELAY = 3000;
 
@@ -25,7 +26,7 @@ export default function ApiErrorToast({ info }: Props) {
     intervalRef.current = interval;
     return () => {
       clearInterval(intervalRef.current);
-    }
+    };
   }, [info.millis]);
 
   useEffect(() => {
@@ -42,5 +43,5 @@ export default function ApiErrorToast({ info }: Props) {
       </Toast.Header>
       <Toast.Body>{info.content}</Toast.Body>
     </Toast>
-  )
+  );
 }

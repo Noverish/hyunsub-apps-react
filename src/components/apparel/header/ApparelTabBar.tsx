@@ -1,6 +1,7 @@
 import { t } from 'i18next';
+
+import CommonTabBar, { TabBarItem } from '../../common/header/CommonTabBar';
 import ApparelRoutes from 'src/pages/apparel/ApparelRoutes';
-import CommonTabBar, { TabBarItem } from "../../common/header/CommonTabBar";
 
 const items: TabBarItem[] = [
   {
@@ -23,10 +24,8 @@ const items: TabBarItem[] = [
     link: ApparelRoutes.brandList,
     icon: 'fas fa-tag',
   },
-]
+];
 
 export default function ApparelTabBar() {
-  return (
-    <CommonTabBar items={items} />
-  )
+  return <CommonTabBar items={items} />;
 }

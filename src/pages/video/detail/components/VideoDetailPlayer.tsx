@@ -1,11 +1,12 @@
 import throttle from 'lodash/throttle';
 import { useContext, useMemo } from 'react';
+
+import { useVideoHistoryUpdator } from '../VideoDetailHooks';
 import SimpleVideoPlayer from 'src/components/video/SimpleVideoPlayer';
 import VideoPlayer, { VideoPlayerProps } from 'src/components/video/VideoPlayer';
-import { Video } from "src/model/video";
+import { Video } from 'src/model/video';
 import { VideoDetailContext } from 'src/pages/video/detail/VideoDetailState';
 import { isIOS } from 'src/utils/user-agent';
-import { useVideoHistoryUpdator } from '../VideoDetailHooks';
 
 interface Props {
   video: Video;
@@ -25,15 +26,9 @@ export default function VideoDetailPlayer({ video }: Props) {
     subtitleSync,
     onTimeUpdate: onTimeUpdate3,
     time,
-  }
+  };
 
-  const videoPlayer = isIOS()
-    ? <SimpleVideoPlayer {...videoPlayerProps} />
-    : <VideoPlayer {...videoPlayerProps} />;
+  const videoPlayer = isIOS() ? <SimpleVideoPlayer {...videoPlayerProps} /> : <VideoPlayer {...videoPlayerProps} />;
 
-  return (
-    <div className="VideoDetailPlayer">
-      {videoPlayer}
-    </div>
-  )
+  return <div className="VideoDetailPlayer">{videoPlayer}</div>;
 }

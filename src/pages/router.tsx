@@ -1,13 +1,14 @@
-import { createBrowserRouter, RouteObject, Outlet, ScrollRestoration } from 'react-router-dom';
-import RouteErrorBoundary from './common/RouteErrorBoundary';
-import NotFoundPage from './common/NotFoundPage';
-import { AuthRouteObjects } from './auth/AuthIndex';
-import { VideoRotueObjects } from './video/VideoIndex';
-import { PhotoRouteObjects } from './photo/PhotoIndex';
-import { ComicRouteObjects } from './comic/ComicIndex';
-import { ApparelRouteObjects } from './apparel/ApparelIndex';
-import { DriveRouteObjects } from './drive/DriveIndex';
 import { Suspense } from 'react';
+import { Outlet, RouteObject, ScrollRestoration, createBrowserRouter } from 'react-router-dom';
+
+import { ApparelRouteObjects } from './apparel/ApparelIndex';
+import { AuthRouteObjects } from './auth/AuthIndex';
+import { ComicRouteObjects } from './comic/ComicIndex';
+import NotFoundPage from './common/NotFoundPage';
+import RouteErrorBoundary from './common/RouteErrorBoundary';
+import { DriveRouteObjects } from './drive/DriveIndex';
+import { PhotoRouteObjects } from './photo/PhotoIndex';
+import { VideoRotueObjects } from './video/VideoIndex';
 import LoadingPage from 'src/pages/common/LoadingPage';
 
 function pickRoutes(): RouteObject[] {
@@ -51,11 +52,8 @@ const router = createBrowserRouter([
         <ScrollRestoration />
       </>
     ),
-    children: [
-      { path: '*', element: <NotFoundPage /> },
-      ...pickRoutes(),
-    ]
-  }
+    children: [{ path: '*', element: <NotFoundPage /> }, ...pickRoutes()],
+  },
 ]);
 
 export default router;

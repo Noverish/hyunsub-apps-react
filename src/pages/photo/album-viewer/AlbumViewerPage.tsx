@@ -15,14 +15,9 @@ export default function AlbumViewerPage() {
 
   return (
     <div id="AlbumViewerPage">
-      <PhotoViewer
-        albumId={albumId}
-        photoId={photoId}
-        infiniteQueryResult={infiniteQueryResult}
-        initialSlide={initialPage}
-      />
+      <PhotoViewer albumId={albumId} photoId={photoId} infiniteQueryResult={infiniteQueryResult} initialSlide={initialPage} />
     </div>
-  )
+  );
 }
 
 function getInitialPage(photoId?: string, pageData?: PageData<PhotoPreview>): number | undefined {
@@ -32,7 +27,7 @@ function getInitialPage(photoId?: string, pageData?: PageData<PhotoPreview>): nu
 
   const { data, page, pageSize } = pageData;
 
-  const i = data.findIndex(v => v.id === photoId);
+  const i = data.findIndex((v) => v.id === photoId);
   if (i >= 0) {
     return i + page * pageSize;
   } else {

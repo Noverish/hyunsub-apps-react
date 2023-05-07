@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+
 import fileUploadApi from 'src/api/file/file-upload-multipart';
 import usePhotoUploadApi from 'src/api/photo/photo-upload';
 import { FileWithPath } from 'src/model/file';
@@ -24,10 +25,10 @@ export function usePhotoUpload(albumId?: string) {
   });
 
   return async () => {
-    items.forEach(v => v.status = 'uploading');
+    items.forEach((v) => (v.status = 'uploading'));
     setState({ items, uploading: true });
 
-    const files: FileWithPath[] = items.map(v => ({
+    const files: FileWithPath[] = items.map((v) => ({
       file: v.file,
       path: v.file.name,
     }));
@@ -47,7 +48,7 @@ export function usePhotoUpload(albumId?: string) {
 
         const millis = files[i].file.lastModified;
         photoUploadApi({ nonce, name, albumId, millis });
-      }
+      },
     });
-  }
+  };
 }

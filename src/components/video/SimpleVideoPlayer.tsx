@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef } from 'react';
+
 import { VideoPlayerProps } from './VideoPlayer';
 
 export default function SimpleVideoPlayer(props: VideoPlayerProps) {
@@ -11,7 +12,7 @@ export default function SimpleVideoPlayer(props: VideoPlayerProps) {
 
   useEffect(() => {
     ref.current?.load();
-  }, [videoUrl])
+  }, [videoUrl]);
 
   useEffect(() => {
     ref.current!.currentTime = time;
@@ -22,12 +23,10 @@ export default function SimpleVideoPlayer(props: VideoPlayerProps) {
     video.addEventListener('timeupdate', onTimeUpdate2);
     return () => {
       video.removeEventListener('timeupdate', onTimeUpdate2);
-    }
+    };
   }, [onTimeUpdate2]);
 
-  const tracks = subtitles.map((v) => (
-    <track key={v.url} kind="captions" label={v.label} srcLang={v.srclang} src={v.url} />
-  ));
+  const tracks = subtitles.map((v) => <track key={v.url} kind="captions" label={v.label} srcLang={v.srclang} src={v.url} />);
 
   return (
     <div className="ratio ratio-16x9">
@@ -36,5 +35,5 @@ export default function SimpleVideoPlayer(props: VideoPlayerProps) {
         {tracks}
       </video>
     </div>
-  )
+  );
 }

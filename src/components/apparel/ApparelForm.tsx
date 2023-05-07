@@ -1,13 +1,14 @@
 import { Button, Form } from 'react-bootstrap';
-import { useForm } from "react-hook-form";
-import { useTranslation } from "react-i18next";
-import { Apparel, ApparelImage } from "src/model/apparel";
-import { useDispatch } from "src/redux";
-import { apparelImageDeleteAction } from 'src/pages/apparel/edit/ApparelEditContext';
-import { ExtendedImage } from "../common/ExtendedImage";
-import ImageAddButton from "../common/ImageAddButton";
+import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+
+import { ExtendedImage } from '../common/ExtendedImage';
+import ImageAddButton from '../common/ImageAddButton';
 import ApparelBrandSelect from './ApparelBrandSelect';
 import ApparelCategorySelect from './ApparelCategorySelect';
+import { Apparel, ApparelImage } from 'src/model/apparel';
+import { apparelImageDeleteAction } from 'src/pages/apparel/edit/ApparelEditContext';
+import { useDispatch } from 'src/redux';
 
 interface Props {
   apparel?: Apparel;
@@ -21,7 +22,7 @@ export function ApparelFormImage({ image }: { image: ApparelImage }) {
 
   const onDelete = () => {
     dispatch(apparelImageDeleteAction(image));
-  }
+  };
 
   return (
     <div className="col">
@@ -29,7 +30,7 @@ export function ApparelFormImage({ image }: { image: ApparelImage }) {
         <ExtendedImage className="img-fluid" src={image.url + '?size=512'} loading="lazy" alt={image.imageId} onDelete={onDelete} />
       </div>
     </div>
-  )
+  );
 }
 
 export default function ApparelForm(props: Props) {
@@ -39,11 +40,11 @@ export default function ApparelForm(props: Props) {
 
   const onBrandSelect = (brand?: string) => {
     setValue('brand', brand ?? '');
-  }
+  };
 
   const onCategorySelect = (category?: string) => {
     setValue('category', category ?? '');
-  }
+  };
 
   const images = (apparel?.images || []).map((v) => <ApparelFormImage image={v} key={v.imageId} />);
 
@@ -117,9 +118,11 @@ export default function ApparelForm(props: Props) {
         </Form.Group>
 
         <div>
-          <Button variant="primary" type="submit">{confirmBtnText}</Button>
+          <Button variant="primary" type="submit">
+            {confirmBtnText}
+          </Button>
         </div>
       </Form>
     </div>
-  )
+  );
 }

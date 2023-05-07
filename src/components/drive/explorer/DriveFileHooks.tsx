@@ -1,6 +1,7 @@
 import { t } from 'i18next';
 import { join } from 'path-browserify';
 import { useContext } from 'react';
+
 import driveListApi from 'src/api/drive/drive-list';
 import driveMoveBulkApi, { DriveMoveBulkParams } from 'src/api/drive/drive-move-bulk';
 import driveNewFolderApi from 'src/api/drive/drive-new-folder';
@@ -20,22 +21,22 @@ export function useDriveFileRename() {
     driveRenameBulkApi({ path, renames: [{ from, to }] });
 
     driveListApi.updateCache({ path }, (cache) => {
-      cache.forEach(v => {
+      cache.forEach((v) => {
         if (v.name === from) {
           v.name = to;
         }
       });
-    })
+    });
 
-    const newSelects = selects.map(v => v === from ? to : v);
+    const newSelects = selects.map((v) => (v === from ? to : v));
     changeSelects(newSelects);
-  }
+  };
 }
 
 export function useDriveFileRemove() {
   const { path, selects } = useDriveExplorerContext();
   const { clearSelects } = useDriveExplorerSelectChange();
-  const paths = selects.map(v => join(path, v));
+  const paths = selects.map((v) => join(path, v));
 
   return () => {
     if (!window.confirm(t('drive.msg.remove-confirm') as string)) {
@@ -45,17 +46,16 @@ export function useDriveFileRemove() {
     driveRemoveBulkApi({ paths });
 
     driveListApi.updateCache({ path }, (cache) => {
-      return cache.filter(v => !selects.includes(v.name));
+      return cache.filter((v) => !selects.includes(v.name));
     });
 
     clearSelects();
-  }
+  };
 }
-
 
 export function useDriveNewFolder() {
   const { path, files } = useDriveExplorerContext();
-  const list = files.map(v => v.name);
+  const list = files.map((v) => v.name);
   const setState = useContext(DriveExplorerContext)[1];
 
   return () => {
@@ -73,7 +73,7 @@ export function useDriveNewFolder() {
         size: '',
         date: dateToString(new Date()),
         isDir: true,
-      }
+      };
       return [newFolder, ...cache];
     });
 
@@ -81,8 +81,8 @@ export function useDriveNewFolder() {
       selects: [name],
       rename: true,
       lastSelect: name,
-    })
-  }
+    });
+  };
 }
 
 export function useDriveFileDownload() {
@@ -90,7 +90,7 @@ export function useDriveFileDownload() {
 
   return () => {
     for (const select of selects) {
-      const file = files[files.findIndex(v => v.name === select)];
+      const file = files[files.findIndex((v) => v.name === select)];
       const fileUrl = AppConstant.file.HOST + join(path, file.name);
 
       const link = document.createElement('a');
@@ -99,7 +99,7 @@ export function useDriveFileDownload() {
       link.download = file.name;
       link.click();
     }
-  }
+  };
 }
 
 export function useDriveFileMove() {
@@ -113,7 +113,7 @@ export function useDriveFileMove() {
     driveMoveBulkApi(params);
 
     driveListApi.updateCache({ path }, (cache) => {
-      return cache.filter(v => !params.files.includes(v.name));
-    })
-  }
+      return cache.filter((v) => !params.files.includes(v.name));
+    });
+  };
 }

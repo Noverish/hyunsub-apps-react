@@ -1,5 +1,5 @@
-import { Apparel } from "src/model/apparel";
-import { generateQuery } from "../generate-api";
+import { generateQuery } from '../generate-api';
+import { Apparel } from 'src/model/apparel';
 
 interface ApparelDetailParams {
   apparelId: string;

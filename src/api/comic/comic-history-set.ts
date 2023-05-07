@@ -1,4 +1,4 @@
-import { generateApi } from "../generate-api";
+import { generateApi } from '../generate-api';
 
 interface ComicHistorySetParams {
   comicId: string;

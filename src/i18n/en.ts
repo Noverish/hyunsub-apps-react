@@ -1,22 +1,22 @@
 const en = {
   translation: {
-    'modify': 'Modify',
-    'edit': 'Edit',
-    'delete': 'Delete',
-    'view': 'View',
-    'add': 'Add',
-    'logout': 'Logout',
-    'menus': 'Menus',
-    'search': 'Search',
-    'close': 'Close',
-    'setting': 'Setting',
-    'select': 'Select',
-    'cancel': 'Cancel',
-    'create': 'Create',
-    'upload': 'Upload',
+    modify: 'Modify',
+    edit: 'Edit',
+    delete: 'Delete',
+    view: 'View',
+    add: 'Add',
+    logout: 'Logout',
+    menus: 'Menus',
+    search: 'Search',
+    close: 'Close',
+    setting: 'Setting',
+    select: 'Select',
+    cancel: 'Cancel',
+    create: 'Create',
+    upload: 'Upload',
     'n-selected': '{{0}} Selected',
-    'sort': 'Sort',
-    'filter': 'Filter',
+    sort: 'Sort',
+    filter: 'Filter',
 
     'msg.delete-confirm': 'Are you sure you want to delete?',
     'msg.delete-success': 'Successfully deleted',
@@ -196,7 +196,7 @@ const en = {
     'PageSelectModal.msg.invalid-page': 'Are you sure you want to cancel the upload?',
 
     'menu.profile': 'Show Profile',
-  }
+  },
 };
 
 export default en;

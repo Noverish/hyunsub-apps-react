@@ -1,5 +1,6 @@
 import { Button, Card, Form } from 'react-bootstrap';
 import { SubmitHandler, useForm } from 'react-hook-form';
+
 import { VideoRenameParams } from 'src/api/video/admin/video-rename';
 import ApiResult from 'src/components/common/ApiResult';
 import { videoRenameAction } from 'src/pages/video/admin/VideoAdminContext';
@@ -12,7 +13,7 @@ interface Props {
 
 export default function VideoRenameCard({ title, videoId }: Props) {
   const dispatch = useDispatch();
-  const result = useSelector(s => s.video.admin.videoRenameResult);
+  const result = useSelector((s) => s.video.admin.videoRenameResult);
   const { register, handleSubmit } = useForm<VideoRenameParams>({
     defaultValues: { from: title, to: title },
   });
@@ -48,5 +49,5 @@ export default function VideoRenameCard({ title, videoId }: Props) {
         {result && <ApiResult className="mt-3" result={result} />}
       </Card.Body>
     </Card>
-  )
+  );
 }

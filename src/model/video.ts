@@ -76,15 +76,15 @@ const _VideoSort = {
 
 export module VideoSort {
   export const parse = (sort: string | null): VideoSort => {
-    const key = (Object.keys(_VideoSort).filter(v => v === sort)[0] || 'random') as keyof typeof _VideoSort;
+    const key = (Object.keys(_VideoSort).filter((v) => v === sort)[0] || 'random') as keyof typeof _VideoSort;
     return _VideoSort[key];
-  }
+  };
 
   export const values: () => VideoSort[] = () => Object.values(_VideoSort);
 }
 
 // eslint-disable-next-line
-export type VideoSort = typeof _VideoSort[keyof typeof _VideoSort];
+export type VideoSort = (typeof _VideoSort)[keyof typeof _VideoSort];
 
 export interface VideoHistory {
   videoId: string;

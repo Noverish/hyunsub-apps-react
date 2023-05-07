@@ -15,8 +15,8 @@ const AppConstant = {
   },
 
   file: {
-    HOST: 'https://file.hyunsub.kim'
-  }
-}
+    HOST: 'https://file.hyunsub.kim',
+  },
+};
 
 export default AppConstant;

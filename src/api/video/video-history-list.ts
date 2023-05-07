@@ -1,9 +1,7 @@
-import { generateInfiniteQuery } from "src/api/generate-api";
-import { VideoHistory } from "src/model/video";
+import { generateInfiniteQuery } from 'src/api/generate-api';
+import { VideoHistory } from 'src/model/video';
 
-export interface VideoHistoryListParams {
-
-}
+export interface VideoHistoryListParams {}
 
 const videoHistoryListApi = generateInfiniteQuery<VideoHistoryListParams, VideoHistory>({
   api: (params) => ({
@@ -11,7 +9,7 @@ const videoHistoryListApi = generateInfiniteQuery<VideoHistoryListParams, VideoH
     method: 'GET',
     params: {
       p: params.page,
-    }
+    },
   }),
   key: () => 'videoHistoryListApi',
 });

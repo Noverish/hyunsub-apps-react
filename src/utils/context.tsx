@@ -10,10 +10,7 @@ type StateContextType<State> = Context<[State, Dispatch<SetStateAction<State>>]>
 type StateProviderType = (props: StateProviderProps) => JSX.Element;
 
 export function generateStateContext<State>(initialState: State): [StateContextType<State>, StateProviderType] {
-  const Context = createContext<[State, Dispatch<SetStateAction<State>>]>([
-    initialState,
-    () => { },
-  ]);
+  const Context = createContext<[State, Dispatch<SetStateAction<State>>]>([initialState, () => {}]);
 
   const Provider = ({ children }: StateProviderProps) => {
     // spread를 쓰지 않으면 다른 곳에서 state 직접 변경을 시도하는 경우,
@@ -21,15 +18,11 @@ export function generateStateContext<State>(initialState: State): [StateContextT
     const [state, setState] = useState({ ...initialState });
 
     const newSetState = useCallback((value: SetStateAction<State>) => {
-      setState(s => (typeof value === 'function') ? produce(s, value) : { ...s, ...value });
+      setState((s) => (typeof value === 'function' ? produce(s, value) : { ...s, ...value }));
     }, []);
 
-    return (
-      <Context.Provider value={[state, newSetState]}>
-        {children}
-      </Context.Provider>
-    )
-  }
+    return <Context.Provider value={[state, newSetState]}>{children}</Context.Provider>;
+  };
 
   return [Context, Provider];
 }
@@ -47,12 +40,8 @@ export function generateValueContext<V>(): [ValueContextType<V>, ValueProviderTy
   const Context = createContext<V | undefined>(undefined);
 
   const Provider = ({ children, value }: ValueProviderProps<V>) => {
-    return (
-      <Context.Provider value={value}>
-        {children}
-      </Context.Provider>
-    )
-  }
+    return <Context.Provider value={value}>{children}</Context.Provider>;
+  };
 
   const useValueContext = () => {
     const value = useContext(Context);
@@ -60,7 +49,7 @@ export function generateValueContext<V>(): [ValueContextType<V>, ValueProviderTy
       return value;
     }
     throw new Error();
-  }
+  };
 
   return [Context, Provider, useValueContext];
 }
