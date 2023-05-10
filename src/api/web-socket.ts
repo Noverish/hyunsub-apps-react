@@ -25,5 +25,18 @@ export default function useWebSocket() {
     };
   }, []);
 
+  useEffect(() => {
+    const timer = setInterval(() => {
+      client?.publish({
+        destination: `/ping`,
+        body: 'ping',
+      });
+    }, 5000);
+
+    return () => {
+      clearInterval(timer);
+    };
+  }, [client]);
+
   return client;
 }

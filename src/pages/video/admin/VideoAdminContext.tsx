@@ -70,7 +70,7 @@ export const videoSubtitleUploadAction = (params: VideoSubtitleUploadParams) => 
 export const videoThumbnailAction = (videoId: string) => async (dispatch: Dispatch) => {
   dispatch(GlobalActions.update({ loading: true }));
 
-  const time = window.player?.currentTime;
+  const time = (document.querySelector('video') as HTMLVideoElement).currentTime;
   const videoThumbnailResult = await videoThumbnail({ videoId, time });
   dispatch(VideoAdminActions.update({ videoThumbnailResult }));
 
