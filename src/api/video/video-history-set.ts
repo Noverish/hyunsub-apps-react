@@ -5,14 +5,14 @@ export interface VideoHistorySetParams {
   time: number;
 }
 
-const destination = `/v1/video/history`;
+const destination = `/v1/histories`;
 
 export default function useVideoHistorySetApi() {
   const client = useWebSocket();
 
   return (params: VideoHistorySetParams) => {
     client?.publish({
-      destination: `${destination}/request`,
+      destination: `${destination}`,
       body: JSON.stringify(params),
     });
   };
