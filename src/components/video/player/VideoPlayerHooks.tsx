@@ -22,6 +22,13 @@ function createPlyr(src: string): Plyr {
   return tmp;
 }
 
+function destroyPlyr() {
+  if (plyr) {
+    plyr.destroy();
+    plyr = undefined;
+  }
+}
+
 export function usePlyr(src: string): Plyr | undefined {
   const [plyr, setPlyr] = useState<Plyr | undefined>();
 
@@ -30,6 +37,8 @@ export function usePlyr(src: string): Plyr | undefined {
       setPlyr(createPlyr(src));
     }
   }, [plyr, src]);
+
+  useEffect(() => destroyPlyr, []);
 
   return plyr;
 }
