@@ -18,7 +18,7 @@ export function useDriveFileRename() {
   const { changeSelects } = useDriveExplorerSelectChange();
 
   return (from: string, to: string) => {
-    driveRenameBulkApi({ path, renames: [{ from, to }] });
+    driveRenameBulkApi({ path, renames: [{ from, to: to.trim() }] });
 
     driveListApi.updateCache({ path }, (cache) => {
       cache.forEach((v) => {
