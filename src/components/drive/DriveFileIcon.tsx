@@ -30,6 +30,7 @@ export function parseFileType(name: string, isDir: boolean): DriveFileType {
     case 'gif':
       return 'IMAGE';
     case 'mp4':
+    case 'webm':
       return 'VIDEO';
     case 'mp3':
     case 'aac':

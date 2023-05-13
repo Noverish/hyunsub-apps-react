@@ -1,11 +1,17 @@
 .YoutubeDownloadInput {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   word-break: keep-all;
   gap: 1rem;
 
   label {
     margin-bottom: 0;
     font-size: 1.25rem;
+    height: 38px;
+    line-height: 38px;
+  }
+
+  .url_wrapper {
+    flex: 1 1 0;
   }
 }

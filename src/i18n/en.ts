@@ -182,8 +182,9 @@ const en = {
     'drive.DriveExplorerFileList.date': 'Modified Date',
     'drive.DriveExplorerFileList.new-folder': 'New Folder',
     'drive.DriveExplorerFileList.empty-folder': 'Empty Folder',
-    'drive.DriveUploadModal.abort-msg': '정말로 업로드를 취소하시겠습니까?',
+    'drive.DriveUploadModal.abort-msg': 'Are you sure to cancel upload?',
     'drive.YoutubeDownloadModal.title': 'YouTube Download',
+    'drive.YoutubeDownloadModal.msg.empty-url': 'Please input URL',
 
     'comic.ComicListPage.title': 'Comic List',
     'comic.ComicDetailPage.subtitle': '{{0}} Episodes',
