@@ -9,6 +9,7 @@ import DriveFileListBreadcrumb from 'src/components/drive/explorer/DriveExplorer
 import { useDriveExplorerPath, useDriveExplorerSelectChange } from 'src/components/drive/explorer/DriveExplorerHooks';
 import DriveRenameModal from 'src/components/drive/rename/DriveRenameModal';
 import DriveViewerModal from 'src/components/drive/viewer/DriveViewerModal';
+import YoutubeDownloadModal from 'src/components/drive/youtube/YoutubeDownloadModal';
 
 import './DriveExplorer.scss';
 
@@ -29,6 +30,7 @@ export default function DriveExplorer() {
       <DriveExplorerFileList />
       <DriveRenameModal />
       <DriveViewerModal />
+      <YoutubeDownloadModal />
       {items.length > 0 && <DriveUploadModal />}
     </div>
   );

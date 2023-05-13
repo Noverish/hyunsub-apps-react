@@ -42,3 +42,14 @@ export const DriveFileSorts = {
   SIZE_DESC: { name: 'SIZE_DESC', isAsc: false } as const,
   DATE_DESC: { name: 'DATE_DESC', isAsc: false } as const,
 };
+
+export interface YoutubeFormat {
+  format_id: string;
+	format_note: string;
+	ext: string;
+	fps?: number;
+	resolution: string;
+	filesize?: number;
+	abr?: number;
+	vbr?: number;
+}

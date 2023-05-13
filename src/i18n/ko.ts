@@ -17,6 +17,7 @@ const ko = {
     'n-selected': '{{0}}개 선택됨',
     sort: '정렬',
     filter: '필터',
+    download: '다운로드',
 
     'msg.delete-confirm': '정말로 삭제하시겠습니까?',
     'msg.delete-success': '삭제되었습니다',
@@ -171,7 +172,7 @@ const ko = {
     'drive.DriveNewFolderModal.title': '새 폴더 생성',
     'drive.DriveNewFolderModal.label': '새 폴더 이름',
     'drive.DriveNewFolderModal.button': '생성',
-    'drive.DriveRenameModal.title': '파일 이름 수정',
+    'drive.DriveRenameModal.title': '파일 이름 일괄 수정',
     'drive.DriveRenameModal.label': '파일 이름',
     'drive.DriveRenameModal.button': '수정',
     'drive.DriveExplorerBreadcrumb.home': '홈',
@@ -182,6 +183,7 @@ const ko = {
     'drive.DriveExplorerFileList.new-folder': '새 폴더',
     'drive.DriveExplorerFileList.empty-folder': '폴더가 비었습니다.',
     'drive.DriveUploadModal.abort-msg': '정말로 업로드를 취소하시겠습니까?',
+    'drive.YoutubeDownloadModal.title': 'YouTube 다운로드',
 
     'comic.ComicListPage.title': '만화 목록',
     'comic.ComicDetailPage.subtitle': '{{0}}개의 에피소드',

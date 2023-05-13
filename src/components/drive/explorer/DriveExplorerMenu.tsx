@@ -48,6 +48,8 @@ export default function DriveExplorerMenu({ files }: Props) {
     window.alert('not yet supported!');
   };
 
+  const showYoutubeModal = () => setState({ showYoutubeModal: true });
+
   // elements
   const squareIcon = useMemo(() => {
     if (!files || files.length === 0 || selects.length === 0) {
@@ -89,6 +91,9 @@ export default function DriveExplorerMenu({ files }: Props) {
       </Button>
       <Button variant="primary" onClick={driveNewFolder}>
         <i className="fas fa-folder-plus" />
+      </Button>
+      <Button variant="primary" onClick={showYoutubeModal}>
+        <i className="fab fa-youtube" />
       </Button>
       {selects.length > 0 && selectionMenus}
     </div>

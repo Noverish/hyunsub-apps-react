@@ -17,6 +17,7 @@ const en = {
     'n-selected': '{{0}} Selected',
     sort: 'Sort',
     filter: 'Filter',
+    download: 'Download',
 
     'msg.delete-confirm': 'Are you sure you want to delete?',
     'msg.delete-success': 'Successfully deleted',
@@ -171,7 +172,7 @@ const en = {
     'drive.DriveNewFolderModal.title': 'Create New Folder',
     'drive.DriveNewFolderModal.label': 'Folder Name',
     'drive.DriveNewFolderModal.button': 'Create',
-    'drive.DriveRenameModal.title': 'Edit File Name',
+    'drive.DriveRenameModal.title': 'Edit File Name Bulk',
     'drive.DriveRenameModal.label': 'File Name',
     'drive.DriveRenameModal.button': 'Edit',
     'drive.DriveExplorerBreadcrumb.home': 'Home',
@@ -182,6 +183,7 @@ const en = {
     'drive.DriveExplorerFileList.new-folder': 'New Folder',
     'drive.DriveExplorerFileList.empty-folder': 'Empty Folder',
     'drive.DriveUploadModal.abort-msg': '정말로 업로드를 취소하시겠습니까?',
+    'drive.YoutubeDownloadModal.title': 'YouTube Download',
 
     'comic.ComicListPage.title': 'Comic List',
     'comic.ComicDetailPage.subtitle': '{{0}} Episodes',

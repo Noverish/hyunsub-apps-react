@@ -8,6 +8,7 @@ interface State {
   renameBulk: boolean;
   viewer: boolean;
   sort: DriveFileSort;
+  showYoutubeModal: boolean;
 }
 
 const initialState: State = {
@@ -16,6 +17,7 @@ const initialState: State = {
   renameBulk: false,
   viewer: false,
   sort: DriveFileSorts.NAME_ASC,
+  showYoutubeModal: false,
 };
 
 export const [DriveExplorerContext, DriveExplorerProvider] = generateStateContext(initialState);

@@ -1,3 +1,4 @@
+import { t } from 'i18next';
 import { useContext, useEffect } from 'react';
 import { Modal } from 'react-bootstrap';
 
@@ -21,7 +22,7 @@ function DriveRenameModal() {
   return (
     <Modal className="DriveRenameModal" show={renameBulk} onHide={onHide} centered>
       <Modal.Header closeButton>
-        <Modal.Title>파일 이름 일괄 변경</Modal.Title>
+        <Modal.Title>{t('drive.DriveRenameModal.title')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <DriveRenameControl />
