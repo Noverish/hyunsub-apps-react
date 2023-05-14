@@ -12,7 +12,6 @@ export default function CommonPagination({ now, total, onClick }: PaginationProp
   const isMobile = useBreakpointMobile();
   const size = isMobile ? 5 : 10;
 
-  const needSlide = total > size;
   const min = Math.floor(now / size) * size;
   const max = (Math.floor(now / size) + 1) * size;
   const length = Math.min(max, total) - min;
@@ -25,13 +24,19 @@ export default function CommonPagination({ now, total, onClick }: PaginationProp
     </Pagination.Item>
   ));
 
+  if (total <= size) {
+    return <></>
+  }
+
   return (
-    <Pagination>
-      {needSlide && <Pagination.First onClick={() => onClick(0)} />}
-      {needSlide && <Pagination.Prev onClick={() => onClick(min - 1)} />}
-      {elements}
-      {needSlide && <Pagination.Next onClick={() => onClick(max)} />}
-      {needSlide && <Pagination.Last onClick={() => onClick(total - 1)} />}
-    </Pagination>
+    <div className="CommonPagination d-flex flex_center">
+      <Pagination>
+        <Pagination.First onClick={() => onClick(0)} />
+        <Pagination.Prev onClick={() => onClick(min - 1)} />
+        {elements}
+        <Pagination.Next onClick={() => onClick(max)} />
+        <Pagination.Last onClick={() => onClick(total - 1)} />
+      </Pagination>
+    </div>
   );
 }

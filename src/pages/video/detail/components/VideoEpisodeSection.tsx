@@ -26,9 +26,7 @@ export default function VideoEpisodeSection({ seasons, videoId }: Props) {
         <span className="total">{t('video.episode-section.title', [total])}</span>
       </div>
       <div className="row g-2 g-md-3">{episodeElements}</div>
-      <div className="mt-3 d-flex flex_center">
-        <CommonPagination now={page} total={totalPage} onClick={setPage} />
-      </div>
+      <CommonPagination now={page} total={totalPage} onClick={setPage} />
     </section>
   );
 }
