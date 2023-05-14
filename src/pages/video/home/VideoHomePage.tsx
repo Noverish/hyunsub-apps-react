@@ -34,7 +34,7 @@ function VideoHomePageRecentSection({ recent }: { recent: VideoHomeRecent }) {
         </div>
       </div>
       <div className="recent_entry_scroll hide_scrollbar">
-        <div className={cs('recent_entry_list', isMobile || 'row row-cols-6 g-3')}>{entries}</div>
+        <div className={cs('recent_entry_list', isMobile || `row g-2 g-md-3 ${category.listHtmlClass}`)}>{entries}</div>
       </div>
     </section>
   );
