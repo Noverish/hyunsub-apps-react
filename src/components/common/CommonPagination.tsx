@@ -24,7 +24,7 @@ export default function CommonPagination({ now, total, onClick }: PaginationProp
     </Pagination.Item>
   ));
 
-  if (total <= size) {
+  if (total <= 1) {
     return <></>
   }
 
