@@ -14,7 +14,7 @@ export default function VideoDesktopHeader() {
   const menus = categories.map((v) => ({
     name: v.displayName,
     icon: v.iconHtmlClass,
-    link: VideoRoutes.listRoute(v.name),
+    link: VideoRoutes.list(v.name),
   }));
 
   const dropdowns: DesktopHeaderDropdown[] = [

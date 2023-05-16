@@ -18,7 +18,7 @@ function VideoHomePageRecentSection({ recent }: { recent: VideoHomeRecent }) {
   const isMobile = useBreakpointMobile();
 
   const onMoreClick = () => {
-    router.navigate(VideoRoutes.listRoute(category.name));
+    router.navigate(VideoRoutes.list(category.name));
   };
 
   const entries = list.map((entry) => <VideoEntryView key={entry.id} category={category} entry={entry} />);

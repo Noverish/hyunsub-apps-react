@@ -13,7 +13,7 @@ export default function VideoHistoryItem({ history }: Props) {
   const { videoId, entryId, thumbnailUrl, time, duration } = history;
 
   const onClick = () => {
-    router.navigate(VideoRoutes.detailRoute(entryId, videoId));
+    router.navigate(VideoRoutes.detail(entryId, videoId));
   };
 
   return (

@@ -47,7 +47,7 @@ function renderEntryManageSeason(entryId: string, season: VideoSeason) {
 
 function renderEntryManagerRow(entryId: string, episode: VideoEpisode) {
   return (
-    <Link to={VideoRoutes.detailRoute(entryId, episode.videoId)} key={episode.videoId} className="episode hyunsub_border gray_bg_hover">
+    <Link to={VideoRoutes.detail(entryId, episode.videoId)} key={episode.videoId} className="episode hyunsub_border gray_bg_hover">
       {episode.title}
     </Link>
   );

@@ -26,10 +26,10 @@ export const VideoRotueObjects: RouteObject[] = [
     ),
     children: [
       { path: VideoRoutes.admin, element: <VideoAdminPage /> },
-      { path: VideoRoutes.detail, element: <VideoDetailPage /> },
+      { path: VideoRoutes.detailRoute, element: <VideoDetailPage /> },
       { path: VideoRoutes.history, element: <VideoHistoryPage /> },
       { path: VideoRoutes.home, element: <VideoHomePage /> },
-      { path: VideoRoutes.list, element: <VideoListPage /> },
+      { path: VideoRoutes.listRoute, element: <VideoListPage /> },
       { path: VideoRoutes.menu, element: <VideoMenuPage /> },
       { path: VideoRoutes.search, element: <VideoSearchPage /> },
       { path: VideoRoutes.manageEntryRoute, element: <VideoEntryManagePage /> },

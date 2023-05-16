@@ -27,7 +27,7 @@ export default function VideoEpisodeItem({ episode, active }: Props) {
     );
   };
 
-  const href = VideoRoutes.detailRoute(entryId, episode.videoId);
+  const href = VideoRoutes.detail(entryId, episode.videoId);
   const className = cs('episode_item col-6 d-flex', { active });
 
   return (

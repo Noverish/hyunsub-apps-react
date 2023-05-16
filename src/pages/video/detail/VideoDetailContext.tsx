@@ -20,5 +20,5 @@ export const loadOtherEpisode =
       await videoEntryDetailApi.prefetch({ entryId, videoId });
       dispatch(GlobalActions.update({ loading: false }));
     }
-    router.navigate(VideoRoutes.detailRoute(entryId, videoId));
+    router.navigate(VideoRoutes.detail(entryId, videoId));
   };
