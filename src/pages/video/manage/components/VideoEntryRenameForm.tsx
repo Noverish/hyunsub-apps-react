@@ -2,27 +2,18 @@ import { Button, Form, InputGroup } from 'react-bootstrap';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 import { videoEntryRenameAction } from '../VideoEntryManageActions';
-import { VideoRenameBulkParams } from 'src/api/video/admin/video-rename-bulk';
+import { EntryRenameParams } from 'src/api/video/entry-manage/entry-rename';
+import { useUrlParams } from 'src/hooks/url-params';
 import { dispatch } from 'src/redux';
 
 import './VideoEntryRenameForm.scss';
 
-type FormState = VideoRenameBulkParams;
+type FormState = EntryRenameParams;
 
-interface Props {
-  entryId: string;
-  videoIds: string[];
-}
+export default function VideoEntryRenameForm() {
+  const [entryId] = useUrlParams('entryId');
 
-export default function VideoEntryRenameForm({ entryId, videoIds }: Props) {
-  const { register, handleSubmit } = useForm<FormState>({
-    defaultValues: {
-      videoIds: videoIds,
-      from: '',
-      to: '',
-      isRegex: false,
-    },
-  });
+  const { register, handleSubmit } = useForm<FormState>();
 
   const onSubmit: SubmitHandler<FormState> = (state: FormState) => {
     dispatch(videoEntryRenameAction(entryId, state));
@@ -41,8 +32,6 @@ export default function VideoEntryRenameForm({ entryId, videoIds }: Props) {
           <Form.Control {...register('to')} />
         </InputGroup>
       </div>
-
-      <Form.Check {...register('isRegex')} type="checkbox" label="isRegex" defaultChecked={false} />
 
       <Button type="submit">일괄 변경</Button>
     </Form>

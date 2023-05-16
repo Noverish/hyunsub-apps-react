@@ -1,13 +1,13 @@
 import { Dispatch } from '@reduxjs/toolkit';
 
-import videoRenameBulkApi, { VideoRenameBulkParams } from 'src/api/video/admin/video-rename-bulk';
+import entryRenameApi, { EntryRenameParams } from 'src/api/video/entry-manage/entry-rename';
 import videoEntryDetailApi from 'src/api/video/video-entry-detail';
 import { GlobalActions } from 'src/redux/global';
 
-export const videoEntryRenameAction = (entryId: string, params: VideoRenameBulkParams) => async (dispatch: Dispatch) => {
+export const videoEntryRenameAction = (entryId: string, params: EntryRenameParams) => async (dispatch: Dispatch) => {
   dispatch(GlobalActions.update({ loading: true }));
 
-  await videoRenameBulkApi(params);
+  await entryRenameApi({ ...params, entryId });
 
   videoEntryDetailApi.invalidate({ entryId });
 

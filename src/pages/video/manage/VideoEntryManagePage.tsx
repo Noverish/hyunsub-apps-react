@@ -19,15 +19,13 @@ export default function VideoEntryManagePage() {
 
   const { entry, seasons } = videoEntryDetailApi.useApi({ entryId });
 
-  const videoIds = seasons?.flatMap((v) => v.episodes)?.map((v) => v.videoId);
-
   return (
     <div className="VideoEntryManagePage">
       <MobileHeader title={entry.name} back />
       <CommonContainer>
         <h1>{entry.name}</h1>
         <hr />
-        {videoIds && <VideoEntryRenameForm videoIds={videoIds} entryId={entryId} />}
+        <VideoEntryRenameForm />
         <hr />
         <VideoEntryScanCard />
         {seasons?.map((v) => renderEntryManageSeason(entryId, v))}

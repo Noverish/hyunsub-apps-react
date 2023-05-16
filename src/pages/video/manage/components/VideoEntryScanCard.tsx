@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Button, Card } from 'react-bootstrap';
 
-import videoScanApi from 'src/api/video/admin/video-scan';
+import entryScanApi from 'src/api/video/entry-manage/entry-scan';
 import ApiResult from 'src/components/common/ApiResult';
 import { useUrlParams } from 'src/hooks/url-params';
 import { dispatch } from 'src/redux';
@@ -14,7 +14,7 @@ export default function VideoEntryScanCard() {
   const onScan = async () => {
     dispatch(GlobalActions.update({ loading: true }));
 
-    const result = await videoScanApi({ entryId });
+    const result = await entryScanApi({ entryId });
     setResult(result);
 
     dispatch(GlobalActions.update({ loading: false }));

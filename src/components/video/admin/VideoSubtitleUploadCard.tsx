@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button, ButtonGroup, Card, Form, ToggleButton } from 'react-bootstrap';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-import { VideoSubtitleUploadParams } from 'src/api/video/admin/video-subtitle-upload';
+import { VideoSubtitleParams } from 'src/api/video/video-manage/video-subtitle';
 import ApiResult from 'src/components/common/ApiResult';
 import PathSelect from 'src/components/common/PathSelect';
 import { videoSubtitleUploadAction } from 'src/pages/video/admin/VideoAdminContext';
@@ -17,7 +17,7 @@ export default function VideoSubtitleUploadCard({ videoId }: Props) {
   const result = useSelector((s) => s.video.admin.videoSubtitleUploadResult);
   const [isUploadMode, setUploadMode] = useState(true);
 
-  const { register, handleSubmit, setValue } = useForm<VideoSubtitleUploadParams>();
+  const { register, handleSubmit, setValue } = useForm<VideoSubtitleParams>();
 
   const onToggle = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUploadMode(e.currentTarget.value === 'true');
@@ -27,7 +27,7 @@ export default function VideoSubtitleUploadCard({ videoId }: Props) {
     setValue('path', path);
   };
 
-  const onSubmit: SubmitHandler<VideoSubtitleUploadParams> = (params: VideoSubtitleUploadParams) => {
+  const onSubmit: SubmitHandler<VideoSubtitleParams> = (params: VideoSubtitleParams) => {
     dispatch(
       videoSubtitleUploadAction({
         videoId,

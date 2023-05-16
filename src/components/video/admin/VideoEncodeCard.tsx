@@ -1,7 +1,7 @@
 import { Button, Card, Form } from 'react-bootstrap';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-import { VideoEncodeParams } from 'src/api/video/admin/video-encode';
+import { VideoEncodeParams } from 'src/api/video/video-manage/video-encode';
 import ApiResult from 'src/components/common/ApiResult';
 import { videoEncodeAction } from 'src/pages/video/admin/VideoAdminContext';
 import { useDispatch, useSelector } from 'src/redux';

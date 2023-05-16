@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import VideoEncodeCard from './VideoEncodeCard';
 import VideoMetadataScanCard from './VideoMetadataScanCard';
 import VideoRegisterToEntryCard from './VideoRegisterToEntryCard';
-import VideoRenameCard from './VideoRenameCard';
 import VideoSubtitleUploadCard from './VideoSubtitleUploadCard';
 import VideoThumbnailGenerateCard from './VideoThumbnailGenerateCard';
 import { VideoEntryDetail } from 'src/model/video';
@@ -24,7 +23,7 @@ export default function VideoAdminSection({ entryId, detail }: Props) {
     setState({ showAdmin: false });
   };
 
-  const { title, videoId } = detail.video;
+  const { videoId } = detail.video;
 
   return (
     <section id="VideoAdminSection" className="mt-3">
@@ -41,7 +40,6 @@ export default function VideoAdminSection({ entryId, detail }: Props) {
         <VideoRegisterToEntryCard entryId={entryId} />
         <VideoSubtitleUploadCard videoId={videoId} />
         <VideoThumbnailGenerateCard videoId={videoId} />
-        <VideoRenameCard videoId={videoId} title={title} />
         <VideoEncodeCard videoId={videoId} />
       </div>
     </section>
