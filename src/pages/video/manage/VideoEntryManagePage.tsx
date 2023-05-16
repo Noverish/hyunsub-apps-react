@@ -1,22 +1,24 @@
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import VideoRoutes from '../VideoRoutes';
 import videoEntryDetailApi from 'src/api/video/video-entry-detail';
 import CommonContainer from 'src/components/common/header/CommonContainer';
 import MobileHeader from 'src/components/common/header/MobileHeader';
+import { useUrlParams } from 'src/hooks/url-params';
 import { VideoEpisode, VideoSeason } from 'src/model/video';
 import VideoEntryRenameForm from 'src/pages/video/manage/components/VideoEntryRenameForm';
+import VideoEntryScanCard from 'src/pages/video/manage/components/VideoEntryScanCard';
 import { setDocumentTitle } from 'src/utils/services';
 
 import './VideoEntryManagePage.scss';
 
 export default function VideoEntryManagePage() {
-  const entryId = useParams().entryId || '';
+  const [entryId] = useUrlParams('entryId');
 
   setDocumentTitle(`Entry 관리 - ${entryId}`);
 
-  const data = videoEntryDetailApi.useApi({ entryId });
-  const { entry, seasons } = data;
+  const { entry, seasons } = videoEntryDetailApi.useApi({ entryId });
+
   const videoIds = seasons?.flatMap((v) => v.episodes)?.map((v) => v.videoId);
 
   return (
@@ -27,6 +29,7 @@ export default function VideoEntryManagePage() {
         <hr />
         {videoIds && <VideoEntryRenameForm videoIds={videoIds} entryId={entryId} />}
         <hr />
+        <VideoEntryScanCard />
         {seasons?.map((v) => renderEntryManageSeason(entryId, v))}
       </CommonContainer>
     </div>
