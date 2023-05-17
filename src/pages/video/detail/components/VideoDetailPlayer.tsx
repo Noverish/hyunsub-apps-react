@@ -5,7 +5,7 @@ import { useVideoHistoryUpdator } from '../VideoDetailHooks';
 import SimpleVideoPlayer from 'src/components/video/player/SimpleVideoPlayer';
 import VideoPlayer, { VideoPlayerProps } from 'src/components/video/player/VideoPlayer';
 import { Video } from 'src/model/video';
-import { VideoDetailContext } from 'src/pages/video/detail/VideoDetailState';
+import { VideoDetailContext } from 'src/pages/video/detail/VideoDetailContext';
 import { isIOS } from 'src/utils/user-agent';
 
 interface Props {

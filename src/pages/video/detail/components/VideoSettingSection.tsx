@@ -3,7 +3,7 @@ import { ChangeEvent, useContext, useEffect, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 
 import { Video } from 'src/model/video';
-import { VideoDetailContext } from 'src/pages/video/detail/VideoDetailState';
+import { VideoDetailContext } from 'src/pages/video/detail/VideoDetailContext';
 import VideoSubtitleSettingCard from 'src/pages/video/detail/components/VideoSubtitleSettingCard';
 import AppConstant from 'src/utils/constants';
 

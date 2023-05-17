@@ -6,16 +6,19 @@ const VideoRoutes = {
   listRoute: '/list/:category',
   list: (category: string) => `/list/${category}`,
 
-  detailRoute: '/video/:entryId',
+  detailRoute: '/entry/:entryId',
   detail: (entryId: string, videoId?: string) => {
     const query = videoId ? `?videoId=${videoId}` : '';
-    return `/video/${entryId}${query}`;
+    return `/entry/${entryId}${query}`;
   },
 
   admin: '/admin',
 
-  manageEntryRoute: '/video/:entryId/manage',
-  manageEntry: (entryId: string) => `/video/${entryId}/manage`,
+  entryManageRoute: '/entry/:entryId/manage',
+  entryManage: (entryId: string) => `/entry/${entryId}/manage`,
+
+  videoManageRoute: '/video/:videoId/manage',
+  videoManage: (videoId: string) => `/video/${videoId}/manage`,
 
   search: '/search',
 

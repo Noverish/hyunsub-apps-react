@@ -71,7 +71,7 @@ export const videoEntryCreateAction = (params: VideoEntryCreateParams) => async 
   dispatch(GlobalActions.update({ loading: true }));
 
   const result = await videoEntryCreateApi(params);
-  router.navigate(VideoRoutes.manageEntry(result.id));
+  router.navigate(VideoRoutes.entryManage(result.id));
 
   dispatch(GlobalActions.update({ loading: false }));
 };

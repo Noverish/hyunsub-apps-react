@@ -4,7 +4,7 @@ import { useParams, useSearchParams } from 'react-router-dom';
 import videoEntryDetailApi from 'src/api/video/video-entry-detail';
 import useVideoHistorySetApi from 'src/api/video/video-history-set';
 import { VideoSeason } from 'src/model/video';
-import { VideoDetailContext } from 'src/pages/video/detail/VideoDetailState';
+import { VideoDetailContext } from 'src/pages/video/detail/VideoDetailContext';
 import AppConstant from 'src/utils/constants';
 
 const PAGE_SIZE = AppConstant.video.EPISODE_PAGE_SIZE;

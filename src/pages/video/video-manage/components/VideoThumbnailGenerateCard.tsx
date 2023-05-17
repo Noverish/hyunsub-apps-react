@@ -1,24 +1,23 @@
 import { Button, Card } from 'react-bootstrap';
 
 import ApiResult from 'src/components/common/ApiResult';
-import { videoMetadataScanAction } from 'src/pages/video/admin/VideoAdminContext';
+import { videoThumbnailAction } from 'src/pages/video/admin/VideoAdminContext';
 import { useDispatch, useSelector } from 'src/redux';
+import { useUrlParams } from 'src/hooks/url-params';
 
-interface Props {
-  videoId: string;
-}
+export default function VideoThumbnailGenerateCard() {
+  const [videoId] = useUrlParams('videoId');
 
-export default function VideoMetadataScanCard({ videoId }: Props) {
   const dispatch = useDispatch();
-  const result = useSelector((s) => s.video.admin.videoMetadataScanResult);
+  const result = useSelector((s) => s.video.admin.videoThumbnailResult);
 
   const onClick = () => {
-    dispatch(videoMetadataScanAction(videoId));
+    dispatch(videoThumbnailAction(videoId));
   };
 
   return (
     <Card>
-      <Card.Header>Scan Video Metadata</Card.Header>
+      <Card.Header>Generate Video Thumbnail</Card.Header>
       <Card.Body>
         <Button variant="primary" onClick={onClick}>
           Scan

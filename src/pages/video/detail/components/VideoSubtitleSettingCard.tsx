@@ -3,7 +3,7 @@ import { Card, Form, InputGroup } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
 import { VideoSubtitle } from 'src/model/video';
-import { VideoDetailContext } from 'src/pages/video/detail/VideoDetailState';
+import { VideoDetailContext } from 'src/pages/video/detail/VideoDetailContext';
 
 interface Props {
   subtitles: VideoSubtitle[];

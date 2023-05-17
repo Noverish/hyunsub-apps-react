@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import VideoThumbnail from 'src/components/video/VideoThumbnail';
 import { VideoEpisode } from 'src/model/video';
 import VideoRoutes from 'src/pages/video/VideoRoutes';
-import { loadOtherEpisode } from 'src/pages/video/detail/VideoDetailContext';
+import { loadOtherEpisode } from 'src/pages/video/detail/VideoDetailActions';
 import { useDispatch } from 'src/redux';
 
 interface Props {

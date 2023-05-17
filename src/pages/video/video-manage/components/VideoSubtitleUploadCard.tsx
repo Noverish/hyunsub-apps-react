@@ -7,12 +7,10 @@ import ApiResult from 'src/components/common/ApiResult';
 import PathSelect from 'src/components/common/PathSelect';
 import { videoSubtitleUploadAction } from 'src/pages/video/admin/VideoAdminContext';
 import { useDispatch, useSelector } from 'src/redux';
+import { useUrlParams } from 'src/hooks/url-params';
 
-interface Props {
-  videoId: string;
-}
-
-export default function VideoSubtitleUploadCard({ videoId }: Props) {
+export default function VideoSubtitleUploadCard() {
+  const [videoId] = useUrlParams('videoId');
   const dispatch = useDispatch();
   const result = useSelector((s) => s.video.admin.videoSubtitleUploadResult);
   const [isUploadMode, setUploadMode] = useState(true);

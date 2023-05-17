@@ -1,13 +1,14 @@
 import { useContext } from 'react';
 import { Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
+import VideoRoutes from '../VideoRoutes';
 import { useLoadVideoDetailPage, useVideoDetailPageParams } from './VideoDetailHooks';
-import { VideoDetailProvider } from './VideoDetailState';
+import { VideoDetailProvider } from './VideoDetailContext';
 import VideoDetailPlayer from './components/VideoDetailPlayer';
 import CommonContainer from 'src/components/common/header/CommonContainer';
 import MobileHeader, { MobileHeaderButton } from 'src/components/common/header/MobileHeader';
-import VideoAdminSection from 'src/components/video/admin/VideoAdminSection';
-import { VideoDetailContext } from 'src/pages/video/detail/VideoDetailState';
+import { VideoDetailContext } from 'src/pages/video/detail/VideoDetailContext';
 import VideoEpisodeSection from 'src/pages/video/detail/components/VideoEpisodeSection';
 import VideoGroupSection from 'src/pages/video/detail/components/VideoGroupSection';
 import VideoSettingSection from 'src/pages/video/detail/components/VideoSettingSection';
@@ -20,7 +21,7 @@ import './VideoDetailPage.scss';
 export function VideoDetailPage() {
   const { entryId } = useVideoDetailPageParams();
   const isMobile = useBreakpointMobile();
-  const [{ showSetting, showAdmin }, setState] = useContext(VideoDetailContext);
+  const [{ showSetting }, setState] = useContext(VideoDetailContext);
   const isAdmin = useSelector((s) => s.global.tokenPayload?.isAdmin || false);
   const data = useLoadVideoDetailPage();
   const { category, entry, video, seasons, group } = data;
@@ -32,10 +33,6 @@ export function VideoDetailPage() {
     setState({ showSetting: true });
   };
 
-  const showAdminSection = () => {
-    setState({ showAdmin: true });
-  };
-
   const mobileHeaderButtons: MobileHeaderButton[] = [
     {
       icon: 'fas fa-cog',
@@ -43,18 +40,25 @@ export function VideoDetailPage() {
     },
   ];
 
-  if (isAdmin) {
-    mobileHeaderButtons.push({
-      icon: 'fas fa-cogs',
-      onClick: showAdminSection,
-    });
-  }
-
   const metadataElement = metadata ? (
     <div className="metadata">
       {metadata.duration} &middot; {metadata.size} &middot; {metadata.resolution} &middot; {metadata.bitrate}
     </div>
   ) : undefined;
+
+  const adminBtns = (
+    <>
+      <hr />
+      <div className="admin_btns">
+        <Link to={VideoRoutes.videoManage(video.videoId)}>
+          <Button>Video Manage</Button>
+        </Link>
+        <Link to={VideoRoutes.entryManage(entryId)}>
+          <Button>Entry Manage</Button>
+        </Link>
+      </div>
+    </>
+  );
 
   const sections = (
     <>
@@ -63,17 +67,13 @@ export function VideoDetailPage() {
           <div className="title">{title}</div>
           {metadataElement}
         </div>
-        {!isMobile && isAdmin && (
-          <Button id="video_admin_btn" variant="secondary" onClick={showAdminSection}>
-            Admin Setting
-          </Button>
-        )}
         {!isMobile && (
           <Button id="video_setting_btn" variant="secondary" onClick={showSettingSection}>
             Play Setting
           </Button>
         )}
       </div>
+      {isAdmin && adminBtns}
       {seasons && <VideoEpisodeSection seasons={seasons} videoId={video.videoId} />}
       {group && <VideoGroupSection category={category} group={group} />}
     </>
@@ -85,8 +85,7 @@ export function VideoDetailPage() {
       <CommonContainer>
         <VideoDetailPlayer video={video} />
         <VideoSettingSection video={video} />
-        {showAdmin && <VideoAdminSection detail={data} entryId={entryId} />}
-        {!showSetting && !showAdmin && sections}
+        {!showSetting && sections}
       </CommonContainer>
     </div>
   );

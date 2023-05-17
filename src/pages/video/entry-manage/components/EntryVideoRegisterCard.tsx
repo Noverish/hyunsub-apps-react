@@ -6,12 +6,11 @@ import ApiResult from 'src/components/common/ApiResult';
 import PathSelect from 'src/components/common/PathSelect';
 import { videoRegisterToEntryAction } from 'src/pages/video/admin/VideoAdminContext';
 import { useDispatch, useSelector } from 'src/redux';
+import { useUrlParams } from 'src/hooks/url-params';
 
-interface Props {
-  entryId: string;
-}
+export default function EntryVideoRegisterCard() {
+  const [entryId] = useUrlParams('entryId');
 
-export default function VideoRegisterToEntryCard({ entryId }: Props) {
   const dispatch = useDispatch();
   const result = useSelector((s) => s.video.admin.videoRegisterToEntryResult);
 
@@ -38,7 +37,7 @@ export default function VideoRegisterToEntryCard({ entryId }: Props) {
   register('outputPath', { required: 'There is no output path' });
 
   return (
-    <Card>
+    <Card className="EntryVideoRegisterCard">
       <Card.Header>Register Video</Card.Header>
       <Card.Body>
         <Form onSubmit={handleSubmit(onSubmit)}>

@@ -1,24 +1,17 @@
-import { Dispatch } from '@reduxjs/toolkit';
+import { generateStateContext } from 'src/utils/context';
 
-import videoEntryDetailApi from 'src/api/video/video-entry-detail';
-import router from 'src/pages/router';
-import VideoRoutes from 'src/pages/video/VideoRoutes';
-import { RootState } from 'src/redux';
-import { GlobalActions } from 'src/redux/global';
-
-interface LoadOtherEpisodeParams {
-  entryId: string;
-  videoId: string;
+interface State {
+  showSetting: boolean;
+  subtitleSync: { [subtitleUrl: string]: number };
+  season: string | null;
+  page: number;
 }
 
-export const loadOtherEpisode =
-  ({ entryId, videoId }: LoadOtherEpisodeParams) =>
-  async (dispatch: Dispatch, getState: () => RootState) => {
-    const cache = videoEntryDetailApi.cache({ entryId, videoId });
-    if (!cache) {
-      dispatch(GlobalActions.update({ loading: true }));
-      await videoEntryDetailApi.prefetch({ entryId, videoId });
-      dispatch(GlobalActions.update({ loading: false }));
-    }
-    router.navigate(VideoRoutes.detail(entryId, videoId));
-  };
+const initialState: State = {
+  showSetting: false,
+  subtitleSync: {},
+  season: null,
+  page: 0,
+};
+
+export const [VideoDetailContext, VideoDetailProvider] = generateStateContext(initialState);

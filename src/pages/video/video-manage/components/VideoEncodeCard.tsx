@@ -5,12 +5,11 @@ import { VideoEncodeParams } from 'src/api/video/video-manage/video-encode';
 import ApiResult from 'src/components/common/ApiResult';
 import { videoEncodeAction } from 'src/pages/video/admin/VideoAdminContext';
 import { useDispatch, useSelector } from 'src/redux';
+import { useUrlParams } from 'src/hooks/url-params';
 
-interface Props {
-  videoId: string;
-}
+export default function VideoEncodeCard() {
+  const [videoId] = useUrlParams('videoId');
 
-export default function VideoEncodeCard({ videoId }: Props) {
   const dispatch = useDispatch();
   const result = useSelector((s) => s.video.admin.videoEncodeResult);
   const { register, handleSubmit } = useForm<VideoEncodeParams>({

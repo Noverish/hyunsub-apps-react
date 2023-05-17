@@ -6,6 +6,11 @@
     width: 100%;
   }
 
+  .admin_btns {
+    display: flex;
+    gap: .5rem;
+  }
+
   #video_title_section {
     word-break: break-all;
     display: flex;
