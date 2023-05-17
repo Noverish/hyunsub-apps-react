@@ -19,7 +19,7 @@ export default function DriveFileViewer({ file }: Props) {
   const [text, setText] = useState('');
 
   const filePath = join(path, file.name);
-  const fileUrl = AppConstant.file.HOST + filePath;
+  const fileUrl = AppConstant.file.HOST + encodeURIComponent(filePath).replace('%2F', '/');
   const type = parseFileType(file.name, file.isDir);
 
   useEffect(() => {

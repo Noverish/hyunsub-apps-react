@@ -1,11 +1,13 @@
 import { generateStateContext } from 'src/utils/context';
 
 interface State {
+  url: string;
   nonce?: string;
   loading: boolean;
 }
 
-const initialState: State = {
+export const initialState: State = {
+  url: '',
   loading: false,
 };
 

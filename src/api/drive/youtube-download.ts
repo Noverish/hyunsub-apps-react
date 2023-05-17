@@ -3,7 +3,8 @@ import { generateApi } from 'src/api/generate-api';
 export interface YoutubeDownloadParams {
   url: string;
   path: string;
-  resolution?: number;
+  resolution: string;
+  subtitles: string[];
 }
 
 export interface YoutubeDownloadResult {

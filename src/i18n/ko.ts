@@ -185,6 +185,8 @@ const ko = {
     'drive.DriveUploadModal.abort-msg': '정말로 업로드를 취소하시겠습니까?',
     'drive.YoutubeDownloadModal.title': 'YouTube 다운로드',
     'drive.YoutubeDownloadModal.msg.empty-url': 'URL을 입력해주세요.',
+    'drive.YoutubeMetadataForm.resolution': '해상도',
+    'drive.YoutubeMetadataForm.subtitles': '자막 목록',
 
     'comic.ComicListPage.title': '만화 목록',
     'comic.ComicDetailPage.subtitle': '{{0}}개의 에피소드',

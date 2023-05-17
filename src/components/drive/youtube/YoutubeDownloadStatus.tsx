@@ -14,7 +14,7 @@ export default function YoutubeDownloadStatus({ nonce }: Props) {
 
   useEffect(() => {
     setState([]);
-  }, [nonce])
+  }, [nonce]);
 
   const onMessage = useCallback((message: string) => {
     setState((v) => [...v, message]);

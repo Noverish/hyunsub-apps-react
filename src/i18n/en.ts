@@ -185,6 +185,8 @@ const en = {
     'drive.DriveUploadModal.abort-msg': 'Are you sure to cancel upload?',
     'drive.YoutubeDownloadModal.title': 'YouTube Download',
     'drive.YoutubeDownloadModal.msg.empty-url': 'Please input URL',
+    'drive.YoutubeMetadataForm.resolution': 'Resolution',
+    'drive.YoutubeMetadataForm.subtitles': 'Subtitles',
 
     'comic.ComicListPage.title': 'Comic List',
     'comic.ComicDetailPage.subtitle': '{{0}} Episodes',

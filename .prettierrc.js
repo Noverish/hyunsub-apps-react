@@ -7,4 +7,5 @@ module.exports = {
   importOrderSortSpecifiers: true,
 
   singleQuote: true,
+  printWidth: 100,
 }

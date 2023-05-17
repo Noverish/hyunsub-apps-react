@@ -3,7 +3,9 @@
     max-width: 100vh;
   }
 
-  .YoutubeDownloadStatus {
-    margin-top: 1rem;
+  .modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
   }
 }
