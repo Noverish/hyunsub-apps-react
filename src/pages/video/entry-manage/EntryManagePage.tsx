@@ -1,3 +1,6 @@
+import { Link } from 'react-router-dom';
+
+import VideoRoutes from '../VideoRoutes';
 import EntryVideoRegisterCard from './components/EntryVideoRegisterCard';
 import videoEntryDetailApi from 'src/api/video/video-entry-detail';
 import CommonContainer from 'src/components/common/header/CommonContainer';
@@ -20,7 +23,9 @@ export default function EntryManagePage() {
     <div id="EntryManagePage">
       <MobileHeader title="Entry Manage" back />
       <CommonContainer>
-        <h1>{entry.name}</h1>
+        <Link to={VideoRoutes.detail(entryId)}>
+          <h1>{entry.name}</h1>
+        </Link>
         <EntryScanCard />
         <EntryRenameForm />
         <EntryVideoRegisterCard />
