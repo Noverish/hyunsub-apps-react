@@ -64,7 +64,7 @@ export function useDriveRenameBulk() {
     const renames: DriveRenameBulkParamsData[] = [];
     for (let i = 0; i < prev.length; i++) {
       const from = prev[i];
-      const to = next[i];
+      const to = next[i].trim();
       if (from !== to) {
         renames.push({ from, to });
       }

@@ -193,12 +193,12 @@ export function useDriveExplorerKeyDown() {
   }, [handleKeyDown]);
 }
 
+const { NAME_ASC, SIZE_ASC, DATE_ASC, NAME_DESC, SIZE_DESC, DATE_DESC } = DriveFileSorts;
+
 export function useDriveExplorerFilesWithSort() {
   const [path] = useDriveExplorerPath();
   const { data: files } = driveListApi.useApiResult({ path });
   const [{ sort }, setState] = useContext(DriveExplorerContext);
-
-  const { NAME_ASC, SIZE_ASC, DATE_ASC, NAME_DESC, SIZE_DESC, DATE_DESC } = DriveFileSorts;
 
   const sortFunc = (a: DriveFileInfo, b: DriveFileInfo): number => {
     if (a.isDir && !b.isDir) {
@@ -237,7 +237,7 @@ export function useDriveExplorerFilesWithSort() {
   const onSizeClick = () => setState({ sort: sort === SIZE_ASC ? SIZE_DESC : SIZE_ASC });
 
   return {
-    files: files ? files.sort(sortFunc) : files,
+    files: files ? [...files].sort(sortFunc) : files,
     nameArrow,
     dateArrow,
     sizeArrow,
