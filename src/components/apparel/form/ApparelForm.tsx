@@ -1,42 +1,23 @@
+import { t } from 'i18next';
 import { Button, Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 
-import { ExtendedImage } from '../common/ExtendedImage';
-import ImageAddButton from '../common/ImageAddButton';
-import ApparelBrandSelect from './ApparelBrandSelect';
-import ApparelCategorySelect from './ApparelCategorySelect';
-import { Apparel, ApparelImage } from 'src/model/apparel';
-import { apparelImageDeleteAction } from 'src/pages/apparel/edit/ApparelEditContext';
-import { useDispatch } from 'src/redux';
+import { ApparelDetailResult } from 'src/api/apparel/apparel-detail';
+import { Apparel } from 'src/model/apparel';
+import ApparelBrandSelect from '../ApparelBrandSelect';
+import ApparelCategorySelect from '../ApparelCategorySelect';
+import { ApparelFormProvider } from './ApparelFormContext';
+import ApparelImageUpload from './ApparelImageUpload';
+import { useApparelFormSubmit } from './ApparelFormHooks';
 
 interface Props {
-  apparel?: Apparel;
-  onImageAdd?: (images: File[]) => void;
-  onSubmit: (apparel: Apparel) => void;
-  confirmBtnText: string;
+  apparel?: ApparelDetailResult;
 }
 
-export function ApparelFormImage({ image }: { image: ApparelImage }) {
-  const dispatch = useDispatch();
-
-  const onDelete = () => {
-    dispatch(apparelImageDeleteAction(image));
-  };
-
-  return (
-    <div className="col">
-      <div className="ratio ratio-1x1">
-        <ExtendedImage className="img-fluid" src={image.url + '?size=512'} loading="lazy" alt={image.imageId} onDelete={onDelete} />
-      </div>
-    </div>
-  );
-}
-
-export default function ApparelForm(props: Props) {
-  const { apparel, onImageAdd, onSubmit, confirmBtnText } = props;
-  const { t } = useTranslation();
-  const { register, handleSubmit, setValue } = useForm<Apparel>({ defaultValues: apparel });
+function ApparelForm({ apparel }: Props) {
+  console.log({ apparel });
+  const { register, handleSubmit, setValue, watch } = useForm<Apparel>({ defaultValues: apparel?.apparel });
+  const submit = useApparelFormSubmit(!!apparel);
 
   const onBrandSelect = (brand?: string) => {
     setValue('brand', brand ?? '');
@@ -46,18 +27,15 @@ export default function ApparelForm(props: Props) {
     setValue('category', category ?? '');
   };
 
-  const images = (apparel?.images || []).map((v) => <ApparelFormImage image={v} key={v.imageId} />);
+  const onSubmit = (data: Apparel) => {
+    submit(data);
+  }
+
+  const btnText = apparel ? t('modify') : t('add');
 
   return (
     <div id="ApparelForm">
-      <div className="row g-3 row-cols-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-4">
-        {images}
-        <div className="col">
-          <div className="ratio ratio-1x1">
-            <ImageAddButton callback={onImageAdd} multiple />
-          </div>
-        </div>
-      </div>
+      <ApparelImageUpload images={apparel?.images ?? []} />
       <Form className="mt-3 d-grid gap-3" onSubmit={handleSubmit(onSubmit)}>
         <Form.Group>
           <Form.Label>{t('apparel.term.name')}</Form.Label>
@@ -71,11 +49,11 @@ export default function ApparelForm(props: Props) {
           </Form.Group>
           <Form.Group className="col">
             <Form.Label>{t('apparel.term.brand')}</Form.Label>
-            <ApparelBrandSelect onSelect={onBrandSelect} />
+            <ApparelBrandSelect onSelect={onBrandSelect} value={watch('brand')} />
           </Form.Group>
           <Form.Group className="col">
             <Form.Label>{t('apparel.term.category')}</Form.Label>
-            <ApparelCategorySelect onSelect={onCategorySelect} />
+            <ApparelCategorySelect onSelect={onCategorySelect} value={watch('category')} />
           </Form.Group>
           <Form.Group className="col">
             <Form.Label>{t('apparel.term.size')}</Form.Label>
@@ -119,10 +97,18 @@ export default function ApparelForm(props: Props) {
 
         <div>
           <Button variant="primary" type="submit">
-            {confirmBtnText}
+            {btnText}
           </Button>
         </div>
       </Form>
     </div>
   );
+}
+
+export default function ApparelFormIndex(props: Props) {
+  return (
+    <ApparelFormProvider>
+      <ApparelForm {...props} />
+    </ApparelFormProvider>
+  )
 }

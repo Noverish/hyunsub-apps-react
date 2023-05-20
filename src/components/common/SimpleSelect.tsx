@@ -9,6 +9,7 @@ export interface SimpleSelectProps {
   data: string[];
   onSelect?: (value?: string) => void;
   isInvalid?: boolean;
+  value?: string;
 }
 
 export default function SimpleSelect(props: SimpleSelectProps) {
@@ -18,5 +19,19 @@ export default function SimpleSelect(props: SimpleSelectProps) {
 
   const data: Option[] = (props.data || []).map((v) => ({ value: v, label: v }));
 
-  return <Select classNamePrefix="select" className={props.isInvalid ? 'is-invalid' : ''} menuPortalTarget={window.document.body} isClearable isSearchable options={data} onChange={onSelectChange} styles={{ menuPortal: (base) => ({ ...base, zIndex: 1100 }) }} />;
+  const value = data.filter(v => v.value === props.value)[0];
+
+  return (
+    <Select
+      classNamePrefix="select"
+      className={props.isInvalid ? 'is-invalid' : ''}
+      menuPortalTarget={window.document.body}
+      isClearable
+      isSearchable
+      options={data}
+      onChange={onSelectChange}
+      styles={{ menuPortal: (base) => ({ ...base, zIndex: 1100 }) }}
+      value={value}
+    />
+  );
 }

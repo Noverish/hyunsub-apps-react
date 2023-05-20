@@ -3,7 +3,7 @@ import { decode, encodeURI } from 'js-base64';
 
 import { generateApi } from '../generate-api';
 import { FileUploadResult, FileUploadStatus, FileWithPath } from 'src/model/file';
-import { sleep } from 'src/utils';
+import { generateRandomString } from 'src/utils';
 import AppConstant from 'src/utils/constants';
 import { calcFormDataSize, calcProgress } from 'src/utils/form-data';
 
@@ -15,13 +15,14 @@ export interface FileUploadParams {
   errorCallback?: (status: FileUploadResult) => void;
 }
 
-const pathNonce = Math.random().toString(36).substring(2, 8);
+const pathNonce = generateRandomString(8);
 const url = AppConstant.file.HOST + `/upload/multipart/${pathNonce}`;
 
-const fileUpload = generateApi<FileUploadParams, FileUploadResult>((params) => {
+const fileUpload = generateApi<FileUploadParams, { result: string }>((params) => {
   const { files, progress, controller } = params;
 
   const formData = new FormData();
+  formData.append('length', files.length.toString());
   files.forEach((v) => formData.append('files', v.file, encodeURI(v.path)));
 
   const sizes = calcFormDataSize(files);
@@ -72,8 +73,6 @@ export default async function fileUploadApi(params: FileUploadParams) {
   try {
     await fileUpload(params);
   } catch (ex) {}
-
-  await sleep(1000);
 }
 
 function waitReady(es: EventSource) {

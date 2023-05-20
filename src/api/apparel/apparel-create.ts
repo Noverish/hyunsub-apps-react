@@ -2,16 +2,15 @@ import { generateApi } from '../generate-api';
 import { ApparelDetailResult } from './apparel-detail';
 import { Apparel, ApparelUploadImageParams } from 'src/model/apparel';
 
-interface ApparelUpdateParams {
+interface ApparelCreateParams {
   apparel: Apparel;
   uploads: ApparelUploadImageParams[];
-  deletes: string[];
 }
 
-const apparelUpdateApi = generateApi<ApparelUpdateParams, ApparelDetailResult>((params) => ({
-  url: `/api/v1/apparels/${params.apparel.id}`,
-  method: 'PUT',
+const apparelCreateApi = generateApi<ApparelCreateParams, ApparelDetailResult>((params) => ({
+  url: '/api/v1/apparels',
+  method: 'POST',
   data: params,
 }));
 
-export default apparelUpdateApi;
+export default apparelCreateApi;

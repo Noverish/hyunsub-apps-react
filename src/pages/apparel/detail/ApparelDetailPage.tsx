@@ -5,9 +5,9 @@ import { Link, useParams } from 'react-router-dom';
 
 import { apparelDeleteAction } from './ApparelDetailContext';
 import apparelDetailApi from 'src/api/apparel/apparel-detail';
-import ImageCarousel from 'src/components/common/swiper/ImageCarousel';
 import CommonContainer from 'src/components/common/header/CommonContainer';
 import MobileHeader from 'src/components/common/header/MobileHeader';
+import ImageCarousel from 'src/components/common/swiper/ImageCarousel';
 import ApparelRoutes from 'src/pages/apparel/ApparelRoutes';
 import { useDispatch } from 'src/redux';
 import { numberWithComma } from 'src/utils';
@@ -26,8 +26,8 @@ export default function ApparelDetailPage() {
     dispatch(apparelDeleteAction(apparelId));
   };
 
-  const apparel = apparelDetailApi.useApi({ apparelId });
-  const urls = apparel.images.map((v) => v.url + '?size=512');
+  const { apparel, images } = apparelDetailApi.useApi({ apparelId });
+  const urls = images.map((v) => v.url + '?size=512');
 
   return (
     <div id="ApparelDetailPage">

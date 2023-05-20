@@ -25,5 +25,9 @@ export interface Apparel {
   buyDt?: string;
   buyLoc?: string;
   makeDt?: string;
-  images: ApparelImage[];
+}
+
+export interface ApparelUploadImageParams {
+  nonce: string;
+  ext: string;
 }

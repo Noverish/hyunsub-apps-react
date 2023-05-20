@@ -60,3 +60,9 @@ export function getHumanReadableSize(size: number) {
   const tmp = Math.floor((size / kb) * 100) / 100;
   return `${tmp} KB`;
 }
+
+const BASE = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+
+export function generateRandomString(length: number) {
+  return Array.from({ length }, () => BASE.charAt(Math.floor(Math.random() * BASE.length))).join('');
+}
