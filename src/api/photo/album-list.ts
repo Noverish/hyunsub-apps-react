@@ -1,4 +1,4 @@
-import { generateInfiniteQuery } from '../generate-api';
+import { generateInfiniteQuery } from '../generate-infinite-query';
 import { AlbumPreview } from 'src/model/photo';
 
 const albumListApi = generateInfiniteQuery<{}, AlbumPreview>({

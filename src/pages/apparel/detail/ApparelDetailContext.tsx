@@ -23,7 +23,7 @@ export const apparelDeleteAction = (apparelId: string) => async (dispatch: Dispa
   alert(t('msg.delete-success'));
   dispatch(GlobalActions.update({ loading: false }));
 
-  apparelListApi.updateCache({}, (list) => list.filter((v) => v.id !== apparelId));
+  apparelListApi.deleteCache({}, (v) => v.id === apparelId);
 
   router.navigate(-1);
 };

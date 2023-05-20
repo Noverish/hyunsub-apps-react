@@ -45,7 +45,7 @@ export function useAlbumDelete() {
 
     await albumDeleteApi(params);
 
-    albumListApi.deleteFromCache({}, (v) => v.id === albumId);
+    albumListApi.deleteCache({}, (v) => v.id === albumId);
 
     dispatch(GlobalActions.update({ loading: false }));
 

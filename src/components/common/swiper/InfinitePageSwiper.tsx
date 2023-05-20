@@ -2,7 +2,7 @@ import { InfiniteData, UseInfiniteQueryResult } from '@tanstack/react-query';
 import { useRef } from 'react';
 
 import PageSwiper, { PageSwiperProps } from './PageSwiper';
-import { flatInfiniteData } from 'src/api/generate-api';
+import { flatInfiniteData } from 'src/api/generate-infinite-query';
 import { PageData } from 'src/model/api';
 
 const READY_OFF_SLIDE_SIZE = 5;

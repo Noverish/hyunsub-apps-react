@@ -1,4 +1,4 @@
-import { generateInfiniteQuery } from 'src/api/generate-api';
+import { generateInfiniteQuery } from '../generate-infinite-query';
 import { VideoEntry } from 'src/model/video';
 
 export interface VideoEntryListParams {

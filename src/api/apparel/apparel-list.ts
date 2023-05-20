@@ -1,4 +1,4 @@
-import { generateInfiniteQuery } from 'src/api/generate-api';
+import { generateInfiniteQuery } from '../generate-infinite-query';
 import { ApparelPreview } from 'src/model/apparel';
 
 interface ListApparelParams {

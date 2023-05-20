@@ -10,7 +10,7 @@ export function useAlbumCreate() {
 
     const album = await albumCreateApi(params);
 
-    albumListApi.insertToCache({}, album);
+    albumListApi.insertCache({}, album);
 
     dispatch(GlobalActions.update({ loading: false }));
   };

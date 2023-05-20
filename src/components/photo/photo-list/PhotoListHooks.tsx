@@ -104,7 +104,7 @@ export function useAlbumThumbnailRegister(albumId?: string) {
 
     const album = await albumThumbnailApi({ albumId, photoId: photo.id });
 
-    albumListApi.updateCache2({}, (cache) => {
+    albumListApi.updateCache({}, (cache) => {
       if (cache.id === album.id) {
         cache.thumbnail = album.thumbnail;
       }

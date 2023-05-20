@@ -1,4 +1,4 @@
-import { generateInfiniteQuery } from '../generate-api';
+import { generateInfiniteQuery } from '../generate-infinite-query';
 import { PhotoPreview } from 'src/model/photo';
 
 export interface AlbumPhotosParams {
