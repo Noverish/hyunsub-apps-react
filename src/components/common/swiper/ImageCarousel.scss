@@ -1,0 +1,17 @@
+@import '/src/breakpoints.scss';
+
+.ImageCarousel {
+  @include media-breakpoint-up(md) {
+    .swiper-slide {
+      width: 360px;
+      height: 360px;
+    }
+
+    img {
+      object-fit: cover;
+    }
+  }
+  @include media-breakpoint-down(md) {
+
+  }
+}

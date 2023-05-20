@@ -1,7 +1,6 @@
 import cs from 'classnames';
 import React, { useRef, useState } from 'react';
 import Swiper, { Keyboard, Virtual, Zoom } from 'swiper';
-import 'swiper/css';
 import { Swiper as SwiperComponent, SwiperSlide } from 'swiper/react';
 
 import PageSelectModal from 'src/components/common/PageSelectModal';
@@ -9,6 +8,7 @@ import { MobileHeaderButton } from 'src/components/common/header/MobileHeader';
 import router from 'src/pages/router';
 
 import './PageSwiper.scss';
+import 'swiper/css';
 
 export interface PageSwiperProps<T> {
   initialSlide?: number;
@@ -101,10 +101,25 @@ export default function PageSwiper<T>(props: PageSwiperProps<T>) {
         </div>
         <div className="right">{buttons}</div>
       </div>
-      <SwiperComponent onSwiper={onSwiper} modules={[Virtual, Keyboard, Zoom]} virtual={{ enabled: true, addSlidesAfter: 3, addSlidesBefore: 3 }} zoom keyboard initialSlide={props.initialSlide} spaceBetween={24} onSlideChange={onSlideChangeFromSwiper}>
+      <SwiperComponent
+        onSwiper={onSwiper}
+        modules={[Virtual, Keyboard, Zoom]}
+        virtual={{ enabled: true, addSlidesAfter: 3, addSlidesBefore: 3 }}
+        zoom
+        keyboard
+        initialSlide={props.initialSlide}
+        spaceBetween={24}
+        onSlideChange={onSlideChangeFromSwiper}
+      >
         {elements}
       </SwiperComponent>
-      <PageSelectModal show={showPageModal} onHide={() => setShowPageModal(false)} page={index} total={slides.length} onPageChange={onSlideChangeFromModal} />
+      <PageSelectModal
+        show={showPageModal}
+        onHide={() => setShowPageModal(false)}
+        page={index}
+        total={slides.length}
+        onPageChange={onSlideChangeFromModal}
+      />
     </div>
   );
 }

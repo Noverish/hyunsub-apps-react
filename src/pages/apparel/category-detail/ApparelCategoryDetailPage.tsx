@@ -21,7 +21,7 @@ export default function ApparelCategoryDetailPage() {
     }
   });
 
-  const title = t('apparel.page.category-detail.title', [category]);
+  const title = t('apparel.page.category-detail.title', [category, apparels.length]);
   setDocumentTitle(title);
 
   return (

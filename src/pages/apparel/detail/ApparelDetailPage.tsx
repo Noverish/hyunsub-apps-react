@@ -5,7 +5,7 @@ import { Link, useParams } from 'react-router-dom';
 
 import { apparelDeleteAction } from './ApparelDetailContext';
 import apparelDetailApi from 'src/api/apparel/apparel-detail';
-import ImageCarousel from 'src/components/common/ImageCarousel';
+import ImageCarousel from 'src/components/common/swiper/ImageCarousel';
 import CommonContainer from 'src/components/common/header/CommonContainer';
 import MobileHeader from 'src/components/common/header/MobileHeader';
 import ApparelRoutes from 'src/pages/apparel/ApparelRoutes';

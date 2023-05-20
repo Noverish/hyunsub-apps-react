@@ -1,7 +1,7 @@
 module.exports = {
   importOrder: [
-    "^(\\.|src).*(?<!scss)$",
-    "css$",
+    "^(\\.|src).*(?<!css)$",
+    "css",
   ],
   importOrderSeparation: true,
   importOrderSortSpecifiers: true,
