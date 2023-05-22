@@ -4,7 +4,11 @@ import CreatableSelect from 'react-select/creatable';
 
 import readdirDetail, { FileInfo } from 'src/api/file/readdir-detail';
 
-const fileInfoToOption = (info: FileInfo): SelectOption => ({ label: info.path, value: info.path, isDir: info.isDir });
+const fileInfoToOption = (info: FileInfo): SelectOption => ({
+  label: info.path,
+  value: info.path,
+  isDir: info.isDir,
+});
 
 interface SelectOption {
   label: string;
@@ -94,8 +98,26 @@ export default function PathSelect({ onSelect, isInvalid }: Props) {
     }
   };
 
-  const isValidNewOption = (newPath: string) => newPath !== path && newPath.length > 1 && !getOption(newPath);
+  const isValidNewOption = (newPath: string) =>
+    newPath !== path && newPath.length > 1 && !getOption(newPath);
   const formatCreateLabel = (newPath: string) => newPath;
 
-  return <CreatableSelect menuPortalTarget={window.document.body} className={isInvalid ? 'is-invalid' : ''} classNamePrefix="select" isClearable closeMenuOnSelect={false} controlShouldRenderValue={false} isLoading={loading} options={result} onChange={onChange} inputValue={inputValue} onInputChange={onInputChange} createOptionPosition="first" formatCreateLabel={formatCreateLabel} isValidNewOption={isValidNewOption} />;
+  return (
+    <CreatableSelect
+      menuPortalTarget={window.document.body}
+      className={isInvalid ? 'is-invalid' : ''}
+      classNamePrefix="select"
+      isClearable
+      closeMenuOnSelect={false}
+      controlShouldRenderValue={false}
+      isLoading={loading}
+      options={result}
+      onChange={onChange}
+      inputValue={inputValue}
+      onInputChange={onInputChange}
+      createOptionPosition="first"
+      formatCreateLabel={formatCreateLabel}
+      isValidNewOption={isValidNewOption}
+    />
+  );
 }

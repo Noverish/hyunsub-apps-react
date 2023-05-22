@@ -1,4 +1,5 @@
-import Select, { ActionMeta, SingleValue } from 'react-select';
+import { ActionMeta, SingleValue } from 'react-select';
+import CreatableSelect from 'react-select/creatable';
 
 interface Option {
   value: string;
@@ -22,7 +23,7 @@ export default function SimpleSelect(props: SimpleSelectProps) {
   const value = data.filter(v => v.value === props.value)[0];
 
   return (
-    <Select
+    <CreatableSelect
       classNamePrefix="select"
       className={props.isInvalid ? 'is-invalid' : ''}
       menuPortalTarget={window.document.body}

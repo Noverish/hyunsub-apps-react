@@ -2,21 +2,22 @@ import { t } from 'i18next';
 import { Button, Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 
-import { ApparelDetailResult } from 'src/api/apparel/apparel-detail';
-import { Apparel } from 'src/model/apparel';
 import ApparelBrandSelect from '../ApparelBrandSelect';
 import ApparelCategorySelect from '../ApparelCategorySelect';
 import { ApparelFormProvider } from './ApparelFormContext';
-import ApparelImageUpload from './ApparelImageUpload';
 import { useApparelFormSubmit } from './ApparelFormHooks';
+import ApparelImageUpload from './ApparelImageUpload';
+import { ApparelDetailResult } from 'src/api/apparel/apparel-detail';
+import { Apparel } from 'src/model/apparel';
 
 interface Props {
   apparel?: ApparelDetailResult;
 }
 
 function ApparelForm({ apparel }: Props) {
-  console.log({ apparel });
-  const { register, handleSubmit, setValue, watch } = useForm<Apparel>({ defaultValues: apparel?.apparel });
+  const defaultValues: Partial<Apparel> = apparel?.apparel ?? { id: '', buyDt: getToday() };
+
+  const { register, handleSubmit, setValue, watch } = useForm<Apparel>({ defaultValues });
   const submit = useApparelFormSubmit(!!apparel);
 
   const onBrandSelect = (brand?: string) => {
@@ -29,7 +30,7 @@ function ApparelForm({ apparel }: Props) {
 
   const onSubmit = (data: Apparel) => {
     submit(data);
-  }
+  };
 
   const btnText = apparel ? t('modify') : t('add');
 
@@ -110,5 +111,13 @@ export default function ApparelFormIndex(props: Props) {
     <ApparelFormProvider>
       <ApparelForm {...props} />
     </ApparelFormProvider>
-  )
+  );
+}
+
+function getToday() {
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  const day = date.getDate().toString().padStart(2, '0');
+  return `${year}-${month}-${day}`;
 }
