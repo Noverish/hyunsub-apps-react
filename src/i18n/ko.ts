@@ -151,6 +151,7 @@ const ko = {
     'apparel.term.material': '소재',
     'apparel.term.size2': '사이즈 상세',
     'apparel.term.makeDt': '제조년월',
+    'apparel.term.discarded': '버렸음',
 
     'drive.msg.remove-confirm': '정말로 삭제하시겠습니까?',
     'drive.menu.explorer': '파일 탐색기',

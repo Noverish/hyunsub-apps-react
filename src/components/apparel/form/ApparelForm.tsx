@@ -96,6 +96,10 @@ function ApparelForm({ apparel }: Props) {
           <Form.Control {...register('size2')} />
         </Form.Group>
 
+        <Form.Group>
+          <Form.Check id="discarded" label={t('apparel.term.discarded')} {...register('discarded')} />
+        </Form.Group>
+
         <div>
           <Button variant="primary" type="submit">
             {btnText}

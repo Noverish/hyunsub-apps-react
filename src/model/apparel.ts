@@ -25,6 +25,7 @@ export interface Apparel {
   buyDt?: string;
   buyLoc?: string;
   makeDt?: string;
+  discarded: boolean;
 }
 
 export interface ApparelUploadImageParams {

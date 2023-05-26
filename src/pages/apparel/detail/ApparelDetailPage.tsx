@@ -1,3 +1,4 @@
+import cs from 'classnames';
 import { t } from 'i18next';
 import { useEffect } from 'react';
 import { Button } from 'react-bootstrap';
@@ -12,6 +13,8 @@ import ApparelRoutes from 'src/pages/apparel/ApparelRoutes';
 import { useDispatch } from 'src/redux';
 import { numberWithComma } from 'src/utils';
 import { setDocumentTitle } from 'src/utils/services';
+
+import './ApparelDetailPage.scss';
 
 export default function ApparelDetailPage() {
   const dispatch = useDispatch();
@@ -28,12 +31,13 @@ export default function ApparelDetailPage() {
 
   const { apparel, images } = apparelDetailApi.useApi({ apparelId });
   const urls = images.map((v) => v.url + '?size=512');
+  const { discarded } = apparel;
 
   return (
     <div id="ApparelDetailPage">
       <MobileHeader title={title} back />
       <CommonContainer>
-        <h1>{apparel.name}</h1>
+        <h1 className={cs({ discarded })}>{apparel.name}</h1>
         <div className="mt-3">
           <ImageCarousel urls={urls} />
         </div>

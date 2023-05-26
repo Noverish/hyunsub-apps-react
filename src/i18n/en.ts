@@ -151,6 +151,7 @@ const en = {
     'apparel.term.material': 'Materials',
     'apparel.term.size2': 'Size Detail',
     'apparel.term.makeDt': 'Made Date',
+    'apparel.term.discarded': 'Discarded',
 
     'drive.msg.remove-confirm': 'Are you sure you want to delete it?',
     'drive.menu.explorer': 'Explorer',
