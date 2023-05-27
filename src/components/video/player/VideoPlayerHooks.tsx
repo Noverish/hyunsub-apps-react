@@ -2,7 +2,10 @@ import Plyr, { SourceInfo, Track } from 'plyr';
 import { useCallback, useEffect, useState } from 'react';
 
 import { VideoPlayerProps } from 'src/components/video/player/VideoPlayer';
-import { getCaptionFontSize, setCaptionFontSize } from 'src/pages/video/detail/components/VideoSettingSection';
+import {
+  getCaptionFontSize,
+  setCaptionFontSize,
+} from 'src/pages/video/detail/components/VideoSettingSection';
 
 let plyr: Plyr | undefined;
 
@@ -43,33 +46,35 @@ export function usePlyr(src: string): Plyr | undefined {
   return plyr;
 }
 
-export function usePlyrTime(plyr: Plyr | undefined, time: number) {
+export function usePlyrTime(plyr: Plyr, time: number, autoplay?: boolean) {
   const setTime = useCallback(() => {
-    if (plyr && time > 0) {
+    if (autoplay) {
+      plyr.play();
+    } else if (time > 0) {
       plyr.currentTime = time;
     }
-  }, [plyr, time]);
+  }, [plyr, time, autoplay]);
 
   useEffect(() => {
-    plyr?.on('loadedmetadata', setTime);
+    plyr.on('loadedmetadata', setTime);
 
     return () => {
-      plyr?.off('loadedmetadata', setTime);
+      plyr.off('loadedmetadata', setTime);
     };
   }, [plyr, setTime]);
 }
 
-export function usePlyrFontSize(plyr: Plyr | undefined) {
+export function usePlyrFontSize(plyr: Plyr) {
   const setFontSize = useCallback(() => {
     const fontSize = getCaptionFontSize();
     setCaptionFontSize(fontSize);
   }, []);
 
   useEffect(() => {
-    plyr?.on('loadedmetadata', setFontSize);
+    plyr.on('loadedmetadata', setFontSize);
 
     return () => {
-      plyr?.off('loadedmetadata', setFontSize);
+      plyr.off('loadedmetadata', setFontSize);
     };
   }, [plyr, setFontSize]);
 }
@@ -105,10 +110,8 @@ export function convertPlyrSource(props: VideoPlayerProps): SourceInfo {
   return source;
 }
 
-export function usePlyrSource(plyr: Plyr | undefined, source: SourceInfo) {
+export function usePlyrSource(plyr: Plyr, source: SourceInfo) {
   useEffect(() => {
-    if (!plyr) return;
-
     const src = plyr.source as any;
     const videoUrl = source.sources[0]?.src;
     if (videoUrl !== src) {
@@ -117,10 +120,8 @@ export function usePlyrSource(plyr: Plyr | undefined, source: SourceInfo) {
   }, [plyr, source]);
 }
 
-export function usePlyrKeyDown(plyr: Plyr | undefined) {
+export function usePlyrKeyDown(plyr: Plyr) {
   useEffect(() => {
-    if (!plyr) return;
-
     window.onkeydown = (e: KeyboardEvent) => {
       if (e.key === ' ') {
         e.stopPropagation();
@@ -145,10 +146,8 @@ export function usePlyrKeyDown(plyr: Plyr | undefined) {
   }, [plyr]);
 }
 
-export function usePlyrTimeUpdate(plyr: Plyr | undefined, time: number, onTimeUpdate: (time: number) => void) {
+export function usePlyrTimeUpdate(plyr: Plyr, time: number, onTimeUpdate: (time: number) => void) {
   const timeUpdate = useCallback(() => {
-    if (!plyr) return;
-
     const now = plyr.currentTime;
     if (now !== 0 && now !== time) {
       onTimeUpdate(now);
@@ -156,10 +155,24 @@ export function usePlyrTimeUpdate(plyr: Plyr | undefined, time: number, onTimeUp
   }, [plyr, onTimeUpdate, time]);
 
   useEffect(() => {
-    plyr?.on('timeupdate', timeUpdate);
+    plyr.on('timeupdate', timeUpdate);
 
     return () => {
-      plyr?.off('timeupdate', timeUpdate);
+      plyr.off('timeupdate', timeUpdate);
     };
   }, [plyr, timeUpdate]);
+}
+
+export function usePlyrEndCallback(plyr: Plyr, callback?: () => void) {
+  useEffect(() => {
+    if (callback) {
+      plyr.on('ended', callback);
+    }
+
+    return () => {
+      if (callback) {
+        plyr.off('ended', callback);
+      }
+    };
+  }, [plyr, callback]);
 }

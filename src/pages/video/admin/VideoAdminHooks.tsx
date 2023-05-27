@@ -1,5 +1,7 @@
 import VideoRoutes from '../VideoRoutes';
-import videoEntryCreateApi, { VideoEntryCreateParams } from 'src/api/video/admin/video-entry-create';
+import videoEntryCreateApi, {
+  VideoEntryCreateParams,
+} from 'src/api/video/admin/video-entry-create';
 import router from 'src/pages/router';
 import { dispatch } from 'src/redux';
 import { GlobalActions } from 'src/redux/global';
@@ -12,6 +14,6 @@ export function useVideoEntryCreate() {
 
     dispatch(GlobalActions.update({ loading: false }));
 
-    router.navigate(VideoRoutes.detail(result.id));
+    router.navigate(VideoRoutes.detail({ entryId: result.id }));
   };
 }

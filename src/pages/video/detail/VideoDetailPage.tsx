@@ -1,38 +1,38 @@
 import { useContext } from 'react';
 import { Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 
-import VideoRoutes from '../VideoRoutes';
-import { useLoadVideoDetailPage, useVideoDetailPageParams } from './VideoDetailHooks';
 import { VideoDetailProvider } from './VideoDetailContext';
+import { useVideoDetailPageData } from './VideoDetailHooks';
+import VideoDetailPageAdminButtons from './components/VideoDetailPageAdminButtons';
 import VideoDetailPlayer from './components/VideoDetailPlayer';
 import CommonContainer from 'src/components/common/header/CommonContainer';
 import MobileHeader, { MobileHeaderButton } from 'src/components/common/header/MobileHeader';
 import { VideoDetailContext } from 'src/pages/video/detail/VideoDetailContext';
+import { usePlayNextVideo } from 'src/pages/video/detail/VideoDetailHooks';
 import VideoEpisodeSection from 'src/pages/video/detail/components/VideoEpisodeSection';
 import VideoGroupSection from 'src/pages/video/detail/components/VideoGroupSection';
 import VideoSettingSection from 'src/pages/video/detail/components/VideoSettingSection';
-import { useSelector } from 'src/redux';
 import { useBreakpointMobile } from 'src/utils/breakpoint';
 import { setDocumentTitle } from 'src/utils/services';
 
 import './VideoDetailPage.scss';
 
 export function VideoDetailPage() {
-  const { entryId } = useVideoDetailPageParams();
+  // hooks
   const isMobile = useBreakpointMobile();
   const [{ showSetting }, setState] = useContext(VideoDetailContext);
-  const isAdmin = useSelector((s) => s.global.tokenPayload?.isAdmin || false);
-  const data = useLoadVideoDetailPage();
-  const { category, entry, video, seasons, group } = data;
+  const { category, entry, video, seasons, group } = useVideoDetailPageData();
   const { title, metadata } = video;
+  const playNextVideo = usePlayNextVideo();
 
   setDocumentTitle(title);
 
+  // functions
   const showSettingSection = () => {
     setState({ showSetting: true });
   };
 
+  // elements
   const mobileHeaderButtons: MobileHeaderButton[] = [
     {
       icon: 'fas fa-cog',
@@ -42,23 +42,10 @@ export function VideoDetailPage() {
 
   const metadataElement = metadata ? (
     <div className="metadata">
-      {metadata.duration} &middot; {metadata.size} &middot; {metadata.resolution} &middot; {metadata.bitrate}
+      {metadata.duration} &middot; {metadata.size} &middot; {metadata.resolution} &middot;{' '}
+      {metadata.bitrate}
     </div>
   ) : undefined;
-
-  const adminBtns = (
-    <>
-      <hr />
-      <div className="admin_btns">
-        <Link to={VideoRoutes.videoManage(video.videoId)}>
-          <Button>Video Manage</Button>
-        </Link>
-        <Link to={VideoRoutes.entryManage(entryId)}>
-          <Button>Entry Manage</Button>
-        </Link>
-      </div>
-    </>
-  );
 
   const sections = (
     <>
@@ -73,7 +60,7 @@ export function VideoDetailPage() {
           </Button>
         )}
       </div>
-      {isAdmin && adminBtns}
+      <VideoDetailPageAdminButtons />
       {seasons && <VideoEpisodeSection seasons={seasons} videoId={video.videoId} />}
       {group && <VideoGroupSection category={category} group={group} />}
     </>
@@ -83,7 +70,7 @@ export function VideoDetailPage() {
     <div id="VideoDetailPage">
       <MobileHeader title={entry.name} back btns={mobileHeaderButtons} />
       <CommonContainer>
-        <VideoDetailPlayer video={video} />
+        <VideoDetailPlayer video={video} onEnd={playNextVideo} />
         <VideoSettingSection video={video} />
         {!showSetting && sections}
       </CommonContainer>

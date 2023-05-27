@@ -1,6 +1,6 @@
+import { t } from 'i18next';
 import React, { useContext } from 'react';
 import { Card, Form, InputGroup } from 'react-bootstrap';
-import { useTranslation } from 'react-i18next';
 
 import { VideoSubtitle } from 'src/model/video';
 import { VideoDetailContext } from 'src/pages/video/detail/VideoDetailContext';
@@ -10,8 +10,6 @@ interface Props {
 }
 
 export default function VideoSubtitleSettingCard({ subtitles }: Props) {
-  const { t } = useTranslation();
-
   const items = subtitles.map((v) => <VideoSubtitleSettingItem key={v.url} subtitle={v} />);
 
   return (

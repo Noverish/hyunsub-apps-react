@@ -1,3 +1,11 @@
+import { stringifyUrl } from 'query-string';
+
+interface VideoDetailRouteParams {
+  entryId: string;
+  videoId?: string;
+  autoplay?: boolean;
+}
+
 const VideoRoutes = {
   home: '/',
 
@@ -7,9 +15,11 @@ const VideoRoutes = {
   list: (category: string) => `/list/${category}`,
 
   detailRoute: '/entry/:entryId',
-  detail: (entryId: string, videoId?: string) => {
-    const query = videoId ? `?videoId=${videoId}` : '';
-    return `/entry/${entryId}${query}`;
+  detail: ({ entryId, videoId, autoplay }: VideoDetailRouteParams) => {
+    return stringifyUrl({
+      url: `/entry/${entryId}`,
+      query: { videoId, autoplay },
+    });
   },
 
   admin: '/admin',

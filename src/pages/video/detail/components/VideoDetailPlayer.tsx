@@ -7,12 +7,15 @@ import VideoPlayer, { VideoPlayerProps } from 'src/components/video/player/Video
 import { Video } from 'src/model/video';
 import { VideoDetailContext } from 'src/pages/video/detail/VideoDetailContext';
 import { isIOS } from 'src/utils/user-agent';
+import { useOptionalUrlParams } from 'src/hooks/url-params';
 
 interface Props {
   video: Video;
+  onEnd?: () => void;
 }
 
-export default function VideoDetailPlayer({ video }: Props) {
+export default function VideoDetailPlayer({ video, onEnd }: Props) {
+  const [autoplay] = useOptionalUrlParams('autoplay');
   const [{ subtitleSync }] = useContext(VideoDetailContext);
   const { videoUrl, thumbnailUrl, subtitles, time } = video;
 
@@ -26,6 +29,8 @@ export default function VideoDetailPlayer({ video }: Props) {
     subtitleSync,
     onTimeUpdate: onTimeUpdate2,
     time,
+    onEnd,
+    autoplay: !!autoplay,
   };
 
   const videoPlayer = isIOS() ? <SimpleVideoPlayer {...videoPlayerProps} /> : <VideoPlayer {...videoPlayerProps} />;

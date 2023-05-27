@@ -23,7 +23,7 @@ export default function EntryManagePage() {
     <div id="EntryManagePage">
       <MobileHeader title="Entry Manage" back />
       <CommonContainer>
-        <Link to={VideoRoutes.detail(entryId)}>
+        <Link to={VideoRoutes.detail({ entryId })}>
           <h1>{entry.name}</h1>
         </Link>
         <EntryScanCard />

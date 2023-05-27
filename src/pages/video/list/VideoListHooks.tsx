@@ -50,6 +50,6 @@ export function useNavigateVideoDetail() {
       await videoEntryDetailApi.fetch({ entryId });
       dispatch(GlobalActions.update({ loading: false }));
     }
-    router.navigate(VideoRoutes.detail(entryId, undefined));
+    router.navigate(VideoRoutes.detail({ entryId }));
   };
 }

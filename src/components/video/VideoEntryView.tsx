@@ -12,7 +12,7 @@ interface Props {
 }
 
 export default function VideoEntryView({ category, entry }: Props) {
-  const href = VideoRoutes.detail(entry.id);
+  const href = VideoRoutes.detail({ entryId: entry.id });
   const style: any = category.itemCss && JSON.parse(category.itemCss);
   const navigateVideoDetail = useNavigateVideoDetail();
 

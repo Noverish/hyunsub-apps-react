@@ -27,12 +27,19 @@ export default function VideoEpisodeItem({ episode, active }: Props) {
     );
   };
 
-  const href = VideoRoutes.detail(entryId, episode.videoId);
+  const href = VideoRoutes.detail({ entryId, videoId: episode.videoId });
   const className = cs('episode_item col-6 d-flex', { active });
 
   return (
     <a className={className} href={href} onClick={onClick}>
-      <VideoThumbnail className="episode_thumbnail ratio-16x9" src={thumbnailUrl} time={time} duration={duration} alt={episode.title} active={active} />
+      <VideoThumbnail
+        className="episode_thumbnail ratio-16x9"
+        src={thumbnailUrl}
+        time={time}
+        duration={duration}
+        alt={episode.title}
+        active={active}
+      />
       <div className="episode_title">{episode.title}</div>
     </a>
   );

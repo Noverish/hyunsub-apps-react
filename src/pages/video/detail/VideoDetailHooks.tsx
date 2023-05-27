@@ -1,9 +1,11 @@
 import { useCallback, useContext, useEffect } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 
+import VideoRoutes from '../VideoRoutes';
 import videoEntryDetailApi from 'src/api/video/video-entry-detail';
 import useVideoHistorySetApi from 'src/api/video/video-history-set';
 import { VideoSeason } from 'src/model/video';
+import router from 'src/pages/router';
 import { VideoDetailContext } from 'src/pages/video/detail/VideoDetailContext';
 import AppConstant from 'src/utils/constants';
 
@@ -17,9 +19,24 @@ export function useVideoDetailPageParams() {
   return { entryId, videoId };
 }
 
-export function useLoadVideoDetailPage() {
+export function useVideoDetailPageData() {
   const params = useVideoDetailPageParams();
   return videoEntryDetailApi.useApi(params);
+}
+
+export function useVideoDetailPageSeason(): VideoSeason | null {
+  const data = useVideoDetailPageData();
+  const seasons = data.seasons || [];
+
+  for (const season of seasons) {
+    for (const epidsode of season.episodes) {
+      if (epidsode.videoId === data.video.videoId) {
+        return season;
+      }
+    }
+  }
+
+  return null;
 }
 
 function parseSeasonAndPage(seasons: VideoSeason[], videoId: string): [VideoSeason, number] {
@@ -80,4 +97,20 @@ export function useVideoHistoryUpdator(videoId: string) {
   );
 
   return onTimeUpdate;
+}
+
+export function usePlayNextVideo() {
+  const { entry, video } = useVideoDetailPageData();
+  const episodes = useVideoDetailPageSeason()?.episodes ?? [];
+
+  const index = episodes.findIndex((v) => v.videoId === video.videoId);
+  const nextEpisode = episodes[index + 1];
+
+  return () => {
+    if (nextEpisode) {
+      router.navigate(
+        VideoRoutes.detail({ entryId: entry.id, videoId: nextEpisode.videoId, autoplay: true })
+      );
+    }
+  };
 }
