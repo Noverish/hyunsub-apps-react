@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import driveListApi from 'src/api/drive/drive-list';
 import useYoutubeDownloadStatus from 'src/api/file/youtube-download-status';
@@ -11,10 +11,15 @@ interface Props {
 export default function YoutubeDownloadStatus({ nonce }: Props) {
   const [state, setState] = useState<string[]>([]);
   const { path } = useDriveExplorerContext();
+  const ref = useRef<HTMLPreElement>(null);
 
   useEffect(() => {
     setState([]);
   }, [nonce]);
+
+  useEffect(() => {
+    ref.current?.scrollTo(0, Number.MAX_SAFE_INTEGER);
+  }, [state]);
 
   const onMessage = useCallback((message: string) => {
     setState((v) => [...v, message]);
@@ -27,7 +32,7 @@ export default function YoutubeDownloadStatus({ nonce }: Props) {
   useYoutubeDownloadStatus({ nonce, onMessage, onClose });
 
   return (
-    <pre className="YoutubeDownloadStatus">
+    <pre className="YoutubeDownloadStatus" ref={ref}>
       <code>{state.join('')}</code>
     </pre>
   );
