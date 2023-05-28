@@ -8,7 +8,10 @@ import driveNewFolderApi from 'src/api/drive/drive-new-folder';
 import driveRemoveBulkApi from 'src/api/drive/drive-remove-bulk';
 import driveRenameBulkApi from 'src/api/drive/drive-rename-bulk';
 import { DriveExplorerContext } from 'src/components/drive/explorer/DriveExplorerContext';
-import { useDriveExplorerContext, useDriveExplorerSelectChange } from 'src/components/drive/explorer/DriveExplorerHooks';
+import {
+  useDriveExplorerContext,
+  useDriveExplorerSelectChange,
+} from 'src/components/drive/explorer/DriveExplorerHooks';
 import { DriveFileInfo } from 'src/model/drive';
 import { dateToString } from 'src/utils';
 import AppConstant from 'src/utils/constants';
@@ -89,15 +92,22 @@ export function useDriveFileDownload() {
   const { path, files, selects } = useDriveExplorerContext();
 
   return () => {
-    for (const select of selects) {
+    for (let i = 0; i < selects.length; i++) {
+      const select = selects[i];
       const file = files[files.findIndex((v) => v.name === select)];
-      const fileUrl = AppConstant.file.HOST + join(path, file.name);
+      if (file.isDir) {
+        // TODO notify properly to user
+        continue;
+      }
 
-      const link = document.createElement('a');
-      link.href = fileUrl;
-      link.target = '_blank';
-      link.download = file.name;
-      link.click();
+      const fileUrl = AppConstant.file.HOST + join(path, file.name) + '?download';
+
+      setTimeout(() => {
+        const link = document.createElement('a');
+        link.href = fileUrl;
+        link.download = file.name;
+        link.click();
+      }, i * 1000);
     }
   };
 }
