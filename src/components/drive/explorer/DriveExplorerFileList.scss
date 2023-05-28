@@ -56,7 +56,14 @@
   }
 }
 
-.DriveExplorerFileList .loading {
-  height: 240px;
-  border-bottom: 1px solid var(--hyunsub-divider-color);
+.DriveExplorerFileList {
+  .loading {
+    height: 240px;
+    border-bottom: 1px solid var(--hyunsub-divider-color);
+  }
+
+  .table_footer {
+    height: 36px;
+    border-bottom: 1px solid var(--hyunsub-divider-color);
+  }
 }

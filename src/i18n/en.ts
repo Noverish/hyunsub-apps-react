@@ -183,6 +183,7 @@ const en = {
     'drive.DriveExplorerFileList.date': 'Modified Date',
     'drive.DriveExplorerFileList.new-folder': 'New Folder',
     'drive.DriveExplorerFileList.empty-folder': 'Empty Folder',
+    'drive.DriveExplorerFileList.n-files': '{{0}} Files',
     'drive.DriveUploadModal.abort-msg': 'Are you sure to cancel upload?',
     'drive.YoutubeDownloadModal.title': 'YouTube Download',
     'drive.YoutubeDownloadModal.msg.empty-url': 'Please input URL',
