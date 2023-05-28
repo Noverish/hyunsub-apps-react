@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { isApp } from './user-agent';
 
 export const Breakpoint = {
   xs: 0,
@@ -59,5 +60,5 @@ export function useBreakPoint(): BreakpointCode {
 }
 
 export function useBreakpointMobile(): boolean {
-  return useBreakPoint() <= Breakpoint.sm;
+  return useBreakPoint() <= Breakpoint.sm || isApp();
 }
