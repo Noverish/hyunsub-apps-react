@@ -1,9 +1,9 @@
 import { Dispatch } from '@reduxjs/toolkit';
 
-import adminSignOut from 'src/api/auth/admin/admin-sign-out';
-import getAllUsers from 'src/api/auth/admin/all-users';
-import delUserAuthority, { DelUserAuthorityParams } from 'src/api/auth/admin/del-user-authority';
-import putUserAuthority, { PutUserAuthorityParams } from 'src/api/auth/admin/put-user-authority';
+import userAuthorityCreateApi, { PutUserAuthorityParams } from 'src/api/auth/admin/user-authority-create';
+import userAuthorityDeleteApi, { DelUserAuthorityParams } from 'src/api/auth/admin/user-authority-delete';
+import userDeleteApi from 'src/api/auth/admin/user-delete';
+import userListApi from 'src/api/auth/admin/user-list';
 import QueryClient from 'src/api/query-client';
 import { AdminUser } from 'src/model/auth';
 import { RootState } from 'src/redux';
@@ -12,8 +12,8 @@ import { GlobalActions } from 'src/redux/global';
 export const putUserAuthorityAction =
   (params: PutUserAuthorityParams) => async (dispatch: Dispatch, getState: () => RootState) => {
     dispatch(GlobalActions.update({ loading: true }));
-    await putUserAuthority(params);
-    QueryClient.setQueryData<AdminUser[]>(getAllUsers.key({}), (users) => {
+    await userAuthorityCreateApi(params);
+    QueryClient.setQueryData<AdminUser[]>(userListApi.key({}), (users) => {
       if (!users) {
         return [];
       }
@@ -32,8 +32,8 @@ export const putUserAuthorityAction =
 export const delUserAuthorityAction =
   (params: DelUserAuthorityParams) => async (dispatch: Dispatch, getState: () => RootState) => {
     dispatch(GlobalActions.update({ loading: true }));
-    await delUserAuthority(params);
-    QueryClient.setQueryData<AdminUser[]>(getAllUsers.key({}), (users) => {
+    await userAuthorityDeleteApi(params);
+    QueryClient.setQueryData<AdminUser[]>(userListApi.key({}), (users) => {
       if (!users) {
         return [];
       }
@@ -52,8 +52,8 @@ export const delUserAuthorityAction =
 
 export const adminSignOutAction = (idNo: string) => async (dispatch: Dispatch, getState: () => RootState) => {
   dispatch(GlobalActions.update({ loading: true }));
-  await adminSignOut({ idNo });
-  QueryClient.setQueryData<AdminUser[]>(getAllUsers.key({}), (users) => {
+  await userDeleteApi({ idNo });
+  QueryClient.setQueryData<AdminUser[]>(userListApi.key({}), (users) => {
     if (!users) {
       return [];
     }

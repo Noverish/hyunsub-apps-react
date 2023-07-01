@@ -5,10 +5,10 @@ export interface PutUserAuthorityParams {
   authorityId: number;
 }
 
-const putUserAuthority = generateApi<PutUserAuthorityParams, any>((params) => ({
+const userAuthorityCreateApi = generateApi<PutUserAuthorityParams, any>((params) => ({
   url: '/api/v1/admin/users/authority',
   method: 'PUT',
   data: params,
 }));
 
-export default putUserAuthority;
+export default userAuthorityCreateApi;

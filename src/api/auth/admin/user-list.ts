@@ -1,7 +1,7 @@
 import { generateQuery } from 'src/api/generate-api';
 import { AdminUser } from 'src/model/auth';
 
-const getAllUsers = generateQuery<{}, AdminUser[]>({
+const userListApi = generateQuery<{}, AdminUser[]>({
   api: () => ({
     url: '/api/v1/admin/users',
     method: 'GET',
@@ -9,4 +9,4 @@ const getAllUsers = generateQuery<{}, AdminUser[]>({
   key: () => 'allUsers',
 });
 
-export default getAllUsers;
+export default userListApi;

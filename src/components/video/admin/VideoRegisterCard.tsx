@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 
 import { VideoRegisterParams } from 'src/api/video/admin/video-register';
 import ApiResult from 'src/components/common/ApiResult';
-import PathSelect from 'src/components/common/PathSelect';
+import PathSelect from 'src/components/common/select/PathSelect';
 import VieoCategorySelect from 'src/components/video/select/VideoCategorySelect';
 import VideoGroupSelect from 'src/components/video/select/VideoGroupSelect';
 import { VideoCategory, VideoGroup } from 'src/model/video';

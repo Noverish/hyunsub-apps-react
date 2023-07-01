@@ -1,7 +1,7 @@
 import { generateQuery } from 'src/api/generate-api';
 import { AdminAuthority } from 'src/model/auth';
 
-const getAllAuthorities = generateQuery<{}, AdminAuthority[]>({
+const authorityListApi = generateQuery<{}, AdminAuthority[]>({
   api: () => ({
     url: '/api/v1/admin/authorities',
     method: 'GET',
@@ -9,4 +9,4 @@ const getAllAuthorities = generateQuery<{}, AdminAuthority[]>({
   key: () => 'allAuthorities',
 });
 
-export default getAllAuthorities;
+export default authorityListApi;

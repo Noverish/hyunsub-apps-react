@@ -4,7 +4,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 
 import { VideoSubtitleParams } from 'src/api/video/video-manage/video-subtitle';
 import ApiResult from 'src/components/common/ApiResult';
-import PathSelect from 'src/components/common/PathSelect';
+import PathSelect from 'src/components/common/select/PathSelect';
 import { useUrlParams } from 'src/hooks/url-params';
 import { videoSubtitleUploadAction } from 'src/pages/video/admin/VideoAdminContext';
 import { useDispatch, useSelector } from 'src/redux';

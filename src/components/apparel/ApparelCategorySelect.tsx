@@ -1,6 +1,6 @@
-import SimpleSelect from '../common/SimpleSelect';
+import SimpleSelect from '../common/select/SimpleSelect';
 import apparelCategoriesApi from 'src/api/apparel/apparel-categories';
-import { SimpleSelectProps } from 'src/components/common/SimpleSelect';
+import { SimpleSelectProps } from 'src/components/common/select/SimpleSelect';
 
 type Props = Omit<SimpleSelectProps, 'data'>;
 
