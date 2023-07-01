@@ -1,6 +1,6 @@
 import { Col, Row } from 'react-bootstrap';
 
-import { useSelector } from 'src/redux';
+import { useTokenPayload } from 'src/hooks/token';
 import services from 'src/utils/services';
 
 import './AppsIndex.scss';
@@ -8,7 +8,7 @@ import './AppsIndex.scss';
 export default function AppsIndex() {
   document.title = 'Hyunsub Apps';
 
-  const authorities = useSelector((s) => s.global.tokenPayload?.authorities) || [];
+  const { authorities } = useTokenPayload();
 
   const items = services.filter((v) => authorities.includes(v.code));
 

@@ -50,7 +50,7 @@ export function useNaverMapPolyline(map: naver.maps.Map | null) {
         new naver.maps.LatLng(37.371657839593894, 127.11645126342773),
         new naver.maps.LatLng(37.36855417793982, 127.1207857131958),
       ],
-      strokeWeight: 4
+      strokeWeight: 4,
     });
   }, [map]);
 }

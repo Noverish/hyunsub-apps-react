@@ -42,8 +42,7 @@ export function VideoDetailPage() {
 
   const metadataElement = metadata ? (
     <div className="metadata">
-      {metadata.duration} &middot; {metadata.size} &middot; {metadata.resolution} &middot;{' '}
-      {metadata.bitrate}
+      {metadata.duration} &middot; {metadata.size} &middot; {metadata.resolution} &middot; {metadata.bitrate}
     </div>
   ) : undefined;
 

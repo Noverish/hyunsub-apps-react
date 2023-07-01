@@ -4,9 +4,9 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { VideoRegisterParams } from 'src/api/video/admin/video-register';
 import ApiResult from 'src/components/common/ApiResult';
 import PathSelect from 'src/components/common/PathSelect';
+import { useUrlParams } from 'src/hooks/url-params';
 import { videoRegisterToEntryAction } from 'src/pages/video/admin/VideoAdminContext';
 import { useDispatch, useSelector } from 'src/redux';
-import { useUrlParams } from 'src/hooks/url-params';
 
 export default function EntryVideoRegisterCard() {
   const [entryId] = useUrlParams('entryId');

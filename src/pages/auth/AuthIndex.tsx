@@ -2,6 +2,7 @@ import { lazy } from 'react';
 import { Navigate, RouteObject } from 'react-router-dom';
 
 import routes from './AuthRoutes';
+import AdminLayout from 'src/components/common/AdminLayout';
 
 const NotFoundPage = lazy(() => import('src/pages/common/NotFoundPage'));
 const LoginPage = lazy(() => import('src/pages/auth/login/LoginPage'));
@@ -15,5 +16,12 @@ export const AuthRouteObjects: RouteObject[] = [
   { path: routes.login, element: <LoginPage /> },
   { path: routes.register, element: <RegisterPage /> },
   { path: routes.my, element: <MyPage /> },
-  { path: routes.admin, element: <AuthAdminPage /> },
+  {
+    path: routes.admin,
+    element: (
+      <AdminLayout>
+        <AuthAdminPage />
+      </AdminLayout>
+    ),
+  },
 ];

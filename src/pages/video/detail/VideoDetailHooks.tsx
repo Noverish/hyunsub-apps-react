@@ -108,9 +108,7 @@ export function usePlayNextVideo() {
 
   return () => {
     if (nextEpisode) {
-      router.navigate(
-        VideoRoutes.detail({ entryId: entry.id, videoId: nextEpisode.videoId, autoplay: true })
-      );
+      router.navigate(VideoRoutes.detail({ entryId: entry.id, videoId: nextEpisode.videoId, autoplay: true }));
     }
   };
 }

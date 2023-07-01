@@ -1,11 +1,8 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { TokenPayload } from 'src/utils/token';
-
 interface State {
   loading: boolean;
   errMsg?: string;
-  tokenPayload?: TokenPayload;
 }
 
 const initialState: State = {

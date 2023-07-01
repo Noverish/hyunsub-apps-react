@@ -77,8 +77,7 @@ export function generateQuery<P, R>(option: GenerateApiOption<P>): GenerateApiRe
       ...option,
     });
   const cache = (p: P) => QueryClient.getQueryData<R>(key(p));
-  const prefetch = (p: P) =>
-    QueryClient.prefetchQuery(key(p), () => api(p), { staleTime: Infinity });
+  const prefetch = (p: P) => QueryClient.prefetchQuery(key(p), () => api(p), { staleTime: Infinity });
   const fetch = (p: P) => QueryClient.fetchQuery(key(p), () => api(p), { staleTime: Infinity });
   const invalidate = (p: P) => QueryClient.invalidateQueries(key(p), { refetchType: 'active' });
 

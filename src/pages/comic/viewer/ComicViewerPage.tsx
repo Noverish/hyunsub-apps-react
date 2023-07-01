@@ -58,7 +58,14 @@ export default function ComicViewerPage() {
 
   return (
     <div className="ComicViewerPage">
-      <ImageSwiper initialSlide={history || 0} slides={urls} onSlideChange={onPageChange} additionalLastSlide={additionalLastSlide} titlePrefix={episodeTitle} onSwiper={(s) => (swiperRef.current = s)} />
+      <ImageSwiper
+        initialSlide={history || 0}
+        slides={urls}
+        onSlideChange={onPageChange}
+        additionalLastSlide={additionalLastSlide}
+        titlePrefix={episodeTitle}
+        onSwiper={(s) => (swiperRef.current = s)}
+      />
     </div>
   );
 }

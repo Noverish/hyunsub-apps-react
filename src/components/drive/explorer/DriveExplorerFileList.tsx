@@ -71,7 +71,9 @@ export default function DriveExplorerFileList() {
           {rows}
         </div>
         {additional}
-        {files && <div className="table_footer flex_center">{t('drive.DriveExplorerFileList.n-files', [files.length])}</div>}
+        {files && (
+          <div className="table_footer flex_center">{t('drive.DriveExplorerFileList.n-files', [files.length])}</div>
+        )}
       </div>
     </FileUploadZone>
   );

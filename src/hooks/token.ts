@@ -1,7 +1,8 @@
+import { useQuery } from '@tanstack/react-query';
 import * as jose from 'jose';
 import Cookie from 'js-cookie';
 
-import AppConstant from './constants';
+import AppConstant from '../utils/constants';
 
 export interface TokenPayload {
   idNo: string;
@@ -10,12 +11,12 @@ export interface TokenPayload {
   isAdmin: boolean;
 }
 
-export async function loadTokenPayload(): Promise<TokenPayload | undefined> {
+async function loadTokenPayload(): Promise<TokenPayload> {
   const algorithm = 'ES512';
 
   const token = Cookie.get(AppConstant.TOKEN_COOKIE_NAME);
   if (!token) {
-    return undefined;
+    throw new Error('401 Unauthorized - There is no token');
   }
 
   const key = await jose.importSPKI(AppConstant.TOKEN_PUBLIC_KEY, algorithm);
@@ -24,4 +25,17 @@ export async function loadTokenPayload(): Promise<TokenPayload | undefined> {
   const payload = JSON.parse(json) as TokenPayload;
   payload.isAdmin = payload.authorities.includes('admin');
   return payload;
+}
+
+export function useTokenPayload(): TokenPayload {
+  return useQuery({
+    queryKey: ['useTokenPayload'],
+    queryFn: loadTokenPayload,
+    staleTime: Infinity,
+    suspense: true,
+  }).data!!;
+}
+
+export function useIsAdmin() {
+  return useTokenPayload().isAdmin;
 }

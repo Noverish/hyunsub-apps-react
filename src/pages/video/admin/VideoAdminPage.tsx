@@ -6,8 +6,9 @@ import VideoEntryCreateModal from './components/VideoEntryCreateModal';
 import CommonContainer from 'src/components/common/header/CommonContainer';
 import MobileHeader from 'src/components/common/header/MobileHeader';
 import VideoRegisterCard from 'src/components/video/admin/VideoRegisterCard';
+import { useIsAdmin } from 'src/hooks/token';
 import NotFoundPage from 'src/pages/common/NotFoundPage';
-import { dispatch, useSelector } from 'src/redux';
+import { dispatch } from 'src/redux';
 
 export function VideoAdminPage() {
   useEffect(() => {
@@ -36,8 +37,7 @@ export function VideoAdminPage() {
 }
 
 export default function VideoAdminIndex() {
-  const isAdmin = useSelector((s) => s.global.tokenPayload)?.isAdmin || false;
-  if (!isAdmin) {
+  if (!useIsAdmin()) {
     return <NotFoundPage />;
   }
 

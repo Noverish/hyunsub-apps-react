@@ -85,20 +85,39 @@ export default function RegisterPage() {
         <form className="d-grid gap-3" onSubmit={handleSubmit(onSubmit)}>
           <div>
             <label className="form-label">{t('auth.id')}</label>
-            <input type="text" className={cs('form-control', { 'is-invalid': usernameErrMsg })} {...usernameRegister} autoCapitalize="none" />
+            <input
+              type="text"
+              className={cs('form-control', { 'is-invalid': usernameErrMsg })}
+              {...usernameRegister}
+              autoCapitalize="none"
+            />
             <div className="invalid-feedback">{usernameErrMsg}</div>
           </div>
           <div>
             <label className="form-label">{t('auth.pw')}</label>
-            <input type="password" className={cs('form-control', { 'is-invalid': password1ErrMsg })} {...passwordRegister1} />
+            <input
+              type="password"
+              className={cs('form-control', { 'is-invalid': password1ErrMsg })}
+              {...passwordRegister1}
+            />
             <div className="invalid-feedback">{password1ErrMsg}</div>
           </div>
           <div>
             <label className="form-label">{t('auth.pw-confirm')}</label>
-            <input type="password" className={cs('form-control', { 'is-invalid': password2ErrMsg })} {...passwordRegister2} />
+            <input
+              type="password"
+              className={cs('form-control', { 'is-invalid': password2ErrMsg })}
+              {...passwordRegister2}
+            />
             <div className="invalid-feedback">{password2ErrMsg}</div>
           </div>
-          <ReCAPTCHA className="flex_center" ref={captchaRef} theme="dark" sitekey={AppConstant.RECAPTCHA_SITE_KEY} onChange={onCaptchaClick} />
+          <ReCAPTCHA
+            className="flex_center"
+            ref={captchaRef}
+            theme="dark"
+            sitekey={AppConstant.RECAPTCHA_SITE_KEY}
+            onChange={onCaptchaClick}
+          />
           <button type="submit" className="btn btn-primary">
             {t('auth.register')}
           </button>

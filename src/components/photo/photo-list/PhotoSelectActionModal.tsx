@@ -32,5 +32,12 @@ export default function PhotoSelectActionModal({ albumId }: Props) {
     });
   }
 
-  return <ButtonListModal className="VideoSortModal" show={state.showSelectActionModal} onHide={() => setState({ showSelectActionModal: false })} items={items} />;
+  return (
+    <ButtonListModal
+      className="VideoSortModal"
+      show={state.showSelectActionModal}
+      onHide={() => setState({ showSelectActionModal: false })}
+      items={items}
+    />
+  );
 }

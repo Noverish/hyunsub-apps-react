@@ -36,7 +36,11 @@ function PhotoListPage() {
         <ListLoadingIndicator isFetching={isFetching} />
       </CommonContainer>
       <PhotoSelectActionModal />
-      <AlbumSelectModal show={state.showAlbumSelectModal} onHide={() => setState({ showAlbumSelectModal: false })} onClick={albumPhotoRegister} />
+      <AlbumSelectModal
+        show={state.showAlbumSelectModal}
+        onHide={() => setState({ showAlbumSelectModal: false })}
+        onClick={albumPhotoRegister}
+      />
     </div>
   );
 }

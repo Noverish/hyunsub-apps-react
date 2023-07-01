@@ -20,7 +20,7 @@ export default function SimpleSelect(props: SimpleSelectProps) {
 
   const data: Option[] = (props.data || []).map((v) => ({ value: v, label: v }));
 
-  const value = data.filter(v => v.value === props.value)[0];
+  const value = data.filter((v) => v.value === props.value)[0];
 
   return (
     <CreatableSelect

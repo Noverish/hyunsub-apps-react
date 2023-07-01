@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+
 import { isApp } from './user-agent';
 
 export const Breakpoint = {

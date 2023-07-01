@@ -3,7 +3,11 @@ import { useTranslation } from 'react-i18next';
 import Select, { ActionMeta, MultiValue, StylesConfig } from 'react-select';
 
 import { AdminAuthority, AdminUser } from 'src/model/auth';
-import { adminSignOutAction, delUserAuthorityAction, putUserAuthorityAction } from 'src/pages/auth/admin/AuthAdminContext';
+import {
+  adminSignOutAction,
+  delUserAuthorityAction,
+  putUserAuthorityAction,
+} from 'src/pages/auth/admin/AuthAdminContext';
 import { useDispatch } from 'src/redux';
 
 interface Props {
@@ -65,7 +69,16 @@ export default function AdminUserListItem(props: Props) {
           {t('auth.sign-out')}
         </Button>
       </div>
-      <Select className="mt-2" getOptionLabel={getOptionLabel} getOptionValue={getOptionValue} options={authorities} styles={styleConfig} defaultValue={userAuthorities} isMulti onChange={onChange} />
+      <Select
+        className="mt-2"
+        getOptionLabel={getOptionLabel}
+        getOptionValue={getOptionValue}
+        options={authorities}
+        styles={styleConfig}
+        defaultValue={userAuthorities}
+        isMulti
+        onChange={onChange}
+      />
     </ListGroup.Item>
   );
 }

@@ -3,7 +3,13 @@ import { useState } from 'react';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 
-import { useDriveRenameAddNumber, useDriveRenameBulk, useDriveRenamePadNumber, useDriveRenameReplace, useDriveRenameReset } from './DriveRenameHooks';
+import {
+  useDriveRenameAddNumber,
+  useDriveRenameBulk,
+  useDriveRenamePadNumber,
+  useDriveRenameReplace,
+  useDriveRenameReset,
+} from './DriveRenameHooks';
 
 import './DriveRenameControl.scss';
 
@@ -70,10 +76,16 @@ export default function DriveRenameControl() {
         <Button variant={renameMode === 'replace' ? 'secondary' : 'outline-secondary'} onClick={onModeClick('replace')}>
           {t('drive.rename.replace')}
         </Button>
-        <Button variant={renameMode === 'add_number' ? 'secondary' : 'outline-secondary'} onClick={onModeClick('add_number')}>
+        <Button
+          variant={renameMode === 'add_number' ? 'secondary' : 'outline-secondary'}
+          onClick={onModeClick('add_number')}
+        >
           {t('drive.rename.add-number')}
         </Button>
-        <Button variant={renameMode === 'pad_number' ? 'secondary' : 'outline-secondary'} onClick={onModeClick('pad_number')}>
+        <Button
+          variant={renameMode === 'pad_number' ? 'secondary' : 'outline-secondary'}
+          onClick={onModeClick('pad_number')}
+        >
           {t('drive.rename.pad-number')}
         </Button>
         <Button variant="danger" onClick={reset}>

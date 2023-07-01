@@ -19,5 +19,18 @@ export default function VieoCategorySelect(props: Props) {
     onSelect?.(newValue);
   };
 
-  return <Select classNamePrefix="select" className={isInvalid ? 'is-invalid' : ''} menuPortalTarget={window.document.body} isClearable isSearchable getOptionLabel={getOptionLabel} getOptionValue={getOptionValue} options={categories} onChange={onSelectChange} styles={{ menuPortal: (base) => ({ ...base, zIndex: 1100 }) }} />;
+  return (
+    <Select
+      classNamePrefix="select"
+      className={isInvalid ? 'is-invalid' : ''}
+      menuPortalTarget={window.document.body}
+      isClearable
+      isSearchable
+      getOptionLabel={getOptionLabel}
+      getOptionValue={getOptionValue}
+      options={categories}
+      onChange={onSelectChange}
+      styles={{ menuPortal: (base) => ({ ...base, zIndex: 1100 }) }}
+    />
+  );
 }

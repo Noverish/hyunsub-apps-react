@@ -70,5 +70,13 @@ export default function PhotoListMobileHeader({ album }: Props) {
 
   const back = selectMode ? false : !!album;
 
-  return <MobileHeader title={title} back={back} onClose={selectMode ? toggleSelectMode : undefined} btns={selectMode ? undefined : normalBtns} menus={selectMode ? selectMenus : normalMenus} />;
+  return (
+    <MobileHeader
+      title={title}
+      back={back}
+      onClose={selectMode ? toggleSelectMode : undefined}
+      btns={selectMode ? undefined : normalBtns}
+      menus={selectMode ? selectMenus : normalMenus}
+    />
+  );
 }

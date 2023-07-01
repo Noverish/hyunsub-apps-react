@@ -15,7 +15,12 @@ export default function AlbumViewerPage() {
 
   return (
     <div id="AlbumViewerPage">
-      <PhotoViewer albumId={albumId} photoId={photoId} infiniteQueryResult={infiniteQueryResult} initialSlide={initialPage} />
+      <PhotoViewer
+        albumId={albumId}
+        photoId={photoId}
+        infiniteQueryResult={infiniteQueryResult}
+        initialSlide={initialPage}
+      />
     </div>
   );
 }

@@ -1,12 +1,12 @@
 import { useContext } from 'react';
 import { ProgressBar } from 'react-bootstrap';
-import 'react-circular-progressbar/dist/styles.css';
 
 import { DriveUploadContext } from './DriveUploadContext';
 import { useDriveUploadClose } from './DriveUploadHooks';
 import DriveUploadItem from './DriveUploadItem';
 
 import './DriveUploadModal.scss';
+import 'react-circular-progressbar/dist/styles.css';
 
 export default function DriveUploadModal() {
   const [{ items, progress, aborted }] = useContext(DriveUploadContext);
@@ -30,7 +30,12 @@ export default function DriveUploadModal() {
             <i className="fas fa-times" />
           </div>
         </div>
-        <ProgressBar now={progress} variant={aborted ? 'danger' : undefined} animated={!aborted && progress !== 100} label={`${progress}%`} />
+        <ProgressBar
+          now={progress}
+          variant={aborted ? 'danger' : undefined}
+          animated={!aborted && progress !== 100}
+          label={`${progress}%`}
+        />
       </div>
       <div className="body">
         <table>

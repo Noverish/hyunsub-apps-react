@@ -69,11 +69,12 @@ interface ValidUrlActionParam {
   url: string;
 }
 
-export const validUrlAction = (params: ValidUrlActionParam) => async (dispatch: Dispatch, getState: () => RootState) => {
-  const { url } = params;
-  const { valid } = await validUrl.fetch({ url });
-  if (!valid) {
-    dispatch(GlobalActions.update({ errMsg: t('auth.api.valid-url.failure') as string }));
-    router.navigate('/error');
-  }
-};
+export const validUrlAction =
+  (params: ValidUrlActionParam) => async (dispatch: Dispatch, getState: () => RootState) => {
+    const { url } = params;
+    const { valid } = await validUrl.fetch({ url });
+    if (!valid) {
+      dispatch(GlobalActions.update({ errMsg: t('auth.api.valid-url.failure') as string }));
+      router.navigate('/error');
+    }
+  };

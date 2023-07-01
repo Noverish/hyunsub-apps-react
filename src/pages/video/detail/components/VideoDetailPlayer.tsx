@@ -4,10 +4,10 @@ import { useContext, useMemo } from 'react';
 import { useVideoHistoryUpdator } from '../VideoDetailHooks';
 import SimpleVideoPlayer from 'src/components/video/player/SimpleVideoPlayer';
 import VideoPlayer, { VideoPlayerProps } from 'src/components/video/player/VideoPlayer';
+import { useOptionalUrlParams } from 'src/hooks/url-params';
 import { Video } from 'src/model/video';
 import { VideoDetailContext } from 'src/pages/video/detail/VideoDetailContext';
 import { isIOS } from 'src/utils/user-agent';
-import { useOptionalUrlParams } from 'src/hooks/url-params';
 
 interface Props {
   video: Video;

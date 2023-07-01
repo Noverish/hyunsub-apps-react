@@ -18,7 +18,13 @@ export default function DriveViewerModal() {
   const file = files[files.findIndex((v) => v.name === selects[0])];
 
   return (
-    <Modal show={viewer && !!file} onHide={onHide} className="DriveViewerModal" centered contentClassName="container-md">
+    <Modal
+      show={viewer && !!file}
+      onHide={onHide}
+      className="DriveViewerModal"
+      centered
+      contentClassName="container-md"
+    >
       {file && <DriveFileViewer file={file} />}
     </Modal>
   );

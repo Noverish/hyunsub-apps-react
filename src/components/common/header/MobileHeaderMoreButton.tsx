@@ -5,7 +5,9 @@ interface ButtonProps {
   onClick: () => void;
 }
 
-const Toggle = forwardRef<HTMLElement, ButtonProps>(({ onClick }, ref) => <i className="fas fa-ellipsis-h" ref={ref} onClick={onClick} />);
+const Toggle = forwardRef<HTMLElement, ButtonProps>(({ onClick }, ref) => (
+  <i className="fas fa-ellipsis-h" ref={ref} onClick={onClick} />
+));
 
 export interface MobileHeaderMoreButtonMenu {
   text: string;

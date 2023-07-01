@@ -52,7 +52,13 @@ export default function PhotoPreviewView(props: Props) {
             </div>
           )}
         </div>
-        <div className="select_container">{selected ? <i className="fas fa-check-circle" onClick={onCheckClick} /> : <i className="far fa-circle" onClick={onCheckClick} />}</div>
+        <div className="select_container">
+          {selected ? (
+            <i className="fas fa-check-circle" onClick={onCheckClick} />
+          ) : (
+            <i className="far fa-circle" onClick={onCheckClick} />
+          )}
+        </div>
       </div>
     </Link>
   );

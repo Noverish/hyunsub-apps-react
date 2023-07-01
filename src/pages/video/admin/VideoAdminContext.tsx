@@ -1,10 +1,10 @@
 import { Dispatch } from '@reduxjs/toolkit';
 
 import VideoRoutes from '../VideoRoutes';
-import videoEncodeApi, { VideoEncodeParams } from 'src/api/video/video-manage/video-encode';
 import videoEntryCreateApi, { VideoEntryCreateParams } from 'src/api/video/admin/video-entry-create';
-import videoMetadataApi from 'src/api/video/video-manage/video-metadata';
 import videoRegister, { VideoRegisterParams } from 'src/api/video/admin/video-register';
+import videoEncodeApi, { VideoEncodeParams } from 'src/api/video/video-manage/video-encode';
+import videoMetadataApi from 'src/api/video/video-manage/video-metadata';
 import videoSubtitleApi, { VideoSubtitleParams } from 'src/api/video/video-manage/video-subtitle';
 import videoThumbnailApi from 'src/api/video/video-manage/video-thumbnail';
 import router from 'src/pages/router';
@@ -48,14 +48,15 @@ export const videoEncodeAction = (params: VideoEncodeParams) => async (dispatch:
   dispatch(GlobalActions.update({ loading: false }));
 };
 
-export const videoSubtitleUploadAction = (params: VideoSubtitleParams) => async (dispatch: Dispatch, getState: () => RootState) => {
-  dispatch(GlobalActions.update({ loading: true }));
+export const videoSubtitleUploadAction =
+  (params: VideoSubtitleParams) => async (dispatch: Dispatch, getState: () => RootState) => {
+    dispatch(GlobalActions.update({ loading: true }));
 
-  const videoSubtitleUploadResult = await videoSubtitleApi(params);
-  dispatch(VideoAdminActions.update({ videoSubtitleUploadResult }));
+    const videoSubtitleUploadResult = await videoSubtitleApi(params);
+    dispatch(VideoAdminActions.update({ videoSubtitleUploadResult }));
 
-  dispatch(GlobalActions.update({ loading: false }));
-};
+    dispatch(GlobalActions.update({ loading: false }));
+  };
 
 export const videoThumbnailAction = (videoId: string) => async (dispatch: Dispatch) => {
   dispatch(GlobalActions.update({ loading: true }));

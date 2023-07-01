@@ -54,7 +54,14 @@ export default function PageSelectModal(props: Props) {
           <InputGroup.Text>/</InputGroup.Text>
           <FormControl type="number" value={total} readOnly />
         </InputGroup>
-        <Form.Range min={0} max={total - 1} value={isNaN(now) ? 0 : now} style={{ touchAction: 'none' }} onInput={onRangeChnage} onClick={(e) => e.stopPropagation()} />
+        <Form.Range
+          min={0}
+          max={total - 1}
+          value={isNaN(now) ? 0 : now}
+          style={{ touchAction: 'none' }}
+          onInput={onRangeChnage}
+          onClick={(e) => e.stopPropagation()}
+        />
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={onHide}>

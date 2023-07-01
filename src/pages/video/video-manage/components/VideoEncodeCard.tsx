@@ -3,9 +3,9 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 
 import { VideoEncodeParams } from 'src/api/video/video-manage/video-encode';
 import ApiResult from 'src/components/common/ApiResult';
+import { useUrlParams } from 'src/hooks/url-params';
 import { videoEncodeAction } from 'src/pages/video/admin/VideoAdminContext';
 import { useDispatch, useSelector } from 'src/redux';
-import { useUrlParams } from 'src/hooks/url-params';
 
 export default function VideoEncodeCard() {
   const [videoId] = useUrlParams('videoId');

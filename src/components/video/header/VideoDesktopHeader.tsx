@@ -2,13 +2,13 @@ import { t } from 'i18next';
 
 import videoCategoryApi from 'src/api/video/video-category';
 import DesktopHeader, { DesktopHeaderDropdown, DesktopHeaderProps } from 'src/components/common/header/DesktopHeader';
+import { useIsAdmin } from 'src/hooks/token';
 import router from 'src/pages/router';
 import VideoRoutes from 'src/pages/video/VideoRoutes';
-import { useSelector } from 'src/redux';
 
 export default function VideoDesktopHeader() {
   const { data } = videoCategoryApi.useApiResult({});
-  const isAdmin = useSelector((s) => s.global.tokenPayload?.isAdmin);
+  const isAdmin = useIsAdmin();
   const categories = data || [];
 
   const menus = categories.map((v) => ({

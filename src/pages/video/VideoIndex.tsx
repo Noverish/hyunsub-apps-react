@@ -2,6 +2,7 @@ import { lazy } from 'react';
 import { Outlet, RouteObject } from 'react-router-dom';
 
 import VideoRoutes from './VideoRoutes';
+import AdminLayout from 'src/components/common/AdminLayout';
 import VideoDesktopkHeader from 'src/components/video/header/VideoDesktopHeader';
 import VideoTabBar from 'src/components/video/header/VideoTabBar';
 
@@ -26,7 +27,6 @@ export const VideoRotueObjects: RouteObject[] = [
       </>
     ),
     children: [
-      { path: VideoRoutes.admin, element: <VideoAdminPage /> },
       { path: VideoRoutes.detailRoute, element: <VideoDetailPage /> },
       { path: VideoRoutes.history, element: <VideoHistoryPage /> },
       { path: VideoRoutes.home, element: <VideoHomePage /> },
@@ -35,6 +35,14 @@ export const VideoRotueObjects: RouteObject[] = [
       { path: VideoRoutes.search, element: <VideoSearchPage /> },
       { path: VideoRoutes.entryManageRoute, element: <EntryManagePage /> },
       { path: VideoRoutes.videoManageRoute, element: <VideoManagePage /> },
+      {
+        path: VideoRoutes.admin,
+        element: (
+          <AdminLayout>
+            <VideoAdminPage />
+          </AdminLayout>
+        ),
+      },
     ],
   },
 ];

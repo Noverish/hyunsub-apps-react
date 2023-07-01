@@ -17,7 +17,9 @@ export function setCaptionFontSize(size: number) {
 }
 
 export function getCaptionFontSize(): number {
-  const value = window.localStorage.getItem(AppConstant.video.SETTING_SUBTITLE_FONT_SIZE) || AppConstant.video.SETTING_SUBTITLE_DEFAULT_FONT_SIZE;
+  const value =
+    window.localStorage.getItem(AppConstant.video.SETTING_SUBTITLE_FONT_SIZE) ||
+    AppConstant.video.SETTING_SUBTITLE_DEFAULT_FONT_SIZE;
   return parseInt(value);
 }
 

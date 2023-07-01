@@ -26,7 +26,9 @@ export default function SimpleVideoPlayer(props: VideoPlayerProps) {
     };
   }, [onTimeUpdate2]);
 
-  const tracks = subtitles.map((v) => <track key={v.url} kind="captions" label={v.label} srcLang={v.srclang} src={v.url} />);
+  const tracks = subtitles.map((v) => (
+    <track key={v.url} kind="captions" label={v.label} srcLang={v.srclang} src={v.url} />
+  ));
 
   return (
     <div className="ratio ratio-16x9">

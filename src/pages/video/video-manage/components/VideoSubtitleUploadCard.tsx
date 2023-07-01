@@ -5,9 +5,9 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { VideoSubtitleParams } from 'src/api/video/video-manage/video-subtitle';
 import ApiResult from 'src/components/common/ApiResult';
 import PathSelect from 'src/components/common/PathSelect';
+import { useUrlParams } from 'src/hooks/url-params';
 import { videoSubtitleUploadAction } from 'src/pages/video/admin/VideoAdminContext';
 import { useDispatch, useSelector } from 'src/redux';
-import { useUrlParams } from 'src/hooks/url-params';
 
 export default function VideoSubtitleUploadCard() {
   const [videoId] = useUrlParams('videoId');
@@ -43,10 +43,26 @@ export default function VideoSubtitleUploadCard() {
       <Card.Body>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <ButtonGroup className="mb-3">
-            <ToggleButton id="radio-true" type="radio" variant="outline-primary" name="radio" value="true" checked={isUploadMode} onChange={onToggle}>
+            <ToggleButton
+              id="radio-true"
+              type="radio"
+              variant="outline-primary"
+              name="radio"
+              value="true"
+              checked={isUploadMode}
+              onChange={onToggle}
+            >
               Upload Mode
             </ToggleButton>
-            <ToggleButton id="radio-false" type="radio" variant="outline-primary" name="radio" value="false" checked={!isUploadMode} onChange={onToggle}>
+            <ToggleButton
+              id="radio-false"
+              type="radio"
+              variant="outline-primary"
+              name="radio"
+              value="false"
+              checked={!isUploadMode}
+              onChange={onToggle}
+            >
               File Move Mode
             </ToggleButton>
           </ButtonGroup>

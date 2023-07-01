@@ -25,7 +25,7 @@ export default function CommonPagination({ now, total, onClick }: PaginationProp
   ));
 
   if (total <= 1) {
-    return <></>
+    return <></>;
   }
 
   return (

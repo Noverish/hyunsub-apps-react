@@ -71,15 +71,32 @@ export default function LoginPage() {
         <form className="d-grid gap-3" onSubmit={handleSubmit(onSubmit)}>
           <div>
             <label className="form-label">{t('auth.id')}</label>
-            <input type="text" className={cs('form-control', { 'is-invalid': usernameErrMsg })} {...usernameRegister} autoCapitalize="none" />
+            <input
+              type="text"
+              className={cs('form-control', { 'is-invalid': usernameErrMsg })}
+              {...usernameRegister}
+              autoCapitalize="none"
+            />
             <div className="invalid-feedback">{usernameErrMsg}</div>
           </div>
           <div>
             <label className="form-label">{t('auth.pw')}</label>
-            <input type="password" className={cs('form-control', { 'is-invalid': passwordErrMsg })} {...passwordRegister} />
+            <input
+              type="password"
+              className={cs('form-control', { 'is-invalid': passwordErrMsg })}
+              {...passwordRegister}
+            />
             <div className="invalid-feedback">{passwordErrMsg}</div>
           </div>
-          {showCaptcha && <ReCAPTCHA className="flex_center" ref={captchaRef} theme="dark" sitekey={AppConstant.RECAPTCHA_SITE_KEY} onChange={onCaptchaClick} />}
+          {showCaptcha && (
+            <ReCAPTCHA
+              className="flex_center"
+              ref={captchaRef}
+              theme="dark"
+              sitekey={AppConstant.RECAPTCHA_SITE_KEY}
+              onChange={onCaptchaClick}
+            />
+          )}
           <button type="submit" className="btn btn-primary">
             {t('auth.login')}
           </button>

@@ -2,7 +2,7 @@ import { InfiniteData, UseInfiniteQueryResult, useInfiniteQuery } from '@tanstac
 import { AxiosRequestConfig } from 'axios';
 import { Draft, produce } from 'immer';
 
-import { generateApi, Updater } from 'src/api/generate-api';
+import { Updater, generateApi } from 'src/api/generate-api';
 import QueryClient from 'src/api/query-client';
 import { PageData, Pagination } from 'src/model/api';
 import { toJSON } from 'src/utils';
@@ -27,9 +27,7 @@ interface GenerateInfiniteApiResult<P, R> {
   key: (p: P) => string[];
 }
 
-export function generateInfiniteQuery2<P, R>(
-  option: GenerateInfiniteApiOption<P>
-): GenerateInfiniteApiResult<P, R> {
+export function generateInfiniteQuery2<P, R>(option: GenerateInfiniteApiOption<P>): GenerateInfiniteApiResult<P, R> {
   const key = (p: P) => [option.key(p), toJSON(p)];
   const api = generateApi<P & PaginationParam, Pagination<R>>(option.api);
 

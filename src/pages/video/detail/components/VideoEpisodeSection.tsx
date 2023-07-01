@@ -16,7 +16,9 @@ interface Props {
 export default function VideoEpisodeSection({ seasons, videoId }: Props) {
   const { episodes, total, totalPage, page, setPage } = useSeasonAndPage(seasons, videoId);
 
-  const episodeElements = episodes.map((v) => <VideoEpisodeItem key={v.videoId} episode={v} active={v.videoId === videoId} />);
+  const episodeElements = episodes.map((v) => (
+    <VideoEpisodeItem key={v.videoId} episode={v} active={v.videoId === videoId} />
+  ));
 
   return (
     <section className="VideoEpisodeSection">

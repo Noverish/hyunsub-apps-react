@@ -2,10 +2,7 @@ import Plyr, { SourceInfo, Track } from 'plyr';
 import { useCallback, useEffect, useState } from 'react';
 
 import { VideoPlayerProps } from 'src/components/video/player/VideoPlayer';
-import {
-  getCaptionFontSize,
-  setCaptionFontSize,
-} from 'src/pages/video/detail/components/VideoSettingSection';
+import { getCaptionFontSize, setCaptionFontSize } from 'src/pages/video/detail/components/VideoSettingSection';
 
 let plyr: Plyr | undefined;
 

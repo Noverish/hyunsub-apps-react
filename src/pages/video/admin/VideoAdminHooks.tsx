@@ -1,7 +1,5 @@
 import VideoRoutes from '../VideoRoutes';
-import videoEntryCreateApi, {
-  VideoEntryCreateParams,
-} from 'src/api/video/admin/video-entry-create';
+import videoEntryCreateApi, { VideoEntryCreateParams } from 'src/api/video/admin/video-entry-create';
 import router from 'src/pages/router';
 import { dispatch } from 'src/redux';
 import { GlobalActions } from 'src/redux/global';

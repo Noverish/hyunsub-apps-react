@@ -1,9 +1,9 @@
 import { Button, Card } from 'react-bootstrap';
 
 import ApiResult from 'src/components/common/ApiResult';
+import { useUrlParams } from 'src/hooks/url-params';
 import { videoMetadataScanAction } from 'src/pages/video/admin/VideoAdminContext';
 import { useDispatch, useSelector } from 'src/redux';
-import { useUrlParams } from 'src/hooks/url-params';
 
 export default function VideoMetadataScanCard() {
   const [videoId] = useUrlParams('videoId');

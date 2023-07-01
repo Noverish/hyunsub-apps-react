@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 import { NavDropdown } from 'react-bootstrap';
 
-import { useVideoDetailPageData } from 'src/pages/video/detail/VideoDetailHooks';
 import { VideoDetailContext } from 'src/pages/video/detail/VideoDetailContext';
+import { useVideoDetailPageData } from 'src/pages/video/detail/VideoDetailHooks';
 
 export default function VideoSeasonDropdown() {
   const { seasons } = useVideoDetailPageData();

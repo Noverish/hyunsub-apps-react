@@ -32,15 +32,7 @@ export default function YoutubeMetadataForm({ metadata }: Props) {
   };
 
   const resolutionRadios = resolutions.map((v, i) => (
-    <Form.Check
-      id={`resolution_${v}`}
-      inline
-      key={v}
-      type="radio"
-      label={v}
-      value={v}
-      {...register('resolution')}
-    />
+    <Form.Check id={`resolution_${v}`} inline key={v} type="radio" label={v} value={v} {...register('resolution')} />
   ));
 
   const subtitleChecks = subtitles.map((v) => (

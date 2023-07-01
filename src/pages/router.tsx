@@ -8,8 +8,8 @@ import NotFoundPage from './common/NotFoundPage';
 import RouteErrorBoundary from './common/RouteErrorBoundary';
 import { DriveRouteObjects } from './drive/DriveIndex';
 import { PhotoRouteObjects } from './photo/PhotoIndex';
-import { VideoRotueObjects } from './video/VideoIndex';
 import { VestigeRouteObjects } from './vestige/VestigeIndex';
+import { VideoRotueObjects } from './video/VideoIndex';
 import LoadingPage from 'src/pages/common/LoadingPage';
 
 function pickRoutes(): RouteObject[] {

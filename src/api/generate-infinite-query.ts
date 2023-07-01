@@ -26,16 +26,12 @@ interface GenerateInfiniteApiResult<P, R> {
   key: (p: P) => string[];
 }
 
-export function generateInfiniteQuery<P, R>(
-  option: GenerateInfiniteApiOption<P>
-): GenerateInfiniteApiResult<P, R> {
+export function generateInfiniteQuery<P, R>(option: GenerateInfiniteApiOption<P>): GenerateInfiniteApiResult<P, R> {
   const key = (p: P) => [option.key(p), toJSON(p)];
   const api = generateApi<P & PageParam, PageData<R>>(option.api);
 
   const useInfiniteApi = (p: P, initialData?: PageData<R>) => {
-    const initialData2 = initialData
-      ? { pageParams: [initialData.page], pages: [initialData] }
-      : undefined;
+    const initialData2 = initialData ? { pageParams: [initialData.page], pages: [initialData] } : undefined;
 
     const result = useInfiniteQuery(key(p), ({ pageParam }) => api({ ...p, page: pageParam }), {
       getNextPageParam: (lastPage) =>

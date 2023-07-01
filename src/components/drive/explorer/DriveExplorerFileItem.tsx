@@ -86,7 +86,13 @@ export default function DriveExplorerFileItem({ file }: Props) {
   const selected = selects.includes(file.name);
 
   const nameElement = isRenameMode ? (
-    <input defaultValue={file.name} onBlur={onRenameInputBlur} onClick={onLinkClick} onKeyDown={onRenameKeyDown} autoFocus></input>
+    <input
+      defaultValue={file.name}
+      onBlur={onRenameInputBlur}
+      onClick={onLinkClick}
+      onKeyDown={onRenameKeyDown}
+      autoFocus
+    ></input>
   ) : (
     <Link to={DriveRoutes.explorer(filePath)} onClick={onLinkClick}>
       {file.name}
@@ -94,7 +100,12 @@ export default function DriveExplorerFileItem({ file }: Props) {
   );
 
   return (
-    <div className={cs('DriveExplorerFileItem table_row', { selected })} onClick={onClick} draggable onDragStart={onDragStart}>
+    <div
+      className={cs('DriveExplorerFileItem table_row', { selected })}
+      onClick={onClick}
+      draggable
+      onDragStart={onDragStart}
+    >
       <div className="cell check">
         <i className={selected ? 'fas fa-check-square' : 'far fa-square'} />
       </div>

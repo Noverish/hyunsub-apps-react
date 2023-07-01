@@ -59,8 +59,16 @@ export default function MyPage() {
           <Card>
             <Card.Header>{t('auth.my-page.login-status')}</Card.Header>
             <ListGroup variant="flush">
-              <ListItem name={t('auth.my-page.login-history')} value={t('auth.my-page.login-history-num', [userInfo.historyNum])} btn={t('view')} />
-              <ListItem name={t('auth.my-page.login-device')} value={t('auth.my-page.login-device-num', [userInfo.deviceNum])} btn={t('view')} />
+              <ListItem
+                name={t('auth.my-page.login-history')}
+                value={t('auth.my-page.login-history-num', [userInfo.historyNum])}
+                btn={t('view')}
+              />
+              <ListItem
+                name={t('auth.my-page.login-device')}
+                value={t('auth.my-page.login-device-num', [userInfo.deviceNum])}
+                btn={t('view')}
+              />
             </ListGroup>
           </Card>
           <div>

@@ -19,5 +19,18 @@ export default function VieoGroupSelect(props: Props) {
     onSelect?.(newValue);
   };
 
-  return <Select classNamePrefix="select" menuPortalTarget={window.document.body} isClearable isSearchable isDisabled={disabled} getOptionLabel={getOptionLabel} getOptionValue={getOptionValue} options={groups} onChange={onSelectChange} styles={{ menuPortal: (base) => ({ ...base, zIndex: 1100 }) }} />;
+  return (
+    <Select
+      classNamePrefix="select"
+      menuPortalTarget={window.document.body}
+      isClearable
+      isSearchable
+      isDisabled={disabled}
+      getOptionLabel={getOptionLabel}
+      getOptionValue={getOptionValue}
+      options={groups}
+      onChange={onSelectChange}
+      styles={{ menuPortal: (base) => ({ ...base, zIndex: 1100 }) }}
+    />
+  );
 }

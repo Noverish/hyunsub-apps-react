@@ -35,7 +35,9 @@ function AlbumListPage() {
   const showAlbumCreateModal = () => setState({ showAlbumCreateModal: true });
 
   // elements
-  const elements = albums.map((v) => <AlbumPreviewView key={v.id} preview={v} onClick={PhotoRoutes.albumDetail(v.id)} />);
+  const elements = albums.map((v) => (
+    <AlbumPreviewView key={v.id} preview={v} onClick={PhotoRoutes.albumDetail(v.id)} />
+  ));
 
   const headerBtns: MobileHeaderButton[] = [
     {

@@ -1,9 +1,9 @@
 import { Button, Card } from 'react-bootstrap';
 
 import ApiResult from 'src/components/common/ApiResult';
+import { useUrlParams } from 'src/hooks/url-params';
 import { videoThumbnailAction } from 'src/pages/video/admin/VideoAdminContext';
 import { useDispatch, useSelector } from 'src/redux';
-import { useUrlParams } from 'src/hooks/url-params';
 
 export default function VideoThumbnailGenerateCard() {
   const [videoId] = useUrlParams('videoId');

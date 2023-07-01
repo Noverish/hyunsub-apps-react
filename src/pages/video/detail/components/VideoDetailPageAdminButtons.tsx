@@ -2,7 +2,7 @@ import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import { useVideoDetailPageParams } from '../VideoDetailHooks';
-import useIsAdmin from 'src/hooks/admin';
+import { useIsAdmin } from 'src/hooks/token';
 import VideoRoutes from 'src/pages/video/VideoRoutes';
 import { useVideoDetailPageData } from 'src/pages/video/detail/VideoDetailHooks';
 

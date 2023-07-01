@@ -98,8 +98,7 @@ export default function PathSelect({ onSelect, isInvalid }: Props) {
     }
   };
 
-  const isValidNewOption = (newPath: string) =>
-    newPath !== path && newPath.length > 1 && !getOption(newPath);
+  const isValidNewOption = (newPath: string) => newPath !== path && newPath.length > 1 && !getOption(newPath);
   const formatCreateLabel = (newPath: string) => newPath;
 
   return (

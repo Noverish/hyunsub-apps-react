@@ -17,7 +17,9 @@ export default function ComicDetailPage() {
     setDocumentTitle(comicDetail.title);
   }, [comicDetail.title]);
 
-  const elements = comicDetail.episodes.map((v) => <ComicEpisodeView key={v.order} comicId={comicDetail.id} episode={v} />);
+  const elements = comicDetail.episodes.map((v) => (
+    <ComicEpisodeView key={v.order} comicId={comicDetail.id} episode={v} />
+  ));
 
   return (
     <div className="ComicDetailPage">

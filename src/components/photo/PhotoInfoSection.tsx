@@ -15,7 +15,13 @@ interface Props {
 }
 
 export default function PhotoInfoSection({ show, hide, albumId, photoId }: Props) {
-  const table = !photoId ? <PhotoInfoSectionTable /> : albumId ? <PhotoInfoSectionTableForAlbum albumId={albumId} photoId={photoId} /> : <PhotoInfoSectionTableForPhoto photoId={photoId} />;
+  const table = !photoId ? (
+    <PhotoInfoSectionTable />
+  ) : albumId ? (
+    <PhotoInfoSectionTableForAlbum albumId={albumId} photoId={photoId} />
+  ) : (
+    <PhotoInfoSectionTableForPhoto photoId={photoId} />
+  );
 
   return (
     <div className={cs('PhotoInfoSection', { show })}>
