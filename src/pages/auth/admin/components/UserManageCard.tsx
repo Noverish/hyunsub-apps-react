@@ -6,6 +6,7 @@ import { useUserAuthorityCreate } from 'src/api/auth/admin/user-authority-create
 import { useUserAuthorityDelete } from 'src/api/auth/admin/user-authority-delete';
 import { useUserDelete } from 'src/api/auth/admin/user-delete';
 import userListApi from 'src/api/auth/admin/user-list';
+import userLoginApi from 'src/api/auth/admin/user-login';
 import UserAuthoritySelect from 'src/components/auth/UserAuthoritySelect';
 import UserSelect from 'src/components/auth/UserSelect';
 import ApiResult from 'src/components/common/ApiResult';
@@ -51,6 +52,10 @@ function UserManageCardInner({ user }: { user: AdminUser }) {
     userAuthorityDelete({ idNo, authorityId: authority.id }).then((v) => setResult(v));
   };
 
+  const onUserLogin = () => {
+    userLoginApi({ idNo }).then((v) => setResult(v));
+  }
+
   const onUserDelete = () => {
     userDelete({ idNo }).then((v) => setResult(v));
   };
@@ -67,10 +72,8 @@ function UserManageCardInner({ user }: { user: AdminUser }) {
           <UserAuthoritySelect value={authorities} onSelect={onAuthorityCreate} onRemove={onAuthorityDelete} />
         </Form.Group>
         <div className="d-flex gap-2 mt-3">
-          <Button>Login</Button>
-          <Button variant="danger" onClick={onUserDelete}>
-            Withdraw
-          </Button>
+          <Button onClick={onUserLogin}>Login</Button>
+          <Button onClick={onUserDelete} variant="danger">Withdraw</Button>
         </div>
         {result && <ApiResult className="mt-3" result={result} />}
       </div>

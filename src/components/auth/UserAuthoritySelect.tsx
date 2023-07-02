@@ -1,6 +1,6 @@
 import CustomMultiSelect, { CustomMultiSelectProps } from '../common/select/CustomMultiSelect';
 import authorityListApi from 'src/api/auth/admin/authority-list';
-import { AdminAuthority, AdminUser } from 'src/model/auth';
+import { AdminAuthority } from 'src/model/auth';
 
 type Props = Omit<CustomMultiSelectProps<AdminAuthority>, 'data' | 'labelSelector'>;
 

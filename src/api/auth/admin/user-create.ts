@@ -1,4 +1,4 @@
-import { generateApi, generateQuery } from 'src/api/generate-api';
+import { generateApi } from 'src/api/generate-api';
 import { AdminUser } from 'src/model/auth';
 
 export interface UserCreateParams {
