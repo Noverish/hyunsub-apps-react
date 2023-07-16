@@ -54,7 +54,7 @@ function UserManageCardInner({ user }: { user: AdminUser }) {
 
   const onUserLogin = () => {
     userLoginApi({ idNo }).then((v) => setResult(v));
-  }
+  };
 
   const onUserDelete = () => {
     userDelete({ idNo }).then((v) => setResult(v));
@@ -73,7 +73,9 @@ function UserManageCardInner({ user }: { user: AdminUser }) {
         </Form.Group>
         <div className="d-flex gap-2 mt-3">
           <Button onClick={onUserLogin}>Login</Button>
-          <Button onClick={onUserDelete} variant="danger">Withdraw</Button>
+          <Button onClick={onUserDelete} variant="danger">
+            Withdraw
+          </Button>
         </div>
         {result && <ApiResult className="mt-3" result={result} />}
       </div>

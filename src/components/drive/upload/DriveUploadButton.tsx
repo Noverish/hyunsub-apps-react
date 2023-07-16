@@ -10,6 +10,7 @@ export default function DriveUploadButton() {
     const result = Array.from(input.files || []).map((v) => ({
       file: v,
       path: v.webkitRelativePath ? v.webkitRelativePath : v.name,
+      type: v.type,
     }));
 
     if (result.length > 0) {

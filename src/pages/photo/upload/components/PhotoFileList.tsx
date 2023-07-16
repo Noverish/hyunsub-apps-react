@@ -23,7 +23,7 @@ export default function PhotoFileList({ albumId }: Props) {
   };
 
   const elements = items.map((v) => (
-    <Col key={v.path}>
+    <Col key={v.file.path}>
       <PhotoUploadImage item={v} />
     </Col>
   ));

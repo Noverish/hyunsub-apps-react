@@ -18,8 +18,7 @@ export default function PhotoFileUpload(props: Props) {
   const onFileDrop = useCallback(
     (files: FileWithPath[]) => {
       const list: PhotoUploadFileItem[] = files.map((file) => ({
-        file: file.file,
-        path: file.path,
+        file,
         progress: 0,
         status: 'ready',
       }));

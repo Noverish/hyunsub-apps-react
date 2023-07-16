@@ -11,20 +11,20 @@ interface Props {
 }
 
 export default function PhotoUploadImage({ item }: Props) {
-  const { file, path, status, progress, preview } = item;
+  const { file, status, progress, preview } = item;
   const isImage = file.type.startsWith('image');
 
-  const objectUrl = useMemo(() => (isImage ? URL.createObjectURL(file) : ''), [isImage, file]);
+  const objectUrl = useMemo(() => (isImage ? URL.createObjectURL(file.file) : ''), [isImage, file]);
 
   const src = preview ? preview.thumbnail : objectUrl;
 
   const thumbnail =
     isImage || preview ? (
-      <img className="img-fluid" src={src} alt={path} loading="lazy" />
+      <img className="img-fluid" src={src} alt={file.path} loading="lazy" />
     ) : (
       <div className="flex_center border text-break p-2 text-center">
         <i className="fas fa-file-video mb-2" />
-        <div>{file.name}</div>
+        <div>{file.file.name}</div>
       </div>
     );
 

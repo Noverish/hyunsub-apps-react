@@ -28,10 +28,7 @@ export function usePhotoUpload(albumId?: string) {
     items.forEach((v) => (v.status = 'uploading'));
     setState({ items, uploading: true });
 
-    const files: FileWithPath[] = items.map((v) => ({
-      file: v.file,
-      path: v.file.name,
-    }));
+    const files: FileWithPath[] = items.map((v) => v.file);
 
     fileUploadApi({
       files,

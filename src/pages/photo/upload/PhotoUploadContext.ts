@@ -1,9 +1,9 @@
+import { FileWithPath } from 'src/model/file';
 import { PhotoPreview } from 'src/model/photo';
 import { generateStateContext } from 'src/utils/context';
 
 export interface PhotoUploadFileItem {
-  file: File;
-  path: string;
+  file: FileWithPath;
   status: 'ready' | 'uploading' | 'registering' | 'success' | 'error';
   progress: number;
   errMsg?: string;

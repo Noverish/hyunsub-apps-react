@@ -14,7 +14,7 @@ export function calcFormDataSize(files: FileWithPath[]): number[] {
 
   const fileSizes = files.map((v) => {
     const nameLen = encodeURI(v.path).length;
-    const typeLen = v.file.type.length;
+    const typeLen = v.file.type ? v.file.type.length : 'appliaction/octet-stream'.length;
     return BOUNDARY_SIZE + DISPOISTION_SIZE + nameLen + TYPE_SIZE + typeLen + DIVIDER_SIZE + v.file.size;
   });
 

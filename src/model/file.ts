@@ -1,6 +1,7 @@
 export interface FileWithPath {
   file: File;
   path: string;
+  type: string;
 }
 
 export interface FileUploadResult {

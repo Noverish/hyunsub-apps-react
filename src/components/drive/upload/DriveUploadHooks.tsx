@@ -22,7 +22,7 @@ export function useDriveUpload() {
       path: v.path,
       name: v.file.name,
       size: v.file.size,
-      type: v.file.type,
+      type: v.type,
       progress: 0,
     }));
 

@@ -1,5 +1,5 @@
 import flatMap from 'lodash/flatMap';
-import { basename } from 'path-browserify';
+import { basename, extname } from 'path-browserify';
 import React, { useState } from 'react';
 
 import { FileWithPath } from 'src/model/file';
@@ -43,7 +43,7 @@ export default function useDragAndDrop({ accept, onElementDrop, onFileDrop }: Pa
     if (fileItems.length > 0) {
       let files = await handleDropEvent(fileItems);
       if (accept) {
-        files = files.filter((v) => v.file.type && accept.includes(v.file.type));
+        files = files.filter((v) => v.type && accept.includes(v.type));
       }
       onFileDrop?.(files);
     }
@@ -56,7 +56,7 @@ export default function useDragAndDrop({ accept, onElementDrop, onFileDrop }: Pa
   };
 
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = Array.from(e.currentTarget.files || []).map((v) => ({ file: v, path: v.name }));
+    const files = Array.from(e.currentTarget.files || []).map((v) => ({ file: v, path: v.name, type: v.type }));
     onFileDrop?.(files);
   };
 
@@ -127,9 +127,31 @@ function readReader(reader: FileSystemDirectoryReader): Promise<FileSystemEntry[
 function getFile(entry: FileSystemFileEntry): Promise<FileWithPath> {
   return new Promise((resolve, reject) => {
     entry.file(
-      (file) => resolve({ file, path: entry.fullPath.replace(/^\//, '') }),
+      (file) =>
+        resolve({
+          file,
+          path: entry.fullPath.replace(/^\//, ''),
+          type: parseFileType(file),
+        }),
       (err) => reject(err)
     );
   });
 }
+
 const validExt = (path: string) => !ignores.includes(basename(path));
+
+function parseFileType(file: File): string {
+  const type = file.type;
+  if (type) {
+    return type;
+  }
+
+  const ext: string = extname(file.name).toLowerCase();
+
+  switch (ext) {
+    case '.mov':
+      return 'video/quicktime';
+    default:
+      return type;
+  }
+}
