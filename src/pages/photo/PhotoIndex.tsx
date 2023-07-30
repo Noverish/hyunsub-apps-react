@@ -17,6 +17,14 @@ const PhotoViewerPage = lazy(() => import('src/pages/photo/photo-viewer/PhotoVie
 
 export const PhotoRouteObjects: RouteObject[] = [
   {
+    path: routes.albumViewerRoute,
+    element: <AlbumViewerPage />,
+  },
+  {
+    path: routes.photoViewerRoute,
+    element: <PhotoViewerPage />,
+  },
+  {
     path: '/',
     element: (
       <>
@@ -29,11 +37,9 @@ export const PhotoRouteObjects: RouteObject[] = [
       { path: '/', element: <Navigate to={routes.albums} /> },
       { path: routes.albums, element: <AlbumListPage /> },
       { path: routes.albumDetailRoute, element: <AlbumDetailPage /> },
-      { path: routes.albumViewerRoute, element: <AlbumViewerPage /> },
       { path: routes.albumUploadRoute, element: <AlbumUploadPage /> },
       { path: routes.albumDateRoute, element: <AlbumDatePage /> },
       { path: routes.photos, element: <PhotoListPage /> },
-      { path: routes.photoViewerRoute, element: <PhotoViewerPage /> },
       { path: routes.photoUpload, element: <PhotoUploadPage /> },
       { path: routes.menu, element: <PhotoMenuPage /> },
     ],
