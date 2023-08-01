@@ -134,3 +134,17 @@ $grid-breakpoints: (
     }
   }
 }
+
+@for $i from 1 through 6 {
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    @include media-breakpoint-up($breakpoint) {
+      .row-col-#{$breakpoint}-#{$i} {
+        grid-template-columns: repeat($i, minmax(0, 1fr));
+      }
+    }
+  }
+
+  .row-col-#{$i} {
+    grid-template-columns: repeat($i, minmax(0, 1fr));
+  }
+}

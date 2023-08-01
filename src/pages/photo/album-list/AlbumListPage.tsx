@@ -1,6 +1,6 @@
 import { t } from 'i18next';
 import { useContext } from 'react';
-import { Button, Row } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 
 import PhotoRoutes from '../PhotoRoutes';
 import { AlbumListContext, AlbumListProvider } from './AlbumListContext';
@@ -8,8 +8,7 @@ import { useAlbumCreate } from './AlbumListHooks';
 import { AlbumCreateParams } from 'src/api/photo/album-create';
 import albumListApi from 'src/api/photo/album-list';
 import CommonContainer from 'src/components/common/header/CommonContainer';
-import MobileHeader from 'src/components/common/header/MobileHeader';
-import { MobileHeaderButton } from 'src/components/common/header/MobileHeader';
+import MobileHeader, { MobileHeaderButton } from 'src/components/common/header/MobileHeader';
 import AlbumPreviewView from 'src/components/photo/AlbumPreviewView';
 import AlbumCreateModal from 'src/components/photo/modal/AlbumCreateModal';
 import { useBreakpointMobile } from 'src/utils/breakpoint';
@@ -55,9 +54,9 @@ function AlbumListPage() {
   return (
     <div className="AlbumListPage">
       <MobileHeader title={t('photo.page.album-list.title')} btns={headerBtns} />
-      <CommonContainer noContainer={isMobile}>
+      <CommonContainer>
         {isMobile || topBtns}
-        <Row className="g-2 row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-6">{elements}</Row>
+        <div className="d-grid gap-2 row-col-2 row-col-md-3 row-col-lg-4 row-col-xl-5 row-col-xxl-6">{elements}</div>
       </CommonContainer>
       <AlbumCreateModal show={state.showAlbumCreateModal} callback={albumCreateModalCallback} />
     </div>

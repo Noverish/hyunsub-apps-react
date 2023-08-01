@@ -1,6 +1,6 @@
 import { t } from 'i18next';
 import { useContext, useMemo } from 'react';
-import { Button, Row } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 
 import { usePhotoListSelect } from './PhotoListHooks';
 import PhotoPreviewView from './PhotoPreviewView';
@@ -88,7 +88,7 @@ export default function PhotoListView({ albumId, previews, itemHref: href, right
   return (
     <div className="PhotoListView">
       {isMobile || topBtnsForDesktop}
-      <Row className="g-1 row-cols-3 row-cols-sm-4 row-cols-md-5 row-cols-lg-6">{elements}</Row>
+      <div className="d-grid gap-1 row-col-3 row-col-sm-4 row-col-md-5 row-col-lg-6">{elements}</div>
       <PhotoSelectActionModal albumId={albumId} />
     </div>
   );
