@@ -32,7 +32,7 @@ function AlbumDetailPage() {
       <div className="album_name">{album.name}</div>
       <div className="photo_num">{t('photo.page.album-detail.photo-num', [total])}</div>
       <Button className="delete_button" variant="danger" onClick={() => albumDelete({ albumId })}>
-        {t('delete')}
+        {t('AlbumDetailPage.delete-album')}
       </Button>
     </section>
   );

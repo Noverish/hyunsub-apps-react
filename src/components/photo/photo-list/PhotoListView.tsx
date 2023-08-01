@@ -80,7 +80,6 @@ export default function PhotoListView({ albumId, previews, itemHref: href }: Pro
           <span className="select_status">{t('n-selected', [selects.length])}</span>
         </>
       )}
-      <hr />
     </div>
   );
 

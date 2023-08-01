@@ -125,6 +125,7 @@ const en = {
     'PhotoInfoSection.file-name': 'File Name',
     'PhotoInfoSection.reg-dt': 'Upload Date',
     'PhotoInfoSection.date-type': 'Filming Date Type',
+    'AlbumDetailPage.delete-album': 'Delete Album',
 
     'apparel.page.list.title': 'My Apparel List',
     'apparel.page.list.inner-title': 'Total {{0}} items',
