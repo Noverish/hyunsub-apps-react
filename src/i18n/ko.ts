@@ -126,6 +126,7 @@ const ko = {
     'PhotoInfoSection.reg-dt': '업로드 날짜',
     'PhotoInfoSection.date-type': '촬영 날짜 타입',
     'AlbumDetailPage.delete-album': '앨범 삭제',
+    'AlbumDetailPage.msg.register-thumbnail-success': '썸네일 등록에 성공했습니다.',
 
     'apparel.page.list.title': '내 의류 목록',
     'apparel.page.list.inner-title': '총 {{0}}개의 의류',

@@ -53,7 +53,7 @@ function AlbumListPage() {
   );
 
   return (
-    <div className="AlbumList2Page">
+    <div className="AlbumListPage">
       <MobileHeader title={t('photo.page.album-list.title')} btns={headerBtns} />
       <CommonContainer noContainer={isMobile}>
         {isMobile || topBtns}

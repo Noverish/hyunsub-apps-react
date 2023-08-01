@@ -126,6 +126,7 @@ const en = {
     'PhotoInfoSection.reg-dt': 'Upload Date',
     'PhotoInfoSection.date-type': 'Filming Date Type',
     'AlbumDetailPage.delete-album': 'Delete Album',
+    'AlbumDetailPage.msg.register-thumbnail-success': 'Successfully registered thumbnail',
 
     'apparel.page.list.title': 'My Apparel List',
     'apparel.page.list.inner-title': 'Total {{0}} items',
