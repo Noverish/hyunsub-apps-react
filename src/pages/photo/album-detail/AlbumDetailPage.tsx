@@ -31,20 +31,28 @@ function AlbumDetailPage() {
     <section className="title_section">
       <div className="album_name">{album.name}</div>
       <div className="photo_num">{t('photo.page.album-detail.photo-num', [total])}</div>
-      <Button className="delete_button" variant="danger" onClick={() => albumDelete({ albumId })}>
-        {t('AlbumDetailPage.delete-album')}
-      </Button>
     </section>
   );
 
   const titleSectionForMobile = <h2>{t('photo.page.album-detail.photo-num', [total])}</h2>;
+
+  const photoListTopRightButton = (
+    <Button className="delete_button" variant="danger" onClick={() => albumDelete({ albumId })}>
+      {t('AlbumDetailPage.delete-album')}
+    </Button>
+  );
 
   return (
     <div className="AlbumDetailPage">
       <PhotoListMobileHeader album={album} />
       <CommonContainer>
         {isMobile ? titleSectionForMobile : titleSectionForDesktop}
-        <PhotoListView albumId={albumId} previews={photos} itemHref={(v) => PhotoRoutes.albumViewer(albumId, v.id)} />
+        <PhotoListView
+          albumId={albumId}
+          previews={photos}
+          itemHref={(v) => PhotoRoutes.albumViewer(albumId, v.id)}
+          rightBtn={photoListTopRightButton}
+        />
         <ListLoadingIndicator isFetching={isFetching} />
       </CommonContainer>
     </div>

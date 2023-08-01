@@ -6,6 +6,10 @@
     display: flex;
     gap: .5rem;
     align-items: center;
+
+    .right_button {
+      margin-left: auto;
+    }
   }
 
   .add_to_album {

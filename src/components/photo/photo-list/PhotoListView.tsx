@@ -17,9 +17,10 @@ interface Props {
   albumId?: string;
   previews: PhotoPreview[];
   itemHref: (preview: PhotoPreview) => string;
+  rightBtn?: JSX.Element;
 }
 
-export default function PhotoListView({ albumId, previews, itemHref: href }: Props) {
+export default function PhotoListView({ albumId, previews, itemHref: href, rightBtn }: Props) {
   // hooks
   const isMobile = useBreakpointMobile();
   const setState = useContext(PhotoSelectContext)[1];
@@ -80,6 +81,7 @@ export default function PhotoListView({ albumId, previews, itemHref: href }: Pro
           <span className="select_status">{t('n-selected', [selects.length])}</span>
         </>
       )}
+      {rightBtn && <div className="right_button">{rightBtn}</div>}
     </div>
   );
 
