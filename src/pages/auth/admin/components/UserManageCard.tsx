@@ -21,7 +21,7 @@ export default function UserManageCard() {
   };
 
   const index = users.findIndex((v) => v.idNo === idNo);
-  const user = index > 0 ? users[index] : undefined;
+  const user = index >= 0 ? users[index] : undefined;
 
   return (
     <Card className="UserManageCard">
