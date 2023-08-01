@@ -16,7 +16,7 @@ const VideoSearchPage = lazy(() => import('src/pages/video/search/VideoSearchPag
 const EntryManagePage = lazy(() => import('src/pages/video/entry-manage/EntryManagePage'));
 const VideoManagePage = lazy(() => import('src/pages/video/video-manage/VideoManagePage'));
 
-export const VideoRotueObjects: RouteObject[] = [
+export const VideoRouteObjects: RouteObject[] = [
   {
     path: '/',
     element: (

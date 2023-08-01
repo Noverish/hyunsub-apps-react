@@ -1,11 +1,12 @@
 import { Col, Row } from 'react-bootstrap';
+import { RouteObject } from 'react-router-dom';
 
 import { useTokenPayload } from 'src/hooks/token';
 import services from 'src/utils/services';
 
 import './AppsIndex.scss';
 
-export default function AppsIndex() {
+function AppsIndex() {
   document.title = 'Hyunsub Apps';
 
   const { authorities } = useTokenPayload();
@@ -27,3 +28,10 @@ export default function AppsIndex() {
     </div>
   );
 }
+
+export const AppsRouteObjects: RouteObject[] = [
+  {
+    path: '/',
+    element: <AppsIndex />,
+  },
+];

@@ -9,7 +9,8 @@ import RouteErrorBoundary from './common/RouteErrorBoundary';
 import { DriveRouteObjects } from './drive/DriveIndex';
 import { PhotoRouteObjects } from './photo/PhotoIndex';
 import { VestigeRouteObjects } from './vestige/VestigeIndex';
-import { VideoRotueObjects } from './video/VideoIndex';
+import { VideoRouteObjects } from './video/VideoIndex';
+import { AppsRouteObjects } from './apps/AppsIndex';
 import LoadingPage from 'src/pages/common/LoadingPage';
 
 function pickRoutes(): RouteObject[] {
@@ -20,7 +21,7 @@ function pickRoutes(): RouteObject[] {
   }
 
   if (host.endsWith('video.hyunsub.kim')) {
-    return VideoRotueObjects;
+    return VideoRouteObjects;
   }
 
   if (host.endsWith('photo.hyunsub.kim')) {
@@ -41,6 +42,10 @@ function pickRoutes(): RouteObject[] {
 
   if (host.endsWith('vestige.hyunsub.kim')) {
     return VestigeRouteObjects;
+  }
+
+  if (host.endsWith('apps.hyunsub.kim')) {
+    return AppsRouteObjects;
   }
 
   return [];
