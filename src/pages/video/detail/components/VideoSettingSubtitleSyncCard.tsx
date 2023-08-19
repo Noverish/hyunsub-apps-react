@@ -1,6 +1,6 @@
 import { t } from 'i18next';
 import { debounce } from 'lodash';
-import React, { useCallback, useContext } from 'react';
+import React, { useContext } from 'react';
 import { Card, Form, InputGroup } from 'react-bootstrap';
 
 import { VideoSubtitle } from 'src/model/video';
@@ -10,12 +10,12 @@ interface Props {
   subtitles: VideoSubtitle[];
 }
 
-export default function VideoSubtitleSettingCard({ subtitles }: Props) {
+export default function VideoSettingSubtitleSyncCard({ subtitles }: Props) {
   const items = subtitles.map((v) => <VideoSubtitleSettingItem key={v.url} subtitle={v} />);
 
   return (
-    <Card>
-      <Card.Header>{t('video.subtitle-setting.title')}</Card.Header>
+    <Card className="VideoSettingSubtitleSyncCard">
+      <Card.Header>{t('video.VideoSettingSubtitleSyncCard.title')}</Card.Header>
       <Card.Body>
         <div className="d-flex gap-3 flex-wrap">{items}</div>
       </Card.Body>

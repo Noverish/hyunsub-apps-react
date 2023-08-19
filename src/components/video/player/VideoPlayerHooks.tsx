@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { VideoPlayerProps } from 'src/components/video/player/VideoPlayer';
 import { usePrevious } from 'src/hooks/previous';
-import { getCaptionFontSize, setCaptionFontSize } from 'src/pages/video/detail/components/VideoSettingSection';
+import { getCaptionFontSize, setCaptionFontSize } from 'src/pages/video/detail/components/VideoSettingSubtitleSizeCard';
 
 let plyr: Plyr | undefined;
 
@@ -129,7 +129,7 @@ export function usePlyrSource(plyr: Plyr, source: SourceInfo) {
     for (let i = 0; i < prevTracks.length; i++) {
       const prevTrack = prevTracks[i].src;
       const currTrack = currTracks[i].src;
-      if (prevTrack != currTrack) {
+      if (prevTrack !== currTrack) {
         plyr.source = source;
         return;
       }
