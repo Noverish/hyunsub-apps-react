@@ -6,7 +6,7 @@ import { useDriveExplorerContext } from '../explorer/DriveExplorerHooks';
 import { DriveFileInfo } from 'src/model/drive';
 import { useDispatch } from 'src/redux';
 import AppConstant from 'src/utils/constants';
-import { join } from 'src/utils/path';
+import { join } from 'path-browserify';
 
 interface Props {
   file: DriveFileInfo;

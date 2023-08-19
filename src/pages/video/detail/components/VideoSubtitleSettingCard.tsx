@@ -1,5 +1,6 @@
 import { t } from 'i18next';
-import React, { useContext } from 'react';
+import { debounce } from 'lodash';
+import React, { useCallback, useContext } from 'react';
 import { Card, Form, InputGroup } from 'react-bootstrap';
 
 import { VideoSubtitle } from 'src/model/video';
@@ -27,19 +28,24 @@ interface VideoSubtitleSettingItemProps {
 }
 
 function VideoSubtitleSettingItem({ subtitle }: VideoSubtitleSettingItemProps) {
-  const [state, setState] = useContext(VideoDetailContext);
+  const [{ subtitleSync }, setState] = useContext(VideoDetailContext);
   const { label } = subtitle;
 
+  const updateSubtitleSync = debounce((sync: number) => {
+    subtitleSync[subtitle.url] = sync;
+    setState({ subtitleSync });
+  }, 500);
+
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const sync = parseInt(e.currentTarget.value, 10);
-    state.subtitleSync[subtitle.url] = sync;
-    setState(state);
+    updateSubtitleSync(parseInt(e.currentTarget.value, 10));
   };
+
+  const value = subtitleSync[subtitle.url] ?? 0;
 
   return (
     <InputGroup className="d-inline-flex" style={{ width: '250px' }}>
       <InputGroup.Text>{label}</InputGroup.Text>
-      <Form.Control type="number" className="text-end" onChange={onChange} />
+      <Form.Control type="number" className="text-end" onChange={onChange} defaultValue={value} />
       <InputGroup.Text>ms</InputGroup.Text>
     </InputGroup>
   );

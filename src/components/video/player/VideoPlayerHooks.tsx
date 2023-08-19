@@ -2,6 +2,7 @@ import Plyr, { SourceInfo, Track } from 'plyr';
 import { useCallback, useEffect, useState } from 'react';
 
 import { VideoPlayerProps } from 'src/components/video/player/VideoPlayer';
+import { usePrevious } from 'src/hooks/previous';
 import { getCaptionFontSize, setCaptionFontSize } from 'src/pages/video/detail/components/VideoSettingSection';
 
 let plyr: Plyr | undefined;
@@ -108,13 +109,32 @@ export function convertPlyrSource(props: VideoPlayerProps): SourceInfo {
 }
 
 export function usePlyrSource(plyr: Plyr, source: SourceInfo) {
+  const prev = usePrevious(source);
+
   useEffect(() => {
     const src = plyr.source as any;
     const videoUrl = source.sources[0]?.src;
     if (videoUrl !== src) {
       plyr.source = source;
+      return;
     }
-  }, [plyr, source]);
+
+    const prevTracks = prev?.tracks ?? []
+    const currTracks = source?.tracks ?? []
+    if (prevTracks.length !== currTracks.length) {
+      plyr.source = source;
+      return;
+    }
+
+    for (let i = 0; i < prevTracks.length; i++) {
+      const prevTrack = prevTracks[i].src;
+      const currTrack = currTracks[i].src;
+      if (prevTrack != currTrack) {
+        plyr.source = source;
+        return;
+      }
+    }
+  }, [plyr, source, prev]);
 }
 
 export function usePlyrKeyDown(plyr: Plyr) {
