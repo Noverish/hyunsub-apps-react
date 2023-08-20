@@ -1,24 +1,25 @@
 import { t } from 'i18next';
-import { useState } from 'react';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useSearchParams } from 'react-router-dom';
 
+import DiaryRoutes from '../DiaryRoutes';
 import diarySearchApi from 'src/api/diary/diary-search';
 import CommonContainer from 'src/components/common/header/CommonContainer';
 import MobileHeader from 'src/components/common/header/MobileHeader';
 import DiaryPreviewView from 'src/components/diary/DiaryPreviewView';
+import router from 'src/pages/router';
 import { useBreakpointMobile } from 'src/utils/breakpoint';
-
-interface Props {}
 
 interface FormState {
   query: string;
 }
 
-export default function DiaryHomePage(props: Props) {
+export default function DiaryListPage() {
+  const [searchParams] = useSearchParams();
   const isMobile = useBreakpointMobile();
 
-  const [query, setQuery] = useState('');
+  const query = searchParams.get('query') || '';
 
   const { register, handleSubmit } = useForm<FormState>();
 
@@ -27,7 +28,7 @@ export default function DiaryHomePage(props: Props) {
   const elements = infiniteData.map((v) => <DiaryPreviewView key={v.date} diary={v} />);
 
   const onSubmit: SubmitHandler<FormState> = (state: FormState) => {
-    setQuery(state.query);
+    router.navigate(DiaryRoutes.list(state.query));
   };
 
   return (

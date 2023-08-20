@@ -3,7 +3,7 @@ import { Navigate, Outlet, RouteObject } from 'react-router-dom';
 
 import routes from './DiaryRoutes';
 
-const DiaryHomePage = lazy(() => import('./home/DiaryHomePage'));
+const DiaryListPage = lazy(() => import('./list/DiaryListPage'));
 const DiaryDetailPage = lazy(() => import('./detail/DiaryDetailPage'));
 
 export const DiaryRouteObjects: RouteObject[] = [
@@ -15,8 +15,8 @@ export const DiaryRouteObjects: RouteObject[] = [
       </>
     ),
     children: [
-      { path: '/', element: <Navigate to={routes.home} /> },
-      { path: routes.home, element: <DiaryHomePage /> },
+      { path: '/', element: <Navigate to={routes.listRoute} /> },
+      { path: routes.listRoute, element: <DiaryListPage /> },
       { path: routes.detailRoute, element: <DiaryDetailPage /> },
     ],
   },
