@@ -1,5 +1,5 @@
-import { Diary } from 'src/model/diary';
 import { generateInfiniteQuery } from '../generate-infinite-query';
+import { Diary } from 'src/model/diary';
 
 export interface DiarySearchParams {
   query: string;

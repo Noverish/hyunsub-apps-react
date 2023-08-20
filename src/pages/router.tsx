@@ -2,16 +2,16 @@ import { Suspense } from 'react';
 import { Outlet, RouteObject, ScrollRestoration, createBrowserRouter } from 'react-router-dom';
 
 import { ApparelRouteObjects } from './apparel/ApparelIndex';
+import { AppsRouteObjects } from './apps/AppsIndex';
 import { AuthRouteObjects } from './auth/AuthIndex';
 import { ComicRouteObjects } from './comic/ComicIndex';
 import NotFoundPage from './common/NotFoundPage';
 import RouteErrorBoundary from './common/RouteErrorBoundary';
+import { DiaryRouteObjects } from './diary/DiaryIndex';
 import { DriveRouteObjects } from './drive/DriveIndex';
 import { PhotoRouteObjects } from './photo/PhotoIndex';
 import { VestigeRouteObjects } from './vestige/VestigeIndex';
-import { DiaryRouteObjects } from './diary/DiaryIndex';
 import { VideoRouteObjects } from './video/VideoIndex';
-import { AppsRouteObjects } from './apps/AppsIndex';
 import LoadingPage from 'src/pages/common/LoadingPage';
 
 function pickRoutes(): RouteObject[] {

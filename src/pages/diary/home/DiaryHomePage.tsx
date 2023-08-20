@@ -1,6 +1,6 @@
 import { t } from 'i18next';
 import { useState } from 'react';
-import { InputGroup, Form, Button } from 'react-bootstrap';
+import { Button, Form, InputGroup } from 'react-bootstrap';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 import diarySearchApi from 'src/api/diary/diary-search';

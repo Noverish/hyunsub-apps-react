@@ -3,7 +3,7 @@ import { useContext } from 'react';
 
 import MobileHeader, { MobileHeaderButton } from 'src/components/common/header/MobileHeader';
 import { MobileHeaderMoreButtonMenu } from 'src/components/common/header/MobileHeaderMoreButton';
-import { useToggleSelectMode, useAlbumThumbnailRegister } from 'src/components/photo/photo-list/PhotoListHooks';
+import { useAlbumThumbnailRegister, useToggleSelectMode } from 'src/components/photo/photo-list/PhotoListHooks';
 import { PhotoSelectContext } from 'src/components/photo/photo-list/PhotoSelectContext';
 import { Album } from 'src/model/photo';
 import PhotoRoutes from 'src/pages/photo/PhotoRoutes';
@@ -71,7 +71,7 @@ export default function PhotoListMobileHeader({ album }: Props) {
     selectMenus.push({
       text: t('photo.register-thumbnail'),
       onClick: registerThumbnail,
-    })
+    });
   }
 
   const title = selectMode ? t('n-selected', [selects.length]) : album ? album.name : t('photo.page.photo-list.title');

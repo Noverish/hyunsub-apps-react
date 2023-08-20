@@ -6,6 +6,7 @@ const _ServiceCode = {
   drive: 'drive',
   agnam: 'agnam',
   git: 'git',
+  diary: 'diary',
 } as const;
 
 export type ServiceCode = (typeof _ServiceCode)[keyof typeof _ServiceCode];
@@ -32,7 +33,7 @@ const services: Service[] = [
   },
   {
     code: 'comic',
-    icon: 'fas fa-book',
+    icon: 'fas fa-laugh-beam',
     title: 'Comic',
     documentTitle: 'HyunComic',
   },
@@ -59,6 +60,12 @@ const services: Service[] = [
     icon: 'fab fa-git-alt',
     title: 'Git',
     documentTitle: 'Git',
+  },
+  {
+    code: 'diary',
+    icon: 'fas fa-book',
+    title: 'Diary',
+    documentTitle: 'Diary',
   },
 ];
 

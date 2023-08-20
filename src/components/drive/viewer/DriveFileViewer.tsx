@@ -1,3 +1,4 @@
+import { join } from 'path-browserify';
 import { useEffect, useState } from 'react';
 import { Spinner } from 'react-bootstrap';
 
@@ -6,7 +7,6 @@ import { useDriveExplorerContext } from '../explorer/DriveExplorerHooks';
 import { DriveFileInfo } from 'src/model/drive';
 import { useDispatch } from 'src/redux';
 import AppConstant from 'src/utils/constants';
-import { join } from 'path-browserify';
 
 interface Props {
   file: DriveFileInfo;

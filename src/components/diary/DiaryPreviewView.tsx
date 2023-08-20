@@ -11,7 +11,7 @@ interface Props {
 export default function DiaryPreviewView({ diary }: Props) {
   const onClick = () => {
     router.navigate(DiaryRoutes.detail(diary.date));
-  }
+  };
 
   const summary = diary.summary ? (
     <>

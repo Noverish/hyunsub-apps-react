@@ -1,3 +1,4 @@
+import { t } from 'i18next';
 import { useContext } from 'react';
 
 import { PhotoSelectContext } from './PhotoSelectContext';
@@ -7,7 +8,6 @@ import albumThumbnailApi from 'src/api/photo/album-thumbnail';
 import { AlbumPreview, PhotoPreview } from 'src/model/photo';
 import { dispatch } from 'src/redux';
 import { GlobalActions } from 'src/redux/global';
-import { t } from 'i18next';
 
 export function usePhotoListSelect(previews: PhotoPreview[]) {
   const [state, setState] = useContext(PhotoSelectContext);

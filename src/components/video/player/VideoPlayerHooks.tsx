@@ -119,8 +119,8 @@ export function usePlyrSource(plyr: Plyr, source: SourceInfo) {
       return;
     }
 
-    const prevTracks = prev?.tracks ?? []
-    const currTracks = source?.tracks ?? []
+    const prevTracks = prev?.tracks ?? [];
+    const currTracks = source?.tracks ?? [];
     if (prevTracks.length !== currTracks.length) {
       plyr.source = source;
       return;
