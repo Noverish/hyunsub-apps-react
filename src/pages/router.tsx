@@ -9,6 +9,7 @@ import RouteErrorBoundary from './common/RouteErrorBoundary';
 import { DriveRouteObjects } from './drive/DriveIndex';
 import { PhotoRouteObjects } from './photo/PhotoIndex';
 import { VestigeRouteObjects } from './vestige/VestigeIndex';
+import { DiaryRouteObjects } from './diary/DiaryIndex';
 import { VideoRouteObjects } from './video/VideoIndex';
 import { AppsRouteObjects } from './apps/AppsIndex';
 import LoadingPage from 'src/pages/common/LoadingPage';
@@ -46,6 +47,10 @@ function pickRoutes(): RouteObject[] {
 
   if (host.endsWith('apps.hyunsub.kim')) {
     return AppsRouteObjects;
+  }
+
+  if (host.endsWith('diary.hyunsub.kim')) {
+    return DiaryRouteObjects;
   }
 
   return [];
