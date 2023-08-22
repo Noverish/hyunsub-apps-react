@@ -67,7 +67,7 @@ header {
 // ===============================================================
 // custom class
 
-input.form-control {
+input.form-control, textarea.form-control {
   background-color: var(--bs-gray-dark);
   color: white;
 

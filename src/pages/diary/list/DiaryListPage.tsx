@@ -1,49 +1,27 @@
 import { t } from 'i18next';
-import { Button, Form, InputGroup } from 'react-bootstrap';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { useSearchParams } from 'react-router-dom';
 
-import DiaryRoutes from '../DiaryRoutes';
-import diarySearchApi from 'src/api/diary/diary-search';
+import DiaryListHooks from './DiaryListHooks';
+import DiarySearchInput from './elements/DiarySearchInput';
 import CommonContainer from 'src/components/common/header/CommonContainer';
 import MobileHeader from 'src/components/common/header/MobileHeader';
 import DiaryPreviewView from 'src/components/diary/DiaryPreviewView';
-import router from 'src/pages/router';
-import { useBreakpointMobile } from 'src/utils/breakpoint';
-
-interface FormState {
-  query: string;
-}
+import { setDocumentTitle } from 'src/utils/services';
 
 export default function DiaryListPage() {
-  const [searchParams] = useSearchParams();
-  const isMobile = useBreakpointMobile();
+  setDocumentTitle(t('DiaryListPage.title'));
 
-  const query = searchParams.get('query') || '';
+  // hooks
+  const { query, data } = DiaryListHooks.usePageData();
+  const search = DiaryListHooks.useSearch();
 
-  const { register, handleSubmit } = useForm<FormState>();
-
-  const { infiniteData } = diarySearchApi.useInfiniteApi({ query });
-
-  const elements = infiniteData.map((v) => <DiaryPreviewView key={v.date} diary={v} />);
-
-  const onSubmit: SubmitHandler<FormState> = (state: FormState) => {
-    router.navigate(DiaryRoutes.list(state.query));
-  };
+  // elements
+  const elements = data.map((v) => <DiaryPreviewView key={v.date} diary={v} />);
 
   return (
-    <div className="DiaryHomePage">
-      <MobileHeader title="Diary" />
+    <div className="DiaryListPage">
+      <MobileHeader title={t('DiaryListPage.title')} />
       <CommonContainer>
-        <Form onSubmit={handleSubmit(onSubmit)} className="mb-3">
-          <InputGroup>
-            <Form.Control {...register('query')} placeholder={t('msg.type-query') as string} />
-            <Button variant="primary border" type="submit">
-              {isMobile ? <i className="fas fa-search" /> : t('search')}
-            </Button>
-          </InputGroup>
-        </Form>
-
+        <DiarySearchInput onSearch={search} query={query} />
         <div className="d-grid gap-3">{elements}</div>
       </CommonContainer>
     </div>
