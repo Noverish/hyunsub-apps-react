@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import diaryDeleteApi from 'src/api/diary/diary-delete';
 import diaryDetailApi from 'src/api/diary/diary-detail';
+import diarySearchApi from 'src/api/diary/diary-search';
 import { Diary } from 'src/model/diary';
 import router from 'src/pages/router';
 import { dispatch } from 'src/redux';
@@ -35,9 +36,15 @@ function useDelete() {
 
     await diaryDeleteApi({ date });
 
-    router.navigate(-1);
+    diarySearchApi.clearCache();
 
     dispatch(GlobalActions.update({ loading: false }));
+
+    router.navigate(-1);
+
+    setTimeout(() => {
+      diaryDetailApi.clearCache({ date });
+    }, 0);
   };
 }
 

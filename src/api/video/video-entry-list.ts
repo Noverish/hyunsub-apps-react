@@ -18,7 +18,7 @@ const videoEntryListApi = generateInfiniteQuery<VideoEntryListParams, VideoEntry
       seed: params.sort === 'RANDOM' ? params.seed : undefined,
     },
   }),
-  key: () => 'videoEntryListApi',
+  key: 'videoEntryListApi',
 });
 
 export default videoEntryListApi;

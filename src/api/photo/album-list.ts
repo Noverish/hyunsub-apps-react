@@ -6,7 +6,7 @@ const albumListApi = generateInfiniteQuery<{}, AlbumPreview>({
     url: '/api/v2/albums',
     method: 'GET',
   }),
-  key: () => 'albumListApi',
+  key: 'albumListApi',
 });
 
 export default albumListApi;

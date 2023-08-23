@@ -13,7 +13,7 @@ const apparelCategoryApparelsApi = generateInfiniteQuery<ApparelCategoryApparels
       p: params.page,
     },
   }),
-  key: () => 'apparelCategoryApparels',
+  key: 'apparelCategoryApparels',
 });
 
 export default apparelCategoryApparelsApi;

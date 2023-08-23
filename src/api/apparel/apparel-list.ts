@@ -14,7 +14,7 @@ const apparelListApi = generateInfiniteQuery<ListApparelParams, ApparelPreview>(
       q: params.query,
     },
   }),
-  key: () => 'apparelList',
+  key: 'apparelList',
 });
 
 export default apparelListApi;

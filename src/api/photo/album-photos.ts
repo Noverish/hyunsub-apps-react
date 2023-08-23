@@ -15,7 +15,7 @@ const albumPhotosApi = generateInfiniteQuery<AlbumPhotosParams, PhotoPreview>({
       photoId: params.page === undefined ? params.photoId : undefined,
     },
   }),
-  key: () => 'albumPhotosApi',
+  key: 'albumPhotosApi',
 });
 
 export default albumPhotosApi;

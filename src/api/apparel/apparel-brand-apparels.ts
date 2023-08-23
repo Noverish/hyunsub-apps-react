@@ -13,7 +13,7 @@ const apparelBrandApparelsApi = generateInfiniteQuery<ApparelBrandApparelsParams
       p: params.page,
     },
   }),
-  key: () => 'apparelBrandApparels',
+  key: 'apparelBrandApparels',
 });
 
 export default apparelBrandApparelsApi;

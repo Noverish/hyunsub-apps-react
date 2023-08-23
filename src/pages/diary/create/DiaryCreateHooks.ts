@@ -1,6 +1,7 @@
 import DiaryRoutes from '../DiaryRoutes';
 import diaryCreateApi from 'src/api/diary/diary-create';
 import diaryDetailApi from 'src/api/diary/diary-detail';
+import diarySearchApi from 'src/api/diary/diary-search';
 import { Diary } from 'src/model/diary';
 import router from 'src/pages/router';
 import { dispatch } from 'src/redux';
@@ -13,6 +14,7 @@ function useCreate() {
     await diaryCreateApi(diary);
 
     diaryDetailApi.setCache({ date: diary.date }, diary);
+    diarySearchApi.clearCache();
 
     dispatch(GlobalActions.update({ loading: false }));
 

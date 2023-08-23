@@ -11,7 +11,7 @@ const videoHistoryListApi = generateInfiniteQuery<VideoHistoryListParams, VideoH
       p: params.page,
     },
   }),
-  key: () => 'videoHistoryListApi',
+  key: 'videoHistoryListApi',
 });
 
 export default videoHistoryListApi;

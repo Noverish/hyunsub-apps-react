@@ -1,11 +1,10 @@
-import { InfiniteData, UseInfiniteQueryResult, useInfiniteQuery } from '@tanstack/react-query';
+import { InfiniteData, QueryKey, UseInfiniteQueryResult, useInfiniteQuery } from '@tanstack/react-query';
 import { AxiosRequestConfig } from 'axios';
 import { Draft, produce } from 'immer';
 
 import { generateApi } from 'src/api/generate-api';
 import QueryClient from 'src/api/query-client';
 import { PageData } from 'src/model/api';
-import { toJSON } from 'src/utils';
 
 export type UseInfQueryResult<R> = UseInfiniteQueryResult<PageData<R>> & { infiniteData: R[] };
 
@@ -15,27 +14,36 @@ interface PageParam {
 
 interface GenerateInfiniteApiOption<P> {
   api: (p: P & PageParam) => AxiosRequestConfig<P>;
-  key: (p: P) => string;
+  key: string;
 }
 
 interface GenerateInfiniteApiResult<P, R> {
   useInfiniteApi: (p: P, initialData?: PageData<R>) => UseInfQueryResult<R>;
   updateCache: (p: P, updater: (cache: Draft<R>) => void) => void;
   insertCache: (p: P, newItem: Draft<R>) => void;
-  deleteCache: (p: P, predicate: (r: Draft<R>) => boolean) => void;
-  key: (p: P) => string[];
+  deleteCache: (p: P | null, predicate: (r: Draft<R>) => boolean) => void;
+  invalidate: (p?: P) => void;
+  clearCache: (p?: P) => void;
+  key: (p: P) => QueryKey;
 }
 
 export function generateInfiniteQuery<P, R>(option: GenerateInfiniteApiOption<P>): GenerateInfiniteApiResult<P, R> {
-  const key = (p: P) => [option.key(p), toJSON(p)];
+  type TQueryFnData = InfiniteData<PageData<R>>;
+
+  const key = (p: P): QueryKey => [option.key, p];
   const api = generateApi<P & PageParam, PageData<R>>(option.api);
 
   const useInfiniteApi = (p: P, initialData?: PageData<R>) => {
     const initialData2 = initialData ? { pageParams: [initialData.page], pages: [initialData] } : undefined;
 
-    const result = useInfiniteQuery(key(p), ({ pageParam }) => api({ ...p, page: pageParam }), {
-      getNextPageParam: (lastPage) =>
-        lastPage.total <= (lastPage.page + 1) * lastPage.pageSize ? undefined : lastPage.page + 1,
+    const getNextPageParam = (lastPage: PageData<R>) => {
+      return lastPage.total <= (lastPage.page + 1) * lastPage.pageSize ? undefined : lastPage.page + 1;
+    };
+
+    const result = useInfiniteQuery({
+      queryKey: key(p),
+      queryFn: ({ pageParam }) => api({ ...p, page: pageParam }),
+      getNextPageParam,
       staleTime: Infinity,
       initialData: initialData2,
     });
@@ -46,7 +54,7 @@ export function generateInfiniteQuery<P, R>(option: GenerateInfiniteApiOption<P>
   };
 
   const updateCache = (p: P, updater: (cache: Draft<R>) => void) => {
-    QueryClient.setQueryData<InfiniteData<PageData<R>>>(key(p), (cache) => {
+    QueryClient.setQueryData<TQueryFnData>(key(p), (cache) => {
       if (!cache) return cache;
       return produce(cache, (draft) => {
         for (const page of draft.pages) {
@@ -57,7 +65,7 @@ export function generateInfiniteQuery<P, R>(option: GenerateInfiniteApiOption<P>
   };
 
   const insertCache = (p: P, newItem: Draft<R>) => {
-    QueryClient.setQueryData<InfiniteData<PageData<R>>>(key(p), (cache) => {
+    QueryClient.setQueryData<TQueryFnData>(key(p), (cache) => {
       if (!cache) return cache;
       return produce(cache, (draft) => {
         draft.pages[0]?.data.unshift(newItem);
@@ -65,8 +73,10 @@ export function generateInfiniteQuery<P, R>(option: GenerateInfiniteApiOption<P>
     });
   };
 
-  const deleteCache = (p: P, predicate: (r: Draft<R>) => boolean) => {
-    QueryClient.setQueryData<InfiniteData<PageData<R>>>(key(p), (cache) => {
+  const deleteCache = (p: P | null, predicate: (r: Draft<R>) => boolean) => {
+    const queryKey: QueryKey = p ? key(p) : [option.key];
+
+    QueryClient.setQueriesData<TQueryFnData>(queryKey, (cache) => {
       if (!cache) return cache;
       return produce(cache, (draft) => {
         for (const page of draft.pages) {
@@ -76,11 +86,23 @@ export function generateInfiniteQuery<P, R>(option: GenerateInfiniteApiOption<P>
     });
   };
 
+  const clearCache = (p?: P) => {
+    const queryKey: QueryKey = p ? key(p) : [option.key];
+    QueryClient.removeQueries(queryKey);
+  };
+
+  const invalidate = (p?: P) => {
+    const queryKey: QueryKey = p ? key(p) : [option.key];
+    QueryClient.invalidateQueries<TQueryFnData>(queryKey);
+  };
+
   return {
     useInfiniteApi,
     updateCache,
     insertCache,
     deleteCache,
+    clearCache,
+    invalidate,
     key,
   };
 }

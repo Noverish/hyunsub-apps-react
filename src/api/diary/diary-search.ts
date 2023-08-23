@@ -11,7 +11,7 @@ const diarySearchApi = generateInfiniteQuery<DiarySearchParams, Diary>({
     method: 'POST',
     data: params,
   }),
-  key: () => 'diarySearchApi',
+  key: 'diarySearchApi',
 });
 
 export default diarySearchApi;

@@ -2,8 +2,8 @@ import { useParams } from 'react-router-dom';
 
 import diaryDetailApi from 'src/api/diary/diary-detail';
 import diaryModifyApi from 'src/api/diary/diary-modify';
+import diarySearchApi from 'src/api/diary/diary-search';
 import { Diary } from 'src/model/diary';
-import DiaryRoutes from 'src/pages/diary/DiaryRoutes';
 import router from 'src/pages/router';
 import { dispatch } from 'src/redux';
 import { GlobalActions } from 'src/redux/global';
@@ -32,10 +32,11 @@ function useModify() {
     await diaryModifyApi(diary);
 
     diaryDetailApi.setCache({ date: diary.date }, diary);
+    diarySearchApi.clearCache();
 
     dispatch(GlobalActions.update({ loading: false }));
 
-    router.navigate(DiaryRoutes.detail(diary.date));
+    router.navigate(-1);
   };
 }
 
