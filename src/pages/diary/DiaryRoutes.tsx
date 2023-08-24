@@ -1,6 +1,5 @@
 const DiaryRoutes = {
   listRoute: '/list',
-  list: (query: string) => `/list?query=${query}`,
 
   detailRoute: '/detail/:date',
   detail: (date: string) => `/detail/${date}`,
@@ -9,6 +8,9 @@ const DiaryRoutes = {
   modify: (date: string) => `/detail/${date}/modify`,
 
   createRoute: '/create',
+
+  searchRoute: '/search',
+  search: (query: string) => `/search?query=${query}`,
 
   menuRoute: '/menu',
 };

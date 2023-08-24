@@ -18,6 +18,7 @@ const ko = {
     filter: '필터',
     download: '다운로드',
     complete: '완료',
+    query: '검색어',
     'n-selected': '{{0}}개 선택됨',
 
     'msg.delete-confirm': '정말로 삭제하시겠습니까?',
@@ -208,9 +209,11 @@ const ko = {
     'DiaryDetailPage.title': '일기 상세',
     'DiaryCreatePage.title': '일기 작성',
     'DiaryModifyPage.title': '일기 수정',
+    'DiarySearchPage.title': '검색 결과 {{0}}건 - {{1}}',
     'DiaryForm.date': '날짜',
     'DiaryForm.summary': '요약',
     'DiaryForm.content': '내용',
+    'DiaryListView.empty-msg': '검색 결과가 없습니다.',
 
     'PageSelectModal.title': '페이지 이동',
     'PageSelectModal.close': '취소',

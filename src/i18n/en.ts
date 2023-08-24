@@ -18,6 +18,7 @@ const en = {
     filter: 'Filter',
     download: 'Download',
     complete: 'Complete',
+    query: 'Query',
     'n-selected': '{{0}} Selected',
 
     'msg.delete-confirm': 'Are you sure you want to delete?',
@@ -208,9 +209,11 @@ const en = {
     'DiaryDetailPage.title': 'Diary Detail',
     'DiaryCreatePage.title': 'Write Diary',
     'DiaryModifyPage.title': 'Edit Diary',
+    'DiarySearchPage.title': '{{0}} Results - {{1}}',
     'DiaryForm.date': 'Date',
     'DiaryForm.summary': 'Summary',
     'DiaryForm.content': 'Content',
+    'DiaryListView.empty-msg': 'There is no search result',
 
     'PageSelectModal.title': 'Move Page',
     'PageSelectModal.close': 'Close',
