@@ -5,14 +5,22 @@ import router from 'src/pages/router';
 
 export interface DiaryListPageData {
   query: string;
+  page: number;
+  setPage: (page: number) => void;
 }
 
 function usePageData(): DiaryListPageData {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const query = searchParams.get('query') || '';
+  const page = parseInt(searchParams.get('p') || '0');
 
-  return { query };
+  const setPage = (p: number) => {
+    searchParams.set('p', p.toString());
+    setSearchParams(searchParams);
+  };
+
+  return { query, page, setPage };
 }
 
 function useSearch() {

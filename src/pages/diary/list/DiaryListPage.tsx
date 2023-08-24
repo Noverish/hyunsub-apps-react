@@ -21,7 +21,7 @@ export default function DiaryListPage() {
       <CommonContainer>
         <DiarySearchInput onSearch={search} query={query} />
         <LoadingSuspense>
-          <DiaryListView query={query} />
+          <DiaryListView />
         </LoadingSuspense>
       </CommonContainer>
     </div>

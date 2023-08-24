@@ -30,7 +30,7 @@ export default function CommonPagination({ now, total, onClick }: PaginationProp
 
   return (
     <div className="CommonPagination d-flex flex_center">
-      <Pagination>
+      <Pagination className="mb-0">
         <Pagination.First onClick={() => onClick(0)} />
         <Pagination.Prev onClick={() => onClick(min - 1)} />
         {elements}

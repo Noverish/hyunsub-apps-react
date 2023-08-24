@@ -1,4 +1,4 @@
-import { UseQueryOptions, UseQueryResult, useQuery } from '@tanstack/react-query';
+import { QueryKey, UseQueryOptions, UseQueryResult, useQuery } from '@tanstack/react-query';
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { t } from 'i18next';
 import { produce } from 'immer';
@@ -30,7 +30,7 @@ interface GenerateApiResult<P, R> {
   invalidate: (p: P) => void;
 
   setCache: (p: P, cache: R) => void;
-  clearCache: (p: P) => void;
+  clearCache: (p?: P) => void;
   updateCache: (p: P, updater: Updater<R>) => void;
 }
 
@@ -82,7 +82,12 @@ export function generateQuery<P, R>(option: GenerateApiOption<P>): GenerateApiRe
   const invalidate = (p: P) => QueryClient.invalidateQueries(key(p), { refetchType: 'active' });
 
   const setCache = (p: P, cache: R) => QueryClient.setQueryData<R>(key(p), cache);
-  const clearCache = (p: P) => QueryClient.removeQueries(key(p));
+
+  const clearCache = (p?: P) => {
+    const queryKey: QueryKey = p ? key(p) : [option.key];
+    QueryClient.removeQueries(queryKey);
+  };
+
   const updateCache = (p: P, updater: Updater<R>) => {
     QueryClient.setQueryData<R>(key(p), (cache) => (cache ? produce(cache, updater) : cache));
   };
