@@ -15,10 +15,12 @@ function DiaryListPage() {
 
   // hooks
   const { page, setPage } = DiaryListHooks.usePageData();
-  const { total, data } = diarySearchApi.useApi({ page });
+  const { total, data, pageSize } = diarySearchApi.useApi({ page });
   const setState = useContext(DiaryListContext)[1];
 
   // elements
+  const totalPage = Math.floor((total - 1) / pageSize) + 1;
+
   const headerBtns: MobileHeaderButton[] = [
     {
       icon: 'fas fa-search',
@@ -30,7 +32,7 @@ function DiaryListPage() {
     <div className="DiaryListPage">
       <MobileHeader title={t('DiaryListPage.title')} btns={headerBtns} />
       <CommonContainer>
-        <DiaryListView page={page} total={total} data={data} setPage={setPage} />
+        <DiaryListView page={page} total={totalPage} data={data} setPage={setPage} />
       </CommonContainer>
     </div>
   );
