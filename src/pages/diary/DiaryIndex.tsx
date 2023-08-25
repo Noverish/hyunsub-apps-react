@@ -5,6 +5,7 @@ import routes from './DiaryRoutes';
 import DiaryTabBar from 'src/components/diary/header/DiaryTabBar';
 
 const DiaryListPage = lazy(() => import('./list/DiaryListPage'));
+const DiaryCalendarPage = lazy(() => import('./calendar/DiaryCalendarPage'));
 const DiarySearchPage = lazy(() => import('./search/DiarySearchPage'));
 const DiaryDetailPage = lazy(() => import('./detail/DiaryDetailPage'));
 const DiaryCreatePage = lazy(() => import('./create/DiaryCreatePage'));
@@ -23,6 +24,7 @@ export const DiaryRouteObjects: RouteObject[] = [
     children: [
       { path: '/', element: <Navigate to={routes.listRoute} /> },
       { path: routes.listRoute, element: <DiaryListPage /> },
+      { path: routes.calendarRoute, element: <DiaryCalendarPage /> },
       { path: routes.searchRoute, element: <DiarySearchPage /> },
       { path: routes.detailRoute, element: <DiaryDetailPage /> },
       { path: routes.createRoute, element: <DiaryCreatePage /> },

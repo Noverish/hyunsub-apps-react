@@ -5,7 +5,7 @@ export interface DiaryDetailParams {
   date: string;
 }
 
-const diaryDetailApi = generateQuery<DiaryDetailParams, Diary>({
+const diaryDetailApi = generateQuery<DiaryDetailParams, Diary | null>({
   api: ({ date }) => ({
     url: `/api/v1/diaries/${date}`,
     method: 'GET',

@@ -1,6 +1,8 @@
 const DiaryRoutes = {
   listRoute: '/list',
 
+  calendarRoute: '/calendar',
+
   detailRoute: '/detail/:date',
   detail: (date: string) => `/detail/${date}`,
 

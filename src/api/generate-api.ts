@@ -17,6 +17,7 @@ export type Updater<R> = (cache: R) => R | void | undefined;
 interface GenerateApiOption<P> {
   api: (p: P) => AxiosRequestConfig<P>;
   key: (p: P) => string;
+  safe404?: boolean;
 }
 
 interface GenerateApiResult<P, R> {
@@ -34,7 +35,7 @@ interface GenerateApiResult<P, R> {
   updateCache: (p: P, updater: Updater<R>) => void;
 }
 
-export function generateApi<P, R>(func: (p: P) => AxiosRequestConfig) {
+export function generateApi<P, R>(func: (p: P) => AxiosRequestConfig, safe404?: boolean) {
   return async (p: P): Promise<R> => {
     try {
       const res: AxiosResponse<R> = await axios(func(p));
@@ -65,9 +66,15 @@ export function generateApi<P, R>(func: (p: P) => AxiosRequestConfig) {
 
 export function generateQuery<P, R>(option: GenerateApiOption<P>): GenerateApiResult<P, R> {
   const key = (p: P) => [option.key(p), toJSON(p)];
-  const api = generateApi<P, R>(option.api);
+  const api = generateApi<P, R>(option.api, option.safe404);
 
-  const useApi = (p: P) => useQuery(key(p), () => api(p), { staleTime: Infinity }).data!!;
+  const useApi = (p: P) =>
+    useQuery({
+      queryKey: key(p),
+      queryFn: () => api(p),
+      staleTime: Infinity,
+    }).data!!;
+
   const useApiResult = (p: P, option?: UseQueryOptions<R, unknown, R>) =>
     useQuery({
       queryKey: key(p),
@@ -76,6 +83,7 @@ export function generateQuery<P, R>(option: GenerateApiOption<P>): GenerateApiRe
       suspense: false,
       ...option,
     });
+
   const cache = (p: P) => QueryClient.getQueryData<R>(key(p));
   const prefetch = (p: P) => QueryClient.prefetchQuery(key(p), () => api(p), { staleTime: Infinity });
   const fetch = (p: P) => QueryClient.fetchQuery(key(p), () => api(p), { staleTime: Infinity });

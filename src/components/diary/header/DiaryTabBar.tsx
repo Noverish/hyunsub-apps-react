@@ -7,7 +7,12 @@ const items: TabBarItem[] = [
   {
     name: t('DiaryTabBar.list'),
     link: DiaryRoutes.listRoute,
-    icon: 'fas fa-home',
+    icon: 'fas fa-list',
+  },
+  {
+    name: t('DiaryTabBar.calendar'),
+    link: DiaryRoutes.calendarRoute,
+    icon: 'far fa-calendar-alt',
   },
   {
     name: t('DiaryTabBar.write'),

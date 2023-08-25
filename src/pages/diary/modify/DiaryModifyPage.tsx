@@ -17,7 +17,7 @@ export default function DiaryModifyPage() {
     <div className="DiaryModifyPage">
       <MobileHeader title={t('DiaryModifyPage.title')} back />
       <CommonContainer>
-        <DiaryForm diary={diary} onComplete={modify} />
+        {diary ? <DiaryForm diary={diary} onComplete={modify} /> : <span>{t('DiaryListView.empty-msg')}</span>}
       </CommonContainer>
     </div>
   );

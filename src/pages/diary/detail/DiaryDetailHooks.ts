@@ -10,7 +10,7 @@ import { dispatch } from 'src/redux';
 import { GlobalActions } from 'src/redux/global';
 
 export interface DiaryDetailPageData {
-  diary: Diary;
+  diary: Diary | null;
 }
 
 function usePageData(): DiaryDetailPageData {

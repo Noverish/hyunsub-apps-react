@@ -202,10 +202,12 @@ const ko = {
     'ComicTabBar.like': '좋아요',
     'ComicTabBar.history': '감상기록',
 
-    'DiaryTabBar.list': '홈',
+    'DiaryTabBar.list': '목록',
+    'DiaryTabBar.calendar': '달력',
     'DiaryTabBar.write': '작성',
     'DiaryListPage.title': '일기 목록',
     'DiaryListPage.confirm-msg': '정말로 삭제하시겠습니까?',
+    'DiaryCalendarPage.title': '달력 보기',
     'DiaryDetailPage.title': '일기 상세',
     'DiaryCreatePage.title': '일기 작성',
     'DiaryModifyPage.title': '일기 수정',
