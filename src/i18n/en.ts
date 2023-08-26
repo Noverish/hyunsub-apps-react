@@ -194,8 +194,6 @@ const en = {
     'comic.ComicListPage.title': 'Comic List',
     'comic.ComicDetailPage.subtitle': '{{0}} Episodes',
     'ComicTabBar.list': 'List',
-    'ComicTabBar.subscription': 'Subscription',
-    'ComicTabBar.like': 'Like',
     'ComicTabBar.history': 'History',
 
     'DiaryTabBar.list': 'List',

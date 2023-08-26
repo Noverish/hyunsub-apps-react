@@ -194,8 +194,6 @@ const ko = {
     'comic.ComicListPage.title': '만화 목록',
     'comic.ComicDetailPage.subtitle': '{{0}}개의 에피소드',
     'ComicTabBar.list': '만화',
-    'ComicTabBar.subscription': '구독',
-    'ComicTabBar.like': '좋아요',
     'ComicTabBar.history': '감상기록',
 
     'DiaryTabBar.list': '목록',
