@@ -11,7 +11,7 @@ interface Props {
 }
 
 export default function DriveUploadItem({ status }: Props) {
-  const { name, size, progress } = status;
+  const { name, relativePath, size, progress } = status;
 
   const sizeStr = getHumanReadableSize(size);
 
@@ -21,7 +21,7 @@ export default function DriveUploadItem({ status }: Props) {
         <DriveFileIcon name={name} isDir={false} />
       </td>
       <td className="info">
-        <div className="name">{name}</div>
+        <div className="name">{relativePath}</div>
         <div className="size">{sizeStr}</div>
       </td>
       <td className="status">

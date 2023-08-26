@@ -6,25 +6,26 @@ import driveListApi from 'src/api/drive/drive-list';
 import fileUploadMultipartApi from 'src/api/file/file-upload-multipart';
 import { useDriveExplorerContext } from 'src/components/drive/explorer/DriveExplorerHooks';
 import { DriveUploadContext } from 'src/components/drive/upload/DriveUploadContext';
+import { DriveUploadStatus } from 'src/model/drive';
 import { FileUploadResult, FileUploadStatus, FileWithPath } from 'src/model/file';
-import { dateToString } from 'src/utils';
 
 export function useDriveUpload() {
   const { path } = useDriveExplorerContext();
   const setState = useContext(DriveUploadContext)[1];
 
   return async (files: FileWithPath[]) => {
-    files.forEach((v) => (v.path = join(path, v.path)));
-
     files.sort((a, b) => a.path.localeCompare(b.path));
 
-    const items = files.map((v) => ({
-      path: v.path,
+    const items: DriveUploadStatus[] = files.map((v) => ({
+      absolutePath: join(path, v.path),
+      relativePath: v.path,
       name: v.file.name,
       size: v.file.size,
       type: v.type,
       progress: 0,
     }));
+
+    files.forEach((v) => (v.path = join(path, v.path)));
 
     const controller = new AbortController();
 
@@ -36,7 +37,7 @@ export function useDriveUpload() {
       setState((state) => {
         state.progress = status.total.ratio;
         state.items.forEach((v) => {
-          if (v.path === data.path) {
+          if (v.absolutePath === data.path) {
             v.progress = status.current.ratio;
           }
         });
@@ -48,18 +49,9 @@ export function useDriveUpload() {
 
       setState((state) => {
         state.items.forEach((v) => {
-          if (v.path === data.path) {
+          if (v.absolutePath === data.path) {
             v.progress = 100;
           }
-        });
-      });
-
-      driveListApi.updateCache({ path }, (cache) => {
-        cache.push({
-          name: data.file.name,
-          size: data.file.size,
-          date: dateToString(new Date()),
-          isDir: false,
         });
       });
     };
@@ -68,7 +60,7 @@ export function useDriveUpload() {
 
     setState({ controller: undefined });
 
-    driveListApi.invalidate({ path });
+    driveListApi.clearCache({ path });
   };
 }
 

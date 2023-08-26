@@ -22,7 +22,8 @@ export interface DrivePathParams {
 }
 
 export interface DriveUploadStatus {
-  path: string;
+  relativePath: string;
+  absolutePath: string;
   name: string;
   size: number;
   type: string;

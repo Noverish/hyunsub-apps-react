@@ -12,7 +12,7 @@ export default function DriveUploadModal() {
   const [{ items, progress, aborted }] = useContext(DriveUploadContext);
   const close = useDriveUploadClose();
 
-  const elements = items.map((v) => <DriveUploadItem key={v.name} status={v} />);
+  const elements = items.map((v) => <DriveUploadItem key={v.relativePath} status={v} />);
 
   const completeNum = items.filter((v) => v.progress === 100).length;
 
