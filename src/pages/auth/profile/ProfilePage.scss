@@ -1,18 +1,7 @@
-#MyPage {
-  .container {
-    max-width: 720px;
-  }
-
-  h1 {
-    padding: 1rem 0;
-  }
-
+.ProfilePage {
   .list-group-item {
     display: flex;
     align-items: center;
-    margin: 0 1rem;
-    padding-left: 0;
-    padding-right: 0;
 
     .key {
       width: 120px;

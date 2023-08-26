@@ -6,7 +6,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Link, useSearchParams } from 'react-router-dom';
 
-import routes from '../AuthRoutes';
+import AuthRoutes from '../AuthRoutes';
 import { validUrlAction } from '../login/LoginContext';
 import { registerAction } from './RegisterContext';
 import { RegisterActions } from './RegisterState';
@@ -122,7 +122,7 @@ export default function RegisterPage() {
             {t('auth.register')}
           </button>
           <div className="d-flex justify-content-end">
-            <Link to={`${routes.login}${window.location.search}`} className="link-light">
+            <Link to={`${AuthRoutes.login}${window.location.search}`} className="link-light">
               {t('auth.login')}
             </Link>
           </div>

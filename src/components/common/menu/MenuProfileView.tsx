@@ -12,7 +12,7 @@ export default function MenuProfileView(props: Props) {
   const { username } = useTokenPayload();
 
   const onClick = () => {
-    window.location.href = 'https://auth.hyunsub.kim/my';
+    window.location.href = 'https://auth.hyunsub.kim/profile';
   };
 
   return (

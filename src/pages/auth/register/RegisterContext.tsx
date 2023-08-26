@@ -6,7 +6,7 @@ import { RegisterFormState } from './RegisterPage';
 import { RegisterActions } from './RegisterState';
 import registerApi, { RegisterParams } from 'src/api/auth/auth/register';
 import rsaKey from 'src/api/auth/auth/rsa-key';
-import routes from 'src/pages/auth/AuthRoutes';
+import AuthRoutes from 'src/pages/auth/AuthRoutes';
 import router from 'src/pages/router';
 import { RootState } from 'src/redux';
 import { GlobalActions } from 'src/redux/global';
@@ -41,7 +41,7 @@ export const registerAction = (p: RegisterActionParams) => async (dispatch: Disp
     await registerApi(registerParams);
 
     alert(t('auth.msg.register-success'));
-    router.navigate(routes.login + '?' + window.location.search);
+    router.navigate(AuthRoutes.login + '?' + window.location.search);
   } catch (ex) {
     captchaObj?.reset();
     dispatch(RegisterActions.update({ captcha: null }));

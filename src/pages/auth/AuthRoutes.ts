@@ -1,8 +1,8 @@
-const routes = {
+const AuthRoutes = {
   login: '/login',
   register: '/register',
-  my: '/my',
+  profile: '/profile',
   admin: '/admin',
 };
 
-export default routes;
+export default AuthRoutes;

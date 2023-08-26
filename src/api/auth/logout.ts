@@ -7,10 +7,10 @@ export interface LogoutResult {
   success: boolean;
 }
 
-const logout = generateApi<{}, LogoutResult>(() => ({
+const logoutApi = generateApi<{}, LogoutResult>(() => ({
   url: url + '/api/v1/logout',
   method: 'POST',
   withCredentials: true,
 }));
 
-export default logout;
+export default logoutApi;

@@ -1,36 +1,21 @@
-import { Dispatch } from '@reduxjs/toolkit';
-import { TFunction } from 'i18next';
-import { useRef } from 'react';
+import { t } from 'i18next';
+import { useContext, useRef } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
-import { NavigateFunction, useNavigate } from 'react-router-dom';
 
-import rsaKey from 'src/api/auth/auth/rsa-key';
-import logout from 'src/api/auth/logout';
-import { MyPageUserInfo } from 'src/api/auth/my-page-user-info';
-import updateUserInfo from 'src/api/auth/update-user-info';
-import routes from 'src/pages/auth/AuthRoutes';
-import { updateMyPageState } from 'src/pages/auth/my/MyPageState';
-import { RootState, useDispatch, useSelector } from 'src/redux';
-import { encrypt } from 'src/utils/rsa-key';
-
-interface Props {
-  userInfo: MyPageUserInfo;
-}
+import ProfileHooks from '../ProfileHooks';
+import { ProfileContext } from 'src/pages/auth/profile/ProfileContext';
 
 interface FormState {
   password1: string;
   password2: string;
 }
 
-export default function ModifyPasswordModal({ userInfo }: Props) {
-  const { t } = useTranslation();
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { showPasswordModal } = useSelector((s) => s.auth.my);
+export default function ModifyPasswordModal() {
+  const [{ showPasswordModal }, setState] = useContext(ProfileContext);
+  const modifyPassword = ProfileHooks.useModifyPassword();
 
-  const onHide = () => dispatch(updateMyPageState({ showPasswordModal: false }));
+  const onHide = () => setState({ showPasswordModal: false });
 
   const {
     register,
@@ -56,7 +41,7 @@ export default function ModifyPasswordModal({ userInfo }: Props) {
   const password2ErrMsg = errors.password2?.message;
 
   const onSubmit: SubmitHandler<FormState> = (state: FormState) => {
-    dispatch(modifyPassword(t, navigate, state.password1));
+    modifyPassword(state.password1);
   };
 
   return (
@@ -83,22 +68,4 @@ export default function ModifyPasswordModal({ userInfo }: Props) {
       </Modal.Body>
     </Modal>
   );
-}
-
-function modifyPassword(t: TFunction, navigate: NavigateFunction, password: string) {
-  return async (dispatch: Dispatch, getState: () => RootState) => {
-    const { publicKey } = await rsaKey({});
-
-    const encrypted = encrypt(publicKey, password);
-
-    const result = await updateUserInfo({ password: encrypted });
-
-    alert(t(result.password ? 'auth.modify-password-modal.success' : 'auth.modify-password-modal.failure'));
-
-    dispatch(updateMyPageState({ showPasswordModal: false }));
-
-    await logout({});
-
-    navigate(routes.login);
-  };
 }

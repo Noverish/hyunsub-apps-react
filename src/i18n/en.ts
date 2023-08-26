@@ -68,11 +68,7 @@ const en = {
     'auth.my-page.login-device': 'Logined Devices',
     'auth.my-page.login-device-num': '{{0}} devices',
     'auth.modify-username-modal.title': 'Modify ID',
-    'auth.modify-username-modal.success': 'Modification ID is successful. Please login again',
-    'auth.modify-username-modal.failure': 'Modification ID is failed',
     'auth.modify-password-modal.title': 'Modify Password',
-    'auth.modify-password-modal.success': 'Modification password is successful. Please login again',
-    'auth.modify-password-modal.failure': 'Modification password is failed',
 
     'video.term.sort.random': 'Random',
     'video.term.sort.new': 'Recently Uploads',

@@ -6,7 +6,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { Link, useSearchParams } from 'react-router-dom';
 
-import routes from '../AuthRoutes';
+import AuthRoutes from '../AuthRoutes';
 import { loginAction, validUrlAction } from './LoginContext';
 import { LoginActions } from './LoginState';
 import { useDispatch, useSelector } from 'src/redux';
@@ -106,7 +106,7 @@ export default function LoginPage() {
               <label className="form-check-label">{t('auth.login-persist')}</label>
             </div>
             <div>
-              <Link to={`${routes.register}${window.location.search}`} className="link-light">
+              <Link to={`${AuthRoutes.register}${window.location.search}`} className="link-light">
                 {t('auth.register')}
               </Link>
             </div>
