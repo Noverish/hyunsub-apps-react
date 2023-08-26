@@ -57,7 +57,7 @@ export default function ComicViewerPage() {
   ) : undefined;
 
   return (
-    <div className="ComicViewerPage">
+    <div className="ComicViewerPage vh-100">
       <ImageSwiper
         initialSlide={history || 0}
         slides={urls}
