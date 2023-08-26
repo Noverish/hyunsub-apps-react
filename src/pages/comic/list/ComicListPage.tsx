@@ -22,7 +22,7 @@ export default function ComicListPage() {
       <MobileHeader title={t('comic.ComicListPage.title')} />
       <ComicTabBar />
       <CommonContainer>
-        <div>{elements}</div>
+        <div className="d-grid gap-2 gap-md-3 row-col-3 row-col-md-4 row-col-xl-6">{elements}</div>
       </CommonContainer>
     </div>
   );

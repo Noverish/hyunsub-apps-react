@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { ComicPreview } from 'src/model/comic';
 import ComicRoutes from 'src/pages/comic/ComicRoutes';
@@ -10,15 +10,15 @@ interface Props {
 }
 
 export default function ComicPreviewView({ comic }: Props) {
-  const navigate = useNavigate();
-
-  const onClick = () => {
-    navigate(ComicRoutes.detailRoute(comic.id));
-  };
+  const href = ComicRoutes.detailRoute(comic.id);
+  const style: any = { '--bs-aspect-ratio': '141.4%' };
 
   return (
-    <div className="ComicPreviewView hyunsub_border" onClick={onClick}>
-      {comic.title}
-    </div>
+    <Link to={href} className="ComicPreviewView col move_up_on_hover">
+      <div className="ratio" style={style}>
+        <img className="thumbnail" src={comic.thumbnail} loading="lazy" alt={comic.title} />
+      </div>
+      <div className="title">{comic.title}</div>
+    </Link>
   );
 }

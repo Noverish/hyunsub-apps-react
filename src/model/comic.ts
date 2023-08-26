@@ -1,6 +1,7 @@
 export interface ComicPreview {
   id: string;
   title: string;
+  thumbnail: string;
 }
 
 export interface ComicDetail {
