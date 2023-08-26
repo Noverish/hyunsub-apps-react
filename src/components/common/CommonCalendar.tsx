@@ -1,28 +1,50 @@
+import cs from 'classnames';
 import { useState } from 'react';
-import Calendar from 'react-calendar';
+import Calendar, { CalendarProps, TileClassNameFunc } from 'react-calendar';
+import { TileArgs } from 'react-calendar/dist/cjs/shared/types';
 
+import './CommonCalendar.scss';
 import 'react-calendar/dist/Calendar.css';
 
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
-interface Props {
+interface Props extends Omit<CalendarProps, 'onChange' | 'value' | 'tileClassName'> {
   initialValue: Date;
-  onChange: (date: Date) => void;
+  onDateChange: (date: Date) => void;
+  tileClassName?: (args: TileArgs) => string;
 }
 
-export default function CommonCalendar(props: Props) {
-  const [value, setValue] = useState<Value>(props.initialValue);
+export default function CommonCalendar({ initialValue, onDateChange, tileClassName, ...etc }: Props) {
+  const [value, setValue] = useState<Value>(initialValue);
 
   const onChange = (v: Value) => {
     setValue(v);
     if (isDate(v)) {
-      props.onChange(v);
+      onDateChange(v);
     }
   };
 
+  const tileClassName2: TileClassNameFunc = (args) => {
+    const { date, view } = args;
+    const value = tileClassName?.(args);
+
+    if (view === 'month' && date.getDay() === 6) {
+      return cs('sat', value);
+    }
+    return value;
+  };
+
   return (
-    <Calendar className="CommonCalendar" onChange={onChange} value={value} calendarType="gregory" locale="en-US" />
+    <Calendar
+      className="CommonCalendar"
+      onChange={onChange}
+      value={value}
+      calendarType="gregory"
+      locale="en-US"
+      tileClassName={tileClassName2}
+      {...etc}
+    />
   );
 }
 

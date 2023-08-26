@@ -1,0 +1,18 @@
+.DiaryCalendarPage {
+  .CommonCalendar {
+    .dot {
+      position: relative;
+
+      &::after {
+        content: "";
+        position: absolute;
+        right: 10px;
+        top: 6px;
+        width: 4px;
+        height: 4px;
+        background-color: var(--bs-red);
+        border-radius: 50%;
+      }
+    }
+  }
+}
