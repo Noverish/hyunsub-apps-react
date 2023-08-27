@@ -1,6 +1,7 @@
 import { t } from 'i18next';
 import { useContext } from 'react';
 
+import DiaryRoutes from '../DiaryRoutes';
 import { DiaryListContext, DiaryListProvider } from './DiaryListContext';
 import DiaryListHooks from './DiaryListHooks';
 import DiarySearchModal from './elements/DiarySearchModal';
@@ -8,6 +9,7 @@ import diarySearchApi from 'src/api/diary/diary-search';
 import CommonContainer from 'src/components/common/header/CommonContainer';
 import MobileHeader, { MobileHeaderButton } from 'src/components/common/header/MobileHeader';
 import DiaryListView from 'src/components/diary/DiaryListView';
+import router from 'src/pages/router';
 import { setDocumentTitle } from 'src/utils/services';
 
 function DiaryListPage() {
@@ -25,6 +27,10 @@ function DiaryListPage() {
     {
       icon: 'fas fa-search',
       onClick: () => setState({ showSearchModal: true }),
+    },
+    {
+      icon: 'fas fa-plus',
+      onClick: () => router.navigate(DiaryRoutes.createRoute),
     },
   ];
 

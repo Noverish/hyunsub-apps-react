@@ -9,6 +9,7 @@ export interface TokenPayload {
   username: string;
   authorities: string[];
   isAdmin: boolean;
+  lang?: string;
 }
 
 async function loadTokenPayload(): Promise<TokenPayload> {
@@ -38,4 +39,9 @@ export function useTokenPayload(): TokenPayload {
 
 export function useIsAdmin() {
   return useTokenPayload().isAdmin;
+}
+
+export function useWeekday(date: Date): string {
+  const { lang } = useTokenPayload();
+  return date.toLocaleString(lang ?? 'ko', { weekday: 'short' });
 }

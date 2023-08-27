@@ -9,13 +9,14 @@ import { setDocumentTitle } from 'src/utils/services';
 export default function DiaryCreatePage() {
   setDocumentTitle(t('DiaryCreatePage.title'));
 
+  const { date } = DiaryCreateHooks.usePageData();
   const create = DiaryCreateHooks.useCreate();
 
   return (
     <div className="DiaryCreatePage">
-      <MobileHeader title={t('DiaryCreatePage.title')} />
+      <MobileHeader title={t('DiaryCreatePage.title')} back />
       <CommonContainer>
-        <DiaryForm onComplete={create} />
+        <DiaryForm onComplete={create} initialDate={date || undefined} />
       </CommonContainer>
     </div>
   );

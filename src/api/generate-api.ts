@@ -16,7 +16,7 @@ export type Updater<R> = (cache: R) => R | void | undefined;
 
 interface GenerateApiOption<P> {
   api: (p: P) => AxiosRequestConfig<P>;
-  key: (p: P) => string;
+  key: (p?: P) => string;
   safe404?: boolean;
 }
 
@@ -28,7 +28,7 @@ interface GenerateApiResult<P, R> {
   fetch: (p: P) => Promise<R>;
   cache: (p: P) => R | undefined;
   prefetch: (p: P) => void;
-  invalidate: (p: P) => void;
+  invalidate: (p?: P) => void;
 
   setCache: (p: P, cache: R) => void;
   clearCache: (p?: P) => void;
@@ -87,12 +87,16 @@ export function generateQuery<P, R>(option: GenerateApiOption<P>): GenerateApiRe
   const cache = (p: P) => QueryClient.getQueryData<R>(key(p));
   const prefetch = (p: P) => QueryClient.prefetchQuery(key(p), () => api(p), { staleTime: Infinity });
   const fetch = (p: P) => QueryClient.fetchQuery(key(p), () => api(p), { staleTime: Infinity });
-  const invalidate = (p: P) => QueryClient.invalidateQueries(key(p), { refetchType: 'active' });
 
   const setCache = (p: P, cache: R) => QueryClient.setQueryData<R>(key(p), cache);
 
+  const invalidate = (p?: P) => {
+    const queryKey: QueryKey = p ? key(p) : [option.key()];
+    QueryClient.invalidateQueries(queryKey, { refetchType: 'active' });
+  };
+
   const clearCache = (p?: P) => {
-    const queryKey: QueryKey = p ? key(p) : [option.key];
+    const queryKey: QueryKey = p ? key(p) : [option.key()];
     QueryClient.removeQueries(queryKey);
   };
 

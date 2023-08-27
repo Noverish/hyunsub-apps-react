@@ -1,5 +1,5 @@
 export interface Diary {
   date: string;
-  summary: string | null;
+  summary: string;
   content: string;
 }

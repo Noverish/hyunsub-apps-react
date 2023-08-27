@@ -8,11 +8,12 @@ import { toDateString } from 'src/utils';
 interface Props {
   diary?: Diary;
   onComplete: (diary: Diary) => void;
+  initialDate?: string;
 }
 
-export default function DiaryForm({ diary, onComplete }: Props) {
+export default function DiaryForm({ diary, onComplete, initialDate }: Props) {
   const defaultValues: Diary = diary ?? {
-    date: toDateString(new Date()),
+    date: initialDate ?? toDateString(new Date()),
     summary: '',
     content: '',
   };

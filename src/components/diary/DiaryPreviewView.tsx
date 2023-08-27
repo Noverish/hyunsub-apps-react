@@ -1,5 +1,6 @@
 import { Card } from 'react-bootstrap';
 
+import { useWeekday } from 'src/hooks/token';
 import { Diary } from 'src/model/diary';
 import DiaryRoutes from 'src/pages/diary/DiaryRoutes';
 import router from 'src/pages/router';
@@ -9,6 +10,9 @@ interface Props {
 }
 
 export default function DiaryPreviewView({ diary }: Props) {
+  const date = new Date(diary.date);
+  const weekday = useWeekday(date);
+
   const onClick = () => {
     router.navigate(DiaryRoutes.detail(diary.date));
   };
@@ -22,7 +26,9 @@ export default function DiaryPreviewView({ diary }: Props) {
 
   return (
     <Card className="DiaryPreviewView" onClick={onClick}>
-      <Card.Header>{diary.date}</Card.Header>
+      <Card.Header>
+        {diary.date} ({weekday})
+      </Card.Header>
       <Card.Body>
         {summary}
         <p className="mb-0">{diary.content.substring(0, 100)} ...</p>

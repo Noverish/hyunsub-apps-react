@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import diaryDeleteApi from 'src/api/diary/diary-delete';
 import diaryDetailApi from 'src/api/diary/diary-detail';
 import diarySearchApi from 'src/api/diary/diary-search';
+import diaryStatusMonthApi from 'src/api/diary/diary-status-month';
 import { Diary } from 'src/model/diary';
 import router from 'src/pages/router';
 import { dispatch } from 'src/redux';
@@ -37,6 +38,7 @@ function useDelete() {
     await diaryDeleteApi({ date });
 
     diarySearchApi.clearCache();
+    diaryStatusMonthApi.invalidate();
 
     dispatch(GlobalActions.update({ loading: false }));
 

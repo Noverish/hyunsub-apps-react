@@ -14,11 +14,6 @@ const items: TabBarItem[] = [
     link: DiaryRoutes.calendarRoute,
     icon: 'far fa-calendar-alt',
   },
-  {
-    name: t('DiaryTabBar.write'),
-    link: DiaryRoutes.createRoute,
-    icon: 'fas fa-plus',
-  },
 ];
 
 export default function DiaryTabBar() {

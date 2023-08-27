@@ -35,7 +35,6 @@ export default function DiaryCalendarPage() {
   };
 
   const onActiveStartDateChange = ({ activeStartDate, view }: OnArgs) => {
-    console.log({ activeStartDate, view });
     if (view === 'month' && activeStartDate) {
       setViewDate(activeStartDate);
     }

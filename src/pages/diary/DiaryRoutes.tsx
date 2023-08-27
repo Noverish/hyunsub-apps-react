@@ -10,6 +10,7 @@ const DiaryRoutes = {
   modify: (date: string) => `/detail/${date}/modify`,
 
   createRoute: '/create',
+  create: (date: string) => `/create?date=${date}`,
 
   searchRoute: '/search',
   search: (query: string) => `/search?query=${query}`,

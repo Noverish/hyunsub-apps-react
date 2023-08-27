@@ -198,10 +198,10 @@ const en = {
 
     'DiaryTabBar.list': 'List',
     'DiaryTabBar.calendar': 'Calendar',
-    'DiaryTabBar.write': 'Write',
     'DiaryListPage.title': 'Diary List',
     'DiaryListPage.confirm-msg': 'Are you sure you want to delete it?',
     'DiaryCalendarPage.title': 'Diary Calendar',
+    'DiaryCalendarPage.create': 'Write Diary in this day',
     'DiaryDetailPage.title': 'Diary Detail',
     'DiaryCreatePage.title': 'Write Diary',
     'DiaryModifyPage.title': 'Edit Diary',
