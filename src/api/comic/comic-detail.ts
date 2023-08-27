@@ -10,7 +10,7 @@ const comicDetailApi = generateQuery<ComicDetailParams, ComicDetail>({
     url: `/api/v1/comics/${params.comicId}`,
     method: 'GET',
   }),
-  key: () => 'comicDetailApi',
+  key: 'comicDetailApi',
 });
 
 export default comicDetailApi;

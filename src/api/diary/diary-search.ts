@@ -13,7 +13,7 @@ const diarySearchApi = generateQuery<DiarySearchParams, PageData<Diary>>({
     method: 'POST',
     data: params,
   }),
-  key: () => 'diarySearchApi',
+  key: 'diarySearchApi',
 });
 
 export default diarySearchApi;

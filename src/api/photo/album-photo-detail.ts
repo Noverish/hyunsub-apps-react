@@ -11,7 +11,7 @@ const albumPhotoDetailApi = generateQuery<AlbumPhotoDetailParams, Photo>({
     url: `/api/v2/albums/${albumId}/photos/${photoId}`,
     method: 'GET',
   }),
-  key: () => 'albumPhotoDetailApi',
+  key: 'albumPhotoDetailApi',
 });
 
 export default albumPhotoDetailApi;

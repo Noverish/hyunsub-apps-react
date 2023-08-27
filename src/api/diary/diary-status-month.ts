@@ -11,7 +11,7 @@ const diaryStatusMonthApi = generateQuery<DiaryStatusMonthParams, string[]>({
     method: 'GET',
     params,
   }),
-  key: () => 'diaryStatusMonthApi',
+  key: 'diaryStatusMonthApi',
 });
 
 export default diaryStatusMonthApi;

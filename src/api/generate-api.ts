@@ -10,32 +10,30 @@ import router from 'src/pages/router';
 import { dispatch } from 'src/redux';
 import { GlobalActions } from 'src/redux/global';
 import { insertToast } from 'src/redux/toast';
-import { isDev, sleep, toJSON } from 'src/utils';
+import { isDev, sleep } from 'src/utils';
 
 export type Updater<R> = (cache: R) => R | void | undefined;
 
 interface GenerateApiOption<P> {
   api: (p: P) => AxiosRequestConfig<P>;
-  key: (p?: P) => string;
-  safe404?: boolean;
+  key: string;
 }
 
 interface GenerateApiResult<P, R> {
   api: (p: P) => Promise<R>;
-  key: (p: P) => string[];
+  key: (p: P) => QueryKey;
   useApi: (p: P) => R;
   useApiResult: (p: P, option?: UseQueryOptions<R, unknown, R>) => UseQueryResult<R, unknown>;
   fetch: (p: P) => Promise<R>;
   cache: (p: P) => R | undefined;
   prefetch: (p: P) => void;
   invalidate: (p?: P) => void;
-
   setCache: (p: P, cache: R) => void;
   clearCache: (p?: P) => void;
   updateCache: (p: P, updater: Updater<R>) => void;
 }
 
-export function generateApi<P, R>(func: (p: P) => AxiosRequestConfig, safe404?: boolean) {
+export function generateApi<P, R>(func: (p: P) => AxiosRequestConfig) {
   return async (p: P): Promise<R> => {
     try {
       const res: AxiosResponse<R> = await axios(func(p));
@@ -65,8 +63,8 @@ export function generateApi<P, R>(func: (p: P) => AxiosRequestConfig, safe404?: 
 }
 
 export function generateQuery<P, R>(option: GenerateApiOption<P>): GenerateApiResult<P, R> {
-  const key = (p: P) => [option.key(p), toJSON(p)];
-  const api = generateApi<P, R>(option.api, option.safe404);
+  const key = (p: P): QueryKey => [option.key, p];
+  const api = generateApi<P, R>(option.api);
 
   const useApi = (p: P) =>
     useQuery({
@@ -91,12 +89,12 @@ export function generateQuery<P, R>(option: GenerateApiOption<P>): GenerateApiRe
   const setCache = (p: P, cache: R) => QueryClient.setQueryData<R>(key(p), cache);
 
   const invalidate = (p?: P) => {
-    const queryKey: QueryKey = p ? key(p) : [option.key()];
+    const queryKey: QueryKey = p ? key(p) : [option.key];
     QueryClient.invalidateQueries(queryKey, { refetchType: 'active' });
   };
 
   const clearCache = (p?: P) => {
-    const queryKey: QueryKey = p ? key(p) : [option.key()];
+    const queryKey: QueryKey = p ? key(p) : [option.key];
     QueryClient.removeQueries(queryKey);
   };
 

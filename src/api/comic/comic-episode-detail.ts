@@ -11,7 +11,7 @@ const comicEpisodeDetailApi = generateQuery<ComicEpisodeDetailParams, ComicEpiso
     url: `/api/v1/comics/${params.comicId}/episodes/${params.order}`,
     method: 'GET',
   }),
-  key: () => 'comicEpisodeDetailApi',
+  key: 'comicEpisodeDetailApi',
 });
 
 export default comicEpisodeDetailApi;

@@ -10,7 +10,7 @@ const albumDetailApi = generateQuery<AlbumDetailParams, Album>({
     url: `/api/v2/albums/${params.albumId}`,
     method: 'GET',
   }),
-  key: () => 'albumDetailApi',
+  key: 'albumDetailApi',
 });
 
 export default albumDetailApi;

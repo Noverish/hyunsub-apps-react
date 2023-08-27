@@ -15,7 +15,7 @@ const photoListApi = generateInfiniteQuery2<PhotoListParams, PhotoPreview>({
       next,
     },
   }),
-  key: () => 'photoListApi',
+  key: 'photoListApi',
 });
 
 export default photoListApi;

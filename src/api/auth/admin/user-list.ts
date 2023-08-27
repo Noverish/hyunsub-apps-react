@@ -6,7 +6,7 @@ const userListApi = generateQuery<{}, AdminUser[]>({
     url: '/api/v1/admin/users',
     method: 'GET',
   }),
-  key: () => 'allUsers',
+  key: 'allUsers',
 });
 
 export default userListApi;

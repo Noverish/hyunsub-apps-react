@@ -10,7 +10,7 @@ const videoDetailApi = generateQuery<VideoDetailParams, Video>({
     url: `/api/v1/videos/${videoId}`,
     method: 'GET',
   }),
-  key: () => 'videoDetailApi',
+  key: 'videoDetailApi',
 });
 
 export default videoDetailApi;

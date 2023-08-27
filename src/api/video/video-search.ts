@@ -17,7 +17,7 @@ const videoSearchApi = generateQuery<VideoSearchParams, VideoSearchResult>({
       q: params.query,
     },
   }),
-  key: () => 'videoSearchApi',
+  key: 'videoSearchApi',
 });
 
 export default videoSearchApi;

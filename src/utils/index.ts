@@ -8,10 +8,6 @@ export function isDev() {
   return !process.env.NODE_ENV || process.env.NODE_ENV === 'development';
 }
 
-export function toJSON(obj: any) {
-  return JSON.stringify(obj, Object.keys(obj).sort());
-}
-
 export function urlToName(url: string) {
   return decodeURIComponent(url.split('/').reverse()[0]);
 }

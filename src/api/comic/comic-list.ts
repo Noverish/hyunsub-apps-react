@@ -6,7 +6,7 @@ const comicListApi = generateQuery<{}, ComicPreview[]>({
     url: '/api/v1/comics',
     method: 'GET',
   }),
-  key: () => 'comicListApi',
+  key: 'comicListApi',
 });
 
 export default comicListApi;

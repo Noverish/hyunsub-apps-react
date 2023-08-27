@@ -10,7 +10,7 @@ const diaryDetailApi = generateQuery<DiaryDetailParams, Diary | null>({
     url: `/api/v1/diaries/${date}`,
     method: 'GET',
   }),
-  key: () => 'diaryDetailApi',
+  key: 'diaryDetailApi',
 });
 
 export default diaryDetailApi;

@@ -15,7 +15,7 @@ const apparelDetailApi = generateQuery<ApparelDetailParams, ApparelDetailResult>
     url: `/api/v1/apparels/${params.apparelId}`,
     method: 'GET',
   }),
-  key: () => 'apparelDetailApi',
+  key: 'apparelDetailApi',
 });
 
 export default apparelDetailApi;

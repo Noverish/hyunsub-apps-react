@@ -5,7 +5,7 @@ const apparelCategoriesApi = generateQuery<{}, string[]>({
     url: '/api/v1/categories',
     method: 'GET',
   }),
-  key: () => 'apparelCategories',
+  key: 'apparelCategories',
 });
 
 export default apparelCategoriesApi;

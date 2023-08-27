@@ -1,11 +1,10 @@
-import { InfiniteData, UseInfiniteQueryResult, useInfiniteQuery } from '@tanstack/react-query';
+import { InfiniteData, QueryKey, UseInfiniteQueryResult, useInfiniteQuery } from '@tanstack/react-query';
 import { AxiosRequestConfig } from 'axios';
 import { Draft, produce } from 'immer';
 
 import { Updater, generateApi } from 'src/api/generate-api';
 import QueryClient from 'src/api/query-client';
 import { PageData, Pagination } from 'src/model/api';
-import { toJSON } from 'src/utils';
 
 export type UseInfQueryResult2<R> = UseInfiniteQueryResult<Pagination<R>> & { infiniteData: R[] };
 
@@ -16,7 +15,7 @@ export interface PaginationParam {
 
 interface GenerateInfiniteApiOption<P> {
   api: (p: P & PaginationParam) => AxiosRequestConfig<P>;
-  key: (p: P) => string;
+  key: string;
 }
 
 interface GenerateInfiniteApiResult<P, R> {
@@ -24,11 +23,11 @@ interface GenerateInfiniteApiResult<P, R> {
   updateCache: (p: P, updater: Updater<R>) => void;
   insertToCache: (p: P, newItem: Draft<R>) => void;
   deleteFromCache: (p: P, predicate: (r: Draft<R>) => boolean) => void;
-  key: (p: P) => string[];
+  key: (p: P) => QueryKey;
 }
 
 export function generateInfiniteQuery2<P, R>(option: GenerateInfiniteApiOption<P>): GenerateInfiniteApiResult<P, R> {
-  const key = (p: P) => [option.key(p), toJSON(p)];
+  const key = (p: P): QueryKey => [option.key, p];
   const api = generateApi<P & PaginationParam, Pagination<R>>(option.api);
 
   const useInfiniteApi = (p: P) => {

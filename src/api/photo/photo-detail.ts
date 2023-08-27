@@ -10,7 +10,7 @@ const photoDetailApi = generateQuery<PhotoDetailParams, Photo>({
     url: `/api/v2/photos/${params.photoId}`,
     method: 'GET',
   }),
-  key: () => 'photoDetailApi',
+  key: 'photoDetailApi',
 });
 
 export default photoDetailApi;

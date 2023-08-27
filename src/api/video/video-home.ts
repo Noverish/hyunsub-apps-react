@@ -15,7 +15,7 @@ const videoHomeApi = generateQuery<{}, VideoHomeResult>({
     url: '/api/v1/home',
     method: 'GET',
   }),
-  key: () => 'videoHomeApi',
+  key: 'videoHomeApi',
 });
 
 export default videoHomeApi;

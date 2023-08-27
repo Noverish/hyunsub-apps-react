@@ -6,7 +6,7 @@ const videoCategoryApi = generateQuery<{}, VideoCategory[]>({
     url: '/api/v1/categories',
     method: 'GET',
   }),
-  key: () => 'videoCategoryApi',
+  key: 'videoCategoryApi',
 });
 
 export default videoCategoryApi;

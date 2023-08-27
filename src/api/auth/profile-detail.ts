@@ -6,7 +6,7 @@ const profileDetailApi = generateQuery<{}, Profile>({
     url: '/api/v1/profile',
     method: 'GET',
   }),
-  key: () => `profileDetailApi`,
+  key: `profileDetailApi`,
 });
 
 export default profileDetailApi;

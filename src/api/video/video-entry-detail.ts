@@ -12,7 +12,7 @@ const videoEntryDetailApi = generateQuery<VideoEntryDetailParams, VideoEntryDeta
     method: 'GET',
     params: { videoId },
   }),
-  key: () => 'videoEntryDetailApi',
+  key: 'videoEntryDetailApi',
 });
 
 export default videoEntryDetailApi;

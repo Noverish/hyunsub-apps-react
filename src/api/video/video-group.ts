@@ -6,7 +6,7 @@ const videoGroups = generateQuery<{}, VideoGroup[]>({
     url: '/api/v1/groups',
     method: 'GET',
   }),
-  key: () => 'videoGroups',
+  key: 'videoGroups',
 });
 
 export default videoGroups;

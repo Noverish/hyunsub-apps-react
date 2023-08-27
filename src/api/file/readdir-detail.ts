@@ -15,7 +15,7 @@ const readdirDetail = generateQuery<string, FileInfo[]>({
     withCredentials: true,
     params: { path },
   }),
-  key: () => 'readdirDetail',
+  key: 'readdirDetail',
 });
 
 export default readdirDetail;

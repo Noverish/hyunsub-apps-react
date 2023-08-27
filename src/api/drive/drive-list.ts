@@ -7,7 +7,7 @@ const driveListApi = generateQuery<DrivePathParams, DriveFileInfo[]>({
     method: 'POST',
     data: params,
   }),
-  key: () => 'driveListApi',
+  key: 'driveListApi',
 });
 
 export default driveListApi;

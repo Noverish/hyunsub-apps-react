@@ -10,7 +10,7 @@ const albumPhotoMetadataApi = generateQuery<AlbumPhotoMetadataParams, PhotoMetad
     url: `/api/v2/albums/${params.albumId}/photos/metadata`,
     method: 'GET',
   }),
-  key: () => 'albumPhotoMetadataApi',
+  key: 'albumPhotoMetadataApi',
 });
 
 export default albumPhotoMetadataApi;

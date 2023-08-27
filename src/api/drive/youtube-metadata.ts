@@ -11,7 +11,7 @@ const youtubeMetadataApi = generateQuery<YoutubeMetadataParams, YoutubeMetadata>
     method: 'GET',
     params,
   }),
-  key: () => 'youtubeMetadataApi',
+  key: 'youtubeMetadataApi',
 });
 
 export default youtubeMetadataApi;
