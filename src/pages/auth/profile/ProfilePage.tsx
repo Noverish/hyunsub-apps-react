@@ -1,12 +1,15 @@
 import { t } from 'i18next';
 import { useContext } from 'react';
 import { Button, Card, ListGroup } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
+import AuthRoutes from '../AuthRoutes';
 import { ProfileProvider } from './ProfileContext';
 import ProfileHooks from './ProfileHooks';
 import profileDetailApi from 'src/api/auth/profile-detail';
 import CommonContainer from 'src/components/common/header/CommonContainer';
 import MobileHeader from 'src/components/common/header/MobileHeader';
+import { useIsAdmin } from 'src/hooks/token';
 import { ProfileContext } from 'src/pages/auth/profile/ProfileContext';
 import ModifyPasswordModal from 'src/pages/auth/profile/components/ModifyPasswordModal';
 import ModifyUsernameModal from 'src/pages/auth/profile/components/ModifyUsernameModal';
@@ -30,6 +33,7 @@ function ProfilePage() {
   setDocumentTitle(t('auth.my-page.title'));
 
   // hooks
+  const isAdmin = useIsAdmin();
   const setState = useContext(ProfileContext)[1];
   const userInfo = profileDetailApi.useApi({});
   const onSignOut = ProfileHooks.useWithdraw();
@@ -71,6 +75,11 @@ function ProfilePage() {
           <Button variant="danger" onClick={onSignOut}>
             {t('auth.sign-out')}
           </Button>
+          {isAdmin ? (
+            <Link to={AuthRoutes.admin} className="d-grid">
+              <Button variant="primary">Admin</Button>
+            </Link>
+          ) : undefined}
         </div>
       </CommonContainer>
     </div>

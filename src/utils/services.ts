@@ -78,5 +78,7 @@ function getService(code: ServiceCode): Service | undefined {
 export function setDocumentTitle(title: string) {
   const code = window.location.hostname.split('.')[0].replace('local-', '') as ServiceCode;
   const service = getService(code);
-  window.document.title = `${title} - ${service?.documentTitle}`;
+  const documentTitle = service?.documentTitle;
+  const documentTitleSuffix = documentTitle ? ` - ${documentTitle}` : '';
+  window.document.title = `${title}${documentTitleSuffix}`;
 }
