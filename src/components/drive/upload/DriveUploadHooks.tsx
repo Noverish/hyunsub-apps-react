@@ -6,12 +6,14 @@ import driveListApi from 'src/api/drive/drive-list';
 import fileUploadMultipartApi from 'src/api/file/file-upload-multipart';
 import { useDriveExplorerContext } from 'src/components/drive/explorer/DriveExplorerHooks';
 import { DriveUploadContext } from 'src/components/drive/upload/DriveUploadContext';
+import { useTokenPayload } from 'src/hooks/token';
 import { DriveUploadStatus } from 'src/model/drive';
 import { FileUploadResult, FileUploadStatus, FileWithPath } from 'src/model/file';
 
 export function useDriveUpload() {
   const { path } = useDriveExplorerContext();
   const setState = useContext(DriveUploadContext)[1];
+  const { isAdmin, idNo } = useTokenPayload();
 
   return async (files: FileWithPath[]) => {
     files.sort((a, b) => a.path.localeCompare(b.path));
@@ -25,34 +27,29 @@ export function useDriveUpload() {
       progress: 0,
     }));
 
-    files.forEach((v) => (v.path = join(path, v.path)));
+    const root = isAdmin ? path : join(`/hyunsub/drive/${idNo}`, path);
+    files.forEach((v) => (v.path = join(root, v.path)));
 
     const controller = new AbortController();
 
     setState({ items, controller, aborted: false, progress: 0 });
 
     const progress = (status: FileUploadStatus) => {
-      const data = files[status.current.index];
-
       setState((state) => {
         state.progress = status.total.ratio;
-        state.items.forEach((v) => {
-          if (v.absolutePath === data.path) {
-            v.progress = status.current.ratio;
-          }
-        });
+        const item = state.items[status.current.index];
+        if (item) {
+          item.progress = status.current.ratio;
+        }
       });
     };
 
     const callback = (result: FileUploadResult) => {
-      const data = files[result.index];
-
       setState((state) => {
-        state.items.forEach((v) => {
-          if (v.absolutePath === data.path) {
-            v.progress = 100;
-          }
-        });
+        const item = state.items[result.index];
+        if (item) {
+          item.progress = 100;
+        }
       });
     };
 

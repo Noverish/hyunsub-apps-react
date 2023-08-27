@@ -2,16 +2,21 @@ import { t } from 'i18next';
 import { Dropdown, DropdownButton } from 'react-bootstrap';
 
 import { useDriveUpload } from 'src/components/drive/upload/DriveUploadHooks';
+import { FileWithPath } from 'src/model/file';
 
 export default function DriveUploadButton() {
   const driveUpload = useDriveUpload();
 
   const onUpload = (input: HTMLInputElement) => {
-    const result = Array.from(input.files || []).map((v) => ({
-      file: v,
-      path: v.webkitRelativePath ? v.webkitRelativePath : v.name,
-      type: v.type,
-    }));
+    const result: FileWithPath[] = Array.from(input.files || [])
+      .filter((v) => v.name !== '.DS_Store')
+      .map((v) => ({
+        file: v,
+        path: v.webkitRelativePath ? v.webkitRelativePath : v.name,
+        type: v.type,
+      }));
+
+    result.forEach((v) => console.log(v));
 
     if (result.length > 0) {
       driveUpload(result);
