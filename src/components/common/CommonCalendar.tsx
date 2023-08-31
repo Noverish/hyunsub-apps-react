@@ -1,7 +1,7 @@
 import cs from 'classnames';
 import { useState } from 'react';
 import Calendar, { CalendarProps, TileClassNameFunc } from 'react-calendar';
-import { TileArgs } from 'react-calendar/dist/cjs/shared/types';
+import { OnArgs, TileArgs } from 'react-calendar/dist/cjs/shared/types';
 
 import './CommonCalendar.scss';
 import 'react-calendar/dist/Calendar.css';
@@ -35,6 +35,12 @@ export default function CommonCalendar({ initialValue, onDateChange, tileClassNa
     return value;
   };
 
+  const onActiveStartDateChange = ({ activeStartDate, view }: OnArgs) => {
+    if (view === 'month' && activeStartDate) {
+      onChange(activeStartDate);
+    }
+  };
+
   return (
     <Calendar
       className="CommonCalendar"
@@ -43,6 +49,7 @@ export default function CommonCalendar({ initialValue, onDateChange, tileClassNa
       calendarType="gregory"
       locale="en-US"
       tileClassName={tileClassName2}
+      onActiveStartDateChange={onActiveStartDateChange}
       {...etc}
     />
   );

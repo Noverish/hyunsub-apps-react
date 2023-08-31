@@ -28,7 +28,7 @@ export function filterEmptyString(obj: any): any {
   return result;
 }
 
-export function dateToString(date: Date) {
+export function dateToString(date: Date): string {
   const year = date.getFullYear();
   const month = (date.getMonth() + 1).toString().padStart(2, '0');
   const day = date.getDate().toString().padStart(2, '0');
@@ -38,7 +38,7 @@ export function dateToString(date: Date) {
   return `${year}-${month}-${day} ${hour}:${minute}:${second}`;
 }
 
-export function toDateString(date: Date) {
+export function toDateString(date: Date): string {
   const year = date.getFullYear();
   const month = (date.getMonth() + 1).toString().padStart(2, '0');
   const day = date.getDate().toString().padStart(2, '0');

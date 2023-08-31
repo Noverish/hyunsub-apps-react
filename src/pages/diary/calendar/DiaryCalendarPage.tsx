@@ -1,7 +1,7 @@
 import { t } from 'i18next';
-import { useState } from 'react';
-import { OnArgs, TileArgs } from 'react-calendar/dist/cjs/shared/types';
+import { TileArgs } from 'react-calendar/dist/cjs/shared/types';
 
+import DiaryCalendarHooks from './DiaryCalendarHooks';
 import DiaryCalendarResultView from './components/DiaryCalendarResultView';
 import diaryStatusMonthApi from 'src/api/diary/diary-status-month';
 import CommonCalendar from 'src/components/common/CommonCalendar';
@@ -17,12 +17,11 @@ export default function DiaryCalendarPage() {
   setDocumentTitle(t('DiaryCalendarPage.title'));
 
   // hooks
-  const [date, setDate] = useState(new Date());
-  const [viewDate, setViewDate] = useState(date);
+  const { date, setDate } = DiaryCalendarHooks.usePageData();
   const dateString = toDateString(date);
 
-  const year = viewDate.getFullYear();
-  const month = viewDate.getMonth() + 1;
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
   const { data } = diaryStatusMonthApi.useApiResult({ year, month });
 
   const tileClassName = ({ date, view }: TileArgs): string => {
@@ -34,23 +33,12 @@ export default function DiaryCalendarPage() {
     return data.includes(dateStr) ? 'dot' : '';
   };
 
-  const onActiveStartDateChange = ({ activeStartDate, view }: OnArgs) => {
-    if (view === 'month' && activeStartDate) {
-      setViewDate(activeStartDate);
-    }
-  };
-
   return (
     <div className="DiaryCalendarPage">
       <MobileHeader title={t('DiaryCalendarPage.title')} />
       <CommonContainer>
         <div className="flex_center mb-3">
-          <CommonCalendar
-            onDateChange={setDate}
-            initialValue={date}
-            tileClassName={tileClassName}
-            onActiveStartDateChange={onActiveStartDateChange}
-          />
+          <CommonCalendar onDateChange={setDate} initialValue={date} tileClassName={tileClassName} />
         </div>
         <LoadingSuspense>
           <DiaryCalendarResultView date={dateString} />
