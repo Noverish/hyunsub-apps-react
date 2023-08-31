@@ -26,13 +26,17 @@ export default function CommonCalendar({ initialValue, onDateChange, tileClassNa
   };
 
   const tileClassName2: TileClassNameFunc = (args) => {
-    const { date, view } = args;
+    const { date, view, activeStartDate } = args;
     const value = tileClassName?.(args);
+    const list: string[] = [];
 
-    if (view === 'month' && date.getDay() === 6) {
-      return cs('sat', value);
+    const activeMonth = activeStartDate.getMonth();
+    const nowMonth = date.getMonth();
+    if (view === 'month' && nowMonth === activeMonth && date.getDay() === 6) {
+      list.push('sat');
     }
-    return value;
+
+    return cs(list, value);
   };
 
   const onActiveStartDateChange = ({ activeStartDate, view }: OnArgs) => {
