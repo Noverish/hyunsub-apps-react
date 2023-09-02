@@ -73,6 +73,7 @@ const ko = {
     'auth.my-page.login-device-num': '{{0}}개의 기기',
     'auth.modify-username-modal.title': '아이디 변경하기',
     'auth.modify-password-modal.title': '비밀번호 변경하기',
+    'auth.ProfilePage.language': '언어 설정',
 
     'video.term.sort.random': '랜덤순',
     'video.term.sort.new': '최신 업로드순',

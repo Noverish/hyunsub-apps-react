@@ -1,6 +1,6 @@
 import { Card } from 'react-bootstrap';
 
-import { useWeekday } from 'src/hooks/token';
+import { lang } from 'src/i18n';
 import { Diary } from 'src/model/diary';
 import DiaryRoutes from 'src/pages/diary/DiaryRoutes';
 import router from 'src/pages/router';
@@ -14,7 +14,7 @@ interface Props {
 
 export default function DiaryPreviewView({ diary, query }: Props) {
   const date = new Date(diary.date);
-  const weekday = useWeekday(date);
+  const weekday = date.toLocaleString(lang, { weekday: 'short' });
 
   const onClick = () => {
     router.navigate(DiaryRoutes.detail({ date: diary.date, query }));

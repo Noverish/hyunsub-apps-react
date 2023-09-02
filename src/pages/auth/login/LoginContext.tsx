@@ -46,11 +46,7 @@ export const loginAction = (params: LoginParameter) => async (dispatch: Dispatch
 
     const url = new URLSearchParams(window.location.search).get('url');
     if (url) {
-      if (url.startsWith('https://')) {
-        window.location.href = url;
-      } else {
-        router.navigate(url);
-      }
+      window.location.href = url;
     } else {
       window.location.href = AppConstant.APPS_HOME;
     }

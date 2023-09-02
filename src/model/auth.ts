@@ -14,3 +14,10 @@ export interface Profile {
   historyNum: number;
   deviceNum: number;
 }
+
+export interface TokenPayload {
+  idNo: string;
+  username: string;
+  authorities: string[];
+  isAdmin: boolean;
+}

@@ -73,6 +73,7 @@ const en = {
     'auth.my-page.login-device-num': '{{0}} devices',
     'auth.modify-username-modal.title': 'Modify ID',
     'auth.modify-password-modal.title': 'Modify Password',
+    'auth.ProfilePage.language': 'Language Setting',
 
     'video.term.sort.random': 'Random',
     'video.term.sort.new': 'Recently Uploads',

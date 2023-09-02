@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import AuthRoutes from '../AuthRoutes';
 import { ProfileProvider } from './ProfileContext';
 import ProfileHooks from './ProfileHooks';
+import LanguageSelect from './components/LanguageSelect';
 import profileDetailApi from 'src/api/auth/profile-detail';
 import CommonContainer from 'src/components/common/header/CommonContainer';
 import MobileHeader from 'src/components/common/header/MobileHeader';
@@ -68,6 +69,12 @@ function ProfilePage() {
                 btn={t('view')}
               />
             </ListGroup>
+          </Card>
+          <Card>
+            <Card.Header>{t('auth.ProfilePage.language')}</Card.Header>
+            <Card.Body>
+              <LanguageSelect />
+            </Card.Body>
           </Card>
           <Button variant="warning" href="/logout">
             {t('auth.logout')}

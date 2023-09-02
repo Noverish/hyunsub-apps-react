@@ -76,10 +76,21 @@ function useWithdraw() {
   };
 }
 
+function useUpdateLanguage() {
+  return async (language: string) => {
+    dispatch(GlobalActions.update({ loading: true }));
+
+    await profileUpdateApi({ language });
+
+    window.location.reload();
+  };
+}
+
 const ProfileHooks = {
   useModifyUsername,
   useModifyPassword,
   useWithdraw,
+  useUpdateLanguage,
 };
 
 export default ProfileHooks;

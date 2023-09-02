@@ -8,7 +8,7 @@ import { initReactI18next } from 'react-i18next';
 import en from './en';
 import ko from './ko';
 
-const lang = Cookies.get('lang') || 'ko';
+export const lang = Cookies.get('HYUNSUB_LANG') || 'ko';
 
 TimeAgo.addLocale(timeAgoEn);
 TimeAgo.addLocale(timeAgoKo);

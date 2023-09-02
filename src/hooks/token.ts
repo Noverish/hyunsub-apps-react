@@ -3,14 +3,7 @@ import * as jose from 'jose';
 import Cookie from 'js-cookie';
 
 import AppConstant from '../utils/constants';
-
-export interface TokenPayload {
-  idNo: string;
-  username: string;
-  authorities: string[];
-  isAdmin: boolean;
-  lang?: string;
-}
+import { TokenPayload } from 'src/model/auth';
 
 async function loadTokenPayload(): Promise<TokenPayload> {
   const algorithm = 'ES512';
@@ -39,9 +32,4 @@ export function useTokenPayload(): TokenPayload {
 
 export function useIsAdmin() {
   return useTokenPayload().isAdmin;
-}
-
-export function useWeekday(date: Date): string {
-  const { lang } = useTokenPayload();
-  return date.toLocaleString(lang ?? 'ko', { weekday: 'short' });
 }
