@@ -28,14 +28,16 @@ export default function CommonPagination({ now, total, onClick }: PaginationProp
     return <></>;
   }
 
+  const arrowExist = total > size;
+
   return (
     <div className="CommonPagination d-flex flex_center">
       <Pagination className="mb-0">
-        <Pagination.First onClick={() => onClick(0)} />
-        <Pagination.Prev onClick={() => onClick(min - 1)} />
+        {arrowExist && <Pagination.First onClick={() => onClick(0)} />}
+        {arrowExist && <Pagination.Prev onClick={() => onClick(min - 1)} />}
         {elements}
-        <Pagination.Next onClick={() => onClick(max)} />
-        <Pagination.Last onClick={() => onClick(total - 1)} />
+        {arrowExist && <Pagination.Next onClick={() => onClick(max)} />}
+        {arrowExist && <Pagination.Last onClick={() => onClick(total - 1)} />}
       </Pagination>
     </div>
   );
