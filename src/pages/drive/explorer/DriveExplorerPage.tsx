@@ -1,6 +1,8 @@
+import { t } from 'i18next';
 import { useEffect } from 'react';
 
 import CommonContainer from 'src/components/common/header/CommonContainer';
+import MobileHeader from 'src/components/common/header/MobileHeader';
 import DriveExplorer from 'src/components/drive/explorer/DriveExplorer';
 import { DriveExplorerProvider } from 'src/components/drive/explorer/DriveExplorerContext';
 import { useDriveExplorerKeyDown, useDriveExplorerPath } from 'src/components/drive/explorer/DriveExplorerHooks';
@@ -20,6 +22,7 @@ function DriveExplorerPage() {
 
   return (
     <div id="DriveExplorerPage">
+      <MobileHeader title={t('DriveExplorerPage.title')} />
       <CommonContainer>
         <DriveExplorer />
       </CommonContainer>

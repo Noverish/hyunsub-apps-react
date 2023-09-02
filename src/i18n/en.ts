@@ -156,6 +156,8 @@ const en = {
     'apparel.term.makeDt': 'Made Date',
     'apparel.term.discarded': 'Discarded',
 
+    'DriveTabBar.explorer': 'Explorer',
+    'DriveExplorerPage.title': 'Explorer',
     'drive.msg.remove-confirm': 'Are you sure you want to delete it?',
     'drive.menu.explorer': 'Explorer',
     'drive.preview.files-selected': '{{0}} selected',

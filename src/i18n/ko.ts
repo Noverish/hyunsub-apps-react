@@ -156,6 +156,8 @@ const ko = {
     'apparel.term.makeDt': '제조년월',
     'apparel.term.discarded': '버렸음',
 
+    'DriveTabBar.explorer': '파일 탐색기',
+    'DriveExplorerPage.title': '파일 탐색기',
     'drive.msg.remove-confirm': '정말로 삭제하시겠습니까?',
     'drive.menu.explorer': '파일 탐색기',
     'drive.preview.files-selected': '{{0}}개 선택',
