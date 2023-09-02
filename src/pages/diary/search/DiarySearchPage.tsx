@@ -19,7 +19,7 @@ export default function DiarySearchPage() {
     <div className="DiarySearchPage">
       <MobileHeader title={t('DiarySearchPage.title', [total, query])} back />
       <CommonContainer>
-        <DiaryListView page={page} total={totalPage} data={data} setPage={setPage} />
+        <DiaryListView page={page} total={totalPage} data={data} setPage={setPage} query={query} />
       </CommonContainer>
     </div>
   );

@@ -1,5 +1,5 @@
 import { t } from 'i18next';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 
 import DiaryRoutes from '../DiaryRoutes';
 import diaryDeleteApi from 'src/api/diary/diary-delete';
@@ -13,9 +13,11 @@ import { toDateString } from 'src/utils';
 
 export interface DiaryDetailPageData {
   date: string;
+  query?: string;
 }
 
 function usePageData(): DiaryDetailPageData {
+  const [searchParams] = useSearchParams();
   const params = useParams();
 
   const date = params.date;
@@ -23,7 +25,9 @@ function usePageData(): DiaryDetailPageData {
     throw new Error(`Invalid parameter - date`);
   }
 
-  return { date };
+  const query = searchParams.get('query') ?? undefined;
+
+  return { date, query };
 }
 
 function useDelete() {
@@ -50,14 +54,14 @@ function useDelete() {
 }
 
 function useGoToOtherDay(diffDay: number) {
-  const { date: dateStr } = usePageData();
+  const { date: dateStr, ...etc } = usePageData();
 
   return () => {
     const date = new Date(dateStr);
     date.setDate(date.getDate() + diffDay);
     const newDateStr = toDateString(date);
 
-    router.navigate(DiaryRoutes.detail(newDateStr), { replace: true });
+    router.navigate(DiaryRoutes.detail({ date: newDateStr, ...etc }), { replace: true });
   };
 }
 

@@ -9,10 +9,11 @@ interface Props {
   total: number;
   data: Diary[];
   setPage: (page: number) => void;
+  query?: string;
 }
 
-export default function DiaryListView({ page, total, data, setPage }: Props) {
-  const elements = data.map((v) => <DiaryPreviewView key={v.date} diary={v} />);
+export default function DiaryListView({ page, total, data, setPage, query }: Props) {
+  const elements = data.map((v) => <DiaryPreviewView key={v.date} diary={v} query={query} />);
 
   const content =
     elements.length === 0 ? (

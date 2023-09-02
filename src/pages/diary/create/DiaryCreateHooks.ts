@@ -34,7 +34,7 @@ function useCreate() {
 
     dispatch(GlobalActions.update({ loading: false }));
 
-    router.navigate(DiaryRoutes.detail(diary.date), { replace: true });
+    router.navigate(DiaryRoutes.detail({ date: diary.date }), { replace: true });
   };
 }
 
