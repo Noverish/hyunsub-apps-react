@@ -1,16 +1,14 @@
-import { lazy } from 'react';
 import { Navigate, Outlet, RouteObject } from 'react-router-dom';
 
 import routes from './DiaryRoutes';
+import DiaryCalendarPage from './calendar/DiaryCalendarPage';
+import DiaryCreatePage from './create/DiaryCreatePage';
+import DiaryDetailPage from './detail/DiaryDetailPage';
+import DiaryListPage from './list/DiaryListPage';
+import DiaryMenuPage from './menu/DiaryMenuPage';
+import DiaryModifyPage from './modify/DiaryModifyPage';
+import DiarySearchPage from './search/DiarySearchPage';
 import DiaryTabBar from 'src/components/diary/header/DiaryTabBar';
-
-const DiaryListPage = lazy(() => import('./list/DiaryListPage'));
-const DiaryCalendarPage = lazy(() => import('./calendar/DiaryCalendarPage'));
-const DiarySearchPage = lazy(() => import('./search/DiarySearchPage'));
-const DiaryDetailPage = lazy(() => import('./detail/DiaryDetailPage'));
-const DiaryCreatePage = lazy(() => import('./create/DiaryCreatePage'));
-const DiaryModifyPage = lazy(() => import('./modify/DiaryModifyPage'));
-const DiaryMenuPage = lazy(() => import('./menu/DiaryMenuPage'));
 
 export const DiaryRouteObjects: RouteObject[] = [
   {

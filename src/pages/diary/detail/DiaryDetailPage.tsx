@@ -1,20 +1,25 @@
 import { t } from 'i18next';
+import { Button } from 'react-bootstrap';
 
 import DiaryRoutes from '../DiaryRoutes';
 import DiaryDetailHooks from './DiaryDetailHooks';
 import DiaryDetailView from './components/DiaryDetailView';
+import LoadingSuspense from 'src/components/common/LoadingSuspense';
 import CommonContainer from 'src/components/common/header/CommonContainer';
 import MobileHeader, { MobileHeaderButton } from 'src/components/common/header/MobileHeader';
 import router from 'src/pages/router';
 import { setDocumentTitle } from 'src/utils/services';
 
+import './DiaryDetailPage.scss';
+
 export default function DiaryDetailPage() {
   setDocumentTitle(t('DiaryDetailPage.title'));
 
-  const { diary } = DiaryDetailHooks.usePageData();
-  const deleteDiary = DiaryDetailHooks.useDelete();
+  const { date } = DiaryDetailHooks.usePageData();
 
-  const date = diary?.date;
+  const deleteDiary = DiaryDetailHooks.useDelete();
+  const goToYesterday = DiaryDetailHooks.useGoToOtherDay(-1);
+  const goToTomorrow = DiaryDetailHooks.useGoToOtherDay(1);
 
   // elements
   const mobileHeaderBtns: MobileHeaderButton[] = date
@@ -34,7 +39,20 @@ export default function DiaryDetailPage() {
     <div className="DiaryDetailPage">
       <MobileHeader title={t('DiaryDetailPage.title')} back btns={mobileHeaderBtns} />
       <CommonContainer>
-        {diary ? <DiaryDetailView diary={diary} /> : <span>{t('DiaryListView.empty-msg')}</span>}
+        <div className="d-flex justify-content-between mb-3">
+          <Button variant="dark" onClick={goToYesterday}>
+            <i className="fas fa-chevron-left me-2" />
+            <span>{t('yesterday')}</span>
+          </Button>
+          <div className="date">{date}</div>
+          <Button variant="dark" onClick={goToTomorrow}>
+            <span>{t('tomorrow')}</span>
+            <i className="fas fa-chevron-right ms-2" />
+          </Button>
+        </div>
+        <LoadingSuspense>
+          <DiaryDetailView />
+        </LoadingSuspense>
       </CommonContainer>
     </div>
   );

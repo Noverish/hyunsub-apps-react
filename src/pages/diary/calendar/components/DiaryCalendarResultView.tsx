@@ -19,7 +19,7 @@ export default function DiaryCalendarResultView({ date }: Props) {
     <DiaryPreviewView diary={data} />
   ) : (
     <div className="d-grid gap-3">
-      <span>{t('DiaryListView.empty-msg')}</span>
+      <span>{t('DiaryDetailPage.empty-msg')}</span>
       <Link to={createUrl}>
         <Button>{t('DiaryCalendarPage.create')}</Button>
       </Link>

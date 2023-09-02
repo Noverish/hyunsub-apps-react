@@ -1,18 +1,29 @@
-import { Diary } from 'src/model/diary';
+import { t } from 'i18next';
 
-interface Props {
-  diary: Diary;
-}
+import diaryDetailApi from 'src/api/diary/diary-detail';
+import DiaryDetailHooks from 'src/pages/diary/detail/DiaryDetailHooks';
 
-export default function DiaryDetailView({ diary }: Props) {
-  const date = diary.date;
-  const summaryElement = diary.summary ? <p>{diary.summary}</p> : undefined;
+interface Props {}
+
+export default function DiaryDetailView(props: Props) {
+  const { date } = DiaryDetailHooks.usePageData();
+
+  const diary = diaryDetailApi.useApi({ date });
+
+  if (!diary) {
+    return (
+      <div className="DiaryDetailView">
+        <p>{t('DiaryDetailPage.empty-msg')}</p>
+      </div>
+    );
+  }
+
+  const { summary, content } = diary;
 
   return (
     <div className="DiaryDetailView">
-      <h1>{date}</h1>
-      {summaryElement}
-      <p>{diary.content}</p>
+      <p>{summary}</p>
+      <p>{content}</p>
     </div>
   );
 }

@@ -19,6 +19,8 @@ const en = {
     download: 'Download',
     complete: 'Complete',
     query: 'Query',
+    yesterday: 'Yesterday',
+    tomorrow: 'Tomorrow',
     'n-selected': '{{0}} Selected',
 
     'msg.delete-confirm': 'Are you sure you want to delete?',
@@ -203,6 +205,7 @@ const en = {
     'DiaryCalendarPage.title': 'Diary Calendar',
     'DiaryCalendarPage.create': 'Write Diary in this day',
     'DiaryDetailPage.title': 'Diary Detail',
+    'DiaryDetailPage.empty-msg': 'There is no diary in this day',
     'DiaryCreatePage.title': 'Write Diary',
     'DiaryModifyPage.title': 'Edit Diary',
     'DiarySearchPage.title': '{{0}} Results - {{1}}',

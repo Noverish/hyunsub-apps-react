@@ -1,17 +1,18 @@
 import { t } from 'i18next';
 import { useParams } from 'react-router-dom';
 
+import DiaryRoutes from '../DiaryRoutes';
 import diaryDeleteApi from 'src/api/diary/diary-delete';
 import diaryDetailApi from 'src/api/diary/diary-detail';
 import diarySearchApi from 'src/api/diary/diary-search';
 import diaryStatusMonthApi from 'src/api/diary/diary-status-month';
-import { Diary } from 'src/model/diary';
 import router from 'src/pages/router';
 import { dispatch } from 'src/redux';
 import { GlobalActions } from 'src/redux/global';
+import { toDateString } from 'src/utils';
 
 export interface DiaryDetailPageData {
-  diary: Diary | null;
+  date: string;
 }
 
 function usePageData(): DiaryDetailPageData {
@@ -22,9 +23,7 @@ function usePageData(): DiaryDetailPageData {
     throw new Error(`Invalid parameter - date`);
   }
 
-  const diary = diaryDetailApi.useApi({ date });
-
-  return { diary };
+  return { date };
 }
 
 function useDelete() {
@@ -50,9 +49,22 @@ function useDelete() {
   };
 }
 
+function useGoToOtherDay(diffDay: number) {
+  const { date: dateStr } = usePageData();
+
+  return () => {
+    const date = new Date(dateStr);
+    date.setDate(date.getDate() + diffDay);
+    const newDateStr = toDateString(date);
+
+    router.navigate(DiaryRoutes.detail(newDateStr), { replace: true });
+  };
+}
+
 const DiaryDetailHooks = {
   usePageData,
   useDelete,
+  useGoToOtherDay,
 };
 
 export default DiaryDetailHooks;

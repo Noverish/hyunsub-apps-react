@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import DiaryRoutes from '../DiaryRoutes';
 import { DiaryListContext, DiaryListProvider } from './DiaryListContext';
 import DiaryListHooks from './DiaryListHooks';
-import DiarySearchModal from './elements/DiarySearchModal';
+import DiarySearchModal from './components/DiarySearchModal';
 import diarySearchApi from 'src/api/diary/diary-search';
 import CommonContainer from 'src/components/common/header/CommonContainer';
 import MobileHeader, { MobileHeaderButton } from 'src/components/common/header/MobileHeader';
