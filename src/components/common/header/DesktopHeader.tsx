@@ -6,6 +6,7 @@ import { Link, To } from 'react-router-dom';
 
 import useLogout from 'src/hooks/logout';
 import { useBreakpointMobile } from 'src/utils/breakpoint';
+import AppConstant from 'src/utils/constants';
 
 import './DesktopHeader.scss';
 
@@ -41,6 +42,14 @@ export default function DesktopHeader(props: DesktopHeaderProps) {
   const { t } = useTranslation();
   const isMobile = useBreakpointMobile();
   const logout = useLogout();
+
+  const goToApps = () => {
+    window.location.href = AppConstant.APPS_HOME;
+  };
+
+  const goToProfile = () => {
+    window.location.href = AppConstant.PROFILE_HOME;
+  };
 
   if (isMobile) {
     return <></>;
@@ -79,6 +88,12 @@ export default function DesktopHeader(props: DesktopHeaderProps) {
             <Dropdown.Menu variant="dark">
               {dropdownElements}
               <Dropdown.Divider />
+              <Dropdown.Item as="button" onClick={goToApps}>
+                {t('applications')}
+              </Dropdown.Item>
+              <Dropdown.Item as="button" onClick={goToProfile}>
+                {t('profile')}
+              </Dropdown.Item>
               <Dropdown.Item as="button" className="text-danger" onClick={logout}>
                 {t('logout')}
               </Dropdown.Item>

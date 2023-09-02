@@ -21,6 +21,8 @@ const en = {
     query: 'Query',
     yesterday: 'Yesterday',
     tomorrow: 'Tomorrow',
+    applications: 'Applications',
+    profile: 'Profile',
     'n-selected': '{{0}} Selected',
 
     'msg.delete-confirm': 'Are you sure you want to delete?',

@@ -7,6 +7,7 @@ const AppConstant = {
   TOKEN_PAYLOAD_FIELD: 'payload',
 
   APPS_HOME: 'https://apps.hyunsub.kim',
+  PROFILE_HOME: 'https://auth.hyunsub.kim/profile',
 
   video: {
     EPISODE_PAGE_SIZE: 10,

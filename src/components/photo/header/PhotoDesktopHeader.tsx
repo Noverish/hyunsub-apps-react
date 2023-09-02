@@ -22,12 +22,7 @@ const desktopProps: DesktopHeaderProps = {
       icon: 'fas fa-upload',
     },
   ],
-  dropdowns: [
-    {
-      name: t('setting'),
-      link: PhotoRoutes.menu,
-    },
-  ],
+  dropdowns: [],
   onSearch: () => {
     alert('Not yet implemented');
   },

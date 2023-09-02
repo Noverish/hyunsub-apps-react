@@ -21,6 +21,8 @@ const ko = {
     query: '검색어',
     yesterday: '어제',
     tomorrow: '내일',
+    applications: '앱 목록',
+    profile: '내 정보',
     'n-selected': '{{0}}개 선택됨',
 
     'msg.delete-confirm': '정말로 삭제하시겠습니까?',

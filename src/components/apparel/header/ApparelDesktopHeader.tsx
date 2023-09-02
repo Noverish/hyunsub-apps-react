@@ -22,12 +22,7 @@ const desktopProps: DesktopHeaderProps = {
       icon: 'fas fa-tag',
     },
   ],
-  dropdowns: [
-    {
-      name: t('menus'),
-      link: ApparelRoutes.menu,
-    },
-  ],
+  dropdowns: [],
   onSearch: () => {
     alert('Not yet implemented');
   },

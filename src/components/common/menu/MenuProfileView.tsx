@@ -2,6 +2,7 @@ import { Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
 import { useTokenPayload } from 'src/hooks/token';
+import AppConstant from 'src/utils/constants';
 
 import './MenuProfileView.scss';
 
@@ -12,7 +13,7 @@ export default function MenuProfileView(props: Props) {
   const { username } = useTokenPayload();
 
   const onClick = () => {
-    window.location.href = 'https://auth.hyunsub.kim/profile';
+    window.location.href = AppConstant.PROFILE_HOME;
   };
 
   return (

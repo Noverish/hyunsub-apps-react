@@ -2,7 +2,6 @@ import { t } from 'i18next';
 
 import DesktopHeader, { DesktopHeaderProps } from '../../common/header/DesktopHeader';
 import ComicRoutes from 'src/pages/comic/ComicRoutes';
-import CommonRoutes from 'src/pages/common/CommonRoutes';
 
 const desktopProps: DesktopHeaderProps = {
   title: 'HyunComic',
@@ -13,12 +12,7 @@ const desktopProps: DesktopHeaderProps = {
       icon: 'fas fa-book',
     },
   ],
-  dropdowns: [
-    {
-      name: t('setting'),
-      link: CommonRoutes.menu,
-    },
-  ],
+  dropdowns: [],
   onSearch: () => {
     alert('Not yet implemented');
   },

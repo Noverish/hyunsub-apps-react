@@ -12,12 +12,7 @@ const desktopProps: DesktopHeaderProps = {
       icon: 'fas fa-folder',
     },
   ],
-  dropdowns: [
-    {
-      name: t('menus'),
-      link: DriveRoutes.explorerRoute,
-    },
-  ],
+  dropdowns: [],
   onSearch: () => {
     alert('Not yet implemented');
   },
