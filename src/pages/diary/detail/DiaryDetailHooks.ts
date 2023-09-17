@@ -6,14 +6,20 @@ import diaryDeleteApi from 'src/api/diary/diary-delete';
 import diaryDetailApi from 'src/api/diary/diary-detail';
 import diarySearchApi from 'src/api/diary/diary-search';
 import diaryStatusMonthApi from 'src/api/diary/diary-status-month';
+import { Diary } from 'src/model/diary';
 import router from 'src/pages/router';
 import { dispatch } from 'src/redux';
 import { GlobalActions } from 'src/redux/global';
 import { toDateString } from 'src/utils';
 
-export interface DiaryDetailPageData {
+export interface DiaryDetailPageParams {
   date: string;
   query?: string;
+}
+
+export interface DiaryDetailPageData extends DiaryDetailPageParams {
+  diary?: Diary;
+  isLoading: boolean;
 }
 
 function usePageData(): DiaryDetailPageData {
@@ -27,7 +33,10 @@ function usePageData(): DiaryDetailPageData {
 
   const query = searchParams.get('query') ?? undefined;
 
-  return { date, query };
+  const { data, isLoading } = diaryDetailApi.useApiResult({ date });
+  const diary = data ?? undefined;
+
+  return { date, query, diary, isLoading };
 }
 
 function useDelete() {
@@ -54,14 +63,14 @@ function useDelete() {
 }
 
 function useGoToOtherDay(diffDay: number) {
-  const { date: dateStr, ...etc } = usePageData();
+  const { date: dateStr, query } = usePageData();
 
   return () => {
     const date = new Date(dateStr);
     date.setDate(date.getDate() + diffDay);
     const newDateStr = toDateString(date);
 
-    router.navigate(DiaryRoutes.detail({ date: newDateStr, ...etc }), { replace: true });
+    router.navigate(DiaryRoutes.detail({ date: newDateStr, query }), { replace: true });
   };
 }
 

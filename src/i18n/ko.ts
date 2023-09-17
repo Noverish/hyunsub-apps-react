@@ -23,6 +23,7 @@ const ko = {
     tomorrow: '내일',
     applications: '앱 목록',
     profile: '내 정보',
+    letters: '{{0}} 글자',
     'n-selected': '{{0}}개 선택됨',
 
     'msg.delete-confirm': '정말로 삭제하시겠습니까?',
@@ -210,7 +211,7 @@ const ko = {
     'DiaryCalendarPage.title': '달력 보기',
     'DiaryCalendarPage.create': '해당 날짜에 일기 쓰기',
     'DiaryDetailPage.title': '일기 상세',
-    'DiaryDetailPage.empty-msg': '해당 날짜에 작성된 일기가 없습니다',
+    'DiaryDetailPage.empty-msg': '해당 날짜에 작성된 일기가 없습니다.',
     'DiaryCreatePage.title': '일기 작성',
     'DiaryModifyPage.title': '일기 수정',
     'DiarySearchPage.title': '검색 결과 {{0}}건 - {{1}}',

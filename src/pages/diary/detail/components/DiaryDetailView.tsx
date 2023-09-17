@@ -1,24 +1,29 @@
 import { t } from 'i18next';
+import { Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
-import diaryDetailApi from 'src/api/diary/diary-detail';
+import DiaryRoutes from 'src/pages/diary/DiaryRoutes';
 import DiaryDetailHooks from 'src/pages/diary/detail/DiaryDetailHooks';
 
 export default function DiaryDetailView() {
-  const { date, query } = DiaryDetailHooks.usePageData();
-
-  const diary = diaryDetailApi.useApi({ date });
+  const { date, diary, query } = DiaryDetailHooks.usePageData();
 
   if (!diary) {
+    const createUrl = DiaryRoutes.create(date);
+
     return (
       <div className="DiaryDetailView">
         <p>{t('DiaryDetailPage.empty-msg')}</p>
+        <Link to={createUrl}>
+          <Button>{t('DiaryCalendarPage.create')}</Button>
+        </Link>
       </div>
     );
   }
 
   const { summary, content } = diary;
 
-  const contentElement = query ? highlightQuery(content, query) : <span>{content}</span>;
+  const contentElement = query ? highlightQuery(content, query) : <p>{content}</p>;
 
   return (
     <div className="DiaryDetailView">

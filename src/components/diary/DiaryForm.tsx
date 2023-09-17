@@ -18,11 +18,13 @@ export default function DiaryForm({ diary, onComplete, initialDate }: Props) {
     content: '',
   };
 
-  const { register, handleSubmit } = useForm<Diary>({ defaultValues });
+  const { register, handleSubmit, watch } = useForm<Diary>({ defaultValues });
 
   const onSubmit: SubmitHandler<Diary> = (diary: Diary) => {
     onComplete(diary);
   };
+
+  const content = watch('content');
 
   return (
     <Form className="DiaryForm d-grid gap-3" onSubmit={handleSubmit(onSubmit)}>
@@ -38,6 +40,7 @@ export default function DiaryForm({ diary, onComplete, initialDate }: Props) {
       <Form.Group controlId="diary_form_content">
         <Form.Label>{t('DiaryForm.content')}</Form.Label>
         <Form.Control as="textarea" rows={10} {...register('content')} />
+        <div className="text-end">{t('letters', [content.length])}</div>
       </Form.Group>
       <Button variant="primary" type="submit">
         {t('complete')}

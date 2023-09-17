@@ -15,14 +15,14 @@ import './DiaryDetailPage.scss';
 export default function DiaryDetailPage() {
   setDocumentTitle(t('DiaryDetailPage.title'));
 
-  const { date, query } = DiaryDetailHooks.usePageData();
+  const { date, query, isLoading, diary } = DiaryDetailHooks.usePageData();
 
   const deleteDiary = DiaryDetailHooks.useDelete();
   const goToYesterday = DiaryDetailHooks.useGoToOtherDay(-1);
   const goToTomorrow = DiaryDetailHooks.useGoToOtherDay(1);
 
   // elements
-  const mobileHeaderBtns: MobileHeaderButton[] = date
+  const mobileHeaderBtns: MobileHeaderButton[] = diary
     ? [
         {
           icon: 'fas fa-edit',
@@ -35,6 +35,8 @@ export default function DiaryDetailPage() {
       ]
     : [];
 
+  const letters = diary ? diary.content.length : '0';
+
   return (
     <div className="DiaryDetailPage">
       <MobileHeader title={t('DiaryDetailPage.title')} back btns={mobileHeaderBtns} />
@@ -46,7 +48,10 @@ export default function DiaryDetailPage() {
               <span>{t('yesterday')}</span>
             </Button>
           )}
-          <div className="date">{date}</div>
+          <div>
+            <div className="date">{date}</div>
+            <div className="letters">{t('letters', [letters])}</div>
+          </div>
           {!query && (
             <Button variant="dark" onClick={goToTomorrow}>
               <span>{t('tomorrow')}</span>
@@ -54,7 +59,7 @@ export default function DiaryDetailPage() {
             </Button>
           )}
         </div>
-        <LoadingSuspense>
+        <LoadingSuspense isLoading={isLoading}>
           <DiaryDetailView />
         </LoadingSuspense>
       </CommonContainer>
