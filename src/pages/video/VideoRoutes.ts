@@ -27,8 +27,8 @@ const VideoRoutes = {
   entryManageRoute: '/entry/:entryId/manage',
   entryManage: (entryId: string) => `/entry/${entryId}/manage`,
 
-  videoManageRoute: '/video/:videoId/manage',
-  videoManage: (videoId: string) => `/video/${videoId}/manage`,
+  videoManageRoute: '/entry/:entryId/video/:videoId/manage',
+  videoManage: (entryId: string, videoId: string) => `/entry/${entryId}/video/${videoId}/manage`,
 
   search: '/search',
 

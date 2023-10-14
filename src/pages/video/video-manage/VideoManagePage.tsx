@@ -1,3 +1,6 @@
+import { Link } from 'react-router-dom';
+
+import VideoRoutes from '../VideoRoutes';
 import videoDetailApi from 'src/api/video/video-detail';
 import CommonContainer from 'src/components/common/header/CommonContainer';
 import MobileHeader from 'src/components/common/header/MobileHeader';
@@ -13,7 +16,7 @@ import './VideoManagePage.scss';
 export default function VideoManagePage() {
   setDocumentTitle(`Video Manage`);
 
-  const [videoId] = useUrlParams('videoId');
+  const [videoId, entryId] = useUrlParams('videoId', 'entryId');
 
   const video = videoDetailApi.useApi({ videoId });
 
@@ -21,7 +24,9 @@ export default function VideoManagePage() {
     <div id="VideoManagePage">
       <MobileHeader title="Video Manage" back />
       <CommonContainer>
-        <h1>{video.title}</h1>
+        <Link to={VideoRoutes.detail({ entryId, videoId })} className="gray_on_hover">
+          <h1>{video.title}</h1>
+        </Link>
         <VideoMetadataScanCard />
         <VideoThumbnailGenerateCard />
         <VideoSubtitleUploadCard />

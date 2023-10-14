@@ -8,7 +8,7 @@ export interface VideoEntryDetailParams {
 
 const videoEntryDetailApi = generateQuery<VideoEntryDetailParams, VideoEntryDetail>({
   api: ({ entryId, videoId }) => ({
-    url: `/api/v1/entries/${entryId}`,
+    url: `/api/v1/entries/${entryId}/detail`,
     method: 'GET',
     params: { videoId },
   }),

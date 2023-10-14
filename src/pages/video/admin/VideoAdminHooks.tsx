@@ -12,6 +12,6 @@ export function useVideoEntryCreate() {
 
     dispatch(GlobalActions.update({ loading: false }));
 
-    router.navigate(VideoRoutes.detail({ entryId: result.id }));
+    router.navigate(VideoRoutes.entryManage(result.id));
   };
 }

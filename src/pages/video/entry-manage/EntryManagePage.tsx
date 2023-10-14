@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 import VideoRoutes from '../VideoRoutes';
 import EntryVideoRegisterCard from './components/EntryVideoRegisterCard';
-import videoEntryDetailApi from 'src/api/video/video-entry-detail';
+import videoEntryGetApi from 'src/api/video/video-entry-get';
 import CommonContainer from 'src/components/common/header/CommonContainer';
 import MobileHeader from 'src/components/common/header/MobileHeader';
 import { useUrlParams } from 'src/hooks/url-params';
@@ -17,13 +17,13 @@ export default function EntryManagePage() {
 
   const [entryId] = useUrlParams('entryId');
 
-  const { entry } = videoEntryDetailApi.useApi({ entryId });
+  const entry = videoEntryGetApi.useApi({ entryId });
 
   return (
     <div id="EntryManagePage">
       <MobileHeader title="Entry Manage" back />
       <CommonContainer>
-        <Link to={VideoRoutes.detail({ entryId })}>
+        <Link to={VideoRoutes.detail({ entryId })} className="gray_on_hover">
           <h1>{entry.name}</h1>
         </Link>
         <EntryScanCard />
