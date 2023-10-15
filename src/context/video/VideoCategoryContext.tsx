@@ -10,9 +10,7 @@ interface Props {
 export const VideoCategoryContext = createContext<VideoCategory[]>([]);
 
 export const VideoCategoryProvider = ({ children }: Props) => {
-  const { data } = videoCategoryApi.useApiResult({});
-
-  const value = data ?? [];
+  const value = videoCategoryApi.useApi({});
 
   return <VideoCategoryContext.Provider value={value}>{children}</VideoCategoryContext.Provider>;
 };

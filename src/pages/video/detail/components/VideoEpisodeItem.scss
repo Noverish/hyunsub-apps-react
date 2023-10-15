@@ -1,0 +1,86 @@
+@import '/src/breakpoints.scss';
+
+.VideoEpisodeItem {
+  @include media-breakpoint-up(lg) {
+    flex-direction: row;
+  }
+  @include media-breakpoint-down(lg) {
+    flex-direction: column;
+  }
+
+  .episode_thumbnail {
+    flex: 0 0 auto;
+    @include media-breakpoint-up(xl) {
+      width: 16rem;
+    }
+    @include media-breakpoint-between(lg, xl) {
+      width: 14rem;
+    }
+    @include media-breakpoint-down(lg) {
+      width: auto;
+    }
+  }
+
+  &:hover .title {
+    text-decoration: underline;
+  }
+
+  & > .title {
+    word-break: break-all;
+
+    @include media-breakpoint-up(md) {
+      font-size: 1rem;
+    }
+    @include media-breakpoint-down(md) {
+      font-size: .75rem;
+    }
+
+    @include media-breakpoint-up(lg) {
+      margin-left: .75rem;
+    }
+    @include media-breakpoint-down(lg) {
+      margin-top: .25rem;
+    }
+  }
+
+  & > .title_info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    @include media-breakpoint-up(lg) {
+      margin-left: .75rem;
+    }
+    @include media-breakpoint-down(lg) {
+      margin-top: .25rem;
+    }
+
+    .episode {
+      @include media-breakpoint-up(md) {
+        font-size: .75rem;
+      }
+      @include media-breakpoint-down(md) {
+        font-size: .5rem;
+      }
+      color: var(--hyunsub-text-hover);
+    }
+
+    .title {
+      @include media-breakpoint-up(md) {
+        font-size: 1rem;
+      }
+      @include media-breakpoint-down(md) {
+        font-size: .75rem;
+      }
+    }
+
+    .date {
+      @include media-breakpoint-up(md) {
+        font-size: .75rem;
+      }
+      @include media-breakpoint-down(md) {
+        font-size: .5rem;
+      }
+      color: var(--hyunsub-text-hover);
+    }
+  }
+}

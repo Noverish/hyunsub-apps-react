@@ -17,7 +17,7 @@ export default function VideoDetailPageAdminButtons() {
 
   return (
     <>
-      <hr />
+      <hr className="my-2 my-md-3" />
       <div className="admin_btns">
         <Link to={VideoRoutes.videoManage(entryId, video.videoId)}>
           <Button>Video Manage</Button>
