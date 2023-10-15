@@ -2,9 +2,9 @@ import { t } from 'i18next';
 import { useContext } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 
-import videoCategoryApi from 'src/api/video/video-category';
 import videoEntryDetailApi from 'src/api/video/video-entry-detail';
 import videoEntryListApi from 'src/api/video/video-entry-list';
+import { VideoCategoryContext } from 'src/context/video/VideoCategoryContext';
 import { VideoCategory, VideoSort } from 'src/model/video';
 import router from 'src/pages/router';
 import VideoRoutes from 'src/pages/video/VideoRoutes';
@@ -30,7 +30,7 @@ export function useVideoSort() {
 
 export function useVideoCategory(): VideoCategory {
   const categoryName = useParams().category || '';
-  const categories = videoCategoryApi.useApi({});
+  const categories = useContext(VideoCategoryContext);
   return categories.filter((v) => v.name === categoryName)[0];
 }
 

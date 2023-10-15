@@ -5,6 +5,7 @@ import VideoRoutes from './VideoRoutes';
 import AdminLayout from 'src/components/common/AdminLayout';
 import VideoDesktopkHeader from 'src/components/video/header/VideoDesktopHeader';
 import VideoTabBar from 'src/components/video/header/VideoTabBar';
+import { VideoCategoryProvider } from 'src/context/video/VideoCategoryContext';
 
 const VideoAdminPage = lazy(() => import('src/pages/video/admin/VideoAdminPage'));
 const VideoDetailPage = lazy(() => import('src/pages/video/detail/VideoDetailPage'));
@@ -20,11 +21,11 @@ export const VideoRouteObjects: RouteObject[] = [
   {
     path: '/',
     element: (
-      <>
+      <VideoCategoryProvider>
         <VideoDesktopkHeader />
         <VideoTabBar />
         <Outlet />
-      </>
+      </VideoCategoryProvider>
     ),
     children: [
       { path: VideoRoutes.detailRoute, element: <VideoDetailPage /> },

@@ -1,8 +1,9 @@
 import { t } from 'i18next';
+import { useContext } from 'react';
 
-import videoCategoryApi from 'src/api/video/video-category';
 import { VideoSearchResult } from 'src/api/video/video-search';
 import VideoEntryList from 'src/components/video/VideoEntryList';
+import { VideoCategoryContext } from 'src/context/video/VideoCategoryContext';
 
 interface Props {
   query: string;
@@ -10,7 +11,7 @@ interface Props {
 }
 
 export default function VideoSearchResultView({ query, result }: Props) {
-  const categories = videoCategoryApi.useApi({});
+  const categories = useContext(VideoCategoryContext);
 
   const resultNum = Object.values(result.entries).reduce((prev, curr) => prev + curr.length, 0);
 

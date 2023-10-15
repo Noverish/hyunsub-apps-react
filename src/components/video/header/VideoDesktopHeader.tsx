@@ -1,15 +1,15 @@
 import { t } from 'i18next';
+import { useContext } from 'react';
 
-import videoCategoryApi from 'src/api/video/video-category';
 import DesktopHeader, { DesktopHeaderDropdown, DesktopHeaderProps } from 'src/components/common/header/DesktopHeader';
+import { VideoCategoryContext } from 'src/context/video/VideoCategoryContext';
 import { useIsAdmin } from 'src/hooks/token';
 import router from 'src/pages/router';
 import VideoRoutes from 'src/pages/video/VideoRoutes';
 
 export default function VideoDesktopHeader() {
-  const { data } = videoCategoryApi.useApiResult({});
+  const categories = useContext(VideoCategoryContext);
   const isAdmin = useIsAdmin();
-  const categories = data || [];
 
   const menus = categories.map((v) => ({
     name: v.displayName,

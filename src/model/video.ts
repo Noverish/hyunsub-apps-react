@@ -95,3 +95,15 @@ export interface VideoHistory {
   entryId: string;
   title: string;
 }
+
+export interface VideoEntryHistory {
+  entryId: string;
+  date: string;
+  videoId: string;
+  time: number;
+  videoTitle: string;
+  entryTitle: string;
+  thumbnail: string;
+  category: string;
+  duration: number;
+}

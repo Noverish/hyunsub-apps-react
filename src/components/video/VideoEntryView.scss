@@ -1,8 +1,6 @@
 @import '/src/breakpoints.scss';
 
 .VideoEntryView {
-  display: block;
-
   .thumbnail {
     @include media-breakpoint-up(md) {
       border-radius: 0.25rem;
