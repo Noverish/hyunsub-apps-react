@@ -1,6 +1,6 @@
 import VideoHomePageSection from './VideoHomePageSection';
 import { VideoHomeRecent } from 'src/api/video/video-home';
-import VideoEntryView from 'src/components/video/VideoEntryView2';
+import VideoEntryView from 'src/components/video/VideoEntryView';
 import router from 'src/pages/router';
 import VideoRoutes from 'src/pages/video/VideoRoutes';
 

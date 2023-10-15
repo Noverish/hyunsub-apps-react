@@ -11,8 +11,10 @@ interface Props {
 export default function VideoEntryList({ category, entries }: Props) {
   const elements = entries.map((entry) => <VideoEntryView key={entry.id} category={category} entry={entry} />);
 
+  const className = cs('VideoEntryList d-grid gap-1 gap-md-2', category.listHtmlClass);
+
   return (
-    <div id="VideoEntryList" className={cs('row g-2 g-md-3', category.listHtmlClass)}>
+    <div className={className}>
       {elements}
     </div>
   );
