@@ -47,7 +47,6 @@ export default function VideoEpisodeItem({ episode, active }: Props) {
 
 function processEpisodeTitle(str: string): EpisodeTitleInfo | undefined {
   const result = str.match(/^(.+)\.(S\d+)?E(\d+)(\.\d{6})?(\..*)?$/);
-  console.log(result);
   if (!result) {
     return undefined;
   }

@@ -28,6 +28,7 @@ export function parseFileType(name: string, isDir: boolean): DriveFileType {
     case 'jpeg':
     case 'png':
     case 'gif':
+    case 'webp':
       return 'IMAGE';
     case 'mp4':
     case 'webm':

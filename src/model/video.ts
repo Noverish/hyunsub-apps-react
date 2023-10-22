@@ -90,7 +90,7 @@ export interface VideoHistory {
   videoId: string;
   time: number;
   date: string;
-  thumbnailUrl: string;
+  thumbnail: string;
   duration: number;
   entryId: string;
   title: string;

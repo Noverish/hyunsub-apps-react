@@ -1,44 +1,40 @@
 import { t } from 'i18next';
-import flatMap from 'lodash/flatMap';
+import { useContext } from 'react';
 
-import VideoHistoryItem from './components/VideoHistoryItem';
-import videoHistoryListApi from 'src/api/video/video-history-list';
-import ListLoadingIndicator from 'src/components/common/ListLoadingIndicator';
+import { VideoHistoryProvider } from './VideoHistroyContext';
+import VideoHistoryList from './components/VideoHistoryList';
 import LoadingSuspense from 'src/components/common/LoadingSuspense';
 import CommonContainer from 'src/components/common/header/CommonContainer';
 import MobileHeader from 'src/components/common/header/MobileHeader';
-import useScrollBottom from 'src/hooks/scroll-bottom';
+import { VideoHistoryContext } from 'src/pages/video/history/VideoHistroyContext';
+import VideoHistoryTab from 'src/pages/video/history/components/VideoHistoryTab';
+import { useBreakpointMobile } from 'src/utils/breakpoint';
+import { setDocumentTitle } from 'src/utils/services';
 
-function VideoHistoryList() {
-  const { data, fetchNextPage, isFetchingNextPage } = videoHistoryListApi.useInfiniteApi({});
+import './VideoHistoryPage.scss';
 
-  useScrollBottom(() => {
-    if (!isFetchingNextPage) {
-      fetchNextPage();
-    }
-  });
+function VideoHistoryPage() {
+  setDocumentTitle(t('VideoTabBar.history'));
 
-  const list = flatMap(data!!.pages.map((v) => v.data));
+  const isMobile = useBreakpointMobile();
+  const [{ category }] = useContext(VideoHistoryContext);
 
-  const elements = list.map((v) => <VideoHistoryItem key={v.videoId} history={v} />);
-
-  return (
-    <>
-      <div className="VideoHistoryList">{elements}</div>
-      <ListLoadingIndicator isFetching={isFetchingNextPage} />
-    </>
-  );
-}
-
-export default function VideoHistoryPage() {
   return (
     <div className="VideoHistoryPage">
       <MobileHeader title={t('VideoTabBar.history')} />
       <CommonContainer>
-        <LoadingSuspense>
-          <VideoHistoryList />
-        </LoadingSuspense>
+        {isMobile || <h2 className="mb-3">{t('VideoTabBar.history')}</h2>}
+        <VideoHistoryTab />
+        <LoadingSuspense>{category && <VideoHistoryList category={category} />}</LoadingSuspense>
       </CommonContainer>
     </div>
+  );
+}
+
+export default function VideoHistoryIndex() {
+  return (
+    <VideoHistoryProvider>
+      <VideoHistoryPage />
+    </VideoHistoryProvider>
   );
 }

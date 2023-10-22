@@ -1,7 +1,9 @@
+import { Link } from 'react-router-dom';
+
 import VideoRoutes from '../../VideoRoutes';
 import VideoThumbnail from 'src/components/video/VideoThumbnail';
 import { VideoHistory } from 'src/model/video';
-import router from 'src/pages/router';
+import { timeAgo } from 'src/i18n';
 
 import './VideoHistoryItem.scss';
 
@@ -10,19 +12,18 @@ interface Props {
 }
 
 export default function VideoHistoryItem({ history }: Props) {
-  const { videoId, entryId, thumbnailUrl, time, duration } = history;
+  const { videoId, entryId, thumbnail, time, duration, date } = history;
 
-  const onClick = () => {
-    router.navigate(VideoRoutes.detail({ entryId, videoId }));
-  };
+  const href = VideoRoutes.detail({ entryId, videoId });
+  const dateStr = timeAgo.format(new Date(date));
 
   return (
-    <div className="VideoHistoryItem hyunsub_border gray_bg_hover" onClick={onClick}>
-      <VideoThumbnail className="thumbnail_container ratio-16x9" src={thumbnailUrl} time={time} duration={duration} />
+    <Link className="VideoHistoryItem move_up_on_hover" to={href}>
+      <VideoThumbnail className="thumbnail_container ratio-16x9" src={thumbnail} time={time} duration={duration} />
       <div className="info_container">
         <span className="title">{history.title}</span>
-        <span className="date">{history.date}</span>
+        <span className="date">{dateStr}</span>
       </div>
-    </div>
+    </Link>
   );
 }

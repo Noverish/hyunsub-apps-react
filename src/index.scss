@@ -130,6 +130,10 @@ input.form-control, textarea.form-control {
   }
 }
 
+.ratio-9x16 > * {
+  --bs-aspect-ratio: 141.4%;
+}
+
 // ===============================================================
 // custom bootstrap
 
