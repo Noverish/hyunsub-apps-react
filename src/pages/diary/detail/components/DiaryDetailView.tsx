@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 import DiaryRoutes from 'src/pages/diary/DiaryRoutes';
 import DiaryDetailHooks from 'src/pages/diary/detail/DiaryDetailHooks';
+import DiaryMeetFriendView from 'src/pages/diary/detail/components/DiaryMeetFriendView';
 
 export default function DiaryDetailView() {
   const { date, diary, query } = DiaryDetailHooks.usePageData();
@@ -29,6 +30,7 @@ export default function DiaryDetailView() {
     <div className="DiaryDetailView">
       <p>{summary}</p>
       {contentElement}
+      {diary.friends.length && <DiaryMeetFriendView meetFriends={diary.friends} />}
     </div>
   );
 }

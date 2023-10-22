@@ -212,6 +212,7 @@ const ko = {
     'DiaryCalendarPage.create': '해당 날짜에 일기 쓰기',
     'DiaryDetailPage.title': '일기 상세',
     'DiaryDetailPage.empty-msg': '해당 날짜에 작성된 일기가 없습니다.',
+    'DiaryDetailPage.friends': '만난 친구 목록',
     'DiaryCreatePage.title': '일기 작성',
     'DiaryModifyPage.title': '일기 수정',
     'DiarySearchPage.title': '검색 결과 {{0}}건 - {{1}}',

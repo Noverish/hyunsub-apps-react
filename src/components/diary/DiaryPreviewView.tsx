@@ -1,14 +1,14 @@
 import { Card } from 'react-bootstrap';
 
 import { lang } from 'src/i18n';
-import { Diary } from 'src/model/diary';
+import { DiaryPreview } from 'src/model/diary';
 import DiaryRoutes from 'src/pages/diary/DiaryRoutes';
 import router from 'src/pages/router';
 
 import './DiaryPreviewView.scss';
 
 interface Props {
-  diary: Diary;
+  diary: DiaryPreview;
   query?: string;
 }
 

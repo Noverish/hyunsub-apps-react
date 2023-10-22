@@ -2,12 +2,12 @@ import { t } from 'i18next';
 
 import DiaryPreviewView from './DiaryPreviewView';
 import CommonPagination from 'src/components/common/CommonPagination';
-import { Diary } from 'src/model/diary';
+import { DiaryPreview } from 'src/model/diary';
 
 interface Props {
   page: number;
   total: number;
-  data: Diary[];
+  data: DiaryPreview[];
   setPage: (page: number) => void;
   query?: string;
 }

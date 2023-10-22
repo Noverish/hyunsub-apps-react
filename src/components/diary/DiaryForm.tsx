@@ -16,6 +16,7 @@ export default function DiaryForm({ diary, onComplete, initialDate }: Props) {
     date: initialDate ?? toDateString(new Date()),
     summary: '',
     content: '',
+    friends: [],
   };
 
   const { register, handleSubmit, watch } = useForm<Diary>({ defaultValues });

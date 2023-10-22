@@ -1,11 +1,10 @@
 import { useSearchParams } from 'react-router-dom';
 
 import DiaryRoutes from '../DiaryRoutes';
-import diaryCreateApi from 'src/api/diary/diary-create';
+import diaryCreateApi, { DiaryCreateParams } from 'src/api/diary/diary-create';
 import diaryDetailApi from 'src/api/diary/diary-detail';
 import diarySearchApi from 'src/api/diary/diary-search';
 import diaryStatusMonthApi from 'src/api/diary/diary-status-month';
-import { Diary } from 'src/model/diary';
 import router from 'src/pages/router';
 import { dispatch } from 'src/redux';
 import { GlobalActions } from 'src/redux/global';
@@ -23,10 +22,10 @@ function usePageData(): DiaryCreatePageData {
 }
 
 function useCreate() {
-  return async (diary: Diary) => {
+  return async (params: DiaryCreateParams) => {
     dispatch(GlobalActions.update({ loading: true }));
 
-    await diaryCreateApi(diary);
+    const diary = await diaryCreateApi(params);
 
     diaryDetailApi.setCache({ date: diary.date }, diary);
     diarySearchApi.invalidate();

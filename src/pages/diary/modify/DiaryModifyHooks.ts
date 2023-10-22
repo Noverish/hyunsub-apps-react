@@ -1,9 +1,9 @@
 import { useParams } from 'react-router-dom';
 
 import diaryDetailApi from 'src/api/diary/diary-detail';
-import diaryModifyApi from 'src/api/diary/diary-modify';
 import diarySearchApi from 'src/api/diary/diary-search';
 import diaryStatusMonthApi from 'src/api/diary/diary-status-month';
+import diaryModifyApi, { DiaryUpdateParams } from 'src/api/diary/diary-update';
 import { Diary } from 'src/model/diary';
 import router from 'src/pages/router';
 import { dispatch } from 'src/redux';
@@ -27,10 +27,10 @@ function usePageData(): DiaryModifyPageData {
 }
 
 function useModify() {
-  return async (diary: Diary) => {
+  return async (params: DiaryUpdateParams) => {
     dispatch(GlobalActions.update({ loading: true }));
 
-    await diaryModifyApi(diary);
+    const diary = await diaryModifyApi(params);
 
     diaryDetailApi.setCache({ date: diary.date }, diary);
     diarySearchApi.invalidate();

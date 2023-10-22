@@ -212,6 +212,7 @@ const en = {
     'DiaryCalendarPage.create': 'Write Diary in this day',
     'DiaryDetailPage.title': 'Diary Detail',
     'DiaryDetailPage.empty-msg': 'There is no diary in this day.',
+    'DiaryDetailPage.friends': 'Meet Friends',
     'DiaryCreatePage.title': 'Write Diary',
     'DiaryModifyPage.title': 'Edit Diary',
     'DiarySearchPage.title': '{{0}} Results - {{1}}',
