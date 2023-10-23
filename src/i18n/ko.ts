@@ -219,6 +219,7 @@ const ko = {
     'DiaryForm.date': '날짜',
     'DiaryForm.summary': '요약',
     'DiaryForm.content': '내용',
+    'DiaryForm.friends': '친구',
     'DiaryListView.empty-msg': '검색 결과가 없습니다.',
 
     'PageSelectModal.title': '페이지 이동',

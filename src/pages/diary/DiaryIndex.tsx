@@ -9,15 +9,16 @@ import DiaryMenuPage from './menu/DiaryMenuPage';
 import DiaryModifyPage from './modify/DiaryModifyPage';
 import DiarySearchPage from './search/DiarySearchPage';
 import DiaryTabBar from 'src/components/diary/header/DiaryTabBar';
+import { FriendListProvider } from 'src/context/friend/FriendListContext';
 
 export const DiaryRouteObjects: RouteObject[] = [
   {
     path: '/',
     element: (
-      <>
+      <FriendListProvider>
         <DiaryTabBar />
         <Outlet />
-      </>
+      </FriendListProvider>
     ),
     children: [
       { path: '/', element: <Navigate to={routes.listRoute} /> },

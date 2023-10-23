@@ -14,9 +14,10 @@ import { isDev, sleep } from 'src/utils';
 
 export type Updater<R> = (cache: R) => R | void | undefined;
 
-interface GenerateApiOption<P> {
+interface GenerateQueryOption<P> {
   api: (p: P) => AxiosRequestConfig<P>;
   key: string;
+  host?: string;
 }
 
 interface GenerateApiResult<P, R> {
@@ -62,9 +63,22 @@ export function generateApi<P, R>(func: (p: P) => AxiosRequestConfig) {
   };
 }
 
-export function generateQuery<P, R>(option: GenerateApiOption<P>): GenerateApiResult<P, R> {
+export function generateQuery<P, R>(option: GenerateQueryOption<P>): GenerateApiResult<P, R> {
   const key = (p: P): QueryKey => [option.key, p];
-  const api = generateApi<P, R>(option.api);
+
+  const newOptionApi = (p: P): AxiosRequestConfig => {
+    const config = option.api(p);
+
+    const url = config.url;
+    const host = option.host;
+    if (url && host && !window.location.host.includes(host)) {
+      config.url = `https://${host}.hyunsub.kim${url}`;
+    }
+
+    return config;
+  }
+
+  const api = generateApi<P, R>(newOptionApi);
 
   const useApi = (p: P) =>
     useQuery({

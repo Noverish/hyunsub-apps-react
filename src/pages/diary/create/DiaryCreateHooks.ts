@@ -5,6 +5,7 @@ import diaryCreateApi, { DiaryCreateParams } from 'src/api/diary/diary-create';
 import diaryDetailApi from 'src/api/diary/diary-detail';
 import diarySearchApi from 'src/api/diary/diary-search';
 import diaryStatusMonthApi from 'src/api/diary/diary-status-month';
+import { Diary } from 'src/model/diary';
 import router from 'src/pages/router';
 import { dispatch } from 'src/redux';
 import { GlobalActions } from 'src/redux/global';
@@ -22,8 +23,13 @@ function usePageData(): DiaryCreatePageData {
 }
 
 function useCreate() {
-  return async (params: DiaryCreateParams) => {
+  return async ({ friends, ...etc }: Diary) => {
     dispatch(GlobalActions.update({ loading: true }));
+
+    const params: DiaryCreateParams = {
+      friendIds: friends.map((v) => v.id),
+      ...etc,
+    };
 
     const diary = await diaryCreateApi(params);
 

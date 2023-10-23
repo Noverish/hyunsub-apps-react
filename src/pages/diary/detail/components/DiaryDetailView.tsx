@@ -29,8 +29,8 @@ export default function DiaryDetailView() {
   return (
     <div className="DiaryDetailView">
       <p>{summary}</p>
+      {diary.friends.length > 0 && <DiaryMeetFriendView meetFriends={diary.friends} />}
       {contentElement}
-      {diary.friends.length && <DiaryMeetFriendView meetFriends={diary.friends} />}
     </div>
   );
 }

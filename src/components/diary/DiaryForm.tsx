@@ -2,7 +2,9 @@ import { t } from 'i18next';
 import { Button, Form } from 'react-bootstrap';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
+import DiaryFriendMultiSelect from './DiaryFriendMultiSelect';
 import { Diary } from 'src/model/diary';
+import { FriendPreview } from 'src/model/friend';
 import { toDateString } from 'src/utils';
 
 interface Props {
@@ -19,10 +21,22 @@ export default function DiaryForm({ diary, onComplete, initialDate }: Props) {
     friends: [],
   };
 
-  const { register, handleSubmit, watch } = useForm<Diary>({ defaultValues });
+  const { register, handleSubmit, watch, setValue, getValues } = useForm<Diary>({ defaultValues });
 
   const onSubmit: SubmitHandler<Diary> = (diary: Diary) => {
     onComplete(diary);
+  };
+
+  const onFriendSelect = (friend: FriendPreview) => {
+    const friends = getValues('friends');
+    const newFriends = [...friends, friend];
+    setValue('friends', newFriends);
+  };
+
+  const onFriendRemove = (friend: FriendPreview) => {
+    const friends = getValues('friends');
+    const newFriends = friends.filter((v) => v.id !== friend.id);
+    setValue('friends', newFriends);
   };
 
   const content = watch('content');
@@ -37,6 +51,10 @@ export default function DiaryForm({ diary, onComplete, initialDate }: Props) {
       <Form.Group controlId="diary_form_summary">
         <Form.Label>{t('DiaryForm.summary')}</Form.Label>
         <Form.Control type="text" placeholder="Summary" {...register('summary')} />
+      </Form.Group>
+      <Form.Group>
+        <Form.Label>{t('DiaryForm.friends')}</Form.Label>
+        <DiaryFriendMultiSelect value={watch('friends')} onSelect={onFriendSelect} onRemove={onFriendRemove} />
       </Form.Group>
       <Form.Group controlId="diary_form_content">
         <Form.Label>{t('DiaryForm.content')}</Form.Label>

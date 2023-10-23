@@ -1,4 +1,4 @@
-export interface MeetFriend {
-  friendId: string;
+export interface FriendPreview {
+  id: string;
   name: string;
 }

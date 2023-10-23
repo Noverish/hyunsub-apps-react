@@ -219,6 +219,7 @@ const en = {
     'DiaryForm.date': 'Date',
     'DiaryForm.summary': 'Summary',
     'DiaryForm.content': 'Content',
+    'DiaryForm.friends': 'Friends',
     'DiaryListView.empty-msg': 'There is no search result',
 
     'PageSelectModal.title': 'Move Page',

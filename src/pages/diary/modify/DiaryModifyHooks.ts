@@ -27,8 +27,13 @@ function usePageData(): DiaryModifyPageData {
 }
 
 function useModify() {
-  return async (params: DiaryUpdateParams) => {
+  return async ({ friends, ...etc }: Diary) => {
     dispatch(GlobalActions.update({ loading: true }));
+
+    const params: DiaryUpdateParams = {
+      friendIds: friends.map((v) => v.id),
+      ...etc,
+    };
 
     const diary = await diaryModifyApi(params);
 

@@ -9,6 +9,7 @@ import CommonContainer from 'src/components/common/header/CommonContainer';
 import MobileHeader, { MobileHeaderButton } from 'src/components/common/header/MobileHeader';
 import router from 'src/pages/router';
 import { setDocumentTitle } from 'src/utils/services';
+import { lang } from 'src/i18n';
 
 import './DiaryDetailPage.scss';
 
@@ -16,6 +17,7 @@ export default function DiaryDetailPage() {
   setDocumentTitle(t('DiaryDetailPage.title'));
 
   const { date, query, isLoading, diary } = DiaryDetailHooks.usePageData();
+  const weekday = new Date(date).toLocaleString(lang, { weekday: 'short' });
 
   const deleteDiary = DiaryDetailHooks.useDelete();
   const goToYesterday = DiaryDetailHooks.useGoToOtherDay(-1);
@@ -49,7 +51,7 @@ export default function DiaryDetailPage() {
             </Button>
           )}
           <div>
-            <div className="date">{date}</div>
+            <div className="date">{date} ({weekday})</div>
             <div className="letters">{t('letters', [letters])}</div>
           </div>
           {!query && (

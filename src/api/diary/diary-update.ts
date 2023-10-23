@@ -5,6 +5,7 @@ export interface DiaryUpdateParams {
   date: string;
   summary: string;
   content: string;
+  friendIds: string[];
 }
 
 const diaryUpdateApi = generateApi<DiaryUpdateParams, Diary>((params) => ({
