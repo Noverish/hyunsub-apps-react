@@ -222,6 +222,10 @@ const en = {
     'DiaryForm.friends': 'Friends',
     'DiaryListView.empty-msg': 'There is no search result',
 
+    'FriendTabBar.list': 'List',
+    'FriendListPage.title': 'Friend List',
+    'FriendDetailPage.title': 'Friend Detail',
+
     'PageSelectModal.title': 'Move Page',
     'PageSelectModal.close': 'Close',
     'PageSelectModal.move': 'Move',

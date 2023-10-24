@@ -222,6 +222,10 @@ const ko = {
     'DiaryForm.friends': '친구',
     'DiaryListView.empty-msg': '검색 결과가 없습니다.',
 
+    'FriendTabBar.list': '목록',
+    'FriendListPage.title': '친구 목록',
+    'FriendDetailPage.title': '친구 상세',
+
     'PageSelectModal.title': '페이지 이동',
     'PageSelectModal.close': '취소',
     'PageSelectModal.move': '이동',
