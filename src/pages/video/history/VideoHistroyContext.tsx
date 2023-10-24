@@ -1,4 +1,4 @@
-import { generateStateContext } from "src/utils/context";
+import { generateStateContext } from 'src/utils/context';
 
 interface State {
   category: string;
@@ -8,6 +8,6 @@ interface State {
 const initialState: State = {
   category: '',
   selects: [],
-}
+};
 
 export const [VideoHistoryContext, VideoHistoryProvider] = generateStateContext(initialState);

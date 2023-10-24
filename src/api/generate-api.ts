@@ -76,7 +76,7 @@ export function generateQuery<P, R>(option: GenerateQueryOption<P>): GenerateApi
     }
 
     return config;
-  }
+  };
 
   const api = generateApi<P, R>(newOptionApi);
 

@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom';
 
 import VideoRoutes from '../../VideoRoutes';
 import VideoThumbnail from 'src/components/video/VideoThumbnail';
-import { VideoHistory } from 'src/model/video';
 import { timeAgo } from 'src/i18n';
+import { VideoHistory } from 'src/model/video';
 
 import './VideoHistoryItem.scss';
 

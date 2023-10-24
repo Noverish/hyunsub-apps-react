@@ -7,9 +7,9 @@ import DiaryDetailView from './components/DiaryDetailView';
 import LoadingSuspense from 'src/components/common/LoadingSuspense';
 import CommonContainer from 'src/components/common/header/CommonContainer';
 import MobileHeader, { MobileHeaderButton } from 'src/components/common/header/MobileHeader';
+import { lang } from 'src/i18n';
 import router from 'src/pages/router';
 import { setDocumentTitle } from 'src/utils/services';
-import { lang } from 'src/i18n';
 
 import './DiaryDetailPage.scss';
 
@@ -51,7 +51,9 @@ export default function DiaryDetailPage() {
             </Button>
           )}
           <div>
-            <div className="date">{date} ({weekday})</div>
+            <div className="date">
+              {date} ({weekday})
+            </div>
             <div className="letters">{t('letters', [letters])}</div>
           </div>
           {!query && (

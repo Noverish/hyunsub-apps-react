@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { timeAgo } from 'src/i18n';
 
 import { VideoCategoryContext } from 'src/context/video/VideoCategoryContext';
+import { timeAgo } from 'src/i18n';
 import { VideoEntryHistory } from 'src/model/video';
 import VideoRoutes from 'src/pages/video/VideoRoutes';
 

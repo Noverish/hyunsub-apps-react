@@ -1,5 +1,5 @@
-import { VideoHistory } from 'src/model/video';
 import { generateInfiniteQuery } from '../generate-infinite-query';
+import { VideoHistory } from 'src/model/video';
 
 export interface VideoHistoryListParams {
   category: string;

@@ -7,6 +7,6 @@ export interface VideoHistoryDeleteParams {
 const videoHistoryDeleteApi = generateApi<VideoHistoryDeleteParams, any>((params) => ({
   url: `/api/v1/histories/${params.videoId}`,
   method: 'DELETE',
-}))
+}));
 
 export default videoHistoryDeleteApi;

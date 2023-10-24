@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 
 export interface FriendDetailPageData {
   friendId: string;
@@ -15,8 +15,8 @@ function usePageData(): FriendDetailPageData {
   return { friendId };
 }
 
-const FriendDetailHooks ={
+const FriendDetailHooks = {
   usePageData,
-}
+};
 
 export default FriendDetailHooks;

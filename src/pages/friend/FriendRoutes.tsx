@@ -5,6 +5,6 @@ const FriendRoutes = {
 
   detailRoute: '/detail/:friendId',
   detail: (friendId: string) => `/detail/${friendId}`,
-}
+};
 
 export default FriendRoutes;

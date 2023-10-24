@@ -5,8 +5,8 @@ export interface FriendPreview {
 
 export interface Friend {
   id: string;
-	name: string;
-	birthday: string | null;
-	tags: string[];
-	description: string | null;
+  name: string;
+  birthday: string | null;
+  tags: string[];
+  description: string | null;
 }

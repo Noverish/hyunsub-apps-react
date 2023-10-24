@@ -1,4 +1,5 @@
 import { Badge } from 'react-bootstrap';
+
 import { Friend } from 'src/model/friend';
 
 import './FriendDetailView.scss';
@@ -8,7 +9,7 @@ interface Props {
 }
 
 export default function FriendDetailView({ friend }: Props) {
-  const tags = friend.tags.map(v => <Badge key={v}>{v}</Badge>)
+  const tags = friend.tags.map((v) => <Badge key={v}>{v}</Badge>);
 
   return (
     <div className="FriendDetailView">

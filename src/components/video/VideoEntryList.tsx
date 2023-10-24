@@ -13,9 +13,5 @@ export default function VideoEntryList({ category, entries }: Props) {
 
   const className = cs('VideoEntryList d-grid gap-1 gap-md-2', category.listHtmlClass);
 
-  return (
-    <div className={className}>
-      {elements}
-    </div>
-  );
+  return <div className={className}>{elements}</div>;
 }

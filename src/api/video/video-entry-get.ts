@@ -1,5 +1,5 @@
-import { VideoEntry } from "src/model/video";
-import { generateQuery } from "../generate-api";
+import { generateQuery } from '../generate-api';
+import { VideoEntry } from 'src/model/video';
 
 export interface VideoEntryGetParams {
   entryId: string;

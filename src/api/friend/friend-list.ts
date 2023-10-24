@@ -1,5 +1,5 @@
-import { FriendPreview } from "src/model/friend";
-import { generateQuery } from "../generate-api";
+import { generateQuery } from '../generate-api';
+import { FriendPreview } from 'src/model/friend';
 
 const friendListApi = generateQuery<{}, FriendPreview[]>({
   api: () => ({
@@ -9,6 +9,6 @@ const friendListApi = generateQuery<{}, FriendPreview[]>({
   }),
   key: 'friendListApi',
   host: 'friend',
-})
+});
 
 export default friendListApi;
