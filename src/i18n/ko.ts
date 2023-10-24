@@ -225,6 +225,11 @@ const ko = {
     'FriendTabBar.list': '목록',
     'FriendListPage.title': '친구 목록',
     'FriendDetailPage.title': '친구 상세',
+    'FriendCreatePage.title': '친구 등록',
+    'FriendForm.name': '이름',
+    'FriendForm.birthday': '생일',
+    'FriendForm.tags': '태그',
+    'FriendForm.description': '메모',
 
     'PageSelectModal.title': '페이지 이동',
     'PageSelectModal.close': '취소',

@@ -225,6 +225,11 @@ const en = {
     'FriendTabBar.list': 'List',
     'FriendListPage.title': 'Friend List',
     'FriendDetailPage.title': 'Friend Detail',
+    'FriendCreatePage.title': 'Register Friend',
+    'FriendForm.name': 'Name',
+    'FriendForm.birthday': 'Birthday',
+    'FriendForm.tags': 'Tags',
+    'FriendForm.description': 'Memo',
 
     'PageSelectModal.title': 'Move Page',
     'PageSelectModal.close': 'Close',

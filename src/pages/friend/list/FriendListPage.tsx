@@ -6,8 +6,11 @@ import friendListApi from 'src/api/friend/friend-list';
 import CommonContainer from 'src/components/common/header/CommonContainer';
 import MobileHeader, { MobileHeaderButton } from 'src/components/common/header/MobileHeader';
 import router from 'src/pages/router';
+import { setDocumentTitle } from 'src/utils/services';
 
 export default function FriendListPage() {
+  setDocumentTitle(t('FriendListPage.title'));
+
   const friends = friendListApi.useApi({});
 
   const items = friends.map((v) => <FriendPreviewItem key={v.id} friend={v} />);

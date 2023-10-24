@@ -6,8 +6,11 @@ import friendDetailApi from 'src/api/friend/friend-detail';
 import { CommonSuspenseFallback } from 'src/components/common/CommonSuspense';
 import CommonContainer from 'src/components/common/header/CommonContainer';
 import MobileHeader from 'src/components/common/header/MobileHeader';
+import { setDocumentTitle } from 'src/utils/services';
 
 export default function FriendDetailPage() {
+  setDocumentTitle(t('FriendDetailPage.title'));
+
   const { friendId } = FriendDetailHooks.usePageData();
 
   const { data: friend } = friendDetailApi.useApiResult({ friendId });
