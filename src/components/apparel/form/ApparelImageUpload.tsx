@@ -2,7 +2,7 @@ import { useContext } from 'react';
 
 import { ApparelFormContext } from './ApparelFormContext';
 import ApparelFormImage from 'src/components/apparel/form/ApparelFormImage';
-import ImageAddButton from 'src/components/apparel/form/ImageAddButton';
+import ImageAddButton from 'src/components/apparel/form/ApparelImageAddButton';
 import { ApparelImage } from 'src/model/apparel';
 
 interface Props {

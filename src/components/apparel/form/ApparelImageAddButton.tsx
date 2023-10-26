@@ -2,9 +2,9 @@ import React, { useContext } from 'react';
 
 import { ApparelFormContext } from './ApparelFormContext';
 
-import './ImageAddButton.scss';
+import './ApparelImageAddButton.scss';
 
-export default function ImageAddButton() {
+export default function ApparelImageAddButton() {
   const setState = useContext(ApparelFormContext)[1];
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -16,7 +16,7 @@ export default function ImageAddButton() {
   };
 
   return (
-    <div className="ImageAddButton ratio">
+    <div className="ApparelImageAddButton ratio">
       <div>
         <i className="fas fa-plus"></i>
       </div>

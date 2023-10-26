@@ -7,11 +7,13 @@ import { Link, useParams } from 'react-router-dom';
 import { apparelDeleteAction } from './ApparelDetailContext';
 import apparelDetailApi from 'src/api/apparel/apparel-detail';
 import CommonContainer from 'src/components/common/header/CommonContainer';
-import MobileHeader from 'src/components/common/header/MobileHeader';
+import MobileHeader, { MobileHeaderButton } from 'src/components/common/header/MobileHeader';
 import ImageCarousel from 'src/components/common/swiper/ImageCarousel';
 import ApparelRoutes from 'src/pages/apparel/ApparelRoutes';
+import router from 'src/pages/router';
 import { useDispatch } from 'src/redux';
 import { numberWithComma } from 'src/utils';
+import { useBreakpointMobile } from 'src/utils/breakpoint';
 import { setDocumentTitle } from 'src/utils/services';
 
 import './ApparelDetailPage.scss';
@@ -20,6 +22,7 @@ export default function ApparelDetailPage() {
   const dispatch = useDispatch();
   const apparelId = useParams().apparelId!!;
   const title = t('apparel.page.detail.title');
+  const isMobile = useBreakpointMobile();
 
   useEffect(() => {
     setDocumentTitle(title);
@@ -33,9 +36,20 @@ export default function ApparelDetailPage() {
   const urls = images.map((v) => v.url + '?size=512');
   const { discarded } = apparel;
 
+  const mobileHeaderBtns: MobileHeaderButton[] = [
+    {
+      icon: 'fas fa-edit',
+      onClick: () => router.navigate(ApparelRoutes.edit(apparelId)),
+    },
+    {
+      icon: 'fas fa-trash-alt',
+      onClick: onDelete,
+    },
+  ];
+
   return (
     <div id="ApparelDetailPage">
-      <MobileHeader title={title} back />
+      <MobileHeader title={title} back btns={mobileHeaderBtns} />
       <CommonContainer>
         <h1 className={cs({ discarded })}>{apparel.name}</h1>
         <div className="mt-3">
@@ -91,14 +105,16 @@ export default function ApparelDetailPage() {
             <div>{apparel.makeDt}</div>
           </div>
         </div>
-        <div className="mt-3">
-          <Link to={ApparelRoutes.edit(apparelId)}>
-            <Button>{t('edit')}</Button>
-          </Link>
-          <Button variant="danger" className="ms-2" onClick={onDelete}>
-            {t('delete')}
-          </Button>
-        </div>
+        {isMobile || (
+          <div className="mt-3">
+            <Link to={ApparelRoutes.edit(apparelId)}>
+              <Button>{t('edit')}</Button>
+            </Link>
+            <Button variant="danger" className="ms-2" onClick={onDelete}>
+              {t('delete')}
+            </Button>
+          </div>
+        )}
       </CommonContainer>
     </div>
   );
