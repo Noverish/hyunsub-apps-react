@@ -3,17 +3,17 @@ import { useParams } from 'react-router-dom';
 import diaryDetailApi from 'src/api/diary/diary-detail';
 import diarySearchApi from 'src/api/diary/diary-search';
 import diaryStatusMonthApi from 'src/api/diary/diary-status-month';
-import diaryModifyApi, { DiaryUpdateParams } from 'src/api/diary/diary-update';
+import diaryUpdateApi, { DiaryUpdateParams } from 'src/api/diary/diary-update';
 import { Diary } from 'src/model/diary';
 import router from 'src/pages/router';
 import { dispatch } from 'src/redux';
 import { GlobalActions } from 'src/redux/global';
 
-export interface DiaryModifyPageData {
+export interface DiaryUpdatePageData {
   diary: Diary | null;
 }
 
-function usePageData(): DiaryModifyPageData {
+function usePageData(): DiaryUpdatePageData {
   const params = useParams();
 
   const date = params.date;
@@ -26,7 +26,7 @@ function usePageData(): DiaryModifyPageData {
   return { diary };
 }
 
-function useModify() {
+function useUpdate() {
   return async ({ friends, ...etc }: Diary) => {
     dispatch(GlobalActions.update({ loading: true }));
 
@@ -35,7 +35,7 @@ function useModify() {
       ...etc,
     };
 
-    const diary = await diaryModifyApi(params);
+    const diary = await diaryUpdateApi(params);
 
     diaryDetailApi.setCache({ date: diary.date }, diary);
     diarySearchApi.invalidate();
@@ -47,9 +47,9 @@ function useModify() {
   };
 }
 
-const DiaryModifyHooks = {
+const DiaryUpdateHooks = {
   usePageData,
-  useModify,
+  useUpdate,
 };
 
-export default DiaryModifyHooks;
+export default DiaryUpdateHooks;

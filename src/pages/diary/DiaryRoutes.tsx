@@ -10,8 +10,8 @@ const DiaryRoutes = {
   detailRoute: '/detail/:date',
   detail: ({ date, ...query }: DiaryDetailPageParams) => `/detail/${date}?${stringify(query)}`,
 
-  modifyRoute: '/detail/:date/modify',
-  modify: (date: string) => `/detail/${date}/modify`,
+  updateRoute: '/detail/:date/edit',
+  update: (date: string) => `/detail/${date}/edit`,
 
   createRoute: '/create',
   create: (date: string) => `/create?date=${date}`,

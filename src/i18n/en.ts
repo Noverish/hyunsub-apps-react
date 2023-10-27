@@ -214,7 +214,7 @@ const en = {
     'DiaryDetailPage.empty-msg': 'There is no diary in this day.',
     'DiaryDetailPage.friends': 'Meet Friends',
     'DiaryCreatePage.title': 'Write Diary',
-    'DiaryModifyPage.title': 'Edit Diary',
+    'DiaryUpdatePage.title': 'Edit Diary',
     'DiarySearchPage.title': '{{0}} Results - {{1}}',
     'DiaryForm.date': 'Date',
     'DiaryForm.summary': 'Summary',
