@@ -6,15 +6,16 @@ import FriendDetailPage from './detail/FriendDetailPage';
 import FriendListPage from './list/FriendListPage';
 import FriendUpdatePage from './update/FriendUpdatePage';
 import FriendTabBar from 'src/components/friend/header/FriendTabBar';
+import { FriendTagsProvider } from 'src/context/friend/FriendTagsContext';
 
 export const FriendRouteObjects: RouteObject[] = [
   {
     path: '/',
     element: (
-      <>
+      <FriendTagsProvider>
         <FriendTabBar />
         <Outlet />
-      </>
+      </FriendTagsProvider>
     ),
     children: [
       { path: '/', element: <Navigate to={routes.listRoute} /> },

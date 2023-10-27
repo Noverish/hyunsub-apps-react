@@ -11,6 +11,7 @@ export interface SimpleCreatableMultiSelectProps {
   value: string[];
   onChange: (value: string[]) => void;
   isInvalid?: boolean;
+  isLoading?: boolean;
 }
 
 export default function SimpleCreatableMultiSelect(props: SimpleCreatableMultiSelectProps) {
@@ -33,6 +34,7 @@ export default function SimpleCreatableMultiSelect(props: SimpleCreatableMultiSe
       styles={{ menuPortal: (base) => ({ ...base, zIndex: 1100 }) }}
       value={value}
       isMulti={true}
+      isLoading={props.isLoading}
     />
   );
 }
