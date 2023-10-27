@@ -8,6 +8,8 @@ const FriendRoutes = {
 
   updateRoute: '/detail/:friendId/edit',
   update: (friendId: string) => `/detail/${friendId}/edit`,
+
+  menuRoute: '/menu',
 };
 
 export default FriendRoutes;
