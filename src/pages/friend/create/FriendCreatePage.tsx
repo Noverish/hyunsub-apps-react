@@ -1,5 +1,6 @@
 import { t } from 'i18next';
 
+import FriendCreateHooks from './FriendCreateHooks';
 import CommonContainer from 'src/components/common/header/CommonContainer';
 import MobileHeader from 'src/components/common/header/MobileHeader';
 import FriendForm from 'src/components/friend/FriendForm';
@@ -9,8 +10,10 @@ import { setDocumentTitle } from 'src/utils/services';
 export default function FriendCreatePage() {
   setDocumentTitle(t('FriendCreatePage.title'));
 
+  const createFriend = FriendCreateHooks.useCreate();
+
   const onComplete = (friend: Friend) => {
-    console.log(friend);
+    createFriend(friend);
   };
 
   return (

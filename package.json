@@ -61,7 +61,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "eslint": "eslint 'src/**/*.{ts,tsx}'",
-    "prettier": "prettier --write 'src/**/*.{ts,tsx}'"
+    "prettier": "prettier --write 'src/**/*.{ts,tsx}'",
+    "format": "npm run prettier; npm run eslint"
   },
   "eslintConfig": {
     "extends": [

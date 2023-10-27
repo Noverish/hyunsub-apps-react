@@ -1,3 +1,4 @@
+import { t } from 'i18next';
 import { Badge } from 'react-bootstrap';
 
 import { Friend } from 'src/model/friend';
@@ -15,9 +16,14 @@ export default function FriendDetailView({ friend }: Props) {
     <div className="FriendDetailView">
       <h1>{friend.name}</h1>
       <hr />
-      <div>{friend.birthday}</div>
-      <div className="tag_container">{tags}</div>
-      <div className="description">{friend.description}</div>
+      <dl>
+        <dt>{t('FriendForm.birthday')}</dt>
+        <dd>{friend.birthday}</dd>
+        <dt>{t('FriendForm.tags')}</dt>
+        <dd className="tag_container">{tags}</dd>
+        <dt>{t('FriendForm.description')}</dt>
+        <dd className="description">{friend.description}</dd>
+      </dl>
     </div>
   );
 }

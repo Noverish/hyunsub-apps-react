@@ -6,11 +6,12 @@ import FriendTagSelect from './FriendTagSelect';
 import { Friend } from 'src/model/friend';
 
 interface Props {
+  friend?: Friend;
   onComplete: (friend: Friend) => void;
 }
 
-export default function FriendForm(props: Props) {
-  const defaultValues: Friend = {
+export default function FriendForm({ friend, onComplete }: Props) {
+  const defaultValues: Friend = friend ?? {
     id: '',
     name: '',
     birthday: '',
@@ -18,11 +19,13 @@ export default function FriendForm(props: Props) {
     description: '',
   };
 
-  const { register, handleSubmit, control } = useForm<Friend>({ defaultValues });
+  const { register, handleSubmit, control, watch } = useForm<Friend>({ defaultValues });
 
   const onSubmit: SubmitHandler<Friend> = (friend: Friend) => {
-    props.onComplete(friend);
+    onComplete(friend);
   };
+
+  const descriptionHeight = (watch('description') ?? '').split('\n').length * 24 + 14;
 
   return (
     <Form className="FriendForm d-grid gap-3" onSubmit={handleSubmit(onSubmit)}>
@@ -40,7 +43,12 @@ export default function FriendForm(props: Props) {
       </Form.Group>
       <Form.Group controlId="friend_form_description">
         <Form.Label>{t('FriendForm.description')}</Form.Label>
-        <Form.Control type="text" {...register('description')} />
+        <Form.Control
+          as="textarea"
+          type="text"
+          {...register('description')}
+          style={{ height: `${descriptionHeight}px` }}
+        />
       </Form.Group>
       <Button variant="primary" type="submit">
         {t('complete')}

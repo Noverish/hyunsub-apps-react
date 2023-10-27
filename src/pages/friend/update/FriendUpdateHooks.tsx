@@ -1,19 +1,18 @@
-import { t } from 'i18next';
 import { useParams } from 'react-router-dom';
 
-import friendDeleteApi from 'src/api/friend/friend-delete';
 import friendDetailApi from 'src/api/friend/friend-detail';
 import friendListApi from 'src/api/friend/friend-list';
+import friendUpdateApi from 'src/api/friend/friend-update';
 import { Friend } from 'src/model/friend';
 import router from 'src/pages/router';
 import { dispatch } from 'src/redux';
 import { GlobalActions } from 'src/redux/global';
 
-export interface FriendDetailPageData {
+export interface FriendUpdatePageData {
   friendId: string;
 }
 
-function usePageData(): FriendDetailPageData {
+function usePageData(): FriendUpdatePageData {
   const params = useParams();
 
   const friendId = params.friendId;
@@ -24,33 +23,24 @@ function usePageData(): FriendDetailPageData {
   return { friendId };
 }
 
-function useDelete() {
+function useUpdate() {
   return async (friend: Friend) => {
-    const friendId = friend.id;
-
-    if (!window.confirm(t('FriendDetailPage.delete-confirm', [friend.name]))) {
-      return;
-    }
-
     dispatch(GlobalActions.update({ loading: true }));
 
-    await friendDeleteApi({ friendId });
+    const newFriend = await friendUpdateApi(friend);
 
+    friendDetailApi.setCache({ friendId: friend.id }, newFriend);
     friendListApi.clearCache();
 
     dispatch(GlobalActions.update({ loading: false }));
 
     router.navigate(-1);
-
-    setTimeout(() => {
-      friendDetailApi.clearCache({ friendId });
-    }, 0);
   };
 }
 
-const FriendDetailHooks = {
+const FriendUpdateHooks = {
   usePageData,
-  useDelete,
+  useUpdate,
 };
 
-export default FriendDetailHooks;
+export default FriendUpdateHooks;
