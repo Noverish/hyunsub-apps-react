@@ -7,6 +7,7 @@ const _ServiceCode = {
   agnam: 'agnam',
   git: 'git',
   diary: 'diary',
+  friend: 'friend',
 } as const;
 
 export type ServiceCode = (typeof _ServiceCode)[keyof typeof _ServiceCode];
@@ -66,6 +67,12 @@ const services: Service[] = [
     icon: 'fas fa-book',
     title: 'Diary',
     documentTitle: 'Diary',
+  },
+  {
+    code: 'friend',
+    icon: 'fas fa-users',
+    title: 'Friend',
+    documentTitle: 'Friend',
   },
 ];
 
