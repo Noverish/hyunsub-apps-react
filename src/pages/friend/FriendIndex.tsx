@@ -5,6 +5,8 @@ import FriendCreatePage from './create/FriendCreatePage';
 import FriendDetailPage from './detail/FriendDetailPage';
 import FriendListPage from './list/FriendListPage';
 import FriendMenuPage from './menu/FriendMenuPage';
+import FriendTagDetailPage from './tag-detail/FriendTagDetailPage';
+import FriendTagListPage from './tag-list/FriendTagListPage';
 import FriendUpdatePage from './update/FriendUpdatePage';
 import FriendTabBar from 'src/components/friend/header/FriendTabBar';
 import { FriendTagsProvider } from 'src/context/friend/FriendTagsContext';
@@ -25,6 +27,8 @@ export const FriendRouteObjects: RouteObject[] = [
       { path: routes.createRoute, element: <FriendCreatePage /> },
       { path: routes.updateRoute, element: <FriendUpdatePage /> },
       { path: routes.menuRoute, element: <FriendMenuPage /> },
+      { path: routes.tagListRoute, element: <FriendTagListPage /> },
+      { path: routes.tagDetailRoute, element: <FriendTagDetailPage /> },
     ],
   },
 ];

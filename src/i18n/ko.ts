@@ -223,6 +223,7 @@ const ko = {
     'DiaryListView.empty-msg': '검색 결과가 없습니다.',
 
     'FriendTabBar.list': '목록',
+    'FriendTabBar.tags': '태그',
     'FriendListPage.title': '친구 목록',
     'FriendDetailPage.title': '친구 상세',
     'FriendDetailPage.delete-confirm': '정말로 {{0}}를 삭제하시겠습니까?',
@@ -232,6 +233,8 @@ const ko = {
     'FriendForm.birthday': '생일',
     'FriendForm.tags': '태그',
     'FriendForm.description': '메모',
+    'FriendTagListPage.title': '태그 목록',
+    'FriendTagDetailPage.title': '태그 상세 - {{0}}',
 
     'PageSelectModal.title': '페이지 이동',
     'PageSelectModal.close': '취소',

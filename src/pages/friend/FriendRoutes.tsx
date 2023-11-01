@@ -10,6 +10,11 @@ const FriendRoutes = {
   update: (friendId: string) => `/detail/${friendId}/edit`,
 
   menuRoute: '/menu',
+
+  tagListRoute: '/tags',
+
+  tagDetailRoute: '/tags/:tag',
+  tagDetail: (tag: string) => `/tags/${tag}`,
 };
 
 export default FriendRoutes;

@@ -2,8 +2,6 @@ import { t } from 'i18next';
 import { useParams } from 'react-router-dom';
 
 import friendDeleteApi from 'src/api/friend/friend-delete';
-import friendDetailApi from 'src/api/friend/friend-detail';
-import friendListApi from 'src/api/friend/friend-list';
 import { Friend } from 'src/model/friend';
 import router from 'src/pages/router';
 import { dispatch } from 'src/redux';
@@ -36,15 +34,9 @@ function useDelete() {
 
     await friendDeleteApi({ friendId });
 
-    friendListApi.clearCache();
-
     dispatch(GlobalActions.update({ loading: false }));
 
     router.navigate(-1);
-
-    setTimeout(() => {
-      friendDetailApi.clearCache({ friendId });
-    }, 0);
   };
 }
 

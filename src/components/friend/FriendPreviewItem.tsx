@@ -1,6 +1,6 @@
 import { Card } from 'react-bootstrap';
 
-import FriendRoutes from '../../FriendRoutes';
+import FriendRoutes from '../../pages/friend/FriendRoutes';
 import { FriendPreview } from 'src/model/friend';
 import router from 'src/pages/router';
 

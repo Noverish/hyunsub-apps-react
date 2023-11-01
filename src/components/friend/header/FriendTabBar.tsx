@@ -9,6 +9,11 @@ const items: TabBarItem[] = [
     link: FriendRoutes.listRoute,
     icon: 'fas fa-list',
   },
+  {
+    name: t('FriendTabBar.tags'),
+    link: FriendRoutes.tagListRoute,
+    icon: 'fas fa-tag',
+  },
 ];
 
 export default function FriendTabBar() {

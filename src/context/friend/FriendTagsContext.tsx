@@ -1,13 +1,14 @@
 import { createContext } from 'react';
 
 import friendTagListApi from 'src/api/friend/friend-tag-list';
+import { FriendTagPreview } from 'src/model/friend';
 
 interface Props {
   children: React.ReactNode;
 }
 
 interface State {
-  tags: string[];
+  tags: FriendTagPreview[];
   isLoading: boolean;
 }
 

@@ -13,6 +13,7 @@ export default function FriendTagSelect({ control }: Props) {
   const { tags, isLoading } = useContext(FriendTagsContext);
   const { field } = useController({ name: 'tags', control });
   const { onChange, value } = field;
+  const data = tags.map((v) => v.name);
 
-  return <SimpleCreatableMultiSelect data={tags} value={value} onChange={onChange} isLoading={isLoading} />;
+  return <SimpleCreatableMultiSelect data={data} value={value} onChange={onChange} isLoading={isLoading} />;
 }

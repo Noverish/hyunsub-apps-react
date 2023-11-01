@@ -1,7 +1,5 @@
 import { useParams } from 'react-router-dom';
 
-import friendDetailApi from 'src/api/friend/friend-detail';
-import friendListApi from 'src/api/friend/friend-list';
 import friendUpdateApi from 'src/api/friend/friend-update';
 import { Friend } from 'src/model/friend';
 import router from 'src/pages/router';
@@ -27,10 +25,7 @@ function useUpdate() {
   return async (friend: Friend) => {
     dispatch(GlobalActions.update({ loading: true }));
 
-    const newFriend = await friendUpdateApi(friend);
-
-    friendDetailApi.setCache({ friendId: friend.id }, newFriend);
-    friendListApi.clearCache();
+    await friendUpdateApi(friend);
 
     dispatch(GlobalActions.update({ loading: false }));
 

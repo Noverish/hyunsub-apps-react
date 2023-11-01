@@ -223,6 +223,7 @@ const en = {
     'DiaryListView.empty-msg': 'There is no search result',
 
     'FriendTabBar.list': 'List',
+    'FriendTabBar.tags': 'Tags',
     'FriendListPage.title': 'Friend List',
     'FriendDetailPage.title': 'Friend Detail',
     'FriendDetailPage.delete-confirm': 'Are you sure you want to delete {{0}}?',
@@ -232,6 +233,8 @@ const en = {
     'FriendForm.birthday': 'Birthday',
     'FriendForm.tags': 'Tags',
     'FriendForm.description': 'Memo',
+    'FriendTagListPage.title': 'Tag List',
+    'FriendTagDetailPage.title': 'Tag Detail - {{0}}',
 
     'PageSelectModal.title': 'Move Page',
     'PageSelectModal.close': 'Close',
