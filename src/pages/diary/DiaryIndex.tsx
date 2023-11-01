@@ -8,6 +8,7 @@ import DiaryListPage from './list/DiaryListPage';
 import DiaryMenuPage from './menu/DiaryMenuPage';
 import DiarySearchPage from './search/DiarySearchPage';
 import DiaryUpdatePage from './update/DiaryUpdatePage';
+import DiaryDesktopHeader from 'src/components/diary/header/DiaryDesktopHeader';
 import DiaryTabBar from 'src/components/diary/header/DiaryTabBar';
 import { FriendListProvider } from 'src/context/friend/FriendListContext';
 
@@ -16,6 +17,7 @@ export const DiaryRouteObjects: RouteObject[] = [
     path: '/',
     element: (
       <FriendListProvider>
+        <DiaryDesktopHeader />
         <DiaryTabBar />
         <Outlet />
       </FriendListProvider>
