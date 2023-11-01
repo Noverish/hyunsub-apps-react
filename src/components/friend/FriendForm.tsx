@@ -19,13 +19,11 @@ export default function FriendForm({ friend, onComplete }: Props) {
     description: '',
   };
 
-  const { register, handleSubmit, control, watch } = useForm<Friend>({ defaultValues });
+  const { register, handleSubmit, control } = useForm<Friend>({ defaultValues });
 
   const onSubmit: SubmitHandler<Friend> = (friend: Friend) => {
     onComplete(friend);
   };
-
-  const descriptionHeight = (watch('description') ?? '').split('\n').length * 24 + 14;
 
   return (
     <Form className="FriendForm d-grid gap-3" onSubmit={handleSubmit(onSubmit)}>
@@ -43,12 +41,7 @@ export default function FriendForm({ friend, onComplete }: Props) {
       </Form.Group>
       <Form.Group controlId="friend_form_description">
         <Form.Label>{t('FriendForm.description')}</Form.Label>
-        <Form.Control
-          as="textarea"
-          type="text"
-          {...register('description')}
-          style={{ height: `${descriptionHeight}px` }}
-        />
+        <Form.Control as="textarea" rows={7} {...register('description')} />
       </Form.Group>
       <Button variant="primary" type="submit">
         {t('complete')}
