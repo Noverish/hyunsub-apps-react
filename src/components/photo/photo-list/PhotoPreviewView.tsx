@@ -3,8 +3,8 @@ import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 import { PhotoSelectContext } from './PhotoSelectContext';
+import SelectIndicator from 'src/components/common/SelectIndicator';
 import { PhotoPreview } from 'src/model/photo';
-import { useBreakpointMobile } from 'src/utils/breakpoint';
 
 import './PhotoPreviewView.scss';
 
@@ -17,32 +17,20 @@ interface Props {
 
 export default function PhotoPreviewView(props: Props) {
   // props
-  const { preview, href, onSelect } = props;
+  const { preview, href } = props;
   const { id, thumbnail, type } = preview;
 
   // hooks
-  const [{ selects, selectMode }, setState] = useContext(PhotoSelectContext);
+  const [{ selects, selectMode }] = useContext(PhotoSelectContext);
   const selected = selects.includes(preview);
-  const isMobile = useBreakpointMobile();
 
   // functions
-  const onClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    if (selectMode) {
-      e.preventDefault();
-      onSelect?.(preview, e.shiftKey);
-    }
-  };
-
-  const onCheckClick = (e: React.MouseEvent<HTMLElement>) => {
-    if (!isMobile && !selected && !selectMode) {
-      e.preventDefault();
-      setState({ selectMode: true });
-      onSelect?.(preview, e.shiftKey);
-    }
+  const onSelect = (nextState: boolean, e: React.MouseEvent<HTMLElement>) => {
+    props.onSelect?.(preview, e.shiftKey);
   };
 
   return (
-    <Link to={href} className={cs('PhotoPreviewView', { selectMode, selected })} onClick={onClick}>
+    <Link to={href} className={cs('PhotoPreviewView', { selectMode, selected })}>
       <div className="ratio ratio-1x1">
         <img className="img-fluid" src={thumbnail} alt={id} loading="lazy" />
         <div className="icon_container">
@@ -52,13 +40,7 @@ export default function PhotoPreviewView(props: Props) {
             </div>
           )}
         </div>
-        <div className="select_container">
-          {selected ? (
-            <i className="fas fa-check-circle" onClick={onCheckClick} />
-          ) : (
-            <i className="far fa-circle" onClick={onCheckClick} />
-          )}
-        </div>
+        <SelectIndicator enable={selectMode} selected={selected} onSelect={onSelect} />
       </div>
     </Link>
   );

@@ -1,8 +1,8 @@
 @import '/src/breakpoints.scss';
 
 .VideoHistoryItem {
-  display: flex;
   flex-direction: column;
+  position: relative;
 
   .thumbnail {
     @include media-breakpoint-up(md) {
@@ -33,5 +33,13 @@
         font-size: .7rem;
       }
     }
+  }
+
+  .SelectIndicator {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
   }
 }

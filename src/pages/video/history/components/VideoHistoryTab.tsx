@@ -1,7 +1,7 @@
 import { useContext, useEffect } from 'react';
 import { Tab, Tabs } from 'react-bootstrap';
 
-import { VideoHistoryContext } from '../VideoHistroyContext';
+import { VideoHistoryContext } from '../VideoHistoryContext';
 import { VideoCategoryContext } from 'src/context/video/VideoCategoryContext';
 
 export default function VideoHistoryTab() {

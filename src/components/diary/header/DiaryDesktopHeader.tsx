@@ -16,6 +16,11 @@ const desktopProps: DesktopHeaderProps = {
       link: DiaryRoutes.calendarRoute,
       icon: 'far fa-calendar-alt',
     },
+    {
+      name: t('add'),
+      link: DiaryRoutes.createRoute,
+      icon: 'fas fa-plus',
+    },
   ],
   dropdowns: [],
   onSearch: () => {
