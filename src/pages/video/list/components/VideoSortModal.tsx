@@ -14,7 +14,7 @@ export default function VideoSortModal() {
     setState({ showSortModal: false });
   };
 
-  const onClick = (v: VideoSort) => () => {
+  const onClick = (v: VideoSort) => {
     setState({ showSortModal: false });
     setSort(v);
   };
