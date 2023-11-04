@@ -1,5 +1,3 @@
-import { Col, Row } from 'react-bootstrap';
-
 import { useTokenPayload } from 'src/hooks/token';
 import services from 'src/utils/services';
 
@@ -12,17 +10,15 @@ export default function MenuAppsView(props: Props) {
   const items = services.filter((v) => authorities.includes(v.code));
 
   const elements = items.map((v) => (
-    <Col key={v.code}>
-      <a href={`https://${v.code}.hyunsub.kim`}>
-        <i className={v.icon}></i>
-        <span>{v.title}</span>
-      </a>
-    </Col>
+    <a key={v.code} href={`https://${v.code}.hyunsub.kim`}>
+      <i className={v.icon}></i>
+      <span>{v.title}</span>
+    </a>
   ));
 
   return (
     <div className="MenuAppsView">
-      <Row className="row-cols-4 gx-2 gy-4">{elements}</Row>
+      <div className="d-grid row-col-4 gap-4">{elements}</div>
     </div>
   );
 }
