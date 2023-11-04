@@ -5,11 +5,11 @@ import MobileHeader from 'src/components/common/header/MobileHeader';
 import MenuCommonSection from 'src/components/common/menu/MenuCommonSection';
 import { setDocumentTitle } from 'src/utils/services';
 
-export default function DiaryMenuPage() {
+export default function CommonMenuPage() {
   setDocumentTitle(t('CommonTabBar.menu'));
 
   return (
-    <div id="DiaryMenuPage">
+    <div className="CommonMenuPage">
       <MobileHeader title={t('CommonTabBar.menu')} />
       <CommonContainer>
         <MenuCommonSection />

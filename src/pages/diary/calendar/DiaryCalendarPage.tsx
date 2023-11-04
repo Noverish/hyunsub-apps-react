@@ -6,18 +6,14 @@ import DiaryCalendarResultView from './components/DiaryCalendarResultView';
 import diaryStatusMonthApi from 'src/api/diary/diary-status-month';
 import CommonCalendar from 'src/components/common/CommonCalendar';
 import LoadingSuspense from 'src/components/common/LoadingSuspense';
-import CommonContainer from 'src/components/common/header/CommonContainer';
-import MobileHeader from 'src/components/common/header/MobileHeader';
+import CommonLayout from 'src/components/common/layout/CommonLayout';
 import { toDateString } from 'src/utils';
-import { setDocumentTitle } from 'src/utils/services';
 
 import './DiaryCalendarPage.scss';
 
 export default function DiaryCalendarPage() {
-  setDocumentTitle(t('DiaryCalendarPage.title'));
-
   // hooks
-  const { date, setDate } = DiaryCalendarHooks.usePageData();
+  const { date, setDate } = DiaryCalendarHooks.usePageParams();
   const dateString = toDateString(date);
 
   const year = date.getFullYear();
@@ -34,16 +30,13 @@ export default function DiaryCalendarPage() {
   };
 
   return (
-    <div className="DiaryCalendarPage">
-      <MobileHeader title={t('DiaryCalendarPage.title')} />
-      <CommonContainer>
-        <div className="flex_center mb-3">
-          <CommonCalendar onDateChange={setDate} initialValue={date} tileClassName={tileClassName} />
-        </div>
-        <LoadingSuspense>
-          <DiaryCalendarResultView date={dateString} />
-        </LoadingSuspense>
-      </CommonContainer>
-    </div>
+    <CommonLayout className="DiaryCalendarPage" title={t('DiaryCalendarPage.title')}>
+      <div className="flex_center mb-3">
+        <CommonCalendar onDateChange={setDate} initialValue={date} tileClassName={tileClassName} />
+      </div>
+      <LoadingSuspense>
+        <DiaryCalendarResultView date={dateString} />
+      </LoadingSuspense>
+    </CommonLayout>
   );
 }

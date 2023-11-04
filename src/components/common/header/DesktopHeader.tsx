@@ -5,6 +5,8 @@ import { useTranslation } from 'react-i18next';
 import { Link, To } from 'react-router-dom';
 
 import useLogout from 'src/hooks/logout';
+import CommonRoutes from 'src/pages/common/CommonRoutes';
+import router from 'src/pages/router';
 import { useBreakpointMobile } from 'src/utils/breakpoint';
 import AppConstant from 'src/utils/constants';
 
@@ -14,7 +16,6 @@ export interface DesktopHeaderProps {
   title: string;
   menus: DesktopHeaderMenu[];
   dropdowns: DesktopHeaderDropdown[];
-  onSearch: () => void;
   noContainer?: boolean;
 }
 
@@ -38,7 +39,7 @@ const ProfileDropdownToggle = React.forwardRef<HTMLDivElement, React.DOMAttribut
 );
 
 export default function DesktopHeader(props: DesktopHeaderProps) {
-  const { menus, onSearch, dropdowns, title, noContainer } = props;
+  const { menus, dropdowns, title, noContainer } = props;
   const { t } = useTranslation();
   const isMobile = useBreakpointMobile();
   const logout = useLogout();
@@ -49,6 +50,10 @@ export default function DesktopHeader(props: DesktopHeaderProps) {
 
   const goToProfile = () => {
     window.location.href = AppConstant.PROFILE_HOME;
+  };
+
+  const onSearch = () => {
+    router.navigate(CommonRoutes.search);
   };
 
   if (isMobile) {
@@ -87,7 +92,7 @@ export default function DesktopHeader(props: DesktopHeaderProps) {
             </Dropdown.Toggle>
             <Dropdown.Menu variant="dark">
               {dropdownElements}
-              <Dropdown.Divider />
+              {dropdownElements.length > 0 && <Dropdown.Divider />}
               <Dropdown.Item as="button" onClick={goToApps}>
                 {t('applications')}
               </Dropdown.Item>

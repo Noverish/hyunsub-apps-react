@@ -7,7 +7,7 @@ export interface DiaryCalendarPageData {
   setDate: (date: Date) => void;
 }
 
-function usePageData(): DiaryCalendarPageData {
+function usePageParams(): DiaryCalendarPageData {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const dateStr = searchParams.get('date');
@@ -22,7 +22,7 @@ function usePageData(): DiaryCalendarPageData {
 }
 
 const DiaryCalendarHooks = {
-  usePageData,
+  usePageParams,
 };
 
 export default DiaryCalendarHooks;

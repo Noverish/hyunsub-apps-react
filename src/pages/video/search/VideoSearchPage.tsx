@@ -1,48 +1,22 @@
 import { t } from 'i18next';
-import { Button, Form, InputGroup } from 'react-bootstrap';
-import { SubmitHandler, useForm } from 'react-hook-form';
 
-import { useVideoSearchApi } from './VideoSearchHooks';
+import VideoSearchHooks from './VideoSearchHooks';
 import VideoSearchResultView from './components/VideoSearchResultView';
-import { VideoSearchParams } from 'src/api/video/video-search';
+import videoSearchApi from 'src/api/video/video-search';
 import { Loading } from 'src/components/common/LoadingSuspense';
-import CommonContainer from 'src/components/common/header/CommonContainer';
-import MobileHeader from 'src/components/common/header/MobileHeader';
-import { useBreakpointMobile } from 'src/utils/breakpoint';
-import { setDocumentTitle } from 'src/utils/services';
+import SearchInput from 'src/components/common/SearchInput';
+import CommonLayout from 'src/components/common/layout/CommonLayout';
 
 export default function VideoSearchPage() {
-  const isMobile = useBreakpointMobile();
+  const { query, setQuery } = VideoSearchHooks.usePageParams();
 
-  setDocumentTitle(t('VideoSearchPage.title'));
-
-  const { register, handleSubmit, getValues } = useForm<VideoSearchParams>();
-
-  const { data, isLoading, search } = useVideoSearchApi();
-
-  const onSubmit: SubmitHandler<VideoSearchParams> = (state: VideoSearchParams) => {
-    search(state);
-  };
+  const { data, isFetching } = videoSearchApi.useApiResult({ query }, { enabled: !!query });
 
   return (
-    <div id="VideoSearchPage">
-      <MobileHeader title={t('VideoSearchPage.title')} />
-      <CommonContainer>
-        {isMobile || <h2 className="mb-3">{t('VideoSearchPage.title')}</h2>}
-
-        <Form onSubmit={handleSubmit(onSubmit)} className="mb-3">
-          <InputGroup>
-            <Form.Control {...register('query')} placeholder={t('msg.type-query') as string} />
-            <Button variant="primary border" type="submit">
-              {isMobile ? <i className="fas fa-search" /> : t('search')}
-            </Button>
-          </InputGroup>
-        </Form>
-
-        {isLoading && <Loading />}
-
-        {data && <VideoSearchResultView result={data} query={getValues('query')} />}
-      </CommonContainer>
-    </div>
+    <CommonLayout className="VideoSearchPage" title={t('VideoSearchPage.title')}>
+      <SearchInput className="mb-3" defaultQuery={query} onSubmit={setQuery} />
+      {isFetching && <Loading />}
+      {data && <VideoSearchResultView result={data} query={query} />}
+    </CommonLayout>
   );
 }

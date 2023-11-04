@@ -24,6 +24,11 @@ export default function CommonTabBar({ items }: Props) {
   const newItems: TabBarItem[] = [
     ...items,
     {
+      name: t('CommonTabBar.search'),
+      link: CommonRoutes.search,
+      icon: 'fas fa-search',
+    },
+    {
       name: t('CommonTabBar.menu'),
       link: CommonRoutes.menu,
       icon: 'fas fa-bars',

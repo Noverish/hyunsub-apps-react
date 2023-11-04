@@ -15,6 +15,7 @@ export interface MobileHeaderProps {
 
 export interface MobileHeaderButton {
   icon: string;
+  name?: string;
   onClick: () => void;
 }
 

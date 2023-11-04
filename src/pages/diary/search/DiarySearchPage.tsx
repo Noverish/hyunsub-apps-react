@@ -1,26 +1,22 @@
 import { t } from 'i18next';
 
 import DiarySearchHooks from './DiarySearchHooks';
+import DiarySearchResult from './components/DiarySearchResult';
 import diarySearchApi from 'src/api/diary/diary-search';
-import CommonContainer from 'src/components/common/header/CommonContainer';
-import MobileHeader from 'src/components/common/header/MobileHeader';
-import DiaryListView from 'src/components/diary/DiaryListView';
-import { setDocumentTitle } from 'src/utils/services';
+import { Loading } from 'src/components/common/LoadingSuspense';
+import SearchInput from 'src/components/common/SearchInput';
+import CommonLayout from 'src/components/common/layout/CommonLayout';
 
 export default function DiarySearchPage() {
-  const { page, query, setPage } = DiarySearchHooks.usePageData();
-  const { total, data, pageSize } = diarySearchApi.useApi({ page, query });
+  const { page, query, setQuery } = DiarySearchHooks.usePageParams();
 
-  setDocumentTitle(t('DiarySearchPage.title', [total, query]));
-
-  const totalPage = Math.floor((total - 1) / pageSize) + 1;
+  const { data, isFetching } = diarySearchApi.useApiResult({ page, query }, { enabled: !!query });
 
   return (
-    <div className="DiarySearchPage">
-      <MobileHeader title={t('DiarySearchPage.title', [total, query])} back />
-      <CommonContainer>
-        <DiaryListView page={page} total={totalPage} data={data} setPage={setPage} query={query} />
-      </CommonContainer>
-    </div>
+    <CommonLayout className="DiarySearchPage" title={t('DiarySearchPage.title')}>
+      <SearchInput className="mb-3" defaultQuery={query} onSubmit={setQuery} />
+      {isFetching && <Loading />}
+      {data && <DiarySearchResult pageData={data} />}
+    </CommonLayout>
   );
 }

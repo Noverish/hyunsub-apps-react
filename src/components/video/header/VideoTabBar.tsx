@@ -11,11 +11,6 @@ const items: TabBarItem[] = [
     icon: 'fas fa-home',
   },
   {
-    name: t('VideoTabBar.search'),
-    link: VideoRoutes.search,
-    icon: 'fas fa-search',
-  },
-  {
     name: t('VideoTabBar.history'),
     link: VideoRoutes.history,
     icon: 'fas fa-history',

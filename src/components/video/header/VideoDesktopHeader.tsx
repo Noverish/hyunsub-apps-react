@@ -4,7 +4,6 @@ import { useContext } from 'react';
 import DesktopHeader, { DesktopHeaderDropdown, DesktopHeaderProps } from 'src/components/common/header/DesktopHeader';
 import { VideoCategoryContext } from 'src/context/video/VideoCategoryContext';
 import { useIsAdmin } from 'src/hooks/token';
-import router from 'src/pages/router';
 import VideoRoutes from 'src/pages/video/VideoRoutes';
 
 export default function VideoDesktopHeader() {
@@ -35,9 +34,6 @@ export default function VideoDesktopHeader() {
     title: 'HyunVideo',
     menus,
     dropdowns,
-    onSearch: () => {
-      router.navigate(VideoRoutes.search);
-    },
   };
 
   return <DesktopHeader {...desktopProps} />;

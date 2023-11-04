@@ -1,11 +1,11 @@
 import { Navigate, Outlet, RouteObject } from 'react-router-dom';
 
+import CommonMenuPage from '../common/CommonMenuPage';
 import routes from './DiaryRoutes';
 import DiaryCalendarPage from './calendar/DiaryCalendarPage';
 import DiaryCreatePage from './create/DiaryCreatePage';
 import DiaryDetailPage from './detail/DiaryDetailPage';
 import DiaryListPage from './list/DiaryListPage';
-import DiaryMenuPage from './menu/DiaryMenuPage';
 import DiarySearchPage from './search/DiarySearchPage';
 import DiaryUpdatePage from './update/DiaryUpdatePage';
 import DiaryDesktopHeader from 'src/components/diary/header/DiaryDesktopHeader';
@@ -30,7 +30,7 @@ export const DiaryRouteObjects: RouteObject[] = [
       { path: routes.detailRoute, element: <DiaryDetailPage /> },
       { path: routes.createRoute, element: <DiaryCreatePage /> },
       { path: routes.updateRoute, element: <DiaryUpdatePage /> },
-      { path: routes.menuRoute, element: <DiaryMenuPage /> },
+      { path: routes.menuRoute, element: <CommonMenuPage /> },
     ],
   },
 ];

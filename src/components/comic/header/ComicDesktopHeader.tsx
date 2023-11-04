@@ -13,9 +13,6 @@ const desktopProps: DesktopHeaderProps = {
     },
   ],
   dropdowns: [],
-  onSearch: () => {
-    alert('Not yet implemented');
-  },
 };
 
 export default function ComicDesktopHeader() {

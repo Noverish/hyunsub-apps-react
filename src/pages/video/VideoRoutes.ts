@@ -30,9 +30,8 @@ const VideoRoutes = {
   videoManageRoute: '/entry/:entryId/video/:videoId/manage',
   videoManage: (entryId: string, videoId: string) => `/entry/${entryId}/video/${videoId}/manage`,
 
-  search: '/search',
-
-  menu: '/menu',
+  searchRoute: '/search',
+  search: (query: string) => `/search?query=${query}`,
 };
 
 export default VideoRoutes;
