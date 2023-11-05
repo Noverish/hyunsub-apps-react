@@ -236,6 +236,7 @@ const en = {
     'FriendForm.birthday': 'Birthday',
     'FriendForm.tags': 'Tags',
     'FriendForm.description': 'Memo',
+    'FriendForm.meets': 'Meets',
     'FriendTagListPage.title': 'Tag List',
     'FriendTagDetailPage.title': 'Tag Detail - {{0}}',
     'FriendPreviewList.empty-msg': 'There is no search result',

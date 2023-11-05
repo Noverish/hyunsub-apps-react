@@ -18,10 +18,12 @@ export default function FriendDetailPage() {
   const mobileHeaderBtns: MobileHeaderButton[] = [
     {
       icon: 'fas fa-edit',
+      name: t('edit'),
       onClick: () => router.navigate(FriendRoutes.update(friendId)),
     },
     {
       icon: 'fas fa-trash-alt',
+      name: t('delete'),
       onClick: () => (friend ? remove(friend) : undefined),
     },
   ];

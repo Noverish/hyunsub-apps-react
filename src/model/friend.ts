@@ -9,6 +9,7 @@ export interface Friend {
   birthday: string | null;
   tags: string[];
   description: string | null;
+  meets: string[];
 }
 
 export interface FriendTagPreview {

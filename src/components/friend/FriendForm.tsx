@@ -17,6 +17,7 @@ export default function FriendForm({ friend, onComplete }: Props) {
     birthday: '',
     tags: [],
     description: '',
+    meets: [],
   };
 
   const { register, handleSubmit, control } = useForm<Friend>({ defaultValues });

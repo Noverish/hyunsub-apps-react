@@ -236,6 +236,7 @@ const ko = {
     'FriendForm.birthday': '생일',
     'FriendForm.tags': '태그',
     'FriendForm.description': '메모',
+    'FriendForm.meets': '만남',
     'FriendTagListPage.title': '태그 목록',
     'FriendTagDetailPage.title': '태그 상세 - {{0}}',
     'FriendPreviewList.empty-msg': '검색 결과가 없습니다.',

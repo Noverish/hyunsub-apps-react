@@ -16,6 +16,7 @@ export default function FriendListPage() {
   const headerBtns: MobileHeaderButton[] = [
     {
       icon: 'fas fa-plus',
+      name: t('add'),
       onClick: () => router.navigate(FriendRoutes.createRoute),
     },
   ];

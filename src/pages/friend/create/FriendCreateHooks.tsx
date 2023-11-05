@@ -1,3 +1,4 @@
+import FriendRoutes from '../FriendRoutes';
 import friendCreateApi from 'src/api/friend/friend-create';
 import { Friend } from 'src/model/friend';
 import router from 'src/pages/router';
@@ -8,11 +9,11 @@ function useCreate() {
   return async (friend: Friend) => {
     dispatch(GlobalActions.update({ loading: true }));
 
-    await friendCreateApi(friend);
+    const result = await friendCreateApi(friend);
 
     dispatch(GlobalActions.update({ loading: false }));
 
-    router.navigate(-1);
+    router.navigate(FriendRoutes.detail(result.id), { replace: true });
   };
 }
 
