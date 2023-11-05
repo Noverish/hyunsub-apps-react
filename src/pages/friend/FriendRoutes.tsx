@@ -9,8 +9,6 @@ const FriendRoutes = {
   updateRoute: '/detail/:friendId/edit',
   update: (friendId: string) => `/detail/${friendId}/edit`,
 
-  menuRoute: '/menu',
-
   tagListRoute: '/tags',
 
   tagDetailRoute: '/tags/:tag',

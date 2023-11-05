@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import DiaryRoutes from '../../DiaryRoutes';
 import diaryDetailApi from 'src/api/diary/diary-detail';
-import DiaryPreviewView from 'src/components/diary/DiaryPreviewView';
+import DiaryPreviewItem from 'src/components/diary/DiaryPreviewItem';
 
 interface Props {
   date: string;
@@ -16,7 +16,7 @@ export default function DiaryCalendarResultView({ date }: Props) {
   const createUrl = DiaryRoutes.create(date);
 
   const content = data ? (
-    <DiaryPreviewView diary={data} />
+    <DiaryPreviewItem diary={data} />
   ) : (
     <div className="d-grid gap-3">
       <span>{t('DiaryDetailPage.empty-msg')}</span>

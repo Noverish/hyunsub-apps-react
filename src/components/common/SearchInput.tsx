@@ -1,5 +1,6 @@
 import cs from 'classnames';
 import { t } from 'i18next';
+import { useEffect } from 'react';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
@@ -18,9 +19,13 @@ interface FormState {
 export default function SearchInput(props: Props) {
   const isMobile = useBreakpointMobile();
 
-  const { register, handleSubmit } = useForm<FormState>({
+  const { register, handleSubmit, setValue } = useForm<FormState>({
     defaultValues: { query: props.defaultQuery },
   });
+
+  useEffect(() => {
+    setValue('query', props.defaultQuery);
+  }, [setValue, props.defaultQuery]);
 
   const onSubmit: SubmitHandler<FormState> = (state: FormState) => {
     props.onSubmit(state.query);

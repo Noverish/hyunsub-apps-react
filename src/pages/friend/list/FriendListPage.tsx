@@ -1,18 +1,17 @@
 import { t } from 'i18next';
 
 import FriendRoutes from '../FriendRoutes';
-import friendListApi from 'src/api/friend/friend-list';
-import { Loading } from 'src/components/common/LoadingSuspense';
-import CommonContainer from 'src/components/common/header/CommonContainer';
-import MobileHeader, { MobileHeaderButton } from 'src/components/common/header/MobileHeader';
+import friendSearchApi from 'src/api/friend/friend-search';
+import { MobileHeaderButton } from 'src/components/common/header/MobileHeader';
+import CommonLayout from 'src/components/common/layout/CommonLayout';
 import FriendPreviewList from 'src/components/friend/FriendPreviewList';
+import CommonPageHooks from 'src/hooks/common/CommonPageHooks';
 import router from 'src/pages/router';
-import { setDocumentTitle } from 'src/utils/services';
 
 export default function FriendListPage() {
-  setDocumentTitle(t('FriendListPage.title'));
+  const { page, setPage } = CommonPageHooks.usePage();
 
-  const { data: friends } = friendListApi.useApiResult({});
+  const { data } = friendSearchApi.useApiResult({ page, query: '' });
 
   const headerBtns: MobileHeaderButton[] = [
     {
@@ -22,9 +21,8 @@ export default function FriendListPage() {
   ];
 
   return (
-    <div className="FriendListPage">
-      <MobileHeader title={t('FriendListPage.title')} btns={headerBtns} />
-      <CommonContainer>{friends ? <FriendPreviewList list={friends} /> : <Loading />}</CommonContainer>
-    </div>
+    <CommonLayout className="FriendListPage" title={t('FriendListPage.title')} btns={headerBtns}>
+      <FriendPreviewList data={data} page={page} setPage={setPage} />
+    </CommonLayout>
   );
 }

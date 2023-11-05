@@ -10,7 +10,7 @@ export default function DiaryUpdatePage() {
 
   return (
     <CommonLayout className="DiaryUpdatePage" title={t('DiaryUpdatePage.title')} back>
-      {diary ? <DiaryForm diary={diary} onComplete={update} /> : <span>{t('DiaryListView.empty-msg')}</span>}
+      {diary ? <DiaryForm diary={diary} onComplete={update} /> : <span>{t('DiaryPreviewList.empty-msg')}</span>}
     </CommonLayout>
   );
 }

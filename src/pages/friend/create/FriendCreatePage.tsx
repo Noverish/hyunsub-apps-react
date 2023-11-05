@@ -1,27 +1,15 @@
 import { t } from 'i18next';
 
 import FriendCreateHooks from './FriendCreateHooks';
-import CommonContainer from 'src/components/common/header/CommonContainer';
-import MobileHeader from 'src/components/common/header/MobileHeader';
+import CommonLayout from 'src/components/common/layout/CommonLayout';
 import FriendForm from 'src/components/friend/FriendForm';
-import { Friend } from 'src/model/friend';
-import { setDocumentTitle } from 'src/utils/services';
 
 export default function FriendCreatePage() {
-  setDocumentTitle(t('FriendCreatePage.title'));
-
-  const createFriend = FriendCreateHooks.useCreate();
-
-  const onComplete = (friend: Friend) => {
-    createFriend(friend);
-  };
+  const create = FriendCreateHooks.useCreate();
 
   return (
-    <div className="FriendCreatePage">
-      <MobileHeader title={t('FriendCreatePage.title')} back />
-      <CommonContainer>
-        <FriendForm onComplete={onComplete} />
-      </CommonContainer>
-    </div>
+    <CommonLayout className="FriendCreatePage" title={t('FriendCreatePage.title')} back>
+      <FriendForm onComplete={create} />
+    </CommonLayout>
   );
 }

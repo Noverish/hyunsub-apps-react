@@ -5,14 +5,14 @@ import { DiaryPreview } from 'src/model/diary';
 import DiaryRoutes from 'src/pages/diary/DiaryRoutes';
 import router from 'src/pages/router';
 
-import './DiaryPreviewView.scss';
+import './DiaryPreviewItem.scss';
 
 interface Props {
   diary: DiaryPreview;
   query?: string;
 }
 
-export default function DiaryPreviewView({ diary, query }: Props) {
+export default function DiaryPreviewItem({ diary, query }: Props) {
   const date = new Date(diary.date);
   const weekday = date.toLocaleString(lang, { weekday: 'short' });
 
@@ -32,7 +32,7 @@ export default function DiaryPreviewView({ diary, query }: Props) {
   const contentElement = query ? highlightQuery(content, query) : <span>{processLastPart(content, 100)}</span>;
 
   return (
-    <Card className="DiaryPreviewView" onClick={onClick}>
+    <Card className="DiaryPreviewItem" onClick={onClick}>
       <Card.Header>
         {diary.date} ({weekday})
       </Card.Header>

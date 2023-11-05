@@ -5,17 +5,15 @@ import FriendDetailHooks from './FriendDetailHooks';
 import FriendDetailView from './components/FriendDetailView';
 import friendDetailApi from 'src/api/friend/friend-detail';
 import { Loading } from 'src/components/common/LoadingSuspense';
-import CommonContainer from 'src/components/common/header/CommonContainer';
-import MobileHeader, { MobileHeaderButton } from 'src/components/common/header/MobileHeader';
+import { MobileHeaderButton } from 'src/components/common/header/MobileHeader';
+import CommonLayout from 'src/components/common/layout/CommonLayout';
+import { useUrlParams } from 'src/hooks/url-params';
 import router from 'src/pages/router';
-import { setDocumentTitle } from 'src/utils/services';
 
 export default function FriendDetailPage() {
-  setDocumentTitle(t('FriendDetailPage.title'));
-
-  const { friendId } = FriendDetailHooks.usePageData();
+  const [friendId] = useUrlParams('friendId');
   const { data: friend } = friendDetailApi.useApiResult({ friendId });
-  const deleteFriend = FriendDetailHooks.useDelete();
+  const remove = FriendDetailHooks.useDelete();
 
   const mobileHeaderBtns: MobileHeaderButton[] = [
     {
@@ -24,14 +22,13 @@ export default function FriendDetailPage() {
     },
     {
       icon: 'fas fa-trash-alt',
-      onClick: () => (friend ? deleteFriend(friend) : undefined),
+      onClick: () => (friend ? remove(friend) : undefined),
     },
   ];
 
   return (
-    <div className="FriendDetailPage">
-      <MobileHeader title={t('FriendDetailPage.title')} back btns={mobileHeaderBtns} />
-      <CommonContainer>{friend ? <FriendDetailView friend={friend} /> : <Loading />}</CommonContainer>
-    </div>
+    <CommonLayout className="FriendDetailPage" title={t('FriendDetailPage.title')} back btns={mobileHeaderBtns}>
+      {friend ? <FriendDetailView friend={friend} /> : <Loading />}
+    </CommonLayout>
   );
 }

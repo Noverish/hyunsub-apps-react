@@ -5,7 +5,7 @@ import DiaryListHooks from './DiaryListHooks';
 import diarySearchApi from 'src/api/diary/diary-search';
 import { MobileHeaderButton } from 'src/components/common/header/MobileHeader';
 import CommonLayout from 'src/components/common/layout/CommonLayout';
-import DiaryListView from 'src/components/diary/DiaryListView';
+import DiaryPreviewList from 'src/components/diary/DiaryPreviewList';
 import router from 'src/pages/router';
 
 export default function DiaryListPage() {
@@ -22,7 +22,7 @@ export default function DiaryListPage() {
 
   return (
     <CommonLayout className="DiaryListPage" title={t('DiaryListPage.title')} btns={headerBtns}>
-      <DiaryListView pageData={pageData} setPage={setPage} />
+      <DiaryPreviewList pageData={pageData} setPage={setPage} />
     </CommonLayout>
   );
 }

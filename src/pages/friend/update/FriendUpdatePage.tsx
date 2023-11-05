@@ -3,27 +3,18 @@ import { t } from 'i18next';
 import FriendUpdateHooks from './FriendUpdateHooks';
 import friendDetailApi from 'src/api/friend/friend-detail';
 import { Loading } from 'src/components/common/LoadingSuspense';
-import CommonContainer from 'src/components/common/header/CommonContainer';
-import MobileHeader from 'src/components/common/header/MobileHeader';
+import CommonLayout from 'src/components/common/layout/CommonLayout';
 import FriendForm from 'src/components/friend/FriendForm';
-import { Friend } from 'src/model/friend';
-import { setDocumentTitle } from 'src/utils/services';
+import { useUrlParams } from 'src/hooks/url-params';
 
 export default function FriendUpdatePage() {
-  setDocumentTitle(t('FriendUpdatePage.title'));
-
-  const { friendId } = FriendUpdateHooks.usePageData();
+  const [friendId] = useUrlParams('friendId');
   const { data: friend } = friendDetailApi.useApiResult({ friendId });
-  const updateFriend = FriendUpdateHooks.useUpdate();
-
-  const onComplete = (friend: Friend) => {
-    updateFriend(friend);
-  };
+  const update = FriendUpdateHooks.useUpdate();
 
   return (
-    <div className="FriendUpdatePage">
-      <MobileHeader title={t('FriendUpdatePage.title')} back />
-      <CommonContainer>{friend ? <FriendForm friend={friend} onComplete={onComplete} /> : <Loading />}</CommonContainer>
-    </div>
+    <CommonLayout className="FriendUpdatePage" title={t('FriendUpdatePage.title')} back>
+      {friend ? <FriendForm friend={friend} onComplete={update} /> : <Loading />}
+    </CommonLayout>
   );
 }

@@ -5,9 +5,11 @@ interface Props {
   isLoading?: boolean;
 }
 
-export function Loading() {
+export function Loading({ vh }: { vh?: number }) {
+  const height = `${vh ?? 80}vh`;
+
   return (
-    <div className="LoadingSuspense flex_center" style={{ height: '80vh' }}>
+    <div className="LoadingSuspense flex_center" style={{ height }}>
       <Spinner animation="border"></Spinner>
     </div>
   );

@@ -1,5 +1,5 @@
 import friendDetailApi from './friend-detail';
-import friendTagDetailApi from './friend-tag-detail';
+import friendTagDetailApi from './friend-tag-friends';
 import friendListApi from 'src/api/friend/friend-list';
 import friendTagListApi from 'src/api/friend/friend-tag-list';
 import { generateApi } from 'src/api/generate-api';

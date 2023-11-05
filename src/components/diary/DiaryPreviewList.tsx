@@ -1,6 +1,6 @@
 import { t } from 'i18next';
 
-import DiaryPreviewView from './DiaryPreviewView';
+import DiaryPreviewItem from './DiaryPreviewItem';
 import CommonPagination from 'src/components/common/CommonPagination';
 import { PageData } from 'src/model/api';
 import { DiaryPreview } from 'src/model/diary';
@@ -11,16 +11,16 @@ interface Props {
   query?: string;
 }
 
-export default function DiaryListView({ pageData, setPage, query }: Props) {
+export default function DiaryPreviewList({ pageData, setPage, query }: Props) {
   const { data, page, total, pageSize } = pageData;
 
-  const elements = data.map((v) => <DiaryPreviewView key={v.date} diary={v} query={query} />);
+  const elements = data.map((v) => <DiaryPreviewItem key={v.date} diary={v} query={query} />);
 
   const totalPage = Math.floor((total - 1) / pageSize) + 1;
 
   const content =
     elements.length === 0 ? (
-      <span>{t('DiaryListView.empty-msg')}</span>
+      <span>{t('DiaryPreviewList.empty-msg')}</span>
     ) : (
       <>
         <CommonPagination now={page} total={totalPage} onClick={setPage} />
@@ -29,5 +29,5 @@ export default function DiaryListView({ pageData, setPage, query }: Props) {
       </>
     );
 
-  return <div className="DiaryListView d-grid gap-3">{content}</div>;
+  return <div className="DiaryPreviewList d-grid gap-3">{content}</div>;
 }

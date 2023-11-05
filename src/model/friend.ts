@@ -15,9 +15,3 @@ export interface FriendTagPreview {
   name: string;
   count: number;
 }
-
-export interface FriendTag {
-  name: string;
-  count: number;
-  friends: FriendPreview[];
-}

@@ -1,6 +1,6 @@
 import { t } from 'i18next';
 
-import DiaryListView from 'src/components/diary/DiaryListView';
+import DiaryPreviewList from 'src/components/diary/DiaryPreviewList';
 import { PageData } from 'src/model/api';
 import { DiaryPreview } from 'src/model/diary';
 import DiarySearchHooks from 'src/pages/diary/search/DiarySearchHooks';
@@ -15,7 +15,7 @@ export default function DiarySearchResult({ pageData }: Props) {
   return (
     <div>
       <h3>{t('DiarySearchPage.result-num', [pageData.total])}</h3>
-      <DiaryListView pageData={pageData} setPage={setPage} query={query} />
+      <DiaryPreviewList pageData={pageData} setPage={setPage} query={query} />
     </div>
   );
 }
