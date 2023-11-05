@@ -23,7 +23,7 @@ export default function VideoHistoryItem({ history }: Props) {
   const href = VideoRoutes.detail({ entryId, videoId });
   const dateStr = timeAgo.format(new Date(date));
 
-  const onSelect = () => onChoose(videoId);
+  const onSelect = (shiftKey: boolean) => onChoose(videoId, shiftKey);
 
   return (
     <Link className="VideoHistoryItem move_up_on_hover" to={href}>

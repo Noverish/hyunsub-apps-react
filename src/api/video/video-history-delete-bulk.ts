@@ -14,7 +14,7 @@ const _videoHistoryDeleteBulkApi = generateApi<VideoHistoryDeleteBulkParams, any
 const videoHistoryDeleteBulkApi = async (params: VideoHistoryDeleteBulkParams): Promise<any> => {
   const result = await _videoHistoryDeleteBulkApi(params);
 
-  videoHistoryListApi.clearCache();
+  videoHistoryListApi.invalidate();
 
   return result;
 };

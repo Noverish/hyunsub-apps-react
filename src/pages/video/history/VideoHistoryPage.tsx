@@ -14,20 +14,28 @@ import './VideoHistoryPage.scss';
 
 function VideoHistoryPage() {
   const [{ category }] = useContext(VideoHistoryContext);
-  const { isChooseMode, toggleChooseMode } = useContext(ChooseContext);
+  const { isChooseMode, toggleChooseMode, clearChooseContext } = useContext(ChooseContext);
   const deleteHistory = VideoHistoryHooks.useDelete();
 
-  const deleteButton = {
-    icon: 'fas fa-trash-alt',
+  const chooseButton = {
+    icon: 'far fa-check-circle',
+    name: t('select'),
     onClick: toggleChooseMode,
   };
 
-  const confirmButton = {
-    icon: 'fas fa-check',
+  const cancelButton = {
+    icon: 'fas fa-times',
+    name: t('cancel'),
+    onClick: clearChooseContext,
+  };
+
+  const deleteButton = {
+    icon: 'fas fa-trash-alt',
+    name: t('delete'),
     onClick: deleteHistory,
   };
 
-  const btns = [isChooseMode ? confirmButton : deleteButton];
+  const btns = isChooseMode ? [deleteButton, cancelButton] : [chooseButton];
 
   return (
     <CommonLayout className="VideoHistoryPage" title={t('VideoTabBar.history')} btns={btns}>

@@ -25,8 +25,8 @@ export default function PhotoPreviewView(props: Props) {
   const selected = selects.includes(preview);
 
   // functions
-  const onSelect = (nextState: boolean, e: React.MouseEvent<HTMLElement>) => {
-    props.onSelect?.(preview, e.shiftKey);
+  const onSelect = (shiftKey: boolean) => {
+    props.onSelect?.(preview, shiftKey);
   };
 
   return (
