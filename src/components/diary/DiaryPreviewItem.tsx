@@ -3,6 +3,7 @@ import { Card } from 'react-bootstrap';
 import { lang } from 'src/i18n';
 import { DiaryPreview } from 'src/model/diary';
 import DiaryRoutes from 'src/pages/diary/DiaryRoutes';
+import DiaryMeetFriendView from 'src/pages/diary/detail/components/DiaryMeetFriendView';
 import router from 'src/pages/router';
 
 import './DiaryPreviewItem.scss';
@@ -37,6 +38,7 @@ export default function DiaryPreviewItem({ diary, query }: Props) {
         {diary.date} ({weekday})
       </Card.Header>
       <Card.Body>
+        <DiaryMeetFriendView meetFriends={diary.friends} small />
         {summaryElement}
         {contentElement}
       </Card.Body>

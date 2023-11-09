@@ -4,6 +4,7 @@ export interface DiaryPreview {
   date: string;
   summary: string;
   content: string;
+  friends: FriendPreview[];
 }
 
 export interface Diary {
