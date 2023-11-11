@@ -3,8 +3,8 @@ import { PageData } from 'src/model/api';
 import { FriendPreview } from 'src/model/friend';
 
 export interface FriendSearchParams {
-  page: number;
-  query: string;
+  page?: number;
+  query?: string;
 }
 
 const friendSearchApi = generateQuery<FriendSearchParams, PageData<FriendPreview>>({

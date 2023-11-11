@@ -1,17 +1,12 @@
 import { t } from 'i18next';
 
 import DiaryRoutes from '../DiaryRoutes';
-import DiaryListHooks from './DiaryListHooks';
-import diarySearchApi from 'src/api/diary/diary-search';
 import { MobileHeaderButton } from 'src/components/common/header/MobileHeader';
 import CommonLayout from 'src/components/common/layout/CommonLayout';
-import DiaryPreviewList from 'src/components/diary/DiaryPreviewList';
+import DiarySearchResult from 'src/pages/diary/search/components/DiarySearchResult';
 import router from 'src/pages/router';
 
 export default function DiaryListPage() {
-  const { page, setPage } = DiaryListHooks.usePageParams();
-  const pageData = diarySearchApi.useApi({ page });
-
   const headerBtns: MobileHeaderButton[] = [
     {
       icon: 'fas fa-plus',
@@ -22,7 +17,7 @@ export default function DiaryListPage() {
 
   return (
     <CommonLayout className="DiaryListPage" title={t('DiaryListPage.title')} btns={headerBtns}>
-      <DiaryPreviewList pageData={pageData} setPage={setPage} />
+      <DiarySearchResult ignoreQuery />
     </CommonLayout>
   );
 }

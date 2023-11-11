@@ -1,17 +1,18 @@
-import friendSearchApi from 'src/api/friend/friend-search';
+import friendTagFriendsApi from 'src/api/friend/friend-tag-friends';
 import CommonSearchResult from 'src/components/common/search/CommonSearchResult';
 import FriendPreviewItem from 'src/components/friend/FriendPreviewItem';
 import { FriendPreview } from 'src/model/friend';
 
 interface Props {
-  ignoreQuery?: boolean;
+  tag: string;
 }
 
-export default function FriendSearchResult({ ignoreQuery }: Props) {
+export default function FriendTagDetailResult({ tag }: Props) {
   return (
     <CommonSearchResult
-      searchFn={({ page, query }) => friendSearchApi.useApiResult({ page, query: ignoreQuery ? undefined : query })}
+      searchFn={({ page }) => friendTagFriendsApi.useApiResult({ tag, p: page })}
       renderItem={renderItem}
+      renderTotal
     />
   );
 }

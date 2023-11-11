@@ -11,7 +11,7 @@ export default function FriendSearchPage() {
   return (
     <CommonLayout className="FriendSearchPage" title={t('FriendSearchPage.title')}>
       <SearchInput className="mb-3" defaultQuery={query} onSubmit={setQuery} />
-      {query && <FriendSearchResult query={query} />}
+      {query && <FriendSearchResult />}
     </CommonLayout>
   );
 }

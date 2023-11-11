@@ -6,7 +6,7 @@ interface Props {
 }
 
 export function Loading({ vh }: { vh?: number }) {
-  const height = `${vh ?? 80}vh`;
+  const height = `${vh ?? 70}vh`;
 
   return (
     <div className="LoadingSuspense flex_center" style={{ height }}>

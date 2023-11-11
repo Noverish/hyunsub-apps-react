@@ -1,21 +1,22 @@
-import { t } from 'i18next';
-
-import DiaryPreviewList from 'src/components/diary/DiaryPreviewList';
-import { PageData } from 'src/model/api';
+import diarySearchApi from 'src/api/diary/diary-search';
+import CommonSearchResult from 'src/components/common/search/CommonSearchResult';
+import DiaryPreviewItem from 'src/components/diary/DiaryPreviewItem';
 import { DiaryPreview } from 'src/model/diary';
-import DiarySearchHooks from 'src/pages/diary/search/DiarySearchHooks';
 
 interface Props {
-  pageData: PageData<DiaryPreview>;
+  ignoreQuery?: boolean;
 }
 
-export default function DiarySearchResult({ pageData }: Props) {
-  const { query, setPage } = DiarySearchHooks.usePageParams();
-
+export default function DiarySearchResult({ ignoreQuery }: Props) {
   return (
-    <div>
-      <h3>{t('DiarySearchPage.result-num', [pageData.total])}</h3>
-      <DiaryPreviewList pageData={pageData} setPage={setPage} query={query} />
-    </div>
+    <CommonSearchResult
+      searchFn={({ page, query }) => diarySearchApi.useApiResult({ page, query: ignoreQuery ? undefined : query })}
+      renderItem={renderItem}
+      renderTotal={!ignoreQuery}
+    />
   );
+}
+
+function renderItem(v: DiaryPreview, query: string) {
+  return <DiaryPreviewItem key={v.date} diary={v} query={query} />;
 }

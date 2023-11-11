@@ -20,6 +20,11 @@ interface GenerateQueryOption<P> {
   host?: string;
 }
 
+interface GenerateApiOption<P, R> {
+  api: (p: P) => AxiosRequestConfig<P>;
+  postHandle: (r: R) => void;
+}
+
 interface GenerateApiResult<P, R> {
   api: (p: P) => Promise<R>;
   key: (p: P) => QueryKey;
@@ -42,6 +47,37 @@ export function generateApi<P, R>(func: (p: P) => AxiosRequestConfig) {
         await sleep(1000);
       }
       return res.data;
+    } catch (ex) {
+      dispatch(GlobalActions.update({ loading: false }));
+      const res = (ex as AxiosError<ErrorResponse>).response!!;
+      if (!res) {
+        throw ex;
+      }
+
+      if (res.status === 400) {
+        dispatch(insertToast(getErrMsg(t, res.data)));
+      } else if (res.status === 401) {
+        window.location.href = `/login?url=${encodeURIComponent(window.location.href)}`;
+      } else if (res.status === 403) {
+        router.navigate('/forbidden');
+      } else {
+        dispatch(insertToast(JSON.stringify(res.data)));
+      }
+      throw ex;
+    }
+  };
+}
+
+export function generateApi2<P, R>(option: GenerateApiOption<P, R>) {
+  return async (p: P): Promise<R> => {
+    try {
+      const res: AxiosResponse<R> = await axios(option.api(p));
+      if (isDev()) {
+        await sleep(1000);
+      }
+      const r = res.data;
+      option.postHandle(r);
+      return r;
     } catch (ex) {
       dispatch(GlobalActions.update({ loading: false }));
       const res = (ex as AxiosError<ErrorResponse>).response!!;

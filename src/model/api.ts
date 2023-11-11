@@ -17,3 +17,14 @@ export interface Pagination<T> {
   next: string | null;
   data: T[];
 }
+
+export interface SearchStatus {
+  total: number;
+  nowPage: number;
+  totalPage: number;
+}
+
+export interface SearchResult<T> {
+  data?: T[];
+  status?: SearchStatus;
+}

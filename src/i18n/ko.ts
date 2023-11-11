@@ -41,6 +41,8 @@ const ko = {
     'common.500.go-to-home': '홈으로',
     'CommonTabBar.search': '검색',
     'CommonTabBar.menu': '메뉴',
+    'CommonSearchResult.empty-result': '검색 결과가 없습니다',
+    'CommonSearchResult.result-num': '{{0}}개의 검색 결과',
 
     'auth.login': '로그인',
     'auth.logout': '로그아웃',
@@ -216,12 +218,10 @@ const ko = {
     'DiaryCreatePage.title': '일기 작성',
     'DiaryUpdatePage.title': '일기 수정',
     'DiarySearchPage.title': '일기 검색',
-    'DiarySearchPage.result-num': '{{0}}개의 검색 결과',
     'DiaryForm.date': '날짜',
     'DiaryForm.summary': '요약',
     'DiaryForm.content': '내용',
     'DiaryForm.friends': '친구',
-    'DiaryPreviewList.empty-msg': '검색 결과가 없습니다.',
 
     'FriendTabBar.list': '목록',
     'FriendTabBar.tags': '태그',
@@ -231,7 +231,6 @@ const ko = {
     'FriendCreatePage.title': '친구 등록',
     'FriendUpdatePage.title': '친구 정보 수정',
     'FriendSearchPage.title': '친구 검색',
-    'FriendSearchPage.result-num': '{{0}}개의 검색 결과',
     'FriendForm.name': '이름',
     'FriendForm.birthday': '생일',
     'FriendForm.tags': '태그',
@@ -239,7 +238,6 @@ const ko = {
     'FriendForm.meets': '만남',
     'FriendTagListPage.title': '태그 목록',
     'FriendTagDetailPage.title': '태그 상세 - {{0}}',
-    'FriendPreviewList.empty-msg': '검색 결과가 없습니다.',
 
     'PageSelectModal.title': '페이지 이동',
     'PageSelectModal.close': '취소',

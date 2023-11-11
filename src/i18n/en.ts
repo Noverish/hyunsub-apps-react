@@ -41,6 +41,8 @@ const en = {
     'common.500.go-to-home': 'Go to Home',
     'CommonTabBar.search': 'Search',
     'CommonTabBar.menu': 'Menu',
+    'CommonSearchResult.empty-result': 'There is no search result',
+    'CommonSearchResult.result-num': '{{0}} Results Found',
 
     'auth.login': 'Login',
     'auth.logout': 'Logout',
@@ -216,12 +218,10 @@ const en = {
     'DiaryCreatePage.title': 'Write Diary',
     'DiaryUpdatePage.title': 'Edit Diary',
     'DiarySearchPage.title': 'Search Diary',
-    'DiarySearchPage.result-num': '{{0}} Results Found',
     'DiaryForm.date': 'Date',
     'DiaryForm.summary': 'Summary',
     'DiaryForm.content': 'Content',
     'DiaryForm.friends': 'Friends',
-    'DiaryPreviewList.empty-msg': 'There is no search result',
 
     'FriendTabBar.list': 'List',
     'FriendTabBar.tags': 'Tags',
@@ -231,7 +231,6 @@ const en = {
     'FriendCreatePage.title': 'Register Friend',
     'FriendUpdatePage.title': 'Modify Friend Information',
     'FriendSearchPage.title': 'Search Friend',
-    'FriendSearchPage.result-num': '{{0}} Results Found',
     'FriendForm.name': 'Name',
     'FriendForm.birthday': 'Birthday',
     'FriendForm.tags': 'Tags',
@@ -239,7 +238,6 @@ const en = {
     'FriendForm.meets': 'Meets',
     'FriendTagListPage.title': 'Tag List',
     'FriendTagDetailPage.title': 'Tag Detail - {{0}}',
-    'FriendPreviewList.empty-msg': 'There is no search result',
 
     'PageSelectModal.title': 'Move Page',
     'PageSelectModal.close': 'Close',
