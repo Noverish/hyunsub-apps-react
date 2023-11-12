@@ -1,5 +1,7 @@
 import { Loading } from 'src/components/common/LoadingSuspense';
 
+import './CommonImagePage.scss';
+
 interface Props {
   src?: string;
   alt?: string;

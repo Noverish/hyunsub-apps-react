@@ -5,6 +5,7 @@ import { Button, Container } from 'react-bootstrap';
 import photoDetailApi from 'src/api/photo/photo-detail';
 import PhotoRoutes from 'src/pages/photo/PhotoRoutes';
 import router from 'src/pages/router';
+import { useBreakpointMobile } from 'src/utils/breakpoint';
 
 import './PhotoInfoSection.scss';
 
@@ -16,10 +17,15 @@ interface Props {
 }
 
 export default function PhotoInfoSection({ show, hide, albumId, photoId }: Props) {
+  const isMobile = useBreakpointMobile();
   const photo = photoDetailApi.useApiResult({ albumId, photoId }).data;
 
   const onOriginalClick = () => {
-    router.navigate(PhotoRoutes.photoOriginal({ albumId, photoId }));
+    if (isMobile) {
+      router.navigate(PhotoRoutes.photoOriginal({ albumId, photoId }));
+    } else {
+      window.open(photo?.original, '_blank')?.focus();
+    }
   };
 
   return (
