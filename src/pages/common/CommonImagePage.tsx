@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
 
 import { Loading } from 'src/components/common/LoadingSuspense';
+import MobileHeader from 'src/components/common/header/MobileHeader';
 
 import './CommonImagePage.scss';
 
@@ -10,6 +12,16 @@ interface Props {
 }
 
 export default function CommonImagePage({ src, alt }: Props) {
+  const [showHeader, setShowHeader] = useState(true);
+
+  const onClick = () => {
+    setShowHeader(!showHeader);
+  };
+
+  const onHeaderClick = (e: React.MouseEvent<HTMLElement>) => {
+    e.stopPropagation();
+  };
+
   const content = src ? (
     <TransformWrapper centerOnInit>
       <TransformComponent>
@@ -20,5 +32,10 @@ export default function CommonImagePage({ src, alt }: Props) {
     <Loading />
   );
 
-  return <div className="CommonImagePage">{content}</div>;
+  return (
+    <div className="CommonImagePage" onClick={onClick}>
+      {showHeader && <MobileHeader title={alt ?? ''} onHeaderClick={onHeaderClick} back />}
+      {content}
+    </div>
+  );
 }

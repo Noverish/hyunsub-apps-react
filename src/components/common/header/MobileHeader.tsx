@@ -11,6 +11,7 @@ export interface MobileHeaderProps {
   btns?: MobileHeaderButton[];
   menus?: MobileHeaderMoreButtonMenu[];
   onClose?: () => void;
+  onHeaderClick?: (e: React.MouseEvent<HTMLElement>) => void;
 }
 
 export interface MobileHeaderButton {
@@ -19,7 +20,7 @@ export interface MobileHeaderButton {
   onClick: () => void;
 }
 
-export default function MobileHeader({ title, back, btns, onClose, menus }: MobileHeaderProps) {
+export default function MobileHeader({ title, back, btns, onClose, menus, onHeaderClick }: MobileHeaderProps) {
   const navigate = useNavigate();
   const isMobile = useBreakpointMobile();
 
@@ -44,7 +45,7 @@ export default function MobileHeader({ title, back, btns, onClose, menus }: Mobi
   }
 
   return (
-    <header className="mobile_header" id="header">
+    <header className="mobile_header" id="header" onClick={onHeaderClick}>
       <div className="title" onClick={onBack}>
         {back && <i className="fas fa-chevron-left"></i>}
         {onClose && <i className="fas fa-times"></i>}
