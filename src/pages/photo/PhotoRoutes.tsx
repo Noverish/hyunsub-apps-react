@@ -1,3 +1,5 @@
+import { PhotoOriginalPageParams } from './photo-original/PhotoOriginalHooks';
+
 const PhotoRoutes = {
   albums: '/albums',
 
@@ -19,7 +21,7 @@ const PhotoRoutes = {
   photoViewer: (photoId: string) => `/photos/viewer?photoId=${photoId}`,
 
   photoOriginalRoute: '/photos/:photoId',
-  photoOriginal: (photoId: number) => `/photos/${photoId}`,
+  photoOriginal: (params: PhotoOriginalPageParams) => `/photos/${params.photoId}`,
 
   photoUpload: '/upload',
 

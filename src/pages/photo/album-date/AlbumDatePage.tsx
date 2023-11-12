@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 
-import AlbumPhotoMetadataListContainer from '../album-detail/component/AlbumPhotoMetadataListContainer';
+import AlbumPhotoMetadataListContainer from '../album-detail/components/AlbumPhotoMetadataListContainer';
 import albumDetailApi from 'src/api/photo/album-detail';
 import CommonContainer from 'src/components/common/header/CommonContainer';
 import PhotoListMobileHeader from 'src/components/photo/photo-list/PhotoListMobileHeader';

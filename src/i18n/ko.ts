@@ -107,7 +107,6 @@ const ko = {
     'photo.page.album-upload.upload': '업로드',
     'photo.page.album-upload.msg.empty-upload': '업로드할 파일을 선택해주세요',
     'photo.page.photo-list.title': '내 사진 목록',
-    'photo.page.photo-original.title': '원본 보기 - {{0}}',
     'photo.page.setting.title': '설정',
     'photo.term.photo-dimension': '사진 크기',
     'photo.term.photo-date': '촬영 날짜',
@@ -134,6 +133,7 @@ const ko = {
     'PhotoInfoSection.date-type': '촬영 날짜 타입',
     'AlbumDetailPage.delete-album': '앨범 삭제',
     'AlbumDetailPage.msg.register-thumbnail-success': '썸네일 등록에 성공했습니다.',
+    'PhotoViewer.view-original': '원본 보기',
 
     'apparel.page.list.title': '내 의류 목록',
     'apparel.page.list.inner-title': '총 {{0}}개의 의류',

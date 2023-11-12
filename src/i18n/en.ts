@@ -107,7 +107,6 @@ const en = {
     'photo.page.album-upload.upload': 'Upload',
     'photo.page.album-upload.msg.empty-upload': 'Please select files to upload',
     'photo.page.photo-list.title': 'My Photo List',
-    'photo.page.photo-original.title': 'View Original - {{0}}',
     'photo.page.setting.title': 'Setting',
     'photo.term.photo-dimension': 'Dimension',
     'photo.term.photo-date': 'Date',
@@ -134,6 +133,7 @@ const en = {
     'PhotoInfoSection.date-type': 'Filming Date Type',
     'AlbumDetailPage.delete-album': 'Delete Album',
     'AlbumDetailPage.msg.register-thumbnail-success': 'Successfully registered thumbnail',
+    'PhotoViewer.view-original': 'View Original',
 
     'apparel.page.list.title': 'My Apparel List',
     'apparel.page.list.inner-title': 'Total {{0}} items',

@@ -1,9 +1,12 @@
 import cs from 'classnames';
 import { t } from 'i18next';
+import { Button } from 'react-bootstrap';
 
 import albumPhotoDetailApi from 'src/api/photo/album-photo-detail';
 import photoDetailApi from 'src/api/photo/photo-detail';
 import { Photo } from 'src/model/photo';
+import PhotoRoutes from 'src/pages/photo/PhotoRoutes';
+import router from 'src/pages/router';
 
 import './PhotoInfoSection.scss';
 
@@ -46,34 +49,31 @@ function PhotoInfoSectionTableForAlbum({ albumId, photoId }: { albumId: string; 
 }
 
 function PhotoInfoSectionTable({ photo }: { photo?: Photo }) {
+  const onOriginalClick = () => {
+    if (photo) {
+      router.navigate(PhotoRoutes.photoOriginal({ photoId: photo.id }));
+    }
+  };
+
   return (
-    <table>
-      <tbody>
-        <tr>
-          <th>{t('PhotoInfoSection.file-name')}</th>
-          <td>{photo?.fileName}</td>
-        </tr>
-        <tr>
-          <th>{t('PhotoInfoSection.image-size')}</th>
-          <td>{photo?.imageSize}</td>
-        </tr>
-        <tr>
-          <th>{t('PhotoInfoSection.file-size')}</th>
-          <td>{photo?.fileSize}</td>
-        </tr>
-        <tr>
-          <th>{t('PhotoInfoSection.date')}</th>
-          <td>{photo?.date}</td>
-        </tr>
-        <tr>
-          <th>{t('PhotoInfoSection.reg-dt')}</th>
-          <td>{photo?.regDt}</td>
-        </tr>
-        <tr>
-          <th>{t('PhotoInfoSection.date-type')}</th>
-          <td>{photo?.dateType}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div className="PhotoInfoSectionTable">
+      <div>{t('PhotoInfoSection.file-name')}</div>
+      <div>{photo?.fileName}</div>
+      <div>{t('PhotoInfoSection.image-size')}</div>
+      <div>{photo?.imageSize}</div>
+      <div>{t('PhotoInfoSection.file-size')}</div>
+      <div>{photo?.fileSize}</div>
+      <div>{t('PhotoInfoSection.date')}</div>
+      <div>{photo?.date}</div>
+      <div>{t('PhotoInfoSection.reg-dt')}</div>
+      <div>{photo?.regDt}</div>
+      <div>{t('PhotoInfoSection.date-type')}</div>
+      <div>{photo?.dateType}</div>
+      {photo && (
+        <Button size="sm" onClick={onOriginalClick}>
+          {t('PhotoViewer.view-original')}
+        </Button>
+      )}
+    </div>
   );
 }

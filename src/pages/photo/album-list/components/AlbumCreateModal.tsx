@@ -1,31 +1,32 @@
 import { t } from 'i18next';
+import { useContext } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 import { AlbumCreateParams } from 'src/api/photo/album-create';
-
-interface Props {
-  show: boolean;
-  callback: (params?: AlbumCreateParams) => void;
-}
+import { AlbumListContext } from 'src/pages/photo/album-list/AlbumListContext';
+import { useAlbumCreate } from 'src/pages/photo/album-list/AlbumListHooks';
 
 type FormState = AlbumCreateParams;
 
-export default function AlbumCreateModal({ show, callback }: Props) {
-  const { register, handleSubmit, reset } = useForm<FormState>();
+export default function AlbumCreateModal() {
+  const [{ showAlbumCreateModal }, setState] = useContext(AlbumListContext);
+  const albumCreate = useAlbumCreate();
 
-  const onSubmit: SubmitHandler<FormState> = (state: FormState) => {
-    reset();
-    callback(state);
-  };
+  const { register, handleSubmit, reset } = useForm<FormState>();
 
   const onHide = () => {
     reset();
-    callback();
+    setState({ showAlbumCreateModal: false });
+  };
+
+  const onSubmit: SubmitHandler<FormState> = (state: FormState) => {
+    onHide();
+    albumCreate(state);
   };
 
   return (
-    <Modal className="AlbumCreateModal" show={show} onHide={onHide} centered>
+    <Modal className="AlbumCreateModal" show={showAlbumCreateModal} onHide={onHide} centered>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Modal.Header closeButton>
           <Modal.Title>{t('AlbumCreateModal.title')}</Modal.Title>

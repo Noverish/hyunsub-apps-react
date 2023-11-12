@@ -48,4 +48,5 @@ export interface Photo {
   fileName: string;
   regDt: string;
   dateType: string;
+  original: string;
 }
