@@ -1,4 +1,4 @@
-import { stringify } from 'query-string';
+import { stringifyUrl } from 'query-string';
 
 import { DiaryDetailPageParams } from 'src/pages/diary/detail/DiaryDetailHooks';
 
@@ -8,7 +8,7 @@ const DiaryRoutes = {
   calendarRoute: '/calendar',
 
   detailRoute: '/detail/:date',
-  detail: ({ date, ...query }: DiaryDetailPageParams) => `/detail/${date}?${stringify(query)}`,
+  detail: ({ date, ...query }: DiaryDetailPageParams) => stringifyUrl({ url: `/detail/${date}`, query }),
 
   updateRoute: '/detail/:date/edit',
   update: (date: string) => `/detail/${date}/edit`,

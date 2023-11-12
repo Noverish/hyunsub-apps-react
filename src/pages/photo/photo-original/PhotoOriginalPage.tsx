@@ -1,16 +1,11 @@
 import PhotoOriginalHooks from './PhotoOriginalHooks';
 import photoDetailApi from 'src/api/photo/photo-detail';
-import { Loading } from 'src/components/common/LoadingSuspense';
-import CommonLayout from 'src/components/common/layout/CommonLayout';
+import CommonImagePage from 'src/pages/common/CommonImagePage';
 
 export default function PhotoOriginalPage() {
-  const { photoId } = PhotoOriginalHooks.usePageParams();
+  const { photoId, albumId } = PhotoOriginalHooks.usePageParams();
 
-  const { data: photo } = photoDetailApi.useApiResult({ photoId });
+  const photo = photoDetailApi.useApiResult({ photoId, albumId }).data;
 
-  return (
-    <CommonLayout className="PhotoOriginalPage" title={photo?.fileName ?? ''} back>
-      {photo ? <img className="img-fluid" src={photo.original} alt={photo.fileName} /> : <Loading />}
-    </CommonLayout>
-  );
+  return <CommonImagePage src={photo?.original} alt={photo?.fileName} />;
 }

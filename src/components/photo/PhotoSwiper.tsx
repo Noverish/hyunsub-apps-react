@@ -37,7 +37,7 @@ export default function PhotoSwiper(props: PhotoSwiperProps) {
       <div className="photo_viewer_container">
         <InfinitePageSwiper {...props} renderSlide={renderSlide} btns={headerBtns} onSlideChange={onSlideChange} />
       </div>
-      <PhotoInfoSection show={showInfo} hide={hideInfo} albumId={props.albumId} photoId={nowPhotoId} />
+      {nowPhotoId && <PhotoInfoSection show={showInfo} hide={hideInfo} albumId={props.albumId} photoId={nowPhotoId} />}
     </div>
   );
 }

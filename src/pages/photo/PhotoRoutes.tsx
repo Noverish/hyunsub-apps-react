@@ -1,3 +1,5 @@
+import { stringifyUrl } from 'query-string';
+
 import { PhotoOriginalPageParams } from './photo-original/PhotoOriginalHooks';
 
 const PhotoRoutes = {
@@ -21,7 +23,7 @@ const PhotoRoutes = {
   photoViewer: (photoId: string) => `/photos/viewer?photoId=${photoId}`,
 
   photoOriginalRoute: '/photos/:photoId',
-  photoOriginal: (params: PhotoOriginalPageParams) => `/photos/${params.photoId}`,
+  photoOriginal: ({ photoId, ...query }: PhotoOriginalPageParams) => stringifyUrl({ url: `/photos/${photoId}`, query }),
 
   photoUpload: '/upload',
 

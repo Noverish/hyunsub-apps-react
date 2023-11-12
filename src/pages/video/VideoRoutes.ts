@@ -15,12 +15,7 @@ const VideoRoutes = {
   list: (category: string) => `/list/${category}`,
 
   detailRoute: '/entry/:entryId',
-  detail: ({ entryId, videoId, autoplay }: VideoDetailRouteParams) => {
-    return stringifyUrl({
-      url: `/entry/${entryId}`,
-      query: { videoId, autoplay },
-    });
-  },
+  detail: ({ entryId, ...query }: VideoDetailRouteParams) => stringifyUrl({ url: `/entry/${entryId}`, query }),
 
   admin: '/admin',
 

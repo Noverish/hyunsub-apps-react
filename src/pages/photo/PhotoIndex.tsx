@@ -1,5 +1,7 @@
 import { Navigate, Outlet, RouteObject } from 'react-router-dom';
 
+import routes from './PhotoRoutes';
+import PhotoOriginalPage from './photo-original/PhotoOriginalPage';
 import PhotoDesktopHeader from 'src/components/photo/header/PhotoDesktopHeader';
 import PhotoTabBar from 'src/components/photo/header/PhotoTabBar';
 import AlbumDatePage from 'src/pages/photo/album-date/AlbumDatePage';
@@ -11,8 +13,6 @@ import PhotoListPage from 'src/pages/photo/photo-list/PhotoListPage';
 import PhotoViewerPage from 'src/pages/photo/photo-viewer/PhotoViewerPage';
 import AlbumUploadPage from 'src/pages/photo/upload/AlbumUploadPage';
 import PhotoUploadPage from 'src/pages/photo/upload/PhotoUploadPage';
-import PhotoOriginalPage from './photo-original/PhotoOriginalPage';
-import routes from './PhotoRoutes';
 
 export const PhotoRouteObjects: RouteObject[] = [
   {
