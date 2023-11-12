@@ -1,28 +1,27 @@
 import friendListApi from './friend-list';
+import friendSearchApi from './friend-search';
 import friendDetailApi from 'src/api/friend/friend-detail';
 import friendTagDetailApi from 'src/api/friend/friend-tag-friends';
 import friendTagListApi from 'src/api/friend/friend-tag-list';
-import { generateApi } from 'src/api/generate-api';
+import { generateApi2 } from 'src/api/generate-api';
 import { Friend } from 'src/model/friend';
 
 export interface FriendDeleteParams {
   friendId: string;
 }
 
-const _friendDeleteApi = generateApi<FriendDeleteParams, Friend>(({ friendId }) => ({
-  url: `/api/v1/friends/${friendId}`,
-  method: 'DELETE',
-}));
-
-const friendDeleteApi = async (params: FriendDeleteParams): Promise<Friend> => {
-  const result = await _friendDeleteApi(params);
-
-  friendDetailApi.setCache({ friendId: result.id }, null);
-  friendListApi.clearCache();
-  friendTagListApi.invalidate();
-  friendTagDetailApi.clearCache();
-
-  return result;
-};
+const friendDeleteApi = generateApi2<FriendDeleteParams, Friend>({
+  api: ({ friendId }) => ({
+    url: `/api/v1/friends/${friendId}`,
+    method: 'DELETE',
+  }),
+  postHandle: (result) => {
+    friendDetailApi.setCache({ friendId: result.id }, null);
+    friendSearchApi.clearCache();
+    friendListApi.clearCache();
+    friendTagListApi.invalidate();
+    friendTagDetailApi.clearCache();
+  },
+});
 
 export default friendDeleteApi;

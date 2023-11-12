@@ -10,7 +10,7 @@ interface Props {
 export const FriendListContext = createContext<FriendPreview[]>([]);
 
 export const FriendListProvider = ({ children }: Props) => {
-  const value = friendListApi.useApi({});
+  const { data } = friendListApi.useApiResult({});
 
-  return <FriendListContext.Provider value={value}>{children}</FriendListContext.Provider>;
+  return <FriendListContext.Provider value={data ?? []}>{children}</FriendListContext.Provider>;
 };

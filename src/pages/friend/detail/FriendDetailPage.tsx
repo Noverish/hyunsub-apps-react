@@ -1,4 +1,5 @@
 import { t } from 'i18next';
+import { Navigate } from 'react-router-dom';
 
 import FriendRoutes from '../FriendRoutes';
 import FriendDetailHooks from './FriendDetailHooks';
@@ -7,14 +8,17 @@ import friendDetailApi from 'src/api/friend/friend-detail';
 import { Loading } from 'src/components/common/LoadingSuspense';
 import { MobileHeaderButton } from 'src/components/common/header/MobileHeader';
 import CommonLayout from 'src/components/common/layout/CommonLayout';
-import { useUrlParams } from 'src/hooks/url-params';
+import CommonRoutes from 'src/pages/common/CommonRoutes';
 import router from 'src/pages/router';
 
 export default function FriendDetailPage() {
-  const [friendId] = useUrlParams('friendId');
-  const { data: friend } = friendDetailApi.useApiResult({ friendId });
+  const { friendId } = FriendDetailHooks.usePageParams();
+  const { data, isLoading } = friendDetailApi.useApiResult({ friendId });
+
+  // functions
   const remove = FriendDetailHooks.useDelete();
 
+  // elements
   const mobileHeaderBtns: MobileHeaderButton[] = [
     {
       icon: 'fas fa-edit',
@@ -24,13 +28,27 @@ export default function FriendDetailPage() {
     {
       icon: 'fas fa-trash-alt',
       name: t('delete'),
-      onClick: () => (friend ? remove(friend) : undefined),
+      onClick: () => (data ? remove(data) : undefined),
     },
   ];
 
+  let content = <></>;
+  if (isLoading) {
+    content = <Loading />;
+  } else if (data) {
+    content = <FriendDetailView friend={data} />;
+  } else {
+    content = <Navigate to={CommonRoutes.notFound} replace />;
+  }
+
   return (
-    <CommonLayout className="FriendDetailPage" title={t('FriendDetailPage.title')} back btns={mobileHeaderBtns}>
-      {friend ? <FriendDetailView friend={friend} /> : <Loading />}
+    <CommonLayout
+      className="FriendDetailPage"
+      title={t('FriendDetailPage.title')}
+      btns={data ? mobileHeaderBtns : undefined}
+      back
+    >
+      {content}
     </CommonLayout>
   );
 }

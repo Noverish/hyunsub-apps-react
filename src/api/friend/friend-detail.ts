@@ -6,8 +6,8 @@ interface FriendDetailParams {
 }
 
 const friendDetailApi = generateQuery<FriendDetailParams, Friend | null>({
-  api: (params) => ({
-    url: `/api/v1/friends/${params.friendId}`,
+  api: ({ friendId }) => ({
+    url: `/api/v1/friends/${friendId}`,
     method: 'GET',
   }),
   key: 'friendDetailApi',

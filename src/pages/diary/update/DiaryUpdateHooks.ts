@@ -1,29 +1,8 @@
-import { useParams } from 'react-router-dom';
-
-import diaryDetailApi from 'src/api/diary/diary-detail';
 import diaryUpdateApi, { DiaryUpdateParams } from 'src/api/diary/diary-update';
 import { Diary } from 'src/model/diary';
 import router from 'src/pages/router';
 import { dispatch } from 'src/redux';
 import { GlobalActions } from 'src/redux/global';
-
-export interface DiaryUpdatePageData {
-  date: string;
-  diary: Diary | null;
-}
-
-function usePageData(): DiaryUpdatePageData {
-  const params = useParams();
-
-  const date = params.date;
-  if (!date) {
-    throw new Error(`Invalid parameter - date`);
-  }
-
-  const diary = diaryDetailApi.useApi({ date });
-
-  return { diary, date };
-}
 
 function useUpdate() {
   return async ({ friends, ...etc }: Diary) => {
@@ -43,7 +22,6 @@ function useUpdate() {
 }
 
 const DiaryUpdateHooks = {
-  usePageData,
   useUpdate,
 };
 

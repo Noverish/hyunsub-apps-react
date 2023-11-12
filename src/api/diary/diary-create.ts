@@ -1,4 +1,7 @@
-import { generateApi } from '../generate-api';
+import { generateApi2 } from '../generate-api';
+import diaryDetailApi from 'src/api/diary/diary-detail';
+import diarySearchApi from 'src/api/diary/diary-search';
+import diaryStatusMonthApi from 'src/api/diary/diary-status-month';
 import { Diary } from 'src/model/diary';
 
 export interface DiaryCreateParams {
@@ -8,10 +11,17 @@ export interface DiaryCreateParams {
   friendIds: string[];
 }
 
-const diaryCreateApi = generateApi<DiaryCreateParams, Diary>((params) => ({
-  url: `/api/v1/diaries`,
-  method: 'POST',
-  data: params,
-}));
+const diaryCreateApi = generateApi2<DiaryCreateParams, Diary>({
+  api: (params) => ({
+    url: `/api/v1/diaries`,
+    method: 'POST',
+    data: params,
+  }),
+  postHandle: (result) => {
+    diaryDetailApi.setCache({ date: result.date }, result);
+    diarySearchApi.invalidate();
+    diaryStatusMonthApi.invalidate();
+  },
+});
 
 export default diaryCreateApi;

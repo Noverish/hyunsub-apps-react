@@ -1,12 +1,8 @@
 import { t } from 'i18next';
-import { useParams, useSearchParams } from 'react-router-dom';
 
 import DiaryRoutes from '../DiaryRoutes';
 import diaryDeleteApi from 'src/api/diary/diary-delete';
-import diaryDetailApi from 'src/api/diary/diary-detail';
-import diarySearchApi from 'src/api/diary/diary-search';
-import diaryStatusMonthApi from 'src/api/diary/diary-status-month';
-import { Diary } from 'src/model/diary';
+import { useOptionalUrlParams, useUrlParams } from 'src/hooks/url-params';
 import router from 'src/pages/router';
 import { dispatch } from 'src/redux';
 import { GlobalActions } from 'src/redux/global';
@@ -17,26 +13,11 @@ export interface DiaryDetailPageParams {
   query?: string;
 }
 
-export interface DiaryDetailPageData extends DiaryDetailPageParams {
-  diary?: Diary;
-  isLoading: boolean;
-}
+function usePageParams(): DiaryDetailPageParams {
+  const [date] = useUrlParams('date');
+  const [query] = useOptionalUrlParams('query');
 
-function usePageData(): DiaryDetailPageData {
-  const [searchParams] = useSearchParams();
-  const params = useParams();
-
-  const date = params.date;
-  if (!date) {
-    throw new Error(`Invalid parameter - date`);
-  }
-
-  const query = searchParams.get('query') ?? undefined;
-
-  const { data, isLoading } = diaryDetailApi.useApiResult({ date });
-  const diary = data ?? undefined;
-
-  return { date, query, diary, isLoading };
+  return { date, query };
 }
 
 function useDelete() {
@@ -49,21 +30,14 @@ function useDelete() {
 
     await diaryDeleteApi({ date });
 
-    diarySearchApi.clearCache();
-    diaryStatusMonthApi.invalidate();
-
     dispatch(GlobalActions.update({ loading: false }));
 
     router.navigate(-1);
-
-    setTimeout(() => {
-      diaryDetailApi.clearCache({ date });
-    }, 0);
   };
 }
 
 function useGoToOtherDay(diffDay: number) {
-  const { date: dateStr, query } = usePageData();
+  const { date: dateStr, query } = usePageParams();
 
   return () => {
     const date = new Date(dateStr);
@@ -75,7 +49,7 @@ function useGoToOtherDay(diffDay: number) {
 }
 
 const DiaryDetailHooks = {
-  usePageData,
+  usePageParams,
   useDelete,
   useGoToOtherDay,
 };

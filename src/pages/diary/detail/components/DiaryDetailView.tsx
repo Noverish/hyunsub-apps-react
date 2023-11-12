@@ -2,12 +2,17 @@ import { t } from 'i18next';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
+import DiaryDetailHooks from '../DiaryDetailHooks';
+import { Diary } from 'src/model/diary';
 import DiaryRoutes from 'src/pages/diary/DiaryRoutes';
-import DiaryDetailHooks from 'src/pages/diary/detail/DiaryDetailHooks';
 import DiaryMeetFriendView from 'src/pages/diary/detail/components/DiaryMeetFriendView';
 
-export default function DiaryDetailView() {
-  const { date, diary, query } = DiaryDetailHooks.usePageData();
+interface Props {
+  diary?: Diary | null;
+}
+
+export default function DiaryDetailView({ diary }: Props) {
+  const { date, query } = DiaryDetailHooks.usePageParams();
 
   if (!diary) {
     const createUrl = DiaryRoutes.create(date);
