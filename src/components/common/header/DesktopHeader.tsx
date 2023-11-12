@@ -1,6 +1,5 @@
-import cs from 'classnames';
 import React from 'react';
-import { Dropdown } from 'react-bootstrap';
+import { Container, Dropdown } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { Link, To } from 'react-router-dom';
 
@@ -16,7 +15,6 @@ export interface DesktopHeaderProps {
   title: string;
   menus: DesktopHeaderMenu[];
   dropdowns: DesktopHeaderDropdown[];
-  noContainer?: boolean;
 }
 
 export interface DesktopHeaderMenu {
@@ -39,7 +37,7 @@ const ProfileDropdownToggle = React.forwardRef<HTMLDivElement, React.DOMAttribut
 );
 
 export default function DesktopHeader(props: DesktopHeaderProps) {
-  const { menus, dropdowns, title, noContainer } = props;
+  const { menus, dropdowns, title } = props;
   const { t } = useTranslation();
   const isMobile = useBreakpointMobile();
   const logout = useLogout();
@@ -75,7 +73,7 @@ export default function DesktopHeader(props: DesktopHeaderProps) {
 
   return (
     <header className="desktop_header" id="header">
-      <div className={cs('desktop_header_inner', noContainer ? 'no_container' : 'container')}>
+      <Container className="desktop_header_inner">
         <a href="/" id="header_title" className="gray_on_hover">
           {title}
         </a>
@@ -105,7 +103,7 @@ export default function DesktopHeader(props: DesktopHeaderProps) {
             </Dropdown.Menu>
           </Dropdown>
         </div>
-      </div>
+      </Container>
     </header>
   );
 }

@@ -45,7 +45,7 @@ function AlbumDetailPage() {
   return (
     <div className="AlbumDetailPage">
       <PhotoListMobileHeader album={album} />
-      <CommonContainer noContainer={isMobile}>
+      <CommonContainer>
         {isMobile ? titleSectionForMobile : titleSectionForDesktop}
         <PhotoListView
           albumId={albumId}

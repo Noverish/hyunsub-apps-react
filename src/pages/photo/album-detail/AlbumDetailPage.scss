@@ -1,4 +1,8 @@
 .AlbumDetailPage, .AlbumUploadPage {
+  #CommonContainer {
+    --bs-gutter-x: 0;
+  }
+
   .title_section {
     display: flex;
     align-items: baseline;
