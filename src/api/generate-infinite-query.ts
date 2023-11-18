@@ -1,6 +1,7 @@
 import { InfiniteData, QueryKey, UseInfiniteQueryResult, useInfiniteQuery } from '@tanstack/react-query';
 import { AxiosRequestConfig } from 'axios';
 import { Draft, produce } from 'immer';
+import { UseInfiniteQueryOptions } from 'node_modules/@tanstack/react-query/build/lib/types';
 
 import { generateApi } from 'src/api/generate-api';
 import QueryClient from 'src/api/query-client';
@@ -19,6 +20,10 @@ interface GenerateInfiniteApiOption<P> {
 
 interface GenerateInfiniteApiResult<P, R> {
   useInfiniteApi: (p: P, initialData?: PageData<R>) => UseInfQueryResult<R>;
+  useInfiniteApi2: (
+    p: P,
+    option: UseInfiniteQueryOptions<PageData<R>, unknown, PageData<R>, PageData<R>, QueryKey>
+  ) => UseInfQueryResult<R>;
   updateCache: (p: P, updater: (cache: Draft<R>) => void) => void;
   insertCache: (p: P, newItem: Draft<R>) => void;
   deleteCache: (p: P | null, predicate: (r: Draft<R>) => boolean) => void;
@@ -46,6 +51,27 @@ export function generateInfiniteQuery<P, R>(option: GenerateInfiniteApiOption<P>
       getNextPageParam,
       staleTime: Infinity,
       initialData: initialData2,
+    });
+
+    const infiniteData = result.data?.pages.flatMap((v) => v.data) ?? [];
+
+    return { infiniteData, ...result };
+  };
+
+  const useInfiniteApi2 = (
+    p: P,
+    option: UseInfiniteQueryOptions<PageData<R>, unknown, PageData<R>, PageData<R>, QueryKey>
+  ) => {
+    const getNextPageParam = (lastPage: PageData<R>) => {
+      return lastPage.total <= (lastPage.page + 1) * lastPage.pageSize ? undefined : lastPage.page + 1;
+    };
+
+    const result = useInfiniteQuery({
+      queryKey: key(p),
+      queryFn: ({ pageParam }) => api({ ...p, page: pageParam }),
+      getNextPageParam,
+      staleTime: Infinity,
+      ...option,
     });
 
     const infiniteData = result.data?.pages.flatMap((v) => v.data) ?? [];
@@ -98,6 +124,7 @@ export function generateInfiniteQuery<P, R>(option: GenerateInfiniteApiOption<P>
 
   return {
     useInfiniteApi,
+    useInfiniteApi2,
     updateCache,
     insertCache,
     deleteCache,

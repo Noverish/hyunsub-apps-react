@@ -5,7 +5,7 @@ import DiaryDetailHooks from './DiaryDetailHooks';
 import DiaryDetailNavigation from './components/DiaryDetailNavigation';
 import DiaryDetailView from './components/DiaryDetailView';
 import diaryDetailApi from 'src/api/diary/diary-detail';
-import LoadingSuspense, { Loading } from 'src/components/common/LoadingSuspense';
+import { Loading } from 'src/components/common/LoadingSuspense';
 import { MobileHeaderButton } from 'src/components/common/header/MobileHeader';
 import CommonLayout from 'src/components/common/layout/CommonLayout';
 import DiaryDetailPhotoList from 'src/pages/diary/detail/components/DiaryDetailPhotoList';
@@ -43,9 +43,7 @@ export default function DiaryDetailPage() {
     >
       <DiaryDetailNavigation diary={data} />
       {isLoading ? <Loading /> : <DiaryDetailView diary={data} />}
-      <LoadingSuspense>
-        <DiaryDetailPhotoList />
-      </LoadingSuspense>
+      <DiaryDetailPhotoList />
     </CommonLayout>
   );
 }

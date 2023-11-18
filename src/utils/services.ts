@@ -16,7 +16,7 @@ export interface Service {
   code: ServiceCode;
   icon: string;
   title: string;
-  documentTitle: string;
+  documentTitle?: string;
 }
 
 const services: Service[] = [
@@ -30,49 +30,41 @@ const services: Service[] = [
     code: 'photo',
     icon: 'fas fa-camera',
     title: 'Photo',
-    documentTitle: 'HyunPhoto',
   },
   {
     code: 'comic',
     icon: 'fas fa-laugh-beam',
     title: 'Comic',
-    documentTitle: 'HyunComic',
   },
   {
     code: 'apparel',
     icon: 'fas fa-tshirt',
     title: 'Apparel',
-    documentTitle: 'HyunApparel',
   },
   {
     code: 'drive',
     icon: 'fas fa-hdd',
     title: 'Drive',
-    documentTitle: 'HyunDrive',
   },
   {
     code: 'agnam',
     icon: 'fas fa-torii-gate',
     title: 'Agnam',
-    documentTitle: 'Agnam',
   },
   {
     code: 'git',
     icon: 'fab fa-git-alt',
     title: 'Git',
-    documentTitle: 'Git',
   },
   {
     code: 'diary',
     icon: 'fas fa-book',
     title: 'Diary',
-    documentTitle: 'Diary',
   },
   {
     code: 'friend',
     icon: 'fas fa-users',
     title: 'Friend',
-    documentTitle: 'Friend',
   },
 ];
 
@@ -85,7 +77,7 @@ function getService(code: ServiceCode): Service | undefined {
 export function setDocumentTitle(title: string) {
   const code = window.location.hostname.split('.')[0].replace('local-', '') as ServiceCode;
   const service = getService(code);
-  const documentTitle = service?.documentTitle;
+  const documentTitle = service?.documentTitle ?? service?.title;
   const documentTitleSuffix = documentTitle ? ` - ${documentTitle}` : '';
   window.document.title = `${title}${documentTitleSuffix}`;
 }
