@@ -61,9 +61,9 @@ export default function DriveFileViewer({ file }: Props) {
 
   if (type === 'PDF') {
     return (
-      <div className="container-md">
-        <object data={fileUrl}>{fileUrl}</object>
-      </div>
+      <object className="container-width" data={fileUrl}>
+        {fileUrl}
+      </object>
     );
   }
 

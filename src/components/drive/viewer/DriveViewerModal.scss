@@ -27,8 +27,8 @@
     }
 
     img, video {
-      max-height: 100%;
-      max-width: 100%;
+      max-height: inherit;
+      max-width: inherit;
     }
 
     audio {
@@ -39,16 +39,13 @@
       width: 100vw;
       height: 100%;
       padding: 1rem;
-      border-radius: var(--bs-modal-border-radius);
       background-color: var(--hyunsub-content-bg);
       overflow: scroll;
     }
 
     object {
-      width: 100vw;
       height: 80vh;
       padding: 0;
-      border-radius: var(--bs-modal-border-radius);
     }
   }
 }

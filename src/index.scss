@@ -255,3 +255,19 @@ input.form-control, textarea.form-control {
 .select--is-disabled {
   opacity: 0.5;
 }
+
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px,
+  xxl: 1320px
+);
+
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @include media-breakpoint-up($breakpoint) {
+    .container-width {
+      width: map-get($container-max-widths, $breakpoint);
+    }
+  }
+}
