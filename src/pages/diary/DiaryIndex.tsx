@@ -11,6 +11,7 @@ import DiaryUpdatePage from './update/DiaryUpdatePage';
 import DiaryDesktopHeader from 'src/components/diary/header/DiaryDesktopHeader';
 import DiaryTabBar from 'src/components/diary/header/DiaryTabBar';
 import { FriendListProvider } from 'src/context/friend/FriendListContext';
+import CommonRoutes from 'src/pages/common/CommonRoutes';
 
 export const DiaryRouteObjects: RouteObject[] = [
   {
@@ -30,7 +31,7 @@ export const DiaryRouteObjects: RouteObject[] = [
       { path: routes.detailRoute, element: <DiaryDetailPage /> },
       { path: routes.createRoute, element: <DiaryCreatePage /> },
       { path: routes.updateRoute, element: <DiaryUpdatePage /> },
-      { path: routes.menuRoute, element: <CommonMenuPage /> },
+      { path: CommonRoutes.menu, element: <CommonMenuPage /> },
     ],
   },
 ];

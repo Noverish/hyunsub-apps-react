@@ -10,7 +10,7 @@ interface Props {
 }
 
 export default function ComicPreviewView({ comic }: Props) {
-  const href = ComicRoutes.detailRoute(comic.id);
+  const href = ComicRoutes.detailRoute({ comicId: comic.id });
   const style: any = { '--bs-aspect-ratio': '141.4%' };
 
   return (

@@ -1,21 +1,19 @@
 import React, { useEffect, useRef } from 'react';
 import { Button } from 'react-bootstrap';
-import { useNavigate, useParams } from 'react-router-dom';
 import Swiper from 'swiper';
 
 import ComicRoutes from '../ComicRoutes';
+import ComicViewerHooks from './ComicViewerHooks';
 import comicDetailApi from 'src/api/comic/comic-detail';
 import comicEpisodeDetailApi from 'src/api/comic/comic-episode-detail';
 import comicHistorySetApi from 'src/api/comic/comic-history-set';
 import ImageSwiper from 'src/components/common/swiper/ImageSwiper';
 import { ComicDetail, ComicEpisodeDetail } from 'src/model/comic';
+import router from 'src/pages/router';
 import { setDocumentTitle } from 'src/utils/services';
 
 export default function ComicViewerPage() {
-  const navigate = useNavigate();
-  const params = useParams<'comicId' | 'order'>();
-  const comicId = params.comicId!;
-  const order = parseInt(params.order!);
+  const { comicId, order } = ComicViewerHooks.usePageParams();
 
   const comicEpisodeDetail = comicEpisodeDetailApi.useApi({ comicId, order });
   const { title, episodeTitle, hasNextEpisode, history } = comicEpisodeDetail;
@@ -45,7 +43,7 @@ export default function ComicViewerPage() {
 
   const goToNextEpisode = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
-    navigate(ComicRoutes.viewerRoute(comicId, order + 1), { replace: true });
+    router.navigate(ComicRoutes.viewerRoute({ comicId, order: order + 1 }), { replace: true });
   };
 
   const urls = comicEpisodeDetail.images.map((v) => `https://file.hyunsub.kim/Comics/${title}/${episodeTitle}/${v}`);
