@@ -22,7 +22,7 @@ function AlbumViewerPage() {
   const swiper = swiperRef.current;
 
   const [state] = useContext(AlbumViewerContext);
-  const currPhotoId = photoId ?? state.currPhotoId;
+  const currPhotoId = state.currPhotoId ?? photoId;
 
   const fetchPage = useCallback(
     (page: number) => {

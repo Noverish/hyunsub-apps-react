@@ -39,11 +39,9 @@ export default function PhotoInfoSection({ albumId, photoId }: Props) {
       <div>{photo?.regDt}</div>
       <div>{t('PhotoInfoSection.date-type')}</div>
       <div>{photo?.dateType}</div>
-      {photo && (
-        <Button size="sm" onClick={onOriginalClick}>
-          {t('PhotoViewer.view-original')}
-        </Button>
-      )}
+      <Button size="sm" onClick={onOriginalClick} disabled={!photo}>
+        {t('PhotoViewer.view-original')}
+      </Button>
     </div>
   );
 }

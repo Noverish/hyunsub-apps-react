@@ -16,7 +16,7 @@ export default function PhotoViewerPage() {
   const onIndexReady = PhotoViewerHooks.useOnIndexReady();
 
   const [state] = useContext(PhotoViewerContext);
-  const currPhotoId = photoId ?? state.currPhotoId;
+  const currPhotoId = state.currPhotoId ?? photoId;
 
   return (
     <CommonViewerPage
