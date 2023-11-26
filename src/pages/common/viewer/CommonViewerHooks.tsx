@@ -35,6 +35,7 @@ function createSwiper({ slides, renderExternal, initialIndex }: SwiperCreatePara
     keyboard: {
       enabled: true,
     },
+    zoom: true,
   });
   swiper = tmp;
 
