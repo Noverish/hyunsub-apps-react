@@ -1,5 +1,6 @@
 import { useRef } from 'react';
-import Swiper, { Pagination } from 'swiper';
+import Swiper from 'swiper';
+import { Pagination } from 'swiper/modules';
 import { Swiper as SwiperComponent, SwiperSlide } from 'swiper/react';
 
 import { useBreakpointMobile } from 'src/utils/breakpoint';

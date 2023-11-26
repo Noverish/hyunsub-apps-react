@@ -3,16 +3,25 @@ import { useContext } from 'react';
 
 import PhotoRoutes from '../PhotoRoutes';
 import { AlbumListContext, AlbumListProvider } from './AlbumListContext';
+import { useFlattenPageData } from 'src/api/generate-infinite-query';
 import albumListApi from 'src/api/photo/album-list';
 import { MobileHeaderButton } from 'src/components/common/header/MobileHeader';
 import CommonLayout from 'src/components/common/layout/CommonLayout';
 import AlbumPreviewView from 'src/components/photo/AlbumPreviewView';
+import useScrollBottom from 'src/hooks/scroll-bottom';
 import AlbumCreateModal from 'src/pages/photo/album-list/components/AlbumCreateModal';
 
 function AlbumListPage() {
   // hooks
-  const { infiniteData: albums } = albumListApi.useInfiniteApi({});
+  const { data, fetchNextPage, isFetching } = albumListApi.useInfiniteApi({});
+  const albums = useFlattenPageData(data);
   const setState = useContext(AlbumListContext)[1];
+
+  useScrollBottom(() => {
+    if (!isFetching) {
+      fetchNextPage();
+    }
+  });
 
   // functions
   const showAlbumCreateModal = () => setState({ showAlbumCreateModal: true });

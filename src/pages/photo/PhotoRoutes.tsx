@@ -1,6 +1,8 @@
 import { stringifyUrl } from 'query-string';
 
+import { AlbumViewerPageParams } from './album-viewer/AlbumViewerHooks';
 import { PhotoOriginalPageParams } from './photo-original/PhotoOriginalHooks';
+import { PhotoViewerPageParams } from './photo-viewer/PhotoViewerHooks';
 
 const PhotoRoutes = {
   albums: '/albums',
@@ -9,7 +11,8 @@ const PhotoRoutes = {
   albumDetail: (albumId: string) => `/albums/${albumId}`,
 
   albumViewerRoute: '/albums/:albumId/viewer',
-  albumViewer: (albumId: string, photoId: string) => `/albums/${albumId}/viewer?photoId=${photoId}`,
+  albumViewer: ({ albumId, ...query }: AlbumViewerPageParams) =>
+    stringifyUrl({ url: `/albums/${albumId}/viewer`, query }),
 
   albumUploadRoute: '/albums/:albumId/upload',
   albumUpload: (albumId: string) => `/albums/${albumId}/upload`,
@@ -20,7 +23,7 @@ const PhotoRoutes = {
   photos: '/photos',
 
   photoViewerRoute: '/photos/viewer',
-  photoViewer: (photoId: string) => `/photos/viewer?photoId=${photoId}`,
+  photoViewer: ({ ...query }: PhotoViewerPageParams) => stringifyUrl({ url: `/photos/viewer`, query }),
 
   photoOriginalRoute: '/photos/:photoId',
   photoOriginal: ({ photoId, ...query }: PhotoOriginalPageParams) => stringifyUrl({ url: `/photos/${photoId}`, query }),

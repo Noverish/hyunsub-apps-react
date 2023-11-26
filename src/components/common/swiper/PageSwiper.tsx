@@ -1,6 +1,7 @@
 import cs from 'classnames';
 import React, { useRef, useState } from 'react';
-import Swiper, { Keyboard, Virtual, Zoom } from 'swiper';
+import Swiper from 'swiper';
+import { Keyboard, Virtual, Zoom } from 'swiper/modules';
 import { Swiper as SwiperComponent, SwiperSlide } from 'swiper/react';
 
 import PageSelectModal from 'src/components/common/PageSelectModal';

@@ -50,7 +50,7 @@ function AlbumDetailPage() {
         <PhotoListView
           albumId={albumId}
           previews={photos}
-          itemHref={(v) => PhotoRoutes.albumViewer(albumId, v.id)}
+          itemHref={(v) => PhotoRoutes.albumViewer({ albumId, photoId: v.id })}
           rightBtn={photoListTopRightButton}
         />
         <ListLoadingIndicator isFetching={isFetching} />

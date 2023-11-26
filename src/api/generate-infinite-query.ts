@@ -2,12 +2,13 @@ import { InfiniteData, QueryKey, UseInfiniteQueryResult, useInfiniteQuery } from
 import { AxiosRequestConfig } from 'axios';
 import { Draft, produce } from 'immer';
 import { UseInfiniteQueryOptions } from 'node_modules/@tanstack/react-query/build/lib/types';
+import { useMemo } from 'react';
 
 import { generateApi } from 'src/api/generate-api';
 import QueryClient from 'src/api/query-client';
-import { PageData } from 'src/model/api';
+import { MergedPageData, PageData } from 'src/model/api';
 
-export type UseInfQueryResult<R> = UseInfiniteQueryResult<PageData<R>> & { infiniteData: R[] };
+export type UseInfQueryResult<R> = UseInfiniteQueryResult<PageData<R>>;
 
 interface PageParam {
   page?: number;
@@ -19,10 +20,9 @@ interface GenerateInfiniteApiOption<P> {
 }
 
 interface GenerateInfiniteApiResult<P, R> {
-  useInfiniteApi: (p: P, initialData?: PageData<R>) => UseInfQueryResult<R>;
-  useInfiniteApi2: (
+  useInfiniteApi: (
     p: P,
-    option: UseInfiniteQueryOptions<PageData<R>, unknown, PageData<R>, PageData<R>, QueryKey>
+    option?: UseInfiniteQueryOptions<PageData<R>, unknown, PageData<R>, PageData<R>, QueryKey>
   ) => UseInfQueryResult<R>;
   updateCache: (p: P, updater: (cache: Draft<R>) => void) => void;
   insertCache: (p: P, newItem: Draft<R>) => void;
@@ -38,45 +38,20 @@ export function generateInfiniteQuery<P, R>(option: GenerateInfiniteApiOption<P>
   const key = (p: P): QueryKey => [option.key, p];
   const api = generateApi<P & PageParam, PageData<R>>(option.api);
 
-  const useInfiniteApi = (p: P, initialData?: PageData<R>) => {
-    const initialData2 = initialData ? { pageParams: [initialData.page], pages: [initialData] } : undefined;
-
-    const getNextPageParam = (lastPage: PageData<R>) => {
-      return lastPage.total <= (lastPage.page + 1) * lastPage.pageSize ? undefined : lastPage.page + 1;
-    };
-
-    const result = useInfiniteQuery({
-      queryKey: key(p),
-      queryFn: ({ pageParam }) => api({ ...p, page: pageParam }),
-      getNextPageParam,
-      staleTime: Infinity,
-      initialData: initialData2,
-    });
-
-    const infiniteData = result.data?.pages.flatMap((v) => v.data) ?? [];
-
-    return { infiniteData, ...result };
-  };
-
-  const useInfiniteApi2 = (
+  const useInfiniteApi = (
     p: P,
-    option: UseInfiniteQueryOptions<PageData<R>, unknown, PageData<R>, PageData<R>, QueryKey>
+    option?: UseInfiniteQueryOptions<PageData<R>, unknown, PageData<R>, PageData<R>, QueryKey>
   ) => {
     const getNextPageParam = (lastPage: PageData<R>) => {
       return lastPage.total <= (lastPage.page + 1) * lastPage.pageSize ? undefined : lastPage.page + 1;
     };
 
-    const result = useInfiniteQuery({
+    return useInfiniteQuery({
       queryKey: key(p),
       queryFn: ({ pageParam }) => api({ ...p, page: pageParam }),
       getNextPageParam,
       staleTime: Infinity,
-      ...option,
     });
-
-    const infiniteData = result.data?.pages.flatMap((v) => v.data) ?? [];
-
-    return { infiniteData, ...result };
   };
 
   const updateCache = (p: P, updater: (cache: Draft<R>) => void) => {
@@ -124,7 +99,6 @@ export function generateInfiniteQuery<P, R>(option: GenerateInfiniteApiOption<P>
 
   return {
     useInfiniteApi,
-    useInfiniteApi2,
     updateCache,
     insertCache,
     deleteCache,
@@ -152,4 +126,35 @@ export function flatInfiniteData<T>(data: InfiniteData<PageData<T>>): (T | null)
   }
 
   return result;
+}
+
+function getMergedPageData<T>(infiniteData: InfiniteData<PageData<T>> | undefined): MergedPageData<T> | undefined {
+  if (!infiniteData) {
+    return undefined;
+  }
+
+  const firstData = infiniteData.pages[0];
+  if (!firstData) {
+    return undefined;
+  }
+
+  const total = firstData.total;
+  const pageSize = firstData.pageSize;
+  const data: (T | null)[] = Array.from({ length: total }, () => null);
+  for (const pageData of infiniteData.pages) {
+    const start = pageData.page * pageSize;
+    pageData.data.forEach((v, i) => {
+      data[start + i] = v;
+    });
+  }
+
+  return { total, pageSize, data };
+}
+
+export function useMergedPageData<T>(data: InfiniteData<PageData<T>> | undefined): MergedPageData<T> | undefined {
+  return useMemo(() => getMergedPageData(data), [data]);
+}
+
+export function useFlattenPageData<T>(data: InfiniteData<PageData<T>> | undefined): T[] {
+  return useMemo(() => data?.pages.flatMap((v) => v.data) ?? [], [data]);
 }

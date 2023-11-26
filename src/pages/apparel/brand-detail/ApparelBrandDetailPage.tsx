@@ -1,6 +1,7 @@
 import { t } from 'i18next';
 
 import apparelBrandApparelsApi from 'src/api/apparel/apparel-brand-apparels';
+import { useFlattenPageData } from 'src/api/generate-infinite-query';
 import ApparelList from 'src/components/apparel/ApparelList';
 import ListLoadingIndicator from 'src/components/common/ListLoadingIndicator';
 import CommonContainer from 'src/components/common/header/CommonContainer';
@@ -13,7 +14,8 @@ import { setDocumentTitle } from 'src/utils/services';
 export default function ApparelBrandDetailPage() {
   const [brand] = useUrlParams('brand');
   const isMobile = useBreakpointMobile();
-  const { infiniteData: apparels, fetchNextPage, isFetching } = apparelBrandApparelsApi.useInfiniteApi({ brand });
+  const { data, fetchNextPage, isFetching } = apparelBrandApparelsApi.useInfiniteApi({ brand });
+  const apparels = useFlattenPageData(data);
 
   useScrollBottom(() => {
     if (!isFetching) {

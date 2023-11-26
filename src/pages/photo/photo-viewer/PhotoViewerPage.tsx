@@ -1,18 +1,14 @@
-import photoListApi from 'src/api/photo/photo-list';
-import PhotoSwiper2 from 'src/components/photo/PhotoSwiper2';
-import { useOptionalUrlParams } from 'src/hooks/url-params';
+import { t } from 'i18next';
+
+import PhotoViewerHooks from './PhotoViewerHooks';
+import CommonViewerPage from 'src/pages/common/viewer/CommonViewerPage';
+import { setDocumentTitle } from 'src/utils/services';
 
 export default function PhotoViewerPage() {
-  const [photoId] = useOptionalUrlParams('photoId');
+  setDocumentTitle(t('photo.page.photo-list.title'));
 
-  const infiniteQueryResult = photoListApi.useInfiniteApi({ photoId });
+  PhotoViewerHooks.useInitPage();
+  const onIndexReady = PhotoViewerHooks.useOnIndexReady();
 
-  const { infiniteData } = infiniteQueryResult;
-  const initialPage = photoId ? infiniteData.findIndex((v) => v.id === photoId) : undefined;
-
-  return (
-    <div className="PhotoViewerPage">
-      <PhotoSwiper2 infiniteQueryResult={infiniteQueryResult} initialSlide={initialPage} />
-    </div>
-  );
+  return <CommonViewerPage slides={[]} onIndexReady={onIndexReady} />;
 }

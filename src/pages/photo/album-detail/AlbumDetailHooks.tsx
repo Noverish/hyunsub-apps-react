@@ -17,7 +17,7 @@ export function useAlbumDetailPage() {
 
   const album = albumDetailApi.useApi({ albumId });
 
-  const { data, fetchNextPage, isFetching } = albumPhotosApi.useInfiniteApi({ albumId }, album.photos);
+  const { data, fetchNextPage, isFetching } = albumPhotosApi.useInfiniteApi({ albumId });
   const pages = data?.pages;
   const photos = useMemo(() => pages?.flatMap((v) => v.data) || [], [pages]);
 

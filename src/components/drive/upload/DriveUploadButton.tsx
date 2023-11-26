@@ -16,8 +16,6 @@ export default function DriveUploadButton() {
         type: v.type,
       }));
 
-    result.forEach((v) => console.log(v));
-
     if (result.length > 0) {
       driveUpload(result);
     }

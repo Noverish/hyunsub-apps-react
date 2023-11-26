@@ -2,6 +2,7 @@ import { t } from 'i18next';
 import { useContext } from 'react';
 
 import PhotoRoutes from '../PhotoRoutes';
+import { useFlattenPageData2 } from 'src/api/generate-infinite-query-2';
 import photoListApi from 'src/api/photo/photo-list';
 import ListLoadingIndicator from 'src/components/common/ListLoadingIndicator';
 import CommonContainer from 'src/components/common/header/CommonContainer';
@@ -18,7 +19,8 @@ function PhotoListPage() {
   setDocumentTitle(t('photo.page.photo-list.title'));
 
   // hooks
-  const { infiniteData, fetchNextPage, isFetching } = photoListApi.useInfiniteApi({});
+  const { data, fetchNextPage, isFetching } = photoListApi.useInfiniteApi({});
+  const infiniteData = useFlattenPageData2(data);
   const [state, setState] = useContext(PhotoSelectContext);
   const albumPhotoRegister = useAlbumPhotoRegister();
 
@@ -32,7 +34,7 @@ function PhotoListPage() {
     <div id="PhotoListPage">
       <PhotoListMobileHeader />
       <CommonContainer>
-        <PhotoListView previews={infiniteData} itemHref={(v) => PhotoRoutes.photoViewer(v.id)} />
+        <PhotoListView previews={infiniteData} itemHref={(v) => PhotoRoutes.photoViewer({ photoId: v.id })} />
         <ListLoadingIndicator isFetching={isFetching} />
       </CommonContainer>
       <PhotoSelectActionModal />

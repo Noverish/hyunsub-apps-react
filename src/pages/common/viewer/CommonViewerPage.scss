@@ -1,0 +1,12 @@
+.CommonViewerPage {
+  .swiper {
+    height: 100vh;
+  }
+
+  .swiper-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 24px;
+  }
+}

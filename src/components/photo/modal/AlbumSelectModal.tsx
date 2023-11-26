@@ -1,6 +1,7 @@
 import { t } from 'i18next';
 import { Modal, Row } from 'react-bootstrap';
 
+import { useFlattenPageData } from 'src/api/generate-infinite-query';
 import albumListApi from 'src/api/photo/album-list';
 import AlbumPreviewView from 'src/components/photo/AlbumPreviewView';
 import { AlbumPreview } from 'src/model/photo';
@@ -12,7 +13,8 @@ interface Props {
 }
 
 export default function AlbumSelectModal({ show, onHide, onClick }: Props) {
-  const { infiniteData: albums } = albumListApi.useInfiniteApi({});
+  const { data } = albumListApi.useInfiniteApi({});
+  const albums = useFlattenPageData(data);
 
   const elements = albums.map((v) => <AlbumPreviewView key={v.id} preview={v} onClick={onClick} />);
 

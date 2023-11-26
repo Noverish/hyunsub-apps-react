@@ -13,7 +13,7 @@ interface Props {
 
 export default function ApiErrorToast({ info }: Props) {
   const dispatch = useDispatch();
-  const intervalRef = useRef<NodeJS.Timer>();
+  const intervalRef = useRef<NodeJS.Timeout>();
   const [time, setTime] = useState<string>(timeAgo.format(new Date(info.millis)).toString());
 
   const onClose = () => dispatch(deleteToast(info.millis));

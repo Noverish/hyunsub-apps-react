@@ -1,11 +1,13 @@
 import DiaryDetailHooks from '../DiaryDetailHooks';
 import diaryDetailPhotosApi from 'src/api/diary/diary-detail-photos';
+import { useFlattenPageData } from 'src/api/generate-infinite-query';
 import PhotoPreviewList from 'src/components/photo/PhotoPreviewList';
 import { PhotoPreview } from 'src/model/photo';
 
 export default function DiaryDetailPhotoList() {
   const { date } = DiaryDetailHooks.usePageParams();
-  const { infiniteData } = diaryDetailPhotosApi.useInfiniteApi2({ date }, { suspense: false });
+  const { data } = diaryDetailPhotosApi.useInfiniteApi({ date }, { suspense: false });
+  const infiniteData = useFlattenPageData(data);
 
   const itemHref = (item: PhotoPreview) => '';
 

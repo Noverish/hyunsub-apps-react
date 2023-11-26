@@ -11,6 +11,12 @@ export interface PageData<T> {
   data: T[];
 }
 
+export interface MergedPageData<T> {
+  total: number;
+  pageSize: number;
+  data: (T | null)[];
+}
+
 export interface Pagination<T> {
   total: number;
   prev: string | null;

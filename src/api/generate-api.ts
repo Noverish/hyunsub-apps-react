@@ -22,7 +22,7 @@ interface GenerateQueryOption<P> {
 
 interface GenerateApiOption<P, R> {
   api: (p: P) => AxiosRequestConfig<P>;
-  postHandle: (r: R) => void;
+  postHandle?: (r: R) => void;
 }
 
 interface GenerateApiResult<P, R> {
@@ -76,7 +76,7 @@ export function generateApi2<P, R>(option: GenerateApiOption<P, R>) {
         await sleep(1000);
       }
       const r = res.data;
-      option.postHandle(r);
+      option.postHandle?.(r);
       return r;
     } catch (ex) {
       dispatch(GlobalActions.update({ loading: false }));

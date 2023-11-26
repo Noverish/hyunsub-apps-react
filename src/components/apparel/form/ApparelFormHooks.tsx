@@ -28,7 +28,6 @@ export function useApparelFormSubmit(isEdit: boolean) {
       await fileUploadApi({
         files: uploads.map((v) => ({ file: v, path: v.name, type: v.type })),
         callback: (result) => {
-          console.log({ result });
           uploadParams[result.index].nonce = result.nonce;
         },
       });

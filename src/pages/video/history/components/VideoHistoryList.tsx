@@ -1,5 +1,6 @@
 import { useContext, useEffect } from 'react';
 
+import { useFlattenPageData } from 'src/api/generate-infinite-query';
 import videoHistoryListApi from 'src/api/video/video-history-list';
 import ListLoadingIndicator from 'src/components/common/ListLoadingIndicator';
 import { ChooseContext } from 'src/context/choose/ChooseContext';
@@ -12,7 +13,8 @@ interface Props {
 
 export default function VideoHistoryList({ category }: Props) {
   const { setData } = useContext(ChooseContext);
-  const { infiniteData, fetchNextPage, isFetchingNextPage } = videoHistoryListApi.useInfiniteApi({ category });
+  const { data, fetchNextPage, isFetchingNextPage } = videoHistoryListApi.useInfiniteApi({ category });
+  const infiniteData = useFlattenPageData(data);
 
   useScrollBottom(() => {
     if (!isFetchingNextPage) {
