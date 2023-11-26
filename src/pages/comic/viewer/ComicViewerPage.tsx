@@ -7,7 +7,7 @@ import { setDocumentTitle } from 'src/utils/services';
 
 export default function ComicViewerPage() {
   const swiperRef = useRef<Swiper>();
-  const { title, episodeTitle, hasNextEpisode, images } = ComicViewerHooks.usePageData();
+  const { title, episodeTitle, hasNextEpisode, images, history } = ComicViewerHooks.usePageData();
   ComicViewerHooks.usePageInit(swiperRef.current);
   setDocumentTitle(title + ' - ' + episodeTitle);
 
@@ -23,6 +23,7 @@ export default function ComicViewerPage() {
     <CommonViewerPage
       slides={slides}
       headerBtns={headerBtns}
+      initialIndex={history}
       titlePrefix={episodeTitle}
       onIndexChange={onIndexChange}
       swiperRef={swiperRef}
