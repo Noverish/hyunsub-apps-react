@@ -19,6 +19,12 @@ export default function useSearchResult<T>({ searchFn }: CommonSearchHooksParams
   const { data } = searchFn({ page, query });
   const [status, setStatus] = useState<SearchStatus>();
 
+  // searchFn 이 cache 를 써서 undefined 가 아닌 값이 바로 나오는 경우
+  // query 변경 대응 useEffect가 먼저 실행되게 해야 함
+  useEffect(() => {
+    setStatus(undefined);
+  }, [query]);
+
   useEffect(() => {
     if (data) {
       const { total, page, pageSize } = data;
@@ -26,10 +32,6 @@ export default function useSearchResult<T>({ searchFn }: CommonSearchHooksParams
       setStatus({ total, nowPage: page, totalPage });
     }
   }, [data]);
-
-  useEffect(() => {
-    setStatus(undefined);
-  }, [query]);
 
   return {
     data: data?.data,
