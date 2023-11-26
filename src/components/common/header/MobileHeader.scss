@@ -7,6 +7,12 @@
   align-items: stretch;
   justify-content: space-between;
 
+  &.transparent {
+    backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(7px);
+    background-color: rgba(0, 0, 0, 0);
+  }
+
   .title {
     display: flex;
     flex-direction: row;

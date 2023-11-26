@@ -1,3 +1,4 @@
+import cs from 'classnames';
 import { useNavigate } from 'react-router-dom';
 
 import MobileHeaderMoreButton, { MobileHeaderMoreButtonMenu } from './MobileHeaderMoreButton';
@@ -12,6 +13,8 @@ export interface MobileHeaderProps {
   menus?: MobileHeaderMoreButtonMenu[];
   onClose?: () => void;
   onHeaderClick?: (e: React.MouseEvent<HTMLElement>) => void;
+  onTitleClick?: (e: React.MouseEvent<HTMLElement>) => void;
+  transparent?: boolean;
 }
 
 export interface MobileHeaderButton {
@@ -20,7 +23,8 @@ export interface MobileHeaderButton {
   onClick: () => void;
 }
 
-export default function MobileHeader({ title, back, btns, onClose, menus, onHeaderClick }: MobileHeaderProps) {
+export default function MobileHeader(props: MobileHeaderProps) {
+  const { title, back, btns, onClose, menus, onHeaderClick, onTitleClick, transparent } = props;
   const navigate = useNavigate();
   const isMobile = useBreakpointMobile();
 
@@ -45,11 +49,11 @@ export default function MobileHeader({ title, back, btns, onClose, menus, onHead
   }
 
   return (
-    <header className="mobile_header" id="header" onClick={onHeaderClick}>
+    <header className={cs('mobile_header', { transparent })} id="header" onClick={onHeaderClick}>
       <div className="title" onClick={onBack}>
         {back && <i className="fas fa-chevron-left"></i>}
         {onClose && <i className="fas fa-times"></i>}
-        <span>{title}</span>
+        <span onClick={onTitleClick}>{title}</span>
       </div>
       <div className="buttons">{buttons}</div>
     </header>

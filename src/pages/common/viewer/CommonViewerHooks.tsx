@@ -10,7 +10,7 @@ import { CommonViewerData } from './components/CommonViewerSlide';
 import { MobileHeaderButton } from 'src/components/common/header/MobileHeader';
 import { CommonViewerSwiperContext } from 'src/pages/common/viewer/CommonViewerSwiperContext';
 
-let swiper: Swiper | undefined;
+export let swiper: Swiper | undefined;
 
 interface SwiperCreateParams {
   slides: CommonViewerData[];

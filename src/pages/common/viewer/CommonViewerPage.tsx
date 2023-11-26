@@ -1,30 +1,51 @@
 import { useContext } from 'react';
 
-import CommonViewerHooks from './CommonViewerHooks';
+import CommonViewerHooks, { swiper } from './CommonViewerHooks';
 import { CommonViewerProps, CommonViewerPropsContext, CommonViewerPropsProvider } from './CommonViewerPropsContext';
 import { CommonViewerStateContext, CommonViewerStateProvider } from './CommonViewerStateContext';
 import CommonViewerInfoContainer from './components/CommonViewerInfoContainer';
+import PageSelectModal from 'src/components/common/PageSelectModal';
 import MobileHeader from 'src/components/common/header/MobileHeader';
 import CommonViewerSwiper from 'src/pages/common/viewer/components/CommonViewerSwiper';
 
 import './CommonViewerPage.scss';
 
 function CommonViewerPageInner() {
-  const { slides, total, headerBtns, titlePrefix, infoSection } = useContext(CommonViewerPropsContext);
-  const [{ index, showHeader }] = useContext(CommonViewerStateContext);
+  const props = useContext(CommonViewerPropsContext);
+  const { slides, headerBtns, titlePrefix, infoSection } = props;
+  const [{ index, showHeader, showModal }, setState] = useContext(CommonViewerStateContext);
   const headerInfoBtn = CommonViewerHooks.useHeaderInfoBtn();
 
-  const indexStatus = `${index + 1}/${total ?? slides.length}`;
+  const total = props.total ?? slides.length;
+  const indexStatus = `${index + 1}/${total}`;
   const title = (titlePrefix ? `${titlePrefix} - ` : '') + indexStatus;
   const btns = infoSection ? headerInfoBtn : headerBtns;
 
+  const onTitleClick = (e: React.MouseEvent<HTMLElement>) => {
+    e.stopPropagation();
+    setState({ showModal: true });
+  };
+
+  const onPageChnage = (page: number) => {
+    swiper?.slideTo(page, 400);
+  };
+
   return (
     <div className="CommonViewerPage">
-      {showHeader && <MobileHeader title={title} back btns={btns} />}
+      {showHeader && <MobileHeader title={title} back btns={btns} onTitleClick={onTitleClick} transparent />}
       <div className="swiper_container">
         <CommonViewerSwiper />
       </div>
       {infoSection && <CommonViewerInfoContainer>{infoSection}</CommonViewerInfoContainer>}
+      {total && (
+        <PageSelectModal
+          show={showModal}
+          onHide={() => setState({ showModal: false })}
+          page={index}
+          total={total}
+          onPageChange={onPageChnage}
+        />
+      )}
     </div>
   );
 }
