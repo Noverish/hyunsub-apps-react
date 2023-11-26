@@ -65,7 +65,7 @@ function useFetchPage() {
         });
       }
     },
-    [prependSlides, appendSlides]
+    [prependSlides, appendSlides],
   );
 }
 
@@ -81,7 +81,7 @@ function useOnIndexReady() {
         fetchPage(false);
       }
     },
-    [fetchPage]
+    [fetchPage],
   );
 }
 

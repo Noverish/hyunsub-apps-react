@@ -17,7 +17,7 @@ export default function VantaGlobe() {
           color: 0x0d6efd,
           color2: 0xffffff,
           backgroundColor: 0x141414,
-        })
+        }),
       );
     }
 

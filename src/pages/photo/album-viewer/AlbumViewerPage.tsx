@@ -23,7 +23,7 @@ export default function AlbumViewerPage() {
     (page: number) => {
       fetchNextPage({ pageParam: page, cancelRefetch: false });
     },
-    [fetchNextPage]
+    [fetchNextPage],
   );
 
   const onIndexReady = AlbumViewerHooks.useOnIndexReady(slides, fetchPage, mergedData?.pageSize);

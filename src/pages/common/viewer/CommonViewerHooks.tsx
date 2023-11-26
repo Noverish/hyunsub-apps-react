@@ -56,7 +56,7 @@ function useSwiper(): Swiper | undefined {
     (virtualData: VirtualData<CommonViewerData>) => {
       setSwiperState({ virtualData });
     },
-    [setSwiperState]
+    [setSwiperState],
   );
 
   useEffect(() => {
@@ -95,7 +95,7 @@ const useSwiperSlideChange = (swiper: Swiper) => {
       setState({ index: nextIndex });
       onIndexChange?.(nextIndex);
     },
-    [onIndexChange, setState]
+    [onIndexChange, setState],
   );
 
   useEffect(() => {

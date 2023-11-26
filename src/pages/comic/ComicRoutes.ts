@@ -1,7 +1,9 @@
-import { stringifyUrl } from 'query-string';
+import queryString from 'query-string';
 
 import { ComicDetailPageParams } from './detail/ComicDetailHooks';
 import { ComicViewerPageParams } from './viewer/ComicViewerHooks';
+
+const { stringifyUrl } = queryString;
 
 const ComicRoutes = {
   list: '/',

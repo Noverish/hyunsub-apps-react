@@ -24,7 +24,7 @@ export default function PhotoFileUpload(props: Props) {
       }));
       setState({ items: list });
     },
-    [setState]
+    [setState],
   );
 
   const { props: dragAndDropProps, hover, onInputChange } = useDragAndDrop({ accept, onFileDrop });

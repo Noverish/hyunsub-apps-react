@@ -119,7 +119,7 @@ function readReader(reader: FileSystemDirectoryReader): Promise<FileSystemEntry[
   return new Promise((resolve, reject) => {
     reader.readEntries(
       (files) => resolve(files),
-      (err) => reject(err)
+      (err) => reject(err),
     );
   });
 }
@@ -133,7 +133,7 @@ function getFile(entry: FileSystemFileEntry): Promise<FileWithPath> {
           path: entry.fullPath.replace(/^\//, ''),
           type: parseFileType(file),
         }),
-      (err) => reject(err)
+      (err) => reject(err),
     );
   });
 }

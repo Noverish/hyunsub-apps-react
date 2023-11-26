@@ -57,7 +57,7 @@ function highlightQuery(content: string, query: string): JSX.Element[] {
       result.push(
         <span key={`query_${i}`} className="query">
           {query}
-        </span>
+        </span>,
       );
     }
 

@@ -33,7 +33,7 @@ export default function VideoSubtitleUploadCard() {
         file: isUploadMode ? params.file : undefined,
         path: isUploadMode ? undefined : params.path,
         override: params.override,
-      })
+      }),
     );
   };
 

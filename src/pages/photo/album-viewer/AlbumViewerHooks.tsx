@@ -46,7 +46,7 @@ function useOnIndexReady(slides: CommonViewerData[], fetchPage: (page: number) =
         fetchPage(toPage);
       }
     },
-    [slides, pageSize, fetchPage]
+    [slides, pageSize, fetchPage],
   );
 }
 

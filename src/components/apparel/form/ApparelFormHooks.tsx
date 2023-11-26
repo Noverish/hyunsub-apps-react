@@ -46,7 +46,7 @@ export function useApparelFormSubmit(isEdit: boolean) {
           id: result.apparel.id,
           name: result.apparel.name,
           thumbnail: result.images[0]?.url,
-        }
+        },
       );
     }
 

@@ -93,7 +93,7 @@ export function useVideoHistoryUpdator(videoId: string) {
         time: Math.floor(time),
       });
     },
-    [videoHistorySetApi, videoId]
+    [videoHistorySetApi, videoId],
   );
 
   return onTimeUpdate;

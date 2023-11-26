@@ -15,7 +15,7 @@ export default function VantaNet() {
           gyroControls: true,
           color: 0x0d6efd,
           backgroundColor: 0x141414,
-        })
+        }),
       );
     }
 

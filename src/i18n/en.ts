@@ -42,7 +42,7 @@ const en = {
     'CommonTabBar.search': 'Search',
     'CommonTabBar.menu': 'Menu',
     'CommonSearchResult.empty-result': 'There is no search result',
-    'CommonSearchResult.result-num': '{{0}} Results Found',
+    'CommonSearchResult.result-num': '{{total}} Results Found',
 
     'auth.login': 'Login',
     'auth.logout': 'Logout',

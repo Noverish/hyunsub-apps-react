@@ -1,8 +1,10 @@
-import { stringifyUrl } from 'query-string';
+import queryString from 'query-string';
 
 import { AlbumViewerPageParams } from './album-viewer/AlbumViewerHooks';
 import { PhotoOriginalPageParams } from './photo-original/PhotoOriginalHooks';
 import { PhotoViewerPageParams } from './photo-viewer/PhotoViewerHooks';
+
+const { stringifyUrl } = queryString;
 
 const PhotoRoutes = {
   albums: '/albums',

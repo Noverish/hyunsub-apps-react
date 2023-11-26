@@ -24,7 +24,7 @@ export default function CommonSearchResult<T>({ searchFn, renderItem, renderTota
   const items = (data ?? []).map((v) => renderItem(v, query));
 
   const resultEmpty = <h3>{t('CommonSearchResult.empty-result')}</h3>;
-  const resultNum = <h3>{t('CommonSearchResult.result-num', [total])}</h3>;
+  const resultNum = <h3>{t('CommonSearchResult.result-num', { total })}</h3>;
   const resultList = (
     <div className="d-grid gap-3">
       <CommonPagination now={page} total={totalPage} onClick={setPage} />

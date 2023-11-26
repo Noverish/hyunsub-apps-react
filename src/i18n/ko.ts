@@ -42,7 +42,7 @@ const ko = {
     'CommonTabBar.search': '검색',
     'CommonTabBar.menu': '메뉴',
     'CommonSearchResult.empty-result': '검색 결과가 없습니다',
-    'CommonSearchResult.result-num': '{{0}}개의 검색 결과',
+    'CommonSearchResult.result-num': '{{total}}개의 검색 결과',
 
     'auth.login': '로그인',
     'auth.logout': '로그아웃',

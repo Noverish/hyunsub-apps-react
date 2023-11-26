@@ -115,7 +115,7 @@ function useSlides(): CommonViewerData[] {
         type: 'photo',
         url: `https://file.hyunsub.kim/Comics/${title}/${episodeTitle}/${v}`,
       })),
-    [images, title, episodeTitle]
+    [images, title, episodeTitle],
   );
 }
 

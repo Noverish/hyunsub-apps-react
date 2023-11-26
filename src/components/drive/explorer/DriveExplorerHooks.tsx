@@ -41,7 +41,7 @@ export function useDriveExplorerSelectChange() {
     (selects: string[]) => {
       setState({ selects, rename: false, lastSelect: undefined });
     },
-    [setState]
+    [setState],
   );
 
   const addSelect = useCallback(
@@ -49,7 +49,7 @@ export function useDriveExplorerSelectChange() {
       const newSelects = [...selects, select];
       setState({ selects: newSelects, rename: false, lastSelect: select });
     },
-    [selects, setState]
+    [selects, setState],
   );
 
   const delSelect = useCallback(
@@ -57,7 +57,7 @@ export function useDriveExplorerSelectChange() {
       const newSelects = selects.filter((v) => v !== select);
       changeSelects(newSelects);
     },
-    [selects, changeSelects]
+    [selects, changeSelects],
   );
 
   const clearSelects = useCallback(() => {
@@ -72,7 +72,7 @@ export function useDriveExplorerSelectChange() {
         addSelect(select);
       }
     },
-    [selects, addSelect, delSelect]
+    [selects, addSelect, delSelect],
   );
 
   return { addSelect, delSelect, toggleSelect, changeSelects, clearSelects };
@@ -181,7 +181,7 @@ export function useDriveExplorerKeyDown() {
         }
       }
     },
-    [files, rename, selects, setState]
+    [files, rename, selects, setState],
   );
 
   useEffect(() => {

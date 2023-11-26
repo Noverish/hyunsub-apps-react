@@ -69,7 +69,7 @@ export default function PageSwiper<T>(props: PageSwiperProps<T>) {
     elements.push(
       <SwiperSlide key="last" zoom>
         {props.additionalLastSlide}
-      </SwiperSlide>
+      </SwiperSlide>,
     );
   }
 

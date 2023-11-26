@@ -12,7 +12,7 @@ type StateProviderType<State> = (props: StateProviderProps<State>) => JSX.Elemen
 
 export function generateStateContext<State>(
   initialState: State,
-  logging: boolean = false
+  logging: boolean = false,
 ): [StateContextType<State>, StateProviderType<State>] {
   const Context = createContext<[State, Dispatch<SetStateAction<State>>]>([initialState, () => {}]);
 
@@ -44,7 +44,7 @@ type ValueProviderType<V> = (props: ValueProviderProps<V>) => JSX.Element;
 type UseContextType<V> = () => V;
 
 export function generateValueContext<V>(
-  logging: boolean = false
+  logging: boolean = false,
 ): [ValueContextType<V>, ValueProviderType<V>, UseContextType<V>] {
   const Context = createContext<V>(undefined as any);
 

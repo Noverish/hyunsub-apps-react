@@ -1,4 +1,6 @@
-import { stringifyUrl } from 'query-string';
+import queryString from 'query-string';
+
+const { stringifyUrl } = queryString;
 
 interface VideoDetailRouteParams {
   entryId: string;

@@ -1,6 +1,8 @@
-import { stringifyUrl } from 'query-string';
+import queryString from 'query-string';
 
 import { DiaryDetailPageParams } from 'src/pages/diary/detail/DiaryDetailHooks';
+
+const { stringifyUrl } = queryString;
 
 const DiaryRoutes = {
   listRoute: '/list',

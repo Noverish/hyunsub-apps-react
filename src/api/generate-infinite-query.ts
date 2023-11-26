@@ -22,7 +22,7 @@ interface GenerateInfiniteApiOption<P> {
 interface GenerateInfiniteApiResult<P, R> {
   useInfiniteApi: (
     p: P,
-    option?: UseInfiniteQueryOptions<PageData<R>, unknown, PageData<R>, PageData<R>, QueryKey>
+    option?: UseInfiniteQueryOptions<PageData<R>, unknown, PageData<R>, PageData<R>, QueryKey>,
   ) => UseInfQueryResult<R>;
   updateCache: (p: P, updater: (cache: Draft<R>) => void) => void;
   insertCache: (p: P, newItem: Draft<R>) => void;
@@ -40,7 +40,7 @@ export function generateInfiniteQuery<P, R>(option: GenerateInfiniteApiOption<P>
 
   const useInfiniteApi = (
     p: P,
-    option?: UseInfiniteQueryOptions<PageData<R>, unknown, PageData<R>, PageData<R>, QueryKey>
+    option?: UseInfiniteQueryOptions<PageData<R>, unknown, PageData<R>, PageData<R>, QueryKey>,
   ) => {
     const getNextPageParam = (lastPage: PageData<R>) => {
       return lastPage.total <= (lastPage.page + 1) * lastPage.pageSize ? undefined : lastPage.page + 1;

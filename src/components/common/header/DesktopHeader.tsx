@@ -33,7 +33,7 @@ const ProfileDropdownToggle = React.forwardRef<HTMLDivElement, React.DOMAttribut
     <div ref={ref} onClick={onClick} className="header_profile_dropdown_toggle gray_on_hover">
       {children}
     </div>
-  )
+  ),
 );
 
 export default function DesktopHeader(props: DesktopHeaderProps) {
