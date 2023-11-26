@@ -7,6 +7,7 @@ import { VirtualData } from 'swiper/types/modules/virtual';
 import { CommonViewerPropsContext } from './CommonViewerPropsContext';
 import { CommonViewerStateContext } from './CommonViewerStateContext';
 import { CommonViewerData } from './components/CommonViewerSlide';
+import { MobileHeaderButton } from 'src/components/common/header/MobileHeader';
 import { CommonViewerSwiperContext } from 'src/pages/common/viewer/CommonViewerSwiperContext';
 
 let swiper: Swiper | undefined;
@@ -92,9 +93,9 @@ const useSwiperSlideChange = (swiper: Swiper) => {
 
   const slideChange = useCallback(
     (swiper: Swiper) => {
-      const nextIndex = swiper.activeIndex;
-      setState({ index: nextIndex });
-      onIndexChange?.(nextIndex);
+      const index = swiper.activeIndex;
+      setState({ index });
+      onIndexChange?.(index);
     },
     [onIndexChange, setState],
   );
@@ -168,6 +169,17 @@ const useSetSlides = () => {
   }, []);
 };
 
+function useHeaderInfoBtn(): MobileHeaderButton[] {
+  const [{ showInfo }, setState] = useContext(CommonViewerStateContext);
+
+  return [
+    {
+      icon: 'fas fa-info-circle',
+      onClick: () => setState({ showInfo: !showInfo }),
+    },
+  ];
+}
+
 const CommonViewerHooks = {
   useSwiper,
   useSwiperSlides,
@@ -177,6 +189,7 @@ const CommonViewerHooks = {
   usePrependSlides,
   useAppendSlides,
   useSetSlides,
+  useHeaderInfoBtn,
 };
 
 export default CommonViewerHooks;

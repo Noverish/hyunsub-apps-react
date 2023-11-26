@@ -1,14 +1,16 @@
-import { useCallback, useEffect, useMemo, useRef } from 'react';
+import { useCallback, useContext, useEffect, useMemo, useRef } from 'react';
 import Swiper from 'swiper';
 
+import { AlbumViewerContext, AlbumViewerProvider } from './AlbumViewerContext';
 import AlbumViewerHooks from './AlbumViewerHooks';
 import { useMergedPageData } from 'src/api/generate-infinite-query';
 import albumPhotosApi from 'src/api/photo/album-photos';
+import PhotoInfoSection from 'src/components/photo/PhotoInfoSection';
 import CommonViewerPage from 'src/pages/common/viewer/CommonViewerPage';
 import { CommonViewerData } from 'src/pages/common/viewer/components/CommonViewerSlide';
 import PhotoViewerHooks from 'src/pages/photo/photo-viewer/PhotoViewerHooks';
 
-export default function AlbumViewerPage() {
+function AlbumViewerPage() {
   const { albumId, photoId } = AlbumViewerHooks.usePageParams();
   AlbumViewerHooks.usePageInit();
 
@@ -19,6 +21,9 @@ export default function AlbumViewerPage() {
   const swiperRef = useRef<Swiper>();
   const swiper = swiperRef.current;
 
+  const [state] = useContext(AlbumViewerContext);
+  const currPhotoId = photoId ?? state.currPhotoId;
+
   const fetchPage = useCallback(
     (page: number) => {
       fetchNextPage({ pageParam: page, cancelRefetch: false });
@@ -27,6 +32,7 @@ export default function AlbumViewerPage() {
   );
 
   const onIndexReady = AlbumViewerHooks.useOnIndexReady(slides, fetchPage, mergedData?.pageSize);
+  const onIndexChange = AlbumViewerHooks.useOnIndexChange(mergedData);
 
   useEffect(() => {
     if (swiper) {
@@ -35,6 +41,21 @@ export default function AlbumViewerPage() {
   }, [swiper, initialIndex]);
 
   return (
-    <CommonViewerPage slides={slides} onIndexReady={onIndexReady} initialIndex={initialIndex} swiperRef={swiperRef} />
+    <CommonViewerPage
+      slides={slides}
+      onIndexReady={onIndexReady}
+      initialIndex={initialIndex}
+      swiperRef={swiperRef}
+      onIndexChange={onIndexChange}
+      infoSection={currPhotoId ? <PhotoInfoSection albumId={albumId} photoId={currPhotoId} /> : undefined}
+    />
+  );
+}
+
+export default function AlbumViewerIndex() {
+  return (
+    <AlbumViewerProvider>
+      <AlbumViewerPage />
+    </AlbumViewerProvider>
   );
 }

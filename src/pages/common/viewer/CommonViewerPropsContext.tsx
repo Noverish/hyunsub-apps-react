@@ -12,6 +12,7 @@ export interface CommonViewerProps {
   onIndexChange?: (index: number) => void;
   onIndexReady?: (from: number, to: number) => void;
   headerBtns?: MobileHeaderButton[];
+  infoSection?: JSX.Element;
   titlePrefix?: string;
   swiperRef?: MutableRefObject<Swiper | undefined>;
 }

@@ -1,5 +1,6 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useContext, useEffect } from 'react';
 
+import { PhotoViewerContext } from './PhotoViewerContext';
 import photoListApi2 from 'src/api/photo/photo-list-2';
 import { useOptionalUrlParams } from 'src/hooks/url-params';
 import { PhotoPreview } from 'src/model/photo';
@@ -9,6 +10,7 @@ import { CommonViewerData } from 'src/pages/common/viewer/components/CommonViewe
 let prev: string | null = null;
 let next: string | null = null;
 let total: number = 0;
+let allData: PhotoPreview[] = [];
 
 export interface PhotoViewerPageParams {
   photoId?: string;
@@ -31,6 +33,7 @@ function useInitPage() {
       prev = result.prev;
       next = result.next;
       total = data.length;
+      allData = data;
     });
   }, [photoId, setSlides]);
 }
@@ -51,6 +54,7 @@ function useFetchPage() {
           total += data.length;
           prependSlides(convertData(data));
           prev = result.prev;
+          allData.unshift(...data);
         });
       } else {
         if (!next) {
@@ -62,6 +66,7 @@ function useFetchPage() {
           total += data.length;
           appendSlides(convertData(data));
           next = result.next;
+          allData.push(...data);
         });
       }
     },
@@ -82,6 +87,18 @@ function useOnIndexReady() {
       }
     },
     [fetchPage],
+  );
+}
+
+function useOnIndexChange() {
+  const setState = useContext(PhotoViewerContext)[1];
+
+  return useCallback(
+    (index: number) => {
+      const currPhotoId = allData[index]?.id;
+      setState({ currPhotoId });
+    },
+    [setState],
   );
 }
 
@@ -113,6 +130,7 @@ const PhotoViewerHooks = {
   usePageParams,
   useInitPage,
   useOnIndexReady,
+  useOnIndexChange,
   convertData,
 };
 
