@@ -6,11 +6,11 @@ import MenuCommonSection from 'src/components/common/menu/MenuCommonSection';
 import { setDocumentTitle } from 'src/utils/services';
 
 export default function ApparelMenuPage() {
-  setDocumentTitle(t('CommonTabBar.menu'));
+  setDocumentTitle(t('CommonNavigation.menu'));
 
   return (
     <div id="ApparelMenuPage">
-      <MobileHeader title={t('CommonTabBar.menu')} />
+      <MobileHeader title={t('CommonNavigation.menu')} />
       <CommonContainer>
         <MenuCommonSection />
       </CommonContainer>

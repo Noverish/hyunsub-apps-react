@@ -2,8 +2,7 @@ import { Navigate, Outlet, RouteObject } from 'react-router-dom';
 
 import routes from './PhotoRoutes';
 import PhotoOriginalPage from './photo-original/PhotoOriginalPage';
-import PhotoDesktopHeader from 'src/components/photo/header/PhotoDesktopHeader';
-import PhotoTabBar from 'src/components/photo/header/PhotoTabBar';
+import PhotoNavigation from 'src/components/photo/PhotoNavigation';
 import AlbumDatePage from 'src/pages/photo/album-date/AlbumDatePage';
 import AlbumDetailPage from 'src/pages/photo/album-detail/AlbumDetailPage';
 import AlbumListPage from 'src/pages/photo/album-list/AlbumListPage';
@@ -27,8 +26,7 @@ export const PhotoRouteObjects: RouteObject[] = [
     path: '/',
     element: (
       <>
-        <PhotoDesktopHeader />
-        <PhotoTabBar />
+        <PhotoNavigation />
         <Outlet />
       </>
     ),

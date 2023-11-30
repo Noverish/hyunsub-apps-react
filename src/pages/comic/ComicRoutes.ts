@@ -8,6 +8,8 @@ const { stringifyUrl } = queryString;
 const ComicRoutes = {
   list: '/',
 
+  history: '/history',
+
   detail: '/comics/:comicId',
   detailRoute: ({ comicId }: ComicDetailPageParams) => `/comics/${comicId}`,
 

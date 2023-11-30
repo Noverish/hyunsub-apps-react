@@ -10,8 +10,7 @@ import FriendSearchPage from './search/FriendSearchPage';
 import FriendTagDetailPage from './tag-detail/FriendTagDetailPage';
 import FriendTagListPage from './tag-list/FriendTagListPage';
 import FriendUpdatePage from './update/FriendUpdatePage';
-import FriendDesktopHeader from 'src/components/friend/header/FriendDesktopHeader';
-import FriendTabBar from 'src/components/friend/header/FriendTabBar';
+import FriendNavigation from 'src/components/friend/FriendNavigation';
 import { FriendTagsProvider } from 'src/context/friend/FriendTagsContext';
 
 export const FriendRouteObjects: RouteObject[] = [
@@ -19,8 +18,7 @@ export const FriendRouteObjects: RouteObject[] = [
     path: '/',
     element: (
       <FriendTagsProvider>
-        <FriendDesktopHeader />
-        <FriendTabBar />
+        <FriendNavigation />
         <Outlet />
       </FriendTagsProvider>
     ),

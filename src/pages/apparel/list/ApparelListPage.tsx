@@ -45,7 +45,7 @@ export default function ApparelListPage() {
 
   return (
     <div id="ApparelListPage">
-      <MobileHeader title={t('apparel.menu.all-apparels')} btns={headerBtns} />
+      <MobileHeader title={t('ApparelNavigation.all-apparels')} btns={headerBtns} />
       <CommonContainer>
         <h2 className="mb-2">{t('apparel.page.list.inner-title', [data?.pages[0].total])}</h2>
         {addBtn}

@@ -2,8 +2,7 @@ import { Suspense, lazy } from 'react';
 import { Outlet, RouteObject } from 'react-router-dom';
 
 import routes from './ApparelRoutes';
-import ApparelDesktopHeader from 'src/components/apparel/header/ApparelDesktopHeader';
-import ApparelTabBar from 'src/components/apparel/header/ApparelTabBar';
+import ApparelNavigation from 'src/components/apparel/ApparelNavigation';
 import LoadingPage from 'src/pages/common/LoadingPage';
 
 const ApparelListPage = lazy(() => import('src/pages/apparel/list/ApparelListPage'));
@@ -21,8 +20,7 @@ export const ApparelRouteObjects: RouteObject[] = [
     path: '/',
     element: (
       <>
-        <ApparelDesktopHeader />
-        <ApparelTabBar />
+        <ApparelNavigation />
         <Suspense fallback={<LoadingPage />}>
           <Outlet />
         </Suspense>

@@ -5,8 +5,7 @@ import routes from './ComicRoutes';
 import ComicDetailPage from './detail/ComicDetailPage';
 import ComicListPage from './list/ComicListPage';
 import ComicViewerPage from './viewer/ComicViewerPage';
-import ComicDesktopHeader from 'src/components/comic/header/ComicDesktopHeader';
-import ComicTabBar from 'src/components/comic/header/ComicTabBar';
+import ComicNavigation from 'src/components/comic/ComicNavigation';
 import CommonMenuPage from 'src/pages/common/CommonMenuPage';
 
 export const ComicRouteObjects: RouteObject[] = [
@@ -18,8 +17,7 @@ export const ComicRouteObjects: RouteObject[] = [
     path: '/',
     element: (
       <>
-        <ComicDesktopHeader />
-        <ComicTabBar />
+        <ComicNavigation />
         <Outlet />
       </>
     ),
