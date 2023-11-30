@@ -6,9 +6,7 @@ import AppConstant from 'src/utils/constants';
 
 import './MenuProfileView.scss';
 
-interface Props {}
-
-export default function MenuProfileView(props: Props) {
+export default function MenuProfileView() {
   const { t } = useTranslation();
   const { username } = useTokenPayload();
 

@@ -20,8 +20,6 @@ const DiaryRoutes = {
 
   searchRoute: '/search',
   search: (query: string) => `/search?query=${query}`,
-
-  menuRoute: '/menu',
 };
 
 export default DiaryRoutes;

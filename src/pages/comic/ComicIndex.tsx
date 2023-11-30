@@ -6,7 +6,7 @@ import ComicDetailPage from './detail/ComicDetailPage';
 import ComicListPage from './list/ComicListPage';
 import ComicViewerPage from './viewer/ComicViewerPage';
 import ComicNavigation from 'src/components/comic/ComicNavigation';
-import CommonMenuPage from 'src/pages/common/CommonMenuPage';
+import CommonMenuPage from 'src/pages/common/menu/CommonMenuPage';
 
 export const ComicRouteObjects: RouteObject[] = [
   {

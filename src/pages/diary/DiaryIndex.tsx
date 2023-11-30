@@ -1,6 +1,6 @@
 import { Navigate, Outlet, RouteObject } from 'react-router-dom';
 
-import CommonMenuPage from '../common/CommonMenuPage';
+import CommonMenuPage from '../common/menu/CommonMenuPage';
 import routes from './DiaryRoutes';
 import DiaryCalendarPage from './calendar/DiaryCalendarPage';
 import DiaryCreatePage from './create/DiaryCreatePage';

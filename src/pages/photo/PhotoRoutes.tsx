@@ -31,8 +31,6 @@ const PhotoRoutes = {
   photoOriginal: ({ photoId, ...query }: PhotoOriginalPageParams) => stringifyUrl({ url: `/photos/${photoId}`, query }),
 
   photoUpload: '/upload',
-
-  menu: '/menu',
 };
 
 export default PhotoRoutes;

@@ -10,9 +10,7 @@ import './PhotoFileUpload.scss';
 
 const accept = 'image/jpeg,image/png,image/gif,video/mp4,video/quicktime';
 
-interface Props {}
-
-export default function PhotoFileUpload(props: Props) {
+export default function PhotoFileUpload() {
   const setState = useContext(PhotoUploadContext)[1];
 
   const onFileDrop = useCallback(

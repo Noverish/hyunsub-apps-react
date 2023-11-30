@@ -6,7 +6,7 @@ import FriendDetailHooks from './FriendDetailHooks';
 import FriendDetailView from './components/FriendDetailView';
 import friendDetailApi from 'src/api/friend/friend-detail';
 import { Loading } from 'src/components/common/LoadingSuspense';
-import { MobileHeaderButton } from 'src/components/common/header/MobileHeader';
+import { HeaderButton } from 'src/components/common/header/MobileHeader';
 import CommonLayout from 'src/components/common/layout/CommonLayout';
 import CommonRoutes from 'src/pages/common/CommonRoutes';
 import router from 'src/pages/router';
@@ -19,7 +19,7 @@ export default function FriendDetailPage() {
   const remove = FriendDetailHooks.useDelete();
 
   // elements
-  const mobileHeaderBtns: MobileHeaderButton[] = [
+  const mobileHeaderBtns: HeaderButton[] = [
     {
       icon: 'fas fa-edit',
       name: t('edit'),

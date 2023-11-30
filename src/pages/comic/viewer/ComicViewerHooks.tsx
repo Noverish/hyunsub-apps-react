@@ -5,7 +5,7 @@ import ComicRoutes from '../ComicRoutes';
 import comicDetailApi from 'src/api/comic/comic-detail';
 import comicEpisodeDetailApi from 'src/api/comic/comic-episode-detail';
 import comicHistorySetApi from 'src/api/comic/comic-history-set';
-import { MobileHeaderButton } from 'src/components/common/header/MobileHeader';
+import { HeaderButton } from 'src/components/common/header/MobileHeader';
 import { useUrlParams } from 'src/hooks/url-params';
 import { ComicDetail, ComicEpisodeDetail } from 'src/model/comic';
 import { CommonViewerData } from 'src/pages/common/viewer/components/CommonViewerSlide';
@@ -74,14 +74,14 @@ function useOnIndexChange() {
   };
 }
 
-function useHeaderButtons(hasNextEpisode: boolean): MobileHeaderButton[] {
+function useHeaderButtons(hasNextEpisode: boolean): HeaderButton[] {
   const { comicId, order } = usePageParams();
   const { images } = usePageData();
 
   const move = (diff: number) => () =>
     router.navigate(ComicRoutes.viewerRoute({ comicId, order: order + diff }), { replace: true });
 
-  const list: MobileHeaderButton[] = [];
+  const list: HeaderButton[] = [];
 
   if (images.length === 0) {
     return list;

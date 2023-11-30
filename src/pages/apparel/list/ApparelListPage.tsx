@@ -7,7 +7,7 @@ import apparelListApi from 'src/api/apparel/apparel-list';
 import ApparelList from 'src/components/apparel/ApparelList';
 import ListLoadingIndicator from 'src/components/common/ListLoadingIndicator';
 import CommonContainer from 'src/components/common/header/CommonContainer';
-import MobileHeader, { MobileHeaderButton } from 'src/components/common/header/MobileHeader';
+import MobileHeader, { HeaderButton } from 'src/components/common/header/MobileHeader';
 import useScrollBottom from 'src/hooks/scroll-bottom';
 import ApparelRoutes from 'src/pages/apparel/ApparelRoutes';
 import router from 'src/pages/router';
@@ -36,7 +36,7 @@ export default function ApparelListPage() {
     </Link>
   );
 
-  const headerBtns: MobileHeaderButton[] = [
+  const headerBtns: HeaderButton[] = [
     {
       icon: 'fas fa-plus',
       onClick: () => router.navigate(ApparelRoutes.add),

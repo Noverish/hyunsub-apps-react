@@ -7,7 +7,7 @@ import { Link, useParams } from 'react-router-dom';
 import { apparelDeleteAction } from './ApparelDetailContext';
 import apparelDetailApi from 'src/api/apparel/apparel-detail';
 import CommonContainer from 'src/components/common/header/CommonContainer';
-import MobileHeader, { MobileHeaderButton } from 'src/components/common/header/MobileHeader';
+import MobileHeader, { HeaderButton } from 'src/components/common/header/MobileHeader';
 import ImageCarousel from 'src/components/common/swiper/ImageCarousel';
 import ApparelRoutes from 'src/pages/apparel/ApparelRoutes';
 import router from 'src/pages/router';
@@ -36,7 +36,7 @@ export default function ApparelDetailPage() {
   const urls = images.map((v) => v.url + '?size=512');
   const { discarded } = apparel;
 
-  const mobileHeaderBtns: MobileHeaderButton[] = [
+  const mobileHeaderBtns: HeaderButton[] = [
     {
       icon: 'fas fa-edit',
       onClick: () => router.navigate(ApparelRoutes.edit(apparelId)),

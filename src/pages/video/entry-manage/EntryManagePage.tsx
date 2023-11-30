@@ -1,35 +1,29 @@
+import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import VideoRoutes from '../VideoRoutes';
 import EntryVideoRegisterCard from './components/EntryVideoRegisterCard';
 import videoEntryGetApi from 'src/api/video/video-entry-get';
-import CommonContainer from 'src/components/common/header/CommonContainer';
-import MobileHeader from 'src/components/common/header/MobileHeader';
+import CommonLayout from 'src/components/common/layout/CommonLayout';
 import { useUrlParams } from 'src/hooks/url-params';
 import EntryRenameForm from 'src/pages/video/entry-manage/components/EntryRenameCard';
 import EntryScanCard from 'src/pages/video/entry-manage/components/EntryScanCard';
-import { setDocumentTitle } from 'src/utils/services';
 
 import './EntryManagePage.scss';
 
 export default function EntryManagePage() {
-  setDocumentTitle(`Entry Manage`);
-
   const [entryId] = useUrlParams('entryId');
 
   const entry = videoEntryGetApi.useApi({ entryId });
 
   return (
-    <div id="EntryManagePage">
-      <MobileHeader title="Entry Manage" back />
-      <CommonContainer>
-        <Link to={VideoRoutes.detail({ entryId })} className="gray_on_hover">
-          <h1>{entry.name}</h1>
-        </Link>
-        <EntryScanCard />
-        <EntryRenameForm />
-        <EntryVideoRegisterCard />
-      </CommonContainer>
-    </div>
+    <CommonLayout className="EntryManagePage" title={`Entry Manage - ${entry.name}`} back>
+      <Link to={VideoRoutes.detail({ entryId })}>
+        <Button>Go to Entry</Button>
+      </Link>
+      <EntryScanCard />
+      <EntryRenameForm />
+      <EntryVideoRegisterCard />
+    </CommonLayout>
   );
 }

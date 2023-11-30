@@ -18,8 +18,6 @@ const ApparelRoutes = {
 
   brandDetailRoute: '/brands/:brand',
   brandDetail: (brand: string) => `/brands/${brand}`,
-
-  menu: '/menu',
 };
 
 export default ApparelRoutes;

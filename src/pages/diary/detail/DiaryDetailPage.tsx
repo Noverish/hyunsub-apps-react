@@ -6,7 +6,7 @@ import DiaryDetailNavigation from './components/DiaryDetailNavigation';
 import DiaryDetailView from './components/DiaryDetailView';
 import diaryDetailApi from 'src/api/diary/diary-detail';
 import { Loading } from 'src/components/common/LoadingSuspense';
-import { MobileHeaderButton } from 'src/components/common/header/MobileHeader';
+import { HeaderButton } from 'src/components/common/header/MobileHeader';
 import CommonLayout from 'src/components/common/layout/CommonLayout';
 import DiaryDetailPhotoList from 'src/pages/diary/detail/components/DiaryDetailPhotoList';
 import router from 'src/pages/router';
@@ -21,7 +21,7 @@ export default function DiaryDetailPage() {
   const remove = DiaryDetailHooks.useDelete();
 
   // elements
-  const mobileHeaderBtns: MobileHeaderButton[] = [
+  const mobileHeaderBtns: HeaderButton[] = [
     {
       icon: 'fas fa-edit',
       name: t('edit'),

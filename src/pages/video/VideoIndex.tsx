@@ -33,8 +33,22 @@ export const VideoRouteObjects: RouteObject[] = [
       { path: VideoRoutes.listRoute, element: <VideoListPage /> },
       { path: CommonRoutes.menu, element: <VideoMenuPage /> },
       { path: VideoRoutes.searchRoute, element: <VideoSearchPage /> },
-      { path: VideoRoutes.entryManageRoute, element: <EntryManagePage /> },
-      { path: VideoRoutes.videoManageRoute, element: <VideoManagePage /> },
+      {
+        path: VideoRoutes.entryManageRoute,
+        element: (
+          <AdminLayout>
+            <EntryManagePage />
+          </AdminLayout>
+        ),
+      },
+      {
+        path: VideoRoutes.videoManageRoute,
+        element: (
+          <AdminLayout>
+            <VideoManagePage />
+          </AdminLayout>
+        ),
+      },
       {
         path: VideoRoutes.admin,
         element: (

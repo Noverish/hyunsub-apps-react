@@ -1,7 +1,7 @@
 import { t } from 'i18next';
 import { useContext } from 'react';
 
-import MobileHeader, { MobileHeaderButton } from 'src/components/common/header/MobileHeader';
+import MobileHeader, { HeaderButton } from 'src/components/common/header/MobileHeader';
 import { MobileHeaderMoreButtonMenu } from 'src/components/common/header/MobileHeaderMoreButton';
 import { useAlbumThumbnailRegister, useToggleSelectMode } from 'src/components/photo/photo-list/PhotoListHooks';
 import { PhotoSelectContext } from 'src/components/photo/photo-list/PhotoSelectContext';
@@ -20,7 +20,7 @@ export default function PhotoListMobileHeader({ album }: Props) {
   const registerThumbnail = useAlbumThumbnailRegister(album?.id);
 
   // elements
-  const normalBtns: MobileHeaderButton[] = [
+  const normalBtns: HeaderButton[] = [
     {
       icon: 'far fa-check-circle',
       onClick: toggleSelectMode,

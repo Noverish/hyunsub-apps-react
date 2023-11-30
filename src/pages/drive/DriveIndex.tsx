@@ -1,8 +1,9 @@
 import { Navigate, Outlet, RouteObject } from 'react-router-dom';
 
+import CommonRoutes from '../common/CommonRoutes';
+import CommonMenuPage from '../common/menu/CommonMenuPage';
 import routes from './DriveRoutes';
 import DriveExplorerPage from './explorer/DriveExplorerPage';
-import DriveMenuPage from './menu/DriveMenuPage';
 import DriveNavigation from 'src/components/drive/DriveNavigation';
 
 export const DriveRouteObjects: RouteObject[] = [
@@ -17,7 +18,7 @@ export const DriveRouteObjects: RouteObject[] = [
     children: [
       { path: '/', element: <Navigate to={routes.explorerRoute} /> },
       { path: routes.explorerRoute, element: <DriveExplorerPage /> },
-      { path: routes.menuRoute, element: <DriveMenuPage /> },
+      { path: CommonRoutes.menu, element: <CommonMenuPage /> },
     ],
   },
 ];

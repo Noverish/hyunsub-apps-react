@@ -6,7 +6,7 @@ import { useVideoDetailPageData } from './VideoDetailHooks';
 import VideoDetailPageAdminButtons from './components/VideoDetailPageAdminButtons';
 import VideoDetailPlayer from './components/VideoDetailPlayer';
 import CommonContainer from 'src/components/common/header/CommonContainer';
-import MobileHeader, { MobileHeaderButton } from 'src/components/common/header/MobileHeader';
+import MobileHeader, { HeaderButton } from 'src/components/common/header/MobileHeader';
 import { VideoDetailContext } from 'src/pages/video/detail/VideoDetailContext';
 import { usePlayNextVideo } from 'src/pages/video/detail/VideoDetailHooks';
 import VideoEpisodeSection from 'src/pages/video/detail/components/VideoEpisodeSection';
@@ -33,7 +33,7 @@ export function VideoDetailPage() {
   };
 
   // elements
-  const mobileHeaderButtons: MobileHeaderButton[] = [
+  const mobileHeaderButtons: HeaderButton[] = [
     {
       icon: 'fas fa-cog',
       onClick: showSettingSection,

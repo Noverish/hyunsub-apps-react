@@ -1,6 +1,8 @@
 import { Suspense, lazy } from 'react';
 import { Outlet, RouteObject } from 'react-router-dom';
 
+import CommonRoutes from '../common/CommonRoutes';
+import CommonMenuPage from '../common/menu/CommonMenuPage';
 import routes from './ApparelRoutes';
 import ApparelNavigation from 'src/components/apparel/ApparelNavigation';
 import LoadingPage from 'src/pages/common/LoadingPage';
@@ -13,7 +15,6 @@ const ApparelCategoryListPage = lazy(() => import('src/pages/apparel/category-li
 const ApparelCategoryDetailPage = lazy(() => import('src/pages/apparel/category-detail/ApparelCategoryDetailPage'));
 const ApparelBrandListPage = lazy(() => import('src/pages/apparel/brand-list/ApparelBrandListPage'));
 const ApparelBrandDetailPage = lazy(() => import('src/pages/apparel/brand-detail/ApparelBrandDetailPage'));
-const ApparelMenuPage = lazy(() => import('src/pages/apparel/menu/ApparelMenuPage'));
 
 export const ApparelRouteObjects: RouteObject[] = [
   {
@@ -35,7 +36,7 @@ export const ApparelRouteObjects: RouteObject[] = [
       { path: routes.categoryDetailRoute, element: <ApparelCategoryDetailPage /> },
       { path: routes.brandList, element: <ApparelBrandListPage /> },
       { path: routes.brandDetailRoute, element: <ApparelBrandDetailPage /> },
-      { path: routes.menu, element: <ApparelMenuPage /> },
+      { path: CommonRoutes.menu, element: <CommonMenuPage /> },
     ],
   },
 ];

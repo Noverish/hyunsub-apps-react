@@ -5,7 +5,7 @@ import PhotoRoutes from '../PhotoRoutes';
 import { AlbumListContext, AlbumListProvider } from './AlbumListContext';
 import { useFlattenPageData } from 'src/api/generate-infinite-query';
 import albumListApi from 'src/api/photo/album-list';
-import { MobileHeaderButton } from 'src/components/common/header/MobileHeader';
+import { HeaderButton } from 'src/components/common/header/MobileHeader';
 import CommonLayout from 'src/components/common/layout/CommonLayout';
 import AlbumPreviewView from 'src/components/photo/AlbumPreviewView';
 import useScrollBottom from 'src/hooks/scroll-bottom';
@@ -31,7 +31,7 @@ function AlbumListPage() {
     <AlbumPreviewView key={v.id} preview={v} onClick={PhotoRoutes.albumDetail(v.id)} />
   ));
 
-  const headerBtns: MobileHeaderButton[] = [
+  const headerBtns: HeaderButton[] = [
     {
       icon: 'fas fa-plus',
       name: t('AlbumCreateModal.title'),

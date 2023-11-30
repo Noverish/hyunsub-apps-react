@@ -1,7 +1,7 @@
 import { Navigate, Outlet, RouteObject } from 'react-router-dom';
 
-import CommonMenuPage from '../common/CommonMenuPage';
 import CommonRoutes from '../common/CommonRoutes';
+import CommonMenuPage from '../common/menu/CommonMenuPage';
 import routes from './FriendRoutes';
 import FriendCreatePage from './create/FriendCreatePage';
 import FriendDetailPage from './detail/FriendDetailPage';

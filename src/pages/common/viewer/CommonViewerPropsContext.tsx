@@ -2,7 +2,7 @@ import { MutableRefObject } from 'react';
 import Swiper from 'swiper';
 
 import { CommonViewerData } from './components/CommonViewerSlide';
-import { MobileHeaderButton } from 'src/components/common/header/MobileHeader';
+import { HeaderButton } from 'src/components/common/header/MobileHeader';
 import { generateValueContext } from 'src/utils/context';
 
 export interface CommonViewerProps {
@@ -11,7 +11,7 @@ export interface CommonViewerProps {
   initialIndex?: number;
   onIndexChange?: (index: number) => void;
   onIndexReady?: (from: number, to: number) => void;
-  headerBtns?: MobileHeaderButton[];
+  headerBtns?: HeaderButton[];
   infoSection?: JSX.Element;
   titlePrefix?: string;
   swiperRef?: MutableRefObject<Swiper | undefined>;

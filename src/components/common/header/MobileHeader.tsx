@@ -1,15 +1,15 @@
 import cs from 'classnames';
-import { useNavigate } from 'react-router-dom';
 
 import MobileHeaderMoreButton, { MobileHeaderMoreButtonMenu } from './MobileHeaderMoreButton';
+import router from 'src/pages/router';
 import { useBreakpointMobile } from 'src/utils/breakpoint';
 
 import './MobileHeader.scss';
 
-export interface MobileHeaderProps {
+export interface HeaderProps {
   title: string;
   back?: boolean;
-  btns?: MobileHeaderButton[];
+  btns?: HeaderButton[];
   menus?: MobileHeaderMoreButtonMenu[];
   onClose?: () => void;
   onHeaderClick?: (e: React.MouseEvent<HTMLElement>) => void;
@@ -17,20 +17,19 @@ export interface MobileHeaderProps {
   transparent?: boolean;
 }
 
-export interface MobileHeaderButton {
+export interface HeaderButton {
   icon: string;
   name?: string;
   onClick: () => void;
 }
 
-export default function MobileHeader(props: MobileHeaderProps) {
+export default function MobileHeader(props: HeaderProps) {
   const { title, back, btns, onClose, menus, onHeaderClick, onTitleClick, transparent } = props;
-  const navigate = useNavigate();
   const isMobile = useBreakpointMobile();
 
   const onBack = () => {
     if (back) {
-      navigate(-1);
+      router.navigate(-1);
     }
 
     if (onClose) {

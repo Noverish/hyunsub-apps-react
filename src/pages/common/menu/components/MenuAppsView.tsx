@@ -3,9 +3,7 @@ import services from 'src/utils/services';
 
 import './MenuAppsView.scss';
 
-interface Props {}
-
-export default function MenuAppsView(props: Props) {
+export default function MenuAppsView() {
   const { authorities } = useTokenPayload();
   const items = services.filter((v) => authorities.includes(v.code));
 

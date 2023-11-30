@@ -5,7 +5,7 @@ import { Keyboard, Virtual, Zoom } from 'swiper/modules';
 import { Swiper as SwiperComponent, SwiperSlide } from 'swiper/react';
 
 import PageSelectModal from 'src/components/common/PageSelectModal';
-import { MobileHeaderButton } from 'src/components/common/header/MobileHeader';
+import { HeaderButton } from 'src/components/common/header/MobileHeader';
 import router from 'src/pages/router';
 
 import './PageSwiper.scss';
@@ -16,7 +16,7 @@ export interface PageSwiperProps<T> {
   slides: (T | null)[];
   onSlideChange?: (index: number, slide: T | null) => void;
   renderSlide: (slide: T | null) => JSX.Element;
-  btns?: MobileHeaderButton[];
+  btns?: HeaderButton[];
   onSwiper?: (swiper: Swiper) => void;
   additionalLastSlide?: JSX.Element;
   titlePrefix?: string;
