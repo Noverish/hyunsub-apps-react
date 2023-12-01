@@ -1,7 +1,7 @@
 import CommonContainer from '../header/CommonContainer';
 import DesktopHeader from '../header/DesktopHeader';
 import MobileHeader from '../header/MobileHeader';
-import { HeaderProps } from 'src/components/common/header/MobileHeader';
+import { HeaderProps } from 'src/model/component';
 import { useBreakpointMobile } from 'src/utils/breakpoint';
 import { setDocumentTitle } from 'src/utils/services';
 

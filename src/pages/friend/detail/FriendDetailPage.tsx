@@ -6,8 +6,8 @@ import FriendDetailHooks from './FriendDetailHooks';
 import FriendDetailView from './components/FriendDetailView';
 import friendDetailApi from 'src/api/friend/friend-detail';
 import { Loading } from 'src/components/common/LoadingSuspense';
-import { HeaderButton } from 'src/components/common/header/MobileHeader';
 import CommonLayout from 'src/components/common/layout/CommonLayout';
+import { HeaderButton } from 'src/model/component';
 import CommonRoutes from 'src/pages/common/CommonRoutes';
 import router from 'src/pages/router';
 

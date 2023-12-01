@@ -2,7 +2,7 @@ import { MutableRefObject } from 'react';
 import Swiper from 'swiper';
 
 import { CommonViewerData } from './components/CommonViewerSlide';
-import { HeaderButton } from 'src/components/common/header/MobileHeader';
+import { HeaderButton } from 'src/model/component';
 import { generateValueContext } from 'src/utils/context';
 
 export interface CommonViewerProps {

@@ -1,17 +1,17 @@
 import { t } from 'i18next';
 import { Link, useLocation } from 'react-router-dom';
 
-import { CommonNavigationMenu, CommonNavigationProps } from 'src/model/component';
+import { NavigationMenu, NavigationProps } from 'src/model/component';
 import CommonRoutes from 'src/pages/common/CommonRoutes';
 import { useBreakpointMobile } from 'src/utils/breakpoint';
 
 import './CommonTabBar.scss';
 
-export default function CommonTabBar({ menus }: CommonNavigationProps) {
+export default function CommonTabBar({ menus }: NavigationProps) {
   const location = useLocation();
   const isMobile = useBreakpointMobile();
 
-  const newItems: CommonNavigationMenu[] = [
+  const newItems: NavigationMenu[] = [
     ...menus,
     {
       name: t('CommonNavigation.search'),

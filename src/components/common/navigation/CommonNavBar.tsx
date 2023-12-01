@@ -1,13 +1,13 @@
 import { Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-import { CommonNavigationProps } from 'src/model/component';
+import { NavigationProps } from 'src/model/component';
 import CommonRoutes from 'src/pages/common/CommonRoutes';
 import router from 'src/pages/router';
 
 import './CommonNavBar.scss';
 
-export default function CommonNavBar(props: CommonNavigationProps) {
+export default function CommonNavBar(props: NavigationProps) {
   const { menus, title } = props;
 
   const goToSearch = () => {

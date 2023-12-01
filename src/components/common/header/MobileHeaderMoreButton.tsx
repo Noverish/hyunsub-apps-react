@@ -1,6 +1,8 @@
 import { forwardRef } from 'react';
 import { Dropdown } from 'react-bootstrap';
 
+import { HeaderMoreButton } from 'src/model/component';
+
 interface ButtonProps {
   onClick: () => void;
 }
@@ -9,13 +11,8 @@ const Toggle = forwardRef<HTMLElement, ButtonProps>(({ onClick }, ref) => (
   <i className="fas fa-ellipsis-h" ref={ref} onClick={onClick} />
 ));
 
-export interface MobileHeaderMoreButtonMenu {
-  text: string;
-  onClick: () => void;
-}
-
 interface Props {
-  menus: MobileHeaderMoreButtonMenu[];
+  menus: HeaderMoreButton[];
 }
 
 export default function MobileHeaderMoreButton({ menus }: Props) {

@@ -1,27 +1,11 @@
 import cs from 'classnames';
 
-import MobileHeaderMoreButton, { MobileHeaderMoreButtonMenu } from './MobileHeaderMoreButton';
+import MobileHeaderMoreButton from './MobileHeaderMoreButton';
+import { HeaderProps } from 'src/model/component';
 import router from 'src/pages/router';
 import { useBreakpointMobile } from 'src/utils/breakpoint';
 
 import './MobileHeader.scss';
-
-export interface HeaderProps {
-  title: string;
-  back?: boolean;
-  btns?: HeaderButton[];
-  menus?: MobileHeaderMoreButtonMenu[];
-  onClose?: () => void;
-  onHeaderClick?: (e: React.MouseEvent<HTMLElement>) => void;
-  onTitleClick?: (e: React.MouseEvent<HTMLElement>) => void;
-  transparent?: boolean;
-}
-
-export interface HeaderButton {
-  icon: string;
-  name?: string;
-  onClick: () => void;
-}
 
 export default function MobileHeader(props: HeaderProps) {
   const { title, back, btns, onClose, menus, onHeaderClick, onTitleClick, transparent } = props;

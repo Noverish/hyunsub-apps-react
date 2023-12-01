@@ -5,10 +5,10 @@ import PhotoRoutes from '../PhotoRoutes';
 import { AlbumListContext, AlbumListProvider } from './AlbumListContext';
 import { useFlattenPageData } from 'src/api/generate-infinite-query';
 import albumListApi from 'src/api/photo/album-list';
-import { HeaderButton } from 'src/components/common/header/MobileHeader';
 import CommonLayout from 'src/components/common/layout/CommonLayout';
 import AlbumPreviewView from 'src/components/photo/AlbumPreviewView';
 import useScrollBottom from 'src/hooks/scroll-bottom';
+import { HeaderButton } from 'src/model/component';
 import AlbumCreateModal from 'src/pages/photo/album-list/components/AlbumCreateModal';
 
 function AlbumListPage() {

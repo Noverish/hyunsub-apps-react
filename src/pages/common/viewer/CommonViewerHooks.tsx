@@ -7,7 +7,7 @@ import { VirtualData } from 'swiper/types/modules/virtual';
 import { CommonViewerPropsContext } from './CommonViewerPropsContext';
 import { CommonViewerStateContext } from './CommonViewerStateContext';
 import { CommonViewerData } from './components/CommonViewerSlide';
-import { HeaderButton } from 'src/components/common/header/MobileHeader';
+import { HeaderButton } from 'src/model/component';
 import { CommonViewerSwiperContext } from 'src/pages/common/viewer/CommonViewerSwiperContext';
 
 export let swiper: Swiper | undefined;

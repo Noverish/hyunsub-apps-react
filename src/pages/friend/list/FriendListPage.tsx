@@ -2,8 +2,8 @@ import { t } from 'i18next';
 
 import FriendRoutes from '../FriendRoutes';
 import FriendSearchResult from '../search/components/FriendSearchResult';
-import { HeaderButton } from 'src/components/common/header/MobileHeader';
 import CommonLayout from 'src/components/common/layout/CommonLayout';
+import { HeaderButton } from 'src/model/component';
 import router from 'src/pages/router';
 
 export default function FriendListPage() {

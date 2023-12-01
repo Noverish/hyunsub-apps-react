@@ -1,10 +1,10 @@
 import { t } from 'i18next';
 
 import CommonNavigation from 'src/components/common/navigation/CommonNavigation';
-import { CommonNavigationProps } from 'src/model/component';
+import { NavigationProps } from 'src/model/component';
 import ApparelRoutes from 'src/pages/apparel/ApparelRoutes';
 
-const props: CommonNavigationProps = {
+const props: NavigationProps = {
   title: 'HyunApparel',
   menus: [
     {

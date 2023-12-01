@@ -1,10 +1,10 @@
 import { t } from 'i18next';
 
 import CommonNavigation from 'src/components/common/navigation/CommonNavigation';
-import { CommonNavigationProps } from 'src/model/component';
+import { NavigationProps } from 'src/model/component';
 import FriendRoutes from 'src/pages/friend/FriendRoutes';
 
-const props: CommonNavigationProps = {
+const props: NavigationProps = {
   title: 'HyunFriend',
   menus: [
     {

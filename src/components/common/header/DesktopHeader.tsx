@@ -1,6 +1,6 @@
 import { Button } from 'react-bootstrap';
 
-import { HeaderProps } from './MobileHeader';
+import { HeaderProps } from 'src/model/component';
 import router from 'src/pages/router';
 
 export default function DesktopHeader(props: HeaderProps) {

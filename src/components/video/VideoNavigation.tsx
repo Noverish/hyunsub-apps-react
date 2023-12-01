@@ -3,7 +3,7 @@ import { useContext } from 'react';
 
 import CommonNavigation from 'src/components/common/navigation/CommonNavigation';
 import { VideoCategoryContext } from 'src/context/video/VideoCategoryContext';
-import { CommonNavigationProps } from 'src/model/component';
+import { NavigationProps } from 'src/model/component';
 import VideoRoutes from 'src/pages/video/VideoRoutes';
 
 export default function VideoNavigation() {
@@ -31,7 +31,7 @@ export default function VideoNavigation() {
     },
   ];
 
-  const desktopProps: CommonNavigationProps = {
+  const desktopProps: NavigationProps = {
     title: 'HyunVideo',
     menus: newMenus,
   };

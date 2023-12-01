@@ -5,7 +5,7 @@ import { Keyboard, Virtual, Zoom } from 'swiper/modules';
 import { Swiper as SwiperComponent, SwiperSlide } from 'swiper/react';
 
 import PageSelectModal from 'src/components/common/PageSelectModal';
-import { HeaderButton } from 'src/components/common/header/MobileHeader';
+import { HeaderButton } from 'src/model/component';
 import router from 'src/pages/router';
 
 import './PageSwiper.scss';

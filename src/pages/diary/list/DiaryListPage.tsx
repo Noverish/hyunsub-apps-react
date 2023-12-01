@@ -1,8 +1,8 @@
 import { t } from 'i18next';
 
 import DiaryRoutes from '../DiaryRoutes';
-import { HeaderButton } from 'src/components/common/header/MobileHeader';
 import CommonLayout from 'src/components/common/layout/CommonLayout';
+import { HeaderButton } from 'src/model/component';
 import DiarySearchResult from 'src/pages/diary/search/components/DiarySearchResult';
 import router from 'src/pages/router';
 

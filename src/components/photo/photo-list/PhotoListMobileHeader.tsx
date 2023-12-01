@@ -1,10 +1,10 @@
 import { t } from 'i18next';
 import { useContext } from 'react';
 
-import MobileHeader, { HeaderButton } from 'src/components/common/header/MobileHeader';
-import { MobileHeaderMoreButtonMenu } from 'src/components/common/header/MobileHeaderMoreButton';
+import MobileHeader from 'src/components/common/header/MobileHeader';
 import { useAlbumThumbnailRegister, useToggleSelectMode } from 'src/components/photo/photo-list/PhotoListHooks';
 import { PhotoSelectContext } from 'src/components/photo/photo-list/PhotoSelectContext';
+import { HeaderButton, HeaderMoreButton } from 'src/model/component';
 import { Album } from 'src/model/photo';
 import PhotoRoutes from 'src/pages/photo/PhotoRoutes';
 import router from 'src/pages/router';
@@ -27,7 +27,7 @@ export default function PhotoListMobileHeader({ album }: Props) {
     },
   ];
 
-  const normalMenus: MobileHeaderMoreButtonMenu[] = [
+  const normalMenus: HeaderMoreButton[] = [
     {
       text: t('upload'),
       onClick: () => {
@@ -54,7 +54,7 @@ export default function PhotoListMobileHeader({ album }: Props) {
     },
   ];
 
-  const selectMenus: MobileHeaderMoreButtonMenu[] = [
+  const selectMenus: HeaderMoreButton[] = [
     {
       text: t('PhotoListView.add-to-album'),
       onClick: () => setState({ showAlbumSelectModal: true }),

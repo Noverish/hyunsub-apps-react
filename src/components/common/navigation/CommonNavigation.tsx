@@ -1,9 +1,9 @@
 import CommonNavBar from './CommonNavBar';
 import CommonTabBar from './CommonTabBar';
-import { CommonNavigationProps } from 'src/model/component';
+import { NavigationProps } from 'src/model/component';
 import { useBreakpointMobile } from 'src/utils/breakpoint';
 
-export default function CommonNavigation(props: CommonNavigationProps) {
+export default function CommonNavigation(props: NavigationProps) {
   const isMobile = useBreakpointMobile();
 
   if (isMobile) {

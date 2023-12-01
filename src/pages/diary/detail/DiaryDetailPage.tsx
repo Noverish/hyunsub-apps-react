@@ -6,8 +6,8 @@ import DiaryDetailNavigation from './components/DiaryDetailNavigation';
 import DiaryDetailView from './components/DiaryDetailView';
 import diaryDetailApi from 'src/api/diary/diary-detail';
 import { Loading } from 'src/components/common/LoadingSuspense';
-import { HeaderButton } from 'src/components/common/header/MobileHeader';
 import CommonLayout from 'src/components/common/layout/CommonLayout';
+import { HeaderButton } from 'src/model/component';
 import DiaryDetailPhotoList from 'src/pages/diary/detail/components/DiaryDetailPhotoList';
 import router from 'src/pages/router';
 

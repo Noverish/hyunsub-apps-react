@@ -5,9 +5,9 @@ import ComicRoutes from '../ComicRoutes';
 import comicDetailApi from 'src/api/comic/comic-detail';
 import comicEpisodeDetailApi from 'src/api/comic/comic-episode-detail';
 import comicHistorySetApi from 'src/api/comic/comic-history-set';
-import { HeaderButton } from 'src/components/common/header/MobileHeader';
 import { useUrlParams } from 'src/hooks/url-params';
 import { ComicDetail, ComicEpisodeDetail } from 'src/model/comic';
+import { HeaderButton } from 'src/model/component';
 import { CommonViewerData } from 'src/pages/common/viewer/components/CommonViewerSlide';
 import router from 'src/pages/router';
 
