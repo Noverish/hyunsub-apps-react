@@ -5,14 +5,14 @@ interface AlbumPhotoRegisterParams {
   photoIds: string[];
 }
 
-const albumPhotoRegisterApi = generateApi<AlbumPhotoRegisterParams, any>((params) => {
-  const { albumId, ...data } = params;
-
-  return {
-    url: `/api/v2/albums/${albumId}/photos`,
-    method: 'POST',
-    data,
-  };
+const albumPhotoRegisterApi = generateApi<AlbumPhotoRegisterParams, any>({
+  api: (params) => {
+    return {
+      url: `/api/v2/albums/${params.albumId}/photos`,
+      method: 'POST',
+      data: params,
+    };
+  },
 });
 
 export default albumPhotoRegisterApi;

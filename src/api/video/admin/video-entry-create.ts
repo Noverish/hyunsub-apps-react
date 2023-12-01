@@ -8,10 +8,12 @@ export interface VideoEntryCreateParams {
   videoGroupId?: string;
 }
 
-const videoEntryCreateApi = generateApi<VideoEntryCreateParams, VideoEntry>((params) => ({
-  url: '/api/v1/entries',
-  method: 'POST',
-  data: params,
-}));
+const videoEntryCreateApi = generateApi<VideoEntryCreateParams, VideoEntry>({
+  api: (params) => ({
+    url: '/api/v1/entries',
+    method: 'POST',
+    data: params,
+  }),
+});
 
 export default videoEntryCreateApi;

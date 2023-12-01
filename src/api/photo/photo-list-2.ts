@@ -1,4 +1,4 @@
-import { generateApi2 } from '../generate-api';
+import { generateApi } from '../generate-api';
 import { Pagination } from 'src/model/api';
 import { PhotoPreview } from 'src/model/photo';
 
@@ -8,7 +8,7 @@ export interface PhotoListParams2 {
   next?: string;
 }
 
-const photoListApi2 = generateApi2<PhotoListParams2, Pagination<PhotoPreview>>({
+const photoListApi2 = generateApi<PhotoListParams2, Pagination<PhotoPreview>>({
   api: ({ photoId, prev, next }) => ({
     url: `/api/v2/photos`,
     method: 'GET',

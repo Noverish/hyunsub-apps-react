@@ -8,10 +8,12 @@ interface ApparelUpdateParams {
   deletes: string[];
 }
 
-const apparelUpdateApi = generateApi<ApparelUpdateParams, ApparelDetailResult>((params) => ({
-  url: `/api/v1/apparels/${params.apparel.id}`,
-  method: 'PUT',
-  data: params,
-}));
+const apparelUpdateApi = generateApi<ApparelUpdateParams, ApparelDetailResult>({
+  api: (params) => ({
+    url: `/api/v1/apparels/${params.apparel.id}`,
+    method: 'PUT',
+    data: params,
+  }),
+});
 
 export default apparelUpdateApi;

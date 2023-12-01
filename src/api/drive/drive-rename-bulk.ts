@@ -10,10 +10,12 @@ export interface DriveRenameBulkParamsData {
   to: string;
 }
 
-const driveRenameBulkApi = generateApi<DriveRenameBulkParams, any>((params) => ({
-  url: '/api/v1/rename-bulk',
-  method: 'POST',
-  data: params,
-}));
+const driveRenameBulkApi = generateApi<DriveRenameBulkParams, any>({
+  api: (params) => ({
+    url: '/api/v1/rename-bulk',
+    method: 'POST',
+    data: params,
+  }),
+});
 
 export default driveRenameBulkApi;

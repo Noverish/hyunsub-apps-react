@@ -4,9 +4,11 @@ export interface VideoMetadataParams {
   videoId: string;
 }
 
-const videoMetadataApi = generateApi<VideoMetadataParams, any>(({ videoId }) => ({
-  url: `/api/v1/videos/${videoId}/manage/metadata`,
-  method: 'POST',
-}));
+const videoMetadataApi = generateApi<VideoMetadataParams, any>({
+  api: ({ videoId }) => ({
+    url: `/api/v1/videos/${videoId}/manage/metadata`,
+    method: 'POST',
+  }),
+});
 
 export default videoMetadataApi;

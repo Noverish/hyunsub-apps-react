@@ -5,10 +5,12 @@ export interface AlbumCreateParams {
   name: string;
 }
 
-const albumCreateApi = generateApi<AlbumCreateParams, AlbumPreview>((params) => ({
-  url: `/api/v2/albums`,
-  method: 'POST',
-  data: params,
-}));
+const albumCreateApi = generateApi<AlbumCreateParams, AlbumPreview>({
+  api: (params) => ({
+    url: `/api/v2/albums`,
+    method: 'POST',
+    data: params,
+  }),
+});
 
 export default albumCreateApi;

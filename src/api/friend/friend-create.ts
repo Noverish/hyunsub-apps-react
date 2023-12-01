@@ -3,10 +3,10 @@ import friendSearchApi from './friend-search';
 import friendTagDetailApi from './friend-tag-friends';
 import friendListApi from 'src/api/friend/friend-list';
 import friendTagListApi from 'src/api/friend/friend-tag-list';
-import { generateApi2 } from 'src/api/generate-api';
+import { generateApi } from 'src/api/generate-api';
 import { Friend } from 'src/model/friend';
 
-const friendCreateApi = generateApi2<Friend, Friend>({
+const friendCreateApi = generateApi<Friend, Friend>({
   api: (params) => ({
     url: `/api/v1/friends`,
     method: 'POST',

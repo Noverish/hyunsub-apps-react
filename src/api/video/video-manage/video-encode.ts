@@ -5,10 +5,12 @@ export interface VideoEncodeParams {
   options: string;
 }
 
-const videoEncodeApi = generateApi<VideoEncodeParams, any>(({ videoId, ...data }) => ({
-  url: `/api/v1/videos/${videoId}/manage/encode`,
-  method: 'POST',
-  data,
-}));
+const videoEncodeApi = generateApi<VideoEncodeParams, any>({
+  api: (params: VideoEncodeParams) => ({
+    url: `/api/v1/videos/${params.videoId}/manage/encode`,
+    method: 'POST',
+    data: params,
+  }),
+});
 
 export default videoEncodeApi;

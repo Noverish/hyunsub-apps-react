@@ -1,4 +1,4 @@
-import { generateApi2 } from '../generate-api';
+import { generateApi } from '../generate-api';
 import diaryDetailApi from 'src/api/diary/diary-detail';
 import diarySearchApi from 'src/api/diary/diary-search';
 import diaryStatusMonthApi from 'src/api/diary/diary-status-month';
@@ -11,7 +11,7 @@ export interface DiaryCreateParams {
   friendIds: string[];
 }
 
-const diaryCreateApi = generateApi2<DiaryCreateParams, Diary>({
+const diaryCreateApi = generateApi<DiaryCreateParams, Diary>({
   api: (params) => ({
     url: `/api/v1/diaries`,
     method: 'POST',

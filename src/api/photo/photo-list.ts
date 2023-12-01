@@ -1,11 +1,11 @@
-import { generateInfiniteQuery2 } from '../generate-infinite-query-2';
+import { generatePaginationQuery } from '../generate-pagination-query';
 import { PhotoPreview } from 'src/model/photo';
 
 export interface PhotoListParams {
   photoId?: string;
 }
 
-const photoListApi = generateInfiniteQuery2<PhotoListParams, PhotoPreview>({
+const photoListApi = generatePaginationQuery<PhotoListParams, PhotoPreview>({
   api: ({ photoId, prev, next }) => ({
     url: `/api/v2/photos`,
     method: 'GET',

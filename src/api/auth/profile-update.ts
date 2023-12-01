@@ -12,10 +12,12 @@ export interface ProfileUpdateResult {
   language?: boolean;
 }
 
-const profileUpdateApi = generateApi<ProfileUpdateParams, ProfileUpdateResult>((params) => ({
-  url: '/api/v1/profile',
-  method: 'PUT',
-  data: params,
-}));
+const profileUpdateApi = generateApi<ProfileUpdateParams, ProfileUpdateResult>({
+  api: (params) => ({
+    url: '/api/v1/profile',
+    method: 'PUT',
+    data: params,
+  }),
+});
 
 export default profileUpdateApi;

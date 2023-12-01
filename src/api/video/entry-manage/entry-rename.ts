@@ -6,10 +6,12 @@ export interface EntryRenameParams {
   to: string;
 }
 
-const entryRenameApi = generateApi<EntryRenameParams, any>(({ entryId, ...data }) => ({
-  url: `/api/v1/entries/${entryId}/manage/rename`,
-  method: 'POST',
-  data,
-}));
+const entryRenameApi = generateApi<EntryRenameParams, any>({
+  api: (params: EntryRenameParams) => ({
+    url: `/api/v1/entries/${params.entryId}/manage/rename`,
+    method: 'POST',
+    data: params,
+  }),
+});
 
 export default entryRenameApi;

@@ -5,10 +5,12 @@ export interface VideoThumbnailParams {
   time?: number;
 }
 
-const videoThumbnailApi = generateApi<VideoThumbnailParams, any>(({ videoId, ...data }) => ({
-  url: `/api/v1/videos/${videoId}/manage/thumbnail`,
-  method: 'POST',
-  data,
-}));
+const videoThumbnailApi = generateApi<VideoThumbnailParams, any>({
+  api: (params: VideoThumbnailParams) => ({
+    url: `/api/v1/videos/${params.videoId}/manage/thumbnail`,
+    method: 'POST',
+    data: params,
+  }),
+});
 
 export default videoThumbnailApi;

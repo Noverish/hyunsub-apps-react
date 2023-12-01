@@ -18,35 +18,37 @@ export interface FileUploadParams {
 const pathNonce = generateRandomString(8);
 const url = AppConstant.file.HOST + `/upload/multipart/${pathNonce}`;
 
-const fileUpload = generateApi<FileUploadParams, { result: string }>((params) => {
-  const { files, progress, controller } = params;
+const fileUpload = generateApi<FileUploadParams, { result: string }>({
+  api: (params) => {
+    const { files, progress, controller } = params;
 
-  const formData = new FormData();
-  formData.append('length', files.length.toString());
-  files.forEach((v) => formData.append('files', v.file, encodeURI(v.path)));
+    const formData = new FormData();
+    formData.append('length', files.length.toString());
+    files.forEach((v) => formData.append('files', v.file, encodeURI(v.path)));
 
-  const sizes = calcFormDataSize(files);
+    const sizes = calcFormDataSize(files);
 
-  return {
-    url,
-    method: 'POST',
-    withCredentials: true,
-    data: formData,
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
-    signal: controller?.signal,
-    onUploadProgress: (e: AxiosProgressEvent) => {
-      if (!progress) {
-        return;
-      }
+    return {
+      url,
+      method: 'POST',
+      withCredentials: true,
+      data: formData,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+      signal: controller?.signal,
+      onUploadProgress: (e: AxiosProgressEvent) => {
+        if (!progress) {
+          return;
+        }
 
-      const status = calcProgress(sizes, e);
-      if (status) {
-        progress(status);
-      }
-    },
-  } as AxiosRequestConfig;
+        const status = calcProgress(sizes, e);
+        if (status) {
+          progress(status);
+        }
+      },
+    } as AxiosRequestConfig;
+  },
 });
 
 export default async function fileUploadApi(params: FileUploadParams) {

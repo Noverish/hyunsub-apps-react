@@ -5,25 +5,23 @@ import { useMemo } from 'react';
 import { generateApi } from 'src/api/generate-api';
 import { Pagination } from 'src/model/api';
 
-export type UseInfQueryResult2<R> = UseInfiniteQueryResult<Pagination<R>>;
-
 interface PageParam {
   next?: string;
   prev?: string;
 }
 
 interface GenerateInfiniteApiOption<P> {
-  api: (p: P & PageParam) => AxiosRequestConfig<P>;
+  api: (p: P & PageParam) => AxiosRequestConfig<P & PageParam>;
   key: string;
 }
 
 interface GenerateInfiniteApiResult<P, R> {
-  useInfiniteApi: (p: P) => UseInfQueryResult2<R>;
+  useInfiniteApi: (p: P) => UseInfiniteQueryResult<Pagination<R>>;
 }
 
-export function generateInfiniteQuery2<P, R>(option: GenerateInfiniteApiOption<P>): GenerateInfiniteApiResult<P, R> {
+export function generatePaginationQuery<P, R>(option: GenerateInfiniteApiOption<P>): GenerateInfiniteApiResult<P, R> {
   const key = (p: P): QueryKey => [option.key, p];
-  const api = generateApi<P & PageParam, Pagination<R>>(option.api);
+  const api = generateApi<P & PageParam, Pagination<R>>({ api: option.api });
 
   const useInfiniteApi = (p: P) => {
     return useInfiniteQuery({
@@ -41,6 +39,6 @@ export function generateInfiniteQuery2<P, R>(option: GenerateInfiniteApiOption<P
   };
 }
 
-export function useFlattenPageData2<T>(data: InfiniteData<Pagination<T>> | undefined): T[] {
+export function useFlattenPagination<T>(data: InfiniteData<Pagination<T>> | undefined): T[] {
   return useMemo(() => data?.pages.flatMap((v) => v.data) ?? [], [data]);
 }

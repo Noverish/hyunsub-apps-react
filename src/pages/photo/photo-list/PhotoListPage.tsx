@@ -2,7 +2,7 @@ import { t } from 'i18next';
 import { useContext } from 'react';
 
 import PhotoRoutes from '../PhotoRoutes';
-import { useFlattenPageData2 } from 'src/api/generate-infinite-query-2';
+import { useFlattenPagination } from 'src/api/generate-pagination-query';
 import photoListApi from 'src/api/photo/photo-list';
 import ListLoadingIndicator from 'src/components/common/ListLoadingIndicator';
 import CommonContainer from 'src/components/common/header/CommonContainer';
@@ -20,7 +20,7 @@ function PhotoListPage() {
 
   // hooks
   const { data, fetchNextPage, isFetching } = photoListApi.useInfiniteApi({});
-  const infiniteData = useFlattenPageData2(data);
+  const infiniteData = useFlattenPagination(data);
   const [state, setState] = useContext(PhotoSelectContext);
   const albumPhotoRegister = useAlbumPhotoRegister();
 

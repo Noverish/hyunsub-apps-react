@@ -7,10 +7,12 @@ interface ApparelCreateParams {
   uploads: ApparelUploadImageParams[];
 }
 
-const apparelCreateApi = generateApi<ApparelCreateParams, ApparelDetailResult>((params) => ({
-  url: '/api/v1/apparels',
-  method: 'POST',
-  data: params,
-}));
+const apparelCreateApi = generateApi<ApparelCreateParams, ApparelDetailResult>({
+  api: (params) => ({
+    url: '/api/v1/apparels',
+    method: 'POST',
+    data: params,
+  }),
+});
 
 export default apparelCreateApi;

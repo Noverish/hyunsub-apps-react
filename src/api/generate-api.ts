@@ -39,36 +39,7 @@ interface GenerateApiResult<P, R> {
   updateCache: (p: P, updater: Updater<R>) => void;
 }
 
-export function generateApi<P, R>(func: (p: P) => AxiosRequestConfig) {
-  return async (p: P): Promise<R> => {
-    try {
-      const res: AxiosResponse<R> = await axios(func(p));
-      if (isDev()) {
-        await sleep(1000);
-      }
-      return res.data;
-    } catch (ex) {
-      dispatch(GlobalActions.update({ loading: false }));
-      const res = (ex as AxiosError<ErrorResponse>).response!!;
-      if (!res) {
-        throw ex;
-      }
-
-      if (res.status === 400) {
-        dispatch(insertToast(getErrMsg(t, res.data)));
-      } else if (res.status === 401) {
-        window.location.href = `/login?url=${encodeURIComponent(window.location.href)}`;
-      } else if (res.status === 403) {
-        router.navigate('/forbidden');
-      } else {
-        dispatch(insertToast(JSON.stringify(res.data)));
-      }
-      throw ex;
-    }
-  };
-}
-
-export function generateApi2<P, R>(option: GenerateApiOption<P, R>) {
+export function generateApi<P, R>(option: GenerateApiOption<P, R>) {
   return async (p: P): Promise<R> => {
     try {
       const res: AxiosResponse<R> = await axios(option.api(p));
@@ -114,7 +85,9 @@ export function generateQuery<P, R>(option: GenerateQueryOption<P>): GenerateApi
     return config;
   };
 
-  const api = generateApi<P, R>(newOptionApi);
+  const api = generateApi<P, R>({
+    api: newOptionApi,
+  });
 
   const useApi = (p: P) =>
     useQuery({

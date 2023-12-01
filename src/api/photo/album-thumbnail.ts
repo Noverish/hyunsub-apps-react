@@ -6,12 +6,12 @@ export interface AlbumThumbnailParams {
   photoId: string;
 }
 
-const albumThumbnailApi = generateApi<AlbumThumbnailParams, AlbumPreview>((params) => ({
-  url: `/api/v2/albums/${params.albumId}/thumbnail`,
-  method: 'POST',
-  data: {
-    photoId: params.photoId,
-  },
-}));
+const albumThumbnailApi = generateApi<AlbumThumbnailParams, AlbumPreview>({
+  api: (params) => ({
+    url: `/api/v2/albums/${params.albumId}/thumbnail`,
+    method: 'POST',
+    data: params,
+  }),
+});
 
 export default albumThumbnailApi;

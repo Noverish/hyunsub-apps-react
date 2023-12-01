@@ -6,10 +6,12 @@ export interface DriveMoveBulkParams {
   files: string[];
 }
 
-const driveMoveBulkApi = generateApi<DriveMoveBulkParams, any>((params) => ({
-  url: '/api/v1/move-bulk',
-  method: 'POST',
-  data: params,
-}));
+const driveMoveBulkApi = generateApi<DriveMoveBulkParams, any>({
+  api: (params) => ({
+    url: '/api/v1/move-bulk',
+    method: 'POST',
+    data: params,
+  }),
+});
 
 export default driveMoveBulkApi;

@@ -10,10 +10,12 @@ export interface RegisterResult {
   idNo: string;
 }
 
-const register = generateApi<RegisterParams, RegisterResult>((params) => ({
-  url: '/api/v1/auth/register',
-  method: 'POST',
-  data: params,
-}));
+const register = generateApi<RegisterParams, RegisterResult>({
+  api: (params) => ({
+    url: '/api/v1/auth/register',
+    method: 'POST',
+    data: params,
+  }),
+});
 
 export default register;

@@ -6,10 +6,12 @@ interface ComicHistorySetParams {
   page: number;
 }
 
-const comicHistorySetApi = generateApi<ComicHistorySetParams, any>((params) => ({
-  url: `/api/v1/comics/${params.comicId}/episodes/${params.order}/history`,
-  method: `PUT`,
-  data: { page: params.page },
-}));
+const comicHistorySetApi = generateApi<ComicHistorySetParams, any>({
+  api: (params) => ({
+    url: `/api/v1/comics/${params.comicId}/episodes/${params.order}/history`,
+    method: `PUT`,
+    data: params,
+  }),
+});
 
 export default comicHistorySetApi;

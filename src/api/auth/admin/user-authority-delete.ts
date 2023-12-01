@@ -7,11 +7,13 @@ export interface UserAuthorityDeleteParams {
   authorityId: number;
 }
 
-const userAuthorityDeleteApi = generateApi<UserAuthorityDeleteParams, any>((params) => ({
-  url: '/api/v1/admin/users/authority',
-  method: 'DELETE',
-  data: params,
-}));
+const userAuthorityDeleteApi = generateApi<UserAuthorityDeleteParams, any>({
+  api: (params) => ({
+    url: '/api/v1/admin/users/authority',
+    method: 'DELETE',
+    data: params,
+  }),
+});
 
 export default userAuthorityDeleteApi;
 

@@ -5,9 +5,11 @@ export interface UserLoginParams {
   idNo: string;
 }
 
-const userLoginApi = generateApi<UserLoginParams, AdminUser>((params) => ({
-  url: `/api/v1/admin/users/${params.idNo}/login`,
-  method: 'POST',
-}));
+const userLoginApi = generateApi<UserLoginParams, AdminUser>({
+  api: (params) => ({
+    url: `/api/v1/admin/users/${params.idNo}/login`,
+    method: 'POST',
+  }),
+});
 
 export default userLoginApi;

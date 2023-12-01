@@ -12,10 +12,12 @@ export interface VideoRegisterParams {
   thumbnailUrl?: string;
 }
 
-const videoRegister = generateApi<VideoRegisterParams, any>((params) => ({
-  url: `/api/v1/register`,
-  method: 'POST',
-  data: filterEmptyString(params),
-}));
+const videoRegister = generateApi<VideoRegisterParams, any>({
+  api: (params) => ({
+    url: `/api/v1/register`,
+    method: 'POST',
+    data: filterEmptyString(params),
+  }),
+});
 
 export default videoRegister;

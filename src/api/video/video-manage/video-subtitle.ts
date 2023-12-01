@@ -10,25 +10,27 @@ export interface VideoSubtitleParams {
   override: boolean;
 }
 
-const videoSubtitleApi = generateApi<VideoSubtitleParams, any>((params) => {
-  const formData = new FormData();
-  formData.append('lang', params.lang);
-  formData.append('override', params.override.toString());
-  if (params.file) {
-    formData.append('file', params.file[0]);
-  }
-  if (params.path) {
-    formData.append('path', params.path);
-  }
+const videoSubtitleApi = generateApi<VideoSubtitleParams, any>({
+  api: (params) => {
+    const formData = new FormData();
+    formData.append('lang', params.lang);
+    formData.append('override', params.override.toString());
+    if (params.file) {
+      formData.append('file', params.file[0]);
+    }
+    if (params.path) {
+      formData.append('path', params.path);
+    }
 
-  return {
-    url: `/api/v1/videos/${params.videoId}/manage/subtitle`,
-    method: 'POST',
-    data: formData,
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
-  } as AxiosRequestConfig;
+    return {
+      url: `/api/v1/videos/${params.videoId}/manage/subtitle`,
+      method: 'POST',
+      data: formData,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    } as AxiosRequestConfig;
+  },
 });
 
 export default videoSubtitleApi;

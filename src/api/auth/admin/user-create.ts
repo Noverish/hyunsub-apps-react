@@ -5,10 +5,12 @@ export interface UserCreateParams {
   name: string;
 }
 
-const userCreateApi = generateApi<UserCreateParams, AdminUser>((params) => ({
-  url: '/api/v1/admin/users',
-  method: 'POST',
-  data: params,
-}));
+const userCreateApi = generateApi<UserCreateParams, AdminUser>({
+  api: (params) => ({
+    url: '/api/v1/admin/users',
+    method: 'POST',
+    data: params,
+  }),
+});
 
 export default userCreateApi;

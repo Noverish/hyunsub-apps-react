@@ -1,14 +1,14 @@
 import diaryDetailApi from './diary-detail';
 import diarySearchApi from 'src/api/diary/diary-search';
 import diaryStatusMonthApi from 'src/api/diary/diary-status-month';
-import { generateApi2 } from 'src/api/generate-api';
+import { generateApi } from 'src/api/generate-api';
 import { Diary } from 'src/model/diary';
 
 export interface DiaryDeleteParams {
   date: string;
 }
 
-const diaryDeleteApi = generateApi2<DiaryDeleteParams, Diary>({
+const diaryDeleteApi = generateApi<DiaryDeleteParams, Diary>({
   api: ({ date }) => ({
     url: `/api/v1/diaries/${date}`,
     method: 'DELETE',

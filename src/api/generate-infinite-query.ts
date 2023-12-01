@@ -8,14 +8,12 @@ import { generateApi } from 'src/api/generate-api';
 import QueryClient from 'src/api/query-client';
 import { MergedPageData, PageData } from 'src/model/api';
 
-export type UseInfQueryResult<R> = UseInfiniteQueryResult<PageData<R>>;
-
 interface PageParam {
   page?: number;
 }
 
 interface GenerateInfiniteApiOption<P> {
-  api: (p: P & PageParam) => AxiosRequestConfig<P>;
+  api: (p: P & PageParam) => AxiosRequestConfig<P & PageParam>;
   key: string;
 }
 
@@ -23,7 +21,7 @@ interface GenerateInfiniteApiResult<P, R> {
   useInfiniteApi: (
     p: P,
     option?: UseInfiniteQueryOptions<PageData<R>, unknown, PageData<R>, PageData<R>, QueryKey>,
-  ) => UseInfQueryResult<R>;
+  ) => UseInfiniteQueryResult<PageData<R>>;
   updateCache: (p: P, updater: (cache: Draft<R>) => void) => void;
   insertCache: (p: P, newItem: Draft<R>) => void;
   deleteCache: (p: P | null, predicate: (r: Draft<R>) => boolean) => void;
@@ -36,7 +34,7 @@ export function generateInfiniteQuery<P, R>(option: GenerateInfiniteApiOption<P>
   type TQueryFnData = InfiniteData<PageData<R>>;
 
   const key = (p: P): QueryKey => [option.key, p];
-  const api = generateApi<P & PageParam, PageData<R>>(option.api);
+  const api = generateApi<P & PageParam, PageData<R>>({ api: option.api });
 
   const useInfiniteApi = (
     p: P,
@@ -106,26 +104,6 @@ export function generateInfiniteQuery<P, R>(option: GenerateInfiniteApiOption<P>
     invalidate,
     key,
   };
-}
-
-export function flatInfiniteData<T>(data: InfiniteData<PageData<T>>): (T | null)[] {
-  if (data.pages.length === 0) {
-    return [];
-  }
-
-  const { total } = data.pages[0];
-  const result = Array.from({ length: total }, () => null as T | null);
-
-  for (const dataList of data.pages) {
-    const { page, pageSize, data } = dataList;
-    const start = page * pageSize;
-
-    for (let i = 0; i < data.length; i++) {
-      result[i + start] = data[i];
-    }
-  }
-
-  return result;
 }
 
 function getMergedPageData<T>(infiniteData: InfiniteData<PageData<T>> | undefined): MergedPageData<T> | undefined {
