@@ -2,11 +2,10 @@ import { useEffect, useMemo, useRef } from 'react';
 import Swiper from 'swiper';
 
 import ComicRoutes from '../ComicRoutes';
-import comicDetailApi from 'src/api/comic/comic-detail';
 import comicEpisodeDetailApi from 'src/api/comic/comic-episode-detail';
 import comicHistorySetApi from 'src/api/comic/comic-history-set';
 import { useUrlParams } from 'src/hooks/url-params';
-import { ComicDetail, ComicEpisodeDetail } from 'src/model/comic';
+import { ComicEpisodeDetail } from 'src/model/comic';
 import { HeaderButton } from 'src/model/component';
 import { CommonViewerData } from 'src/pages/common/viewer/components/CommonViewerSlide';
 import router from 'src/pages/router';
@@ -65,12 +64,6 @@ function useOnIndexChange() {
 
   return (index: number) => {
     comicHistorySetApi({ comicId, order, page: index });
-    comicDetailApi.updateCache({ comicId }, (cache: ComicDetail) => {
-      cache.episodes.filter((v) => v.order === order)[0].history = index;
-    });
-    comicEpisodeDetailApi.updateCache({ comicId, order }, (cache: ComicEpisodeDetail) => {
-      cache.history = index;
-    });
   };
 }
 

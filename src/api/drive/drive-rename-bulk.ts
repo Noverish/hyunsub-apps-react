@@ -1,4 +1,5 @@
 import { generateApi } from '../generate-api';
+import { SimpleResponse } from 'src/model/api';
 
 export interface DriveRenameBulkParams {
   path: string;
@@ -10,7 +11,7 @@ export interface DriveRenameBulkParamsData {
   to: string;
 }
 
-const driveRenameBulkApi = generateApi<DriveRenameBulkParams, any>({
+const driveRenameBulkApi = generateApi<DriveRenameBulkParams, SimpleResponse>({
   api: (params) => ({
     url: '/api/v1/rename-bulk',
     method: 'POST',

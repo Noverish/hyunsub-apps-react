@@ -1,4 +1,5 @@
 import { generateApi } from '../generate-api';
+import { SimpleResponse } from 'src/model/api';
 
 export interface DriveMoveBulkParams {
   from: string;
@@ -6,7 +7,7 @@ export interface DriveMoveBulkParams {
   files: string[];
 }
 
-const driveMoveBulkApi = generateApi<DriveMoveBulkParams, any>({
+const driveMoveBulkApi = generateApi<DriveMoveBulkParams, SimpleResponse>({
   api: (params) => ({
     url: '/api/v1/move-bulk',
     method: 'POST',

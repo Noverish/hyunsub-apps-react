@@ -3,8 +3,8 @@ import { Button, Card, Form } from 'react-bootstrap';
 
 import AuthAdminHooks from '../AuthAdminHooks';
 import authorityListApi from 'src/api/auth/admin/authority-list';
-import { useUserAuthorityCreate } from 'src/api/auth/admin/user-authority-create';
-import { useUserAuthorityDelete } from 'src/api/auth/admin/user-authority-delete';
+import userAuthorityCreateApi from 'src/api/auth/admin/user-authority-create';
+import userAuthorityDeleteApi from 'src/api/auth/admin/user-authority-delete';
 import userListApi from 'src/api/auth/admin/user-list';
 import userLoginApi from 'src/api/auth/admin/user-login';
 import UserAuthoritySelect from 'src/components/auth/UserAuthoritySelect';
@@ -40,16 +40,14 @@ function UserManageCardInner({ user }: { user: AdminUser }) {
   const [result, setResult] = useState<any>();
   const authorities = authorityListApi.useApi({}).filter((v) => user.authorities.includes(v.id));
 
-  const userAuthorityCreate = useUserAuthorityCreate();
-  const userAuthorityDelete = useUserAuthorityDelete();
   const userDelete = AuthAdminHooks.useDelete();
 
   const onAuthorityCreate = (authority: AdminAuthority) => {
-    userAuthorityCreate({ idNo, authorityId: authority.id }).then((v) => setResult(v));
+    userAuthorityCreateApi({ idNo, authorityId: authority.id }).then((v) => setResult(v));
   };
 
   const onAuthorityDelete = (authority: AdminAuthority) => {
-    userAuthorityDelete({ idNo, authorityId: authority.id }).then((v) => setResult(v));
+    userAuthorityDeleteApi({ idNo, authorityId: authority.id }).then((v) => setResult(v));
   };
 
   const onUserLogin = () => {

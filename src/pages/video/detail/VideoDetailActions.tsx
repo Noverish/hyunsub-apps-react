@@ -17,7 +17,7 @@ export const loadOtherEpisode =
     const cache = videoEntryDetailApi.cache({ entryId, videoId });
     if (!cache) {
       dispatch(GlobalActions.update({ loading: true }));
-      await videoEntryDetailApi.prefetch({ entryId, videoId });
+      videoEntryDetailApi.prefetch({ entryId, videoId });
       dispatch(GlobalActions.update({ loading: false }));
     }
     router.navigate(VideoRoutes.detail({ entryId, videoId }));

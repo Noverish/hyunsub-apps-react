@@ -1,4 +1,5 @@
 import { generateApi } from 'src/api/generate-api';
+import { SimpleResponse } from 'src/model/api';
 import { filterEmptyString } from 'src/utils';
 
 export interface VideoRegisterParams {
@@ -12,7 +13,7 @@ export interface VideoRegisterParams {
   thumbnailUrl?: string;
 }
 
-const videoRegister = generateApi<VideoRegisterParams, any>({
+const videoRegister = generateApi<VideoRegisterParams, SimpleResponse>({
   api: (params) => ({
     url: `/api/v1/register`,
     method: 'POST',

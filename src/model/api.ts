@@ -34,3 +34,7 @@ export interface SearchResult<T> {
   data?: T[];
   status?: SearchStatus;
 }
+
+export interface SimpleResponse {
+  result: string;
+}
