@@ -1,21 +1,22 @@
 import { t } from 'i18next';
 
+import ApparelCategoryDetailHooks from './ApparelCategoryDetailHooks';
 import apparelCategoryApparelsApi from 'src/api/apparel/apparel-category-apparels';
 import { useFlattenPageData } from 'src/api/generate-infinite-query';
 import ApparelList from 'src/components/apparel/ApparelPreviewList';
 import ListLoadingIndicator from 'src/components/common/ListLoadingIndicator';
-import CommonContainer from 'src/components/common/header/CommonContainer';
-import MobileHeader from 'src/components/common/header/MobileHeader';
+import CommonLayout from 'src/components/common/layout/CommonLayout';
 import useScrollBottom from 'src/hooks/scroll-bottom';
-import { useUrlParams } from 'src/hooks/url-params';
-import { useBreakpointMobile } from 'src/utils/breakpoint';
-import { setDocumentTitle } from 'src/utils/services';
 
 export default function ApparelCategoryDetailPage() {
-  const [category] = useUrlParams('category');
-  const isMobile = useBreakpointMobile();
-  const { data, fetchNextPage, isFetching } = apparelCategoryApparelsApi.useInfiniteApi({ category });
+  const { category } = ApparelCategoryDetailHooks.usePageParams();
+
+  const { data, fetchNextPage, isFetching } = apparelCategoryApparelsApi.useInfiniteApi(
+    { category },
+    { suspense: false },
+  );
   const apparels = useFlattenPageData(data);
+  const title = t('apparel.page.category-detail.title', [category, apparels.length]);
 
   useScrollBottom(() => {
     if (!isFetching) {
@@ -23,17 +24,10 @@ export default function ApparelCategoryDetailPage() {
     }
   });
 
-  const title = t('apparel.page.category-detail.title', [category, apparels.length]);
-  setDocumentTitle(title);
-
   return (
-    <div id="ApparelCategoryDetailPage">
-      <MobileHeader title={title} back />
-      <CommonContainer>
-        {isMobile || <h1 className="mb-3">{title}</h1>}
-        <ApparelList apparels={apparels} />
-        <ListLoadingIndicator isFetching={isFetching} />
-      </CommonContainer>
-    </div>
+    <CommonLayout className="ApparelCategoryDetailPage" title={title} back>
+      <ApparelList apparels={apparels} />
+      <ListLoadingIndicator isFetching={isFetching} />
+    </CommonLayout>
   );
 }

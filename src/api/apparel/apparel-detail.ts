@@ -5,7 +5,7 @@ interface ApparelDetailParams {
   apparelId: string;
 }
 
-const apparelDetailApi = generateQuery<ApparelDetailParams, Apparel>({
+const apparelDetailApi = generateQuery<ApparelDetailParams, Apparel | null>({
   api: (params) => ({
     url: `/api/v1/apparels/${params.apparelId}`,
     method: 'GET',

@@ -1,11 +1,21 @@
 import { generateApi } from '../generate-api';
-import { SimpleResponse } from 'src/model/api';
+import apparelDetailApi from './apparel-detail';
+import apparelListApi from './apparel-list';
+import { Apparel } from 'src/model/apparel';
 
-const apparelDeleteApi = generateApi<string, SimpleResponse>({
-  api: (params) => ({
-    url: `/api/v1/apparels/${params}`,
+interface ApparelDeleteParams {
+  apparelId: string;
+}
+
+const apparelDeleteApi = generateApi<ApparelDeleteParams, Apparel>({
+  api: ({ apparelId }) => ({
+    url: `/api/v1/apparels/${apparelId}`,
     method: 'DELETE',
   }),
+  postHandle: ({ id: apparelId }) => {
+    apparelDetailApi.setCache({ apparelId }, null);
+    apparelListApi.clearCache({});
+  },
 });
 
 export default apparelDeleteApi;

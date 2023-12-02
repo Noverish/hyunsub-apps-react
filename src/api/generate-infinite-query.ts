@@ -49,6 +49,7 @@ export function generateInfiniteQuery<P, R>(option: GenerateInfiniteApiOption<P>
       queryFn: ({ pageParam }) => api({ ...p, page: pageParam }),
       getNextPageParam,
       staleTime: Infinity,
+      ...option,
     });
   };
 

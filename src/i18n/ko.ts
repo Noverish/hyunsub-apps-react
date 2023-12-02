@@ -208,7 +208,6 @@ const ko = {
     'DiaryNavigation.list': '목록',
     'DiaryNavigation.calendar': '달력',
     'DiaryListPage.title': '일기 목록',
-    'DiaryListPage.confirm-msg': '정말로 삭제하시겠습니까?',
     'DiaryCalendarPage.title': '달력 보기',
     'DiaryCalendarPage.create': '해당 날짜에 일기 쓰기',
     'DiaryDetailPage.title': '일기 상세',

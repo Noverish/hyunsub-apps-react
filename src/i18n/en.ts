@@ -208,7 +208,6 @@ const en = {
     'DiaryNavigation.list': 'List',
     'DiaryNavigation.calendar': 'Calendar',
     'DiaryListPage.title': 'Diary List',
-    'DiaryListPage.confirm-msg': 'Are you sure you want to delete it?',
     'DiaryCalendarPage.title': 'Diary Calendar',
     'DiaryCalendarPage.create': 'Write Diary in this day',
     'DiaryDetailPage.title': 'Diary Detail',

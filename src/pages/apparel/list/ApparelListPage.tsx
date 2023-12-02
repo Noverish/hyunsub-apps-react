@@ -1,25 +1,18 @@
 import { t } from 'i18next';
-import flatMap from 'lodash/flatMap';
-import { Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 
 import apparelListApi from 'src/api/apparel/apparel-list';
+import { useFlattenPageData } from 'src/api/generate-infinite-query';
 import ApparelList from 'src/components/apparel/ApparelPreviewList';
 import ListLoadingIndicator from 'src/components/common/ListLoadingIndicator';
-import CommonContainer from 'src/components/common/header/CommonContainer';
-import MobileHeader from 'src/components/common/header/MobileHeader';
+import CommonLayout from 'src/components/common/layout/CommonLayout';
 import useScrollBottom from 'src/hooks/scroll-bottom';
 import { HeaderButton } from 'src/model/component';
 import ApparelRoutes from 'src/pages/apparel/ApparelRoutes';
 import router from 'src/pages/router';
-import { useBreakpointMobile } from 'src/utils/breakpoint';
-import { setDocumentTitle } from 'src/utils/services';
 
 export default function ApparelListPage() {
-  setDocumentTitle(t('apparel.page.list.title'));
-
-  const isMobile = useBreakpointMobile();
-  const { data, fetchNextPage, isFetching } = apparelListApi.useInfiniteApi({});
+  const { data, fetchNextPage, isFetching } = apparelListApi.useInfiniteApi({}, { suspense: false });
+  const apparels = useFlattenPageData(data);
 
   useScrollBottom(() => {
     if (!isFetching) {
@@ -27,32 +20,19 @@ export default function ApparelListPage() {
     }
   });
 
-  const apparels = flatMap(data!!.pages.map((v) => v.data));
-
-  const addBtn = isMobile ? undefined : (
-    <Link to={ApparelRoutes.create}>
-      <Button variant="primary" className="mb-3">
-        {t('add')}
-      </Button>
-    </Link>
-  );
-
   const headerBtns: HeaderButton[] = [
     {
       icon: 'fas fa-plus',
+      name: t('add'),
       onClick: () => router.navigate(ApparelRoutes.create),
     },
   ];
 
   return (
-    <div id="ApparelListPage">
-      <MobileHeader title={t('ApparelNavigation.all-apparels')} btns={headerBtns} />
-      <CommonContainer>
-        <h2 className="mb-2">{t('apparel.page.list.inner-title', [data?.pages[0].total])}</h2>
-        {addBtn}
-        <ApparelList apparels={apparels} />
-        <ListLoadingIndicator isFetching={isFetching} />
-      </CommonContainer>
-    </div>
+    <CommonLayout className="ApparelListPage" title={t('apparel.page.list.title')} btns={headerBtns}>
+      <h2 className="mb-2">{t('apparel.page.list.inner-title', [data?.pages[0].total ?? 0])}</h2>
+      <ApparelList apparels={apparels} />
+      <ListLoadingIndicator isFetching={isFetching} />
+    </CommonLayout>
   );
 }

@@ -22,7 +22,7 @@ function usePageParams(): DiaryDetailPageParams {
 
 function useDelete() {
   return async (date: string) => {
-    if (!window.confirm(t('DiaryListPage.confirm-msg'))) {
+    if (!window.confirm(t('msg.delete-confirm'))) {
       return;
     }
 

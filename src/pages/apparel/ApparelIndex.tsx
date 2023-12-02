@@ -1,4 +1,3 @@
-import { Suspense, lazy } from 'react';
 import { Outlet, RouteObject } from 'react-router-dom';
 
 import CommonRoutes from '../common/CommonRoutes';
@@ -6,16 +5,14 @@ import CommonMenuPage from '../common/menu/CommonMenuPage';
 import routes from './ApparelRoutes';
 import ApparelViewerPage from './viewer/ApparelViewerPage';
 import ApparelNavigation from 'src/components/apparel/ApparelNavigation';
-import LoadingPage from 'src/pages/common/LoadingPage';
-
-const ApparelListPage = lazy(() => import('src/pages/apparel/list/ApparelListPage'));
-const ApparelDetailPage = lazy(() => import('src/pages/apparel/detail/ApparelDetailPage'));
-const ApparelUpdatePage = lazy(() => import('src/pages/apparel/update/ApparelUpdatePage'));
-const ApparelCreatePage = lazy(() => import('src/pages/apparel/create/ApparelCreatePage'));
-const ApparelCategoryListPage = lazy(() => import('src/pages/apparel/category-list/ApparelCategoryListPage'));
-const ApparelCategoryDetailPage = lazy(() => import('src/pages/apparel/category-detail/ApparelCategoryDetailPage'));
-const ApparelBrandListPage = lazy(() => import('src/pages/apparel/brand-list/ApparelBrandListPage'));
-const ApparelBrandDetailPage = lazy(() => import('src/pages/apparel/brand-detail/ApparelBrandDetailPage'));
+import ApparelBrandDetailPage from 'src/pages/apparel/brand-detail/ApparelBrandDetailPage';
+import ApparelBrandListPage from 'src/pages/apparel/brand-list/ApparelBrandListPage';
+import ApparelCategoryDetailPage from 'src/pages/apparel/category-detail/ApparelCategoryDetailPage';
+import ApparelCategoryListPage from 'src/pages/apparel/category-list/ApparelCategoryListPage';
+import ApparelCreatePage from 'src/pages/apparel/create/ApparelCreatePage';
+import ApparelDetailPage from 'src/pages/apparel/detail/ApparelDetailPage';
+import ApparelListPage from 'src/pages/apparel/list/ApparelListPage';
+import ApparelUpdatePage from 'src/pages/apparel/update/ApparelUpdatePage';
 
 export const ApparelRouteObjects: RouteObject[] = [
   {
@@ -27,9 +24,7 @@ export const ApparelRouteObjects: RouteObject[] = [
     element: (
       <>
         <ApparelNavigation />
-        <Suspense fallback={<LoadingPage />}>
-          <Outlet />
-        </Suspense>
+        <Outlet />
       </>
     ),
     children: [
