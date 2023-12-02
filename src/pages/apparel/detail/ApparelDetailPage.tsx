@@ -5,10 +5,10 @@ import { Button } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom';
 
 import { apparelDeleteAction } from './ApparelDetailContext';
+import ApparelImageCarousel from './components/ApparelImageCarousel';
 import apparelDetailApi from 'src/api/apparel/apparel-detail';
 import CommonContainer from 'src/components/common/header/CommonContainer';
 import MobileHeader from 'src/components/common/header/MobileHeader';
-import ImageCarousel from 'src/components/common/swiper/ImageCarousel';
 import { HeaderButton } from 'src/model/component';
 import ApparelRoutes from 'src/pages/apparel/ApparelRoutes';
 import router from 'src/pages/router';
@@ -33,14 +33,13 @@ export default function ApparelDetailPage() {
     dispatch(apparelDeleteAction(apparelId));
   };
 
-  const { apparel, images } = apparelDetailApi.useApi({ apparelId });
-  const urls = images.map((v) => v.url + '?size=512');
+  const { info: apparel, images } = apparelDetailApi.useApi({ apparelId });
   const { discarded } = apparel;
 
   const mobileHeaderBtns: HeaderButton[] = [
     {
       icon: 'fas fa-edit',
-      onClick: () => router.navigate(ApparelRoutes.edit(apparelId)),
+      onClick: () => router.navigate(ApparelRoutes.update({ apparelId })),
     },
     {
       icon: 'fas fa-trash-alt',
@@ -54,7 +53,7 @@ export default function ApparelDetailPage() {
       <CommonContainer>
         <h1 className={cs({ discarded })}>{apparel.name}</h1>
         <div className="mt-3">
-          <ImageCarousel urls={urls} />
+          <ApparelImageCarousel apparelId={apparelId} images={images} />
         </div>
         <div className="mt-0 row g-3 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
           <div className="col">
@@ -94,6 +93,10 @@ export default function ApparelDetailPage() {
             <div>{apparel.buyLoc}</div>
           </div>
           <div className="col">
+            <div className="fw-bold fs-5">{t('apparel.term.makeDt')}</div>
+            <div>{apparel.makeDt}</div>
+          </div>
+          <div className="col">
             <div className="fw-bold fs-5">{t('apparel.term.material')}</div>
             <div>{apparel.material}</div>
           </div>
@@ -101,14 +104,10 @@ export default function ApparelDetailPage() {
             <div className="fw-bold fs-5">{t('apparel.term.size2')}</div>
             <div>{apparel.size2}</div>
           </div>
-          <div className="col">
-            <div className="fw-bold fs-5">{t('apparel.term.makeDt')}</div>
-            <div>{apparel.makeDt}</div>
-          </div>
         </div>
         {isMobile || (
           <div className="mt-3">
-            <Link to={ApparelRoutes.edit(apparelId)}>
+            <Link to={ApparelRoutes.update({ apparelId })}>
               <Button>{t('edit')}</Button>
             </Link>
             <Button variant="danger" className="ms-2" onClick={onDelete}>

@@ -2,7 +2,7 @@ import { t } from 'i18next';
 
 import apparelCategoryApparelsApi from 'src/api/apparel/apparel-category-apparels';
 import { useFlattenPageData } from 'src/api/generate-infinite-query';
-import ApparelList from 'src/components/apparel/ApparelList';
+import ApparelList from 'src/components/apparel/ApparelPreviewList';
 import ListLoadingIndicator from 'src/components/common/ListLoadingIndicator';
 import CommonContainer from 'src/components/common/header/CommonContainer';
 import MobileHeader from 'src/components/common/header/MobileHeader';

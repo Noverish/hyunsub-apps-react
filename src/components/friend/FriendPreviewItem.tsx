@@ -10,7 +10,7 @@ interface Props {
 
 export default function FriendPreviewItem({ friend }: Props) {
   const onClick = () => {
-    router.navigate(FriendRoutes.detail(friend.id));
+    router.navigate(FriendRoutes.detail({ friendId: friend.id }));
   };
 
   return (

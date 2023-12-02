@@ -5,12 +5,11 @@ import diaryDetailApi from 'src/api/diary/diary-detail';
 import { Loading } from 'src/components/common/LoadingSuspense';
 import CommonLayout from 'src/components/common/layout/CommonLayout';
 import DiaryForm from 'src/components/diary/DiaryForm';
-import { useUrlParams } from 'src/hooks/url-params';
 import CommonRoutes from 'src/pages/common/CommonRoutes';
 import DiaryUpdateHooks from 'src/pages/diary/update/DiaryUpdateHooks';
 
 export default function DiaryUpdatePage() {
-  const [date] = useUrlParams('date');
+  const { date } = DiaryUpdateHooks.usePageParams();
   const { data, isLoading } = diaryDetailApi.useApiResult({ date });
   const update = DiaryUpdateHooks.useUpdate();
 

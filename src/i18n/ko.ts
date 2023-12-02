@@ -139,7 +139,7 @@ const ko = {
     'apparel.page.list.inner-title': '총 {{0}}개의 의류',
     'apparel.page.detail.title': '자세한 의류 정보',
     'apparel.page.edit.title': '수정 - {{0}}',
-    'apparel.page.add.title': '의류 추가하기',
+    'ApparelCreatePage.title': '의류 추가하기',
     'apparel.page.category-list.title': '의류 카테고리 목록',
     'apparel.page.category-detail.title': '의류 카테고리 - {{0}} ({{1}}개)',
     'apparel.page.brand-list.title': '의류 브랜드 목록',

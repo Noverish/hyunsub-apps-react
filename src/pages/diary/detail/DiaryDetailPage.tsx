@@ -25,7 +25,7 @@ export default function DiaryDetailPage() {
     {
       icon: 'fas fa-edit',
       name: t('edit'),
-      onClick: () => router.navigate(DiaryRoutes.update(date)),
+      onClick: () => router.navigate(DiaryRoutes.update({ date })),
     },
     {
       icon: 'fas fa-trash-alt',

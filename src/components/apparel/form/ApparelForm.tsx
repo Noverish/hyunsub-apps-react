@@ -1,38 +1,29 @@
 import { t } from 'i18next';
+import { useContext } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 
-import ApparelBrandSelect from '../ApparelBrandSelect';
-import ApparelCategorySelect from '../ApparelCategorySelect';
-import { ApparelFormProvider } from './ApparelFormContext';
-import { useApparelFormSubmit } from './ApparelFormHooks';
+import ApparelBrandSelect from './ApparelBrandSelect';
+import ApparelCategorySelect from './ApparelCategorySelect';
+import { ApparelFormContext, ApparelFormProvider } from './ApparelFormContext';
 import ApparelImageUpload from './ApparelImageUpload';
-import { ApparelDetailResult } from 'src/api/apparel/apparel-detail';
-import { Apparel } from 'src/model/apparel';
+import { Apparel, ApparelInfo } from 'src/model/apparel';
+import { toDateString } from 'src/utils';
 
 interface Props {
-  apparel?: ApparelDetailResult;
+  apparel?: Apparel;
+  onComplete: (apparel: ApparelInfo, uploads: File[], deletes: string[]) => void;
 }
 
-function ApparelForm({ apparel }: Props) {
-  const defaultValues: Partial<Apparel> = apparel?.apparel ?? { id: '', buyDt: getToday() };
+function ApparelForm({ apparel, onComplete }: Props) {
+  const defaultValues: Partial<ApparelInfo> = apparel?.info ?? { buyDt: toDateString(new Date()) };
 
-  const { register, handleSubmit, setValue, watch } = useForm<Apparel>({ defaultValues });
-  const submit = useApparelFormSubmit(!!apparel);
+  const { register, handleSubmit, control } = useForm<ApparelInfo>({ defaultValues });
+  const [{ uploads, deletes }] = useContext(ApparelFormContext);
 
-  const onBrandSelect = (brand?: string) => {
-    setValue('brand', brand ?? '');
+  const onSubmit = (data: ApparelInfo) => {
+    onComplete(data, uploads, deletes);
   };
-
-  const onCategorySelect = (category?: string) => {
-    setValue('category', category ?? '');
-  };
-
-  const onSubmit = (data: Apparel) => {
-    submit(data);
-  };
-
-  const btnText = apparel ? t('modify') : t('add');
 
   return (
     <div id="ApparelForm">
@@ -50,11 +41,11 @@ function ApparelForm({ apparel }: Props) {
           </Form.Group>
           <Form.Group className="col">
             <Form.Label>{t('apparel.term.brand')}</Form.Label>
-            <ApparelBrandSelect onSelect={onBrandSelect} value={watch('brand')} />
+            <ApparelBrandSelect control={control} />
           </Form.Group>
           <Form.Group className="col">
             <Form.Label>{t('apparel.term.category')}</Form.Label>
-            <ApparelCategorySelect onSelect={onCategorySelect} value={watch('category')} />
+            <ApparelCategorySelect control={control} />
           </Form.Group>
           <Form.Group className="col">
             <Form.Label>{t('apparel.term.size')}</Form.Label>
@@ -102,7 +93,7 @@ function ApparelForm({ apparel }: Props) {
 
         <div>
           <Button variant="primary" type="submit">
-            {btnText}
+            {t('complete')}
           </Button>
         </div>
       </Form>
@@ -116,12 +107,4 @@ export default function ApparelFormIndex(props: Props) {
       <ApparelForm {...props} />
     </ApparelFormProvider>
   );
-}
-
-function getToday() {
-  const date = new Date();
-  const year = date.getFullYear();
-  const month = (date.getMonth() + 1).toString().padStart(2, '0');
-  const day = date.getDate().toString().padStart(2, '0');
-  return `${year}-${month}-${day}`;
 }

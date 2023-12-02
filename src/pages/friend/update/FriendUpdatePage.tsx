@@ -6,11 +6,10 @@ import friendDetailApi from 'src/api/friend/friend-detail';
 import { Loading } from 'src/components/common/LoadingSuspense';
 import CommonLayout from 'src/components/common/layout/CommonLayout';
 import FriendForm from 'src/components/friend/FriendForm';
-import { useUrlParams } from 'src/hooks/url-params';
 import CommonRoutes from 'src/pages/common/CommonRoutes';
 
 export default function FriendUpdatePage() {
-  const [friendId] = useUrlParams('friendId');
+  const { friendId } = FriendUpdateHooks.usePageParams();
   const { data, isLoading } = friendDetailApi.useApiResult({ friendId });
   const update = FriendUpdateHooks.useUpdate();
 

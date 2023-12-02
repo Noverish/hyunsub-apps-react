@@ -1,18 +1,23 @@
 import { generateApi } from '../generate-api';
-import { ApparelDetailResult } from './apparel-detail';
-import { Apparel, ApparelUploadImageParams } from 'src/model/apparel';
+import apparelDetailApi from 'src/api/apparel/apparel-detail';
+import apparelListApi from 'src/api/apparel/apparel-list';
+import { Apparel, ApparelInfo } from 'src/model/apparel';
 
 interface ApparelCreateParams {
-  apparel: Apparel;
-  uploads: ApparelUploadImageParams[];
+  info: ApparelInfo;
+  uploads: string[];
 }
 
-const apparelCreateApi = generateApi<ApparelCreateParams, ApparelDetailResult>({
+const apparelCreateApi = generateApi<ApparelCreateParams, Apparel>({
   api: (params) => ({
     url: '/api/v1/apparels',
     method: 'POST',
     data: params,
   }),
+  postHandle: (result) => {
+    apparelDetailApi.setCache({ apparelId: result.id }, result);
+    apparelListApi.clearCache();
+  },
 });
 
 export default apparelCreateApi;

@@ -4,7 +4,7 @@ import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import apparelListApi from 'src/api/apparel/apparel-list';
-import ApparelList from 'src/components/apparel/ApparelList';
+import ApparelList from 'src/components/apparel/ApparelPreviewList';
 import ListLoadingIndicator from 'src/components/common/ListLoadingIndicator';
 import CommonContainer from 'src/components/common/header/CommonContainer';
 import MobileHeader from 'src/components/common/header/MobileHeader';
@@ -30,7 +30,7 @@ export default function ApparelListPage() {
   const apparels = flatMap(data!!.pages.map((v) => v.data));
 
   const addBtn = isMobile ? undefined : (
-    <Link to={ApparelRoutes.add}>
+    <Link to={ApparelRoutes.create}>
       <Button variant="primary" className="mb-3">
         {t('add')}
       </Button>
@@ -40,7 +40,7 @@ export default function ApparelListPage() {
   const headerBtns: HeaderButton[] = [
     {
       icon: 'fas fa-plus',
-      onClick: () => router.navigate(ApparelRoutes.add),
+      onClick: () => router.navigate(ApparelRoutes.create),
     },
   ];
 

@@ -1,6 +1,10 @@
 @import '/src/breakpoints.scss';
 
 .ImageCarousel {
+  img {
+    cursor: pointer;
+  }
+
   @include media-breakpoint-up(md) {
     .swiper-slide {
       width: 360px;

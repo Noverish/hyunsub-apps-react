@@ -1,9 +1,19 @@
 import DiaryRoutes from '../DiaryRoutes';
 import diaryCreateApi, { DiaryCreateParams } from 'src/api/diary/diary-create';
+import { useOptionalUrlParams } from 'src/hooks/url-params';
 import { Diary } from 'src/model/diary';
 import router from 'src/pages/router';
 import { dispatch } from 'src/redux';
 import { GlobalActions } from 'src/redux/global';
+
+export interface DiaryCreatePageParams {
+  date?: string;
+}
+
+function usePageParams(): DiaryCreatePageParams {
+  const [date] = useOptionalUrlParams('date');
+  return { date };
+}
 
 function useCreate() {
   return async ({ friends, ...etc }: Diary) => {
@@ -23,6 +33,7 @@ function useCreate() {
 }
 
 const DiaryCreateHooks = {
+  usePageParams,
   useCreate,
 };
 

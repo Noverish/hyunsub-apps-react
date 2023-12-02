@@ -4,7 +4,7 @@ export interface FileWithPath {
   type: string;
 }
 
-export interface FileUploadResult {
+export interface FileUploadItemResult {
   index: number;
   nonce: string;
   fileName: string;

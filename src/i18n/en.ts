@@ -139,7 +139,7 @@ const en = {
     'apparel.page.list.inner-title': 'Total {{0}} items',
     'apparel.page.detail.title': 'Apparel Detail',
     'apparel.page.edit.title': 'Edit - {{0}}',
-    'apparel.page.add.title': 'Add My Apparel',
+    'ApparelCreatePage.title': 'Add My Apparel',
     'apparel.page.category-list.title': 'Apparel Category List',
     'apparel.page.category-detail.title': 'Apparel Category - {{0}} ({{1}} items)',
     'apparel.page.brand-list.title': 'Apparel Brand List',

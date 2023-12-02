@@ -10,8 +10,7 @@ export interface ApparelImage {
   url: string;
 }
 
-export interface Apparel {
-  id: string;
+export interface ApparelInfo {
   itemNo?: string;
   name: string;
   brand?: string;
@@ -28,7 +27,8 @@ export interface Apparel {
   discarded: boolean;
 }
 
-export interface ApparelUploadImageParams {
-  nonce: string;
-  ext: string;
+export interface Apparel {
+  id: string;
+  info: ApparelInfo;
+  images: ApparelImage[];
 }

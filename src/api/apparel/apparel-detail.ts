@@ -1,16 +1,11 @@
 import { generateQuery } from '../generate-api';
-import { Apparel, ApparelImage } from 'src/model/apparel';
+import { Apparel } from 'src/model/apparel';
 
 interface ApparelDetailParams {
   apparelId: string;
 }
 
-export interface ApparelDetailResult {
-  apparel: Apparel;
-  images: ApparelImage[];
-}
-
-const apparelDetailApi = generateQuery<ApparelDetailParams, ApparelDetailResult>({
+const apparelDetailApi = generateQuery<ApparelDetailParams, Apparel>({
   api: (params) => ({
     url: `/api/v1/apparels/${params.apparelId}`,
     method: 'GET',

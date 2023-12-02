@@ -6,7 +6,7 @@ import { FriendTagsContext } from 'src/context/friend/FriendTagsContext';
 import { Friend } from 'src/model/friend';
 
 interface Props {
-  control: Control<Friend, any>;
+  control: Control<Friend>;
 }
 
 export default function FriendTagSelect({ control }: Props) {

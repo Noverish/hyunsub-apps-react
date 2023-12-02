@@ -1,19 +1,25 @@
 import { generateApi } from '../generate-api';
-import { ApparelDetailResult } from './apparel-detail';
-import { Apparel, ApparelUploadImageParams } from 'src/model/apparel';
+import apparelDetailApi from './apparel-detail';
+import apparelListApi from './apparel-list';
+import { Apparel, ApparelInfo } from 'src/model/apparel';
 
 interface ApparelUpdateParams {
-  apparel: Apparel;
-  uploads: ApparelUploadImageParams[];
+  id: string;
+  info: ApparelInfo;
+  uploads: string[];
   deletes: string[];
 }
 
-const apparelUpdateApi = generateApi<ApparelUpdateParams, ApparelDetailResult>({
+const apparelUpdateApi = generateApi<ApparelUpdateParams, Apparel>({
   api: (params) => ({
-    url: `/api/v1/apparels/${params.apparel.id}`,
+    url: `/api/v1/apparels/${params.id}`,
     method: 'PUT',
     data: params,
   }),
+  postHandle: (result) => {
+    apparelDetailApi.setCache({ apparelId: result.id }, result);
+    apparelListApi.clearCache();
+  },
 });
 
 export default apparelUpdateApi;

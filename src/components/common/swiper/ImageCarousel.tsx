@@ -9,21 +9,31 @@ import './ImageCarousel.scss';
 import 'swiper/css';
 import 'swiper/css/pagination';
 
-interface Props {
-  urls: string[];
+interface Props<T> {
+  data: T[];
+  urlSelector: (value: T) => string;
+  onClick?: (value: T) => void;
 }
 
-export default function ImageCarousel({ urls }: Props) {
+export default function ImageCarousel<T>({ data, urlSelector, onClick }: Props<T>) {
   const swiperRef = useRef<Swiper>();
   const isMobile = useBreakpointMobile();
 
-  const slides = urls.map((v) => (
-    <SwiperSlide key={v}>
-      <div className="ratio ratio-1x1">
-        <img src={v} alt={v} />
-      </div>
-    </SwiperSlide>
-  ));
+  const slides = data.map((v) => {
+    const url = urlSelector(v);
+
+    const onSlideClick = () => {
+      onClick?.(v);
+    };
+
+    return (
+      <SwiperSlide key={url}>
+        <div className="ratio ratio-1x1" onClick={onSlideClick}>
+          <img src={url} alt={url} />
+        </div>
+      </SwiperSlide>
+    );
+  });
 
   return (
     <SwiperComponent

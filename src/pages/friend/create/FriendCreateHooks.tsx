@@ -13,7 +13,7 @@ function useCreate() {
 
     dispatch(GlobalActions.update({ loading: false }));
 
-    router.navigate(FriendRoutes.detail(result.id), { replace: true });
+    router.navigate(FriendRoutes.detail({ friendId: result.id }), { replace: true });
   };
 }
 

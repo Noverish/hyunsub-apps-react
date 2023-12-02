@@ -1,4 +1,4 @@
-import { ActionMeta, MultiValue } from 'react-select';
+import { ActionMeta, SingleValue } from 'react-select';
 import CreatableSelect from 'react-select/creatable';
 
 interface Option {
@@ -6,20 +6,20 @@ interface Option {
   label: string;
 }
 
-export interface SimpleCreatableMultiSelectProps {
+export interface SimpleCreatableSelectProps {
   data: string[];
-  value: string[];
-  onChange: (value: string[]) => void;
+  value?: string;
+  onChange: (value?: string) => void;
   isInvalid?: boolean;
   isLoading?: boolean;
 }
 
-export default function SimpleCreatableMultiSelect(props: SimpleCreatableMultiSelectProps) {
+export default function SimpleCreatableSelect(props: SimpleCreatableSelectProps) {
   const data: Option[] = props.data.map((v) => ({ value: v, label: v }));
-  const value: Option[] = props.value.map((v) => ({ value: v, label: v }));
+  const value: Option = data.filter((v) => v.value === props.value)[0];
 
-  const onChange = (newValue: MultiValue<Option>, actionMeta: ActionMeta<Option>) => {
-    props.onChange(newValue.map((v) => v.value));
+  const onChange = (newValue: SingleValue<Option>, actionMeta: ActionMeta<Option>) => {
+    props.onChange(newValue?.value);
   };
 
   return (
@@ -34,7 +34,6 @@ export default function SimpleCreatableMultiSelect(props: SimpleCreatableMultiSe
       styles={{ menuPortal: (base) => ({ ...base, zIndex: 1100 }) }}
       value={value}
       isLoading={props.isLoading}
-      isMulti={true}
     />
   );
 }

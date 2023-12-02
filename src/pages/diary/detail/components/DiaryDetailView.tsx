@@ -15,7 +15,7 @@ export default function DiaryDetailView({ diary }: Props) {
   const { date, query } = DiaryDetailHooks.usePageParams();
 
   if (!diary) {
-    const createUrl = DiaryRoutes.create(date);
+    const createUrl = DiaryRoutes.create({ date });
 
     return (
       <div className="DiaryDetailView">

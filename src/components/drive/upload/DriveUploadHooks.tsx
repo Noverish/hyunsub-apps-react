@@ -8,7 +8,7 @@ import { useDriveExplorerContext } from 'src/components/drive/explorer/DriveExpl
 import { DriveUploadContext } from 'src/components/drive/upload/DriveUploadContext';
 import { useTokenPayload } from 'src/hooks/token';
 import { DriveUploadStatus } from 'src/model/drive';
-import { FileUploadResult, FileUploadStatus, FileWithPath } from 'src/model/file';
+import { FileUploadItemResult, FileUploadStatus, FileWithPath } from 'src/model/file';
 
 export function useDriveUpload() {
   const { path } = useDriveExplorerContext();
@@ -44,7 +44,7 @@ export function useDriveUpload() {
       });
     };
 
-    const callback = (result: FileUploadResult) => {
+    const callback = (result: FileUploadItemResult) => {
       setState((state) => {
         const item = state.items[result.index];
         if (item) {

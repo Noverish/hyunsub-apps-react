@@ -13,7 +13,7 @@ interface Props {
 export default function DiaryCalendarResultView({ date }: Props) {
   const data = diaryDetailApi.useApi({ date });
 
-  const createUrl = DiaryRoutes.create(date);
+  const createUrl = DiaryRoutes.create({ date });
 
   const content = data ? (
     <DiaryPreviewItem diary={data} />

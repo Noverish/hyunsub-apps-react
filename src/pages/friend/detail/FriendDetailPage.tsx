@@ -23,7 +23,7 @@ export default function FriendDetailPage() {
     {
       icon: 'fas fa-edit',
       name: t('edit'),
-      onClick: () => router.navigate(FriendRoutes.update(friendId)),
+      onClick: () => router.navigate(FriendRoutes.update({ friendId })),
     },
     {
       icon: 'fas fa-trash-alt',

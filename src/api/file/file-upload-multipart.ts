@@ -1,8 +1,7 @@
-import { AxiosProgressEvent, AxiosRequestConfig } from 'axios';
-import { decode, encodeURI } from 'js-base64';
+import axios, { AxiosProgressEvent, AxiosRequestConfig } from 'axios';
+import { encodeURI } from 'js-base64';
 
-import { generateApi } from '../generate-api';
-import { FileUploadResult, FileUploadStatus, FileWithPath } from 'src/model/file';
+import { FileUploadItemResult, FileUploadStatus, FileWithPath } from 'src/model/file';
 import { generateRandomString } from 'src/utils';
 import AppConstant from 'src/utils/constants';
 import { calcFormDataSize, calcProgress } from 'src/utils/form-data';
@@ -11,59 +10,22 @@ export interface FileUploadParams {
   files: FileWithPath[];
   controller?: AbortController;
   progress?: (status: FileUploadStatus) => void;
-  callback?: (result: FileUploadResult) => void;
-  errorCallback?: (status: FileUploadResult) => void;
+  callback?: (result: FileUploadItemResult) => void;
 }
 
-const pathNonce = generateRandomString(8);
-const url = AppConstant.file.HOST + `/upload/multipart/${pathNonce}`;
+export interface FileUploadResult {
+  result: FileUploadItemResult[];
+}
 
-const fileUpload = generateApi<FileUploadParams, { result: string }>({
-  api: (params) => {
-    const { files, progress, controller } = params;
+export default async function fileUploadApi(params: FileUploadParams): Promise<FileUploadResult> {
+  const nonce = generateRandomString(16);
+  const url = AppConstant.file.HOST + `/upload/multipart/${nonce}`;
 
-    const formData = new FormData();
-    formData.append('length', files.length.toString());
-    files.forEach((v) => formData.append('files', v.file, encodeURI(v.path)));
-
-    const sizes = calcFormDataSize(files);
-
-    return {
-      url,
-      method: 'POST',
-      withCredentials: true,
-      data: formData,
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-      signal: controller?.signal,
-      onUploadProgress: (e: AxiosProgressEvent) => {
-        if (!progress) {
-          return;
-        }
-
-        const status = calcProgress(sizes, e);
-        if (status) {
-          progress(status);
-        }
-      },
-    } as AxiosRequestConfig;
-  },
-});
-
-export default async function fileUploadApi(params: FileUploadParams) {
   const es = new EventSource(url, { withCredentials: true });
 
   es.addEventListener('data', (event: MessageEvent<string>) => {
-    const result = JSON.parse(event.data);
-    result.fileName = decode(result.fileName);
-    params.callback?.(result);
-  });
-
-  es.addEventListener('forbidden', (event: MessageEvent<string>) => {
-    const result = JSON.parse(event.data);
-    result.fileName = decode(result.fileName);
-    params.errorCallback?.(result);
+    const data: FileUploadItemResult = JSON.parse(event.data);
+    params.callback?.(data);
   });
 
   es.addEventListener('close', () => {
@@ -72,9 +34,7 @@ export default async function fileUploadApi(params: FileUploadParams) {
 
   await waitReady(es);
 
-  try {
-    await fileUpload(params);
-  } catch (ex) {}
+  return await fileUpload(params, url);
 }
 
 function waitReady(es: EventSource) {
@@ -84,3 +44,36 @@ function waitReady(es: EventSource) {
     });
   });
 }
+
+const fileUpload = async (params: FileUploadParams, url: string): Promise<FileUploadResult> => {
+  const { files, progress, controller } = params;
+
+  const formData = new FormData();
+  formData.append('length', files.length.toString());
+  files.forEach((v) => formData.append('files', v.file, encodeURI(v.path)));
+
+  const sizes = calcFormDataSize(files);
+
+  const config: AxiosRequestConfig = {
+    url,
+    method: 'POST',
+    withCredentials: true,
+    data: formData,
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+    signal: controller?.signal,
+    onUploadProgress: (e: AxiosProgressEvent) => {
+      if (!progress) {
+        return;
+      }
+
+      const status = calcProgress(sizes, e);
+      if (status) {
+        progress(status);
+      }
+    },
+  };
+
+  return (await axios<FileUploadResult>(config)).data;
+};

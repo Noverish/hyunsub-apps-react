@@ -1,13 +1,24 @@
+import queryString from 'query-string';
+
+import { ApparelUpdatePageParams } from './update/ApparelUpdateHooks';
+import { ApparelViewerPageParams } from './viewer/ApparelViewerHooks';
+
+const { stringifyUrl } = queryString;
+
 const ApparelRoutes = {
   list: '/',
 
   detailRoute: '/apparels/:apparelId',
   detail: (apparelId: string) => `/apparels/${apparelId}`,
 
-  editRoute: '/apparels/:apparelId/edit',
-  edit: (apparelId: string) => `/apparels/${apparelId}/edit`,
+  viewerRoute: '/apparels/:apparelId/viewer',
+  viewer: ({ apparelId, ...query }: ApparelViewerPageParams) =>
+    stringifyUrl({ url: `/apparels/${apparelId}/viewer`, query }),
 
-  add: '/apparels/add',
+  updateRoute: '/apparels/:apparelId/edit',
+  update: ({ apparelId }: ApparelUpdatePageParams) => `/apparels/${apparelId}/edit`,
+
+  create: '/apparels/add',
 
   categoryList: '/categories',
 

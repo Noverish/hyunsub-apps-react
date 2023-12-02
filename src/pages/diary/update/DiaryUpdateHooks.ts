@@ -1,8 +1,18 @@
 import diaryUpdateApi, { DiaryUpdateParams } from 'src/api/diary/diary-update';
+import { useUrlParams } from 'src/hooks/url-params';
 import { Diary } from 'src/model/diary';
 import router from 'src/pages/router';
 import { dispatch } from 'src/redux';
 import { GlobalActions } from 'src/redux/global';
+
+export interface DiaryUpdatePageParams {
+  date: string;
+}
+
+function usePageParams(): DiaryUpdatePageParams {
+  const [date] = useUrlParams('date');
+  return { date };
+}
 
 function useUpdate() {
   return async ({ friends, ...etc }: Diary) => {
@@ -22,6 +32,7 @@ function useUpdate() {
 }
 
 const DiaryUpdateHooks = {
+  usePageParams,
   useUpdate,
 };
 
