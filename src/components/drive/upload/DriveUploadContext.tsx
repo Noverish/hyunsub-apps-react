@@ -1,17 +1,19 @@
-import { DriveUploadStatus } from 'src/model/drive';
+import { DriveUploadItemInfo } from 'src/model/drive';
 import { generateStateContext } from 'src/utils/context';
 
+export type DriveUploadStatus = 'ready' | 'uploading' | 'success' | 'error' | 'aborted';
+
 interface State {
-  items: DriveUploadStatus[];
+  status: DriveUploadStatus;
+  items: DriveUploadItemInfo[];
   progress: number;
   controller?: AbortController;
-  aborted: boolean;
 }
 
 const initialState: State = {
+  status: 'ready',
   items: [],
   progress: 0,
-  aborted: false,
 };
 
-export const [DriveUploadContext, DriveUploadProvider] = generateStateContext<State>(initialState);
+export const [DriveUploadContext, DriveUploadProvider] = generateStateContext(initialState);

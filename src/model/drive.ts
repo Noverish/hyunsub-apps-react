@@ -1,3 +1,5 @@
+import { FileUploadItemStatus, FileWithPath } from 'src/model/file';
+
 export interface DriveFileInfo {
   name: string;
   size: number;
@@ -21,13 +23,13 @@ export interface DrivePathParams {
   path: string;
 }
 
-export interface DriveUploadStatus {
-  relativePath: string;
-  absolutePath: string;
-  name: string;
-  size: number;
-  type: string;
+export type DriveUploadItemStatus = 'ready' | 'uploading' | FileUploadItemStatus;
+
+export interface DriveUploadItemInfo {
+  file: FileWithPath;
+  status: DriveUploadItemStatus;
   progress: number;
+  root: string;
 }
 
 export interface DriveFileSort {

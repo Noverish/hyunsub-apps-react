@@ -1,7 +1,7 @@
 import { AxiosProgressEvent } from 'axios';
 import { encodeURI } from 'js-base64';
 
-import { FileUploadStatus, FileWithPath } from 'src/model/file';
+import { FileUploadProgress, FileWithPath } from 'src/model/file';
 
 const BOUNDARY_SIZE = '------WebKitFormBoundaryouBAOKH3uCrNADuJrn'.length;
 const DISPOISTION_SIZE = 'Content-Disposition: form-data; name="files"; filename=""rn'.length;
@@ -28,7 +28,7 @@ export function calcFormDataSize(files: FileWithPath[]): number[] {
   return sizes;
 }
 
-export function calcProgress(sizes: number[], e: AxiosProgressEvent): FileUploadStatus | undefined {
+export function calcProgress(sizes: number[], e: AxiosProgressEvent): FileUploadProgress | undefined {
   const total = e.total;
   if (!total) {
     return;

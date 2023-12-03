@@ -2,39 +2,46 @@ import { useEffect } from 'react';
 
 import useWebSocket from 'src/api/web-socket';
 import { PhotoPreview } from 'src/model/photo';
+import { generateRandomString } from 'src/utils';
 
-export interface PhotoUploadParams {
+export interface PhotoProcessHookParams {
+  callback: (result: PhotoProcessResult) => void;
+}
+
+export interface PhotoProcessParams {
   nonce: string;
   name: string;
   millis: number;
   albumId?: string;
 }
 
-export interface PhotoUploadResult {
+export interface PhotoProcessResult {
   success: boolean;
   nonce: string;
-  preview: PhotoPreview;
-  errMsg: string;
+  preview: PhotoPreview | null;
+  errMsg: string | null;
 }
 
-const pathNonce = Math.random().toString(36).substring(2, 8);
+const pathNonce = generateRandomString(16);
 const destination = `/v1/photo/upload/${pathNonce}`;
 
-export default function usePhotoUploadApi(callback: (result: PhotoUploadResult) => void) {
+export default function usePhotoUploadApi({ callback }: PhotoProcessHookParams) {
   const client = useWebSocket();
 
   useEffect(() => {
-    if (client) {
-      client.onConnect = () => {
-        client.subscribe(`${destination}/response`, (msg) => {
-          const result = JSON.parse(msg.body) as PhotoUploadResult;
-          callback(result);
-        });
-      };
+    if (!client) {
+      return;
     }
+
+    client.onConnect = () => {
+      client.subscribe(`${destination}/response`, (msg) => {
+        const result: PhotoProcessResult = JSON.parse(msg.body);
+        callback(result);
+      });
+    };
   }, [client, callback]);
 
-  return (params: PhotoUploadParams) => {
+  return (params: PhotoProcessParams) => {
     client?.publish({
       destination: `${destination}/request`,
       body: JSON.stringify(params),

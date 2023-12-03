@@ -110,7 +110,7 @@ export default function DriveExplorerFileItem({ file }: Props) {
         <i className={selected ? 'fas fa-check-square' : 'far fa-square'} />
       </div>
       <div className="cell icon">
-        <DriveFileIcon name={file.name} isDir={file.isDir} />
+        <DriveFileIcon path={file.name} isDir={file.isDir} />
       </div>
       <div className="cell name">{nameElement}</div>
       <div className="cell size">{file.isDir ? '' : getHumanReadableSize(file.size)}</div>

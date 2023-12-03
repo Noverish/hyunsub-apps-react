@@ -2,7 +2,7 @@ import { t } from 'i18next';
 import { useMemo } from 'react';
 import { Spinner } from 'react-bootstrap';
 
-import { useDriveUpload } from '../upload/DriveUploadHooks';
+import DriveUploadHooks from '../upload/DriveUploadHooks';
 import FileUploadZone from 'src/components/common/FileUploadZone';
 import DriveFileListItem from 'src/components/drive/explorer/DriveExplorerFileItem';
 import { useDriveExplorerFilesWithSort } from 'src/components/drive/explorer/DriveExplorerHooks';
@@ -12,7 +12,7 @@ import './DriveExplorerFileList.scss';
 export default function DriveExplorerFileList() {
   const { files, nameArrow, dateArrow, sizeArrow, onNameClick, onDateClick, onSizeClick } =
     useDriveExplorerFilesWithSort();
-  const upload = useDriveUpload();
+  const ready = DriveUploadHooks.useReady();
 
   const onElementDrop = (dataTransfer: DataTransfer) => {
     // const moves: string[] = JSON.parse(dataTransfer.getData('moves'));
@@ -43,7 +43,7 @@ export default function DriveExplorerFileList() {
   }, [files]);
 
   return (
-    <FileUploadZone onUpload={upload} onElementDrop={onElementDrop}>
+    <FileUploadZone onUpload={ready} onElementDrop={onElementDrop}>
       <div className="DriveExplorerFileList">
         <div className="my_table">
           <div className="table_row table_header">

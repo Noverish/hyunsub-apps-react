@@ -1,25 +1,19 @@
-import { FileWithPath } from 'src/model/file';
-import { PhotoPreview } from 'src/model/photo';
+import { PhotoUploadItemInfo } from 'src/model/photo';
 import { generateStateContext } from 'src/utils/context';
 
-export interface PhotoUploadFileItem {
-  file: FileWithPath;
-  status: 'ready' | 'uploading' | 'registering' | 'success' | 'error';
-  progress: number;
-  errMsg?: string;
-  preview?: PhotoPreview;
-}
+export type PhotoUploadStatus = 'ready' | 'uploading' | 'success' | 'error' | 'aborted';
 
 interface State {
-  items: PhotoUploadFileItem[];
-  uploading: boolean;
+  status: PhotoUploadStatus;
+  items: PhotoUploadItemInfo[];
   progress: number;
+  controller?: AbortController;
 }
 
 const initialState: State = {
+  status: 'ready',
   items: [],
   progress: 0,
-  uploading: false,
 };
 
 export const [PhotoUploadContext, PhotoUploadProvider] = generateStateContext(initialState);

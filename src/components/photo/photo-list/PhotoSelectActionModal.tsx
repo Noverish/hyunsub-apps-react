@@ -1,7 +1,7 @@
 import { t } from 'i18next';
 import { useContext } from 'react';
 
-import { useAlbumThumbnailRegister } from './PhotoListHooks';
+import PhotoListHooks, { useAlbumThumbnailRegister } from './PhotoListHooks';
 import { PhotoSelectContext } from './PhotoSelectContext';
 import ButtonListModal, { ButtonListModalItem } from 'src/components/common/ButtonListModal';
 
@@ -13,6 +13,7 @@ export default function PhotoSelectActionModal({ albumId }: Props) {
   const [state, setState] = useContext(PhotoSelectContext);
 
   const registerThumbnail = useAlbumThumbnailRegister(albumId);
+  const photoDeleteBulk = PhotoListHooks.usePhotoDeleteBulk();
 
   const items: ButtonListModalItem[] = [
     {
@@ -20,8 +21,12 @@ export default function PhotoSelectActionModal({ albumId }: Props) {
       onClick: () => setState({ showAlbumSelectModal: true }),
     },
     {
-      title: t('delete'),
+      title: t('PhotoListView.delete-from-album'),
       onClick: () => {},
+    },
+    {
+      title: t('PhotoListView.delete-photo'),
+      onClick: () => photoDeleteBulk(),
     },
   ];
 

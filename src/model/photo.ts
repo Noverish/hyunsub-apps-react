@@ -1,4 +1,5 @@
 import { PageData } from './api';
+import { FileUploadItemStatus, FileWithPath } from 'src/model/file';
 
 export interface AlbumPreview {
   id: string;
@@ -49,4 +50,15 @@ export interface Photo {
   regDt: string;
   dateType: string;
   original: string;
+}
+
+export type PhotoUploadItemStatus = 'ready' | 'uploading' | FileUploadItemStatus | 'success' | 'error';
+
+export interface PhotoUploadItemInfo {
+  file: FileWithPath;
+  status: PhotoUploadItemStatus;
+  progress: number;
+  nonce: string;
+  errMsg: string | null;
+  preview: PhotoPreview | null;
 }

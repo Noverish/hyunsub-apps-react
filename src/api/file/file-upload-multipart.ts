@@ -1,7 +1,7 @@
 import axios, { AxiosProgressEvent, AxiosRequestConfig } from 'axios';
 import { encodeURI } from 'js-base64';
 
-import { FileUploadItemResult, FileUploadStatus, FileWithPath } from 'src/model/file';
+import { FileUploadItemResult, FileUploadProgress, FileWithPath } from 'src/model/file';
 import { generateRandomString } from 'src/utils';
 import AppConstant from 'src/utils/constants';
 import { calcFormDataSize, calcProgress } from 'src/utils/form-data';
@@ -9,7 +9,7 @@ import { calcFormDataSize, calcProgress } from 'src/utils/form-data';
 export interface FileUploadParams {
   files: FileWithPath[];
   controller?: AbortController;
-  progress?: (status: FileUploadStatus) => void;
+  progress?: (progress: FileUploadProgress) => void;
   callback?: (result: FileUploadItemResult) => void;
 }
 

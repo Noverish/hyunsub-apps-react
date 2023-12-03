@@ -4,14 +4,14 @@ export interface FileWithPath {
   type: string;
 }
 
+export type FileUploadItemStatus = 'forbidden' | 'exist' | 'uploaded';
+
 export interface FileUploadItemResult {
-  index: number;
-  nonce: string;
+  status: FileUploadItemStatus;
   fileName: string;
-  mimeType: string;
 }
 
-export interface FileUploadStatus {
+export interface FileUploadProgress {
   current: {
     index: number;
     size: number;

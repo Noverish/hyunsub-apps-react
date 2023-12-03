@@ -6,23 +6,23 @@ import { DriveFileType } from 'src/model/drive';
 import './DriveFileIcon.scss';
 
 interface Props {
-  name: string;
+  path: string;
   isDir: boolean;
 }
 
-export default function DriveFileIcon({ name, isDir }: Props) {
-  const type = parseFileType(name, isDir);
+export default function DriveFileIcon({ path, isDir }: Props) {
+  const type = parseFileType(path, isDir);
   const icon = getIcon(type);
 
   return <i className={cs('DriveFileIcon', icon, type.toLowerCase())} />;
 }
 
-export function parseFileType(name: string, isDir: boolean): DriveFileType {
+export function parseFileType(path: string, isDir: boolean): DriveFileType {
   if (isDir) {
     return 'FOLDER';
   }
 
-  const ext = extname(name);
+  const ext = extname(path);
   switch (ext.toLowerCase().substring(1)) {
     case 'jpg':
     case 'jpeg':

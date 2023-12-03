@@ -5,6 +5,7 @@ import { PhotoSelectContext } from './PhotoSelectContext';
 import albumListApi from 'src/api/photo/album-list';
 import albumPhotoRegisterApi from 'src/api/photo/album-photo-register';
 import albumThumbnailApi from 'src/api/photo/album-thumbnail';
+import photoDeleteBulkApi from 'src/api/photo/photo-delete-bulk';
 import { AlbumPreview, PhotoPreview } from 'src/model/photo';
 import { dispatch } from 'src/redux';
 import { GlobalActions } from 'src/redux/global';
@@ -116,3 +117,38 @@ export function useAlbumThumbnailRegister(albumId?: string) {
     dispatch(GlobalActions.update({ loading: false }));
   };
 }
+
+function useClearSelection() {
+  const setState = useContext(PhotoSelectContext)[1];
+
+  return () => {
+    setState({
+      selectMode: false,
+      selects: [],
+      lastSelected: undefined,
+    });
+  };
+}
+
+function usePhotoDeleteBulk() {
+  const [state] = useContext(PhotoSelectContext);
+  const clearSelection = useClearSelection();
+
+  const photoIds = state.selects.map((v) => v.id);
+
+  return async () => {
+    dispatch(GlobalActions.update({ loading: true }));
+
+    await photoDeleteBulkApi({ photoIds });
+
+    clearSelection();
+
+    dispatch(GlobalActions.update({ loading: false }));
+  };
+}
+
+const PhotoListHooks = {
+  usePhotoDeleteBulk,
+};
+
+export default PhotoListHooks;

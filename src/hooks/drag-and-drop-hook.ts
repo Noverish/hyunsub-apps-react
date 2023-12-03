@@ -130,7 +130,7 @@ function getFile(entry: FileSystemFileEntry): Promise<FileWithPath> {
       (file) =>
         resolve({
           file,
-          path: entry.fullPath.replace(/^\//, ''),
+          path: entry.fullPath.replace(/^\//, '').normalize('NFC'),
           type: parseFileType(file),
         }),
       (err) => reject(err),

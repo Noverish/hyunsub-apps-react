@@ -3,84 +3,122 @@ import { join } from 'path-browserify';
 import { useContext } from 'react';
 
 import driveListApi from 'src/api/drive/drive-list';
-import fileUploadMultipartApi from 'src/api/file/file-upload-multipart';
+import fileUploadApi from 'src/api/file/file-upload-multipart';
 import { useDriveExplorerContext } from 'src/components/drive/explorer/DriveExplorerHooks';
 import { DriveUploadContext } from 'src/components/drive/upload/DriveUploadContext';
 import { useTokenPayload } from 'src/hooks/token';
-import { DriveUploadStatus } from 'src/model/drive';
-import { FileUploadItemResult, FileUploadStatus, FileWithPath } from 'src/model/file';
+import { DriveUploadItemInfo } from 'src/model/drive';
+import { FileUploadItemResult, FileUploadProgress, FileWithPath } from 'src/model/file';
 
-export function useDriveUpload() {
-  const { path } = useDriveExplorerContext();
+function useReady() {
   const setState = useContext(DriveUploadContext)[1];
+  const { path } = useDriveExplorerContext();
   const { isAdmin, idNo } = useTokenPayload();
 
-  return async (files: FileWithPath[]) => {
+  return (files: FileWithPath[]) => {
     files.sort((a, b) => a.path.localeCompare(b.path));
 
-    const items: DriveUploadStatus[] = files.map((v) => ({
-      absolutePath: join(path, v.path),
-      relativePath: v.path,
-      name: v.file.name,
-      size: v.file.size,
-      type: v.type,
+    const root = isAdmin ? path : join(`/hyunsub/drive/${idNo}`, path);
+
+    const items: DriveUploadItemInfo[] = files.map((file) => ({
+      file,
+      status: 'ready',
       progress: 0,
+      root,
     }));
 
-    const root = isAdmin ? path : join(`/hyunsub/drive/${idNo}`, path);
-    files.forEach((v) => (v.path = join(root, v.path)));
+    setState({ status: 'ready', items, progress: 0, controller: undefined });
+  };
+}
 
+function useUpload() {
+  const [{ items }, setState] = useContext(DriveUploadContext);
+  const { path } = useDriveExplorerContext();
+
+  const progress = (status: FileUploadProgress) => {
+    setState((state) => {
+      state.progress = status.total.ratio;
+      const item = state.items[status.current.index];
+      if (item) {
+        item.progress = status.current.ratio;
+      } else {
+        console.error(`[warning] upload progress item not exist: ${status.current.index}`);
+      }
+    });
+  };
+
+  const callback = ({ status, fileName }: FileUploadItemResult) => {
+    setState((state) => {
+      const item = state.items.filter((v) => join(v.root, v.file.path) === fileName)[0];
+      if (item) {
+        item.status = status;
+        item.progress = 100;
+
+        if (status !== 'uploaded') {
+          state.status = 'error';
+        }
+      } else {
+        console.error(`[warning] upload callack item not exist: ${fileName}`);
+      }
+    });
+  };
+
+  return async () => {
     const controller = new AbortController();
 
-    setState({ items, controller, aborted: false, progress: 0 });
+    setState((state) => {
+      state.status = 'uploading';
+      state.items.forEach((v) => (v.status = 'uploading'));
+      state.controller = controller;
+      state.progress = 0;
+    });
 
-    const progress = (status: FileUploadStatus) => {
-      setState((state) => {
-        state.progress = status.total.ratio;
-        const item = state.items[status.current.index];
-        if (item) {
-          item.progress = status.current.ratio;
-        }
-      });
-    };
+    const files: FileWithPath[] = items.map((v) => ({
+      ...v.file,
+      path: join(v.root, v.file.path),
+    }));
 
-    const callback = (result: FileUploadItemResult) => {
-      setState((state) => {
-        const item = state.items[result.index];
-        if (item) {
-          item.progress = 100;
-        }
-      });
-    };
+    await fileUploadApi({ files, progress, callback, controller });
 
-    await fileUploadMultipartApi({ files, progress, callback, controller });
-
-    setState({ controller: undefined });
+    setState((state) => {
+      if (state.status === 'uploading') {
+        state.status = 'success';
+      }
+      state.progress = 100;
+    });
 
     driveListApi.clearCache({ path });
   };
 }
 
-export function useDriveUploadClear() {
+function useClear() {
   const setState = useContext(DriveUploadContext)[1];
 
   return () => {
-    setState({ items: [], progress: 0, controller: undefined, aborted: false });
+    setState({ status: 'ready', items: [], progress: 0, controller: undefined });
   };
 }
 
-export function useDriveUploadClose() {
+function useAbort() {
   const [{ controller }, setState] = useContext(DriveUploadContext);
-  const clear = useDriveUploadClear();
 
   return () => {
-    if (controller) {
-      if (window.confirm(t('drive.DriveUploadModal.abort-msg'))) {
-        controller.abort();
-        setState({ controller: undefined, aborted: true });
-      }
-    } else {
-      clear();
+    if (!controller) {
+      return;
+    }
+
+    if (window.confirm(t('drive.DriveUploadModal.abort-msg'))) {
+      controller.abort();
+      setState({ status: 'aborted', controller: undefined });
     }
   };
 }
+
+const DriveUploadHooks = {
+  useReady,
+  useUpload,
+  useAbort,
+  useClear,
+};
+
+export default DriveUploadHooks;
