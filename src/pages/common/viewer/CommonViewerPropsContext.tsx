@@ -6,7 +6,7 @@ import { HeaderButton } from 'src/model/component';
 import { generateValueContext } from 'src/utils/context';
 
 export interface CommonViewerProps {
-  slides: CommonViewerData[];
+  slides?: CommonViewerData[];
   total?: number;
   initialIndex?: number;
   onIndexChange?: (index: number) => void;

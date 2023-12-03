@@ -22,7 +22,7 @@ function useTitle(albumName: string) {
   if (albumId) {
     return albumName;
   } else {
-    return t('photo.page.photo-list.title');
+    return t('PhotoListPage.title');
   }
 }
 

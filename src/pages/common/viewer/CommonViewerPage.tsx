@@ -16,7 +16,7 @@ function CommonViewerPageInner() {
   const [{ index, showHeader, showModal }, setState] = useContext(CommonViewerStateContext);
   const headerInfoBtn = CommonViewerHooks.useHeaderInfoBtn();
 
-  const total = props.total ?? slides.length;
+  const total = props.total ?? slides?.length ?? 0;
   const indexStatus = `${index + 1}/${total}`;
   const title = (titlePrefix ? `${titlePrefix} - ` : '') + indexStatus;
   const btns = infoSection ? headerInfoBtn : headerBtns;
@@ -30,6 +30,16 @@ function CommonViewerPageInner() {
     swiper?.slideTo(page, 400);
   };
 
+  const pageSelectModal = (
+    <PageSelectModal
+      show={showModal}
+      onHide={() => setState({ showModal: false })}
+      page={index}
+      total={total}
+      onPageChange={onPageChnage}
+    />
+  );
+
   return (
     <div className="CommonViewerPage">
       {showHeader && <MobileHeader title={title} back btns={btns} onTitleClick={onTitleClick} transparent show />}
@@ -37,15 +47,7 @@ function CommonViewerPageInner() {
         <CommonViewerSwiper />
       </div>
       {infoSection && <CommonViewerInfoContainer>{infoSection}</CommonViewerInfoContainer>}
-      {total && (
-        <PageSelectModal
-          show={showModal}
-          onHide={() => setState({ showModal: false })}
-          page={index}
-          total={total}
-          onPageChange={onPageChnage}
-        />
-      )}
+      {total > 0 ? pageSelectModal : undefined}
     </div>
   );
 }

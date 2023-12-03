@@ -1,3 +1,4 @@
+import { t } from 'i18next';
 import { useCallback, useContext, useEffect, useMemo, useRef } from 'react';
 import Swiper from 'swiper';
 
@@ -9,8 +10,11 @@ import PhotoInfoSection from 'src/components/photo/PhotoInfoSection';
 import CommonViewerPage from 'src/pages/common/viewer/CommonViewerPage';
 import { CommonViewerData } from 'src/pages/common/viewer/components/CommonViewerSlide';
 import PhotoViewerHooks from 'src/pages/photo/photo-viewer/PhotoViewerHooks';
+import { setDocumentTitle } from 'src/utils/services';
 
 function AlbumViewerPage() {
+  setDocumentTitle(t('AlbumViewerPage.title'));
+
   const { albumId, photoId } = AlbumViewerHooks.usePageParams();
   AlbumViewerHooks.usePageInit();
 
@@ -44,9 +48,9 @@ function AlbumViewerPage() {
     <CommonViewerPage
       slides={slides}
       onIndexReady={onIndexReady}
+      onIndexChange={onIndexChange}
       initialIndex={initialIndex}
       swiperRef={swiperRef}
-      onIndexChange={onIndexChange}
       infoSection={currPhotoId ? <PhotoInfoSection albumId={albumId} photoId={currPhotoId} /> : undefined}
     />
   );

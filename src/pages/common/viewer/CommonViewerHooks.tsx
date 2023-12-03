@@ -13,7 +13,7 @@ import { CommonViewerSwiperContext } from 'src/pages/common/viewer/CommonViewerS
 export let swiper: Swiper | undefined;
 
 interface SwiperCreateParams {
-  slides: CommonViewerData[];
+  slides?: CommonViewerData[];
   renderExternal: (data: VirtualData<CommonViewerData>) => void;
   initialIndex?: number;
 }
@@ -30,7 +30,7 @@ function createSwiper({ slides, renderExternal, initialIndex }: SwiperCreatePara
     virtual: {
       addSlidesAfter: 1,
       addSlidesBefore: 1,
-      slides,
+      slides: slides ?? [],
       renderExternal,
     },
     keyboard: {
@@ -76,6 +76,10 @@ const useSwiperSlides = (swiper: Swiper) => {
   const { slides } = useContext(CommonViewerPropsContext);
 
   useEffect(() => {
+    if (!slides) {
+      return;
+    }
+
     const virtual = swiper.virtual;
 
     const oldSlides = virtual.slides;
