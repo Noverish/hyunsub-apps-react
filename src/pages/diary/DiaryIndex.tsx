@@ -6,6 +6,7 @@ import DiaryCalendarPage from './calendar/DiaryCalendarPage';
 import DiaryCreatePage from './create/DiaryCreatePage';
 import DiaryDetailPage from './detail/DiaryDetailPage';
 import DiaryListPage from './list/DiaryListPage';
+import DiaryPhotoPage from './photo/DiaryPhotoPage';
 import DiarySearchPage from './search/DiarySearchPage';
 import DiaryUpdatePage from './update/DiaryUpdatePage';
 import DiaryNavigation from 'src/components/diary/DiaryNavigation';
@@ -13,6 +14,10 @@ import { FriendListProvider } from 'src/context/friend/FriendListContext';
 import CommonRoutes from 'src/pages/common/CommonRoutes';
 
 export const DiaryRouteObjects: RouteObject[] = [
+  {
+    path: routes.photoRoute,
+    element: <DiaryPhotoPage />,
+  },
   {
     path: '/',
     element: (
