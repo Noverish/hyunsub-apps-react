@@ -31,6 +31,7 @@ export interface HeaderButton {
 }
 
 export interface HeaderMoreButton {
-  text: string;
+  icon?: string;
+  name: string;
   onClick: () => void;
 }

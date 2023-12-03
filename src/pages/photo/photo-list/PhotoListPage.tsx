@@ -1,26 +1,22 @@
-import { t } from 'i18next';
 import { useContext } from 'react';
 
 import PhotoRoutes from '../PhotoRoutes';
 import { useFlattenPagination } from 'src/api/generate-pagination-query';
 import photoListApi from 'src/api/photo/photo-list';
 import ListLoadingIndicator from 'src/components/common/ListLoadingIndicator';
-import CommonContainer from 'src/components/common/header/CommonContainer';
+import CommonLayout from 'src/components/common/layout/CommonLayout';
 import AlbumSelectModal from 'src/components/photo/modal/AlbumSelectModal';
 import { useAlbumPhotoRegister } from 'src/components/photo/photo-list/PhotoListHooks';
-import PhotoListMobileHeader from 'src/components/photo/photo-list/PhotoListMobileHeader';
 import PhotoListView from 'src/components/photo/photo-list/PhotoListView';
-import PhotoSelectActionModal from 'src/components/photo/photo-list/PhotoSelectActionModal';
 import { PhotoSelectContext, PhotoSelectProvider } from 'src/components/photo/photo-list/PhotoSelectContext';
+import PhotoSelectHeaderHooks from 'src/components/photo/photo-list/PhotoSelectHeaderHooks';
 import useScrollBottom from 'src/hooks/scroll-bottom';
-import { setDocumentTitle } from 'src/utils/services';
+import { PhotoPreview } from 'src/model/photo';
 
 function PhotoListPage() {
-  setDocumentTitle(t('photo.page.photo-list.title'));
-
   // hooks
   const { data, fetchNextPage, isFetching } = photoListApi.useInfiniteApi({});
-  const infiniteData = useFlattenPagination(data);
+  const photos = useFlattenPagination(data);
   const [state, setState] = useContext(PhotoSelectContext);
   const albumPhotoRegister = useAlbumPhotoRegister();
 
@@ -30,20 +26,20 @@ function PhotoListPage() {
     }
   });
 
+  const headerProps = PhotoSelectHeaderHooks.useHeaderProps(photos);
+
+  const itemHref = (v: PhotoPreview) => PhotoRoutes.photoViewer({ photoId: v.id });
+
   return (
-    <div id="PhotoListPage">
-      <PhotoListMobileHeader />
-      <CommonContainer>
-        <PhotoListView previews={infiniteData} itemHref={(v) => PhotoRoutes.photoViewer({ photoId: v.id })} />
-        <ListLoadingIndicator isFetching={isFetching} />
-      </CommonContainer>
-      <PhotoSelectActionModal />
+    <CommonLayout className="PhotoListPage" {...headerProps}>
+      <PhotoListView photos={photos} itemHref={itemHref} />
+      <ListLoadingIndicator isFetching={isFetching} />
       <AlbumSelectModal
         show={state.showAlbumSelectModal}
         onHide={() => setState({ showAlbumSelectModal: false })}
         onClick={albumPhotoRegister}
       />
-    </div>
+    </CommonLayout>
   );
 }
 

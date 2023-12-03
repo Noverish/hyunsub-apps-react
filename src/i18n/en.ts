@@ -126,6 +126,8 @@ const en = {
     'PhotoNavigation.share': 'Share',
     'PhotoUploadPage.title': 'Photo Upload',
     'PhotoUploadPage.photo-num': '{{0}} Photos',
+    'PhotoListView.select-all': 'Select All',
+    'PhotoListView.unselect-all': 'Unselect All',
     'PhotoListView.add-to-album': 'Add to Album',
     'PhotoListView.delete-from-album': 'Delete from Album',
     'PhotoListView.delete-photo': 'Completely Delete',

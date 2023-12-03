@@ -8,10 +8,11 @@ import { setDocumentTitle } from 'src/utils/services';
 interface Props extends HeaderProps {
   className: string;
   children: React.ReactNode;
+  containerOutside?: React.ReactNode;
 }
 
 export default function CommonLayout(props: Props) {
-  const { className, children, ...headerProps } = props;
+  const { className, children, containerOutside, ...headerProps } = props;
 
   setDocumentTitle(headerProps.title);
 
@@ -24,6 +25,7 @@ export default function CommonLayout(props: Props) {
         {isMobile || <DesktopHeader {...headerProps} />}
         {children}
       </CommonContainer>
+      {containerOutside}
     </div>
   );
 }

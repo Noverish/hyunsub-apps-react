@@ -1,5 +1,6 @@
 import { InfiniteData, QueryKey, UseInfiniteQueryResult, useInfiniteQuery } from '@tanstack/react-query';
 import { AxiosRequestConfig } from 'axios';
+import { UseInfiniteQueryOptions } from 'node_modules/@tanstack/react-query/build/lib/types';
 import { useMemo } from 'react';
 
 import { generateApi } from 'src/api/generate-api';
@@ -16,7 +17,10 @@ interface GenerateInfiniteApiOption<P> {
 }
 
 interface GenerateInfiniteApiResult<P, R> {
-  useInfiniteApi: (p: P) => UseInfiniteQueryResult<Pagination<R>>;
+  useInfiniteApi: (
+    p: P,
+    option?: UseInfiniteQueryOptions<Pagination<R>, unknown, Pagination<R>, Pagination<R>, QueryKey>,
+  ) => UseInfiniteQueryResult<Pagination<R>>;
 }
 
 export function generatePaginationQuery<P, R>(option: GenerateInfiniteApiOption<P>): GenerateInfiniteApiResult<P, R> {

@@ -126,6 +126,8 @@ const ko = {
     'PhotoNavigation.share': '공유',
     'PhotoUploadPage.title': '사진 업로드',
     'PhotoUploadPage.photo-num': '{{0}}개의 사진',
+    'PhotoListView.select-all': '전체 선택',
+    'PhotoListView.unselect-all': '전체 선택 해제',
     'PhotoListView.add-to-album': '앨범에 추가',
     'PhotoListView.delete-from-album': '앨범에서 사진 제거',
     'PhotoListView.delete-photo': '사진 완전 제거',

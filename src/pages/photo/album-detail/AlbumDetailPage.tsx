@@ -1,73 +1,77 @@
 import { t } from 'i18next';
-import { Button } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
+import { useContext } from 'react';
+import { Navigate } from 'react-router-dom';
 
 import PhotoRoutes from '../PhotoRoutes';
-import { AlbumDetailProvider } from './AlbumDetailContext';
-import { useAlbumDelete, useAlbumDetailPage } from './AlbumDetailHooks';
+import AlbumDetailHooks from './AlbumDetailHooks';
+import { useFlattenPageData } from 'src/api/generate-infinite-query';
 import albumDetailApi from 'src/api/photo/album-detail';
+import albumPhotosApi from 'src/api/photo/album-photos';
 import ListLoadingIndicator from 'src/components/common/ListLoadingIndicator';
-import CommonContainer from 'src/components/common/header/CommonContainer';
-import PhotoListMobileHeader from 'src/components/photo/photo-list/PhotoListMobileHeader';
+import { Loading } from 'src/components/common/LoadingSuspense';
+import CommonLayout from 'src/components/common/layout/CommonLayout';
+import AlbumSelectModal from 'src/components/photo/modal/AlbumSelectModal';
+import { useAlbumPhotoRegister } from 'src/components/photo/photo-list/PhotoListHooks';
 import PhotoListView from 'src/components/photo/photo-list/PhotoListView';
-import { PhotoSelectProvider } from 'src/components/photo/photo-list/PhotoSelectContext';
-import { useBreakpointMobile } from 'src/utils/breakpoint';
-import { setDocumentTitle } from 'src/utils/services';
+import { PhotoSelectContext, PhotoSelectProvider } from 'src/components/photo/photo-list/PhotoSelectContext';
+import PhotoSelectHeaderHooks from 'src/components/photo/photo-list/PhotoSelectHeaderHooks';
+import useScrollBottom from 'src/hooks/scroll-bottom';
+import { PhotoPreview } from 'src/model/photo';
+import CommonRoutes from 'src/pages/common/CommonRoutes';
 
 import './AlbumDetailPage.scss';
 
 function AlbumDetailPage() {
+  const { albumId } = AlbumDetailHooks.usePageParams();
+
   // hooks
-  const { album, photos, isFetching } = useAlbumDetailPage();
-  const isMobile = useBreakpointMobile();
-  const albumDelete = useAlbumDelete();
-  setDocumentTitle(t('photo.page.album-detail.title', [album.name]));
+  const { data: album, isLoading } = albumDetailApi.useApiResult({ albumId });
+  const { data, fetchNextPage, isFetching } = albumPhotosApi.useInfiniteApi({ albumId }, { suspense: false });
+  const photos = useFlattenPageData(data);
+  const [state, setState] = useContext(PhotoSelectContext);
+  const albumPhotoRegister = useAlbumPhotoRegister();
 
-  const albumId = album.id;
-  const total = album.photos.total;
+  useScrollBottom(() => {
+    if (!isFetching) {
+      fetchNextPage();
+    }
+  });
 
-  // elements
-  const titleSectionForDesktop = (
-    <section className="title_section">
-      <div className="album_name">{album.name}</div>
-      <div className="photo_num">{t('photo.page.album-detail.photo-num', [total])}</div>
-    </section>
-  );
+  const headerProps = PhotoSelectHeaderHooks.useHeaderProps(photos, album ?? undefined);
 
-  const titleSectionForMobile = <h2>{t('photo.page.album-detail.photo-num', [total])}</h2>;
+  const itemHref = (v: PhotoPreview) => PhotoRoutes.albumViewer({ albumId, photoId: v.id });
 
-  const photoListTopRightButton = (
-    <Button className="delete_button" variant="danger" onClick={() => albumDelete({ albumId })}>
-      {t('AlbumDetailPage.delete-album')}
-    </Button>
-  );
+  let content = <></>;
+  if (isLoading) {
+    content = <Loading />;
+  } else if (!album) {
+    content = <Navigate to={CommonRoutes.notFound} replace />;
+  } else {
+    content = (
+      <>
+        <div className="photo_num">{t('photo.page.album-detail.photo-num', [album?.photos?.total])}</div>
+        <PhotoListView photos={photos} itemHref={itemHref} />
+        <ListLoadingIndicator isFetching={isFetching} />
+        <AlbumSelectModal
+          show={state.showAlbumSelectModal}
+          onHide={() => setState({ showAlbumSelectModal: false })}
+          onClick={albumPhotoRegister}
+        />
+      </>
+    );
+  }
 
   return (
-    <div className="AlbumDetailPage">
-      <PhotoListMobileHeader album={album} />
-      <CommonContainer>
-        {isMobile ? titleSectionForMobile : titleSectionForDesktop}
-        <PhotoListView
-          albumId={albumId}
-          previews={photos}
-          itemHref={(v) => PhotoRoutes.albumViewer({ albumId, photoId: v.id })}
-          rightBtn={photoListTopRightButton}
-        />
-        <ListLoadingIndicator isFetching={isFetching} />
-      </CommonContainer>
-    </div>
+    <CommonLayout className="AlbumDetailPage" {...headerProps}>
+      {content}
+    </CommonLayout>
   );
 }
 
 export default function AlbumDetailIndex() {
-  const albumId = useParams().albumId!!;
-  const album = albumDetailApi.useApi({ albumId });
-
   return (
-    <AlbumDetailProvider value={album}>
-      <PhotoSelectProvider>
-        <AlbumDetailPage />
-      </PhotoSelectProvider>
-    </AlbumDetailProvider>
+    <PhotoSelectProvider>
+      <AlbumDetailPage />
+    </PhotoSelectProvider>
   );
 }

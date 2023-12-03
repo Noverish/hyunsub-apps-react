@@ -1,22 +1,16 @@
-import { useParams } from 'react-router-dom';
-
-import AlbumPhotoMetadataListContainer from '../album-detail/components/AlbumPhotoMetadataListContainer';
-import albumDetailApi from 'src/api/photo/album-detail';
-import CommonContainer from 'src/components/common/header/CommonContainer';
-import PhotoListMobileHeader from 'src/components/photo/photo-list/PhotoListMobileHeader';
-import { AlbumDetailProvider } from 'src/pages/photo/album-detail/AlbumDetailContext';
+import albumPhotoMetadataApi from 'src/api/photo/album-photo-metadata';
+import CommonLayout from 'src/components/common/layout/CommonLayout';
+import PhotoMetadataListView from 'src/components/photo/PhotoMetadataListView';
+import { useUrlParams } from 'src/hooks/url-params';
 
 export default function AlbumDatePage() {
-  const albumId = useParams().albumId!!;
-  const album = albumDetailApi.useApi({ albumId });
+  const [albumId] = useUrlParams('albumId');
+  const { data: list } = albumPhotoMetadataApi.useApiResult({ albumId });
+  const containerOutside = <PhotoMetadataListView list={list ?? []} />;
 
   return (
-    <AlbumDetailProvider value={album}>
-      <div className="AlbumDatePage">
-        <PhotoListMobileHeader album={album} />
-        <CommonContainer>{albumId}</CommonContainer>
-        <AlbumPhotoMetadataListContainer />
-      </div>
-    </AlbumDetailProvider>
+    <CommonLayout className="AlbumDatePage" title="AlbumDatePage" containerOutside={containerOutside}>
+      <span>albumId</span>
+    </CommonLayout>
   );
 }

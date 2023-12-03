@@ -17,8 +17,8 @@ interface Props {
 
 export default function MobileHeaderMoreButton({ menus }: Props) {
   const items = menus.map((v) => (
-    <Dropdown.Item key={v.text} onClick={v.onClick}>
-      {v.text}
+    <Dropdown.Item key={v.name} onClick={v.onClick}>
+      {v.name}
     </Dropdown.Item>
   ));
 

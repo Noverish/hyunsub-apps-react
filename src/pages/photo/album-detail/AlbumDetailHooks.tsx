@@ -1,54 +1,39 @@
 import { t } from 'i18next';
-import { useMemo } from 'react';
-import { useParams } from 'react-router-dom';
 
-import PhotoRoutes from '../PhotoRoutes';
-import albumDeleteApi, { AlbumDeleteParams } from 'src/api/photo/album-delete';
-import albumDetailApi from 'src/api/photo/album-detail';
-import albumListApi from 'src/api/photo/album-list';
-import albumPhotosApi from 'src/api/photo/album-photos';
-import useScrollBottom from 'src/hooks/scroll-bottom';
+import albumDeleteApi from 'src/api/photo/album-delete';
+import { useUrlParams } from 'src/hooks/url-params';
 import router from 'src/pages/router';
 import { dispatch } from 'src/redux';
 import { GlobalActions } from 'src/redux/global';
 
-export function useAlbumDetailPage() {
-  const albumId = useParams().albumId!!;
-
-  const album = albumDetailApi.useApi({ albumId });
-
-  const { data, fetchNextPage, isFetching } = albumPhotosApi.useInfiniteApi({ albumId });
-  const pages = data?.pages;
-  const photos = useMemo(() => pages?.flatMap((v) => v.data) || [], [pages]);
-
-  useScrollBottom(() => {
-    if (!isFetching) {
-      fetchNextPage();
-    }
-  });
-
-  return {
-    album,
-    photos,
-    isFetching,
-  };
+export interface AlbumDetailPageParams {
+  albumId: string;
 }
 
-export function useAlbumDelete() {
-  return async (params: AlbumDeleteParams) => {
+function usePageParams(): AlbumDetailPageParams {
+  const [albumId] = useUrlParams('albumId');
+  return { albumId };
+}
+
+function useAlbumDelete() {
+  return async (albumId: string) => {
     if (!window.confirm(t('photo.album-delete-confirm'))) {
       return;
     }
 
-    const { albumId } = params;
     dispatch(GlobalActions.update({ loading: true }));
 
-    await albumDeleteApi(params);
-
-    albumListApi.deleteCache({}, (v) => v.id === albumId);
+    await albumDeleteApi({ albumId });
 
     dispatch(GlobalActions.update({ loading: false }));
 
-    router.navigate(PhotoRoutes.albums);
+    router.navigate(-1);
   };
 }
+
+const AlbumDetailHooks = {
+  usePageParams,
+  useAlbumDelete,
+};
+
+export default AlbumDetailHooks;

@@ -3,23 +3,8 @@
     --bs-gutter-x: 0;
   }
 
-  .title_section {
-    display: flex;
-    align-items: baseline;
+  .photo_num {
+    font-size: 1.5rem;
     margin-bottom: 1rem;
-
-    .album_name {
-      font-size: 2rem;
-    }
-
-    .photo_num {
-      margin-left: 1rem;
-      font-size: 1.5rem;
-    }
-
-    .delete_button {
-      align-self: flex-start;
-      margin-left: auto;
-    }
-   }
+  }
 }
