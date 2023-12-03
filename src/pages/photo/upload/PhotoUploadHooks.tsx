@@ -102,9 +102,9 @@ function useProcess(albumId?: string) {
       }
       if (finishNum === state.items.length) {
         if (errorExist) {
-          state.status = 'success';
-        } else {
           state.status = 'error';
+        } else {
+          state.status = 'success';
         }
       }
     });

@@ -10,15 +10,16 @@ export interface AlbumDeleteParams {
 
 const albumDeleteApi = generateApi<AlbumDeleteParams, Album>({
   api: (params) => ({
-    url: `/api/v2/albums/${params.albumId}`,
+    url: `/api/v1/albums/${params.albumId}`,
     method: 'DELETE',
   }),
   postHandle: ({ id: albumId }) => {
-    albumDetailApi.setCache({ albumId }, null);
-    albumListApi.clearCache();
+    albumListApi.deleteCache(null, (v) => v.id === albumId);
     setTimeout(() => {
+      albumListApi.invalidate();
+      albumDetailApi.clearCache({ albumId });
       albumPhotosApi.clearCache({ albumId });
-    }, 0);
+    }, 1000);
   },
 });
 

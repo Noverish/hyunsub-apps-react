@@ -7,7 +7,7 @@ export interface PhotoListParams {
 
 const photoListApi = generatePaginationQuery<PhotoListParams, PhotoPreview>({
   api: ({ photoId, prev, next }) => ({
-    url: `/api/v2/photos`,
+    url: `/api/v1/photos`,
     method: 'GET',
     params: {
       photoId: prev || next ? undefined : photoId,

@@ -1,32 +1,20 @@
 import { t } from 'i18next';
-import { useEffect } from 'react';
 
-import CommonContainer from 'src/components/common/header/CommonContainer';
-import MobileHeader from 'src/components/common/header/MobileHeader';
+import CommonLayout from 'src/components/common/layout/CommonLayout';
 import DriveExplorer from 'src/components/drive/explorer/DriveExplorer';
 import { DriveExplorerProvider } from 'src/components/drive/explorer/DriveExplorerContext';
-import { useDriveExplorerKeyDown, useDriveExplorerPath } from 'src/components/drive/explorer/DriveExplorerHooks';
+import { useDriveExplorerKeyDown } from 'src/components/drive/explorer/DriveExplorerHooks';
 import { DriveUploadProvider } from 'src/components/drive/upload/DriveUploadContext';
-import { setDocumentTitle } from 'src/utils/services';
 
 import './DriveExplorerPage.scss';
 
 function DriveExplorerPage() {
-  const [path] = useDriveExplorerPath();
-
   useDriveExplorerKeyDown();
 
-  useEffect(() => {
-    setDocumentTitle(path);
-  }, [path]);
-
   return (
-    <div id="DriveExplorerPage">
-      <MobileHeader title={t('DriveExplorerPage.title')} />
-      <CommonContainer>
-        <DriveExplorer />
-      </CommonContainer>
-    </div>
+    <CommonLayout className="DriveExplorerPage" title={t('DriveExplorerPage.title')}>
+      <DriveExplorer />
+    </CommonLayout>
   );
 }
 

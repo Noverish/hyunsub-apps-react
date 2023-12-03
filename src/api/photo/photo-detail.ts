@@ -8,7 +8,7 @@ export interface PhotoDetailParams {
 
 const photoDetailApi = generateQuery<PhotoDetailParams, Photo>({
   api: ({ photoId, ...params }) => ({
-    url: `/api/v2/photos/${photoId}`,
+    url: `/api/v1/photos/${photoId}`,
     method: 'GET',
     params,
   }),

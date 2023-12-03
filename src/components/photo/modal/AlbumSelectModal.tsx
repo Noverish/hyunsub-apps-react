@@ -13,7 +13,7 @@ interface Props {
 }
 
 export default function AlbumSelectModal({ show, onHide, onClick }: Props) {
-  const { data } = albumListApi.useInfiniteApi({});
+  const { data } = albumListApi.useInfiniteApi({}, { suspense: false });
   const albums = useFlattenPageData(data);
 
   const elements = albums.map((v) => <AlbumPreviewView key={v.id} preview={v} onClick={onClick} />);

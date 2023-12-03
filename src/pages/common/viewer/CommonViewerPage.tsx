@@ -32,7 +32,7 @@ function CommonViewerPageInner() {
 
   return (
     <div className="CommonViewerPage">
-      {showHeader && <MobileHeader title={title} back btns={btns} onTitleClick={onTitleClick} transparent />}
+      {showHeader && <MobileHeader title={title} back btns={btns} onTitleClick={onTitleClick} transparent show />}
       <div className="swiper_container">
         <CommonViewerSwiper />
       </div>

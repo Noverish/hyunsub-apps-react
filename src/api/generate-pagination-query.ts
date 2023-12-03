@@ -4,6 +4,7 @@ import { UseInfiniteQueryOptions } from 'node_modules/@tanstack/react-query/buil
 import { useMemo } from 'react';
 
 import { generateApi } from 'src/api/generate-api';
+import QueryClient from 'src/api/query-client';
 import { Pagination } from 'src/model/api';
 
 interface PageParam {
@@ -21,9 +22,12 @@ interface GenerateInfiniteApiResult<P, R> {
     p: P,
     option?: UseInfiniteQueryOptions<Pagination<R>, unknown, Pagination<R>, Pagination<R>, QueryKey>,
   ) => UseInfiniteQueryResult<Pagination<R>>;
+  invalidate: (p?: P) => void;
 }
 
 export function generatePaginationQuery<P, R>(option: GenerateInfiniteApiOption<P>): GenerateInfiniteApiResult<P, R> {
+  type TQueryFnData = InfiniteData<Pagination<R>>;
+
   const key = (p: P): QueryKey => [option.key, p];
   const api = generateApi<P & PageParam, Pagination<R>>({ api: option.api });
 
@@ -38,8 +42,14 @@ export function generatePaginationQuery<P, R>(option: GenerateInfiniteApiOption<
     });
   };
 
+  const invalidate = (p?: P) => {
+    const queryKey: QueryKey = p ? key(p) : [option.key];
+    QueryClient.invalidateQueries<TQueryFnData>(queryKey);
+  };
+
   return {
     useInfiniteApi,
+    invalidate,
   };
 }
 

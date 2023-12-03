@@ -1,5 +1,5 @@
-import { usePhotoListSelect } from './PhotoListHooks';
 import PhotoPreviewView from './PhotoPreviewView';
+import PhotoSelectHooks from './PhotoSelectHooks';
 import { PhotoPreview } from 'src/model/photo';
 
 import './PhotoListView.scss';
@@ -11,7 +11,7 @@ interface Props {
 
 export default function PhotoListView({ photos, itemHref: href }: Props) {
   // hooks
-  const { onSelect } = usePhotoListSelect(photos);
+  const onSelect = PhotoSelectHooks.useSelect(photos);
 
   // elements
   const elements = photos.map((v) => <PhotoPreviewView key={v.id} preview={v} href={href(v)} onSelect={onSelect} />);

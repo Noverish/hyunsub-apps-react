@@ -1,4 +1,3 @@
-import { PageData } from './api';
 import { FileUploadItemStatus, FileWithPath } from 'src/model/file';
 
 export interface AlbumPreview {
@@ -10,7 +9,7 @@ export interface AlbumPreview {
 export interface Album {
   id: string;
   name: string;
-  photos: PageData<PhotoPreview>;
+  total: number;
 }
 
 export interface PhotoPreview {

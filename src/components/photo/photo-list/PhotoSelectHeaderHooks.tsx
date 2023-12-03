@@ -1,10 +1,8 @@
 import { t } from 'i18next';
 import { useContext } from 'react';
 
-import PhotoListHooks, {
-  useAlbumThumbnailRegister,
-  useToggleSelectMode,
-} from 'src/components/photo/photo-list/PhotoListHooks';
+import PhotoActionHooks from './PhotoActionHooks';
+import PhotoSelectHooks from './PhotoSelectHooks';
 import { PhotoSelectContext } from 'src/components/photo/photo-list/PhotoSelectContext';
 import { useOptionalUrlParams } from 'src/hooks/url-params';
 import { HeaderButton, HeaderMoreButton, HeaderProps } from 'src/model/component';
@@ -28,17 +26,15 @@ function useTitle(albumName: string) {
   }
 }
 
-function useHeaderProps(photos: PhotoPreview[], album?: Album): HeaderProps {
+function useSelectMenus(photos: PhotoPreview[]): HeaderMoreButton[] {
   const [albumId] = useOptionalUrlParams('albumId');
+  const [{ selects }, setState] = useContext(PhotoSelectContext);
 
-  // hooks
-  const [{ selectMode, selects }, setState] = useContext(PhotoSelectContext);
-  const toggleSelectMode = useToggleSelectMode();
-  const registerThumbnail = useAlbumThumbnailRegister(album?.id);
-  const albumDelete = AlbumDetailHooks.useAlbumDelete();
-  const photoDeleteBulk = PhotoListHooks.usePhotoDeleteBulk();
+  const photoDownload = PhotoActionHooks.usePhotoDownload();
+  const photoDelete = PhotoActionHooks.usePhotoDelete();
+  const albumPhotoDelete = PhotoActionHooks.useAlbumPhotoDelete();
+  const albumThumbnailRegister = PhotoActionHooks.useAlbumThumbnailRegister();
 
-  // functions
   const selectAll = () => {
     setState({
       selects: [...photos],
@@ -51,6 +47,66 @@ function useHeaderProps(photos: PhotoPreview[], album?: Album): HeaderProps {
       lastSelected: undefined,
     });
   };
+
+  const result: HeaderMoreButton[] = [];
+
+  if (albumId) {
+    if (selects.length === 0) {
+      result.push({
+        name: t('PhotoListView.select-all'),
+        onClick: () => selectAll(),
+      });
+    } else {
+      result.push({
+        name: t('PhotoListView.unselect-all'),
+        onClick: () => unselectAll(),
+      });
+    }
+  }
+
+  result.push({
+    icon: 'fas fa-download',
+    name: t('download'),
+    onClick: () => photoDownload(albumId),
+  });
+
+  result.push({
+    icon: 'fas fa-plus',
+    name: t('PhotoListView.add-to-album'),
+    onClick: () => setState({ showAlbumSelectModal: true }),
+  });
+
+  result.push({
+    icon: 'fas fa-trash-alt',
+    name: t('PhotoListView.delete-photo'),
+    onClick: () => photoDelete(),
+  });
+
+  if (albumId) {
+    result.push({
+      icon: 'fas fa-trash-alt',
+      name: t('PhotoListView.delete-from-album'),
+      onClick: () => albumPhotoDelete(albumId),
+    });
+  }
+
+  if (albumId && selects.length === 1) {
+    result.push({
+      name: t('photo.register-thumbnail'),
+      onClick: () => albumThumbnailRegister(albumId),
+    });
+  }
+
+  return result;
+}
+
+function useHeaderProps(photos: PhotoPreview[], album?: Album): HeaderProps {
+  const [albumId] = useOptionalUrlParams('albumId');
+
+  // hooks
+  const [{ selectMode }] = useContext(PhotoSelectContext);
+  const toggleSelectMode = PhotoSelectHooks.useToggle();
+  const albumDelete = AlbumDetailHooks.useAlbumDelete();
 
   // elements
   const normalBtns: HeaderButton[] = [
@@ -73,24 +129,6 @@ function useHeaderProps(photos: PhotoPreview[], album?: Album): HeaderProps {
         }
       },
     },
-    // {
-    //   name: t('filter'),
-    //   onClick: () => {
-    //     alert('Not yet supported!');
-    //   },
-    // },
-    // {
-    //   name: t('sort'),
-    //   onClick: () => {
-    //     alert('Not yet supported!');
-    //   },
-    // },
-    // {
-    //   name: t('view'),
-    //   onClick: () => {
-    //     alert('Not yet supported!');
-    //   },
-    // },
   ];
 
   if (albumId) {
@@ -101,43 +139,7 @@ function useHeaderProps(photos: PhotoPreview[], album?: Album): HeaderProps {
     });
   }
 
-  const selectMenus: HeaderMoreButton[] = [
-    {
-      name: selects.length === 0 ? t('PhotoListView.select-all') : t('PhotoListView.unselect-all'),
-      onClick: () => {
-        if (selects.length === 0) {
-          selectAll();
-        } else {
-          unselectAll();
-        }
-      },
-    },
-    {
-      name: t('PhotoListView.add-to-album'),
-      onClick: () => setState({ showAlbumSelectModal: true }),
-    },
-    {
-      icon: 'fas fa-trash-alt',
-      name: t('PhotoListView.delete-photo'),
-      onClick: () => photoDeleteBulk(),
-    },
-  ];
-
-  if (albumId) {
-    selectMenus.push({
-      name: t('PhotoListView.delete-from-album'),
-      onClick: () => {
-        alert('Not yet supported!');
-      },
-    });
-  }
-
-  if (registerThumbnail) {
-    selectMenus.push({
-      name: t('photo.register-thumbnail'),
-      onClick: registerThumbnail,
-    });
-  }
+  const selectMenus = useSelectMenus(photos);
 
   const title = useTitle(album?.name ?? '');
 

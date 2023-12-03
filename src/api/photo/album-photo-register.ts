@@ -9,7 +9,7 @@ interface AlbumPhotoRegisterParams {
 const albumPhotoRegisterApi = generateApi<AlbumPhotoRegisterParams, SimpleResponse>({
   api: (params) => {
     return {
-      url: `/api/v2/albums/${params.albumId}/photos`,
+      url: `/api/v1/albums/${params.albumId}/photos`,
       method: 'POST',
       data: params,
     };

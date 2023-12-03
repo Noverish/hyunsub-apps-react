@@ -22,6 +22,7 @@ export interface HeaderProps {
   onHeaderClick?: (e: React.MouseEvent<HTMLElement>) => void;
   onTitleClick?: (e: React.MouseEvent<HTMLElement>) => void;
   transparent?: boolean;
+  show?: boolean;
 }
 
 export interface HeaderButton {

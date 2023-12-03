@@ -3,7 +3,7 @@ import { AlbumPreview } from 'src/model/photo';
 
 const albumListApi = generateInfiniteQuery<{}, AlbumPreview>({
   api: ({ page }) => ({
-    url: '/api/v2/albums',
+    url: '/api/v1/albums',
     method: 'GET',
     params: { p: page },
   }),

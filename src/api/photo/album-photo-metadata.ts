@@ -7,7 +7,7 @@ export interface AlbumPhotoMetadataParams {
 
 const albumPhotoMetadataApi = generateQuery<AlbumPhotoMetadataParams, PhotoMetadata[]>({
   api: (params) => ({
-    url: `/api/v2/albums/${params.albumId}/photos/metadata`,
+    url: `/api/v1/albums/${params.albumId}/photos/metadata`,
     method: 'GET',
   }),
   key: 'albumPhotoMetadataApi',

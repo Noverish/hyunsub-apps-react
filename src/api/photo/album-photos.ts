@@ -8,7 +8,7 @@ export interface AlbumPhotosParams {
 
 const albumPhotosApi = generateInfiniteQuery<AlbumPhotosParams, PhotoPreview>({
   api: (params) => ({
-    url: `/api/v2/albums/${params.albumId}/photos`,
+    url: `/api/v1/albums/${params.albumId}/photos`,
     method: 'GET',
     params: {
       p: params.page,

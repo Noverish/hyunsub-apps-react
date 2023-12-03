@@ -8,7 +8,7 @@ import { useBreakpointMobile } from 'src/utils/breakpoint';
 import './MobileHeader.scss';
 
 export default function MobileHeader(props: HeaderProps) {
-  const { title, back, btns, onClose, menus, onHeaderClick, onTitleClick, transparent } = props;
+  const { title, back, btns, onClose, menus, onHeaderClick, onTitleClick, transparent, show } = props;
   const isMobile = useBreakpointMobile();
 
   const onBack = () => {
@@ -27,7 +27,7 @@ export default function MobileHeader(props: HeaderProps) {
     buttons.push(<MobileHeaderMoreButton menus={menus} key="MobileHeaderMoreButton" />);
   }
 
-  if (!isMobile) {
+  if (!isMobile && !show) {
     return <></>;
   }
 
