@@ -9,14 +9,15 @@ import DiaryListPage from './list/DiaryListPage';
 import DiaryPhotoPage from './photo/DiaryPhotoPage';
 import DiarySearchPage from './search/DiarySearchPage';
 import DiaryUpdatePage from './update/DiaryUpdatePage';
+import DiaryViewerPage from './viewer/DiaryViewerPage';
 import DiaryNavigation from 'src/components/diary/DiaryNavigation';
 import { FriendListProvider } from 'src/context/friend/FriendListContext';
 import CommonRoutes from 'src/pages/common/CommonRoutes';
 
 export const DiaryRouteObjects: RouteObject[] = [
   {
-    path: routes.photoRoute,
-    element: <DiaryPhotoPage />,
+    path: routes.viewerRoute,
+    element: <DiaryViewerPage />,
   },
   {
     path: '/',
@@ -32,6 +33,7 @@ export const DiaryRouteObjects: RouteObject[] = [
       { path: routes.calendarRoute, element: <DiaryCalendarPage /> },
       { path: routes.searchRoute, element: <DiarySearchPage /> },
       { path: routes.detailRoute, element: <DiaryDetailPage /> },
+      { path: routes.photoRoute, element: <DiaryPhotoPage /> },
       { path: routes.createRoute, element: <DiaryCreatePage /> },
       { path: routes.updateRoute, element: <DiaryUpdatePage /> },
       { path: CommonRoutes.menu, element: <CommonMenuPage /> },

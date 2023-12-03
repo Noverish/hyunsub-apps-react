@@ -1,3 +1,4 @@
+import { PhotoPreview } from './photo';
 import { FriendPreview } from 'src/model/friend';
 
 export interface DiaryPreview {
@@ -12,4 +13,6 @@ export interface Diary {
   summary: string;
   content: string;
   friends: FriendPreview[];
+  photoNum: number;
+  photos: PhotoPreview[];
 }

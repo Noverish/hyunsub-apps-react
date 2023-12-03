@@ -3,6 +3,7 @@ import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import DiaryDetailHooks from '../DiaryDetailHooks';
+import DiaryDetailPhotoList from './DiaryDetailPhotoList';
 import { Diary } from 'src/model/diary';
 import DiaryRoutes from 'src/pages/diary/DiaryRoutes';
 import DiaryMeetFriendView from 'src/pages/diary/detail/components/DiaryMeetFriendView';
@@ -36,6 +37,8 @@ export default function DiaryDetailView({ diary }: Props) {
       <p>{summary}</p>
       <DiaryMeetFriendView meetFriends={diary.friends} />
       {contentElement}
+      {diary && <DiaryDetailPhotoList diary={diary} />}
+      <hr />
     </div>
   );
 }

@@ -16,7 +16,7 @@ export default function VideoHomePageSection({ title, onMoreClick, items }: Prop
           {title}
         </div>
         <div className="more" onClick={onMoreClick}>
-          <span>{t('VideoHomePage.more')}</span>
+          {t('VideoHomePage.more')}
         </div>
       </div>
       <div className="content hide_scrollbar">

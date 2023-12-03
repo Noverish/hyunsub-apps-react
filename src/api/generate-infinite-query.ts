@@ -137,3 +137,7 @@ export function useMergedPageData<T>(data: InfiniteData<PageData<T>> | undefined
 export function useFlattenPageData<T>(data: InfiniteData<PageData<T>> | undefined): T[] {
   return useMemo(() => data?.pages.flatMap((v) => v.data) ?? [], [data]);
 }
+
+export function useTotal<T>(data: InfiniteData<PageData<T>> | undefined): number {
+  return data?.pages[0]?.total ?? 0;
+}

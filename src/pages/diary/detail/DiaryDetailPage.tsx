@@ -8,7 +8,6 @@ import diaryDetailApi from 'src/api/diary/diary-detail';
 import { Loading } from 'src/components/common/LoadingSuspense';
 import CommonLayout from 'src/components/common/layout/CommonLayout';
 import { HeaderButton } from 'src/model/component';
-import DiaryDetailPhotoList from 'src/pages/diary/detail/components/DiaryDetailPhotoList';
 import router from 'src/pages/router';
 
 import './DiaryDetailPage.scss';
@@ -43,7 +42,6 @@ export default function DiaryDetailPage() {
     >
       <DiaryDetailNavigation diary={data} />
       {isLoading ? <Loading /> : <DiaryDetailView diary={data} />}
-      <DiaryDetailPhotoList />
     </CommonLayout>
   );
 }
