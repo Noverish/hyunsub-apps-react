@@ -43,7 +43,7 @@ function renderDimContent(info: PhotoUploadItemInfo): React.ReactNode {
   }
 
   if (status === 'uploading') {
-    return <ProgressBar now={progress} label={`${progress}%`} />;
+    return <ProgressBar now={progress} label={`${progress}%`} animated />;
   }
 
   if (status === 'uploaded') {

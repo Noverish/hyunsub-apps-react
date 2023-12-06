@@ -40,7 +40,7 @@ function useUpload(albumId?: string) {
       state.progress = status.total.ratio;
       const item = state.items[status.current.index];
       if (item) {
-        item.progress = status.total.ratio;
+        item.progress = status.current.ratio;
       }
     });
   };
