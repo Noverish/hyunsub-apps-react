@@ -14,8 +14,13 @@ interface Props {
 }
 
 export default function DiaryForm({ diary, onComplete, initialDate }: Props) {
-  const defaultValues: Partial<Diary> = diary ?? {
+  const defaultValues: Diary = diary ?? {
     date: initialDate ?? toDateString(new Date()),
+    summary: '',
+    content: '',
+    friends: [],
+    photoNum: 0,
+    photos: [],
   };
 
   const { register, handleSubmit, watch, setValue, getValues } = useForm<Diary>({ defaultValues });
