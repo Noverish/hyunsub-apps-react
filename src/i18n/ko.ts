@@ -26,6 +26,7 @@ const ko = {
     profile: '내 정보',
     letters: '{{0}} 글자',
     'n-selected': '{{0}}개 선택됨',
+    'no-selection': '선택 없음',
 
     'msg.delete-confirm': '정말로 삭제하시겠습니까?',
     'msg.delete-success': '삭제되었습니다',

@@ -1,7 +1,7 @@
 import { AxiosRequestConfig } from 'axios';
 
 import { generateApi } from 'src/api/generate-api';
-import { SimpleResponse } from 'src/model/api';
+import { VideoSubtitle } from 'src/model/video';
 
 export interface VideoSubtitleParams {
   videoId: string;
@@ -11,7 +11,7 @@ export interface VideoSubtitleParams {
   override: boolean;
 }
 
-const videoSubtitleApi = generateApi<VideoSubtitleParams, SimpleResponse>({
+const videoSubtitleApi = generateApi<VideoSubtitleParams, VideoSubtitle>({
   api: (params) => {
     const formData = new FormData();
     formData.append('lang', params.lang);
@@ -24,7 +24,7 @@ const videoSubtitleApi = generateApi<VideoSubtitleParams, SimpleResponse>({
     }
 
     return {
-      url: `/api/v1/videos/${params.videoId}/manage/subtitle`,
+      url: `/api/v1/videos/${params.videoId}/subtitles`,
       method: 'POST',
       data: formData,
       headers: {

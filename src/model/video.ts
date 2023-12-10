@@ -61,6 +61,7 @@ export interface VideoSeason {
 }
 
 export interface VideoSubtitle {
+  id: string;
   url: string;
   label: string;
   srclang: string;

@@ -7,6 +7,7 @@ interface State {
   videoEncodeResult?: any;
   videoRenameResult?: any;
   videoSubtitleUploadResult?: any;
+  videoSubtitleSyncResult?: any;
   videoThumbnailResult?: any;
 
   showVideoEntryCreateModal: boolean;

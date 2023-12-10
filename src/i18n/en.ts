@@ -26,6 +26,7 @@ const en = {
     profile: 'Profile',
     letters: '{{0}} letters',
     'n-selected': '{{0}} Selected',
+    'no-selection': 'No Selection',
 
     'msg.delete-confirm': 'Are you sure you want to delete?',
     'msg.delete-success': 'Successfully deleted',

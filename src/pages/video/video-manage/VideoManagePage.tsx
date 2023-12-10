@@ -7,6 +7,7 @@ import CommonLayout from 'src/components/common/layout/CommonLayout';
 import { useUrlParams } from 'src/hooks/url-params';
 import VideoEncodeCard from 'src/pages/video/video-manage/components/VideoEncodeCard';
 import VideoMetadataScanCard from 'src/pages/video/video-manage/components/VideoMetadataScanCard';
+import VideoSubtitleSyncCard from 'src/pages/video/video-manage/components/VideoSubtitleSyncCard';
 import VideoSubtitleUploadCard from 'src/pages/video/video-manage/components/VideoSubtitleUploadCard';
 import VideoThumbnailGenerateCard from 'src/pages/video/video-manage/components/VideoThumbnailGenerateCard';
 
@@ -25,6 +26,7 @@ export default function VideoManagePage() {
       <VideoMetadataScanCard />
       <VideoThumbnailGenerateCard />
       <VideoSubtitleUploadCard />
+      <VideoSubtitleSyncCard subtitles={video.subtitles} />
       <VideoEncodeCard />
     </CommonLayout>
   );
