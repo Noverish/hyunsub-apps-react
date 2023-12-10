@@ -20,7 +20,7 @@ export default function AlbumSelectModal({ show, onHide, onClick }: Props) {
 
   return (
     <Modal className="AlbumSelectModal" centered show={show} onHide={onHide}>
-      <Modal.Header>
+      <Modal.Header closeButton>
         <Modal.Title>{t('photo.album-select')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>

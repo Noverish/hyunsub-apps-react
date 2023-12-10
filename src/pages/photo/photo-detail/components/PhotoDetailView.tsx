@@ -1,5 +1,6 @@
 import { t } from 'i18next';
 
+import PhotoDetailHooks from '../PhotoDetailHooks';
 import { Photo } from 'src/model/photo';
 import { toLocaleString } from 'src/utils/date';
 
@@ -10,6 +11,8 @@ interface Props {
 }
 
 export default function PhotoDetailView({ photo }: Props) {
+  const showDateModal = PhotoDetailHooks.useShowDateModal(true);
+
   return (
     <div className="PhotoDetailView">
       <div className="file_name">{photo.fileName}</div>
@@ -27,7 +30,7 @@ export default function PhotoDetailView({ photo }: Props) {
           <div>{t('PhotoInfoSection.reg-dt')}</div>
           <div>{toLocaleString(photo.regDt)}</div>
         </div>
-        <div className="info_item cursor_pointer">
+        <div className="info_item cursor_pointer" onClick={showDateModal}>
           <div>
             <span>{t('PhotoInfoSection.date')}</span> <i className="fas fa-pen" />
           </div>

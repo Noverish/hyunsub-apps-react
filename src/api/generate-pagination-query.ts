@@ -1,5 +1,6 @@
 import { InfiniteData, QueryKey, UseInfiniteQueryResult, useInfiniteQuery } from '@tanstack/react-query';
 import { AxiosRequestConfig } from 'axios';
+import { Draft, produce } from 'immer';
 import { UseInfiniteQueryOptions } from 'node_modules/@tanstack/react-query/build/lib/types';
 import { useMemo } from 'react';
 
@@ -22,6 +23,7 @@ interface GenerateInfiniteApiResult<P, R> {
     p: P,
     option?: UseInfiniteQueryOptions<Pagination<R>, unknown, Pagination<R>, Pagination<R>, QueryKey>,
   ) => UseInfiniteQueryResult<Pagination<R>>;
+  updateCache: (p: P | null, updater: (cache: Draft<R>) => void) => void;
   invalidate: (p?: P) => void;
 }
 
@@ -42,6 +44,18 @@ export function generatePaginationQuery<P, R>(option: GenerateInfiniteApiOption<
     });
   };
 
+  const updateCache = (p: P | null, updater: (cache: Draft<R>) => void) => {
+    const queryKey: QueryKey = p ? key(p) : [option.key];
+    QueryClient.setQueryData<TQueryFnData>(queryKey, (cache) => {
+      if (!cache) return cache;
+      return produce(cache, (draft) => {
+        for (const page of draft.pages) {
+          page.data.forEach((v) => updater(v));
+        }
+      });
+    });
+  };
+
   const invalidate = (p?: P) => {
     const queryKey: QueryKey = p ? key(p) : [option.key];
     QueryClient.invalidateQueries<TQueryFnData>(queryKey);
@@ -49,6 +63,7 @@ export function generatePaginationQuery<P, R>(option: GenerateInfiniteApiOption<
 
   return {
     useInfiniteApi,
+    updateCache,
     invalidate,
   };
 }
