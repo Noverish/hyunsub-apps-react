@@ -7,7 +7,7 @@ import { setDocumentTitle } from 'src/utils/services';
 
 interface Props extends HeaderProps {
   className: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   containerOutside?: React.ReactNode;
 }
 

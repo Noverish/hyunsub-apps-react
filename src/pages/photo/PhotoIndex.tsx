@@ -3,6 +3,7 @@ import { Navigate, Outlet, RouteObject } from 'react-router-dom';
 import CommonRoutes from '../common/CommonRoutes';
 import CommonMenuPage from '../common/menu/CommonMenuPage';
 import routes from './PhotoRoutes';
+import PhotoDetailPage from './photo-detail/PhotoDetailPage';
 import PhotoOriginalPage from './photo-original/PhotoOriginalPage';
 import PhotoNavigation from 'src/components/photo/PhotoNavigation';
 import AlbumDatePage from 'src/pages/photo/album-date/AlbumDatePage';
@@ -39,6 +40,7 @@ export const PhotoRouteObjects: RouteObject[] = [
       { path: routes.albumDateRoute, element: <AlbumDatePage /> },
       { path: routes.photos, element: <PhotoListPage /> },
       { path: routes.photoUpload, element: <PhotoUploadPage /> },
+      { path: routes.photoDetailRoute, element: <PhotoDetailPage /> },
       { path: routes.photoOriginalRoute, element: <PhotoOriginalPage /> },
       { path: CommonRoutes.menu, element: <CommonMenuPage /> },
     ],

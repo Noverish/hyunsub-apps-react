@@ -4,9 +4,15 @@
   padding: 0.75rem 0;
   font-size: 0.75rem;
 
-  .btn {
+  .btn_group {
     margin-top: 0.5rem;
     grid-column-start: 1;
     grid-column-end: 3;
+    gap: 0.5rem;
+    display: flex;
+
+    .btn {
+      flex: 1 1 0;
+    }
   }
 }

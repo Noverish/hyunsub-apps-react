@@ -143,7 +143,9 @@ const en = {
     'PhotoInfoSection.reg-dt': 'Upload Date',
     'PhotoInfoSection.date-type': 'Filming Date Type',
     'AlbumDetailPage.delete-album': 'Delete Album',
-    'PhotoViewer.view-original': 'View Original',
+    'PhotoInfoSection.go-to-original': 'View Original',
+    'PhotoInfoSection.go-to-detail': 'Get Detail Info',
+    'PhotoDetailPage.title': 'Photo Detail',
 
     'apparel.page.list.title': 'My Apparel List',
     'apparel.page.list.inner-title': 'Total {{0}} items',

@@ -143,7 +143,9 @@ const ko = {
     'PhotoInfoSection.reg-dt': '업로드 날짜',
     'PhotoInfoSection.date-type': '촬영 날짜 타입',
     'AlbumDetailPage.delete-album': '앨범 삭제',
-    'PhotoViewer.view-original': '원본 보기',
+    'PhotoInfoSection.go-to-original': '원본 보기',
+    'PhotoInfoSection.go-to-detail': '상세 보기',
+    'PhotoDetailPage.title': '사진 상세',
 
     'apparel.page.list.title': '내 의류 목록',
     'apparel.page.list.inner-title': '총 {{0}}개의 의류',
