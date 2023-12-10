@@ -12,6 +12,7 @@ import {
 } from './VideoPlayerHooks';
 import { VideoSubtitle } from 'src/model/video';
 
+import './VideoPlayer.scss';
 import 'plyr/dist/plyr.css';
 
 export interface VideoPlayerProps {
