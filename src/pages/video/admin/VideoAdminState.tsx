@@ -3,13 +3,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 interface State {
   videoRegisterResult?: any;
   videoRegisterToEntryResult?: any;
-  videoMetadataScanResult?: any;
-  videoEncodeResult?: any;
-  videoRenameResult?: any;
   videoSubtitleUploadResult?: any;
-  videoSubtitleSyncResult?: any;
-  videoThumbnailResult?: any;
-
   showVideoEntryCreateModal: boolean;
 }
 

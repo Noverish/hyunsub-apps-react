@@ -7,7 +7,7 @@ export interface VideoEncodeParams {
 }
 
 const videoEncodeApi = generateApi<VideoEncodeParams, SimpleResponse>({
-  api: (params: VideoEncodeParams) => ({
+  api: (params) => ({
     url: `/api/v1/videos/${params.videoId}/manage/encode`,
     method: 'POST',
     data: params,

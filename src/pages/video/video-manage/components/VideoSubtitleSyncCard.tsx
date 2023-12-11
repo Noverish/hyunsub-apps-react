@@ -1,12 +1,13 @@
+import { useContext } from 'react';
 import { Button, Card, Form } from 'react-bootstrap';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
 import VideoManageHooks from '../VideoManageHooks';
 import VideoSubtitleDropdown from './VideoSubtitleDropdown';
 import { VideoSubtitleSyncParams } from 'src/api/video/video-manage/video-subtitle-sync';
 import ApiResult from 'src/components/common/ApiResult';
 import { VideoSubtitle } from 'src/model/video';
-import { useSelector } from 'src/redux';
+import { VideoManageContext } from 'src/pages/video/video-manage/VideoManageContext';
 
 interface Props {
   subtitles: VideoSubtitle[];
@@ -14,39 +15,35 @@ interface Props {
 
 export default function VideoSubtitleSyncCard({ subtitles }: Props) {
   const { videoId } = VideoManageHooks.usePageParams();
-  const syncSubtitle = VideoManageHooks.syncSubtitle();
+  const sync = VideoManageHooks.useSyncSubtitle();
+  const [{ videoSubtitleSyncResult: result }] = useContext(VideoManageContext);
 
-  const result = useSelector((s) => s.video.admin.videoSubtitleSyncResult);
   const { register, handleSubmit, control } = useForm<VideoSubtitleSyncParams>({
     defaultValues: { videoId, subtitleId: subtitles[0].id },
   });
-
-  const onSubmit: SubmitHandler<VideoSubtitleSyncParams> = (params) => {
-    syncSubtitle(params);
-  };
 
   return (
     <div className="VideoSubtitleSyncCard">
       <Card>
         <Card.Header>Sync Subtitle</Card.Header>
         <Card.Body>
-          <Form onSubmit={handleSubmit(onSubmit)}>
-            <Form.Group className="mb-3">
+          <Form onSubmit={handleSubmit(sync)} className="d-grid gap-3">
+            <Form.Group>
               <Form.Label>Subtitle Language</Form.Label>
               <VideoSubtitleDropdown control={control} subtitles={subtitles} />
             </Form.Group>
 
-            <Form.Group className="mb-3">
+            <Form.Group>
               <Form.Label>ms</Form.Label>
               <Form.Control type="number" {...register('ms')} />
             </Form.Group>
 
-            <Button variant="primary" type="submit">
-              Sync
-            </Button>
-          </Form>
+            <div>
+              <Button type="submit">Sync</Button>
+            </div>
 
-          {result && <ApiResult className="mt-3" result={result} />}
+            {result && <ApiResult result={result} />}
+          </Form>
         </Card.Body>
       </Card>
     </div>

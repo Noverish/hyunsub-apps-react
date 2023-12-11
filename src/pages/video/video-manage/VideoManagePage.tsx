@@ -1,33 +1,30 @@
-import { Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-
-import VideoRoutes from '../VideoRoutes';
+import VideoManageHooks from './VideoManageHooks';
 import videoDetailApi from 'src/api/video/video-detail';
 import CommonLayout from 'src/components/common/layout/CommonLayout';
-import { useUrlParams } from 'src/hooks/url-params';
 import VideoEncodeCard from 'src/pages/video/video-manage/components/VideoEncodeCard';
-import VideoMetadataScanCard from 'src/pages/video/video-manage/components/VideoMetadataScanCard';
+import VideoMetadataCard from 'src/pages/video/video-manage/components/VideoMetadataCard';
+import VideoRenameCard from 'src/pages/video/video-manage/components/VideoRenameCard';
 import VideoSubtitleSyncCard from 'src/pages/video/video-manage/components/VideoSubtitleSyncCard';
 import VideoSubtitleUploadCard from 'src/pages/video/video-manage/components/VideoSubtitleUploadCard';
-import VideoThumbnailGenerateCard from 'src/pages/video/video-manage/components/VideoThumbnailGenerateCard';
+import VideoThumbnailCard from 'src/pages/video/video-manage/components/VideoThumbnailCard';
 
 import './VideoManagePage.scss';
 
 export default function VideoManagePage() {
-  const [videoId, entryId] = useUrlParams('videoId', 'entryId');
+  const { videoId } = VideoManageHooks.usePageParams();
 
-  const video = videoDetailApi.useApi({ videoId });
+  const { data } = videoDetailApi.useApiResult({ videoId });
+  const title = data?.title ?? '';
+  const subtitles = data?.subtitles ?? [];
 
   return (
-    <CommonLayout className="VideoManagePage" title={`Video Manage - ${video.title}`} back>
-      <Link to={VideoRoutes.detail({ entryId, videoId })}>
-        <Button>Go to Video</Button>
-      </Link>
-      <VideoMetadataScanCard />
-      <VideoThumbnailGenerateCard />
+    <CommonLayout className="VideoManagePage" title={`Video Manage - ${title}`} back>
+      <VideoMetadataCard />
+      <VideoThumbnailCard />
       <VideoSubtitleUploadCard />
-      <VideoSubtitleSyncCard subtitles={video.subtitles} />
+      {subtitles.length > 0 ? <VideoSubtitleSyncCard subtitles={subtitles} /> : undefined}
       <VideoEncodeCard />
+      <VideoRenameCard />
     </CommonLayout>
   );
 }

@@ -7,7 +7,7 @@ export interface VideoThumbnailParams {
 }
 
 const videoThumbnailApi = generateApi<VideoThumbnailParams, SimpleResponse>({
-  api: (params: VideoThumbnailParams) => ({
+  api: (params) => ({
     url: `/api/v1/videos/${params.videoId}/manage/thumbnail`,
     method: 'POST',
     data: params,

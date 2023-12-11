@@ -5,7 +5,7 @@ export interface UserDeleteParams {
 }
 
 const userDeleteApi = generateApi<UserDeleteParams, undefined>({
-  api: (params: UserDeleteParams) => ({
+  api: (params) => ({
     url: `/api/v1/admin/users/${params.idNo}`,
     method: 'DELETE',
   }),

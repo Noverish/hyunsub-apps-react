@@ -8,7 +8,7 @@ export interface EntryRenameParams {
 }
 
 const entryRenameApi = generateApi<EntryRenameParams, SimpleResponse>({
-  api: (params: EntryRenameParams) => ({
+  api: (params) => ({
     url: `/api/v1/entries/${params.entryId}/manage/rename`,
     method: 'POST',
     data: params,

@@ -1,7 +1,3 @@
-import { Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-
-import VideoRoutes from '../VideoRoutes';
 import EntryVideoRegisterCard from './components/EntryVideoRegisterCard';
 import videoEntryGetApi from 'src/api/video/video-entry-get';
 import CommonLayout from 'src/components/common/layout/CommonLayout';
@@ -18,9 +14,6 @@ export default function EntryManagePage() {
 
   return (
     <CommonLayout className="EntryManagePage" title={`Entry Manage - ${entry.name}`} back>
-      <Link to={VideoRoutes.detail({ entryId })}>
-        <Button>Go to Entry</Button>
-      </Link>
       <EntryScanCard />
       <EntryRenameForm />
       <EntryVideoRegisterCard />
