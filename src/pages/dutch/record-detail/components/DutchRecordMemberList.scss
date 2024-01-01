@@ -1,0 +1,12 @@
+.DutchRecordMemberList {
+  display: grid;
+  text-align: center;
+
+  thead > tr {
+    font-size: .85rem;
+  }
+
+  td {
+    padding: .25rem 0;
+  }
+}

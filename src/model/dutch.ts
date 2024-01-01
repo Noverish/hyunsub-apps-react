@@ -9,3 +9,11 @@ export interface DutchRecord {
 }
 
 export type DutchCurrency = 'KRW' | 'JPY' | 'USD' | 'CNY' | 'TWD';
+
+export interface DutchRecordMember {
+  recordId: string;
+  memberId: string;
+  actual: number;
+  should: number;
+  name: string;
+}

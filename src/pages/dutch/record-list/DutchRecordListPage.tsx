@@ -12,7 +12,7 @@ export default function DutchRecordListPage() {
 
   return (
     <CommonLayout className="DutchRecordListPage" title={t('DutchRecordListPage.title')}>
-      <DutchRecordList records={records} />
+      <DutchRecordList tripId={tripId} records={records} />
     </CommonLayout>
   );
 }
