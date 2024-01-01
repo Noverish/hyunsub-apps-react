@@ -1,17 +1,18 @@
 import { t } from 'i18next';
+import { Navigate } from 'react-router-dom';
 
 import DutchRecordDetailHooks from './DutchRecordDetailHooks';
 import DutchRecordDetailView from './components/DutchRecordDetailView';
 import dutchRecordDetailApi from 'src/api/dutch/dutch-record-detail';
-import dutchRecordMembersApi from 'src/api/dutch/dutch-record-members';
+import { Loading } from 'src/components/common/LoadingSuspense';
 import CommonLayout from 'src/components/common/layout/CommonLayout';
 import { HeaderButton } from 'src/model/component';
+import CommonRoutes from 'src/pages/common/CommonRoutes';
 
 export default function DutchRecordDetailPage() {
   const { tripId, recordId } = DutchRecordDetailHooks.usePageParams();
 
-  const { data: record } = dutchRecordDetailApi.useApiResult({ tripId, recordId });
-  const { data: members } = dutchRecordMembersApi.useApiResult({ recordId });
+  const { data, isLoading } = dutchRecordDetailApi.useApiResult({ tripId, recordId });
 
   const remove = DutchRecordDetailHooks.useDelete();
 
@@ -23,14 +24,23 @@ export default function DutchRecordDetailPage() {
     },
   ];
 
+  let content = <></>;
+  if (isLoading) {
+    content = <Loading />;
+  } else if (data) {
+    content = <DutchRecordDetailView detail={data} />;
+  } else {
+    content = <Navigate to={CommonRoutes.notFound} replace />;
+  }
+
   return (
     <CommonLayout
       className="DutchRecordDetailPage"
       title={t('DutchRecordDetailPage.title')}
-      btns={record ? headerBtns : undefined}
+      btns={data ? headerBtns : undefined}
       back
     >
-      {record && members && <DutchRecordDetailView record={record} members={members} />}
+      {content}
     </CommonLayout>
   );
 }

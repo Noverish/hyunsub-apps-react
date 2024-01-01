@@ -1,7 +1,7 @@
 import { generateApi } from '../generate-api';
 import dutchRecordDetailApi from './dutch-record-detail';
 import dutchRecordSearchApi from './dutch-record-search';
-import { DutchRecord } from 'src/model/dutch';
+import { DutchRecordDetail } from 'src/model/dutch';
 
 export interface DutchRecordCreateParams {
   tripId: string;
@@ -18,7 +18,7 @@ export interface DutchRecordMemberCreateParams {
   should: number;
 }
 
-const dutchRecordCreateApi = generateApi<DutchRecordCreateParams, DutchRecord>({
+const dutchRecordCreateApi = generateApi<DutchRecordCreateParams, DutchRecordDetail>({
   api: (params) => ({
     url: `/api/v1/trips/${params.tripId}/records`,
     method: 'POST',
@@ -26,7 +26,7 @@ const dutchRecordCreateApi = generateApi<DutchRecordCreateParams, DutchRecord>({
   }),
   postHandle: (result, params) => {
     const tripId = params.tripId;
-    const recordId = result.id;
+    const recordId = result.record.id;
     dutchRecordDetailApi.setCache({ tripId, recordId }, result);
     dutchRecordSearchApi.clearCache();
   },

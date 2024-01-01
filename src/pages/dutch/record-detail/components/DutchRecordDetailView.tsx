@@ -1,16 +1,16 @@
 import { t } from 'i18next';
 
-import { DutchRecord, DutchRecordMember } from 'src/model/dutch';
+import { DutchRecordDetail } from 'src/model/dutch';
 import DutchRecordMemberList from 'src/pages/dutch/record-detail/components/DutchRecordMemberList';
 
 import './DutchRecordDetailView.scss';
 
 interface Props {
-  record: DutchRecord;
-  members: DutchRecordMember[];
+  detail: DutchRecordDetail;
 }
 
-export default function DutchRecordDetailView({ record, members }: Props) {
+export default function DutchRecordDetailView({ detail }: Props) {
+  const { record, members } = detail;
   return (
     <div className="DutchRecordDetailView">
       <div className="content">{record.content}</div>

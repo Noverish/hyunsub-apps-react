@@ -1,4 +1,4 @@
-import { DutchRecord } from 'src/model/dutch';
+import { DutchRecordPreview } from 'src/model/dutch';
 import DutchRoutes from 'src/pages/dutch/DutchRoutes';
 import router from 'src/pages/router';
 
@@ -6,7 +6,7 @@ import './DutchRecordItem.scss';
 
 interface Props {
   tripId: string;
-  record: DutchRecord;
+  record: DutchRecordPreview;
 }
 
 export default function DutchRecordItem({ tripId, record }: Props) {

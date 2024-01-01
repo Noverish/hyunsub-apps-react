@@ -1,6 +1,6 @@
 import { generateQuery } from '../generate-api';
 import { PageData } from 'src/model/api';
-import { DutchRecord } from 'src/model/dutch';
+import { DutchRecordPreview } from 'src/model/dutch';
 
 interface DutchRecordSearchParams {
   tripId: string;
@@ -8,7 +8,7 @@ interface DutchRecordSearchParams {
   page?: string;
 }
 
-const dutchRecordSearchApi = generateQuery<DutchRecordSearchParams, PageData<DutchRecord>>({
+const dutchRecordSearchApi = generateQuery<DutchRecordSearchParams, PageData<DutchRecordPreview>>({
   api: (params) => ({
     url: `/api/v1/search/records`,
     method: 'POST',

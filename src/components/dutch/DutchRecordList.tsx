@@ -1,9 +1,9 @@
 import DutchRecordItem from './DutchRecordItem';
-import { DutchRecord } from 'src/model/dutch';
+import { DutchRecordPreview } from 'src/model/dutch';
 
 interface Props {
   tripId: string;
-  records: DutchRecord[];
+  records: DutchRecordPreview[];
 }
 
 export default function DutchRecordList({ tripId, records }: Props) {

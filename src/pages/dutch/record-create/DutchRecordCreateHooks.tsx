@@ -19,7 +19,7 @@ function useCreate() {
     dispatch(GlobalActions.update({ loading: true }));
 
     const result = await dutchRecordCreateApi(params);
-    const recordId = result.id;
+    const recordId = result.record.id;
     const tripId = params.tripId;
 
     dispatch(GlobalActions.update({ loading: false }));

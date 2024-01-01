@@ -1,4 +1,4 @@
-export interface DutchRecord {
+export interface DutchRecordPreview {
   id: string;
   content: string;
   location: string;
@@ -6,6 +6,11 @@ export interface DutchRecord {
   date: string;
   amount: number;
   members: string[];
+}
+
+export interface DutchRecordDetail {
+  record: DutchRecordPreview;
+  members: DutchRecordMember[];
 }
 
 export const dutchCurrencyList = ['KRW', 'JPY', 'USD', 'CNY', 'TWD'];
