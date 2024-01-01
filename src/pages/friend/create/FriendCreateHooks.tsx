@@ -10,10 +10,11 @@ function useCreate() {
     dispatch(GlobalActions.update({ loading: true }));
 
     const result = await friendCreateApi(friend);
+    const friendId = result.id;
 
     dispatch(GlobalActions.update({ loading: false }));
 
-    router.navigate(FriendRoutes.detail({ friendId: result.id }), { replace: true });
+    router.navigate(FriendRoutes.detail({ friendId }), { replace: true });
   };
 }
 

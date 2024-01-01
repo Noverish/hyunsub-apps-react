@@ -1,6 +1,6 @@
 import { t } from 'i18next';
 import { Button, Form } from 'react-bootstrap';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
 import DiaryFriendMultiSelect from './DiaryFriendMultiSelect';
 import { Diary } from 'src/model/diary';
@@ -25,10 +25,6 @@ export default function DiaryForm({ diary, onComplete, initialDate }: Props) {
 
   const { register, handleSubmit, watch, setValue, getValues } = useForm<Diary>({ defaultValues });
 
-  const onSubmit: SubmitHandler<Diary> = (diary: Diary) => {
-    onComplete(diary);
-  };
-
   const onFriendSelect = (friend: FriendPreview) => {
     const friends = getValues('friends');
     const newFriends = [...friends, friend];
@@ -44,7 +40,7 @@ export default function DiaryForm({ diary, onComplete, initialDate }: Props) {
   const content = watch('content');
 
   return (
-    <Form className="DiaryForm d-grid gap-3" onSubmit={handleSubmit(onSubmit)}>
+    <Form className="DiaryForm d-grid gap-3" onSubmit={handleSubmit(onComplete)}>
       <Form.Group controlId="diary_form_title">
         <Form.Label>{t('DiaryForm.date')}</Form.Label>
         <Form.Control size="lg" type="text" placeholder="yyyy-MM-dd" {...register('date')} />

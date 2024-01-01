@@ -20,7 +20,7 @@ export default function DiaryDetailPage() {
   const remove = DiaryDetailHooks.useDelete();
 
   // elements
-  const mobileHeaderBtns: HeaderButton[] = [
+  const headerBtns: HeaderButton[] = [
     {
       icon: 'fas fa-edit',
       name: t('edit'),
@@ -37,7 +37,7 @@ export default function DiaryDetailPage() {
     <CommonLayout
       className="DiaryDetailPage"
       title={t('DiaryDetailPage.title')}
-      btns={data ? mobileHeaderBtns : undefined}
+      btns={data ? headerBtns : undefined}
       back
     >
       <DiaryDetailNavigation diary={data} />

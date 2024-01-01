@@ -1,6 +1,6 @@
 import { t } from 'i18next';
 import { Button, Form } from 'react-bootstrap';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
 import FriendTagSelect from './FriendTagSelect';
 import { Friend } from 'src/model/friend';
@@ -22,12 +22,8 @@ export default function FriendForm({ friend, onComplete }: Props) {
 
   const { register, handleSubmit, control } = useForm<Friend>({ defaultValues });
 
-  const onSubmit: SubmitHandler<Friend> = (friend: Friend) => {
-    onComplete(friend);
-  };
-
   return (
-    <Form className="FriendForm d-grid gap-3" onSubmit={handleSubmit(onSubmit)}>
+    <Form className="FriendForm d-grid gap-3" onSubmit={handleSubmit(onComplete)}>
       <Form.Group controlId="friend_form_name">
         <Form.Label>{t('FriendForm.name')}</Form.Label>
         <Form.Control type="text" {...register('name')} />

@@ -19,7 +19,7 @@ export default function FriendDetailPage() {
   const remove = FriendDetailHooks.useDelete();
 
   // elements
-  const mobileHeaderBtns: HeaderButton[] = [
+  const headerBtns: HeaderButton[] = [
     {
       icon: 'fas fa-edit',
       name: t('edit'),
@@ -45,7 +45,7 @@ export default function FriendDetailPage() {
     <CommonLayout
       className="FriendDetailPage"
       title={t('FriendDetailPage.title')}
-      btns={data ? mobileHeaderBtns : undefined}
+      btns={data ? headerBtns : undefined}
       back
     >
       {content}
