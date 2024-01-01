@@ -254,6 +254,12 @@ const en = {
     'FriendTagListPage.title': 'Tag List',
     'FriendTagDetailPage.title': 'Tag Detail - {{0}}',
 
+    'DutchNavigation.home': 'Home',
+    'DutchNavigation.records': 'Records',
+    'DutchNavigation.balance': 'Balance',
+    'DutchNavigation.settle': 'Settlement',
+    'DutchRecordListPage.title': 'Records',
+
     'PageSelectModal.title': 'Move Page',
     'PageSelectModal.close': 'Close',
     'PageSelectModal.move': 'Move',

@@ -254,6 +254,12 @@ const ko = {
     'FriendTagListPage.title': '태그 목록',
     'FriendTagDetailPage.title': '태그 상세 - {{0}}',
 
+    'DutchNavigation.home': '홈',
+    'DutchNavigation.records': '내역',
+    'DutchNavigation.balance': '잔액',
+    'DutchNavigation.settle': '정산',
+    'DutchRecordListPage.title': '내역',
+
     'PageSelectModal.title': '페이지 이동',
     'PageSelectModal.close': '취소',
     'PageSelectModal.move': '이동',

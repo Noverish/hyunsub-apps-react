@@ -3,6 +3,8 @@ import { To } from 'react-router-dom';
 export interface NavigationProps {
   title: string;
   menus: NavigationMenu[];
+  disableMenu?: boolean;
+  disableSearch?: boolean;
 }
 
 export interface NavigationMenu {

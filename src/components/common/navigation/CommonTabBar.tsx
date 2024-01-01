@@ -1,29 +1,34 @@
 import { t } from 'i18next';
 import { Link, useLocation } from 'react-router-dom';
 
-import { NavigationMenu, NavigationProps } from 'src/model/component';
+import { NavigationProps } from 'src/model/component';
 import CommonRoutes from 'src/pages/common/CommonRoutes';
 import { useBreakpointMobile } from 'src/utils/breakpoint';
 
 import './CommonTabBar.scss';
 
-export default function CommonTabBar({ menus }: NavigationProps) {
+export default function CommonTabBar(props: NavigationProps) {
+  const { menus, disableMenu, disableSearch } = props;
   const location = useLocation();
   const isMobile = useBreakpointMobile();
 
-  const newItems: NavigationMenu[] = [
-    ...menus,
-    {
+  const newItems = [...menus];
+
+  if (!disableSearch) {
+    newItems.push({
       name: t('CommonNavigation.search'),
       link: CommonRoutes.search,
       icon: 'fas fa-search',
-    },
-    {
+    });
+  }
+
+  if (!disableMenu) {
+    newItems.push({
       name: t('CommonNavigation.menu'),
       link: CommonRoutes.menu,
       icon: 'fas fa-bars',
-    },
-  ];
+    });
+  }
 
   const show = newItems.filter((v) => v.link === location.pathname).length > 0;
 

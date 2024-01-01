@@ -9,6 +9,7 @@ import NotFoundPage from './common/NotFoundPage';
 import RouteErrorBoundary from './common/RouteErrorBoundary';
 import { DiaryRouteObjects } from './diary/DiaryIndex';
 import { DriveRouteObjects } from './drive/DriveIndex';
+import { DutchRouteObjects } from './dutch/DutchIndex';
 import { FriendRouteObjects } from './friend/FriendIndex';
 import { PhotoRouteObjects } from './photo/PhotoIndex';
 import { VestigeRouteObjects } from './vestige/VestigeIndex';
@@ -56,6 +57,10 @@ function pickRoutes(): RouteObject[] {
 
   if (host.endsWith('friend.hyunsub.kim')) {
     return FriendRouteObjects;
+  }
+
+  if (host.endsWith('dutch.hyunsub.kim')) {
+    return DutchRouteObjects;
   }
 
   return [];
