@@ -7,7 +7,7 @@ import diaryStatusMonthApi from 'src/api/diary/diary-status-month';
 import CommonCalendar from 'src/components/common/CommonCalendar';
 import LoadingSuspense from 'src/components/common/LoadingSuspense';
 import CommonLayout from 'src/components/common/layout/CommonLayout';
-import { toDateString } from 'src/utils';
+import { toDateString } from 'src/utils/date';
 
 import './DiaryCalendarPage.scss';
 

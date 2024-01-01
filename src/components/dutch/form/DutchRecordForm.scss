@@ -1,0 +1,34 @@
+.DutchRecordFormMemberList {
+  table {
+    margin-bottom: .5rem;
+  }
+
+  thead {
+    text-align: center;
+
+    td {
+      padding-top: 0rem;
+      font-size: .85rem;
+      color: var(--hyunsub-text-hover);
+    }
+  }
+
+  td {
+    padding-left: .5rem;
+    padding-top: .5rem;
+  }
+
+  col.name {
+    padding: 0 0.5rem;
+  }
+
+  button {
+    width: 100%;
+  }
+}
+
+.DutchRecordFormMemberItem {
+  .member_name {
+    word-break: keep-all;
+  }
+}

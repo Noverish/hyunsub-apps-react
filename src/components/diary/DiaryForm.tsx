@@ -5,7 +5,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import DiaryFriendMultiSelect from './DiaryFriendMultiSelect';
 import { Diary } from 'src/model/diary';
 import { FriendPreview } from 'src/model/friend';
-import { toDateString } from 'src/utils';
+import { toDateString } from 'src/utils/date';
 
 interface Props {
   diary?: Diary;

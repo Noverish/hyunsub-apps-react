@@ -13,8 +13,8 @@ import {
   useDriveExplorerSelectChange,
 } from 'src/components/drive/explorer/DriveExplorerHooks';
 import { DriveFileInfo } from 'src/model/drive';
-import { dateToString } from 'src/utils';
 import AppConstant from 'src/utils/constants';
+import { toDateTimeString } from 'src/utils/date';
 
 export function useDriveFileRename() {
   const { path, selects } = useDriveExplorerContext();
@@ -74,7 +74,7 @@ export function useDriveNewFolder() {
       const newFolder: DriveFileInfo = {
         name,
         size: 0,
-        date: dateToString(new Date()),
+        date: toDateTimeString(new Date()),
         isDir: true,
       };
       return [newFolder, ...cache];

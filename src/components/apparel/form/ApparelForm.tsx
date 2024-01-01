@@ -8,7 +8,7 @@ import ApparelCategorySelect from './ApparelCategorySelect';
 import { ApparelFormContext, ApparelFormProvider } from './ApparelFormContext';
 import ApparelImageUpload from './ApparelImageUpload';
 import { Apparel, ApparelInfo } from 'src/model/apparel';
-import { toDateString } from 'src/utils';
+import { toDateString } from 'src/utils/date';
 
 interface Props {
   apparel?: Apparel;

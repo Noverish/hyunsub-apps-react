@@ -8,6 +8,8 @@ export interface DutchRecord {
   members: string[];
 }
 
+export const dutchCurrencyList = ['KRW', 'JPY', 'USD', 'CNY', 'TWD'];
+
 export type DutchCurrency = 'KRW' | 'JPY' | 'USD' | 'CNY' | 'TWD';
 
 export interface DutchRecordMember {
@@ -15,5 +17,10 @@ export interface DutchRecordMember {
   memberId: string;
   actual: number;
   should: number;
+  name: string;
+}
+
+export interface DutchMember {
+  id: string;
   name: string;
 }

@@ -6,7 +6,7 @@ import { useOptionalUrlParams, useUrlParams } from 'src/hooks/url-params';
 import router from 'src/pages/router';
 import { dispatch } from 'src/redux';
 import { GlobalActions } from 'src/redux/global';
-import { toDateString } from 'src/utils';
+import { toDateString } from 'src/utils/date';
 
 export interface DiaryDetailPageParams {
   date: string;

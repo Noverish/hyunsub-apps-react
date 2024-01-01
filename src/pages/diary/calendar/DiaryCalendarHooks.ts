@@ -1,6 +1,6 @@
 import { useSearchParams } from 'react-router-dom';
 
-import { toDateString } from 'src/utils';
+import { toDateString } from 'src/utils/date';
 
 export interface DiaryCalendarPageData {
   date: Date;
