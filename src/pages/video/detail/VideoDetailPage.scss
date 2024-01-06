@@ -70,5 +70,8 @@
     @include media-breakpoint-down(md) {
       margin-top: 1rem;
     }
+
+    word-break: keep-all;
+    white-space: nowrap;
   }
 }
