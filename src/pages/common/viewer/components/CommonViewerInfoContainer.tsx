@@ -17,10 +17,14 @@ export default function CommonViewerInfoContainer({ children }: Props) {
 
   return (
     <div className={cs('CommonViewerInfoContainer', { show })}>
-      <div className="close_btn flex_center" onClick={hide}>
-        <i className="fas fa-times" />
-      </div>
-      <Container>{children}</Container>
+      <Container>
+        <div className="wrapper">
+          <div className="close_btn" onClick={hide}>
+            <i className="fas fa-times" />
+          </div>
+          {children}
+        </div>
+      </Container>
     </div>
   );
 }
