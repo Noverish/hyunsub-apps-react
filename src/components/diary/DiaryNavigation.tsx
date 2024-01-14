@@ -18,6 +18,7 @@ const props: NavigationProps = {
       icon: 'far fa-calendar-alt',
     },
   ],
+  disableSearch: true,
 };
 
 export default function DiaryNavigation() {

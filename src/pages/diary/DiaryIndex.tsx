@@ -7,7 +7,6 @@ import DiaryCreatePage from './create/DiaryCreatePage';
 import DiaryDetailPage from './detail/DiaryDetailPage';
 import DiaryListPage from './list/DiaryListPage';
 import DiaryPhotoPage from './photo/DiaryPhotoPage';
-import DiarySearchPage from './search/DiarySearchPage';
 import DiaryUpdatePage from './update/DiaryUpdatePage';
 import DiaryViewerPage from './viewer/DiaryViewerPage';
 import DiaryNavigation from 'src/components/diary/DiaryNavigation';
@@ -31,7 +30,6 @@ export const DiaryRouteObjects: RouteObject[] = [
       { path: '/', element: <Navigate to={routes.listRoute} /> },
       { path: routes.listRoute, element: <DiaryListPage /> },
       { path: routes.calendarRoute, element: <DiaryCalendarPage /> },
-      { path: routes.searchRoute, element: <DiarySearchPage /> },
       { path: routes.detailRoute, element: <DiaryDetailPage /> },
       { path: routes.photoRoute, element: <DiaryPhotoPage /> },
       { path: routes.createRoute, element: <DiaryCreatePage /> },

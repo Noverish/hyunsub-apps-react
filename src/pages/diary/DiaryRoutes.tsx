@@ -1,6 +1,7 @@
 import queryString from 'query-string';
 
 import { DiaryCreatePageParams } from './create/DiaryCreateHooks';
+import { DiaryListPageParams } from './list/DiaryListHooks';
 import { DiaryPhotoPageParams } from './photo/DiaryPhotoHooks';
 import { DiaryUpdatePageParams } from './update/DiaryUpdateHooks';
 import { DiaryViewerPageParams } from './viewer/DiaryViewerHooks';
@@ -10,6 +11,7 @@ const { stringifyUrl } = queryString;
 
 const DiaryRoutes = {
   listRoute: '/list',
+  list: ({ ...query }: DiaryListPageParams) => stringifyUrl({ url: `/list`, query }),
 
   calendarRoute: '/calendar',
 
@@ -27,9 +29,6 @@ const DiaryRoutes = {
 
   createRoute: '/create',
   create: ({ ...query }: DiaryCreatePageParams) => stringifyUrl({ url: `/create`, query }),
-
-  searchRoute: '/search',
-  search: (query: string) => `/search?query=${query}`,
 };
 
 export default DiaryRoutes;

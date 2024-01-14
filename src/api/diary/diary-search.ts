@@ -1,13 +1,11 @@
-import { generateQuery } from '../generate-api';
-import { PageData } from 'src/model/api';
+import { generateInfiniteQuery } from '../generate-infinite-query';
 import { DiaryPreview } from 'src/model/diary';
 
 export interface DiarySearchParams {
-  page?: number;
   query?: string;
 }
 
-const diarySearchApi = generateQuery<DiarySearchParams, PageData<DiaryPreview>>({
+const diarySearchApi = generateInfiniteQuery<DiarySearchParams, DiaryPreview>({
   api: (params) => ({
     url: `/api/v1/search`,
     method: 'POST',
