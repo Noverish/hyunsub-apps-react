@@ -21,5 +21,5 @@ export default function VideoSubtitleDropdown({ subtitles, control }: Props) {
 
   const value = subtitles.filter((v) => v.id === field.value)[0];
 
-  return <CustomDropdown data={subtitles} labelSelector={labelSelector} onSelect={onSelect} value={value} />;
+  return <CustomDropdown data={subtitles} labelSelector={labelSelector} onChange={onSelect} value={value} />;
 }

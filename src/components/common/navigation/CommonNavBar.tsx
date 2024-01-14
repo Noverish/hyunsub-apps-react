@@ -37,12 +37,16 @@ export default function CommonNavBar(props: NavigationProps) {
           {menuElements}
         </div>
         <div id="header_button_section">
-          <div className="header_icon_btn gray_on_hover" onClick={goToSearch}>
-            <i className="fas fa-search"></i>
-          </div>
-          <div className="header_icon_btn gray_on_hover" onClick={goToMenu}>
-            <i className="fas fa-user-circle"></i>
-          </div>
+          {!props.disableSearch && (
+            <div className="header_icon_btn gray_on_hover" onClick={goToSearch}>
+              <i className="fas fa-search"></i>
+            </div>
+          )}
+          {!props.disableMenu && (
+            <div className="header_icon_btn gray_on_hover" onClick={goToMenu}>
+              <i className="fas fa-user-circle"></i>
+            </div>
+          )}
         </div>
       </Container>
     </header>

@@ -45,6 +45,8 @@ const en = {
     'CommonNavigation.menu': 'Menu',
     'CommonSearchResult.empty-result': 'There is no search result',
     'CommonSearchResult.result-num': '{{total}} Results Found',
+    'CommonSearchResult.search-status': '{{total}} Results Found for {{query}}',
+    'common.form.feedback.required': 'Please input the value',
 
     'upload.status': '{{now}} / {{total}} Completed',
     'upload.ready': 'Ready',

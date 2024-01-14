@@ -12,5 +12,5 @@ interface Props {
 export default function DutchMemberDropdown({ value, onSelect }: Props) {
   const { members } = useContext(DutchContext);
 
-  return <CustomDropdown value={value} data={members} labelSelector={(v) => v.name} onSelect={(v) => onSelect(v)} />;
+  return <CustomDropdown value={value} data={members} labelSelector={(v) => v.name} onChange={(v) => onSelect(v)} />;
 }

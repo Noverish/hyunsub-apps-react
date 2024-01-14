@@ -1,6 +1,7 @@
 import { DutchRecordPreview } from 'src/model/dutch';
 import DutchRoutes from 'src/pages/dutch/DutchRoutes';
 import router from 'src/pages/router';
+import { numberWithComma } from 'src/utils';
 
 import './DutchRecordItem.scss';
 
@@ -23,11 +24,11 @@ export default function DutchRecordItem({ tripId, record }: Props) {
   ));
 
   return (
-    <div className="DutchRecordItem hyunsub_border" onClick={onClick}>
+    <div className="DutchRecordItem hyunsub_border gray_bg_hover" onClick={onClick}>
       <div className="section_1">
         <div className="content">{record.content}</div>
         <div className="amount">
-          {record.currency} {record.amount}
+          {record.currency} {numberWithComma(record.amount)}
         </div>
       </div>
       <div className="location">{record.location}</div>

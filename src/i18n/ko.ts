@@ -45,6 +45,8 @@ const ko = {
     'CommonNavigation.menu': '메뉴',
     'CommonSearchResult.empty-result': '검색 결과가 없습니다',
     'CommonSearchResult.result-num': '{{total}}개의 검색 결과',
+    'CommonSearchResult.search-status': '{{query}}에 대한 {{total}}개의 검색 결과',
+    'common.form.feedback.required': '값을 입력해주세요',
 
     'upload.status': '{{now}} / {{total}}개 완료',
     'upload.ready': '준비',

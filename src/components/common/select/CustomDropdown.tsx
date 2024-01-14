@@ -1,19 +1,21 @@
+import cs from 'classnames';
 import { t } from 'i18next';
-import { Dropdown, DropdownButton } from 'react-bootstrap';
+import { Dropdown } from 'react-bootstrap';
 
 export interface CustomDropdownProps<T> {
   data: T[];
   labelSelector: (t: T) => string;
-  onSelect: (value: T) => void;
+  onChange: (value: T) => void;
   value?: T;
   noSelectionLabel?: string;
+  isInvalid?: boolean;
 }
 
 export default function CustomDropdown<T>(props: CustomDropdownProps<T>) {
-  const { data, labelSelector, onSelect, value, noSelectionLabel } = props;
+  const { data, labelSelector, onChange, value, noSelectionLabel } = props;
 
   const generateOnClick = (v: T) => () => {
-    onSelect(v);
+    onChange(v);
   };
 
   const title = value ? labelSelector(value) : noSelectionLabel ?? t('no-selection');
@@ -27,5 +29,10 @@ export default function CustomDropdown<T>(props: CustomDropdownProps<T>) {
     );
   });
 
-  return <DropdownButton title={title}>{items}</DropdownButton>;
+  return (
+    <Dropdown className={cs({ 'is-invalid': props.isInvalid })}>
+      <Dropdown.Toggle>{title}</Dropdown.Toggle>
+      <Dropdown.Menu className="position-fixed">{items}</Dropdown.Menu>
+    </Dropdown>
+  );
 }

@@ -18,7 +18,7 @@ export default function DutchMemberAddDropdown({ onSelect, alreadySelectedMember
     <CustomDropdown
       data={remainMembers}
       labelSelector={(v) => v.name}
-      onSelect={(v) => onSelect(v)}
+      onChange={(v) => onSelect(v)}
       noSelectionLabel={t('add')}
     />
   );
