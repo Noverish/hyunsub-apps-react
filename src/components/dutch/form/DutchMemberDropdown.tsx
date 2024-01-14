@@ -1,4 +1,3 @@
-import { t } from 'i18next';
 import { useContext } from 'react';
 
 import CustomDropdown from 'src/components/common/select/CustomDropdown';
@@ -6,20 +5,12 @@ import { DutchContext } from 'src/context/dutch/DutchContext';
 import { DutchMember } from 'src/model/dutch';
 
 interface Props {
-  alreadySelectedMemberIds: string[];
+  value?: DutchMember;
   onSelect: (member: DutchMember) => void;
 }
 
-export default function DutchMemberDropdown({ onSelect, alreadySelectedMemberIds }: Props) {
+export default function DutchMemberDropdown({ value, onSelect }: Props) {
   const { members } = useContext(DutchContext);
-  const remainMembers = members.filter((v) => !alreadySelectedMemberIds.includes(v.id));
 
-  return (
-    <CustomDropdown
-      data={remainMembers}
-      labelSelector={(v) => v.name}
-      onSelect={(v) => onSelect(v)}
-      noSelectionLabel={t('add')}
-    />
-  );
+  return <CustomDropdown value={value} data={members} labelSelector={(v) => v.name} onSelect={(v) => onSelect(v)} />;
 }

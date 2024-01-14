@@ -3,14 +3,12 @@ import { useContext } from 'react';
 import { Form } from 'react-bootstrap';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 
-import DutchMemberDropdown from 'src/components/dutch/form/DutchMemberDropdown';
+import DutchMemberAddDropdown from 'src/components/dutch/form/DutchMemberAddDropdown';
 import DutchRecordFormMember from 'src/components/dutch/form/DutchRecordFormMemberItem';
 import { DutchContext } from 'src/context/dutch/DutchContext';
 import { DutchMember, DutchRecordParams } from 'src/model/dutch';
 
-interface Props {}
-
-export default function DutchRecordFormMemberList(props: Props) {
+export default function DutchRecordFormMemberList() {
   const { members } = useContext(DutchContext);
   const { control } = useFormContext<DutchRecordParams>();
   const { fields, remove, append } = useFieldArray<DutchRecordParams, 'members', 'memberId'>({
@@ -54,7 +52,7 @@ export default function DutchRecordFormMemberList(props: Props) {
   );
 
   const dropdown = (
-    <DutchMemberDropdown onSelect={onMemberSelect} alreadySelectedMemberIds={alreadySelectedMemberIds} />
+    <DutchMemberAddDropdown onSelect={onMemberSelect} alreadySelectedMemberIds={alreadySelectedMemberIds} />
   );
 
   return (

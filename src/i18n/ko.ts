@@ -271,6 +271,9 @@ const ko = {
     'DutchRecordMember.name': '이름',
     'DutchRecordMember.actual': '실제로 낸돈',
     'DutchRecordMember.should': '내야하는 돈',
+    'DutchSettlePage.leader': '총무',
+    'DutchSettleResultView.message.send': '{{name}}(이)가 {{amount}} 내야함',
+    'DutchSettleResultView.message.receive': '{{name}}(이)가 {{amount}} 받아야함',
 
     'PageSelectModal.title': '페이지 이동',
     'PageSelectModal.close': '취소',

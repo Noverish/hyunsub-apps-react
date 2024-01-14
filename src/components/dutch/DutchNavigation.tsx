@@ -28,7 +28,7 @@ export default function DutchNavigation() {
       },
       {
         name: t('DutchNavigation.settle'),
-        link: DutchRoutes.settleRoute,
+        link: DutchRoutes.settle({ tripId }),
         icon: 'fas fa-receipt',
       },
     ],

@@ -43,3 +43,13 @@ export interface DutchRecordMemberParams {
   actual: number;
   should: number;
 }
+
+export interface DutchSettleResult {
+  currency: DutchCurrency;
+  shares: DutchSettleResultShare[];
+}
+
+export interface DutchSettleResultShare {
+  memberId: string;
+  amount: number;
+}

@@ -15,6 +15,14 @@ export function Loading({ vh }: { vh?: number }) {
   );
 }
 
+export function Loading2({ isLoading, children }: PropsWithChildren<Props>) {
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  return children;
+}
+
 export default function LoadingSuspense(props: PropsWithChildren<Props>) {
   if (props.isLoading) {
     return <Loading />;

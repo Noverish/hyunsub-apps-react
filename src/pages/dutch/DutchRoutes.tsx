@@ -3,6 +3,7 @@ import { DutchRecordCreatePageParams } from './record-create/DutchRecordCreateHo
 import { DutchRecordUpdatePageParams } from './record-update/DutchRecordUpdateHooks';
 import { DutchRecordDetailPageParams } from 'src/pages/dutch/record-detail/DutchRecordDetailHooks';
 import { DutchRecordListPageParams } from 'src/pages/dutch/record-list/DutchRecordListHooks';
+import { DutchSettlePageParams } from 'src/pages/dutch/settle/DutchSettleHooks';
 
 const DutchRoutes = {
   homeRoute: '/trips/:tripId',
@@ -23,6 +24,7 @@ const DutchRoutes = {
   balanceRoute: `/trips/:tripId/balance`,
 
   settleRoute: `/trips/:tripId/settle`,
+  settle: ({ tripId }: DutchSettlePageParams) => `/trips/${tripId}/settle`,
 };
 
 export default DutchRoutes;

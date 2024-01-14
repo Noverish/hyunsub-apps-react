@@ -9,6 +9,7 @@ import DutchRecordDetailPage from './record-detail/DutchRecordDetailPage';
 import DutchRecordListPage from './record-list/DutchRecordListPage';
 import DutchRecordUpdatePage from './record-update/DutchRecordUpdatePage';
 import DutchSearchPage from './search/DutchSearchPage';
+import DutchSettlePage from './settle/DutchSettlePage';
 import DutchNavigation from 'src/components/dutch/DutchNavigation';
 import { DutchProvider } from 'src/context/dutch/DutchContext';
 
@@ -29,6 +30,7 @@ export const DutchRouteObjects: RouteObject[] = [
       { path: routes.recordDetailRoute, element: <DutchRecordDetailPage /> },
       { path: routes.recordCreateRoute, element: <DutchRecordCreatePage /> },
       { path: routes.recordUpdateRoute, element: <DutchRecordUpdatePage /> },
+      { path: routes.settleRoute, element: <DutchSettlePage /> },
     ],
   },
 ];

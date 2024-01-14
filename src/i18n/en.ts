@@ -271,6 +271,9 @@ const en = {
     'DutchRecordMember.name': 'Name',
     'DutchRecordMember.actual': 'Actual',
     'DutchRecordMember.should': 'Should',
+    'DutchSettlePage.leader': 'Leader',
+    'DutchSettleResultView.message.send': '{{name}} should be send {{amount}}',
+    'DutchSettleResultView.message.receive': '{{name}} should be receive {{amount}}',
 
     'PageSelectModal.title': 'Move Page',
     'PageSelectModal.close': 'Close',
