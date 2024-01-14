@@ -5,7 +5,7 @@ import { DiaryListContext, DiaryListProvider } from './DiaryListContext';
 import DiaryListHooks from './DiaryListHooks';
 import DiarySearchModal from './components/DiarySearchModal';
 import diarySearchApi from 'src/api/diary/diary-search';
-import { useFlattenPageData, useTotal } from 'src/api/generate-infinite-query';
+import { useFlattenPageData } from 'src/api/generate-infinite-query';
 import CommonLayout from 'src/components/common/layout/CommonLayout';
 import SearchResultWrapper from 'src/components/common/search/SearchResultWrapper';
 import DiaryPreviewList from 'src/components/diary/DiaryPreviewList';
@@ -16,9 +16,8 @@ import { useContextSetter } from 'src/utils/context';
 function DiaryListPage() {
   const { query } = DiaryListHooks.usePageParams();
   const setState = useContextSetter(DiaryListContext);
-  const { data, fetchNextPage, isFetching } = diarySearchApi.useInfiniteApi({ query }, { suspense: false });
-  const diaries = useFlattenPageData(data);
-  const total = useTotal(data);
+  const result = diarySearchApi.useInfiniteApi({ query }, { suspense: false });
+  const diaries = useFlattenPageData(result.data);
 
   const headerBtns: HeaderButton[] = [
     {
@@ -35,7 +34,7 @@ function DiaryListPage() {
 
   return (
     <CommonLayout className="DiaryListPage" title={t('DiaryListPage.title')} btns={headerBtns}>
-      <SearchResultWrapper query={query} total={total} isFetching={isFetching} fetchNextPage={fetchNextPage}>
+      <SearchResultWrapper query={query} result={result}>
         <DiaryPreviewList diaries={diaries} />
       </SearchResultWrapper>
       <DiarySearchModal />

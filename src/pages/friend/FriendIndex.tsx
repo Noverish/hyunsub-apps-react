@@ -6,7 +6,6 @@ import routes from './FriendRoutes';
 import FriendCreatePage from './create/FriendCreatePage';
 import FriendDetailPage from './detail/FriendDetailPage';
 import FriendListPage from './list/FriendListPage';
-import FriendSearchPage from './search/FriendSearchPage';
 import FriendTagDetailPage from './tag-detail/FriendTagDetailPage';
 import FriendTagListPage from './tag-list/FriendTagListPage';
 import FriendUpdatePage from './update/FriendUpdatePage';
@@ -25,7 +24,6 @@ export const FriendRouteObjects: RouteObject[] = [
     children: [
       { path: '/', element: <Navigate to={routes.listRoute} /> },
       { path: CommonRoutes.menu, element: <CommonMenuPage /> },
-      { path: CommonRoutes.search, element: <FriendSearchPage /> },
       { path: routes.listRoute, element: <FriendListPage /> },
       { path: routes.detailRoute, element: <FriendDetailPage /> },
       { path: routes.createRoute, element: <FriendCreatePage /> },

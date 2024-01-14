@@ -1,8 +1,14 @@
+import queryString from 'query-string';
+
 import { FriendDetailPageParams } from './detail/FriendDetailHooks';
+import { FriendListPageParams } from './list/FriendListHooks';
 import { FriendUpdatePageParams } from './update/FriendUpdateHooks';
+
+const { stringifyUrl } = queryString;
 
 const FriendRoutes = {
   listRoute: '/list',
+  list: ({ ...query }: FriendListPageParams) => stringifyUrl({ url: `/list`, query }),
 
   createRoute: '/create',
 

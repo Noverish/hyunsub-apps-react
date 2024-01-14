@@ -1,18 +1,21 @@
+import { UseInfiniteQueryResult } from '@tanstack/react-query';
 import { t } from 'i18next';
 
 import ListLoadingIndicator from '../ListLoadingIndicator';
+import { useTotal } from 'src/api/generate-infinite-query';
 import useScrollBottom from 'src/hooks/scroll-bottom';
+import { PageData } from 'src/model/api';
 
-interface Props {
+interface Props<T> {
   query?: string;
-  total: number;
-  isFetching: boolean;
-  fetchNextPage: () => {};
+  result: UseInfiniteQueryResult<PageData<T>>;
   children: React.ReactNode;
 }
 
-export default function SearchResultWrapper(props: Props) {
-  const { query, total, isFetching, fetchNextPage, children } = props;
+export default function SearchResultWrapper<T>(props: Props<T>) {
+  const { query, result, children } = props;
+  const { data, isFetching, fetchNextPage } = result;
+  const total = useTotal(data);
 
   useScrollBottom(() => {
     if (!isFetching) {

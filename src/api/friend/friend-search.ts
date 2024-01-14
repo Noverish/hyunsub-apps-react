@@ -1,13 +1,11 @@
-import { generateQuery } from '../generate-api';
-import { PageData } from 'src/model/api';
+import { generateInfiniteQuery } from '../generate-infinite-query';
 import { FriendPreview } from 'src/model/friend';
 
 export interface FriendSearchParams {
-  page?: number;
   query?: string;
 }
 
-const friendSearchApi = generateQuery<FriendSearchParams, PageData<FriendPreview>>({
+const friendSearchApi = generateInfiniteQuery<FriendSearchParams, FriendPreview>({
   api: (params) => ({
     url: `/api/v1/search`,
     method: 'POST',

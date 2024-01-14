@@ -4,7 +4,7 @@ import DutchRoutes from '../DutchRoutes';
 import { DutchRecordListContext, DutchRecordListProvider } from './DutchRecordListContext';
 import DutchRecordListHooks from './DutchRecordListHooks';
 import dutchRecordSearchApi from 'src/api/dutch/dutch-record-search';
-import { useFlattenPageData, useTotal } from 'src/api/generate-infinite-query';
+import { useFlattenPageData } from 'src/api/generate-infinite-query';
 import CommonLayout from 'src/components/common/layout/CommonLayout';
 import SearchResultWrapper from 'src/components/common/search/SearchResultWrapper';
 import DutchRecordList from 'src/components/dutch/DutchRecordList';
@@ -16,12 +16,8 @@ import { useContextSetter } from 'src/utils/context';
 function DutchRecordListPage() {
   const { tripId, query, currency } = DutchRecordListHooks.usePageParams();
   const setState = useContextSetter(DutchRecordListContext);
-  const { data, fetchNextPage, isFetching } = dutchRecordSearchApi.useInfiniteApi(
-    { tripId, query, currency },
-    { suspense: false },
-  );
-  const records = useFlattenPageData(data);
-  const total = useTotal(data);
+  const result = dutchRecordSearchApi.useInfiniteApi({ tripId, query, currency }, { suspense: false });
+  const records = useFlattenPageData(result.data);
   const queryText = [query, currency].filter((v) => !!v).join(',');
 
   const headerBtns: HeaderButton[] = [
@@ -39,7 +35,7 @@ function DutchRecordListPage() {
 
   return (
     <CommonLayout className="DutchRecordListPage" title={t('DutchRecordListPage.title')} btns={headerBtns}>
-      <SearchResultWrapper query={queryText} total={total} isFetching={isFetching} fetchNextPage={fetchNextPage}>
+      <SearchResultWrapper query={queryText} result={result}>
         <DutchRecordList tripId={tripId} records={records} />
       </SearchResultWrapper>
       <DutchRecordSearchModal />
