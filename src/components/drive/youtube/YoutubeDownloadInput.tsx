@@ -1,9 +1,9 @@
 import { t } from 'i18next';
-import { useContext } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 import { YoutubeDownloadContext } from './YoutubeDownloadContext';
+import { useContextSetter } from 'src/utils/context';
 
 import './YoutubeDownloadInput.scss';
 
@@ -12,7 +12,7 @@ interface FormState {
 }
 
 export default function YoutubeDownloadInput() {
-  const setState = useContext(YoutubeDownloadContext)[1];
+  const setState = useContextSetter(YoutubeDownloadContext);
 
   const {
     register,

@@ -1,5 +1,3 @@
-import { useContext } from 'react';
-
 import PhotoRoutes from '../PhotoRoutes';
 import { PhotoDetailContext } from './PhotoDetailContext';
 import photoDateUpdateApi, { PhotoDateUpdateParams } from 'src/api/photo/photo-date-update';
@@ -7,6 +5,7 @@ import { useUrlParams } from 'src/hooks/url-params';
 import router from 'src/pages/router';
 import { dispatch } from 'src/redux';
 import { GlobalActions } from 'src/redux/global';
+import { useContextSetter } from 'src/utils/context';
 
 export interface PhotoDetailPageParams {
   photoId: string;
@@ -18,7 +17,7 @@ function usePageParams(): PhotoDetailPageParams {
 }
 
 function useShowDateModal(show: boolean) {
-  const setState = useContext(PhotoDetailContext)[1];
+  const setState = useContextSetter(PhotoDetailContext);
 
   return () => {
     setState({ showDateModal: show });

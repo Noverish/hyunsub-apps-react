@@ -4,12 +4,13 @@ import { DriveRenameContext } from './DriveRenameContext';
 import driveListApi from 'src/api/drive/drive-list';
 import driveRenameBulkApi, { DriveRenameBulkParamsData } from 'src/api/drive/drive-rename-bulk';
 import { useDriveExplorerContext } from 'src/components/drive/explorer/DriveExplorerHooks';
+import { useContextSetter } from 'src/utils/context';
 
 export function useDriveRenameReset() {
   const {
     state: { selects },
   } = useDriveExplorerContext();
-  const setState = useContext(DriveRenameContext)[1];
+  const setState = useContextSetter(DriveRenameContext);
 
   return () => {
     setState({ renames: selects });

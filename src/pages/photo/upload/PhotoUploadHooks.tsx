@@ -10,12 +10,13 @@ import { FileUploadItemResult, FileUploadProgress, FileWithPath } from 'src/mode
 import { PhotoUploadItemInfo } from 'src/model/photo';
 import { PhotoUploadContext } from 'src/pages/photo/upload/PhotoUploadContext';
 import { generateRandomString } from 'src/utils';
+import { useContextSetter } from 'src/utils/context';
 
 let finishNum = 0;
 let errorExist = false;
 
 function useReady() {
-  const setState = useContext(PhotoUploadContext)[1];
+  const setState = useContextSetter(PhotoUploadContext);
 
   return (files: FileWithPath[]) => {
     const items: PhotoUploadItemInfo[] = files.map((file) => ({
@@ -128,7 +129,7 @@ function useProcess(albumId?: string) {
 }
 
 function useClear() {
-  const setState = useContext(PhotoUploadContext)[1];
+  const setState = useContextSetter(PhotoUploadContext);
 
   return () => {
     setState({ status: 'ready', items: [], progress: 0, controller: undefined });

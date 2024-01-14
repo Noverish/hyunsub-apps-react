@@ -1,6 +1,5 @@
 import { t } from 'i18next';
 import { join } from 'path-browserify';
-import { useContext } from 'react';
 
 import driveListApi from 'src/api/drive/drive-list';
 import driveMoveBulkApi, { DriveMoveBulkParams } from 'src/api/drive/drive-move-bulk';
@@ -14,6 +13,7 @@ import {
 } from 'src/components/drive/explorer/DriveExplorerHooks';
 import { DriveFileInfo } from 'src/model/drive';
 import AppConstant from 'src/utils/constants';
+import { useContextSetter } from 'src/utils/context';
 import { toDateTimeString } from 'src/utils/date';
 
 export function useDriveFileRename() {
@@ -59,7 +59,7 @@ export function useDriveFileRemove() {
 export function useDriveNewFolder() {
   const { path, files } = useDriveExplorerContext();
   const list = files.map((v) => v.name);
-  const setState = useContext(DriveExplorerContext)[1];
+  const setState = useContextSetter(DriveExplorerContext);
 
   return () => {
     let name = t('drive.DriveExplorerFileList.new-folder');

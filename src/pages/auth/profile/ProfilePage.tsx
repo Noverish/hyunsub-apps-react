@@ -1,5 +1,4 @@
 import { t } from 'i18next';
-import { useContext } from 'react';
 import { Button, Card, ListGroup } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
@@ -14,6 +13,7 @@ import { useIsAdmin } from 'src/hooks/token';
 import { ProfileContext } from 'src/pages/auth/profile/ProfileContext';
 import ModifyPasswordModal from 'src/pages/auth/profile/components/ModifyPasswordModal';
 import ModifyUsernameModal from 'src/pages/auth/profile/components/ModifyUsernameModal';
+import { useContextSetter } from 'src/utils/context';
 import { setDocumentTitle } from 'src/utils/services';
 
 import './ProfilePage.scss';
@@ -35,7 +35,7 @@ function ProfilePage() {
 
   // hooks
   const isAdmin = useIsAdmin();
-  const setState = useContext(ProfileContext)[1];
+  const setState = useContextSetter(ProfileContext);
   const userInfo = profileDetailApi.useApi({});
   const onSignOut = ProfileHooks.useWithdraw();
 

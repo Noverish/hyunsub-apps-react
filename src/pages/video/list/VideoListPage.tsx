@@ -1,5 +1,4 @@
 import flatMap from 'lodash/flatMap';
-import { useContext } from 'react';
 
 import { VideoListContext, VideoListProvider } from './VideoListState';
 import ListLoadingIndicator from 'src/components/common/ListLoadingIndicator';
@@ -13,6 +12,7 @@ import { useLoadVideoListPage, useVideoCategory } from 'src/pages/video/list/Vid
 import VideoSortDropdown from 'src/pages/video/list/components/VideoSortDropdown';
 import VideoSortModal from 'src/pages/video/list/components/VideoSortModal';
 import { useBreakpointMobile } from 'src/utils/breakpoint';
+import { useContextSetter } from 'src/utils/context';
 import { setDocumentTitle } from 'src/utils/services';
 
 function VideoList() {
@@ -36,7 +36,7 @@ function VideoList() {
 }
 
 export function VideoListPage() {
-  const setState = useContext(VideoListContext)[1];
+  const setState = useContextSetter(VideoListContext);
   const isMobile = useBreakpointMobile();
   const category = useVideoCategory();
 

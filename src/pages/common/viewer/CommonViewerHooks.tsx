@@ -9,6 +9,7 @@ import { CommonViewerStateContext } from './CommonViewerStateContext';
 import { CommonViewerData } from './components/CommonViewerSlide';
 import { HeaderButton } from 'src/model/component';
 import { CommonViewerSwiperContext } from 'src/pages/common/viewer/CommonViewerSwiperContext';
+import { useContextSetter } from 'src/utils/context';
 
 export let swiper: Swiper | undefined;
 
@@ -52,7 +53,7 @@ function destroySwiper() {
 
 function useSwiper(): Swiper | undefined {
   const { initialIndex, slides } = useContext(CommonViewerPropsContext);
-  const setSwiperState = useContext(CommonViewerSwiperContext)[1];
+  const setSwiperState = useContextSetter(CommonViewerSwiperContext);
 
   const renderExternal = useCallback(
     (virtualData: VirtualData<CommonViewerData>) => {
@@ -93,7 +94,7 @@ const useSwiperSlides = (swiper: Swiper) => {
 
 const useSwiperSlideChange = (swiper: Swiper) => {
   const { onIndexChange } = useContext(CommonViewerPropsContext);
-  const setState = useContext(CommonViewerStateContext)[1];
+  const setState = useContextSetter(CommonViewerStateContext);
 
   const slideChange = useCallback(
     (swiper: Swiper) => {

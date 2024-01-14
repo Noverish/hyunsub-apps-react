@@ -1,5 +1,4 @@
 import { t } from 'i18next';
-import { useContext } from 'react';
 
 import PhotoRoutes from '../PhotoRoutes';
 import { AlbumListContext, AlbumListProvider } from './AlbumListContext';
@@ -10,12 +9,13 @@ import AlbumPreviewView from 'src/components/photo/AlbumPreviewView';
 import useScrollBottom from 'src/hooks/scroll-bottom';
 import { HeaderButton } from 'src/model/component';
 import AlbumCreateModal from 'src/pages/photo/album-list/components/AlbumCreateModal';
+import { useContextSetter } from 'src/utils/context';
 
 function AlbumListPage() {
   // hooks
   const { data, fetchNextPage, isFetching } = albumListApi.useInfiniteApi({});
   const albums = useFlattenPageData(data);
-  const setState = useContext(AlbumListContext)[1];
+  const setState = useContextSetter(AlbumListContext);
 
   useScrollBottom(() => {
     if (!isFetching) {

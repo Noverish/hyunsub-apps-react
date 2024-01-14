@@ -1,5 +1,3 @@
-import { useContext } from 'react';
-
 import { VideoManageContext } from './VideoManageContext';
 import videoEncodeApi, { VideoEncodeParams } from 'src/api/video/video-manage/video-encode';
 import videoMetadataApi from 'src/api/video/video-manage/video-metadata';
@@ -10,6 +8,7 @@ import videoThumbnailApi from 'src/api/video/video-manage/video-thumbnail';
 import { useUrlParams } from 'src/hooks/url-params';
 import { dispatch } from 'src/redux';
 import { GlobalActions } from 'src/redux/global';
+import { useContextSetter } from 'src/utils/context';
 
 export interface VideoManagePageParams {
   entryId: string;
@@ -22,7 +21,7 @@ function usePageParams(): VideoManagePageParams {
 }
 
 function useUploadSubtitle() {
-  const setState = useContext(VideoManageContext)[1];
+  const setState = useContextSetter(VideoManageContext);
 
   return async (params: VideoSubtitleParams) => {
     dispatch(GlobalActions.update({ loading: true }));
@@ -35,7 +34,7 @@ function useUploadSubtitle() {
 }
 
 function useSyncSubtitle() {
-  const setState = useContext(VideoManageContext)[1];
+  const setState = useContextSetter(VideoManageContext);
 
   return async (params: VideoSubtitleSyncParams) => {
     dispatch(GlobalActions.update({ loading: true }));
@@ -48,7 +47,7 @@ function useSyncSubtitle() {
 }
 
 function useRename() {
-  const setState = useContext(VideoManageContext)[1];
+  const setState = useContextSetter(VideoManageContext);
 
   return async (params: VideoRenameParams) => {
     dispatch(GlobalActions.update({ loading: true }));
@@ -61,7 +60,7 @@ function useRename() {
 }
 
 function useEncode() {
-  const setState = useContext(VideoManageContext)[1];
+  const setState = useContextSetter(VideoManageContext);
 
   return async (params: VideoEncodeParams) => {
     dispatch(GlobalActions.update({ loading: true }));
@@ -74,7 +73,7 @@ function useEncode() {
 }
 
 function useScanMetadata() {
-  const setState = useContext(VideoManageContext)[1];
+  const setState = useContextSetter(VideoManageContext);
 
   return async (videoId: string) => {
     dispatch(GlobalActions.update({ loading: true }));
@@ -87,7 +86,7 @@ function useScanMetadata() {
 }
 
 function useGenerateThumbnail() {
-  const setState = useContext(VideoManageContext)[1];
+  const setState = useContextSetter(VideoManageContext);
 
   return async (videoId: string) => {
     dispatch(GlobalActions.update({ loading: true }));

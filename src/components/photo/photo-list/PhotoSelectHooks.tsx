@@ -2,6 +2,7 @@ import { useContext } from 'react';
 
 import { PhotoSelectContext } from './PhotoSelectContext';
 import { PhotoPreview } from 'src/model/photo';
+import { useContextSetter } from 'src/utils/context';
 
 function useSelect(previews: PhotoPreview[]) {
   const [state, setState] = useContext(PhotoSelectContext);
@@ -54,7 +55,7 @@ function useToggle() {
 }
 
 function useClear() {
-  const setState = useContext(PhotoSelectContext)[1];
+  const setState = useContextSetter(PhotoSelectContext);
 
   return () => {
     setState({

@@ -1,5 +1,4 @@
 import { t } from 'i18next';
-import { useContext } from 'react';
 
 import DutchRoutes from '../DutchRoutes';
 import { DutchRecordListContext, DutchRecordListProvider } from './DutchRecordListContext';
@@ -12,10 +11,11 @@ import DutchRecordList from 'src/components/dutch/DutchRecordList';
 import { HeaderButton } from 'src/model/component';
 import DutchRecordSearchModal from 'src/pages/dutch/record-list/components/DutchRecordSearchModal';
 import router from 'src/pages/router';
+import { useContextSetter } from 'src/utils/context';
 
 function DutchRecordListPage() {
   const { tripId, query, currency } = DutchRecordListHooks.usePageParams();
-  const setState = useContext(DutchRecordListContext)[1];
+  const setState = useContextSetter(DutchRecordListContext);
   const { data, fetchNextPage, isFetching } = dutchRecordSearchApi.useInfiniteApi(
     { tripId, query, currency },
     { suspense: false },

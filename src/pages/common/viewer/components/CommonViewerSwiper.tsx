@@ -5,13 +5,14 @@ import CommonViewerHooks from '../CommonViewerHooks';
 import { CommonViewerStateContext } from '../CommonViewerStateContext';
 import { CommonViewerSwiperContext, CommonViewerSwiperProvider } from '../CommonViewerSwiperContext';
 import CommonViewerSlide, { CommonViewerData } from './CommonViewerSlide';
+import { useContextSetter } from 'src/utils/context';
 
 import 'swiper/css';
 
 function CommonViewerSwiperInner() {
   const swiper = CommonViewerHooks.useSwiper();
   const [{ virtualData }] = useContext(CommonViewerSwiperContext);
-  const setState = useContext(CommonViewerStateContext)[1];
+  const setState = useContextSetter(CommonViewerStateContext);
 
   CommonViewerHooks.useSwiperIndexReady(virtualData);
 

@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 
 import { PhotoViewerContext } from './PhotoViewerContext';
 import photoListApi2 from 'src/api/photo/photo-list-2';
@@ -6,6 +6,7 @@ import { useOptionalUrlParams } from 'src/hooks/url-params';
 import { PhotoPreview } from 'src/model/photo';
 import CommonViewerHooks from 'src/pages/common/viewer/CommonViewerHooks';
 import { CommonViewerData } from 'src/pages/common/viewer/components/CommonViewerSlide';
+import { useContextSetter } from 'src/utils/context';
 
 let prev: string | null = null;
 let next: string | null = null;
@@ -91,7 +92,7 @@ function useOnIndexReady() {
 }
 
 function useOnIndexChange() {
-  const setState = useContext(PhotoViewerContext)[1];
+  const setState = useContextSetter(PhotoViewerContext);
 
   return useCallback(
     (index: number) => {

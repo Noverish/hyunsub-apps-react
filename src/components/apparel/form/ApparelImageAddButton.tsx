@@ -1,11 +1,12 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
 import { ApparelFormContext } from './ApparelFormContext';
+import { useContextSetter } from 'src/utils/context';
 
 import './ApparelImageAddButton.scss';
 
 export default function ApparelImageAddButton() {
-  const setState = useContext(ApparelFormContext)[1];
+  const setState = useContextSetter(ApparelFormContext);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const images = Array.from(e.currentTarget.files || []);

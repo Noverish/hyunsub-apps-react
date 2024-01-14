@@ -65,3 +65,7 @@ export function generateValueContext<V>(
 
   return [Context, Provider, useValueContext];
 }
+
+export function useContextSetter<State>(context: StateContextType<State>): Dispatch<SetStateAction<State>> {
+  return useContext(context)[1];
+}

@@ -1,7 +1,8 @@
-import { useContext, useMemo } from 'react';
+import { useMemo } from 'react';
 
 import { ApparelFormContext } from './ApparelFormContext';
 import { ApparelImage } from 'src/model/apparel';
+import { useContextSetter } from 'src/utils/context';
 
 import './ApparelFormImage.scss';
 
@@ -11,7 +12,7 @@ interface Props {
 }
 
 export default function ApparelFormImage({ image, file }: Props) {
-  const setState = useContext(ApparelFormContext)[1];
+  const setState = useContextSetter(ApparelFormContext);
 
   const objectUrl = useMemo(() => (file ? URL.createObjectURL(file) : ''), [file]);
 

@@ -6,12 +6,13 @@ import { DriveExplorerContext } from '../explorer/DriveExplorerContext';
 import { DriveRenameContext, DriveRenameProvider } from './DriveRenameContext';
 import DriveRenameControl from './DriveRenameControl';
 import DriveRenameFileList from './DriveRenameFileList';
+import { useContextSetter } from 'src/utils/context';
 
 import './DriveRenameModal.scss';
 
 function DriveRenameModal() {
   const [{ renameBulk, selects }, setExplorerState] = useContext(DriveExplorerContext);
-  const setState = useContext(DriveRenameContext)[1];
+  const setState = useContextSetter(DriveRenameContext);
 
   useEffect(() => {
     setState({ renames: selects });

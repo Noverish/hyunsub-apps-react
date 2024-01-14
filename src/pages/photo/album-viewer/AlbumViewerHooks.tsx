@@ -1,5 +1,5 @@
 import { t } from 'i18next';
-import { useCallback, useContext } from 'react';
+import { useCallback } from 'react';
 
 import { AlbumViewerContext } from './AlbumViewerContext';
 import albumDetailApi from 'src/api/photo/album-detail';
@@ -7,6 +7,7 @@ import { useOptionalUrlParams, useUrlParams } from 'src/hooks/url-params';
 import { MergedPageData } from 'src/model/api';
 import { PhotoPreview } from 'src/model/photo';
 import { CommonViewerData } from 'src/pages/common/viewer/components/CommonViewerSlide';
+import { useContextSetter } from 'src/utils/context';
 import { setDocumentTitle } from 'src/utils/services';
 
 export interface AlbumViewerPageParams {
@@ -34,7 +35,7 @@ function usePageInit() {
 }
 
 function useOnIndexChange(mergedData: MergedPageData<PhotoPreview> | undefined) {
-  const setState = useContext(AlbumViewerContext)[1];
+  const setState = useContextSetter(AlbumViewerContext);
 
   return useCallback(
     (index: number) => {

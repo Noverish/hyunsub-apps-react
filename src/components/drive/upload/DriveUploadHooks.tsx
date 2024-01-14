@@ -9,9 +9,10 @@ import { DriveUploadContext } from 'src/components/drive/upload/DriveUploadConte
 import { useTokenPayload } from 'src/hooks/token';
 import { DriveUploadItemInfo } from 'src/model/drive';
 import { FileUploadItemResult, FileUploadProgress, FileWithPath } from 'src/model/file';
+import { useContextSetter } from 'src/utils/context';
 
 function useReady() {
-  const setState = useContext(DriveUploadContext)[1];
+  const setState = useContextSetter(DriveUploadContext);
   const { path } = useDriveExplorerContext();
   const { isAdmin, idNo } = useTokenPayload();
 
@@ -92,7 +93,7 @@ function useUpload() {
 }
 
 function useClear() {
-  const setState = useContext(DriveUploadContext)[1];
+  const setState = useContextSetter(DriveUploadContext);
 
   return () => {
     setState({ status: 'ready', items: [], progress: 0, controller: undefined });

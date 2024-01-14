@@ -1,5 +1,4 @@
 import { t } from 'i18next';
-import { useContext } from 'react';
 
 import AuthRoutes from '../AuthRoutes';
 import rsaKey from 'src/api/auth/auth/rsa-key';
@@ -11,10 +10,11 @@ import { ProfileContext } from 'src/pages/auth/profile/ProfileContext';
 import router from 'src/pages/router';
 import { dispatch } from 'src/redux';
 import { GlobalActions } from 'src/redux/global';
+import { useContextSetter } from 'src/utils/context';
 import { encrypt } from 'src/utils/rsa-key';
 
 function useModifyUsername() {
-  const setState = useContext(ProfileContext)[1];
+  const setState = useContextSetter(ProfileContext);
 
   return async (username: string) => {
     dispatch(GlobalActions.update({ loading: true }));
@@ -36,7 +36,7 @@ function useModifyUsername() {
 }
 
 function useModifyPassword() {
-  const setState = useContext(ProfileContext)[1];
+  const setState = useContextSetter(ProfileContext);
 
   return async (password: string) => {
     dispatch(GlobalActions.update({ loading: true }));
