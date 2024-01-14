@@ -29,3 +29,17 @@ export interface DutchMember {
   id: string;
   name: string;
 }
+
+export interface DutchRecordParams {
+  content: string;
+  location: string;
+  currency: string;
+  date: string;
+  members: DutchRecordMemberParams[];
+}
+
+export interface DutchRecordMemberParams {
+  memberId: string;
+  actual: number;
+  should: number;
+}

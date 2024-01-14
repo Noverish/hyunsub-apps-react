@@ -1,29 +1,22 @@
 import { t } from 'i18next';
-import { useContext } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import DutchCurrencyDropdown from './DutchCurrencyDropdown';
 import DutchRecordFormMemberList from './DutchRecordFormMemberList';
-import { DutchRecordCreateParams } from 'src/api/dutch/dutch-record-create';
-import { DutchContext } from 'src/context/dutch/DutchContext';
+import { DutchRecordDetail, DutchRecordParams } from 'src/model/dutch';
 import { toDateTimeString } from 'src/utils/date';
 
 import './DutchRecordForm.scss';
 
 interface Props {
-  onComplete: (params: DutchRecordCreateParams) => void;
+  record?: DutchRecordDetail;
+  onComplete: (data: DutchRecordParams) => void;
 }
 
-export default function DutchRecordForm({ onComplete }: Props) {
-  const { tripId } = useContext(DutchContext);
-
-  const defaultValues: Partial<DutchRecordCreateParams> = {
-    tripId,
-    date: toDateTimeString(new Date()),
-  };
-
-  const methods = useForm<DutchRecordCreateParams>({ defaultValues });
+export default function DutchRecordForm({ record, onComplete }: Props) {
+  const defaultValues = generateDefaultValues(record);
+  const methods = useForm<DutchRecordParams>({ defaultValues });
   const { register, control, handleSubmit } = methods;
 
   return (
@@ -51,4 +44,24 @@ export default function DutchRecordForm({ onComplete }: Props) {
       </Form>
     </FormProvider>
   );
+}
+
+function generateDefaultValues(record?: DutchRecordDetail): Partial<DutchRecordParams> {
+  if (!record) {
+    return {
+      date: toDateTimeString(new Date()),
+    };
+  }
+
+  return {
+    content: record.record.content,
+    location: record.record.location,
+    currency: record.record.currency,
+    date: record.record.date,
+    members: record.members.map((v) => ({
+      memberId: v.memberId,
+      actual: v.actual,
+      should: v.should,
+    })),
+  };
 }

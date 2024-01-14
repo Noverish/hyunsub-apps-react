@@ -2,18 +2,18 @@ import { useContext } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { FieldArrayWithId, UseFieldArrayRemove, useFormContext } from 'react-hook-form';
 
-import { DutchRecordCreateParams } from 'src/api/dutch/dutch-record-create';
 import { DutchContext } from 'src/context/dutch/DutchContext';
+import { DutchRecordParams } from 'src/model/dutch';
 
 interface Props {
   index: number;
-  field: FieldArrayWithId<DutchRecordCreateParams, 'members', 'memberId'>;
+  field: FieldArrayWithId<DutchRecordParams, 'members', 'memberId'>;
   remove: UseFieldArrayRemove;
 }
 
 export default function DutchRecordFormMemberItem({ index, field, remove }: Props) {
   const { members } = useContext(DutchContext);
-  const { register } = useFormContext<DutchRecordCreateParams>();
+  const { register } = useFormContext<DutchRecordParams>();
   const member = members.filter((v) => v.id === field.memberId)[0];
 
   const onRemove = () => {

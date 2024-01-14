@@ -1,6 +1,7 @@
 import { t } from 'i18next';
 import { Navigate } from 'react-router-dom';
 
+import DutchRoutes from '../DutchRoutes';
 import DutchRecordDetailHooks from './DutchRecordDetailHooks';
 import DutchRecordDetailView from './components/DutchRecordDetailView';
 import dutchRecordDetailApi from 'src/api/dutch/dutch-record-detail';
@@ -8,6 +9,7 @@ import { Loading } from 'src/components/common/LoadingSuspense';
 import CommonLayout from 'src/components/common/layout/CommonLayout';
 import { HeaderButton } from 'src/model/component';
 import CommonRoutes from 'src/pages/common/CommonRoutes';
+import router from 'src/pages/router';
 
 export default function DutchRecordDetailPage() {
   const { tripId, recordId } = DutchRecordDetailHooks.usePageParams();
@@ -17,6 +19,11 @@ export default function DutchRecordDetailPage() {
   const remove = DutchRecordDetailHooks.useDelete();
 
   const headerBtns: HeaderButton[] = [
+    {
+      icon: 'fas fa-edit',
+      name: t('edit'),
+      onClick: () => router.navigate(DutchRoutes.recordUpdate({ tripId, recordId })),
+    },
     {
       icon: 'fas fa-trash-alt',
       name: t('delete'),

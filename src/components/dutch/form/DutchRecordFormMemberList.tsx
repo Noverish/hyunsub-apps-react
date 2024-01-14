@@ -3,18 +3,17 @@ import { useContext } from 'react';
 import { Form } from 'react-bootstrap';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 
-import { DutchRecordCreateParams } from 'src/api/dutch/dutch-record-create';
 import DutchMemberDropdown from 'src/components/dutch/form/DutchMemberDropdown';
 import DutchRecordFormMember from 'src/components/dutch/form/DutchRecordFormMemberItem';
 import { DutchContext } from 'src/context/dutch/DutchContext';
-import { DutchMember } from 'src/model/dutch';
+import { DutchMember, DutchRecordParams } from 'src/model/dutch';
 
 interface Props {}
 
 export default function DutchRecordFormMemberList(props: Props) {
   const { members } = useContext(DutchContext);
-  const { control } = useFormContext<DutchRecordCreateParams>();
-  const { fields, remove, append } = useFieldArray<DutchRecordCreateParams, 'members', 'memberId'>({
+  const { control } = useFormContext<DutchRecordParams>();
+  const { fields, remove, append } = useFieldArray<DutchRecordParams, 'members', 'memberId'>({
     control,
     name: 'members',
   });

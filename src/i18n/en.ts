@@ -261,6 +261,7 @@ const en = {
     'DutchRecordListPage.title': 'Records',
     'DutchRecordDetailPage.title': 'Record Detail',
     'DutchRecordCreatePage.title': 'Record Create',
+    'DutchRecordUpdatePage.title': 'Record Update',
     'DutchRecord.content': 'Content',
     'DutchRecord.location': 'Location',
     'DutchRecord.currency': 'Currency',

@@ -7,6 +7,7 @@ import DutchHomePage from './home/DutchHomePage';
 import DutchRecordCreatePage from './record-create/DutchRecordCreatePage';
 import DutchRecordDetailPage from './record-detail/DutchRecordDetailPage';
 import DutchRecordListPage from './record-list/DutchRecordListPage';
+import DutchRecordUpdatePage from './record-update/DutchRecordUpdatePage';
 import DutchSearchPage from './search/DutchSearchPage';
 import DutchNavigation from 'src/components/dutch/DutchNavigation';
 import { DutchProvider } from 'src/context/dutch/DutchContext';
@@ -27,6 +28,7 @@ export const DutchRouteObjects: RouteObject[] = [
       { path: routes.recordListRoute, element: <DutchRecordListPage /> },
       { path: routes.recordDetailRoute, element: <DutchRecordDetailPage /> },
       { path: routes.recordCreateRoute, element: <DutchRecordCreatePage /> },
+      { path: routes.recordUpdateRoute, element: <DutchRecordUpdatePage /> },
     ],
   },
 ];

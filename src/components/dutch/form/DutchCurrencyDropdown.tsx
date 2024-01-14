@@ -1,11 +1,10 @@
 import { Control, useController } from 'react-hook-form';
 
 import CustomDropdown from '../../common/select/CustomDropdown';
-import { DutchRecordCreateParams } from 'src/api/dutch/dutch-record-create';
-import { dutchCurrencyList } from 'src/model/dutch';
+import { DutchRecordParams, dutchCurrencyList } from 'src/model/dutch';
 
 interface Props {
-  control: Control<DutchRecordCreateParams>;
+  control: Control<DutchRecordParams>;
 }
 
 export default function DutchCurrencyDropdown({ control }: Props) {

@@ -261,6 +261,7 @@ const ko = {
     'DutchRecordListPage.title': '내역',
     'DutchRecordDetailPage.title': '내역 상세',
     'DutchRecordCreatePage.title': '내역 추가',
+    'DutchRecordUpdatePage.title': '내역 수정',
     'DutchRecord.content': '내역',
     'DutchRecord.location': '장소',
     'DutchRecord.currency': '통화',

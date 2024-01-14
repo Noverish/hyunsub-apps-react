@@ -1,6 +1,7 @@
 import DutchRoutes from '../DutchRoutes';
 import dutchRecordCreateApi, { DutchRecordCreateParams } from 'src/api/dutch/dutch-record-create';
 import { useUrlParams } from 'src/hooks/url-params';
+import { DutchRecordParams } from 'src/model/dutch';
 import router from 'src/pages/router';
 import { dispatch } from 'src/redux';
 import { GlobalActions } from 'src/redux/global';
@@ -15,12 +16,18 @@ function usePageParams(): DutchRecordCreatePageParams {
 }
 
 function useCreate() {
-  return async (params: DutchRecordCreateParams) => {
+  const { tripId } = usePageParams();
+
+  return async (data: DutchRecordParams) => {
     dispatch(GlobalActions.update({ loading: true }));
+
+    const params: DutchRecordCreateParams = {
+      tripId,
+      ...data,
+    };
 
     const result = await dutchRecordCreateApi(params);
     const recordId = result.record.id;
-    const tripId = params.tripId;
 
     dispatch(GlobalActions.update({ loading: false }));
 
