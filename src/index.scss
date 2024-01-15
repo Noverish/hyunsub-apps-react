@@ -103,6 +103,7 @@ input.form-control, textarea.form-control {
 }
 
 .gray_on_hover:hover {
+  cursor: pointer;
   color: var(--hyunsub-text-hover);
 }
 

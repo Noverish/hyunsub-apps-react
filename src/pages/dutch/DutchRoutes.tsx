@@ -1,6 +1,7 @@
 import queryString from 'query-string';
 
 import { DutchHomePageParams } from './home/DutchHomeHooks';
+import { DutchMemberSelectPageParams } from './member-select/DutchMemberSelectHooks';
 import { DutchRecordCreatePageParams } from './record-create/DutchRecordCreateHooks';
 import { DutchRecordUpdatePageParams } from './record-update/DutchRecordUpdateHooks';
 import { DutchRecordDetailPageParams } from 'src/pages/dutch/record-detail/DutchRecordDetailHooks';
@@ -30,6 +31,9 @@ const DutchRoutes = {
 
   settleRoute: `/trips/:tripId/settle`,
   settle: ({ tripId }: DutchSettlePageParams) => `/trips/${tripId}/settle`,
+
+  memberSelectRoute: `/trips/:tripId/member-select`,
+  memberSelect: ({ tripId }: DutchMemberSelectPageParams) => `/trips/${tripId}/member-select`,
 };
 
 export default DutchRoutes;

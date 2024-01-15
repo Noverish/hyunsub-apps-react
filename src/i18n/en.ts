@@ -276,6 +276,7 @@ const en = {
     'DutchSettlePage.leader': 'Leader',
     'DutchSettleResultView.message.send': '{{name}} should be send {{amount}}',
     'DutchSettleResultView.message.receive': '{{name}} should be receive {{amount}}',
+    'DutchMemberSelectPage.message.choose': 'Choose yourself',
 
     'PageSelectModal.title': 'Move Page',
     'PageSelectModal.close': 'Close',

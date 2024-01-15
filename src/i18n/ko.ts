@@ -276,6 +276,7 @@ const ko = {
     'DutchSettlePage.leader': '총무',
     'DutchSettleResultView.message.send': '{{name}}(이)가 {{amount}} 내야함',
     'DutchSettleResultView.message.receive': '{{name}}(이)가 {{amount}} 받아야함',
+    'DutchMemberSelectPage.message.choose': '자신을 선택해주세요',
 
     'PageSelectModal.title': '페이지 이동',
     'PageSelectModal.close': '취소',

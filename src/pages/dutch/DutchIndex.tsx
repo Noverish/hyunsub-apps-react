@@ -4,6 +4,7 @@ import CommonRoutes from '../common/CommonRoutes';
 import CommonMenuPage from '../common/menu/CommonMenuPage';
 import routes from './DutchRoutes';
 import DutchHomePage from './home/DutchHomePage';
+import DutchMemberSelectPage from './member-select/DutchMemberSelectPage';
 import DutchRecordCreatePage from './record-create/DutchRecordCreatePage';
 import DutchRecordDetailPage from './record-detail/DutchRecordDetailPage';
 import DutchRecordListPage from './record-list/DutchRecordListPage';
@@ -14,6 +15,7 @@ import DutchNavigation from 'src/components/dutch/DutchNavigation';
 import { DutchProvider } from 'src/context/dutch/DutchContext';
 
 export const DutchRouteObjects: RouteObject[] = [
+  { path: routes.memberSelectRoute, element: <DutchMemberSelectPage /> },
   {
     path: '/',
     element: (
