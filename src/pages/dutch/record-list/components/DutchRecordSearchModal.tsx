@@ -5,7 +5,7 @@ import { useController, useForm } from 'react-hook-form';
 
 import DutchRoutes from '../../DutchRoutes';
 import DutchRecordListHooks, { DutchRecordListPageParams } from '../DutchRecordListHooks';
-import DutchCurrencyDropdown from 'src/components/dutch/form/DutchCurrencyDropdown';
+import DutchCurrencySelect from 'src/components/dutch/form/DutchCurrencySelect';
 import { DutchRecordListContext } from 'src/pages/dutch/record-list/DutchRecordListContext';
 import router from 'src/pages/router';
 
@@ -35,7 +35,7 @@ export default function DutchRecordSearchModal() {
           </Form.Group>
           <Form.Group>
             <Form.Label>{t('DutchRecord.currency')}</Form.Label>
-            <DutchCurrencyDropdown {...currencyFieldProps} />
+            <DutchCurrencySelect {...currencyFieldProps} />
           </Form.Group>
           <Button variant="primary" type="submit">
             {t('search')}

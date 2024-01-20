@@ -1,27 +1,30 @@
 import { t } from 'i18next';
 import { useContext } from 'react';
-import { Form } from 'react-bootstrap';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 
+import DutchRecordFormHooks from './DutchRecordFormHooks';
 import DutchMemberAddDropdown from 'src/components/dutch/form/DutchMemberAddDropdown';
-import DutchRecordFormMember from 'src/components/dutch/form/DutchRecordFormMemberItem';
+import { DutchRecordFormState } from 'src/components/dutch/form/DutchRecordForm';
+import DutchRecordFormMember from 'src/components/dutch/form/DutchRecordFormShouldItem';
 import { DutchContext } from 'src/context/dutch/DutchContext';
-import { DutchMember, DutchRecordParams } from 'src/model/dutch';
+import { DutchMember } from 'src/model/dutch';
 
 export default function DutchRecordFormMemberList() {
   const { members } = useContext(DutchContext);
-  const { control } = useFormContext<DutchRecordParams>();
-  const { fields, remove, append } = useFieldArray<DutchRecordParams, 'members', 'memberId'>({
+  const { control } = useFormContext<DutchRecordFormState>();
+  const { fields, remove, append } = useFieldArray<DutchRecordFormState, 'shoulds', 'memberId'>({
     control,
-    name: 'members',
+    name: 'shoulds',
   });
+
+  const shouldAddCallback = DutchRecordFormHooks.useShouldAddCallback();
 
   const onMemberSelect = (member: DutchMember) => {
     append({
       memberId: member.id,
-      actual: 0,
-      should: 0,
+      amount: 0,
     });
+    shouldAddCallback();
   };
 
   const cnt = fields.length;
@@ -29,17 +32,15 @@ export default function DutchRecordFormMemberList() {
   const hideDropdown = members.length === fields.length;
 
   const table = (
-    <table>
+    <table className="w-100">
       <colgroup>
         <col className="name" />
-        <col className="should" />
-        <col className="actual" />
+        <col className="amount" />
       </colgroup>
       <thead>
         <tr>
           <td>{t('DutchRecordMember.name')}</td>
-          <td>{t('DutchRecordMember.should')}</td>
-          <td>{t('DutchRecordMember.actual')}</td>
+          <td>{t('Dutch.amount')}</td>
           <td></td>
         </tr>
       </thead>
@@ -57,7 +58,6 @@ export default function DutchRecordFormMemberList() {
 
   return (
     <div className="DutchRecordFormMemberList">
-      <Form.Label>{t('DutchRecord.members')}</Form.Label>
       {cnt > 0 ? table : undefined}
       {hideDropdown ? undefined : dropdown}
     </div>

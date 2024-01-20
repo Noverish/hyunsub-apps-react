@@ -9,7 +9,7 @@ interface DutchRecordSearchParams {
 
 const dutchRecordSearchApi = generateInfiniteQuery<DutchRecordSearchParams, DutchRecordPreview>({
   api: (params) => ({
-    url: `/api/v1/search/records`,
+    url: `/api/v1/trips/${params.tripId}/search/records`,
     method: 'POST',
     data: params,
   }),

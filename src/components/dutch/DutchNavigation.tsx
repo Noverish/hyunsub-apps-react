@@ -22,14 +22,14 @@ export default function DutchNavigation() {
         icon: 'fas fa-list',
       },
       {
-        name: t('DutchNavigation.balance'),
-        link: DutchRoutes.balanceRoute,
-        icon: 'fas fa-wallet',
-      },
-      {
         name: t('DutchNavigation.settle'),
         link: DutchRoutes.settle({ tripId }),
         icon: 'fas fa-receipt',
+      },
+      {
+        name: t('DutchNavigation.balance'),
+        link: DutchRoutes.spend({ tripId }),
+        icon: 'fas fa-user-circle',
       },
     ],
     disableSearch: true,

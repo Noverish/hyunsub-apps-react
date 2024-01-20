@@ -18,8 +18,8 @@ export default function DutchRecordMemberList({ members }: Props) {
         <thead>
           <tr className="hyunsub_border">
             <td>{t('DutchRecordMember.name')}</td>
-            <td>{t('DutchRecordMember.should')}</td>
-            <td>{t('DutchRecordMember.actual')}</td>
+            <td>{t('Dutch.should')}</td>
+            <td>{t('Dutch.actual')}</td>
           </tr>
         </thead>
         <tbody>{elements}</tbody>

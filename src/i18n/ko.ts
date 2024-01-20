@@ -47,6 +47,7 @@ const ko = {
     'CommonSearchResult.result-num': '{{total}}개',
     'CommonSearchResult.search-status': '{{query}}에 대한 {{total}}개의 검색 결과',
     'common.form.feedback.required': '값을 입력해주세요',
+    'common.form.feedback.no-minus': '음수를 입력하실 수 없습니다',
 
     'upload.status': '{{now}} / {{total}}개 완료',
     'upload.ready': '준비',
@@ -256,9 +257,12 @@ const ko = {
     'FriendTagListPage.title': '태그 목록',
     'FriendTagDetailPage.title': '태그 상세 - {{0}}',
 
+    'Dutch.should': '내야하는 돈',
+    'Dutch.actual': '실제로 낸돈',
+    'Dutch.amount': '금액',
     'DutchNavigation.home': '홈',
     'DutchNavigation.records': '내역',
-    'DutchNavigation.balance': '잔액',
+    'DutchNavigation.balance': '마이',
     'DutchNavigation.settle': '정산',
     'DutchRecordListPage.title': '내역',
     'DutchRecordDetailPage.title': '내역 상세',
@@ -277,6 +281,8 @@ const ko = {
     'DutchSettleResultView.message.send': '{{name}}(이)가 {{amount}} 내야함',
     'DutchSettleResultView.message.receive': '{{name}}(이)가 {{amount}} 받아야함',
     'DutchMemberSelectPage.message.choose': '자신을 선택해주세요',
+    'DutchSpendPage.select-member': '다른 유저 선택',
+    'DutchRecordForm.feedback.invalid-sum': '내야하는 돈의 합과 실제로 낸돈의 합이 같지 않습니다',
 
     'PageSelectModal.title': '페이지 이동',
     'PageSelectModal.close': '취소',

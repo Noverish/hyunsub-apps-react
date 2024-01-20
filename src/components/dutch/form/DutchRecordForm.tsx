@@ -1,11 +1,14 @@
 import { t } from 'i18next';
 import { Button, Form } from 'react-bootstrap';
-import { FormProvider, useController, useForm } from 'react-hook-form';
+import { FormProvider, useForm, useFormContext } from 'react-hook-form';
 
-import DutchCurrencyDropdown from './DutchCurrencyDropdown';
-import DutchRecordFormMemberList from './DutchRecordFormMemberList';
-import { DutchRecordDetail, DutchRecordParams } from 'src/model/dutch';
-import { toDateTimeString } from 'src/utils/date';
+import DutchCurrencySelect from './DutchCurrencySelect';
+import { DutchRecordFormProvider } from './DutchRecordFormContext';
+import DutchRecordFormHooks from './DutchRecordFormHooks';
+import DutchRecordFormActualList from 'src/components/dutch/form/DutchRecordFormActualList';
+import DutchRecordFormShouldList from 'src/components/dutch/form/DutchRecordFormShouldList';
+import { DutchCurrency, DutchRecordDetail, DutchRecordParams } from 'src/model/dutch';
+import { useControlProps } from 'src/utils';
 
 import './DutchRecordForm.scss';
 
@@ -14,63 +17,106 @@ interface Props {
   onComplete: (data: DutchRecordParams) => void;
 }
 
-export default function DutchRecordForm({ record, onComplete }: Props) {
-  const defaultValues = generateDefaultValues(record);
+export interface DutchRecordFormState {
+  sum: string;
+  content: string;
+  location: string;
+  currency: DutchCurrency;
+  date: string;
+  actuals: DutchRecordShare[];
+  shoulds: DutchRecordShare[];
+}
 
-  const methods = useForm<DutchRecordParams>({ defaultValues });
-  const { register, control, handleSubmit, formState } = methods;
-  const errors = formState.errors;
+export interface DutchRecordShare {
+  memberId: string;
+  amount: number;
+}
 
-  const { field: currencyField } = useController({ name: 'currency', control, rules: { required: true } });
-  const currencyFieldProps = { value: currencyField.value, onChange: currencyField.onChange };
+function DutchRecordForm({ onComplete }: Props) {
+  const methods = useFormContext<DutchRecordFormState>();
+  const { register, control, handleSubmit, formState, getValues } = methods;
+  const { errors } = formState;
+
+  const onSubmit = (state: DutchRecordFormState) => {
+    onComplete(DutchRecordFormHooks.convertToRecordParams(state));
+  };
+
+  const contentRegister = register('content', {
+    required: t('common.form.feedback.required'),
+  });
+
+  const locationRegister = register('location', {
+    required: t('common.form.feedback.required'),
+  });
+
+  const currencyRegister = useControlProps({
+    name: 'currency',
+    control,
+    rules: { required: t('common.form.feedback.required') },
+  });
+
+  const dateRegister = register('date', {
+    required: t('common.form.feedback.required'),
+  });
+
+  register('sum', {
+    validate: () => {
+      const actualSum = getValues('actuals').reduce((acc, v) => acc + v.amount, 0);
+      const shouldSum = getValues('shoulds').reduce((acc, v) => acc + v.amount, 0);
+      return actualSum !== shouldSum ? t('DutchRecordForm.feedback.invalid-sum') : undefined;
+    },
+  });
 
   return (
-    <FormProvider {...methods}>
-      <Form className="DutchRecordForm d-grid gap-3" onSubmit={handleSubmit(onComplete)}>
-        <Form.Group controlId="dutch_record_form_content">
-          <Form.Label>{t('DutchRecord.content')}</Form.Label>
-          <Form.Control type="text" {...register('content', { required: true })} isInvalid={!!errors.content} />
-          <Form.Control.Feedback type="invalid">{t('common.form.feedback.required')}</Form.Control.Feedback>
-        </Form.Group>
-        <Form.Group controlId="dutch_record_form_location">
-          <Form.Label>{t('DutchRecord.location')}</Form.Label>
-          <Form.Control type="text" {...register('location', { required: true })} isInvalid={!!errors.location} />
-          <Form.Control.Feedback type="invalid">{t('common.form.feedback.required')}</Form.Control.Feedback>
-        </Form.Group>
-        <Form.Group controlId="dutch_record_form_currency">
-          <Form.Label>{t('DutchRecord.currency')}</Form.Label>
-          <DutchCurrencyDropdown {...currencyFieldProps} isInvalid={!!errors.currency} />
-          <Form.Control.Feedback type="invalid">{t('common.form.feedback.required')}</Form.Control.Feedback>
-        </Form.Group>
-        <Form.Group controlId="dutch_record_form_date">
-          <Form.Label>{t('DutchRecord.date')}</Form.Label>
-          <Form.Control type="text" {...register('date', { required: true })} isInvalid={!!errors.date} />
-          <Form.Control.Feedback type="invalid">{t('common.form.feedback.required')}</Form.Control.Feedback>
-        </Form.Group>
-        <DutchRecordFormMemberList />
-        <hr />
-        <Button type="submit">{t('complete')}</Button>
-      </Form>
-    </FormProvider>
+    <Form className="DutchRecordForm d-grid gap-3" onSubmit={handleSubmit(onSubmit)}>
+      <Form.Group controlId="dutch_record_form_content">
+        <Form.Label>{t('DutchRecord.content')}</Form.Label>
+        <Form.Control type="text" {...contentRegister} isInvalid={!!errors.content} />
+        <Form.Control.Feedback type="invalid">{errors.content?.message}</Form.Control.Feedback>
+      </Form.Group>
+      <Form.Group controlId="dutch_record_form_location">
+        <Form.Label>{t('DutchRecord.location')}</Form.Label>
+        <Form.Control type="text" {...locationRegister} isInvalid={!!errors.location} />
+        <Form.Control.Feedback type="invalid">{errors.location?.message}</Form.Control.Feedback>
+      </Form.Group>
+      <Form.Group controlId="dutch_record_form_currency">
+        <Form.Label>{t('DutchRecord.currency')}</Form.Label>
+        <DutchCurrencySelect {...currencyRegister} isInvalid={!!errors.currency} />
+        <Form.Control.Feedback type="invalid">{errors.currency?.message}</Form.Control.Feedback>
+      </Form.Group>
+      <Form.Group controlId="dutch_record_form_date">
+        <Form.Label>{t('DutchRecord.date')}</Form.Label>
+        <Form.Control type="text" {...dateRegister} isInvalid={!!errors.date} />
+        <Form.Control.Feedback type="invalid">{errors.date?.message}</Form.Control.Feedback>
+      </Form.Group>
+      <Form.Group>
+        <Form.Label>{t('Dutch.actual')}</Form.Label>
+        <DutchRecordFormActualList />
+      </Form.Group>
+      <Form.Group>
+        <Form.Label>{t('Dutch.should')}</Form.Label>
+        <DutchRecordFormShouldList />
+        {errors.sum && (
+          <Form.Control.Feedback type="invalid" className="d-block">
+            {errors.sum?.message}
+          </Form.Control.Feedback>
+        )}
+      </Form.Group>
+      <hr />
+      <Button type="submit">{t('complete')}</Button>
+    </Form>
   );
 }
 
-function generateDefaultValues(record?: DutchRecordDetail): Partial<DutchRecordParams> {
-  if (!record) {
-    return {
-      date: toDateTimeString(new Date()),
-    };
-  }
+export default function DutchRecordFormIndex(props: Props) {
+  const defaultValues = DutchRecordFormHooks.generateDefaultValues(props.record);
+  const methods = useForm<DutchRecordFormState>({ defaultValues });
 
-  return {
-    content: record.record.content,
-    location: record.record.location,
-    currency: record.record.currency,
-    date: record.record.date,
-    members: record.members.map((v) => ({
-      memberId: v.memberId,
-      actual: v.actual,
-      should: v.should,
-    })),
-  };
+  return (
+    <DutchRecordFormProvider>
+      <FormProvider {...methods}>
+        <DutchRecordForm {...props} />
+      </FormProvider>
+    </DutchRecordFormProvider>
+  );
 }

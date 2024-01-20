@@ -2,7 +2,7 @@ import { t } from 'i18next';
 import { useContext, useEffect, useState } from 'react';
 
 import DutchSettleHooks from './DutchSettleHooks';
-import DutchSettleResultView from './component/DutchSettleResultView';
+import DutchSettleResultView from './components/DutchSettleResultView';
 import dutchSettleApi from 'src/api/dutch/dutch-settle';
 import { Loading2 } from 'src/components/common/LoadingSuspense';
 import CommonLayout from 'src/components/common/layout/CommonLayout';

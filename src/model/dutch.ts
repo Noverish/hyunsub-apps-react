@@ -53,3 +53,19 @@ export interface DutchSettleResultShare {
   memberId: string;
   amount: number;
 }
+
+export interface DutchSpend {
+  recordId: string;
+  content: string;
+  location: string;
+  date: string;
+  currency: DutchCurrency;
+  actual: number;
+  should: number;
+}
+
+export interface DutchSpendSum {
+  currency: DutchCurrency;
+  actual: number;
+  should: number;
+}

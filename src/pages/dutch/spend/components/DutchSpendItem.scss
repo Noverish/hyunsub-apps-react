@@ -1,4 +1,4 @@
-.DutchRecordItem {
+.DutchSpendItem {
   padding: .5rem 0;
 
   .section_1 {
@@ -21,19 +21,11 @@
 
   .location {
     font-size: 0.8rem;
-    margin-bottom: .5rem;
     color: var(--hyunsub-text-hover);
   }
 
   .amount {
     white-space: nowrap;
-  }
-
-  .members {
-    display: flex;
-    flex-direction: row;
-    gap: .25rem;
-    font-size: 0.7rem;
   }
 
   .date {

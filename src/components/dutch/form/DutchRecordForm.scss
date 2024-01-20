@@ -1,8 +1,4 @@
 .DutchRecordFormMemberList {
-  table {
-    margin-bottom: .5rem;
-  }
-
   thead {
     text-align: center;
 
@@ -15,7 +11,7 @@
 
   td {
     padding-left: .5rem;
-    padding-top: .5rem;
+    padding-bottom: .5rem;
   }
 
   col.name {
@@ -30,5 +26,10 @@
 .DutchRecordFormMemberItem {
   .member_name {
     word-break: keep-all;
+    text-align: center;
+  }
+
+  input {
+    text-align: end;
   }
 }

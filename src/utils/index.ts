@@ -1,3 +1,6 @@
+import { FieldPath, FieldPathValue, FieldValues, UseControllerProps } from 'node_modules/react-hook-form/dist/types';
+import { useController } from 'react-hook-form';
+
 export function sleep(ms: number) {
   return new Promise((resolve) => {
     setTimeout(resolve, ms);
@@ -51,4 +54,17 @@ const BASE = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 
 export function generateRandomString(length: number) {
   return Array.from({ length }, () => BASE.charAt(Math.floor(Math.random() * BASE.length))).join('');
+}
+
+export function useControlProps<
+  TFieldValues extends FieldValues = FieldValues,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+>(
+  props: UseControllerProps<TFieldValues, TName>,
+): {
+  value: FieldPathValue<TFieldValues, TName>;
+  onChange: (...event: any[]) => void;
+} {
+  const { field } = useController(props);
+  return { value: field.value, onChange: field.onChange };
 }

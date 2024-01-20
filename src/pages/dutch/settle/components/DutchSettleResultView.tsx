@@ -1,5 +1,5 @@
 import { DutchSettleResult } from 'src/model/dutch';
-import DutchSettleResultShareView from 'src/pages/dutch/settle/component/DutchSettleResultShareView';
+import DutchSettleResultShareView from 'src/pages/dutch/settle/components/DutchSettleResultShareView';
 
 interface Props {
   result: DutchSettleResult;

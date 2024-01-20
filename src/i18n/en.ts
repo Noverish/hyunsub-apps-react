@@ -47,6 +47,7 @@ const en = {
     'CommonSearchResult.result-num': '{{total}} Results Found',
     'CommonSearchResult.search-status': '{{total}} Results Found for {{query}}',
     'common.form.feedback.required': 'Please input the value',
+    'common.form.feedback.no-minus': 'Cannot input minus value',
 
     'upload.status': '{{now}} / {{total}} Completed',
     'upload.ready': 'Ready',
@@ -256,6 +257,9 @@ const en = {
     'FriendTagListPage.title': 'Tag List',
     'FriendTagDetailPage.title': 'Tag Detail - {{0}}',
 
+    'Dutch.should': 'Should',
+    'Dutch.actual': 'Actual',
+    'Dutch.amount': 'Amount',
     'DutchNavigation.home': 'Home',
     'DutchNavigation.records': 'Records',
     'DutchNavigation.balance': 'Balance',
@@ -271,12 +275,12 @@ const en = {
     'DutchRecord.date': 'Date',
     'DutchRecord.members': 'Shares',
     'DutchRecordMember.name': 'Name',
-    'DutchRecordMember.actual': 'Actual',
-    'DutchRecordMember.should': 'Should',
     'DutchSettlePage.leader': 'Leader',
     'DutchSettleResultView.message.send': '{{name}} should be send {{amount}}',
     'DutchSettleResultView.message.receive': '{{name}} should be receive {{amount}}',
     'DutchMemberSelectPage.message.choose': 'Choose yourself',
+    'DutchSpendPage.select-member': 'Select Other User',
+    'DutchRecordForm.feedback.invalid-sum': 'Should value and actual value is not same',
 
     'PageSelectModal.title': 'Move Page',
     'PageSelectModal.close': 'Close',

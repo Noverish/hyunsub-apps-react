@@ -4,6 +4,7 @@ import { DutchHomePageParams } from './home/DutchHomeHooks';
 import { DutchMemberSelectPageParams } from './member-select/DutchMemberSelectHooks';
 import { DutchRecordCreatePageParams } from './record-create/DutchRecordCreateHooks';
 import { DutchRecordUpdatePageParams } from './record-update/DutchRecordUpdateHooks';
+import { DutchSpendPageParams } from './spend/DutchSpendHooks';
 import { DutchRecordDetailPageParams } from 'src/pages/dutch/record-detail/DutchRecordDetailHooks';
 import { DutchRecordListPageParams } from 'src/pages/dutch/record-list/DutchRecordListHooks';
 import { DutchSettlePageParams } from 'src/pages/dutch/settle/DutchSettleHooks';
@@ -27,13 +28,14 @@ const DutchRoutes = {
   recordCreateRoute: `/trips/:tripId/record/create`,
   recordCreate: ({ tripId }: DutchRecordCreatePageParams) => `/trips/${tripId}/record/create`,
 
-  balanceRoute: `/trips/:tripId/balance`,
-
   settleRoute: `/trips/:tripId/settle`,
   settle: ({ tripId }: DutchSettlePageParams) => `/trips/${tripId}/settle`,
 
   memberSelectRoute: `/trips/:tripId/member-select`,
   memberSelect: ({ tripId }: DutchMemberSelectPageParams) => `/trips/${tripId}/member-select`,
+
+  spendRoute: `/trips/:tripId/spends`,
+  spend: ({ tripId }: DutchSpendPageParams) => `/trips/${tripId}/spends`,
 };
 
 export default DutchRoutes;
