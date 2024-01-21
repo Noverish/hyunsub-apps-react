@@ -48,6 +48,7 @@ const ko = {
     'CommonSearchResult.search-status': '{{query}}에 대한 {{total}}개의 검색 결과',
     'common.form.feedback.required': '값을 입력해주세요',
     'common.form.feedback.no-minus': '음수를 입력하실 수 없습니다',
+    'common.select.please-select': '값을 선택해주세요',
 
     'upload.status': '{{now}} / {{total}}개 완료',
     'upload.ready': '준비',

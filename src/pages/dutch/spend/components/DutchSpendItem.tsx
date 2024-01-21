@@ -23,7 +23,7 @@ export default function DutchSpendItem({ spend }: Props) {
       <div className="section_1">
         <div className="content">{spend.content}</div>
         <div className="amount">
-          {spend.currency} {numberWithComma(spend.actual)}
+          {spend.currency} {numberWithComma(spend.should)}
         </div>
       </div>
       <div className="section_2">

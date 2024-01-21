@@ -48,6 +48,7 @@ const en = {
     'CommonSearchResult.search-status': '{{total}} Results Found for {{query}}',
     'common.form.feedback.required': 'Please input the value',
     'common.form.feedback.no-minus': 'Cannot input minus value',
+    'common.select.please-select': 'Please select the value',
 
     'upload.status': '{{now}} / {{total}} Completed',
     'upload.ready': 'Ready',

@@ -8,12 +8,14 @@ import DutchMemberSelect from 'src/components/dutch/form/DutchMemberSelect';
 import { useControlProps } from 'src/utils';
 
 interface FormState {
-  memberId: string;
+  memberId?: string;
 }
 
 export default function DutchSettleForm() {
+  const { control, handleSubmit, formState } = useForm<FormState>();
+  const { errors } = formState;
+
   const settle = DutchSettleHooks.useSettle();
-  const { control, handleSubmit } = useForm<FormState>();
 
   const memberRegister = useControlProps({
     name: 'memberId',
@@ -22,7 +24,10 @@ export default function DutchSettleForm() {
   });
 
   const onSubmit = (state: FormState) => {
-    settle(state.memberId);
+    const memberId = state.memberId;
+    if (memberId) {
+      settle(memberId);
+    }
   };
 
   return (
@@ -33,7 +38,8 @@ export default function DutchSettleForm() {
       </Form.Group>
       <Form.Group>
         <Form.Label>{t('DutchSettlePage.leader')}</Form.Label>
-        <DutchMemberSelect {...memberRegister} />
+        <DutchMemberSelect {...memberRegister} isInvalid={!!errors.memberId} />
+        <Form.Control.Feedback type="invalid">{errors.memberId?.message}</Form.Control.Feedback>
       </Form.Group>
       <Button type="submit">{t('Dutch.settle')}</Button>
     </Form>
