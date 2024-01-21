@@ -1,0 +1,15 @@
+.DutchSettleEachList {
+  table {
+    width: 100%;
+    text-align: center;
+  }
+
+  th {
+    color: var(--hyunsub-text-hover);
+    font-weight: normal;
+  }
+
+  th.currency {
+    font-weight: bold;
+  }
+}

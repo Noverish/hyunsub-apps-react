@@ -16,7 +16,14 @@ export function urlToName(url: string) {
 }
 
 export function numberWithComma(num: number) {
-  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  const [part1, part2] = num.toString().split('.');
+
+  const withComma = part1.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  if (part2) {
+    return `${withComma}.${part2}`;
+  } else {
+    return withComma;
+  }
 }
 
 export function filterEmptyString(obj: any): any {

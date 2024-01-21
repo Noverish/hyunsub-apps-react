@@ -2,21 +2,21 @@ import { t } from 'i18next';
 import { useContext } from 'react';
 
 import { DutchContext } from 'src/context/dutch/DutchContext';
-import { DutchSettleResultShare } from 'src/model/dutch';
 import { numberWithComma } from 'src/utils';
 
 interface Props {
-  share: DutchSettleResultShare;
+  memberId: string;
+  amount: number;
 }
 
-export default function DutchSettleResultShareView({ share }: Props) {
+export default function DutchSettleResultShareView(props: Props) {
   const { members } = useContext(DutchContext);
-  const member = members.filter((v) => v.id === share.memberId)[0];
+  const member = members.filter((v) => v.id === props.memberId)[0];
   const { name } = member;
-  const amount = numberWithComma(Math.abs(share.amount));
+  const amount = numberWithComma(Math.abs(props.amount));
 
   const message =
-    share.amount > 0
+    props.amount > 0
       ? t('DutchSettleResultView.message.send', { name, amount })
       : t('DutchSettleResultView.message.receive', { name, amount });
 

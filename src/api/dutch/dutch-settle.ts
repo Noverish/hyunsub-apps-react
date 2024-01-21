@@ -1,4 +1,4 @@
-import { generateQuery } from '../generate-api';
+import { generateApi } from '../generate-api';
 import { DutchSettleResult } from 'src/model/dutch';
 
 export interface DutchSettleParams {
@@ -6,13 +6,12 @@ export interface DutchSettleParams {
   mainMemberId: string;
 }
 
-const dutchSettleApi = generateQuery<DutchSettleParams, DutchSettleResult[]>({
+const dutchSettleApi = generateApi<DutchSettleParams, DutchSettleResult>({
   api: (params) => ({
     url: `/api/v1/trips/${params.tripId}/settle`,
     method: 'POST',
     data: params,
   }),
-  key: 'dutchSettleApi',
 });
 
 export default dutchSettleApi;

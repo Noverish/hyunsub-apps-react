@@ -3,16 +3,16 @@ import { useContext } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 
-import { DutchHomeContext } from '../DutchHomeContext';
-import DutchHomeHooks from '../DutchHomeHooks';
+import { DutchSettleContext } from '../DutchSettleContext';
+import DutchSettleHooks from '../DutchSettleHooks';
 
 interface FormState {
   rate: number;
 }
 
 export default function DutchTripCurrencyModal() {
-  const [{ showCurrencyModal: show, currencyInModal: currency }, setState] = useContext(DutchHomeContext);
-  const setTripCurrency = DutchHomeHooks.useSetTripCurrency();
+  const [{ showCurrencyModal: show, currencyInModal: currency }, setState] = useContext(DutchSettleContext);
+  const setTripCurrency = DutchSettleHooks.useSetTripCurrency();
 
   const defaultValues: FormState = { rate: currency?.rate ?? 0 };
   const { register, handleSubmit, formState } = useForm<FormState>({ defaultValues });

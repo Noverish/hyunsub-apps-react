@@ -6,12 +6,9 @@ interface Props {
 }
 
 export default function DutchSettleResultView({ result }: Props) {
-  const elements = result.shares.map((v) => <DutchSettleResultShareView key={v.memberId} share={v} />);
+  const elements = Object.entries(result).map(([k, v]) => (
+    <DutchSettleResultShareView key={k} memberId={k} amount={v} />
+  ));
 
-  return (
-    <div className="DutchSettleResultView">
-      <h5>{result.currency}</h5>
-      {elements}
-    </div>
-  );
+  return <div className="DutchSettleResultView">{elements}</div>;
 }

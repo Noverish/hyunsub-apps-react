@@ -44,14 +44,17 @@ export interface DutchRecordMemberParams {
   should: number;
 }
 
-export interface DutchSettleResult {
+export type DutchSettleResult = Record<string, number>;
+
+export interface DutchSettleEachResult {
   currency: DutchCurrency;
-  shares: DutchSettleResultShare[];
+  shares: DutchSettleEachResultShare[];
 }
 
-export interface DutchSettleResultShare {
+export interface DutchSettleEachResultShare {
   memberId: string;
-  amount: number;
+  should: number;
+  actual: number;
 }
 
 export interface DutchSpend {

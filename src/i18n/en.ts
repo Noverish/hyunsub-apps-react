@@ -265,6 +265,8 @@ const en = {
     'Dutch.members': 'Members',
     'Dutch.currency-rate': 'Currency Rate',
     'Dutch.settle-currency-rate': 'Currency Rate for Settle',
+    'Dutch.settle': 'Settle',
+    'DutchHomePage.status': 'Status',
     'DutchNavigation.home': 'Home',
     'DutchNavigation.records': 'Records',
     'DutchNavigation.balance': 'Balance',

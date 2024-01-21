@@ -265,6 +265,8 @@ const ko = {
     'Dutch.members': '멤버',
     'Dutch.currency-rate': '환율',
     'Dutch.settle-currency-rate': '정산 환율',
+    'Dutch.settle': '정산',
+    'DutchHomePage.status': '현황',
     'DutchNavigation.home': '홈',
     'DutchNavigation.records': '내역',
     'DutchNavigation.balance': '마이',
