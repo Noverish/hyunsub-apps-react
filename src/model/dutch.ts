@@ -76,3 +76,8 @@ export interface DutchTripDetail {
   tripCurrency: DutchCurrency;
   settleCurrency: DutchCurrency;
 }
+
+export interface DutchTripCurrency {
+  currency: DutchCurrency;
+  rate: number | null;
+}

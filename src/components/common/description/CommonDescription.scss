@@ -1,14 +1,31 @@
 .CommonDescription {
-  margin-top: .5rem;
+  margin-top: 0.5rem;
 
   &.noTopMargin {
     margin-top: 0;
   }
 
+  &.onEdit {
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.75;
+    }
+
+    i.fas.fa-pen {
+      display: inline-block;
+      margin-left: 0.25rem;
+    }
+  }
+
   label {
-    font-size: .75rem;
+    font-size: 0.75rem;
     color: var(--hyunsub-text-hover);
     margin-bottom: 0.25rem;
+
+    i.fas.fa-pen {
+      display: none;
+    }
   }
 
   .value {

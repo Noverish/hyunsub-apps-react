@@ -263,6 +263,8 @@ const ko = {
     'Dutch.tripCurrency': '여행 통화',
     'Dutch.settleCurrency': '정산 통화',
     'Dutch.members': '멤버',
+    'Dutch.currency-rate': '환율',
+    'Dutch.settle-currency-rate': '정산 환율',
     'DutchNavigation.home': '홈',
     'DutchNavigation.records': '내역',
     'DutchNavigation.balance': '마이',

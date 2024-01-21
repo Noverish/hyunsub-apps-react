@@ -5,13 +5,13 @@ interface DutchSpendListParams {
   tripId: string;
 }
 
-const dutchSpendListhApi = generateInfiniteQuery<DutchSpendListParams, DutchSpend>({
+const dutchSpendListApi = generateInfiniteQuery<DutchSpendListParams, DutchSpend>({
   api: (params) => ({
     url: `/api/v1/trips/${params.tripId}/spends`,
     method: 'GET',
     params,
   }),
-  key: 'dutchSpendListhApi',
+  key: 'dutchSpendListApi',
 });
 
-export default dutchSpendListhApi;
+export default dutchSpendListApi;

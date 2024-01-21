@@ -263,6 +263,8 @@ const en = {
     'Dutch.tripCurrency': 'Trip Currency',
     'Dutch.settleCurrency': 'Settle Currency',
     'Dutch.members': 'Members',
+    'Dutch.currency-rate': 'Currency Rate',
+    'Dutch.settle-currency-rate': 'Currency Rate for Settle',
     'DutchNavigation.home': 'Home',
     'DutchNavigation.records': 'Records',
     'DutchNavigation.balance': 'Balance',
