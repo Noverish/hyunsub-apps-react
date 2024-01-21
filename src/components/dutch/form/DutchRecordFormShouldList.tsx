@@ -1,16 +1,18 @@
 import { t } from 'i18next';
 import { useContext } from 'react';
+import { Button } from 'react-bootstrap';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 
+import DutchMemberSelectModal from './DutchMemberSelectModal';
+import { DutchRecordFormContext } from './DutchRecordFormContext';
 import DutchRecordFormHooks from './DutchRecordFormHooks';
-import DutchMemberAddDropdown from 'src/components/dutch/form/DutchMemberAddDropdown';
 import { DutchRecordFormState } from 'src/components/dutch/form/DutchRecordForm';
 import DutchRecordFormMember from 'src/components/dutch/form/DutchRecordFormShouldItem';
 import { DutchContext } from 'src/context/dutch/DutchContext';
-import { DutchMember } from 'src/model/dutch';
 
 export default function DutchRecordFormMemberList() {
   const { members } = useContext(DutchContext);
+  const [{ showShouldModal: show }, setState] = useContext(DutchRecordFormContext);
   const { control } = useFormContext<DutchRecordFormState>();
   const { fields, remove, append } = useFieldArray<DutchRecordFormState, 'shoulds', 'memberId'>({
     control,
@@ -19,17 +21,25 @@ export default function DutchRecordFormMemberList() {
 
   const shouldAddCallback = DutchRecordFormHooks.useShouldAddCallback();
 
-  const onMemberSelect = (member: DutchMember) => {
-    append({
-      memberId: member.id,
-      amount: 0,
+  const onMemberSelect = (memberIds: string[]) => {
+    memberIds.forEach((memberId) => {
+      append({
+        memberId,
+        amount: 0,
+      });
     });
+
     shouldAddCallback();
+    setState({ showShouldModal: false });
+  };
+
+  const showModal = () => {
+    setState({ showShouldModal: true });
   };
 
   const cnt = fields.length;
   const alreadySelectedMemberIds = fields.map((v) => v.memberId);
-  const hideDropdown = members.length === fields.length;
+  const showAddBtn = members.length !== fields.length;
 
   const table = (
     <table className="w-100">
@@ -52,14 +62,20 @@ export default function DutchRecordFormMemberList() {
     </table>
   );
 
-  const dropdown = (
-    <DutchMemberAddDropdown onSelect={onMemberSelect} alreadySelectedMemberIds={alreadySelectedMemberIds} />
-  );
-
   return (
     <div className="DutchRecordFormMemberList">
       {cnt > 0 ? table : undefined}
-      {hideDropdown ? undefined : dropdown}
+      {showAddBtn && (
+        <>
+          <Button onClick={showModal}>{t('add')}</Button>
+          <DutchMemberSelectModal
+            show={show}
+            onSelect={onMemberSelect}
+            alreadySelectedMemberIds={alreadySelectedMemberIds}
+            defaultAllSelect
+          />
+        </>
+      )}
     </div>
   );
 }

@@ -22,8 +22,8 @@ export default function DutchSpendPage() {
 
   const headerBtns: HeaderButton[] = [
     {
-      icon: 'fas fa-user-friends',
-      name: t('DutchSpendPage.select-member'),
+      icon: 'fas fa-sign-out-alt',
+      name: t('logout'),
       onClick: () => router.navigate(DutchRoutes.memberSelect({ tripId })),
     },
   ];
