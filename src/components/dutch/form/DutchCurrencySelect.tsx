@@ -9,6 +9,8 @@ interface Props {
 }
 
 export default function DutchCurrencySelect(props: Props) {
+  const { value, isInvalid } = props;
+
   const options = dutchCurrencyList.map((v) => (
     <option key={v} value={v}>
       {v}
@@ -16,12 +18,12 @@ export default function DutchCurrencySelect(props: Props) {
   ));
 
   const onChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = e.currentTarget.value as DutchCurrency;
-    props.onChange(value);
+    const newValue = e.currentTarget.value as DutchCurrency;
+    props.onChange(newValue);
   };
 
   return (
-    <Form.Select onChange={onChange} isInvalid={props.isInvalid}>
+    <Form.Select onChange={onChange} isInvalid={isInvalid} value={value}>
       {options}
     </Form.Select>
   );

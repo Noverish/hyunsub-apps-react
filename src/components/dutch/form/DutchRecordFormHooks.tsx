@@ -1,26 +1,36 @@
+import { useContext } from 'react';
 import { useFormContext } from 'react-hook-form';
 
-import { DutchRecordFormState } from './DutchRecordForm';
+import { DutchRecordFormState, DutchRecordShare } from './DutchRecordForm';
+import { DutchContext } from 'src/context/dutch/DutchContext';
 import { DutchRecordDetail, DutchRecordMemberParams, DutchRecordParams } from 'src/model/dutch';
 import { toDateTimeString } from 'src/utils/date';
 
-function generateDefaultValues(record?: DutchRecordDetail): Partial<DutchRecordParams> {
+function useDefaultValues(record?: DutchRecordDetail): Partial<DutchRecordFormState> {
+  const defaultCurrency = useContext(DutchContext).trip?.tripCurrency;
+
   if (!record) {
     return {
+      currency: defaultCurrency,
       date: toDateTimeString(new Date()),
     };
   }
+
+  const actuals: DutchRecordShare[] = record.members
+    .filter((v) => v.actual > 0)
+    .map((v) => ({ memberId: v.memberId, amount: v.actual }));
+
+  const shoulds: DutchRecordShare[] = record.members
+    .filter((v) => v.should > 0)
+    .map((v) => ({ memberId: v.memberId, amount: v.should }));
 
   return {
     content: record.record.content,
     location: record.record.location,
     currency: record.record.currency,
     date: record.record.date,
-    members: record.members.map((v) => ({
-      memberId: v.memberId,
-      actual: v.actual,
-      should: v.should,
-    })),
+    actuals,
+    shoulds,
   };
 }
 
@@ -72,7 +82,7 @@ function useShouldAddCallback() {
 }
 
 const DutchRecordFormHooks = {
-  generateDefaultValues,
+  useDefaultValues,
   convertToRecordParams,
   useShouldAddCallback,
 };

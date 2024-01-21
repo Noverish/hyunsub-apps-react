@@ -109,7 +109,7 @@ function DutchRecordForm({ onComplete }: Props) {
 }
 
 export default function DutchRecordFormIndex(props: Props) {
-  const defaultValues = DutchRecordFormHooks.generateDefaultValues(props.record);
+  const defaultValues = DutchRecordFormHooks.useDefaultValues(props.record);
   const methods = useForm<DutchRecordFormState>({ defaultValues });
 
   return (

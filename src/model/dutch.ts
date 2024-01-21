@@ -69,3 +69,10 @@ export interface DutchSpendSum {
   actual: number;
   should: number;
 }
+
+export interface DutchTripDetail {
+  id: string;
+  name: string;
+  tripCurrency: DutchCurrency;
+  settleCurrency: DutchCurrency;
+}
