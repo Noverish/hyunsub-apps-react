@@ -3,6 +3,7 @@ import { t } from 'i18next';
 import DutchRoutes from '../DutchRoutes';
 import DutchSpendHooks from './DutchSpendHooks';
 import DutchSpendList from './components/DutchSpendList';
+import dutchMyApi from 'src/api/dutch/dutch-my';
 import dutchSpendListApi from 'src/api/dutch/dutch-spend-list';
 import dutchSpendSumApi from 'src/api/dutch/dutch-spend-sum';
 import { useFlattenPageData } from 'src/api/generate-infinite-query';
@@ -20,6 +21,8 @@ export default function DutchSpendPage() {
 
   const { data: sums } = dutchSpendSumApi.useApiResult({ tripId });
 
+  const { data: my } = dutchMyApi.useApiResult({ tripId });
+
   const headerBtns: HeaderButton[] = [
     {
       icon: 'fas fa-sign-out-alt',
@@ -29,7 +32,7 @@ export default function DutchSpendPage() {
   ];
 
   return (
-    <CommonLayout className="DutchSpendPage" title={t('DutchNavigation.balance')} btns={headerBtns}>
+    <CommonLayout className="DutchSpendPage" title={my?.name ?? ''} btns={headerBtns}>
       {sums && <DutchSpendSumView sums={sums} />}
       <SearchResultWrapper result={result}>
         <DutchSpendList spends={spends} />
