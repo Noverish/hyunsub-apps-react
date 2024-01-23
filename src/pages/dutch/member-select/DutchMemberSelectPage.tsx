@@ -12,13 +12,10 @@ export default function DutchMemberSelectPage() {
 
   const { data, isLoading } = dutchMembersApi.useApiResult({ tripId });
 
-  const memberId = DutchMemberSelectHooks.useMemberId();
-
   const elements = (data ?? []).map((v) => <DutchMemberSelectItem key={v.id} member={v} />);
 
   return (
     <div className="DutchMemberSelectPage">
-      <div>memberId: {memberId ?? 'null'}</div>
       <Loading2 isLoading={isLoading}>
         <h4>{t('DutchMemberSelectPage.message.choose')}</h4>
         {elements}
