@@ -95,3 +95,9 @@ export interface DutchTripCurrency {
   currency: DutchCurrency;
   rate: number | null;
 }
+
+export interface DutchBalance {
+  currency: DutchCurrency;
+  amount: number | null;
+  spends: number;
+}

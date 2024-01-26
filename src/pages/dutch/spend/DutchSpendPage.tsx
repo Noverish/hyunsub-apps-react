@@ -9,6 +9,7 @@ import { useFlattenPageData } from 'src/api/generate-infinite-query';
 import CommonLayout from 'src/components/common/layout/CommonLayout';
 import SearchResultWrapper from 'src/components/common/search/SearchResultWrapper';
 import { HeaderButton } from 'src/model/component';
+import DutchBalanceList from 'src/pages/dutch/spend/components/DutchBalanceList';
 import router from 'src/pages/router';
 
 export default function DutchSpendPage() {
@@ -29,6 +30,7 @@ export default function DutchSpendPage() {
 
   return (
     <CommonLayout className="DutchSpendPage" title={my?.name ?? ''} btns={headerBtns}>
+      <DutchBalanceList />
       <SearchResultWrapper result={result}>
         <DutchSpendList spends={spends} />
       </SearchResultWrapper>

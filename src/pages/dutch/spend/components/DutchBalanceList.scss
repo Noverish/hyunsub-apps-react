@@ -1,0 +1,13 @@
+.DutchBalanceList {
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  table {
+    width: 100%;
+    text-align: center;
+  }
+
+  margin-bottom: 1rem;
+}
