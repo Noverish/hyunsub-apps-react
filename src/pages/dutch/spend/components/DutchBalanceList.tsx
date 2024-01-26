@@ -20,6 +20,10 @@ export default function DutchBalanceList() {
     router.navigate(DutchRoutes.balanceUpdate({ tripId }));
   };
 
+  if (list.length === 0) {
+    return <></>;
+  }
+
   return (
     <Card className="DutchBalanceList">
       <Card.Header>
