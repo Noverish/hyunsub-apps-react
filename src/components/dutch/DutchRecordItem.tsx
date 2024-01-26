@@ -1,4 +1,4 @@
-import { DutchRecordPreview } from 'src/model/dutch';
+import { DutchRecordPreview, dutchPaymentStr } from 'src/model/dutch';
 import DutchRoutes from 'src/pages/dutch/DutchRoutes';
 import router from 'src/pages/router';
 import { numberWithComma } from 'src/utils';
@@ -31,10 +31,15 @@ export default function DutchRecordItem({ tripId, record }: Props) {
           {record.currency} {numberWithComma(record.amount)}
         </div>
       </div>
-      <div className="location">{record.location}</div>
       <div className="section_2">
-        <div className="members">{members}</div>
-        <div className="date">{record.date}</div>
+        <div className="section_2_1">
+          <div className="location">{record.location}</div>
+          <div className="members">{members}</div>
+        </div>
+        <div className="section_2_2">
+          <div className="payment">{dutchPaymentStr(record.payment)}</div>
+          <div className="date">{record.date}</div>
+        </div>
       </div>
     </div>
   );
