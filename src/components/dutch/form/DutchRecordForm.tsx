@@ -3,11 +3,12 @@ import { Button, Form } from 'react-bootstrap';
 import { FormProvider, useForm, useFormContext } from 'react-hook-form';
 
 import DutchCurrencySelect from './DutchCurrencySelect';
+import DutchPaymentSelect from './DutchPaymentSelect';
 import { DutchRecordFormProvider } from './DutchRecordFormContext';
 import DutchRecordFormHooks from './DutchRecordFormHooks';
 import DutchRecordFormActualList from 'src/components/dutch/form/DutchRecordFormActualList';
 import DutchRecordFormShouldList from 'src/components/dutch/form/DutchRecordFormShouldList';
-import { DutchCurrency, DutchRecordDetail, DutchRecordParams } from 'src/model/dutch';
+import { DutchCurrency, DutchPayment, DutchRecordDetail, DutchRecordParams } from 'src/model/dutch';
 import { useControlProps } from 'src/utils';
 
 import './DutchRecordForm.scss';
@@ -22,6 +23,7 @@ export interface DutchRecordFormState {
   content: string;
   location: string;
   currency: DutchCurrency;
+  payment: DutchPayment;
   date: string;
   actuals: DutchRecordShare[];
   shoulds: DutchRecordShare[];
@@ -55,6 +57,12 @@ function DutchRecordForm({ onComplete }: Props) {
     rules: { required: t('common.form.feedback.required') },
   });
 
+  const paymentRegister = useControlProps({
+    name: 'payment',
+    control,
+    rules: { required: t('common.form.feedback.required') },
+  });
+
   const dateRegister = register('date', {
     required: t('common.form.feedback.required'),
   });
@@ -83,6 +91,11 @@ function DutchRecordForm({ onComplete }: Props) {
         <Form.Label>{t('DutchRecord.currency')}</Form.Label>
         <DutchCurrencySelect {...currencyRegister} isInvalid={!!errors.currency} />
         <Form.Control.Feedback type="invalid">{errors.currency?.message}</Form.Control.Feedback>
+      </Form.Group>
+      <Form.Group controlId="dutch_record_form_payment">
+        <Form.Label>{t('DutchRecord.payment')}</Form.Label>
+        <DutchPaymentSelect {...paymentRegister} isInvalid={!!errors.payment} />
+        <Form.Control.Feedback type="invalid">{errors.payment?.message}</Form.Control.Feedback>
       </Form.Group>
       <Form.Group controlId="dutch_record_form_date">
         <Form.Label>{t('DutchRecord.date')}</Form.Label>

@@ -12,6 +12,7 @@ function useDefaultValues(record?: DutchRecordDetail): Partial<DutchRecordFormSt
   if (!record) {
     return {
       currency: defaultCurrency,
+      payment: 'CASH',
       date: toDateTimeString(new Date()),
     };
   }
@@ -28,6 +29,7 @@ function useDefaultValues(record?: DutchRecordDetail): Partial<DutchRecordFormSt
     content: record.record.content,
     location: record.record.location,
     currency: record.record.currency,
+    payment: record.record.payment,
     date: record.record.date,
     actuals,
     shoulds,
@@ -57,6 +59,7 @@ function convertToRecordParams(state: DutchRecordFormState): DutchRecordParams {
     content: state.content,
     location: state.location,
     currency: state.currency,
+    payment: state.payment,
     date: state.date,
     members: Object.values(memberMap),
   };

@@ -1,8 +1,11 @@
+import { t } from 'i18next';
+
 export interface DutchRecordPreview {
   id: string;
   content: string;
   location: string;
   currency: DutchCurrency;
+  payment: DutchPayment;
   date: string;
   amount: number;
   members: string[];
@@ -16,6 +19,19 @@ export interface DutchRecordDetail {
 export const dutchCurrencyList: DutchCurrency[] = ['KRW', 'JPY', 'USD', 'CNY', 'TWD'];
 
 export type DutchCurrency = 'KRW' | 'JPY' | 'USD' | 'CNY' | 'TWD';
+
+export const dutchPaymentList: DutchPayment[] = ['CARD', 'CASH'];
+
+export type DutchPayment = 'CARD' | 'CASH';
+
+export function dutchPaymentStr(v: DutchPayment): string {
+  switch (v) {
+    case 'CARD':
+      return t('DutchPayment.card');
+    case 'CASH':
+      return t('DutchPayment.cash');
+  }
+}
 
 export interface DutchRecordMember {
   recordId: string;
@@ -34,6 +50,7 @@ export interface DutchRecordParams {
   content: string;
   location: string;
   currency: DutchCurrency;
+  payment: DutchPayment;
   date: string;
   members: DutchRecordMemberParams[];
 }
