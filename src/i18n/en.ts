@@ -296,6 +296,7 @@ const en = {
     'DutchMemberSelectPage.message.choose': 'Choose yourself',
     'DutchSpendPage.select-member': 'Select Other User',
     'DutchRecordForm.feedback.invalid-sum': 'Should value and actual value is not same',
+    'DutchBalanceUpdatePage.title': 'Edit Initial Balance',
 
     'PageSelectModal.title': 'Move Page',
     'PageSelectModal.close': 'Close',

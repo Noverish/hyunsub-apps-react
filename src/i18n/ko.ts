@@ -298,6 +298,7 @@ const ko = {
     'DutchMemberSelectPage.message.choose': '자신을 선택해주세요',
     'DutchSpendPage.select-member': '다른 유저 선택',
     'DutchRecordForm.feedback.invalid-sum': '내야하는 돈의 합과 실제로 낸돈의 합이 같지 않습니다',
+    'DutchBalanceUpdatePage.title': '준비 금액 수정',
 
     'PageSelectModal.title': '페이지 이동',
     'PageSelectModal.close': '취소',

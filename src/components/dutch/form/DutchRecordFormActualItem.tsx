@@ -15,10 +15,8 @@ interface Props {
 
 export default function DutchRecordFormMemberItem({ index, field, remove }: Props) {
   const { members } = useContext(DutchContext);
-  const {
-    register,
-    formState: { errors },
-  } = useFormContext<DutchRecordFormState>();
+  const { register, formState } = useFormContext<DutchRecordFormState>();
+  const { errors } = formState;
   const member = members.filter((v) => v.id === field.memberId)[0];
 
   const onRemove = () => {

@@ -3,6 +3,7 @@ import { Outlet, RouteObject } from 'react-router-dom';
 import CommonRoutes from '../common/CommonRoutes';
 import CommonMenuPage from '../common/menu/CommonMenuPage';
 import routes from './DutchRoutes';
+import DutchBalanceUpdatePage from './balance-update/DutchBalanceUpdatePage';
 import DutchHomePage from './home/DutchHomePage';
 import DutchMemberSelectPage from './member-select/DutchMemberSelectPage';
 import DutchRecordCreatePage from './record-create/DutchRecordCreatePage';
@@ -35,6 +36,7 @@ export const DutchRouteObjects: RouteObject[] = [
       { path: routes.recordUpdateRoute, element: <DutchRecordUpdatePage /> },
       { path: routes.settleRoute, element: <DutchSettlePage /> },
       { path: routes.spendRoute, element: <DutchSpendPage /> },
+      { path: routes.balanceUpdateRoute, element: <DutchBalanceUpdatePage /> },
     ],
   },
 ];

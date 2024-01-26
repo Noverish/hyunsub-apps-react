@@ -1,5 +1,6 @@
 import queryString from 'query-string';
 
+import { DutchBalanceUpdatePageParams } from './balance-update/DutchBalanceUpdateHooks';
 import { DutchHomePageParams } from './home/DutchHomeHooks';
 import { DutchMemberSelectPageParams } from './member-select/DutchMemberSelectHooks';
 import { DutchRecordCreatePageParams } from './record-create/DutchRecordCreateHooks';
@@ -36,6 +37,9 @@ const DutchRoutes = {
 
   spendRoute: `/trips/:tripId/spends`,
   spend: ({ tripId }: DutchSpendPageParams) => `/trips/${tripId}/spends`,
+
+  balanceUpdateRoute: `/trips/:tripId/balances/edit`,
+  balanceUpdate: ({ tripId }: DutchBalanceUpdatePageParams) => `/trips/${tripId}/balances/edit`,
 };
 
 export default DutchRoutes;
