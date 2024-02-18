@@ -9,6 +9,7 @@ import { CommonViewerStateContext } from './CommonViewerStateContext';
 import { CommonViewerData } from './components/CommonViewerSlide';
 import { HeaderButton } from 'src/model/component';
 import { CommonViewerSwiperContext } from 'src/pages/common/viewer/CommonViewerSwiperContext';
+import { useBreakpointMobile } from 'src/utils/breakpoint';
 import { useContextSetter } from 'src/utils/context';
 
 export let swiper: Swiper | undefined;
@@ -17,9 +18,10 @@ interface SwiperCreateParams {
   slides?: CommonViewerData[];
   renderExternal: (data: VirtualData<CommonViewerData>) => void;
   initialIndex?: number;
+  isMobile?: boolean;
 }
 
-function createSwiper({ slides, renderExternal, initialIndex }: SwiperCreateParams): Swiper {
+function createSwiper({ slides, renderExternal, initialIndex, isMobile }: SwiperCreateParams): Swiper {
   if (swiper) {
     return swiper;
   }
@@ -27,6 +29,7 @@ function createSwiper({ slides, renderExternal, initialIndex }: SwiperCreatePara
   const tmp = new Swiper('.swiper', {
     modules: [Virtual, Keyboard, Zoom],
     spaceBetween: 24,
+    speed: isMobile ? 300 : 0,
     initialSlide: initialIndex,
     virtual: {
       addSlidesAfter: 1,
@@ -54,6 +57,7 @@ function destroySwiper() {
 function useSwiper(): Swiper | undefined {
   const { initialIndex, slides } = useContext(CommonViewerPropsContext);
   const setSwiperState = useContextSetter(CommonViewerSwiperContext);
+  const isMobile = useBreakpointMobile();
 
   const renderExternal = useCallback(
     (virtualData: VirtualData<CommonViewerData>) => {
@@ -64,9 +68,9 @@ function useSwiper(): Swiper | undefined {
 
   useEffect(() => {
     if (!swiper) {
-      swiper = createSwiper({ slides, renderExternal, initialIndex });
+      swiper = createSwiper({ slides, renderExternal, initialIndex, isMobile });
     }
-  }, [slides, renderExternal, initialIndex]);
+  }, [slides, renderExternal, initialIndex, isMobile]);
 
   useEffect(() => destroySwiper, []);
 
