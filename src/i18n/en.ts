@@ -152,6 +152,7 @@ const en = {
     'PhotoInfoSection.go-to-detail': 'Get Detail Info',
     'PhotoDetailPage.title': 'Photo Detail',
     'PhotoDateModal.title': 'Update Filming Date',
+    'photo.view-as-date': 'View as date',
 
     'apparel.page.list.title': 'My Apparel List',
     'apparel.page.list.inner-title': 'Total {{0}} items',

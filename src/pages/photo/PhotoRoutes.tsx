@@ -1,5 +1,6 @@
 import queryString from 'query-string';
 
+import { AlbumDatePageParams } from './album-date/AlbumDateHooks';
 import { AlbumViewerPageParams } from './album-viewer/AlbumViewerHooks';
 import { PhotoOriginalPageParams } from './photo-original/PhotoOriginalHooks';
 import { PhotoViewerPageParams } from './photo-viewer/PhotoViewerHooks';
@@ -21,7 +22,7 @@ const PhotoRoutes = {
   albumUpload: (albumId: string) => `/albums/${albumId}/upload`,
 
   albumDateRoute: '/albums/:albumId/date',
-  albumDate: (albumId: string) => `/albums/${albumId}/date`,
+  albumDate: ({ albumId }: AlbumDatePageParams) => `/albums/${albumId}/date`,
 
   photos: '/photos',
 

@@ -12,7 +12,6 @@ import CommonLayout from 'src/components/common/layout/CommonLayout';
 import AlbumPhotoRegisterSelectModal from 'src/components/photo/photo-list/AlbumPhotoRegisterSelectModal';
 import PhotoListView from 'src/components/photo/photo-list/PhotoListView';
 import { PhotoSelectProvider } from 'src/components/photo/photo-list/PhotoSelectContext';
-import PhotoSelectHeaderHooks from 'src/components/photo/photo-list/PhotoSelectHeaderHooks';
 import useScrollBottom from 'src/hooks/scroll-bottom';
 import { PhotoPreview } from 'src/model/photo';
 import CommonRoutes from 'src/pages/common/CommonRoutes';
@@ -33,7 +32,7 @@ function AlbumDetailPage() {
     }
   });
 
-  const headerProps = PhotoSelectHeaderHooks.useHeaderProps(photos, album ?? undefined);
+  const headerProps = AlbumDetailHooks.useHeaderProps(photos, album ?? undefined);
 
   const itemHref = (v: PhotoPreview) => PhotoRoutes.albumViewer({ albumId, photoId: v.id });
 

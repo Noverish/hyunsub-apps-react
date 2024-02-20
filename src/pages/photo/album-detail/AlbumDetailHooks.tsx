@@ -1,10 +1,14 @@
 import { t } from 'i18next';
 
+import PhotoRoutes from '../PhotoRoutes';
 import albumDeleteApi from 'src/api/photo/album-delete';
+import PhotoSelectHeaderHooks from 'src/components/photo/photo-list/PhotoSelectHeaderHooks';
 import { useUrlParams } from 'src/hooks/url-params';
+import { Album, PhotoPreview } from 'src/model/photo';
 import router from 'src/pages/router';
 import { dispatch } from 'src/redux';
 import { GlobalActions } from 'src/redux/global';
+import { useBreakpointMobile } from 'src/utils/breakpoint';
 
 export interface AlbumDetailPageParams {
   albumId: string;
@@ -31,9 +35,31 @@ function useAlbumDelete() {
   };
 }
 
+function useHeaderProps(photos: PhotoPreview[], album?: Album) {
+  const { albumId } = usePageParams();
+  const isMobile = useBreakpointMobile();
+
+  const props = PhotoSelectHeaderHooks.useHeaderProps(photos, album);
+
+  if (!isMobile) {
+    const btns = props.btns ?? [];
+
+    btns.unshift({
+      icon: 'far fa-calendar-alt',
+      name: t('photo.view-as-date'),
+      onClick: () => router.navigate(PhotoRoutes.albumDate({ albumId })),
+    });
+
+    props.btns = btns;
+  }
+
+  return props;
+}
+
 const AlbumDetailHooks = {
   usePageParams,
   useAlbumDelete,
+  useHeaderProps,
 };
 
 export default AlbumDetailHooks;

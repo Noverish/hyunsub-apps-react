@@ -152,6 +152,7 @@ const ko = {
     'PhotoInfoSection.go-to-detail': '상세 보기',
     'PhotoDetailPage.title': '사진 상세',
     'PhotoDateModal.title': '사진 촬영 날짜 수정',
+    'photo.view-as-date': '날짜로 보기',
 
     'apparel.page.list.title': '내 의류 목록',
     'apparel.page.list.inner-title': '총 {{0}}개의 의류',
