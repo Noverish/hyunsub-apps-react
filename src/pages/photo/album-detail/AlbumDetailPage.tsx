@@ -1,9 +1,12 @@
-import { t } from 'i18next';
+import { useContext } from 'react';
 import { Navigate } from 'react-router-dom';
 
 import PhotoRoutes from '../PhotoRoutes';
+import { AlbumDetailContext, AlbumDetailProvider } from './AlbumDetailContext';
 import AlbumDetailHooks from './AlbumDetailHooks';
-import { useFlattenPageData } from 'src/api/generate-infinite-query';
+import AlbumInfoView from './components/AlbumInfoView';
+import SearchOptionList from './components/SearchOptionList';
+import { useFlattenPageData, useTotal } from 'src/api/generate-infinite-query';
 import albumDetailApi from 'src/api/photo/album-detail';
 import albumPhotosApi from 'src/api/photo/album-photos';
 import ListLoadingIndicator from 'src/components/common/ListLoadingIndicator';
@@ -15,6 +18,7 @@ import { PhotoSelectProvider } from 'src/components/photo/photo-list/PhotoSelect
 import useScrollBottom from 'src/hooks/scroll-bottom';
 import { PhotoPreview } from 'src/model/photo';
 import CommonRoutes from 'src/pages/common/CommonRoutes';
+import AlbumPhotoSearchModal from 'src/pages/photo/album-detail/components/AlbumPhotoSearchModal';
 
 import './AlbumDetailPage.scss';
 
@@ -22,9 +26,16 @@ function AlbumDetailPage() {
   const { albumId } = AlbumDetailHooks.usePageParams();
 
   // hooks
+  const [state, setState] = useContext(AlbumDetailContext);
+  const photoSearchParams = state.photoSearchParams;
+
   const { data: album, isLoading } = albumDetailApi.useApiResult({ albumId });
-  const { data, fetchNextPage, isFetching } = albumPhotosApi.useInfiniteApi({ albumId }, { suspense: false });
+  const { data, fetchNextPage, isFetching } = albumPhotosApi.useInfiniteApi(
+    { albumId, ...photoSearchParams },
+    { suspense: false },
+  );
   const photos = useFlattenPageData(data);
+  const total = useTotal(data);
 
   useScrollBottom(() => {
     if (!isFetching) {
@@ -32,7 +43,9 @@ function AlbumDetailPage() {
     }
   });
 
-  const headerProps = AlbumDetailHooks.useHeaderProps(photos, album ?? undefined);
+  const onSearch = () => setState({ showSearchModal: true });
+
+  const headerProps = AlbumDetailHooks.useHeaderProps(photos, album ?? undefined, onSearch);
 
   const itemHref = (v: PhotoPreview) => PhotoRoutes.albumViewer({ albumId, photoId: v.id });
 
@@ -43,12 +56,14 @@ function AlbumDetailPage() {
     content = <Navigate to={CommonRoutes.notFound} replace />;
   } else {
     content = (
-      <>
-        <div className="photo_num">{t('photo.page.album-detail.photo-num', [album?.total ?? 0])}</div>
+      <div className="d-grid gap-3">
+        <AlbumInfoView album={album} total={total} />
+        <SearchOptionList members={album.members} />
         <PhotoListView photos={photos} itemHref={itemHref} />
         <ListLoadingIndicator isFetching={isFetching} />
         <AlbumPhotoRegisterSelectModal />
-      </>
+        <AlbumPhotoSearchModal members={album.members} />
+      </div>
     );
   }
 
@@ -62,7 +77,9 @@ function AlbumDetailPage() {
 export default function AlbumDetailIndex() {
   return (
     <PhotoSelectProvider>
-      <AlbumDetailPage />
+      <AlbumDetailProvider>
+        <AlbumDetailPage />
+      </AlbumDetailProvider>
     </PhotoSelectProvider>
   );
 }

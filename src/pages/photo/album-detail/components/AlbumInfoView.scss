@@ -1,0 +1,30 @@
+@import '/src/breakpoints.scss';
+
+.AlbumInfoView {
+  display: flex;
+
+  @include media-breakpoint-up(md) {
+    font-size: 1.5rem;
+    flex-direction: row;
+    align-items: center;
+  }
+  @include media-breakpoint-down(md) {
+    font-size: 1.25rem;
+    flex-direction: column;
+  }
+
+  .middot {
+    @include media-breakpoint-up(md) {
+      display: block;
+    }
+    @include media-breakpoint-down(md) {
+      display: none;
+    }
+
+    margin: 0 .5rem;
+
+    &::before {
+      content: "·"
+    }
+  }
+}

@@ -35,23 +35,30 @@ function useAlbumDelete() {
   };
 }
 
-function useHeaderProps(photos: PhotoPreview[], album?: Album) {
+function useHeaderProps(photos: PhotoPreview[], album?: Album, onSearch: (() => void) | undefined = undefined) {
   const { albumId } = usePageParams();
   const isMobile = useBreakpointMobile();
 
   const props = PhotoSelectHeaderHooks.useHeaderProps(photos, album);
+  const btns = props.btns ?? [];
+
+  if (onSearch) {
+    btns.push({
+      icon: 'fas fa-search',
+      name: t('search'),
+      onClick: onSearch,
+    });
+  }
 
   if (!isMobile) {
-    const btns = props.btns ?? [];
-
     btns.unshift({
       icon: 'far fa-calendar-alt',
       name: t('photo.view-as-date'),
       onClick: () => router.navigate(PhotoRoutes.albumDate({ albumId })),
     });
-
-    props.btns = btns;
   }
+
+  props.btns = btns;
 
   return props;
 }

@@ -114,7 +114,7 @@ const en = {
     'photo.page.album-list.title': 'My Album List',
     'photo.page.album-detail.title': 'Photo List - {{0}}',
     'photo.page.album-detail.upload': 'Upload Photos',
-    'photo.page.album-detail.photo-num': '{{0}} Photos',
+    'AlbumInfoView.photo-num': '{{0}} Photos',
     'AlbumViewerPage.title': 'Album Viewer',
     'photo.page.album-upload.title': '{{0}} - Photo Upload',
     'photo.page.album-upload.back-to-album': 'Back to album',
@@ -153,6 +153,7 @@ const en = {
     'PhotoDetailPage.title': 'Photo Detail',
     'PhotoDateModal.title': 'Update Filming Date',
     'photo.view-as-date': 'View as date',
+    'AlbumInfoView.members': 'Album Members',
 
     'apparel.page.list.title': 'My Apparel List',
     'apparel.page.list.inner-title': 'Total {{0}} items',

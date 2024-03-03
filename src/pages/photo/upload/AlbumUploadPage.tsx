@@ -16,7 +16,7 @@ function AlbumUploadPage() {
   const titleSection = (
     <section className="title_section">
       <div className="album_name">{data?.name ?? ''}</div>
-      <div className="photo_num">{t('photo.page.album-detail.photo-num', [data?.total ?? 0])}</div>
+      <div className="photo_num">{t('AlbumInfoView.photo-num', [data?.total ?? 0])}</div>
     </section>
   );
 

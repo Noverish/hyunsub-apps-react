@@ -114,7 +114,7 @@ const ko = {
     'photo.page.album-list.title': '내 앨범 목록',
     'photo.page.album-detail.title': '사진 목록 - {{0}}',
     'photo.page.album-detail.upload': '사진 업로드',
-    'photo.page.album-detail.photo-num': '{{0}}개의 사진',
+    'AlbumInfoView.photo-num': '{{0}}개의 사진',
     'AlbumViewerPage.title': '앨범 뷰어',
     'photo.page.album-upload.title': '{{0}} - 사진 업로드',
     'photo.page.album-upload.back-to-album': '앨범으로 돌아가기',
@@ -153,6 +153,7 @@ const ko = {
     'PhotoDetailPage.title': '사진 상세',
     'PhotoDateModal.title': '사진 촬영 날짜 수정',
     'photo.view-as-date': '날짜로 보기',
+    'AlbumInfoView.members': '앨범 멤버',
 
     'apparel.page.list.title': '내 의류 목록',
     'apparel.page.list.inner-title': '총 {{0}}개의 의류',

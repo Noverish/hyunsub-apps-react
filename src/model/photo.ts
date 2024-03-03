@@ -10,6 +10,12 @@ export interface Album {
   id: string;
   name: string;
   total: number;
+  members: AlbumMember[];
+}
+
+export interface AlbumMember {
+  userId: string;
+  name: string;
 }
 
 export interface PhotoPreview {
@@ -18,6 +24,7 @@ export interface PhotoPreview {
   date: string;
   type: PhotoType;
   ext: string;
+  userId: string;
 }
 
 export type PhotoType = 'VIDEO' | 'PHOTO';
