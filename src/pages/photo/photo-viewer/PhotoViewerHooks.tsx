@@ -1,130 +1,61 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 
 import { PhotoViewerContext } from './PhotoViewerContext';
-import photoListApi2 from 'src/api/photo/photo-list-2';
 import { useOptionalUrlParams } from 'src/hooks/url-params';
+import { MergedPageData } from 'src/model/api';
 import { PhotoPreview } from 'src/model/photo';
-import CommonViewerHooks from 'src/pages/common/viewer/CommonViewerHooks';
 import { CommonViewerData } from 'src/pages/common/viewer/components/CommonViewerSlide';
 import { useContextSetter } from 'src/utils/context';
 
-let prev: string | null = null;
-let next: string | null = null;
-let total: number = 0;
-let allData: PhotoPreview[] = [];
-
 export interface PhotoViewerPageParams {
   photoId?: string;
+  start?: string;
+  end?: string;
 }
 
 function usePageParams(): PhotoViewerPageParams {
-  const [photoId] = useOptionalUrlParams('photoId');
-  return { photoId };
+  const [photoId, start, end] = useOptionalUrlParams('photoId', 'start', 'end');
+  return { photoId, start, end };
 }
 
-function useInitPage() {
-  const { photoId } = usePageParams();
-  const setSlides = CommonViewerHooks.useSetSlides();
+function useInitPage() {}
 
-  useEffect(() => {
-    photoListApi2({ photoId }).then((result) => {
-      const { data } = result;
-      const initialIndex = photoId ? data.findIndex((v) => v.id === photoId) : undefined;
-      setSlides(convertData(data), initialIndex);
-      prev = result.prev;
-      next = result.next;
-      total = data.length;
-      allData = data;
-    });
-  }, [photoId, setSlides]);
-}
-
-function useFetchPage() {
-  const prependSlides = CommonViewerHooks.usePrependSlides();
-  const appendSlides = CommonViewerHooks.useAppendSlides();
-
-  return useCallback(
-    (isPrev: boolean) => {
-      if (isPrev) {
-        if (!prev) {
-          return;
-        }
-
-        photoListApi2({ prev }).then((result) => {
-          const { data } = result;
-          total += data.length;
-          prependSlides(convertData(data));
-          prev = result.prev;
-          allData.unshift(...data);
-        });
-      } else {
-        if (!next) {
-          return;
-        }
-
-        photoListApi2({ next }).then((result) => {
-          const { data } = result;
-          total += data.length;
-          appendSlides(convertData(data));
-          next = result.next;
-          allData.push(...data);
-        });
-      }
-    },
-    [prependSlides, appendSlides],
-  );
-}
-
-function useOnIndexReady() {
-  const fetchPage = useFetchPage();
-
-  return useCallback(
-    (from: number, to: number) => {
-      if (from === 0) {
-        fetchPage(true);
-      }
-      if (to === total - 1) {
-        fetchPage(false);
-      }
-    },
-    [fetchPage],
-  );
-}
-
-function useOnIndexChange() {
+function useOnIndexChange(mergedData: MergedPageData<PhotoPreview> | undefined) {
   const setState = useContextSetter(PhotoViewerContext);
 
   return useCallback(
     (index: number) => {
-      const currPhotoId = allData[index]?.id;
+      if (!mergedData) {
+        return;
+      }
+
+      const currPhotoId = mergedData.data[index]?.id;
       setState({ currPhotoId });
     },
-    [setState],
+    [mergedData, setState],
   );
 }
 
-function toViewerData(preview: PhotoPreview | null): CommonViewerData {
-  if (!preview) {
-    return { type: 'photo' };
-  }
+function useOnIndexReady(slides: CommonViewerData[], fetchPage: (page: number) => void, pageSize?: number) {
+  return useCallback(
+    (from: number, to: number) => {
+      if (!pageSize) {
+        return;
+      }
 
-  const { type, thumbnail, ext } = preview;
+      console.log({ from, to });
 
-  if (type === 'PHOTO') {
-    return {
-      type: 'photo',
-      url: thumbnail.replace('thumbnail', 'original').replace('jpg', ext) + '?size=1024',
-    };
-  }
-
-  return {
-    type: 'video',
-    url: thumbnail.replace('thumbnail', 'video').replace('.jpg', '.mp4'),
-  };
-}
-
-function convertData(previews: (PhotoPreview | null)[]): CommonViewerData[] {
-  return previews.map((v) => toViewerData(v));
+      if (!slides[from].url) {
+        const fromPage = Math.floor(from / pageSize);
+        fetchPage(fromPage);
+      }
+      if (!slides[to].url) {
+        const toPage = Math.floor(to / pageSize);
+        fetchPage(toPage);
+      }
+    },
+    [slides, pageSize, fetchPage],
+  );
 }
 
 const PhotoViewerHooks = {
@@ -132,7 +63,6 @@ const PhotoViewerHooks = {
   useInitPage,
   useOnIndexReady,
   useOnIndexChange,
-  convertData,
 };
 
 export default PhotoViewerHooks;

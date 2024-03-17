@@ -7,9 +7,9 @@ import AlbumViewerHooks from './AlbumViewerHooks';
 import { useMergedPageData } from 'src/api/generate-infinite-query';
 import albumPhotosApi from 'src/api/photo/album-photos';
 import PhotoInfoSection from 'src/components/photo/PhotoInfoSection';
+import PhotoHooks from 'src/hooks/photo';
 import CommonViewerPage from 'src/pages/common/viewer/CommonViewerPage';
 import { CommonViewerData } from 'src/pages/common/viewer/components/CommonViewerSlide';
-import PhotoViewerHooks from 'src/pages/photo/photo-viewer/PhotoViewerHooks';
 import { setDocumentTitle } from 'src/utils/services';
 
 function AlbumViewerPage() {
@@ -20,7 +20,7 @@ function AlbumViewerPage() {
 
   const { fetchNextPage, data } = albumPhotosApi.useInfiniteApi({ albumId, photoId }, { suspense: false });
   const mergedData = useMergedPageData(data);
-  const slides: CommonViewerData[] = useMemo(() => PhotoViewerHooks.convertData(mergedData?.data ?? []), [mergedData]);
+  const slides: CommonViewerData[] = useMemo(() => PhotoHooks.convertData(mergedData?.data ?? []), [mergedData]);
   const initialIndex = mergedData?.data.findIndex((v) => v?.id === photoId) ?? 0;
   const swiperRef = useRef<Swiper>();
   const swiper = swiperRef.current;

@@ -17,13 +17,6 @@ export interface MergedPageData<T> {
   data: (T | null)[];
 }
 
-export interface Pagination<T> {
-  total: number;
-  prev: string | null;
-  next: string | null;
-  data: T[];
-}
-
 export interface SearchStatus {
   total: number;
   nowPage: number;

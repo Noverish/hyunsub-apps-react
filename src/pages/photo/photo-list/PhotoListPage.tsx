@@ -15,6 +15,7 @@ import PhotoSearchStatus from 'src/pages/photo/photo-list/components/PhotoSearch
 
 function PhotoListPage() {
   // hooks
+  const pageParams = PhotoListHooks.usePageParams();
   const searchParams = PhotoListHooks.useSearchParams();
   const { data, fetchNextPage, isFetching } = photoSearchApi.useInfiniteApi(searchParams);
   const photos = useFlattenPageData(data);
@@ -27,7 +28,7 @@ function PhotoListPage() {
 
   const headerProps = PhotoListHooks.useHeaderProps();
 
-  const itemHref = (v: PhotoPreview) => PhotoRoutes.photoViewer({ photoId: v.id });
+  const itemHref = (v: PhotoPreview) => PhotoRoutes.photoViewer({ photoId: v.id, ...pageParams });
 
   return (
     <CommonLayout className="PhotoListPage" {...headerProps}>
