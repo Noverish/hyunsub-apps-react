@@ -38,3 +38,8 @@ export interface SearchResult<T> {
 export interface SimpleResponse {
   result: string;
 }
+
+export interface DateRange {
+  start: string;
+  end: string;
+}

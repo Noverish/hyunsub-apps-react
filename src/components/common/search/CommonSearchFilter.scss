@@ -1,0 +1,21 @@
+.CommonSearchFilter {
+  display: inline-flex;
+  align-items: center;
+
+  padding: .25rem .75rem;
+  border-radius: 1rem;
+  border: 1px solid var(--bs-primary);
+
+  font-size: .85rem;
+  color: var(--bs-primary);
+  background-color: rgba(35, 131, 226, 0.07);
+
+  i {
+    margin-left: .5rem;
+    cursor: pointer;
+
+    &:hover {
+      opacity: .5;
+    }
+  }
+}

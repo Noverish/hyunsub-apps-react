@@ -54,6 +54,5 @@ function renderDimContent(info: PhotoUploadItemInfo): React.ReactNode {
     return <i className="fas fa-check text-green" />;
   }
 
-  console.log('status', status);
   return <i className="fas fa-times text-danger" />;
 }

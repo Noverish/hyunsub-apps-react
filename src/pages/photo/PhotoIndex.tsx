@@ -38,7 +38,7 @@ export const PhotoRouteObjects: RouteObject[] = [
       { path: routes.albumDetailRoute, element: <AlbumDetailPage /> },
       { path: routes.albumUploadRoute, element: <AlbumUploadPage /> },
       { path: routes.albumDateRoute, element: <AlbumDatePage /> },
-      { path: routes.photos, element: <PhotoListPage /> },
+      { path: routes.photosRoute, element: <PhotoListPage /> },
       { path: routes.photoUpload, element: <PhotoUploadPage /> },
       { path: routes.photoDetailRoute, element: <PhotoDetailPage /> },
       { path: routes.photoOriginalRoute, element: <PhotoOriginalPage /> },

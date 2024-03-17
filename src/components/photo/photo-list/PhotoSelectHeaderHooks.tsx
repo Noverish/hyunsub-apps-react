@@ -109,15 +109,14 @@ function useHeaderProps(photos: PhotoPreview[], album?: Album): HeaderProps {
   const albumDelete = AlbumDetailHooks.useAlbumDelete();
 
   // elements
-  const normalBtns: HeaderButton[] = [
+  const normalBtns: HeaderButton[] = [];
+
+  const normalMenus: HeaderMoreButton[] = [
     {
       icon: 'far fa-check-circle',
       name: t('select'),
       onClick: toggleSelectMode,
     },
-  ];
-
-  const normalMenus: HeaderMoreButton[] = [
     {
       icon: 'fas fa-upload',
       name: t('upload'),

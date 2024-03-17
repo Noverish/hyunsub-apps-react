@@ -1,3 +1,5 @@
+import { t } from 'i18next';
+
 import PhotoPreviewView from './PhotoPreviewView';
 import PhotoSelectHooks from './PhotoSelectHooks';
 import { PhotoPreview } from 'src/model/photo';
@@ -15,6 +17,10 @@ export default function PhotoListView({ photos, itemHref: href }: Props) {
 
   // elements
   const elements = photos.map((v) => <PhotoPreviewView key={v.id} preview={v} href={href(v)} onSelect={onSelect} />);
+
+  if (photos.length === 0) {
+    return <div>{t('CommonSearchResult.empty-result')}</div>;
+  }
 
   return <div className="PhotoListView d-grid gap-1 row-col-3 row-col-sm-4 row-col-md-5 row-col-lg-6">{elements}</div>;
 }

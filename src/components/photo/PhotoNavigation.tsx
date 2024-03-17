@@ -14,7 +14,7 @@ const props: NavigationProps = {
     },
     {
       name: t('PhotoNavigation.photo'),
-      link: PhotoRoutes.photos,
+      link: PhotoRoutes.photosRoute,
       icon: 'fas fa-images',
     },
     {

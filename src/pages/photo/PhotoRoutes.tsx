@@ -2,6 +2,7 @@ import queryString from 'query-string';
 
 import { AlbumDatePageParams } from './album-date/AlbumDateHooks';
 import { AlbumViewerPageParams } from './album-viewer/AlbumViewerHooks';
+import { PhotoListPageParams } from './photo-list/PhotoListHooks';
 import { PhotoOriginalPageParams } from './photo-original/PhotoOriginalHooks';
 import { PhotoViewerPageParams } from './photo-viewer/PhotoViewerHooks';
 import { PhotoDetailPageParams } from 'src/pages/photo/photo-detail/PhotoDetailHooks';
@@ -24,7 +25,8 @@ const PhotoRoutes = {
   albumDateRoute: '/albums/:albumId/date',
   albumDate: ({ albumId }: AlbumDatePageParams) => `/albums/${albumId}/date`,
 
-  photos: '/photos',
+  photosRoute: '/photos',
+  photos: ({ ...query }: PhotoListPageParams) => stringifyUrl({ url: `/photos`, query }),
 
   photoViewerRoute: '/photos/viewer',
   photoViewer: ({ ...query }: PhotoViewerPageParams) => stringifyUrl({ url: `/photos/viewer`, query }),

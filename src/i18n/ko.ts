@@ -154,6 +154,8 @@ const ko = {
     'PhotoDateModal.title': '사진 촬영 날짜 수정',
     'photo.view-as-date': '날짜로 보기',
     'AlbumInfoView.members': '앨범 멤버',
+    'PhotoSearchModal.title': '사진 검색',
+    'PhotoSearchForm.date-range': '날짜 범위',
 
     'apparel.page.list.title': '내 의류 목록',
     'apparel.page.list.inner-title': '총 {{0}}개의 의류',

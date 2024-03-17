@@ -154,6 +154,8 @@ const en = {
     'PhotoDateModal.title': 'Update Filming Date',
     'photo.view-as-date': 'View as date',
     'AlbumInfoView.members': 'Album Members',
+    'PhotoSearchModal.title': 'Search Photo',
+    'PhotoSearchForm.date-range': 'Date Range',
 
     'apparel.page.list.title': 'My Apparel List',
     'apparel.page.list.inner-title': 'Total {{0}} items',
