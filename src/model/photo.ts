@@ -25,6 +25,10 @@ export interface PhotoPreview {
   type: PhotoType;
   ext: string;
   userId: string;
+  fileName: string;
+  imageSize: string;
+  fileSize: string;
+  dateType: string;
 }
 
 export type PhotoType = 'VIDEO' | 'PHOTO';
