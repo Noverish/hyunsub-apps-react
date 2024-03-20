@@ -6,27 +6,31 @@ import { CommonViewerStateContext, CommonViewerStateProvider } from './CommonVie
 import CommonViewerInfoContainer from './components/CommonViewerInfoContainer';
 import PageSelectModal from 'src/components/common/PageSelectModal';
 import MobileHeader from 'src/components/common/header/MobileHeader';
+import { CommonViewerPropsWithGeneric } from 'src/pages/common/viewer/CommonViewerPropsContext';
 import CommonViewerSwiper from 'src/pages/common/viewer/components/CommonViewerSwiper';
 
 import './CommonViewerPage.scss';
 
-function CommonViewerPageInner() {
+function CommonViewerPageInner<T>(genericProps: CommonViewerPropsWithGeneric<T>) {
   const props = useContext(CommonViewerPropsContext);
-  const { slides, headerBtns, titlePrefix, infoSection } = props;
+
+  const { slides, renderInfoSection } = genericProps;
+  const { headerBtns, titlePrefix } = props;
+
   const [{ index, showHeader, showModal }, setState] = useContext(CommonViewerStateContext);
   const headerInfoBtn = CommonViewerHooks.useHeaderInfoBtn();
 
   const total = props.total ?? slides?.length ?? 0;
   const indexStatus = `${index + 1}/${total}`;
   const title = (titlePrefix ? `${titlePrefix} - ` : '') + indexStatus;
-  const btns = infoSection ? headerInfoBtn : headerBtns;
+  const btns = renderInfoSection ? headerInfoBtn : headerBtns;
 
   const onTitleClick = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
     setState({ showModal: true });
   };
 
-  const onPageChnage = (page: number) => {
+  const onPageChange = (page: number) => {
     swiper?.slideTo(page, 400);
   };
 
@@ -36,15 +40,17 @@ function CommonViewerPageInner() {
       onHide={() => setState({ showModal: false })}
       page={index}
       total={total}
-      onPageChange={onPageChnage}
+      onPageChange={onPageChange}
     />
   );
+
+  const infoSection = renderInfoSection?.(slides[index]);
 
   return (
     <div className="CommonViewerPage">
       {showHeader && <MobileHeader title={title} back btns={btns} onTitleClick={onTitleClick} transparent show />}
       <div className="swiper_container">
-        <CommonViewerSwiper />
+        <CommonViewerSwiper {...genericProps} />
       </div>
       {infoSection && <CommonViewerInfoContainer>{infoSection}</CommonViewerInfoContainer>}
       {total > 0 ? pageSelectModal : undefined}
@@ -52,11 +58,11 @@ function CommonViewerPageInner() {
   );
 }
 
-export default function CommonViewerPage(props: CommonViewerProps) {
+export default function CommonViewerPage<T>(props: CommonViewerProps<T>) {
   return (
     <CommonViewerPropsProvider value={props}>
       <CommonViewerStateProvider initialState={{ index: props.initialIndex ?? 0 }}>
-        <CommonViewerPageInner />
+        <CommonViewerPageInner {...props} />
       </CommonViewerStateProvider>
     </CommonViewerPropsProvider>
   );

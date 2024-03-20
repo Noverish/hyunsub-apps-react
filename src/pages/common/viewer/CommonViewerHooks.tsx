@@ -4,7 +4,7 @@ import Swiper from 'swiper';
 import { Keyboard, Virtual, Zoom } from 'swiper/modules';
 import { VirtualData } from 'swiper/types/modules/virtual';
 
-import { CommonViewerPropsContext } from './CommonViewerPropsContext';
+import { CommonViewerPropsContext, CommonViewerPropsWithGeneric } from './CommonViewerPropsContext';
 import { CommonViewerStateContext } from './CommonViewerStateContext';
 import { CommonViewerData } from './components/CommonViewerSlide';
 import { HeaderButton } from 'src/model/component';
@@ -14,14 +14,14 @@ import { useContextSetter } from 'src/utils/context';
 
 export let swiper: Swiper | undefined;
 
-interface SwiperCreateParams {
-  slides?: CommonViewerData[];
+interface SwiperCreateParams<T> {
+  slides: T[];
   renderExternal: (data: VirtualData<CommonViewerData>) => void;
   initialIndex?: number;
   isMobile?: boolean;
 }
 
-function createSwiper({ slides, renderExternal, initialIndex, isMobile }: SwiperCreateParams): Swiper {
+function createSwiper<T>({ slides, renderExternal, initialIndex, isMobile }: SwiperCreateParams<T>): Swiper {
   if (swiper) {
     return swiper;
   }
@@ -54,8 +54,8 @@ function destroySwiper() {
   }
 }
 
-function useSwiper(): Swiper | undefined {
-  const { initialIndex, slides } = useContext(CommonViewerPropsContext);
+function useSwiper<T>({ slides }: CommonViewerPropsWithGeneric<T>): Swiper | undefined {
+  const { initialIndex } = useContext(CommonViewerPropsContext);
   const setSwiperState = useContextSetter(CommonViewerSwiperContext);
   const isMobile = useBreakpointMobile();
 
@@ -77,9 +77,7 @@ function useSwiper(): Swiper | undefined {
   return swiper;
 }
 
-const useSwiperSlides = (swiper: Swiper) => {
-  const { slides } = useContext(CommonViewerPropsContext);
-
+function useSwiperSlides<T>(swiper: Swiper, { slides, convertSlide }: CommonViewerPropsWithGeneric<T>) {
   useEffect(() => {
     if (!slides) {
       return;
@@ -87,14 +85,14 @@ const useSwiperSlides = (swiper: Swiper) => {
 
     const virtual = swiper.virtual;
 
-    const oldSlides = virtual.slides;
-    const newSlides = slides;
+    const oldSlides: CommonViewerData[] = virtual.slides;
+    const newSlides: CommonViewerData[] = slides.map((v) => convertSlide(v));
     if (!isEqual(newSlides, oldSlides)) {
       virtual.slides = newSlides;
       virtual.update(true);
     }
-  }, [swiper, slides]);
-};
+  }, [swiper, slides, convertSlide]);
+}
 
 const useSwiperSlideChange = (swiper: Swiper) => {
   const { onIndexChange } = useContext(CommonViewerPropsContext);

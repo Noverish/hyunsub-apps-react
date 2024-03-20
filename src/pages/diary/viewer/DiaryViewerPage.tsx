@@ -8,9 +8,8 @@ export default function DiaryViewerPage() {
   const { date, photoId } = DiaryViewerHooks.usePageParams();
   const { data } = diaryDetailPhotosApi.useInfiniteApi({ date }, { suspense: false });
   const photos = useFlattenPageData(data);
-  const slides = PhotoHooks.convertData(photos);
 
   const initialIndex = photos.findIndex((v) => v.id === photoId);
 
-  return <CommonViewerPage slides={slides} initialIndex={initialIndex} />;
+  return <CommonViewerPage slides={photos} convertSlide={PhotoHooks.convertSlide} initialIndex={initialIndex} />;
 }

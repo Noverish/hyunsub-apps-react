@@ -5,12 +5,13 @@ import CommonViewerHooks from '../CommonViewerHooks';
 import { CommonViewerStateContext } from '../CommonViewerStateContext';
 import { CommonViewerSwiperContext, CommonViewerSwiperProvider } from '../CommonViewerSwiperContext';
 import CommonViewerSlide, { CommonViewerData } from './CommonViewerSlide';
+import { CommonViewerPropsWithGeneric } from 'src/pages/common/viewer/CommonViewerPropsContext';
 import { useContextSetter } from 'src/utils/context';
 
 import 'swiper/css';
 
-function CommonViewerSwiperInner() {
-  const swiper = CommonViewerHooks.useSwiper();
+function CommonViewerSwiperInner<T>(props: CommonViewerPropsWithGeneric<T>) {
+  const swiper = CommonViewerHooks.useSwiper(props);
   const [{ virtualData }] = useContext(CommonViewerSwiperContext);
   const setState = useContextSetter(CommonViewerStateContext);
 
@@ -18,7 +19,7 @@ function CommonViewerSwiperInner() {
 
   const offset = virtualData?.offset ?? 0;
   const data: CommonViewerData[] = virtualData?.slides ?? [];
-  const slides = data.map((v, i) => <CommonViewerSlide key={v.url ?? i} data={v} offset={offset} />);
+  const slideElements = data.map((v, i) => <CommonViewerSlide key={v.url ?? i} data={v} offset={offset} />);
 
   const onClick = () => {
     setState((v) => {
@@ -28,22 +29,26 @@ function CommonViewerSwiperInner() {
 
   return (
     <div className="swiper" onClick={onClick}>
-      <div className="swiper-wrapper">{slides}</div>
-      {swiper && <SwiperControl swiper={swiper} />}
+      <div className="swiper-wrapper">{slideElements}</div>
+      {swiper && <SwiperControl swiper={swiper} {...props} />}
     </div>
   );
 }
 
-export default function CommonViewerSwiper() {
+export default function CommonViewerSwiper<T>(props: CommonViewerPropsWithGeneric<T>) {
   return (
     <CommonViewerSwiperProvider>
-      <CommonViewerSwiperInner />
+      <CommonViewerSwiperInner {...props} />
     </CommonViewerSwiperProvider>
   );
 }
 
-function SwiperControl({ swiper }: { swiper: Swiper }) {
-  CommonViewerHooks.useSwiperSlides(swiper);
+interface SwiperControlProps<T> extends CommonViewerPropsWithGeneric<T> {
+  swiper: Swiper;
+}
+
+function SwiperControl<T>({ swiper, ...etc }: SwiperControlProps<T>) {
+  CommonViewerHooks.useSwiperSlides(swiper, etc);
   CommonViewerHooks.useSwiperSlideChange(swiper);
   CommonViewerHooks.useSwiperRef(swiper);
 

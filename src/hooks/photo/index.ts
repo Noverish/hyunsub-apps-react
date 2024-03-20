@@ -1,7 +1,7 @@
 import { PhotoPreview } from 'src/model/photo';
 import { CommonViewerData } from 'src/pages/common/viewer/components/CommonViewerSlide';
 
-function toViewerData(preview: PhotoPreview | null): CommonViewerData {
+function convertSlide(preview: PhotoPreview | null): CommonViewerData {
   if (!preview) {
     return { type: 'photo' };
   }
@@ -21,12 +21,8 @@ function toViewerData(preview: PhotoPreview | null): CommonViewerData {
   };
 }
 
-function convertData(previews: (PhotoPreview | null)[]): CommonViewerData[] {
-  return previews.map((v) => toViewerData(v));
-}
-
 const PhotoHooks = {
-  convertData,
+  convertSlide,
 };
 
 export default PhotoHooks;

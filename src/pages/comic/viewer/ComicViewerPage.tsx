@@ -13,15 +13,17 @@ export default function ComicViewerPage() {
 
   const onIndexChange = ComicViewerHooks.useOnIndexChange();
   const headerBtns = ComicViewerHooks.useHeaderButtons(hasNextEpisode);
-  const slides = ComicViewerHooks.useSlides();
 
   useEffect(() => {
     swiperRef.current?.slideTo(0, 0);
   }, [images]);
 
+  const convertSlide = ComicViewerHooks.useConvertSlide();
+
   return (
     <CommonViewerPage
-      slides={slides}
+      slides={images}
+      convertSlide={convertSlide}
       headerBtns={headerBtns}
       initialIndex={history}
       titlePrefix={episodeTitle}

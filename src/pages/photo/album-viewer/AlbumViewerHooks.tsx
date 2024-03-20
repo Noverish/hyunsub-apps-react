@@ -1,13 +1,9 @@
 import { t } from 'i18next';
 import { useCallback } from 'react';
 
-import { AlbumViewerContext } from './AlbumViewerContext';
 import albumDetailApi from 'src/api/photo/album-detail';
 import { useOptionalUrlParams, useUrlParams } from 'src/hooks/url-params';
-import { MergedPageData } from 'src/model/api';
 import { PhotoPreview } from 'src/model/photo';
-import { CommonViewerData } from 'src/pages/common/viewer/components/CommonViewerSlide';
-import { useContextSetter } from 'src/utils/context';
 import { setDocumentTitle } from 'src/utils/services';
 
 export interface AlbumViewerPageParams {
@@ -34,34 +30,18 @@ function usePageInit() {
   }
 }
 
-function useOnIndexChange(mergedData: MergedPageData<PhotoPreview> | undefined) {
-  const setState = useContextSetter(AlbumViewerContext);
-
-  return useCallback(
-    (index: number) => {
-      if (!mergedData) {
-        return;
-      }
-
-      const currPhotoId = mergedData.data[index]?.id;
-      setState({ currPhotoId });
-    },
-    [mergedData, setState],
-  );
-}
-
-function useOnIndexReady(slides: CommonViewerData[], fetchPage: (page: number) => void, pageSize?: number) {
+function useOnIndexReady(slides: (PhotoPreview | null)[], fetchPage: (page: number) => void, pageSize?: number) {
   return useCallback(
     (from: number, to: number) => {
       if (!pageSize) {
         return;
       }
 
-      if (!slides[from].url) {
+      if (!slides[from]) {
         const fromPage = Math.floor(from / pageSize);
         fetchPage(fromPage);
       }
-      if (!slides[to].url) {
+      if (!slides[to]) {
         const toPage = Math.floor(to / pageSize);
         fetchPage(toPage);
       }
@@ -74,7 +54,6 @@ const AlbumViewerHooks = {
   usePageParams,
   usePageInit,
   useOnIndexReady,
-  useOnIndexChange,
 };
 
 export default AlbumViewerHooks;

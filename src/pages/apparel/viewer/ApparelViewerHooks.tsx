@@ -13,16 +13,16 @@ function usePageParams(): ApparelViewerPageParams {
   return { apparelId, imageId };
 }
 
-function convertData(images: ApparelImage[]): CommonViewerData[] {
-  return images.map((v) => ({
+function convertSlide(image: ApparelImage): CommonViewerData {
+  return {
     type: 'photo',
-    url: v.url,
-  }));
+    url: image.url,
+  };
 }
 
 const ApparelViewerHooks = {
   usePageParams,
-  convertData,
+  convertSlide,
 };
 
 export default ApparelViewerHooks;

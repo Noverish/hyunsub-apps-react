@@ -1,18 +1,17 @@
 import { t } from 'i18next';
-import { useCallback, useContext, useEffect, useMemo, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import Swiper from 'swiper';
 
-import { PhotoViewerContext, PhotoViewerProvider } from './PhotoViewerContext';
 import PhotoViewerHooks from './PhotoViewerHooks';
 import { useMergedPageData } from 'src/api/generate-infinite-query';
 import photoSearchApi from 'src/api/photo/photo-search';
 import PhotoInfoSection from 'src/components/photo/PhotoInfoSection';
 import PhotoHooks from 'src/hooks/photo';
+import { PhotoPreview } from 'src/model/photo';
 import CommonViewerPage from 'src/pages/common/viewer/CommonViewerPage';
-import { CommonViewerData } from 'src/pages/common/viewer/components/CommonViewerSlide';
 import { setDocumentTitle } from 'src/utils/services';
 
-function PhotoViewerPage() {
+export default function PhotoViewerPage() {
   setDocumentTitle(t('PhotoListPage.title'));
 
   const { photoId, start, end } = PhotoViewerHooks.usePageParams();
@@ -24,13 +23,10 @@ function PhotoViewerPage() {
   };
   const { fetchNextPage, data } = photoSearchApi.useInfiniteApi(params, { suspense: false });
   const mergedData = useMergedPageData(data);
-  const slides: CommonViewerData[] = useMemo(() => PhotoHooks.convertData(mergedData?.data ?? []), [mergedData]);
+  const data2 = mergedData?.data ?? [];
   const initialIndex = mergedData?.data.findIndex((v) => v?.id === photoId) ?? 0;
   const swiperRef = useRef<Swiper>();
   const swiper = swiperRef.current;
-
-  const [state] = useContext(PhotoViewerContext);
-  const currPhotoId = state.currPhotoId ?? photoId;
 
   const fetchPage = useCallback(
     (page: number) => {
@@ -40,8 +36,7 @@ function PhotoViewerPage() {
     [fetchNextPage],
   );
 
-  const onIndexReady = PhotoViewerHooks.useOnIndexReady(slides, fetchPage, mergedData?.pageSize);
-  const onIndexChange = PhotoViewerHooks.useOnIndexChange(mergedData);
+  const onIndexReady = PhotoViewerHooks.useOnIndexReady(data2, fetchPage, mergedData?.pageSize);
 
   useEffect(() => {
     if (swiper) {
@@ -49,22 +44,18 @@ function PhotoViewerPage() {
     }
   }, [swiper, initialIndex]);
 
+  const renderInfoSection = (preview: PhotoPreview | null) => {
+    return preview ? <PhotoInfoSection preview={preview} /> : undefined;
+  };
+
   return (
     <CommonViewerPage
-      slides={slides}
+      slides={data2}
+      convertSlide={PhotoHooks.convertSlide}
       onIndexReady={onIndexReady}
-      onIndexChange={onIndexChange}
       initialIndex={initialIndex}
       swiperRef={swiperRef}
-      infoSection={currPhotoId ? <PhotoInfoSection photoId={currPhotoId} /> : undefined}
+      renderInfoSection={renderInfoSection}
     />
-  );
-}
-
-export default function PhotoViewerIndex() {
-  return (
-    <PhotoViewerProvider>
-      <PhotoViewerPage />
-    </PhotoViewerProvider>
   );
 }

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import Swiper from 'swiper';
 
 import ComicRoutes from '../ComicRoutes';
@@ -99,16 +99,15 @@ function useHeaderButtons(hasNextEpisode: boolean): HeaderButton[] {
   return list;
 }
 
-function useSlides(): CommonViewerData[] {
-  const { images, title, episodeTitle } = usePageData();
+function useConvertSlide() {
+  const { title, episodeTitle } = usePageData();
 
-  return useMemo(
-    () =>
-      images.map((v) => ({
-        type: 'photo',
-        url: `https://file.hyunsub.kim/Comics/${title}/${episodeTitle}/${v}`,
-      })),
-    [images, title, episodeTitle],
+  return useCallback(
+    (v: string): CommonViewerData => ({
+      type: 'photo',
+      url: `https://file.hyunsub.kim/Comics/${title}/${episodeTitle}/${v}`,
+    }),
+    [title, episodeTitle],
   );
 }
 
@@ -118,7 +117,7 @@ const ComicViewerHooks = {
   usePageInit,
   useHeaderButtons,
   useOnIndexChange,
-  useSlides,
+  useConvertSlide,
 };
 
 export default ComicViewerHooks;
