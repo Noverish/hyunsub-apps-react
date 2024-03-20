@@ -6,7 +6,7 @@ import CommonViewerPage from 'src/pages/common/viewer/CommonViewerPage';
 
 export default function DiaryViewerPage() {
   const { date, photoId } = DiaryViewerHooks.usePageParams();
-  const { data } = diaryDetailPhotosApi.useInfiniteApi({ date }, { suspense: false });
+  const { data } = diaryDetailPhotosApi.useInfiniteApi({ date }, { suspense: true });
   const photos = useFlattenPageData(data);
 
   const initialIndex = photos.findIndex((v) => v.id === photoId);
