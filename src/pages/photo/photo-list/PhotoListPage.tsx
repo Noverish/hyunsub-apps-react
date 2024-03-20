@@ -2,7 +2,7 @@ import PhotoRoutes from '../PhotoRoutes';
 import { PhotoListProvider } from './PhotoListContext';
 import PhotoListHooks from './PhotoListHooks';
 import PhotoSearchModal from './components/PhotoSearchModal';
-import { useFlattenPageData } from 'src/api/generate-infinite-query';
+import { useFlattenPageData, useTotal } from 'src/api/generate-infinite-query';
 import photoSearchApi from 'src/api/photo/photo-search';
 import ListLoadingIndicator from 'src/components/common/ListLoadingIndicator';
 import CommonLayout from 'src/components/common/layout/CommonLayout';
@@ -19,6 +19,7 @@ function PhotoListPage() {
   const searchParams = PhotoListHooks.useSearchParams();
   const { data, fetchNextPage, isFetching } = photoSearchApi.useInfiniteApi(searchParams);
   const photos = useFlattenPageData(data);
+  const total = useTotal(data);
 
   useScrollBottom(() => {
     if (!isFetching) {
@@ -32,7 +33,7 @@ function PhotoListPage() {
 
   return (
     <CommonLayout className="PhotoListPage" {...headerProps}>
-      <PhotoSearchStatus />
+      <PhotoSearchStatus total={total} />
       <PhotoListView photos={photos} itemHref={itemHref} />
       <ListLoadingIndicator isFetching={isFetching} />
       <AlbumPhotoRegisterSelectModal />
