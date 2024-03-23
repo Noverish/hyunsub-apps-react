@@ -3,10 +3,11 @@ import albumListApi from './album-list';
 
 export interface AlbumThumbnailParams {
   albumId: string;
-  photoId: string;
+  thumbnailId?: string;
+  name?: string;
 }
 
-const albumThumbnailApi = generateApi<AlbumThumbnailParams, any>({
+const albumUpdateApi = generateApi<AlbumThumbnailParams, any>({
   api: (params) => ({
     url: `/api/v1/albums/${params.albumId}/thumbnail`,
     method: 'POST',
@@ -17,4 +18,4 @@ const albumThumbnailApi = generateApi<AlbumThumbnailParams, any>({
   },
 });
 
-export default albumThumbnailApi;
+export default albumUpdateApi;

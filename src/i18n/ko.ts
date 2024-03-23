@@ -157,6 +157,9 @@ const ko = {
     'PhotoSearchModal.title': '사진 검색',
     'PhotoSearchForm.date-range': '날짜 범위',
     'PhotoSearchForm.orphan': '앨범에 등록하지 않은 사진만 보기',
+    'photo.term.rename-album': '앨범 이름 변경',
+    'photo.term.sort-photos': '사진 정렬',
+    'photo.term.invite-to-album': '친구 초대',
     'photo.msg.photo-delete-confirm':
       '정말로 {{cnt}}개의 사진을 삭제하시겠습니까? 해당 사진들은 앨범에서도 삭제됩니다.',
     'photo.msg.photo-delete-from-album-confirm':

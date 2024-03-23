@@ -179,6 +179,11 @@ function useHeaderProps(): HeaderProps {
         setSelectState({ selectMode: true });
       },
     },
+    {
+      icon: 'fas fa-sort-alpha-down',
+      name: t('photo.term.sort-photos'),
+      onClick: () => alert('not yet supported!'),
+    },
   ];
 
   return {

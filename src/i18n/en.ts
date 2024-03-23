@@ -157,6 +157,9 @@ const en = {
     'PhotoSearchModal.title': 'Search Photo',
     'PhotoSearchForm.date-range': 'Date Range',
     'PhotoSearchForm.orphan': 'Show photos only not registered to album',
+    'photo.term.rename-album': 'Edit Album Name',
+    'photo.term.sort-photos': 'Sort Photos',
+    'photo.term.invite-to-album': 'Invite Friends',
     'photo.msg.photo-delete-confirm':
       'Are you sure you want to delete {{cnt}} pictures? They will also be deleted from the album.',
     'photo.msg.photo-delete-from-album-confirm':

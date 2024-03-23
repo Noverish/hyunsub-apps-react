@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import { AlbumDetailContext } from './AlbumDetailContext';
 import albumDeleteApi from 'src/api/photo/album-delete';
 import albumPhotoDeleteApi from 'src/api/photo/album-photo-delete';
-import albumThumbnailApi from 'src/api/photo/album-thumbnail';
+import albumUpdateApi from 'src/api/photo/album-update';
 import { PhotoSelectContext } from 'src/components/photo/photo-list/PhotoSelectContext';
 import PhotoSelectHeaderHooks from 'src/components/photo/photo-list/PhotoSelectHeaderHooks';
 import PhotoSelectHooks from 'src/components/photo/photo-list/PhotoSelectHooks';
@@ -76,11 +76,11 @@ function useRegisterThumbnail() {
   const clear = PhotoSelectHooks.useClear();
 
   return async () => {
-    const photoId = selects[0].id;
+    const thumbnailId = selects[0].id;
 
     dispatch(GlobalActions.update({ loading: true }));
 
-    await albumThumbnailApi({ albumId, photoId });
+    await albumUpdateApi({ albumId, thumbnailId });
 
     dispatch(GlobalActions.update({ loading: false }));
 
@@ -167,6 +167,21 @@ function useHeaderProps(album?: Album): HeaderProps {
         setPageState({ selectMode: 'download' });
         setSelectState({ selectMode: true });
       },
+    },
+    {
+      icon: 'fas fa-sort-alpha-down',
+      name: t('photo.term.sort-photos'),
+      onClick: () => alert('not yet supported!'),
+    },
+    {
+      icon: 'fas fa-share-alt',
+      name: t('photo.term.invite-to-album'),
+      onClick: () => alert('not yet supported!'),
+    },
+    {
+      icon: 'fas fa-edit',
+      name: t('photo.term.rename-album'),
+      onClick: () => alert('not yet supported!'),
     },
     {
       icon: 'fas fa-trash',
