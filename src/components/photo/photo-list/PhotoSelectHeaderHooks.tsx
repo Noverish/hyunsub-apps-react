@@ -153,8 +153,30 @@ function useHeaderProps(photos: PhotoPreview[], album?: Album): HeaderProps {
   };
 }
 
+function useHeaderProps2(onComplete: () => void): HeaderProps {
+  const [{ selects }] = useContext(PhotoSelectContext);
+  const onClose = PhotoSelectHooks.useClear();
+
+  const title = t('n-selected', [selects.length]);
+
+  const btns: HeaderButton[] = [
+    {
+      icon: 'fas fa-check',
+      name: t('complete'),
+      onClick: () => onComplete(),
+    },
+  ];
+
+  return {
+    title,
+    btns,
+    onClose,
+  };
+}
+
 const PhotoSelectHeaderHooks = {
   useHeaderProps,
+  useHeaderProps2,
 };
 
 export default PhotoSelectHeaderHooks;

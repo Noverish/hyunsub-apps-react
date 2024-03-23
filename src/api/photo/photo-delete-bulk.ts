@@ -2,6 +2,7 @@ import { generateApi } from '../generate-api';
 import albumDetailApi from './album-detail';
 import albumListApi from './album-list';
 import albumPhotosApi from './album-photos';
+import photoSearchApi from './photo-search';
 import { Photo } from 'src/model/photo';
 
 export interface PhotoDeleteBulkParams {
@@ -18,6 +19,7 @@ const photoDeleteBulkApi = generateApi<PhotoDeleteBulkParams, Photo[]>({
     albumDetailApi.invalidate();
     albumPhotosApi.invalidate();
     albumListApi.invalidate();
+    photoSearchApi.invalidate();
   },
 });
 
