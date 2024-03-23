@@ -1,3 +1,4 @@
+import photoDetailApi from 'src/api/photo/photo-detail';
 import { PhotoPreview } from 'src/model/photo';
 import { CommonViewerData } from 'src/pages/common/viewer/components/CommonViewerSlide';
 
@@ -21,8 +22,19 @@ function convertSlide(preview: PhotoPreview | null): CommonViewerData {
   };
 }
 
+async function downloadPhoto(photoId: string, albumId?: string) {
+  const photo = await photoDetailApi.fetch({ photoId, albumId });
+
+  const url = `${photo.original}?downloadName=${encodeURI(photo.fileName)}`;
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = photo.fileName;
+  link.click();
+}
+
 const PhotoHooks = {
   convertSlide,
+  downloadPhoto,
 };
 
 export default PhotoHooks;

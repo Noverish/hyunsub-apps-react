@@ -6,11 +6,11 @@ import { useFlattenPageData, useTotal } from 'src/api/generate-infinite-query';
 import photoSearchApi from 'src/api/photo/photo-search';
 import ListLoadingIndicator from 'src/components/common/ListLoadingIndicator';
 import CommonLayout from 'src/components/common/layout/CommonLayout';
-import AlbumPhotoRegisterSelectModal from 'src/components/photo/photo-list/AlbumPhotoRegisterSelectModal';
 import PhotoListView from 'src/components/photo/photo-list/PhotoListView';
 import { PhotoSelectProvider } from 'src/components/photo/photo-list/PhotoSelectContext';
 import useScrollBottom from 'src/hooks/scroll-bottom';
 import { PhotoPreview } from 'src/model/photo';
+import AlbumPhotoRegisterSelectModal from 'src/pages/photo/photo-list/components/AlbumPhotoRegisterSelectModal';
 import PhotoSearchStatus from 'src/pages/photo/photo-list/components/PhotoSearchStatus';
 
 function PhotoListPage() {

@@ -1,12 +1,12 @@
 import { useContext } from 'react';
 
+import PhotoListHooks from '../PhotoListHooks';
 import AlbumSelectModal from 'src/components/photo/modal/AlbumSelectModal';
-import PhotoActionHooks from 'src/components/photo/photo-list/PhotoActionHooks';
-import { PhotoSelectContext } from 'src/components/photo/photo-list/PhotoSelectContext';
+import { PhotoListContext } from 'src/pages/photo/photo-list/PhotoListContext';
 
 export default function AlbumPhotoRegisterSelectModal() {
-  const [{ showAlbumSelectModal }, setState] = useContext(PhotoSelectContext);
-  const albumPhotoRegister = PhotoActionHooks.useAlbumPhotoRegister();
+  const [{ showAlbumSelectModal }, setState] = useContext(PhotoListContext);
+  const albumPhotoRegister = PhotoListHooks.useAddToAlbum();
 
   return (
     <AlbumSelectModal

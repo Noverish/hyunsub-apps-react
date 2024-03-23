@@ -12,13 +12,13 @@ import albumPhotosApi from 'src/api/photo/album-photos';
 import ListLoadingIndicator from 'src/components/common/ListLoadingIndicator';
 import { Loading } from 'src/components/common/LoadingSuspense';
 import CommonLayout from 'src/components/common/layout/CommonLayout';
-import AlbumPhotoRegisterSelectModal from 'src/components/photo/photo-list/AlbumPhotoRegisterSelectModal';
 import PhotoListView from 'src/components/photo/photo-list/PhotoListView';
 import { PhotoSelectProvider } from 'src/components/photo/photo-list/PhotoSelectContext';
 import useScrollBottom from 'src/hooks/scroll-bottom';
 import { PhotoPreview } from 'src/model/photo';
 import CommonRoutes from 'src/pages/common/CommonRoutes';
 import AlbumPhotoSearchModal from 'src/pages/photo/album-detail/components/AlbumPhotoSearchModal';
+import AlbumPhotoRegisterSelectModal from 'src/pages/photo/photo-list/components/AlbumPhotoRegisterSelectModal';
 
 import './AlbumDetailPage.scss';
 
@@ -26,7 +26,7 @@ function AlbumDetailPage() {
   const { albumId } = AlbumDetailHooks.usePageParams();
 
   // hooks
-  const [state, setState] = useContext(AlbumDetailContext);
+  const [state] = useContext(AlbumDetailContext);
   const photoSearchParams = state.photoSearchParams;
 
   const { data: album, isLoading } = albumDetailApi.useApiResult({ albumId });
@@ -43,9 +43,7 @@ function AlbumDetailPage() {
     }
   });
 
-  const onSearch = () => setState({ showSearchModal: true });
-
-  const headerProps = AlbumDetailHooks.useHeaderProps(photos, album ?? undefined, onSearch);
+  const headerProps = AlbumDetailHooks.useHeaderProps(album ?? undefined);
 
   const itemHref = (v: PhotoPreview) => PhotoRoutes.albumViewer({ albumId, photoId: v.id });
 

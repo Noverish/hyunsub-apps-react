@@ -159,6 +159,8 @@ const ko = {
     'PhotoSearchForm.orphan': '앨범에 등록하지 않은 사진만 보기',
     'photo.msg.photo-delete-confirm':
       '정말로 {{cnt}}개의 사진을 삭제하시겠습니까? 해당 사진들은 앨범에서도 삭제됩니다.',
+    'photo.msg.photo-delete-from-album-confirm':
+      '정말로 {{cnt}}개의 사진을 이 앨범에서 제거하시겠습니까? 해당 사진들은 다른 앨범이나 내 사진 목록에서는 그대로 유지됩니다.',
 
     'apparel.page.list.title': '내 의류 목록',
     'apparel.page.list.inner-title': '총 {{0}}개의 의류',

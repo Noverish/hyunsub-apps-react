@@ -4,28 +4,22 @@ import albumListApi from './album-list';
 import albumPhotosApi from './album-photos';
 import { PhotoPreview } from 'src/model/photo';
 
-export interface AlbumPhotoDeleteBulkParams {
+export interface AlbumPhotoDeleteParams {
   albumId: string;
   photoIds: string[];
 }
 
-const albumPhotoDeleteBulkApi = generateApi<AlbumPhotoDeleteBulkParams, PhotoPreview[]>({
+const albumPhotoDeleteApi = generateApi<AlbumPhotoDeleteParams, PhotoPreview[]>({
   api: (params) => ({
     url: `/api/v1/_bulk/albums/photos/delete`,
     method: 'POST',
     data: params,
   }),
-  postHandle: (result, { albumId }) => {
+  postHandle: () => {
     albumListApi.invalidate();
     albumPhotosApi.invalidate();
-
-    const num = result.length;
-    albumDetailApi.updateCache({ albumId }, (cache) => {
-      if (cache) {
-        cache.total = cache.total - num;
-      }
-    });
+    albumDetailApi.invalidate();
   },
 });
 
-export default albumPhotoDeleteBulkApi;
+export default albumPhotoDeleteApi;

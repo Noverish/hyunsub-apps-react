@@ -3,6 +3,7 @@ import { generateStateContext } from 'src/utils/context';
 
 export interface AlbumDetailState {
   showSearchModal: boolean;
+  selectMode?: 'delete' | 'thumbnail' | 'download';
   photoSearchParams: Omit<AlbumPhotosParams, 'albumId'>;
 }
 

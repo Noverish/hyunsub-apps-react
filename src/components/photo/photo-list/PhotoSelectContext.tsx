@@ -6,14 +6,12 @@ interface State {
   selectMode: boolean;
   lastSelected?: PhotoPreview;
   showSelectActionModal: boolean;
-  showAlbumSelectModal: boolean;
 }
 
 const initialState: State = {
   selects: [],
   selectMode: false,
   showSelectActionModal: false,
-  showAlbumSelectModal: false,
 };
 
 export const [PhotoSelectContext, PhotoSelectProvider] = generateStateContext(initialState);
