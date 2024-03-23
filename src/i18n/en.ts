@@ -156,6 +156,7 @@ const en = {
     'AlbumInfoView.members': 'Album Members',
     'PhotoSearchModal.title': 'Search Photo',
     'PhotoSearchForm.date-range': 'Date Range',
+    'PhotoSearchForm.orphan': 'Show photos only not registered to album',
 
     'apparel.page.list.title': 'My Apparel List',
     'apparel.page.list.inner-title': 'Total {{0}} items',

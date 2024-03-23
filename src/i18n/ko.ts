@@ -156,6 +156,7 @@ const ko = {
     'AlbumInfoView.members': '앨범 멤버',
     'PhotoSearchModal.title': '사진 검색',
     'PhotoSearchForm.date-range': '날짜 범위',
+    'PhotoSearchForm.orphan': '앨범에 등록하지 않은 사진만 보기',
 
     'apparel.page.list.title': '내 의류 목록',
     'apparel.page.list.inner-title': '총 {{0}}개의 의류',

@@ -5,6 +5,7 @@ import { PhotoPreview } from 'src/model/photo';
 export interface PhotoSearchParams {
   dateRange?: DateRange;
   photoId?: string;
+  orphan?: boolean;
 }
 
 const photoSearchApi = generateInfiniteQuery<PhotoSearchParams, PhotoPreview>({

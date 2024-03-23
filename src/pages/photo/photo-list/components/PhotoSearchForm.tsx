@@ -5,8 +5,9 @@ import { useForm } from 'react-hook-form';
 import PhotoListHooks from '../PhotoListHooks';
 
 export interface PhotoSearchFormState {
-  startDate: string;
-  endDate: string;
+  start?: string;
+  end?: string;
+  orphan?: boolean;
 }
 
 export default function PhotoSearchForm() {
@@ -19,10 +20,13 @@ export default function PhotoSearchForm() {
       <Form.Group>
         <Form.Label>{t('PhotoSearchForm.date-range')}</Form.Label>
         <InputGroup>
-          <Form.Control type="date" {...register('startDate')} />
+          <Form.Control type="date" {...register('start')} />
           <InputGroup.Text>~</InputGroup.Text>
-          <Form.Control type="date" {...register('endDate')} />
+          <Form.Control type="date" {...register('end')} />
         </InputGroup>
+      </Form.Group>
+      <Form.Group>
+        <Form.Check label={t('PhotoSearchForm.orphan')} {...register('orphan')} />
       </Form.Group>
       <Button variant="primary" type="submit">
         {t('search')}
@@ -32,10 +36,5 @@ export default function PhotoSearchForm() {
 }
 
 function useDefaultValues(): PhotoSearchFormState {
-  const { start, end } = PhotoListHooks.usePageParams();
-
-  return {
-    startDate: start ?? '',
-    endDate: end ?? '',
-  };
+  return PhotoListHooks.usePageParams();
 }

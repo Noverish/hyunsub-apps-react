@@ -9,21 +9,20 @@ import { PhotoSearchFormState } from 'src/pages/photo/photo-list/components/Phot
 import router from 'src/pages/router';
 import { useContextSetter } from 'src/utils/context';
 
-export interface PhotoListPageParams {
-  start?: string;
-  end?: string;
-}
+export interface PhotoListPageParams extends PhotoSearchFormState {}
 
 function usePageParams(): PhotoListPageParams {
-  const [start, end] = useOptionalUrlParams('start', 'end');
-  return { start, end };
+  const [start, end, _orphan] = useOptionalUrlParams('start', 'end', 'orphan');
+  const orphan = _orphan === 'true';
+  return { start, end, orphan };
 }
 
 function useSearchParams(): PhotoSearchParams {
-  const { start, end } = usePageParams();
+  const { start, end, orphan } = usePageParams();
 
   return {
     dateRange: start && end ? { start, end } : undefined,
+    orphan,
   };
 }
 
@@ -48,17 +47,14 @@ function useHeaderProps(): HeaderProps {
 
 function useSearch() {
   const setState = useContextSetter(PhotoListContext);
+  const pageParams = usePageParams();
 
   return (state: PhotoSearchFormState) => {
-    const { startDate, endDate } = state;
-    const pageParams: PhotoListPageParams = {
-      start: startDate ? startDate : undefined,
-      end: endDate ? endDate : undefined,
-    };
+    const newPageParams = { ...pageParams, ...state };
 
     setState({ showSearchModal: false });
 
-    router.navigate(PhotoRoutes.photos(pageParams));
+    router.navigate(PhotoRoutes.photos(newPageParams));
   };
 }
 
